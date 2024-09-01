@@ -193,16 +193,16 @@
 <p>Host	请求的主机名</p>
 <p>User-Agent	浏览器版本，例如Chrome浏览器的标识类似Mozilla&#x2F;5.0.. Chrome&#x2F;79，IE浏览器的标识类似Mozilla&#x2F;5.0(Windows</p>
 <p>​							NT …) like Gecko</p>
-<p>Accept	表示浏览器能接收的资源类型，如text&#x2F;*，image&#x2F;<em>或者</em>&#x2F;*表示所有;</p>
+<p>Accept	表示浏览器能接收的资源类型，如text&#x2F;*，image&#x2F;*或者*&#x2F;*表示所有;</p>
 <p>Accept-Language	表示浏览器偏好的语言，服务器可以据此返回不同语言的网页；</p>
 <p>Accept-Encoding	表示浏览器可以支持的压缩类型，例如gzip，deflate等。</p>
 <p>Content-Type	请求主体的数据类型</p>
 <p>Content-Length请求主体的大小（字节）</p>
 <blockquote>
 <p>POST &#x2F;brand HTTP&#x2F;1.1</p>
-<p>Accept: application&#x2F;json, text&#x2F;plain， <em>&#x2F;</em></p>
-<p>Accept-Encoding: gzip, deflate, br</p>
-<p>Accept-Language: zh-CN, zh;q&#x3D;0.9</p>
+<p>Accept: application&#x2F;json, text&#x2F;plain,*&#x2F;*</p>
+<p>Accept-Encoding: gzip,,deflate, br</p>
+<p>Accept-Language: zh-CN,zh;q&#x3D;0.9</p>
 <p>Content-Length: 161</p>
 <p>Content-Type: application&#x2F;json;charset&#x3D;UTF-8</p>
 <p>Cookie: Idea-8296eb32&#x3D;841b16f0-Ocfe-495a-9cc9-d5aaa71501a6;JSESSIONID&#x3D;OFDE4E430876BD9C5C955F061207386F</p>
@@ -304,7 +304,8 @@
 <pre><code class="highlight java"><span class="meta">@RestController</span>
 <span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">test</span> &#123;
     <span class="meta">@RequestMapping(&quot;/Simpleparam&quot;)</span>
-    <span class="keyword">public</span> String <span class="title function_">Simpleparam</span><span class="params">( <span class="meta">@RequestParam(name=&quot;name&quot;)</span> String username, Integer age)</span>&#123;
+    <span class="keyword">public</span> String <span class="title function_">Simpleparam</span><span class="params">( <span class="meta">@RequestParam(name=&quot;name&quot;)</span> </span>
+<span class="params">                                String username, Integer age)</span>&#123;
         System.out.println(username+<span class="string">&quot;-&gt;&quot;</span>+age);
         <span class="keyword">return</span> <span class="string">&quot;OK&quot;</span>;
     &#125;
@@ -360,7 +361,8 @@
 <p>多个路径参数</p>
 </blockquote>
 <pre><code class="highlight java"><span class="meta">@RequestMapping(&quot;/path/&#123;id&#125;/&#123;name&#125;&quot;)</span>
-<span class="keyword">public</span> String <span class="title function_">path2</span><span class="params">(<span class="meta">@PathVariable</span> Integer id,<span class="meta">@PathVariable</span> String name)</span> &#123;
+<span class="keyword">public</span> String <span class="title function_">path2</span><span class="params">(<span class="meta">@PathVariable</span> Integer id,</span>
+<span class="params">                    <span class="meta">@PathVariable</span> String name)</span> &#123;
     System.out.println(id+<span class="string">&quot;-&gt;&quot;</span>+name);
     <span class="keyword">return</span> <span class="string">&quot;OK&quot;</span>;
 &#125;</code></pre>
@@ -541,7 +543,9 @@
 
 <p>解决方案一</p>
 <p>给字段起别名</p>
-<pre><code class="highlight java"><span class="meta">@Select(&quot;select id,username, name, gender, image, job, entrydate, dept_id deptId, create_time createTime, update_time updateTime from emp where id =#&#123;id&#125;&quot;)</span>
+<pre><code class="highlight java"><span class="meta">@Select(&quot;select id,username, name, gender, image, job, entrydate, </span>
+<span class="meta">dept_id deptId, create_time </span>
+<span class="meta">createTime, update_time updateTime from emp where id =#&#123;id&#125;&quot;)</span>
 <span class="keyword">public</span> Emp <span class="title function_">selectEmpById</span><span class="params">(Integer id)</span>;</code></pre>
 
 <p>解决方案二</p>
@@ -646,7 +650,8 @@
 
 <span class="tag">&lt;<span class="name">delete</span> <span class="attr">id</span>=<span class="string">&quot;deleteEmpList&quot;</span>&gt;</span>
     delete from emp where id in
-    <span class="tag">&lt;<span class="name">foreach</span> <span class="attr">collection</span>=<span class="string">&quot;ids&quot;</span> <span class="attr">item</span>=<span class="string">&quot;id&quot;</span> <span class="attr">open</span>=<span class="string">&quot;(&quot;</span> <span class="attr">close</span>=<span class="string">&quot;)&quot;</span> <span class="attr">separator</span>=<span class="string">&quot;,&quot;</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">foreach</span> <span class="attr">collection</span>=<span class="string">&quot;ids&quot;</span> </span>
+<span class="tag">    <span class="attr">item</span>=<span class="string">&quot;id&quot;</span> <span class="attr">open</span>=<span class="string">&quot;(&quot;</span> <span class="attr">close</span>=<span class="string">&quot;)&quot;</span> <span class="attr">separator</span>=<span class="string">&quot;,&quot;</span>&gt;</span>
         #&#123;id&#125;
     <span class="tag">&lt;/<span class="name">foreach</span>&gt;</span>
 
@@ -708,7 +713,9 @@
     <span class="keyword">return</span> pagebean;
 &#125;</code></pre>
 
-<h2 id="9-云存储解决方案-阿里云OSS"><a href="#9-云存储解决方案-阿里云OSS" class="headerlink" title="9.云存储解决方案-阿里云OSS"></a>9.云存储解决方案-阿里云OSS</h2><h3 id="1-阿里云OSS简介"><a href="#1-阿里云OSS简介" class="headerlink" title="1. 阿里云OSS简介"></a>1. 阿里云OSS简介</h3><pre><code>阿里云对象存储服务（Object Storage Service，简称OSS）为您提供基于网络的数据存取服务。使用OSS，您可以通过网络随时存储和调用包括文本、图片、音频和视频等在内的各种非结构化数据文件。
+<h2 id="9-云存储解决方案-阿里云OSS"><a href="#9-云存储解决方案-阿里云OSS" class="headerlink" title="9.云存储解决方案-阿里云OSS"></a>9.云存储解决方案-阿里云OSS</h2><h3 id="1-阿里云OSS简介"><a href="#1-阿里云OSS简介" class="headerlink" title="1. 阿里云OSS简介"></a>1. 阿里云OSS简介</h3><pre><code>阿里云对象存储服务（Object Storage Service，简称OSS）为您提
+供基于网络的数据存取服务。使用OSS，您可以通过网络随时存储和调用
+包括文本、图片、音频和视频等在内的各种非结构化数据文件。
 </code></pre>
 <p>阿里云OSS将数据文件以对象（object）的形式上传到存储空间（bucket）中。</p>
 <pre><code>您可以进行以下操作：
@@ -760,7 +767,8 @@
         <span class="type">String</span> <span class="variable">objectName</span> <span class="operator">=</span> <span class="string">&quot;0001.jpg&quot;</span>;
         <span class="comment">// 填写本地文件的完整路径，例如D:\\localpath\\examplefile.txt。</span>
         <span class="comment">// 如果未指定本地路径，则默认从示例程序所属项目对应本地路径中上传文件流。</span>
-        String filePath= <span class="string">&quot;C:\\Users\\Administrator\\Pictures\\Saved Pictures\\10.jpg&quot;</span>;
+        String filePath= <span class="string">&quot;C:\\Users\\Administrator\\</span>
+<span class="string">                            Pictures\\Saved Pictures\\10.jpg&quot;</span>;
 
         <span class="comment">// 创建OSSClient实例。</span>
         <span class="type">OSS</span> <span class="variable">ossClient</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">OSSClientBuilder</span>().build(endpoint, accessKeyId, accessKeySecret);

@@ -1,0 +1,2273 @@
+<!DOCTYPE html>
+<html>
+  <head>
+     
+    <meta charset="UTF-8">
+    <title>React - Richu</title>
+    <link rel="shortcut icon" href="/static/img/icon.png">
+    <link rel="icon" href="/static/img/icon.png" sizes="192x192"/>
+    
+<link rel="stylesheet" href="/static/kico.css">
+<link rel="stylesheet" href="/static/hingle.css">
+
+    
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <meta name="viewport" content="width=device-width, maximum-scale=1, initial-scale=1"/>
+    <meta property="og:site_name" content="Richu">
+    <meta property="og:title" content="React"/>
+    
+    <style>body:before{ content: ''; background-image: url(https://img.meituan.net/csc/d05518606ba7064dd445508e3cf3d4c42860983.png) }</style>
+    
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+  <body>
+    <header>
+    <div class="head-title">
+        <h4>Richu</h4>
+    </div>
+    <div class="head-action">
+        <div class="toggle-btn"></div>
+        <div class="light-btn"></div>
+        <div class="search-btn"></div>
+    </div>
+    <form class="head-search" method="post">
+        <input type="text" name="s" placeholder="搜索什么？">
+    </form>
+    <nav class="head-menu">
+        <a href="/">首页</a>
+        <div class="has-child">
+            <a>分类</a>
+            <div class="sub-menu">
+                <a class="category-link" href="/categories/Java/">Java</a><a class="category-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a><a class="category-link" href="/categories/%E8%BF%90%E7%BB%B4/">运维</a>
+            </div>
+        </div>
+        
+            <a href="/about">关于我</a>
+        
+    </nav>
+</header>
+
+    <main>
+    <div class="wrap min">
+        <section class="post-title">
+            <h2>React</h2>
+            <div class="post-meta">
+                <time class="date">2024.09.10</time>
+            
+                <span class="category"><a class="category-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a></span>
+            
+            </div>
+        </section>
+        <article class="post-content">
+        
+            <p>React 是一个用于构建用户界面的库。React 不是一个框架——它的应用甚至不局限于 Web 开发，它可以与其他库一起使用以渲染到特定环境。例如，React Native 可用于构建移动应用程序；React 360 可用于构建虚拟现实应用程序…</p>
+<h1 id="React"><a href="#React" class="headerlink" title="React"></a>React</h1><h2 id="1-搭建开发环境"><a href="#1-搭建开发环境" class="headerlink" title="1.搭建开发环境"></a>1.搭建开发环境</h2><blockquote>
+<p>create-react-app快速搭建开发环境</p>
+</blockquote>
+<pre><code class="highlight plaintext">npx create-react-app react-basic(项目名)</code></pre>
+
+<blockquote>
+<p>node_modules：存放项目所依赖的一些第三方包文件</p>
+</blockquote>
+<blockquote>
+<p>public：静态资源文件夹</p>
+<p>​	favicon.ico：导航图标</p>
+<p>​	index.html：项目首页的html模版</p>
+<p>​	logo192.png&amp;logo512.png：两个logo图片</p>
+<p>​	manifest.json：应用加壳配置文件，在手机上描述我们应用程序的json文件</p>
+<p>​	robots.txt：爬虫协议文件</p>
+</blockquote>
+<blockquote>
+<p>src:源码文件夹</p>
+<p>​	App.css：App组件的样式</p>
+<p>​	App.js：App组件</p>
+<p>​	App.test.js：自动化测试文件，用于给App做测试</p>
+<p>​	index.css：全局样式</p>
+<p>​	index.js：入口文件，所用组件都会通过index.js载入</p>
+<p>​	logo.svg：react的一个标志文件，sug文件是纯粹的XML，保证了在放大缩小时图像不失真</p>
+<p>​	reportWebVitals.js：导入了一个web-vitals的第三方库，用来检查应用程序的性能</p>
+<p>​	setupTests.js:从Jest-dom导入匹配器，在进行测试时使用</p>
+</blockquote>
+<blockquote>
+<p>其它文件</p>
+<p>​	.gitignore：git的一个文件，在这里可以配置不想提交到版本库里的文件</p>
+<p>​	package-lock.json：项目安装包的版本号</p>
+<p>​	package.json：存放react的一些依赖和指令</p>
+<p>​	README.md：项目的介绍文件，运用markdown标记语言编写，在github等开源代码网站上，项目常用.md文件来进行介绍</p>
+</blockquote>
+<h2 id="2-JSX"><a href="#2-JSX" class="headerlink" title="2.JSX"></a>2.JSX</h2><blockquote>
+<p>JavaScript和XML缩写，表示JS代码中编写HTML模板结构</p>
+<p>jsx需要解析工具做解析才能渲染</p>
+</blockquote>
+<pre><code class="highlight javascript"><span class="keyword">function</span> <span class="title function_">App</span>(<span class="params"></span>) &#123;
+  <span class="keyword">return</span> (
+    <span class="language-xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&quot;App&quot;</span>&gt;</span></span>
+<span class="language-xml">      this is a app</span>
+<span class="language-xml">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span>
+  );
+&#125;</code></pre>
+
+<p><img src="../img/212417.png"></img></p>
+<blockquote>
+<p>识别js表达式</p>
+</blockquote>
+<pre><code class="highlight javascript"><span class="keyword">let</span> count = <span class="number">10</span>;
+<span class="keyword">let</span> <span class="title function_">getname</span> = (<span class="params"></span>)=&gt;&#123;
+  <span class="keyword">return</span> <span class="string">&quot;Ha&quot;</span>
+&#125;
+<span class="keyword">function</span> <span class="title function_">App</span>(<span class="params"></span>) &#123;
+  <span class="keyword">return</span> (
+    <span class="language-xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&quot;App&quot;</span>&gt;</span></span>
+<span class="language-xml">      this is a app</span>
+<span class="language-xml">      &#123;/* 使用引号传递字符串 */&#125;</span>
+<span class="language-xml">      &#123;&#x27;test&#x27;&#125;</span>
+<span class="language-xml">      &#123;/* 识别变量 */&#125;</span>
+<span class="language-xml">      &#123;count&#125;</span>
+<span class="language-xml">      &#123;/* 函数调用 */&#125;</span>
+<span class="language-xml">      &#123;getname()&#125;</span>
+<span class="language-xml">      &#123;/* 方法调用 */&#125;</span>
+<span class="language-xml">      &#123;new Date.now()&#125;</span>
+<span class="language-xml">      &#123;/* 使用js对象 */&#125;</span>
+<span class="language-xml">      <span class="tag">&lt;<span class="name">div</span> <span class="attr">style</span>=<span class="string">&#123;&#123;color:</span>&#x27;<span class="attr">red</span>&#x27;&#125;&#125;&gt;</span>this is a test<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span>
+<span class="language-xml">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span>
+  );
+&#125;</code></pre>
+
+<h2 id="3-动态渲染列表"><a href="#3-动态渲染列表" class="headerlink" title="3.动态渲染列表"></a>3.动态渲染列表</h2><blockquote>
+<p>map循环结构，加上唯一key值</p>
+</blockquote>
+<pre><code class="highlight javascript"><span class="keyword">let</span> list = [
+    &#123;<span class="attr">id</span>:<span class="string">&#x27;1001&#x27;</span>,<span class="attr">name</span>:<span class="string">&#x27;vue&#x27;</span>&#125;,
+    &#123;<span class="attr">id</span>:<span class="string">&#x27;1002&#x27;</span>,<span class="attr">name</span>:<span class="string">&#x27;react&#x27;</span>&#125;,
+    &#123;<span class="attr">id</span>:<span class="string">&#x27;1003&#x27;</span>,<span class="attr">name</span>:<span class="string">&#x27;angular&#x27;</span>&#125;
+  ]
+<span class="keyword">function</span> <span class="title function_">App</span>(<span class="params"></span>) &#123;
+  <span class="keyword">return</span> (
+    <span class="language-xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&quot;App&quot;</span>&gt;</span></span>
+<span class="language-xml">      <span class="tag">&lt;<span class="name">ul</span>&gt;</span></span>
+<span class="language-xml">        /*&#123;list.map(item=&gt;<span class="tag">&lt;<span class="name">li</span>&gt;</span>&#123;item.name&#125;<span class="tag">&lt;/<span class="name">li</span>&gt;</span>)&#125;*/</span>
+<span class="language-xml">      	&#123;list.map(item=&gt;<span class="tag">&lt;<span class="name">li</span> <span class="attr">key</span>=<span class="string">&#123;item.id&#125;</span>&gt;</span>&#123;item.name&#125;<span class="tag">&lt;/<span class="name">li</span>&gt;</span>)&#125;</span>
+<span class="language-xml">      <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span>
+<span class="language-xml">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span>
+  );
+&#125;
+
+<span class="keyword">export</span> <span class="keyword">default</span> <span class="title class_">App</span>;</code></pre>
+
+<h2 id="4-条件渲染"><a href="#4-条件渲染" class="headerlink" title="4.条件渲染"></a>4.条件渲染</h2><blockquote>
+<p>逻辑运算符，三元表达式</p>
+</blockquote>
+<pre><code class="highlight javascript"><span class="comment">//简单情况的条件渲染</span>
+&#123;isLogin &amp;&amp; <span class="language-xml"><span class="tag">&lt;<span class="name">span</span>&gt;</span>this is a sapn<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span>&#125;
+&#123;isLogin ? <span class="language-xml"><span class="tag">&lt;<span class="name">span</span>&gt;</span>this is a span<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span> : <span class="language-xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span>this is a div<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span>&#125;
+<span class="comment">//复杂情况的条件渲染</span>
+使用函数判断并返会jsx</code></pre>
+
+<h2 id="5-事件绑定"><a href="#5-事件绑定" class="headerlink" title="5.事件绑定"></a>5.事件绑定</h2><p>on+事件名称 &#x3D; {事件处理程序}</p>
+<pre><code class="highlight javascript"><span class="keyword">function</span> <span class="title function_">App</span>(<span class="params"></span>) &#123;
+  <span class="keyword">const</span> <span class="title function_">func</span>=(<span class="params"></span>)=&gt;&#123;
+    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;test&quot;</span>)
+  &#125;
+  <span class="comment">//事件参数e</span>
+	<span class="keyword">const</span> <span class="title function_">func</span>=(<span class="params">e</span>)=&gt;&#123;
+    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;test&quot;</span>,e)
+  &#125;
+  <span class="keyword">return</span> (
+    <span class="language-xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&quot;App&quot;</span>&gt;</span></span>
+<span class="language-xml">      <span class="tag">&lt;<span class="name">div</span> <span class="attr">onClick</span>=<span class="string">&#123;func&#125;</span>&gt;</span>click me<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span>
+<span class="language-xml">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span>
+  );
+&#125;</code></pre>
+
+<blockquote>
+<p>传递参数 使用箭头函数调用</p>
+</blockquote>
+<pre><code class="highlight javascript"><span class="keyword">const</span> test =<span class="string">&quot;Hello React&quot;</span>
+<span class="keyword">function</span> <span class="title function_">App</span>(<span class="params"></span>) &#123;
+  <span class="keyword">const</span> <span class="title function_">func</span>=(<span class="params">test</span>)=&gt;&#123;
+    <span class="variable language_">console</span>.<span class="title function_">log</span>(test)
+  &#125;
+
+  <span class="keyword">return</span> (
+    <span class="language-xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&quot;App&quot;</span>&gt;</span></span>
+<span class="language-xml">      <span class="tag">&lt;<span class="name">button</span> <span class="attr">onClick</span>=<span class="string">&#123;()</span>=&gt;</span>func(test)&#125;&gt;click me<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span>
+<span class="language-xml">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span>
+  );
+&#125;</code></pre>
+
+<blockquote>
+<p>既要传递自定义参数，又要事件对象e</p>
+</blockquote>
+<pre><code class="highlight javascript"><span class="keyword">const</span> test =<span class="string">&quot;Hello React&quot;</span>
+<span class="keyword">function</span> <span class="title function_">App</span>(<span class="params"></span>) &#123;
+    <span class="comment">//顺序与调用参数顺序相同</span>
+  <span class="keyword">const</span> <span class="title function_">func</span>=(<span class="params">test,e</span>)=&gt;&#123;
+    <span class="variable language_">console</span>.<span class="title function_">log</span>(test+<span class="string">&quot;____&quot;</span>+e)
+  &#125;
+
+  <span class="keyword">return</span> (
+    <span class="language-xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&quot;App&quot;</span>&gt;</span></span>
+<span class="language-xml">      <span class="tag">&lt;<span class="name">button</span> <span class="attr">onClick</span>=<span class="string">&#123;(e)</span>=&gt;</span>func(test,e)&#125;&gt;click me<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span>
+<span class="language-xml">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span>
+  );
+&#125;</code></pre>
+
+<h2 id="6-组件"><a href="#6-组件" class="headerlink" title="6.组件"></a>6.组件</h2><blockquote>
+<p>组件就是首字母大写的函数，内部存放了组件的逻辑和ui视图，渲染组件只需要把组件当成标签书写即可</p>
+</blockquote>
+<pre><code class="highlight javascript"><span class="keyword">function</span> <span class="title function_">Button</span>(<span class="params"></span>)&#123;
+  <span class="keyword">return</span> <span class="language-xml"><span class="tag">&lt;<span class="name">button</span>&gt;</span>click me<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span>
+&#125;
+<span class="keyword">const</span> <span class="title function_">button</span> = (<span class="params"></span>)=&gt;&#123;
+    <span class="keyword">return</span> <span class="language-xml"><span class="tag">&lt;<span class="name">button</span>&gt;</span>click me<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span>
+&#125;
+<span class="keyword">function</span> <span class="title function_">App</span>(<span class="params"></span>) &#123;
+  <span class="keyword">return</span> (
+    <span class="language-xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&quot;App&quot;</span>&gt;</span></span>
+<span class="language-xml">      <span class="tag">&lt;<span class="name">Button</span>/&gt;</span></span>
+<span class="language-xml">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span>
+  );
+&#125;</code></pre>
+
+<blockquote>
+<p>可以使用自闭合标签或成对标签</p>
+</blockquote>
+<h2 id="7-useState"><a href="#7-useState" class="headerlink" title="7.useState"></a>7.useState</h2><blockquote>
+<p>UseState是一个React Hook（函数），它允许我们向组件添加一个状态变量，从而控制影响组件的渲染结果</p>
+<p>相当于Vue3的reactive和ref 进行响应式</p>
+</blockquote>
+<pre><code class="highlight javascript"><span class="keyword">import</span> &#123;useState&#125; <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span>
+<span class="keyword">function</span> <span class="title function_">App</span>(<span class="params"></span>) &#123;
+  <span class="keyword">const</span> [count,setCount] = <span class="title function_">useState</span>(<span class="number">0</span>)
+  <span class="keyword">const</span> <span class="title function_">func</span> = (<span class="params"></span>)=&gt;&#123;
+    <span class="title function_">setCount</span>(count+<span class="number">1</span>);
+  &#125;
+  <span class="keyword">return</span> (
+    <span class="language-xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&quot;App&quot;</span>&gt;</span></span>
+<span class="language-xml">      <span class="tag">&lt;<span class="name">button</span> <span class="attr">onClick</span>=<span class="string">&#123;()</span>=&gt;</span>func()&#125;&gt;click me<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span>
+<span class="language-xml">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span>
+  );
+&#125;
+
+<span class="keyword">export</span> <span class="keyword">default</span> <span class="title class_">App</span>;</code></pre>
+
+<blockquote>
+<p>状态不可变</p>
+<p>使用setCount函数改变Count</p>
+</blockquote>
+<blockquote>
+<p>设置对象</p>
+</blockquote>
+<pre><code class="highlight javascript"><span class="keyword">const</span> <span class="title function_">func</span> = (<span class="params"></span>)=&gt;&#123;
+  <span class="title function_">setCount</span>(&#123;
+  ...user,
+  <span class="attr">name</span>:tom
+  &#125;);
+&#125;
+</code></pre>
+
+<blockquote>
+<p>设置数组</p>
+</blockquote>
+<pre><code class="highlight javascript"><span class="title function_">setTodos</span>([&#123;
+    <span class="attr">id</span>: todos.<span class="property">length</span>,
+    <span class="attr">text</span>: text
+&#125;, ...todos]);</code></pre>
+
+<h2 id="8-小案例"><a href="#8-小案例" class="headerlink" title="8.小案例"></a>8.小案例</h2><pre><code class="highlight javascript"><span class="keyword">import</span> &#123;useState&#125; <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span>
+<span class="keyword">let</span> list = [
+    &#123;<span class="attr">id</span>:<span class="string">&#x27;1001&#x27;</span>,<span class="attr">name</span>:<span class="string">&#x27;vue&#x27;</span>,<span class="attr">author</span>:<span class="string">&quot;richu&quot;</span>&#125;,
+    &#123;<span class="attr">id</span>:<span class="string">&#x27;1002&#x27;</span>,<span class="attr">name</span>:<span class="string">&#x27;react&#x27;</span>,<span class="attr">author</span>:<span class="string">&quot;lisi&quot;</span>&#125;,
+    &#123;<span class="attr">id</span>:<span class="string">&#x27;1003&#x27;</span>,<span class="attr">name</span>:<span class="string">&#x27;angular&#x27;</span>,<span class="attr">author</span>:<span class="string">&quot;zhangsan&quot;</span>&#125;
+  ] 
+<span class="keyword">const</span> user = &#123;
+    <span class="attr">uid</span>:<span class="number">1001</span>,
+    <span class="attr">avatar</span>:<span class="string">&quot;https://www.???.com&quot;</span>,
+    <span class="attr">uname</span>:<span class="string">&quot;richu&quot;</span>
+&#125;
+
+<span class="keyword">function</span> <span class="title function_">App</span>(<span class="params"></span>) &#123;
+    <span class="keyword">const</span> [commentslist,<span class="title class_">SetCommentslist</span>] = <span class="title function_">useState</span>(list)
+    <span class="keyword">const</span> <span class="title function_">deleteComments</span> = (<span class="params">author</span>)=&gt;&#123;
+        <span class="keyword">if</span> (author === user.<span class="property">uname</span>)&#123;
+            <span class="title class_">SetCommentslist</span>(list.<span class="title function_">filter</span>( <span class="function"><span class="params">item</span>=&gt;</span> item.<span class="property">author</span> !== author))
+        &#125;
+    &#125;
+    <span class="keyword">return</span> (
+        <span class="language-xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&quot;App&quot;</span>&gt;</span></span>
+<span class="language-xml">            <span class="tag">&lt;<span class="name">div</span>&gt;</span>&#123;user.uname&#125;<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span>
+<span class="language-xml">            <span class="tag">&lt;<span class="name">input</span> <span class="attr">placeholder</span>=<span class="string">&#x27;发表评论&#x27;</span>&gt;</span><span class="tag">&lt;/<span class="name">input</span>&gt;</span></span>
+<span class="language-xml">            <span class="tag">&lt;<span class="name">div</span>&gt;</span>&#123;commentslist.map(item=&gt;<span class="tag">&lt;<span class="name">div</span> <span class="attr">key</span>=<span class="string">&#123;item.id&#125;</span>&gt;</span></span>
+<span class="language-xml">                <span class="tag">&lt;<span class="name">span</span>&gt;</span>&#123;item.name&#125;<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span>
+<span class="language-xml">                <span class="tag">&lt;<span class="name">button</span> <span class="attr">onClick</span>=<span class="string">&#123;()</span>=&gt;</span>deleteComments(item.author)&#125;&gt;删除<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span>
+<span class="language-xml">                <span class="tag">&lt;/<span class="name">div</span>&gt;</span>)&#125;<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span>
+<span class="language-xml">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span>
+    );
+&#125; 
+<span class="keyword">export</span> <span class="keyword">default</span> <span class="title class_">App</span>;</code></pre>
+
+<blockquote>
+<p>动态绑定类名</p>
+</blockquote>
+<pre><code class="highlight js">&lt;div className=&#123;<span class="string">`<span class="subst">$&#123;name=user.name &amp;&amp; <span class="string">&#x27;active&#x27;</span>&#125;</span>`</span>&#125;&gt;&lt;/div&gt;
+
+<span class="language-xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&#123;className(</span>&#x27;<span class="attr">item</span>&#x27;,&#123;<span class="attr">active:type</span> === <span class="string">item.type</span> &#125;)&#125;&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span></code></pre>
+
+<blockquote>
+<p>active为类名     为true类名显示</p>
+</blockquote>
+<h2 id="9-受控表单绑定"><a href="#9-受控表单绑定" class="headerlink" title="9.受控表单绑定"></a>9.受控表单绑定</h2><blockquote>
+<p>使用React组件的状态（useState）控制表单的状态，双向绑定</p>
+</blockquote>
+<blockquote>
+<p>通过value属性绑定react事件</p>
+<p>绑定onChange事件，通过事件参数e拿到输入框最新的值 反向修改到react状态</p>
+</blockquote>
+<pre><code class="highlight javascript"><span class="keyword">import</span> &#123;useState&#125; <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span>
+
+<span class="keyword">function</span> <span class="title function_">App</span>(<span class="params"></span>) &#123;
+    <span class="keyword">const</span> [value,<span class="title class_">SetValue</span>] = <span class="title function_">useState</span>(<span class="string">&#x27;&#x27;</span>)
+    <span class="keyword">return</span> (
+        <span class="language-xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&quot;App&quot;</span>&gt;</span></span>
+<span class="language-xml">            <span class="tag">&lt;<span class="name">input</span> <span class="attr">value</span>=<span class="string">&#123;value&#125;</span> <span class="attr">onChange</span>=<span class="string">&#123;(e)</span>=&gt;</span>SetValue(e.target.value)&#125; type=&#x27;text&#x27;&gt;<span class="tag">&lt;/<span class="name">input</span>&gt;</span></span>
+<span class="language-xml">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span>
+    );
+&#125; 
+<span class="keyword">export</span> <span class="keyword">default</span> <span class="title class_">App</span>;</code></pre>
+
+<h2 id="10-React获取Dom"><a href="#10-React获取Dom" class="headerlink" title="10.React获取Dom"></a>10.React获取Dom</h2><blockquote>
+<p>使用useRef钩子函数</p>
+</blockquote>
+<p>1.使用useRef创建ref对象，并与JSX绑定</p>
+<pre><code class="highlight javascript"><span class="keyword">import</span> &#123;useState,useRef&#125; <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span>
+
+<span class="keyword">function</span> <span class="title function_">App</span>(<span class="params"></span>) &#123;
+    <span class="keyword">const</span> [commentslist,<span class="title class_">SetCommentslist</span>] = <span class="title function_">useState</span>(list)
+    <span class="keyword">const</span> [value,<span class="title class_">SetValue</span>] = <span class="title function_">useState</span>(<span class="string">&#x27;&#x27;</span>)
+    <span class="keyword">const</span> inputRef = <span class="title function_">useRef</span>(<span class="literal">null</span>)
+    <span class="keyword">const</span> <span class="title function_">deleteComments</span> = (<span class="params">author</span>)=&gt;&#123;
+        <span class="keyword">if</span> (author === user.<span class="property">uname</span>)&#123;
+            <span class="title class_">SetCommentslist</span>(list.<span class="title function_">filter</span>( <span class="function"><span class="params">item</span>=&gt;</span> item.<span class="property">author</span> !== author))
+            <span class="variable language_">console</span>.<span class="title function_">log</span>(value)
+        &#125;
+    &#125;
+    <span class="keyword">const</span> <span class="title function_">test</span>  = (<span class="params"></span>) =&gt; &#123;
+        <span class="variable language_">console</span>.<span class="title function_">log</span>(inputRef.<span class="property">current</span>)
+    &#125;
+    <span class="keyword">return</span> (
+        <span class="language-xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&quot;App&quot;</span>&gt;</span></span>
+<span class="language-xml">            <span class="tag">&lt;<span class="name">div</span>&gt;</span>&#123;user.uname&#125;<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span>
+<span class="language-xml">            <span class="tag">&lt;<span class="name">input</span> <span class="attr">placeholder</span>=<span class="string">&#x27;发表评论&#x27;</span>&gt;</span><span class="tag">&lt;/<span class="name">input</span>&gt;</span></span>
+<span class="language-xml">            <span class="tag">&lt;<span class="name">div</span>&gt;</span>&#123;commentslist.map(item=&gt;<span class="tag">&lt;<span class="name">div</span> <span class="attr">key</span>=<span class="string">&#123;item.id&#125;</span>&gt;</span></span>
+<span class="language-xml">                <span class="tag">&lt;<span class="name">span</span>&gt;</span>&#123;item.name&#125;<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span>
+<span class="language-xml">                <span class="tag">&lt;<span class="name">button</span> <span class="attr">onClick</span>=<span class="string">&#123;()</span>=&gt;</span>deleteComments(item.author)&#125;&gt;删除<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span>
+<span class="language-xml">                <span class="tag">&lt;/<span class="name">div</span>&gt;</span>)&#125;<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span>
+<span class="language-xml">            <span class="tag">&lt;<span class="name">input</span> <span class="attr">value</span>=<span class="string">&#123;value&#125;</span> <span class="attr">onChange</span>=<span class="string">&#123;(e)</span>=&gt;</span>SetValue(e.target.value)&#125; type=&#x27;text&#x27;&gt;<span class="tag">&lt;/<span class="name">input</span>&gt;</span></span>
+<span class="language-xml">            <span class="tag">&lt;<span class="name">input</span> <span class="attr">ref</span>=<span class="string">&#123;inputRef&#125;</span>&gt;</span><span class="tag">&lt;/<span class="name">input</span>&gt;</span></span>
+<span class="language-xml">            <span class="tag">&lt;<span class="name">button</span> <span class="attr">onClick</span>=<span class="string">&#123;()</span>=&gt;</span>test()&#125;&gt;click me!<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span>
+<span class="language-xml">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span>  
+    );
+&#125; 
+<span class="keyword">export</span> <span class="keyword">default</span> <span class="title class_">App</span>;</code></pre>
+
+<p>2.在DOM可用时，通过inputRef.current拿到DOM对象</p>
+<pre><code class="highlight javascript"><span class="keyword">const</span> <span class="title function_">test</span>  = (<span class="params"></span>) =&gt; &#123;
+    <span class="variable language_">console</span>.<span class="title function_">log</span>(inputRef.<span class="property">current</span>)
+&#125;</code></pre>
+
+<p>3.动态获取input的value</p>
+<pre><code class="highlight javascript"><span class="keyword">import</span> &#123;useState,useRef&#125; <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span>
+<span class="keyword">let</span> list = [
+    &#123;<span class="attr">id</span>:<span class="string">&#x27;1001&#x27;</span>,<span class="attr">name</span>:<span class="string">&#x27;vue&#x27;</span>,<span class="attr">author</span>:<span class="string">&quot;richu&quot;</span>&#125;,
+    &#123;<span class="attr">id</span>:<span class="string">&#x27;1002&#x27;</span>,<span class="attr">name</span>:<span class="string">&#x27;react&#x27;</span>,<span class="attr">author</span>:<span class="string">&quot;lisi&quot;</span>&#125;,
+    &#123;<span class="attr">id</span>:<span class="string">&#x27;1003&#x27;</span>,<span class="attr">name</span>:<span class="string">&#x27;angular&#x27;</span>,<span class="attr">author</span>:<span class="string">&quot;zhangsan&quot;</span>&#125;
+  ] 
+<span class="keyword">const</span> user = &#123;
+    <span class="attr">uid</span>:<span class="number">1001</span>,
+    <span class="attr">avatar</span>:<span class="string">&quot;https://www.???.com&quot;</span>,
+    <span class="attr">uname</span>:<span class="string">&quot;richu&quot;</span>
+&#125;
+
+<span class="keyword">function</span> <span class="title function_">App</span>(<span class="params"></span>) &#123;
+    <span class="keyword">const</span> [commentslist,<span class="title class_">SetCommentslist</span>] = <span class="title function_">useState</span>(list)
+    <span class="keyword">const</span> [value,<span class="title class_">SetValue</span>] = <span class="title function_">useState</span>(<span class="string">&#x27;&#x27;</span>)
+    <span class="keyword">const</span> inputRef = <span class="title function_">useRef</span>(<span class="literal">null</span>)
+    <span class="keyword">const</span> [a,<span class="title class_">SetA</span>] = <span class="title function_">useState</span>(<span class="number">4</span>);
+    <span class="keyword">const</span> <span class="title function_">deleteComments</span> = (<span class="params">author</span>)=&gt;&#123;
+        <span class="keyword">if</span> (author === user.<span class="property">uname</span>)&#123;
+            <span class="title class_">SetCommentslist</span>(list.<span class="title function_">filter</span>( <span class="function"><span class="params">item</span>=&gt;</span> item.<span class="property">author</span> !== author))
+        &#125;
+    &#125;
+    <span class="keyword">const</span> <span class="title function_">test</span>  = (<span class="params"></span>) =&gt; &#123;
+        <span class="title class_">SetCommentslist</span>([
+            ...commentslist
+            ,&#123;
+            <span class="attr">id</span>:<span class="string">&#x27;100&#x27;</span>+a.<span class="title function_">toString</span>(),
+            <span class="attr">name</span>:value,
+            <span class="attr">author</span>:user.<span class="property">uname</span>
+        &#125;])
+        <span class="title class_">SetA</span>(a+<span class="number">1</span>)
+        <span class="title class_">SetValue</span>(<span class="string">&#x27;&#x27;</span>)
+    &#125;
+    <span class="keyword">return</span> (
+        <span class="language-xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&quot;App&quot;</span>&gt;</span></span>
+<span class="language-xml">            <span class="tag">&lt;<span class="name">div</span>&gt;</span>&#123;user.uname&#125;<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span>
+<span class="language-xml">            <span class="tag">&lt;<span class="name">input</span> <span class="attr">value</span>=<span class="string">&#123;value&#125;</span> <span class="attr">placeholder</span>=<span class="string">&#x27;你怎么看&#x27;</span> <span class="attr">onChange</span>=<span class="string">&#123;(e)</span>=&gt;</span>SetValue(e.target.value)&#125;&gt;<span class="tag">&lt;/<span class="name">input</span>&gt;</span></span>
+<span class="language-xml">            <span class="tag">&lt;<span class="name">button</span> <span class="attr">onClick</span>=<span class="string">&#123;()</span>=&gt;</span>test()&#125;&gt;发布<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span>
+<span class="language-xml">            <span class="tag">&lt;<span class="name">div</span>&gt;</span>&#123;commentslist.map(item=&gt;<span class="tag">&lt;<span class="name">div</span> <span class="attr">key</span>=<span class="string">&#123;item.id&#125;</span>&gt;</span></span>
+<span class="language-xml">                <span class="tag">&lt;<span class="name">span</span>&gt;</span>&#123;item.name&#125;<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span>
+<span class="language-xml">                <span class="tag">&lt;<span class="name">button</span> <span class="attr">onClick</span>=<span class="string">&#123;()</span>=&gt;</span>deleteComments(item.author)&#125;&gt;删除<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span>
+<span class="language-xml">                <span class="tag">&lt;/<span class="name">div</span>&gt;</span>)&#125;<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span>
+<span class="language-xml">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span>  
+    );
+&#125; 
+<span class="keyword">export</span> <span class="keyword">default</span> <span class="title class_">App</span>;</code></pre>
+
+<p>4.实现重新聚焦</p>
+<pre><code class="highlight javascript"><span class="keyword">import</span> &#123;useState,useRef&#125; <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span>
+<span class="keyword">let</span> list = [
+    &#123;<span class="attr">id</span>:<span class="string">&#x27;1001&#x27;</span>,<span class="attr">name</span>:<span class="string">&#x27;vue&#x27;</span>,<span class="attr">author</span>:<span class="string">&quot;richu&quot;</span>&#125;,
+    &#123;<span class="attr">id</span>:<span class="string">&#x27;1002&#x27;</span>,<span class="attr">name</span>:<span class="string">&#x27;react&#x27;</span>,<span class="attr">author</span>:<span class="string">&quot;lisi&quot;</span>&#125;,
+    &#123;<span class="attr">id</span>:<span class="string">&#x27;1003&#x27;</span>,<span class="attr">name</span>:<span class="string">&#x27;angular&#x27;</span>,<span class="attr">author</span>:<span class="string">&quot;zhangsan&quot;</span>&#125;
+  ] 
+<span class="keyword">const</span> user = &#123;
+    <span class="attr">uid</span>:<span class="number">1001</span>,
+    <span class="attr">avatar</span>:<span class="string">&quot;https://www.???.com&quot;</span>,
+    <span class="attr">uname</span>:<span class="string">&quot;richu&quot;</span>
+&#125;
+
+<span class="keyword">function</span> <span class="title function_">App</span>(<span class="params"></span>) &#123;
+    <span class="keyword">const</span> [commentslist,<span class="title class_">SetCommentslist</span>] = <span class="title function_">useState</span>(list)
+    <span class="keyword">const</span> [value,<span class="title class_">SetValue</span>] = <span class="title function_">useState</span>(<span class="string">&#x27;&#x27;</span>)
+    <span class="keyword">const</span> inputRef = <span class="title function_">useRef</span>(<span class="literal">null</span>)
+    <span class="keyword">const</span> [a,<span class="title class_">SetA</span>] = <span class="title function_">useState</span>(<span class="number">4</span>);
+    <span class="keyword">const</span> <span class="title function_">deleteComments</span> = (<span class="params">author</span>)=&gt;&#123;
+        <span class="keyword">if</span> (author === user.<span class="property">uname</span>)&#123;
+            <span class="title class_">SetCommentslist</span>(list.<span class="title function_">filter</span>( <span class="function"><span class="params">item</span>=&gt;</span> item.<span class="property">author</span> !== author))
+            <span class="comment">/* console.log(value) */</span>
+        &#125;
+    &#125;
+    <span class="keyword">const</span> <span class="title function_">test</span>  = (<span class="params"></span>) =&gt; &#123;
+        <span class="title class_">SetCommentslist</span>([
+            ...commentslist
+            ,&#123;
+            <span class="attr">id</span>:<span class="string">&#x27;100&#x27;</span>+a.<span class="title function_">toString</span>(),
+            <span class="attr">name</span>:value,
+            <span class="attr">author</span>:user.<span class="property">uname</span>
+        &#125;])
+        <span class="title class_">SetA</span>(a+<span class="number">1</span>)
+        <span class="title class_">SetValue</span>(<span class="string">&#x27;&#x27;</span>)
+        inputRef.<span class="property">current</span>.<span class="title function_">focus</span>()
+    &#125;
+    <span class="keyword">return</span> (
+        <span class="language-xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&quot;App&quot;</span>&gt;</span></span>
+<span class="language-xml">            <span class="tag">&lt;<span class="name">div</span>&gt;</span>&#123;user.uname&#125;<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span>
+<span class="language-xml">            <span class="tag">&lt;<span class="name">input</span> <span class="attr">ref</span>=<span class="string">&#123;inputRef&#125;</span> <span class="attr">value</span>=<span class="string">&#123;value&#125;</span> <span class="attr">placeholder</span>=<span class="string">&#x27;你怎么看&#x27;</span> <span class="attr">onChange</span>=<span class="string">&#123;(e)</span>=&gt;</span>SetValue(e.target.value)&#125;&gt;<span class="tag">&lt;/<span class="name">input</span>&gt;</span></span>
+<span class="language-xml">            <span class="tag">&lt;<span class="name">button</span> <span class="attr">onClick</span>=<span class="string">&#123;()</span>=&gt;</span>test()&#125;&gt;发布<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span>
+<span class="language-xml">            <span class="tag">&lt;<span class="name">div</span>&gt;</span>&#123;commentslist.map(item=&gt;<span class="tag">&lt;<span class="name">div</span> <span class="attr">key</span>=<span class="string">&#123;item.id&#125;</span>&gt;</span></span>
+<span class="language-xml">                <span class="tag">&lt;<span class="name">span</span>&gt;</span>&#123;item.name&#125;<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span>
+<span class="language-xml">                <span class="tag">&lt;<span class="name">button</span> <span class="attr">onClick</span>=<span class="string">&#123;()</span>=&gt;</span>deleteComments(item.author)&#125;&gt;删除<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span>
+<span class="language-xml">                <span class="tag">&lt;/<span class="name">div</span>&gt;</span>)&#125;<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span>
+<span class="language-xml">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span>  
+    );
+&#125; 
+<span class="keyword">export</span> <span class="keyword">default</span> <span class="title class_">App</span>;</code></pre>
+
+<h2 id="11-组件通信"><a href="#11-组件通信" class="headerlink" title="11.组件通信"></a>11.组件通信</h2><h3 id="1-父传子"><a href="#1-父传子" class="headerlink" title="1.父传子"></a>1.父传子</h3><blockquote>
+<p>组件之间的数据传递，父传子实现</p>
+</blockquote>
+<pre><code class="highlight javascript"><span class="keyword">function</span> <span class="title function_">Son</span>(<span class="params">props</span>)&#123;
+    <span class="variable language_">console</span>.<span class="title function_">log</span>(props)
+    <span class="keyword">return</span> <span class="language-xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span>this is son<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span>
+&#125;
+
+<span class="keyword">function</span> <span class="title function_">App</span>(<span class="params"></span>)&#123;
+    <span class="keyword">const</span> name = <span class="string">&quot;hahah&quot;</span>
+    <span class="keyword">return</span> <span class="language-xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span>
+<span class="language-xml">        <span class="tag">&lt;<span class="name">Son</span> <span class="attr">name</span>=<span class="string">&#123;name&#125;/</span>&gt;</span></span>
+<span class="language-xml">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span>
+&#125;
+
+<span class="keyword">export</span> <span class="keyword">default</span> <span class="title class_">App</span>;</code></pre>
+
+<blockquote>
+<p>props可传递任意的数据</p>
+<ul>
+<li>数字，字符串，布尔值，数组，对象，函数，JSX</li>
+</ul>
+<p>props是只读对象，子组件不能修改</p>
+</blockquote>
+<h3 id="2-children属性"><a href="#2-children属性" class="headerlink" title="2.children属性"></a>2.children属性</h3><pre><code class="highlight javascript"><span class="keyword">function</span> <span class="title function_">Son</span>(<span class="params">props</span>)&#123;
+    <span class="variable language_">console</span>.<span class="title function_">log</span>(props)
+    <span class="keyword">return</span> <span class="language-xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span>this is son<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span>
+&#125;
+
+<span class="keyword">function</span> <span class="title function_">App</span>(<span class="params"></span>)&#123;
+    <span class="keyword">return</span> <span class="language-xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span>
+<span class="language-xml">        <span class="tag">&lt;<span class="name">Son</span>&gt;</span><span class="tag">&lt;<span class="name">span</span>&gt;</span>this is a span<span class="tag">&lt;/<span class="name">span</span>&gt;</span><span class="tag">&lt;/<span class="name">Son</span>&gt;</span></span>
+<span class="language-xml">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span>
+&#125;
+
+<span class="keyword">export</span> <span class="keyword">default</span> <span class="title class_">App</span>;</code></pre>
+
+<h3 id="3-子传父"><a href="#3-子传父" class="headerlink" title="3.子传父"></a>3.子传父</h3><blockquote>
+<p>父组件给子组件传递函数，子组件调用并传递参数</p>
+</blockquote>
+<pre><code class="highlight javascript"><span class="keyword">function</span> <span class="title function_">Son</span>(<span class="params">&#123;GetMSG&#125;</span>)&#123;
+    <span class="keyword">const</span> test = <span class="string">&quot;test&quot;</span>
+    <span class="keyword">return</span> <span class="language-xml"><span class="tag">&lt;<span class="name">button</span> <span class="attr">onClick</span>=<span class="string">&#123;()</span>=&gt;</span>GetMSG(test)&#125;&gt;click me !!!!!<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span>
+&#125;
+
+<span class="keyword">function</span> <span class="title function_">App</span>(<span class="params"></span>)&#123;
+    <span class="keyword">const</span> <span class="title function_">GetMSG</span> = (<span class="params">msg</span>)=&gt;&#123;
+        <span class="variable language_">console</span>.<span class="title function_">log</span>(msg)
+    &#125;
+    <span class="keyword">return</span> <span class="language-xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span>
+<span class="language-xml">        <span class="tag">&lt;<span class="name">Son</span> <span class="attr">GetMSG</span>=<span class="string">&#123;GetMSG&#125;</span>&gt;</span><span class="tag">&lt;/<span class="name">Son</span>&gt;</span></span>
+<span class="language-xml">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span>
+&#125;
+
+<span class="keyword">export</span> <span class="keyword">default</span> <span class="title class_">App</span>;</code></pre>
+
+<h3 id="4-利用状态提升兄弟组件传递"><a href="#4-利用状态提升兄弟组件传递" class="headerlink" title="4.利用状态提升兄弟组件传递"></a>4.利用状态提升兄弟组件传递</h3><blockquote>
+<p>1.通过子传父传递给共同的父组件</p>
+<p>2.通过父组件传递给兄弟组件</p>
+</blockquote>
+<pre><code class="highlight javascript"><span class="keyword">import</span> &#123;useState&#125; <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span>
+
+<span class="keyword">function</span> <span class="title function_">Son</span>(<span class="params">&#123;GetMSG&#125;</span>)&#123;
+    <span class="keyword">const</span> test = <span class="string">&quot;test1&quot;</span>
+    <span class="keyword">return</span> <span class="language-xml"><span class="tag">&lt;<span class="name">button</span> <span class="attr">onClick</span>=<span class="string">&#123;()</span>=&gt;</span>GetMSG(test)&#125;&gt;click me !!!!!<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span>
+&#125;
+
+<span class="keyword">function</span> <span class="title function_">Son1</span>(<span class="params">&#123;name&#125;</span>)&#123;
+    <span class="keyword">return</span> <span class="language-xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span>this is Son1,&#123;name&#125;<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span>
+&#125;
+
+<span class="keyword">function</span> <span class="title function_">App</span>(<span class="params"></span>)&#123;
+    <span class="keyword">const</span> [name,<span class="title class_">SetName</span>] = <span class="title function_">useState</span>(<span class="string">&quot;&quot;</span>)
+    <span class="keyword">const</span> <span class="title function_">GetMSG</span> = (<span class="params">msg</span>)=&gt;&#123;
+        <span class="title class_">SetName</span>(msg)
+    &#125;
+    <span class="keyword">return</span> <span class="language-xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span>
+<span class="language-xml">        <span class="tag">&lt;<span class="name">Son</span> <span class="attr">GetMSG</span>=<span class="string">&#123;GetMSG&#125;</span>&gt;</span><span class="tag">&lt;/<span class="name">Son</span>&gt;</span></span>
+<span class="language-xml">        <span class="tag">&lt;<span class="name">Son1</span> <span class="attr">name</span>=<span class="string">&#123;name&#125;</span>&gt;</span><span class="tag">&lt;/<span class="name">Son1</span>&gt;</span></span>
+<span class="language-xml">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span>
+&#125;
+
+<span class="keyword">export</span> <span class="keyword">default</span> <span class="title class_">App</span>;</code></pre>
+
+<h3 id="5-使用context机制实现跨层级组件通信"><a href="#5-使用context机制实现跨层级组件通信" class="headerlink" title="5.使用context机制实现跨层级组件通信"></a>5.使用context机制实现跨层级组件通信</h3><blockquote>
+<p>使用createContext方法创建一个上下文对象</p>
+<p>在顶层组件App中通过ctx.provider提供数据</p>
+<p>在底层组件使用useContext钩子函数获取消费数据</p>
+</blockquote>
+<pre><code class="highlight javascript"><span class="keyword">import</span> &#123;createContext, useContext&#125; <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span>
+
+<span class="comment">//创建</span>
+<span class="keyword">const</span> <span class="title class_">MsgContext</span> = <span class="title function_">createContext</span>()
+
+<span class="keyword">function</span> <span class="title function_">Son</span>(<span class="params"></span>)&#123;
+    <span class="keyword">return</span> <span class="language-xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span><span class="tag">&lt;<span class="name">Son1</span>/&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span>
+&#125;
+
+<span class="keyword">function</span> <span class="title function_">Son1</span>(<span class="params"></span>)&#123;
+    <span class="keyword">const</span> test = <span class="title function_">useContext</span>(<span class="title class_">MsgContext</span>)
+    <span class="keyword">return</span> <span class="language-xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span>this is Son1,&#123;test&#125;<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span>
+&#125;
+
+<span class="keyword">function</span> <span class="title function_">App</span>(<span class="params"></span>)&#123;
+    <span class="keyword">const</span> msg = <span class="string">&quot;test&quot;</span>
+    <span class="keyword">return</span> <span class="language-xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span>
+<span class="language-xml">        <span class="tag">&lt;<span class="name">MsgContext.Provider</span> <span class="attr">value</span>=<span class="string">&#123;msg&#125;</span>&gt;</span></span>
+<span class="language-xml">            <span class="tag">&lt;<span class="name">Son</span>&gt;</span><span class="tag">&lt;/<span class="name">Son</span>&gt;</span></span>
+<span class="language-xml">        <span class="tag">&lt;/<span class="name">MsgContext.Provider</span>&gt;</span></span>
+<span class="language-xml">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span>
+&#125;
+
+<span class="keyword">export</span> <span class="keyword">default</span> <span class="title class_">App</span>;</code></pre>
+
+<h2 id="12-useEffect"><a href="#12-useEffect" class="headerlink" title="12.useEffect"></a>12.useEffect</h2><blockquote>
+<p>useEffect(()&#x3D;&gt;{},[])</p>
+<p>参数已是函数，在函数内放置要执行的操作</p>
+<p>参数2是数组，可选参，在数组里面放依赖项，不同依赖项会影响第一个参数函数的执行，当数组为空时，副作用函数在组件渲染完毕后执行一次</p>
+</blockquote>
+<blockquote>
+<p>依赖项不同会有不同的执行表现</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>依赖项</th>
+<th>副作用函数执行时机</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>没有依赖项</td>
+<td>组件初始渲染，组件更新时执行</td>
+</tr>
+<tr>
+<td>空数组依赖</td>
+<td>只在初始渲染时执行</td>
+</tr>
+<tr>
+<td>添加特定依赖</td>
+<td>组件初始渲染，特性依赖项变化时执行</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>由渲染本身引起的对接组件外部的操作，副作用操作。比如在useEffect开启了定时器，在下载时清理</p>
+<p>清除副作用函数，在组件卸载时会自动执行</p>
+</blockquote>
+<pre><code class="highlight javascript"><span class="title function_">useEffect</span>(<span class="function">()=&gt;</span>&#123;
+    <span class="keyword">const</span> timer = <span class="built_in">setInterval</span>(<span class="function">()=&gt;</span>&#123;
+        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;test&quot;</span>)
+    &#125;,<span class="number">1000</span>)
+    <span class="keyword">return</span> <span class="function">()=&gt;</span>&#123;
+        <span class="comment">//清除副作用</span>
+        <span class="built_in">clearInterval</span>(timer)
+    &#125;
+&#125;,[])</code></pre>
+
+<h2 id="13-自定义hook"><a href="#13-自定义hook" class="headerlink" title="13.自定义hook"></a>13.自定义hook</h2><blockquote>
+<p>use打头的函数，可以实现逻辑的封装和复用</p>
+</blockquote>
+<blockquote>
+<p>1.声明一个use打头的函数</p>
+<p>2.在函数体内封装可复用的逻辑（只要是可复用的逻辑）</p>
+<p>使用解构赋值获得use打头的函数返回的对象的值</p>
+</blockquote>
+<pre><code class="highlight javascript"><span class="keyword">function</span> <span class="title function_">gettoggle</span>(<span class="params"></span>)&#123;
+    <span class="keyword">const</span> a= <span class="number">10</span>;
+    <span class="keyword">const</span> b=<span class="number">10</span>;
+    <span class="keyword">return</span> &#123;
+        a,
+        b
+    &#125;
+&#125;
+
+<span class="keyword">function</span> <span class="title function_">App</span>(<span class="params"></span>)&#123;
+    <span class="keyword">const</span> &#123;a,b&#125; = <span class="title function_">gettoggle</span>()
+    <span class="keyword">return</span> <span class="language-xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span>
+ &#125;</code></pre>
+
+<h2 id="15-ReactHooks"><a href="#15-ReactHooks" class="headerlink" title="15.ReactHooks"></a>15.ReactHooks</h2><blockquote>
+<p>只能在组件中或者其他hook函数（自定义hook函数）中调用</p>
+<p>只能在组件的顶层调用，不能嵌套在if for 等其他函数中</p>
+</blockquote>
+<blockquote>
+<p>使用useEffect优化案例</p>
+<p>npm i json-server</p>
+<p>npm i axios</p>
+</blockquote>
+<pre><code class="highlight javascript"><span class="keyword">import</span> &#123;useState,useRef, useEffect&#125; <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span>
+<span class="keyword">import</span> axios <span class="keyword">from</span> <span class="string">&#x27;axios&#x27;</span>;
+<span class="keyword">const</span> user = &#123;
+    <span class="attr">uid</span>:<span class="number">1001</span>,
+    <span class="attr">avatar</span>:<span class="string">&quot;https://www.???.com&quot;</span>,
+    <span class="attr">uname</span>:<span class="string">&quot;richu&quot;</span>
+&#125;
+
+<span class="keyword">function</span> <span class="title function_">App</span>(<span class="params"></span>) &#123;
+    <span class="keyword">const</span> [commentslist,<span class="title class_">SetCommentslist</span>] = <span class="title function_">useState</span>([])
+    <span class="title function_">useEffect</span>(<span class="function">()=&gt;</span>&#123;
+        <span class="keyword">async</span> <span class="keyword">function</span> <span class="title function_">getlist</span>(<span class="params"></span>)&#123;
+            <span class="keyword">const</span> res = <span class="keyword">await</span> axios.<span class="title function_">get</span>(<span class="string">&quot;http://localhost:3005/list&quot;</span>)
+            <span class="title class_">SetCommentslist</span>(res.<span class="property">data</span>)
+        &#125;
+        <span class="title function_">getlist</span>()
+    &#125;,[])
+    <span class="keyword">const</span> [value,<span class="title class_">SetValue</span>] = <span class="title function_">useState</span>(<span class="string">&#x27;&#x27;</span>)
+    <span class="keyword">const</span> inputRef = <span class="title function_">useRef</span>(<span class="literal">null</span>)
+    <span class="keyword">const</span> [a,<span class="title class_">SetA</span>] = <span class="title function_">useState</span>(<span class="number">4</span>);
+    <span class="keyword">const</span> <span class="title function_">deleteComments</span> = (<span class="params">author</span>)=&gt;&#123;
+        <span class="keyword">if</span> (author === user.<span class="property">uname</span>)&#123;
+            <span class="title class_">SetCommentslist</span>(commentslist.<span class="title function_">filter</span>( <span class="function"><span class="params">item</span>=&gt;</span> item.<span class="property">author</span> !== author))
+        &#125;
+    &#125;
+    
+    <span class="keyword">const</span> <span class="title function_">test</span>  = (<span class="params"></span>) =&gt; &#123;
+        <span class="title class_">SetCommentslist</span>([
+            ...commentslist
+            ,&#123;
+            <span class="attr">id</span>:<span class="string">&#x27;100&#x27;</span>+a.<span class="title function_">toString</span>(),
+            <span class="attr">name</span>:value,
+            <span class="attr">author</span>:user.<span class="property">uname</span>
+        &#125;])
+        <span class="title class_">SetA</span>(a+<span class="number">1</span>)
+        <span class="title class_">SetValue</span>(<span class="string">&#x27;&#x27;</span>)
+        inputRef.<span class="property">current</span>.<span class="title function_">focus</span>()
+    &#125;
+    <span class="keyword">return</span> (
+        <span class="language-xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&quot;App&quot;</span>&gt;</span></span>
+<span class="language-xml">            <span class="tag">&lt;<span class="name">div</span>&gt;</span>&#123;user.uname&#125;<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span>
+<span class="language-xml">            <span class="tag">&lt;<span class="name">input</span> <span class="attr">ref</span>=<span class="string">&#123;inputRef&#125;</span> <span class="attr">value</span>=<span class="string">&#123;value&#125;</span> <span class="attr">placeholder</span>=<span class="string">&#x27;你怎么看&#x27;</span> <span class="attr">onChange</span>=<span class="string">&#123;(e)</span>=&gt;</span>SetValue(e.target.value)&#125;&gt;<span class="tag">&lt;/<span class="name">input</span>&gt;</span></span>
+<span class="language-xml">            <span class="tag">&lt;<span class="name">button</span> <span class="attr">onClick</span>=<span class="string">&#123;()</span>=&gt;</span>test()&#125;&gt;发布<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span>
+<span class="language-xml">            <span class="tag">&lt;<span class="name">div</span>&gt;</span>&#123;commentslist.map(item=&gt;<span class="tag">&lt;<span class="name">div</span> <span class="attr">key</span>=<span class="string">&#123;item.id&#125;</span>&gt;</span></span>
+<span class="language-xml">                <span class="tag">&lt;<span class="name">span</span>&gt;</span>&#123;item.name&#125;<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span>
+<span class="language-xml">                <span class="tag">&lt;<span class="name">button</span> <span class="attr">onClick</span>=<span class="string">&#123;()</span>=&gt;</span>deleteComments(item.author)&#125;&gt;删除<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span>
+<span class="language-xml">                <span class="tag">&lt;/<span class="name">div</span>&gt;</span>)&#125;<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span>
+<span class="language-xml">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span>  
+    );
+&#125; 
+<span class="keyword">export</span> <span class="keyword">default</span> <span class="title class_">App</span>;</code></pre>
+
+<blockquote>
+<p>使用自定义hook封装请求</p>
+</blockquote>
+<pre><code class="highlight javascript"><span class="keyword">function</span> <span class="title function_">useGetlist</span>(<span class="params"></span>)&#123;
+    <span class="keyword">const</span> [commentslist,<span class="title class_">SetCommentslist</span>] = <span class="title function_">useState</span>([])
+    <span class="title function_">useEffect</span>(<span class="function">()=&gt;</span>&#123;
+        <span class="keyword">async</span> <span class="keyword">function</span> <span class="title function_">getlist</span>(<span class="params"></span>)&#123;
+            <span class="keyword">const</span> res = <span class="keyword">await</span> axios.<span class="title function_">get</span>(<span class="string">&quot;http://localhost:3005/list&quot;</span>)
+            <span class="title class_">SetCommentslist</span>(res.<span class="property">data</span>)
+        &#125;
+        <span class="title function_">getlist</span>()
+    &#125;,[])
+    <span class="keyword">return</span> &#123;
+        commentslist,
+        <span class="title class_">SetCommentslist</span>
+    &#125;
+&#125;</code></pre>
+
+<blockquote>
+<p>封装Item</p>
+</blockquote>
+<pre><code class="highlight javascript"><span class="keyword">function</span> <span class="title function_">Item</span>(<span class="params">&#123;item,deleteComments&#125;</span>)&#123;
+    <span class="keyword">return</span>  (
+        <span class="language-xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">key</span>=<span class="string">&#123;item.id&#125;</span>&gt;</span></span>
+<span class="language-xml">            <span class="tag">&lt;<span class="name">span</span>&gt;</span>&#123;item.name&#125;<span class="tag">&lt;/<span class="name">span</span>&gt;</span></span>
+<span class="language-xml">            <span class="tag">&lt;<span class="name">button</span> <span class="attr">onClick</span>=<span class="string">&#123;()</span>=&gt;</span>deleteComments(item.author)&#125;&gt;删除<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span>
+<span class="language-xml">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span>
+    )
+&#125;</code></pre>
+
+<h2 id="16-Redux"><a href="#16-Redux" class="headerlink" title="16.Redux"></a>16.Redux</h2><h3 id="1-Redux"><a href="#1-Redux" class="headerlink" title="1.Redux"></a>1.Redux</h3><blockquote>
+<p>类似pinia（vuex）</p>
+<p>通过集中管理的方式管理应用的状态</p>
+</blockquote>
+<blockquote>
+<p>定义一个reducer对象</p>
+<p>使用createStore方法传入reducer函数 生成一个store实例对象</p>
+<p>使用subscribe方法订阅数据的变化</p>
+<p>dispatch方法提交action对象触发数据变化</p>
+<p>getState获取最新的状态数据更新到视图中</p>
+</blockquote>
+<pre><code class="highlight html"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span>
+<span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span>&gt;</span>
+<span class="tag">&lt;<span class="name">head</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;viewport&quot;</span> <span class="attr">content</span>=<span class="string">&quot;width=device-width, initial-scale=1.0&quot;</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Document<span class="tag">&lt;/<span class="name">title</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">head</span>&gt;</span>
+<span class="tag">&lt;<span class="name">body</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">button</span> <span class="attr">class</span>=<span class="string">&quot;mius&quot;</span>&gt;</span>-<span class="tag">&lt;/<span class="name">button</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">&quot;text&quot;</span>&gt;</span>0<span class="tag">&lt;/<span class="name">span</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">button</span> <span class="attr">class</span>=<span class="string">&quot;add&quot;</span>&gt;</span>+<span class="tag">&lt;/<span class="name">button</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;https://unpkg.com/redux@latest/dist/redux.min.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript"></span>
+<span class="language-javascript">        <span class="comment">//定义一个reducer函数</span></span>
+<span class="language-javascript">        <span class="keyword">function</span> <span class="title function_">reducer</span> (<span class="params">state = &#123;count:<span class="number">0</span>&#125;,action</span>)&#123;</span>
+<span class="language-javascript">            <span class="comment">//数据不可变，基于原始状态生成一个新的状态</span></span>
+<span class="language-javascript">            <span class="keyword">if</span> (action.<span class="property">type</span> === <span class="string">&quot;INCREMENT&quot;</span>)&#123;</span>
+<span class="language-javascript">                <span class="keyword">return</span> &#123;<span class="attr">count</span>:state.<span class="property">count</span>+<span class="number">1</span>&#125;</span>
+<span class="language-javascript">            &#125;</span>
+<span class="language-javascript">            <span class="keyword">if</span> (action.<span class="property">type</span> === <span class="string">&quot;DECREMENT&quot;</span>)&#123;</span>
+<span class="language-javascript">                <span class="keyword">return</span> &#123;<span class="attr">count</span>:state.<span class="property">count</span>-<span class="number">1</span>&#125;</span>
+<span class="language-javascript">            &#125;</span>
+<span class="language-javascript">            <span class="keyword">return</span> state</span>
+<span class="language-javascript">        &#125;</span>
+<span class="language-javascript">        <span class="comment">//使用reducer函数生成store实例</span></span>
+<span class="language-javascript">        <span class="keyword">const</span> store = <span class="title class_">Redux</span>.<span class="title function_">createStore</span>(reducer)</span>
+<span class="language-javascript"></span>
+<span class="language-javascript">        <span class="comment">//通过store实例的subscribe订阅数据变化</span></span>
+<span class="language-javascript">        store.<span class="title function_">subscribe</span>(<span class="function">()=&gt;</span>&#123;</span>
+<span class="language-javascript">            <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;state+|-&quot;</span>)</span>
+<span class="language-javascript">            <span class="variable language_">document</span>.<span class="title function_">querySelector</span>(<span class="string">&quot;.text&quot;</span>).<span class="property">innerText</span> = store.<span class="title function_">getState</span>().<span class="property">count</span></span>
+<span class="language-javascript">        &#125;)</span>
+<span class="language-javascript">        <span class="comment">//通过dispatch函数提交状态</span></span>
+<span class="language-javascript">        <span class="keyword">const</span> mbt = <span class="variable language_">document</span>.<span class="title function_">querySelector</span>(<span class="string">&quot;.mius&quot;</span>);</span>
+<span class="language-javascript">        mbt.<span class="title function_">addEventListener</span>(<span class="string">&#x27;click&#x27;</span>,<span class="function">()=&gt;</span>&#123;</span>
+<span class="language-javascript">            store.<span class="title function_">dispatch</span>(&#123;</span>
+<span class="language-javascript">                <span class="attr">type</span>:<span class="string">&quot;DECREMENT&quot;</span></span>
+<span class="language-javascript">            &#125;)</span>
+<span class="language-javascript">        &#125;)</span>
+<span class="language-javascript"></span>
+<span class="language-javascript">        <span class="keyword">const</span> abt = <span class="variable language_">document</span>.<span class="title function_">querySelector</span>(<span class="string">&quot;.add&quot;</span>);</span>
+<span class="language-javascript">        mbt.<span class="title function_">addEventListener</span>(<span class="string">&#x27;click&#x27;</span>,<span class="function">()=&gt;</span>&#123;</span>
+<span class="language-javascript">            store.<span class="title function_">dispatch</span>(&#123;</span>
+<span class="language-javascript">                <span class="attr">type</span>:<span class="string">&quot;INCREMENT&quot;</span></span>
+<span class="language-javascript">            &#125;)</span>
+<span class="language-javascript">        &#125;)</span>
+<span class="language-javascript">    </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">body</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">html</span>&gt;</span></code></pre>
+
+<h3 id="2-环境配置"><a href="#2-环境配置" class="headerlink" title="2.环境配置"></a>2.环境配置</h3><blockquote>
+<p>redux Toolkit                react-redux</p>
+<p>1.使用CRA快速创建React项目</p>
+<p>npx create-react-app test</p>
+<p>2.安装配套工具</p>
+<p>npm i @reduxjs&#x2F;toolkit react-redux</p>
+<p>3.启动项目</p>
+<p>npm run start</p>
+</blockquote>
+<blockquote>
+<p>通常集中状态管理的部分会创建一个store目录</p>
+<p>子store模块放入modules中</p>
+<p>store中的入口文件index.js管理组合modules的所有子模块，并导出store</p>
+</blockquote>
+<h3 id="3-使用redux"><a href="#3-使用redux" class="headerlink" title="3.使用redux"></a>3.使用redux</h3><pre><code class="highlight javascript">#counterStore.<span class="property">js</span>
+<span class="keyword">import</span> &#123;createSlice&#125; <span class="keyword">from</span> <span class="string">&#x27;@reduxjs/toolkit&#x27;</span>
+
+<span class="keyword">const</span> counterStore = <span class="title function_">createSlice</span>(&#123;
+    <span class="attr">name</span>:<span class="string">&#x27;counter&#x27;</span>,
+    <span class="comment">//初始化state</span>
+    <span class="attr">initialState</span>:&#123;
+        <span class="attr">count</span>:<span class="number">0</span>
+    &#125;,
+    <span class="attr">reducers</span>:&#123;
+        <span class="title function_">increment</span>(<span class="params">state</span>)&#123;
+            state.<span class="property">count</span>++
+        &#125;,
+        <span class="title function_">decrement</span>(<span class="params">state</span>)&#123;
+            state.<span class="property">count</span>--
+        &#125;
+    &#125;
+&#125;)
+
+<span class="comment">//解构</span>
+<span class="keyword">const</span> &#123;increment,decrement&#125; = counterStore.<span class="property">actions</span>
+<span class="comment">//获取reducer</span>
+<span class="keyword">const</span> reducer = counterStore.<span class="property">reducer</span>
+<span class="comment">//导出需要的模块</span>
+<span class="keyword">export</span> &#123;increment,decrement&#125;
+<span class="keyword">export</span> <span class="keyword">default</span> reducer</code></pre>
+
+<pre><code class="highlight javascript">#index.<span class="property">js</span>
+<span class="keyword">import</span> &#123;configureStore&#125; <span class="keyword">from</span> <span class="string">&#x27;@reduxjs/toolkit&#x27;</span>;
+
+<span class="comment">//导入子模块</span>
+<span class="keyword">import</span> counterReducer <span class="keyword">from</span> <span class="string">&#x27;./modules/counterStore&#x27;</span>
+<span class="keyword">const</span> store  = <span class="title function_">configureStore</span>(&#123;
+    <span class="attr">reducer</span>:&#123;
+        <span class="attr">counter</span>:counterReducer
+    &#125;
+&#125;)
+
+<span class="keyword">export</span> <span class="keyword">default</span> store</code></pre>
+
+<pre><code class="highlight javascript">#index.<span class="property">js</span>
+<span class="keyword">import</span> <span class="title class_">ReactDOM</span> <span class="keyword">from</span> <span class="string">&#x27;react-dom/client&#x27;</span>;
+<span class="keyword">import</span> <span class="title class_">App</span> <span class="keyword">from</span> <span class="string">&#x27;./App&#x27;</span>;
+<span class="keyword">import</span> store <span class="keyword">from</span> <span class="string">&#x27;./store&#x27;</span>;
+<span class="keyword">import</span> &#123; <span class="title class_">Provider</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;react-redux&#x27;</span>;
+<span class="keyword">const</span> root = <span class="title class_">ReactDOM</span>.<span class="title function_">createRoot</span>(<span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&#x27;root&#x27;</span>));
+root.<span class="title function_">render</span>(
+    <span class="language-xml"><span class="tag">&lt;<span class="name">Provider</span>  <span class="attr">store</span>=<span class="string">&#123;store&#125;</span>&gt;</span></span>
+<span class="language-xml">        <span class="tag">&lt;<span class="name">App</span>&gt;</span></span>
+<span class="language-xml">          </span>
+<span class="language-xml">        <span class="tag">&lt;/<span class="name">App</span>&gt;</span></span>
+<span class="language-xml">    <span class="tag">&lt;/<span class="name">Provider</span>&gt;</span></span>
+);</code></pre>
+
+<pre><code class="highlight javascript">#<span class="title class_">App</span>.<span class="property">js</span>
+<span class="keyword">import</span> &#123;useSelector&#125; <span class="keyword">from</span> <span class="string">&#x27;react-redux&#x27;</span> 
+<span class="keyword">function</span> <span class="title function_">App</span>(<span class="params"></span>) &#123;
+  <span class="comment">//结构使用count</span>
+  <span class="keyword">const</span> &#123;count&#125; = <span class="title function_">useSelector</span>(<span class="function"><span class="params">state</span>=&gt;</span>state.<span class="property">counter</span>)
+  <span class="keyword">return</span> (
+    <span class="language-xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span>
+<span class="language-xml">      <span class="tag">&lt;<span class="name">div</span>&gt;</span>&#123;count&#125;<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span>
+<span class="language-xml">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span>
+  );
+&#125;
+
+<span class="keyword">export</span> <span class="keyword">default</span> <span class="title class_">App</span>;</code></pre>
+
+<blockquote>
+<p>修改store的数据,使用hook函数 useDispatch，它的作用是生产提交action对象的dispatch函数</p>
+</blockquote>
+<pre><code class="highlight javascript">#<span class="title class_">App</span>.<span class="property">js</span>
+<span class="keyword">import</span> &#123;useDispatch, useSelector&#125; <span class="keyword">from</span> <span class="string">&#x27;react-redux&#x27;</span> 
+<span class="comment">//导入actionCreater </span>
+<span class="keyword">import</span> &#123;increment,decrement&#125; <span class="keyword">from</span> <span class="string">&#x27;./store/modules/counterStore&#x27;</span>
+<span class="keyword">function</span> <span class="title function_">App</span>(<span class="params"></span>) &#123;
+  <span class="comment">//结构使用count</span>
+  <span class="keyword">const</span> &#123;count&#125; = <span class="title function_">useSelector</span>(<span class="function"><span class="params">state</span>=&gt;</span>state.<span class="property">counter</span>)
+  <span class="keyword">const</span> dispatch = <span class="title function_">useDispatch</span>()
+  <span class="keyword">return</span> (
+    <span class="language-xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span>
+<span class="language-xml">      <span class="tag">&lt;<span class="name">button</span> <span class="attr">onClick</span>=<span class="string">&#123;()</span>=&gt;</span>dispatch(increment())&#125;&gt;+<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span>
+<span class="language-xml">      <span class="tag">&lt;<span class="name">div</span>&gt;</span>&#123;count&#125;<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span>
+<span class="language-xml">      <span class="tag">&lt;<span class="name">button</span> <span class="attr">onClick</span>=<span class="string">&#123;()</span>=&gt;</span>dispatch(decrement())&#125;&gt;-<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span>
+<span class="language-xml">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span>
+  );
+&#125;
+
+<span class="keyword">export</span> <span class="keyword">default</span> <span class="title class_">App</span>;</code></pre>
+
+<h3 id="4-提交action时传递参数"><a href="#4-提交action时传递参数" class="headerlink" title="4.提交action时传递参数"></a>4.提交action时传递参数</h3><blockquote>
+<p>在调用actionCreater的时候传递参数，参数会被传递到action对象的payload属性上</p>
+</blockquote>
+<pre><code class="highlight javascript"><span class="title function_">addToNumber</span>(<span class="params">state,action</span>)&#123;
+    state.<span class="property">count</span> = action.<span class="property">payload</span>
+&#125;</code></pre>
+
+<h3 id="5-Redux与React异步修改"><a href="#5-Redux与React异步修改" class="headerlink" title="5.Redux与React异步修改"></a>5.Redux与React异步修改</h3><blockquote>
+<p>异步修改</p>
+<p>1.创建store的写法不变，配置好同步修改方法</p>
+<p>2.单独封装一个函数，在函数内部return一个新函数，在新函数中</p>
+<p>​	2.1封装异步请求获取数据</p>
+<p>​	2.2调用同步actionCreater传入异步数据生成一个action对象，并使用dispatch提交</p>
+<p>3.组件中dispatch的写法保持不变</p>
+</blockquote>
+<pre><code class="highlight javascript"><span class="keyword">import</span> &#123; createSlice&#125; <span class="keyword">from</span> <span class="string">&#x27;@reduxjs/toolkit&#x27;</span>
+<span class="keyword">import</span> axios <span class="keyword">from</span> <span class="string">&#x27;axios&#x27;</span>
+<span class="keyword">const</span> <span class="title class_">ChannelStore</span> = <span class="title function_">createSlice</span>(&#123;
+    <span class="attr">name</span>:<span class="string">&#x27;channel&#x27;</span>,
+    <span class="attr">initialState</span>:&#123;
+        <span class="attr">channellist</span>:[]
+    &#125;,
+    <span class="attr">reducers</span>:&#123;
+        <span class="title function_">setChannels</span>(<span class="params">state,action</span>)&#123;
+            state.<span class="property">channellist</span> = action.<span class="property">payload</span>
+        &#125;
+    &#125;
+&#125;)
+<span class="keyword">const</span> &#123;setChannels&#125; = <span class="title class_">ChannelStore</span>.<span class="property">actions</span>
+<span class="comment">//异步请求部分</span>
+<span class="keyword">const</span> <span class="title function_">fetChannerllist</span> = (<span class="params"></span>)=&gt;&#123;
+    <span class="keyword">return</span> <span class="title function_">async</span> (dispatch)=&gt;&#123;
+        <span class="keyword">const</span> res = <span class="keyword">await</span> axios.<span class="title function_">get</span>(<span class="string">&#x27;http://geek.itheima.net/v1_0/channels&#x27;</span>)
+        <span class="title function_">dispatch</span>(<span class="title function_">setChannels</span>(res.<span class="property">data</span>.<span class="property">data</span>.<span class="property">channels</span>))
+    &#125;
+&#125;
+
+<span class="keyword">export</span> &#123;fetChannerllist&#125;
+
+<span class="keyword">const</span> reducer = <span class="title class_">ChannelStore</span>.<span class="property">reducer</span>
+
+<span class="keyword">export</span> <span class="keyword">default</span> reducer</code></pre>
+
+<pre><code class="highlight javascript"><span class="keyword">import</span> &#123;useEffect&#125; <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span>
+<span class="keyword">import</span> &#123;useDispatch, useSelector&#125; <span class="keyword">from</span> <span class="string">&#x27;react-redux&#x27;</span> 
+<span class="comment">//导入actionCreater </span>
+<span class="keyword">import</span> &#123;increment,decrement,addToNumber&#125; <span class="keyword">from</span> <span class="string">&#x27;./store/modules/counterStore&#x27;</span>
+<span class="keyword">import</span> &#123;fetChannerllist&#125; <span class="keyword">from</span> <span class="string">&#x27;./store/modules/channelStore&#x27;</span>
+<span class="keyword">function</span> <span class="title function_">App</span>(<span class="params"></span>) &#123;
+  <span class="comment">//结构使用count</span>
+  <span class="keyword">const</span> &#123;count&#125; = <span class="title function_">useSelector</span>(<span class="function"><span class="params">state</span>=&gt;</span>state.<span class="property">counter</span>)
+  <span class="keyword">const</span> &#123;channellist&#125; = <span class="title function_">useSelector</span>(<span class="function"><span class="params">state</span>=&gt;</span>state.<span class="property">channel</span>)
+  <span class="keyword">const</span> dispatch = <span class="title function_">useDispatch</span>()
+  <span class="title function_">useEffect</span>(<span class="function">()=&gt;</span>&#123;
+    <span class="title function_">dispatch</span>(<span class="title function_">fetChannerllist</span>())
+  &#125;,[dispatch])
+  <span class="keyword">return</span> (
+    <span class="language-xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span>
+<span class="language-xml">      <span class="tag">&lt;<span class="name">button</span> <span class="attr">onClick</span>=<span class="string">&#123;()</span>=&gt;</span>dispatch(increment())&#125;&gt;+<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span>
+<span class="language-xml">      <span class="tag">&lt;<span class="name">div</span>&gt;</span>&#123;count&#125;<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span>
+<span class="language-xml">      <span class="tag">&lt;<span class="name">button</span> <span class="attr">onClick</span>=<span class="string">&#123;()</span>=&gt;</span>dispatch(decrement())&#125;&gt;-<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span>
+<span class="language-xml">      <span class="tag">&lt;<span class="name">button</span> <span class="attr">onClick</span>=<span class="string">&#123;()</span>=&gt;</span>dispatch(addToNumber(20))&#125;&gt;to 20<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span>
+<span class="language-xml">      <span class="tag">&lt;<span class="name">ul</span>&gt;</span></span>
+<span class="language-xml">        &#123;channellist.map(item=&gt;<span class="tag">&lt;<span class="name">li</span> <span class="attr">key</span>=<span class="string">&#123;item.id&#125;</span>&gt;</span>&#123;item.name&#125;<span class="tag">&lt;/<span class="name">li</span>&gt;</span>)&#125;</span>
+<span class="language-xml">      <span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span>
+<span class="language-xml">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span>
+  );
+&#125;
+
+<span class="keyword">export</span> <span class="keyword">default</span> <span class="title class_">App</span>;
+</code></pre>
+
+<h2 id="17-ReactRouter"><a href="#17-ReactRouter" class="headerlink" title="17.ReactRouter"></a>17.ReactRouter</h2><blockquote>
+<p>路由，一个路径path对应一个Component</p>
+</blockquote>
+<pre><code class="highlight javascript"><span class="keyword">const</span> routes = &#123;
+	&#123;
+		<span class="attr">path</span>:<span class="string">&quot;/about&quot;</span>,
+		<span class="attr">componet</span>:about
+	&#125;
+&#125;</code></pre>
+
+<h3 id="1-创建项目并安装依赖"><a href="#1-创建项目并安装依赖" class="headerlink" title="1.创建项目并安装依赖"></a>1.创建项目并安装依赖</h3><blockquote>
+<p>npx create-react-app react-router-pro</p>
+<p>npm i</p>
+</blockquote>
+<blockquote>
+<p>npm i react-router-dom</p>
+</blockquote>
+<blockquote>
+<p>npm run start</p>
+</blockquote>
+<pre><code class="highlight javascript"><span class="keyword">import</span> <span class="title class_">React</span> <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span>;
+<span class="keyword">import</span> <span class="title class_">ReactDOM</span> <span class="keyword">from</span> <span class="string">&#x27;react-dom/client&#x27;</span>;
+<span class="keyword">import</span> <span class="string">&#x27;./index.css&#x27;</span>;
+<span class="keyword">import</span> <span class="title class_">App</span> <span class="keyword">from</span> <span class="string">&#x27;./App&#x27;</span>;
+<span class="keyword">import</span> reportWebVitals <span class="keyword">from</span> <span class="string">&#x27;./reportWebVitals&#x27;</span>;
+
+<span class="keyword">import</span> &#123;createBrowserRouter,<span class="title class_">RouterProvider</span>&#125; <span class="keyword">from</span> <span class="string">&#x27;react-router-dom&#x27;</span>
+
+<span class="keyword">const</span> router = <span class="title function_">createBrowserRouter</span>([
+  &#123;
+    <span class="attr">path</span>:<span class="string">&#x27;/login&#x27;</span>,
+    <span class="attr">element</span>:<span class="language-xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span>login<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span>
+  &#125;,
+  &#123;
+    <span class="attr">path</span>:<span class="string">&#x27;/article&#x27;</span>,
+    <span class="attr">element</span>:<span class="language-xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span>article<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span>
+  &#125;
+])
+
+<span class="keyword">const</span> root = <span class="title class_">ReactDOM</span>.<span class="title function_">createRoot</span>(<span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&#x27;root&#x27;</span>));
+root.<span class="title function_">render</span>(
+  <span class="language-xml"><span class="tag">&lt;<span class="name">React.StrictMode</span>&gt;</span></span>
+<span class="language-xml">    <span class="tag">&lt;<span class="name">RouterProvider</span> <span class="attr">router</span>=<span class="string">&#123;router&#125;</span>&gt;</span></span>
+<span class="language-xml">      <span class="tag">&lt;<span class="name">App</span> /&gt;</span></span>
+<span class="language-xml">    <span class="tag">&lt;/<span class="name">RouterProvider</span>&gt;</span></span>
+<span class="language-xml"></span>
+<span class="language-xml">  <span class="tag">&lt;/<span class="name">React.StrictMode</span>&gt;</span></span>
+);
+
+<span class="title function_">reportWebVitals</span>();
+</code></pre>
+
+<h3 id="2-抽象路由模块"><a href="#2-抽象路由模块" class="headerlink" title="2.抽象路由模块"></a>2.抽象路由模块</h3><blockquote>
+<p>在page文件夹新建文件</p>
+</blockquote>
+<pre><code class="highlight javascript"><span class="keyword">const</span> <span class="title function_">Article</span> = (<span class="params"></span>)=&gt;&#123;
+    <span class="keyword">return</span> <span class="language-xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span>Article<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span>
+&#125;
+
+<span class="keyword">export</span> <span class="keyword">default</span> <span class="title class_">Article</span></code></pre>
+
+<blockquote>
+<p>router文件夹定义router</p>
+</blockquote>
+<pre><code class="highlight javascript"><span class="keyword">import</span> <span class="title class_">Article</span> <span class="keyword">from</span> <span class="string">&#x27;../page/Article&#x27;</span>
+<span class="keyword">import</span> <span class="title class_">Login</span> <span class="keyword">from</span> <span class="string">&#x27;../page/Login&#x27;</span>
+<span class="keyword">import</span> &#123;createBrowserRouter&#125; <span class="keyword">from</span> <span class="string">&#x27;react-router-dom&#x27;</span>
+
+<span class="keyword">const</span> router = <span class="title function_">createBrowserRouter</span>([
+  &#123;
+    <span class="attr">path</span>:<span class="string">&#x27;/login&#x27;</span>,
+    <span class="attr">element</span>:<span class="language-xml"><span class="tag">&lt;<span class="name">Login</span>&gt;</span><span class="tag">&lt;/<span class="name">Login</span>&gt;</span></span>
+  &#125;,
+  &#123;
+    <span class="attr">path</span>:<span class="string">&#x27;/article&#x27;</span>,
+    <span class="attr">element</span>:<span class="language-xml"><span class="tag">&lt;<span class="name">Article</span>&gt;</span><span class="tag">&lt;/<span class="name">Article</span>&gt;</span></span>
+  &#125;
+])
+
+<span class="keyword">export</span> <span class="keyword">default</span> router</code></pre>
+
+<blockquote>
+<p>导入router</p>
+</blockquote>
+<pre><code class="highlight javascript"><span class="keyword">import</span> router <span class="keyword">from</span> <span class="string">&#x27;../router&#x27;</span>; 
+<span class="keyword">import</span> &#123;<span class="title class_">RouterProvider</span>&#125; <span class="keyword">from</span> <span class="string">&#x27;react-router-dom&#x27;</span>
+
+<span class="keyword">const</span> root = <span class="title class_">ReactDOM</span>.<span class="title function_">createRoot</span>(<span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&#x27;root&#x27;</span>));
+root.<span class="title function_">render</span>(
+  <span class="language-xml"><span class="tag">&lt;<span class="name">React.StrictMode</span>&gt;</span></span>
+<span class="language-xml">    <span class="tag">&lt;<span class="name">RouterProvider</span> <span class="attr">router</span>=<span class="string">&#123;router&#125;</span>&gt;</span></span>
+<span class="language-xml">      <span class="tag">&lt;<span class="name">App</span> /&gt;</span></span>
+<span class="language-xml">    <span class="tag">&lt;/<span class="name">RouterProvider</span>&gt;</span></span>
+<span class="language-xml">  <span class="tag">&lt;/<span class="name">React.StrictMode</span>&gt;</span></span>
+);</code></pre>
+
+<h3 id="3-路由导航跳转"><a href="#3-路由导航跳转" class="headerlink" title="3.路由导航跳转"></a>3.路由导航跳转</h3><p>1.声明式导航</p>
+<blockquote>
+<p>使用Link标签</p>
+</blockquote>
+<pre><code class="highlight javascript"><span class="keyword">import</span> &#123;<span class="title class_">Link</span>&#125; <span class="keyword">from</span> <span class="string">&#x27;react-router-dom&#x27;</span>
+
+<span class="keyword">const</span> <span class="title function_">Login</span> = (<span class="params"></span>)=&gt;&#123;
+    <span class="keyword">return</span> (<span class="language-xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span>
+<span class="language-xml">        Login</span>
+<span class="language-xml">        <span class="tag">&lt;<span class="name">Link</span> <span class="attr">to</span>=<span class="string">&quot;/article&quot;</span>&gt;</span>跳转到文章<span class="tag">&lt;/<span class="name">Link</span>&gt;</span></span>
+<span class="language-xml">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span>)
+&#125;
+
+<span class="keyword">export</span> <span class="keyword">default</span> <span class="title class_">Login</span></code></pre>
+
+<p>2.编程式导航</p>
+<blockquote>
+<p>使用useNavigate钩子</p>
+</blockquote>
+<pre><code class="highlight typescript"><span class="keyword">import</span> &#123;useNavigate&#125; <span class="keyword">from</span> <span class="string">&#x27;react-router-dom&#x27;</span>
+
+<span class="keyword">const</span> <span class="title function_">Article</span> = (<span class="params"></span>)=&gt;&#123;
+    <span class="keyword">const</span> navigate = <span class="title function_">useNavigate</span>()
+    <span class="keyword">return</span> (<span class="language-xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span>
+<span class="language-xml">        Article</span>
+<span class="language-xml">        <span class="tag">&lt;<span class="name">button</span> <span class="attr">onClick</span>=<span class="string">&#123;()</span>=&gt;</span>navigate(&quot;/login&quot;)&#125;&gt;去到文章<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span>
+<span class="language-xml">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span>)
+&#125;
+
+<span class="keyword">export</span> <span class="keyword">default</span> <span class="title class_">Article</span></code></pre>
+
+<h3 id="4-导航传参"><a href="#4-导航传参" class="headerlink" title="4.导航传参"></a>4.导航传参</h3><blockquote>
+<p>useSearchParams</p>
+</blockquote>
+<p>1.传递</p>
+<blockquote>
+<p>onClick&#x3D;{()&#x3D;&gt;navigate(“&#x2F;login?id&#x3D;1000&amp;name&#x3D;tom”)}</p>
+</blockquote>
+<p>2.接收</p>
+<pre><code class="highlight plaintext">const [params] = useSearchParams()
+const id = params.get(&#x27;id&#x27;)
+const name = params.get(&#x27;name&#x27;)</code></pre>
+
+<blockquote>
+<p>use</p>
+</blockquote>
+<p>1.占位</p>
+<pre><code class="highlight javascript">&#123;
+    <span class="attr">path</span>:<span class="string">&#x27;/article/:id&#x27;</span>,
+    <span class="attr">element</span>:<span class="language-xml"><span class="tag">&lt;<span class="name">Article</span>&gt;</span><span class="tag">&lt;/<span class="name">Article</span>&gt;</span></span>
+&#125;</code></pre>
+
+<p>2.传递</p>
+<blockquote>
+<p>&lt;Link to&#x3D;”&#x2F;article&#x2F;1000”&gt;跳转到文章&lt;&#x2F;Link&gt;</p>
+</blockquote>
+<p>3.接收</p>
+<pre><code class="highlight javascript"><span class="keyword">const</span> params = <span class="title function_">useParams</span>()
+<span class="keyword">const</span> id = params.<span class="property">id</span></code></pre>
+
+<h3 id="5-嵌套路由配置"><a href="#5-嵌套路由配置" class="headerlink" title="5.嵌套路由配置"></a>5.嵌套路由配置</h3><blockquote>
+<p>使用children属性配置路由关系</p>
+<p>使用Outlet组件配置二级路由渲染配置</p>
+</blockquote>
+<blockquote>
+<p>设置默认路由</p>
+<p>去掉path，改为index:true</p>
+</blockquote>
+<h3 id="6-404路由配置"><a href="#6-404路由配置" class="headerlink" title="6.404路由配置"></a>6.404路由配置</h3><blockquote>
+<p>当浏览器输入的url的路径在整个路由配置都找不到</p>
+</blockquote>
+<pre><code class="highlight javascript">&#123;
+	<span class="attr">path</span>:<span class="string">&#x27;*&#x27;</span>,
+	<span class="attr">element</span>:<span class="language-xml"><span class="tag">&lt;<span class="name">NotFound</span>&gt;</span><span class="tag">&lt;/<span class="name">NotFound</span>&gt;</span></span>
+&#125;</code></pre>
+
+<p>history模式</p>
+<blockquote>
+<p>createBrowerRouter</p>
+</blockquote>
+<p>hash模式</p>
+<blockquote>
+<p>createHashRouter</p>
+</blockquote>
+<h2 id="18-项目练习–-记账本"><a href="#18-项目练习–-记账本" class="headerlink" title="18.项目练习–&gt;记账本"></a>18.项目练习–&gt;记账本</h2><h3 id="1-基本配置"><a href="#1-基本配置" class="headerlink" title="1.基本配置"></a>1.基本配置</h3><p>1.Redux状态管理 @reduxjs&#x2F;toolkit react-redux</p>
+<p>2.路由 react-router-dom</p>
+<p>3.时间 dayjs</p>
+<p>4.class类名处理 classnames</p>
+<p>5.移动端组件 antd-mobile</p>
+<p>6.请求插件axios</p>
+<blockquote>
+<p>npm i @reduxjs&#x2F;toolkit react-redux react-router-dom dayjs classnames antd-mobile axios</p>
+</blockquote>
+<h3 id="2-别名路径配置"><a href="#2-别名路径配置" class="headerlink" title="2.别名路径配置"></a>2.别名路径配置</h3><blockquote>
+<p>craco &#x3D;&#x3D;&#x3D;&gt;webpack</p>
+<ul>
+<li>npm i @craco&#x2F;craco</li>
+<li>craco.config.js</li>
+</ul>
+</blockquote>
+<pre><code class="highlight javascript"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">&#x27;path&#x27;</span>)
+
+<span class="variable language_">module</span>.<span class="property">exports</span> = &#123;
+    <span class="attr">webpack</span>:&#123;
+        <span class="attr">alias</span>:&#123;
+            <span class="string">&#x27;@&#x27;</span>:path.<span class="title function_">resolve</span>(__dirname,<span class="string">&#x27;src&#x27;</span>)
+        &#125;
+    &#125;
+&#125;</code></pre>
+
+<pre><code class="highlight json"><span class="attr">&quot;scripts&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span>
+    <span class="attr">&quot;start&quot;</span><span class="punctuation">:</span> <span class="string">&quot;craco start&quot;</span><span class="punctuation">,</span>
+    <span class="attr">&quot;build&quot;</span><span class="punctuation">:</span> <span class="string">&quot;craco build&quot;</span><span class="punctuation">,</span>
+    <span class="attr">&quot;test&quot;</span><span class="punctuation">:</span> <span class="string">&quot;react-scripts test&quot;</span><span class="punctuation">,</span>
+    <span class="attr">&quot;eject&quot;</span><span class="punctuation">:</span> <span class="string">&quot;react-scripts eject&quot;</span>
+<span class="punctuation">&#125;</span></code></pre>
+
+<blockquote>
+<p>jsconfig.json  &#x3D;&#x3D;&#x3D;&gt;vscode</p>
+</blockquote>
+<pre><code class="highlight json"><span class="punctuation">&#123;</span>
+    <span class="attr">&quot;compilerOptions&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span>
+        <span class="attr">&quot;baseUrl&quot;</span><span class="punctuation">:</span> <span class="string">&quot;./&quot;</span><span class="punctuation">,</span>
+        <span class="attr">&quot;paths&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span>
+            <span class="attr">&quot;@/*&quot;</span><span class="punctuation">:</span><span class="punctuation">[</span>
+                <span class="string">&quot;src/*&quot;</span>
+            <span class="punctuation">]</span>
+        <span class="punctuation">&#125;</span>
+    <span class="punctuation">&#125;</span>
+<span class="punctuation">&#125;</span></code></pre>
+
+<h3 id="3-静态界面的布置"><a href="#3-静态界面的布置" class="headerlink" title="3.静态界面的布置"></a>3.静态界面的布置</h3><pre><code class="highlight javascript"><span class="keyword">import</span> &#123; useEffect &#125; <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span>
+<span class="keyword">import</span> &#123; useDispatch &#125; <span class="keyword">from</span> <span class="string">&#x27;react-redux&#x27;</span>
+<span class="keyword">import</span> &#123;<span class="title class_">Outlet</span>&#125; <span class="keyword">from</span> <span class="string">&#x27;react-router-dom&#x27;</span>
+<span class="keyword">import</span> &#123; getBillList &#125; <span class="keyword">from</span> <span class="string">&#x27;@/store/modules/billStore&#x27;</span>
+<span class="keyword">import</span> <span class="string">&#x27;./demo.css&#x27;</span>
+<span class="keyword">import</span> &#123;<span class="title class_">BillOutline</span>,
+    <span class="title class_">CalculatorOutline</span>,
+    <span class="title class_">AddCircleOutline</span>
+&#125; <span class="keyword">from</span> <span class="string">&#x27;antd-mobile-icons&#x27;</span>
+<span class="keyword">import</span> &#123;<span class="title class_">TabBar</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;antd-mobile&#x27;</span>
+<span class="keyword">const</span> tabs = [
+    &#123;
+      <span class="attr">key</span>: <span class="string">&#x27;/month&#x27;</span>,
+      <span class="attr">title</span>: <span class="string">&#x27;月度账单&#x27;</span>,
+      <span class="attr">icon</span>: <span class="language-xml"><span class="tag">&lt;<span class="name">BillOutline</span> /&gt;</span></span>,
+    &#125;,
+    &#123;
+      <span class="attr">key</span>: <span class="string">&#x27;/message&#x27;</span>,
+      <span class="attr">title</span>: <span class="string">&#x27;记账&#x27;</span>,
+      <span class="attr">icon</span>: <span class="language-xml"><span class="tag">&lt;<span class="name">CalculatorOutline</span> /&gt;</span></span>,
+    &#125;,
+    &#123;
+      <span class="attr">key</span>: <span class="string">&#x27;/year&#x27;</span>,
+      <span class="attr">title</span>: <span class="string">&#x27;年度账单&#x27;</span>,
+      <span class="attr">icon</span>: <span class="language-xml"><span class="tag">&lt;<span class="name">AddCircleOutline</span> /&gt;</span></span>,
+    &#125;,
+  ]
+
+<span class="keyword">const</span> <span class="title function_">Layout</span> = (<span class="params"></span>)=&gt;&#123;
+    <span class="keyword">const</span> dispatch = <span class="title function_">useDispatch</span>()
+    <span class="title function_">useEffect</span>(<span class="function">()=&gt;</span>&#123;
+        <span class="title function_">dispatch</span>(<span class="title function_">getBillList</span>())
+    &#125;,[dispatch])
+    <span class="keyword">return</span> <span class="language-xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&#x27;layout&#x27;</span>&gt;</span></span>
+<span class="language-xml">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&#x27;container&#x27;</span>&gt;</span></span>
+<span class="language-xml">            <span class="tag">&lt;<span class="name">Outlet</span>/&gt;</span></span>
+<span class="language-xml">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span>
+<span class="language-xml">        <span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&quot;footer&quot;</span>&gt;</span></span>
+<span class="language-xml">            <span class="tag">&lt;<span class="name">TabBar</span> /* <span class="attr">onChange</span>=<span class="string">&#123;value</span> =&gt;</span> setRouteActive(value)&#125; */&gt;</span>
+<span class="language-xml">                &#123;tabs.map(item =&gt; (</span>
+<span class="language-xml">            <span class="tag">&lt;<span class="name">TabBar.Item</span> <span class="attr">key</span>=<span class="string">&#123;item.key&#125;</span> <span class="attr">icon</span>=<span class="string">&#123;item.icon&#125;</span> <span class="attr">title</span>=<span class="string">&#123;item.title&#125;</span> /&gt;</span></span>
+<span class="language-xml">                ))&#125;</span>
+<span class="language-xml">            <span class="tag">&lt;/<span class="name">TabBar</span>&gt;</span></span>
+<span class="language-xml">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span>
+    &lt;/div&gt;
+&#125;
+
+<span class="keyword">export</span> <span class="keyword">default</span> <span class="title class_">Layout</span></code></pre>
+
+<h3 id="4-安装SCSS"><a href="#4-安装SCSS" class="headerlink" title="4.安装SCSS"></a>4.安装SCSS</h3><blockquote>
+<p>npm install sass -D</p>
+</blockquote>
+<pre><code class="highlight scss"><span class="selector-tag">body</span>&#123;
+    <span class="selector-tag">div</span>&#123;
+        <span class="attribute">color</span>: blue;
+    &#125;
+&#125;</code></pre>
+
+<h3 id="5-安装antd"><a href="#5-安装antd" class="headerlink" title="5.安装antd"></a>5.安装antd</h3><blockquote>
+<p>npm i antd –save</p>
+</blockquote>
+<h3 id="6-增加表单校验规则"><a href="#6-增加表单校验规则" class="headerlink" title="6.增加表单校验规则"></a>6.增加表单校验规则</h3><pre><code class="highlight javascript">&lt;<span class="title class_">Form</span>.<span class="property">Item</span> name=<span class="string">&quot;verifycode&quot;</span> rules=&#123;[&#123;
+    <span class="attr">required</span>:<span class="literal">true</span>,
+    <span class="attr">message</span>:<span class="string">&quot;请输入验证码&quot;</span>
+&#125;]&#125;&gt;</code></pre>
+
+<h3 id="7-封装axios模块"><a href="#7-封装axios模块" class="headerlink" title="7.封装axios模块"></a>7.封装axios模块</h3><pre><code class="highlight javascript"><span class="comment">//axios的封装处理</span>
+<span class="keyword">import</span> axios <span class="keyword">from</span> <span class="string">&quot;axios&quot;</span>;
+
+<span class="keyword">const</span> request = axios.<span class="title function_">create</span>(&#123;
+    <span class="attr">baseURL</span>:<span class="string">&quot;&quot;</span>,
+    <span class="attr">timeout</span>:<span class="number">5000</span>
+&#125;)
+
+request.<span class="property">interceptors</span>.<span class="property">request</span>.<span class="title function_">use</span>(<span class="function">(<span class="params">config</span>)=&gt;</span>&#123;
+    <span class="keyword">return</span> config
+&#125;,<span class="function">(<span class="params">error</span>)=&gt;</span>&#123;
+    <span class="keyword">return</span> <span class="title class_">Promise</span>.<span class="title function_">reject</span>(error)
+&#125;)
+
+request.<span class="property">interceptors</span>.<span class="property">response</span>.<span class="title function_">use</span>(<span class="function">(<span class="params">response</span>)=&gt;</span>&#123;
+    <span class="keyword">return</span> response.<span class="property">data</span>
+&#125;,<span class="function">(<span class="params">error</span>)=&gt;</span>&#123;
+    <span class="keyword">return</span> <span class="title class_">Promise</span>.<span class="title function_">reject</span>(error)
+&#125;)
+
+<span class="keyword">export</span> &#123;request&#125;</code></pre>
+
+<h3 id="8-redux封装token"><a href="#8-redux封装token" class="headerlink" title="8.redux封装token"></a>8.redux封装token</h3><pre><code class="highlight javascript"><span class="keyword">import</span> &#123;createSlice&#125; <span class="keyword">from</span> <span class="string">&#x27;@reduxjs/toolkit&#x27;</span>
+<span class="keyword">import</span> &#123;request&#125; <span class="keyword">from</span> <span class="string">&#x27;@/utils/index&#x27;</span>
+<span class="keyword">const</span> userStore = <span class="title function_">createSlice</span>(&#123;
+    <span class="attr">name</span>:<span class="string">&quot;user&quot;</span>,
+    <span class="attr">initialState</span>:&#123;
+        <span class="attr">token</span>:<span class="string">&#x27;&#x27;</span>
+    &#125;,
+    <span class="attr">reducers</span>:&#123;
+        <span class="title function_">setToken</span>(<span class="params">state,action</span>)&#123;
+            state.<span class="property">token</span> = action.<span class="property">payload</span>
+        &#125;
+    &#125;
+&#125;)
+
+<span class="keyword">const</span> &#123;setToken&#125; = userStore.<span class="property">actions</span>
+<span class="keyword">const</span> <span class="title function_">fetchLogin</span> = (<span class="params">loginForm</span>)=&gt;&#123;
+    <span class="keyword">return</span> <span class="title function_">async</span> (dispatch)=&gt;&#123;
+        <span class="keyword">const</span> res = <span class="keyword">await</span> request.<span class="title function_">post</span>(<span class="string">&#x27;/authorizations&#x27;</span>,loginForm)
+        <span class="title function_">dispatch</span>(<span class="title function_">setToken</span>(res.<span class="property">data</span>.<span class="property">token</span>))
+    &#125;
+&#125;
+<span class="keyword">const</span> userReducer = userStore.<span class="property">reducer</span>
+
+<span class="keyword">export</span> &#123;setToken,fetchLogin&#125;
+<span class="keyword">export</span> <span class="keyword">default</span> userReducer</code></pre>
+
+<h3 id="9-封装与token相关的方法，存删取"><a href="#9-封装与token相关的方法，存删取" class="headerlink" title="9.封装与token相关的方法，存删取"></a>9.封装与token相关的方法，存删取</h3><pre><code class="highlight javascript"><span class="keyword">function</span> <span class="title function_">setTokens</span>(<span class="params">token</span>)&#123;
+    <span class="variable language_">localStorage</span>.<span class="title function_">setItem</span>(<span class="string">&quot;token&quot;</span>,token)
+&#125;
+
+<span class="keyword">function</span> <span class="title function_">getToken</span>(<span class="params"></span>)&#123;
+    <span class="keyword">return</span> <span class="variable language_">localStorage</span>.<span class="title function_">getItem</span>(<span class="string">&quot;token&quot;</span>)
+&#125;
+
+<span class="keyword">function</span> <span class="title function_">removeToken</span>(<span class="params"></span>)&#123;
+    <span class="variable language_">localStorage</span>.<span class="title function_">removeItem</span>(<span class="string">&quot;token&quot;</span>)
+&#125;
+
+<span class="keyword">export</span> &#123;
+    setTokens,
+    getToken,
+    removeToken
+&#125;</code></pre>
+
+<h3 id="10-路由权限控制"><a href="#10-路由权限控制" class="headerlink" title="10.路由权限控制"></a>10.路由权限控制</h3><pre><code class="highlight javascript"><span class="keyword">import</span> &#123;getToken&#125; <span class="keyword">from</span> <span class="string">&#x27;@/utils&#x27;</span>
+<span class="keyword">import</span> &#123; <span class="title class_">Navigate</span> &#125; <span class="keyword">from</span> <span class="string">&#x27;react-router-dom&#x27;</span>
+
+<span class="keyword">function</span> <span class="title function_">AuthRoute</span>(<span class="params">&#123;children&#125;</span>)&#123;
+    <span class="keyword">const</span> token = <span class="title function_">getToken</span>()
+    <span class="keyword">if</span> (token)&#123;
+        <span class="keyword">return</span> <span class="language-xml"><span class="tag">&lt;&gt;</span>&#123;children&#125;<span class="tag">&lt;/&gt;</span></span>
+    &#125;<span class="keyword">else</span>&#123;
+        <span class="keyword">return</span> <span class="language-xml"><span class="tag">&lt;<span class="name">Navigate</span> <span class="attr">to</span>=<span class="string">&#123;</span>&#x27;/<span class="attr">login</span>&#x27;&#125; <span class="attr">replace</span>/&gt;</span></span>
+    &#125;
+&#125;
+
+<span class="keyword">export</span> &#123;<span class="title class_">AuthRoute</span>&#125;</code></pre>
+
+<pre><code class="highlight javascript"><span class="keyword">import</span> <span class="title class_">Login</span> <span class="keyword">from</span> <span class="string">&quot;@/pages/Login&quot;</span>;
+<span class="keyword">import</span> <span class="title class_">Layout</span> <span class="keyword">from</span> <span class="string">&quot;@/pages/Layout&quot;</span>;
+<span class="keyword">import</span> &#123;<span class="title class_">AuthRoute</span>&#125; <span class="keyword">from</span> <span class="string">&#x27;@/components/AuthRoute&#x27;</span>
+<span class="keyword">import</span> &#123;createBrowserRouter&#125; <span class="keyword">from</span> <span class="string">&#x27;react-router-dom&#x27;</span>
+
+<span class="keyword">const</span> router = <span class="title function_">createBrowserRouter</span>([
+    &#123;
+        <span class="attr">path</span>:<span class="string">&quot;/&quot;</span>,
+        <span class="attr">element</span>:<span class="language-xml"><span class="tag">&lt;<span class="name">AuthRoute</span>&gt;</span><span class="tag">&lt;<span class="name">Layout</span>/&gt;</span><span class="tag">&lt;/<span class="name">AuthRoute</span>&gt;</span></span>
+    &#125;,
+    &#123;
+        <span class="attr">path</span>:<span class="string">&quot;/login&quot;</span>,
+        <span class="attr">element</span>:<span class="language-xml"><span class="tag">&lt;<span class="name">Login</span>/&gt;</span></span>
+    &#125;
+])
+
+<span class="keyword">export</span> <span class="keyword">default</span> router</code></pre>
+
+<h3 id="11-normalize-css"><a href="#11-normalize-css" class="headerlink" title="11.normalize.css"></a>11.normalize.css</h3><blockquote>
+<p>npm i normalize.css</p>
+<p>初始化样式</p>
+</blockquote>
+<blockquote>
+<p>当token失效后访问后端接口会返回401状态码</p>
+</blockquote>
+<h3 id="12-echarts"><a href="#12-echarts" class="headerlink" title="12.echarts"></a>12.echarts</h3><blockquote>
+<p>npm install echarts</p>
+</blockquote>
+<pre><code class="highlight javascript"><span class="keyword">import</span> * <span class="keyword">as</span> echarts <span class="keyword">from</span> <span class="string">&#x27;echarts&#x27;</span>;
+<span class="keyword">import</span> &#123; useEffect, useRef &#125; <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span>;
+
+<span class="keyword">const</span> <span class="title function_">BarChart</span> = (<span class="params">&#123;title&#125;</span>)=&gt;&#123;
+    <span class="keyword">const</span> chartRef = <span class="title function_">useRef</span>(<span class="literal">null</span>)
+    <span class="title function_">useEffect</span>(<span class="function">()=&gt;</span>&#123;
+            <span class="comment">//获取渲染图标的dom节点</span>
+    <span class="keyword">const</span> chartDom = chartRef.<span class="property">current</span>
+    <span class="comment">//初始化图标实例对象</span>
+    <span class="keyword">const</span> myChart = echarts.<span class="title function_">init</span>(chartDom);
+    <span class="keyword">const</span> option = &#123;
+        <span class="attr">title</span>:&#123;
+            <span class="attr">text</span>: title
+        &#125;,
+        <span class="attr">xAxis</span>: &#123;
+            <span class="attr">type</span>: <span class="string">&#x27;category&#x27;</span>,
+            <span class="attr">data</span>: [<span class="string">&#x27;React&#x27;</span>,<span class="string">&#x27;Angular&#x27;</span>,<span class="string">&#x27;Vue&#x27;</span>]
+        &#125;,
+        <span class="attr">yAxis</span>: &#123;
+            <span class="attr">type</span>: <span class="string">&#x27;value&#x27;</span>
+        &#125;,
+        <span class="attr">series</span>: [
+            &#123;
+            <span class="attr">data</span>: [<span class="number">150</span> , <span class="number">120</span>, <span class="number">200</span>],
+            <span class="attr">type</span>: <span class="string">&#x27;bar&#x27;</span>
+            &#125;
+        ]
+    &#125;;
+    option &amp;&amp; myChart.<span class="title function_">setOption</span>(option);
+    &#125;,[])
+    <span class="keyword">return</span> <span class="language-xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">ref</span>=<span class="string">&#123;chartRef&#125;</span> <span class="attr">style</span>=<span class="string">&#123;&#123;width:</span>&#x27;<span class="attr">500px</span>&#x27;,<span class="attr">height:</span>&#x27;<span class="attr">500px</span>&#x27;&#125;&#125;&gt;</span>Home<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span>
+&#125;
+
+<span class="keyword">export</span> <span class="keyword">default</span> <span class="title class_">BarChart</span></code></pre>
+
+<h3 id="13-统一管理API"><a href="#13-统一管理API" class="headerlink" title="13.统一管理API"></a>13.统一管理API</h3><pre><code class="highlight javascript"><span class="keyword">import</span> &#123; request &#125; <span class="keyword">from</span> <span class="string">&quot;@/utils&quot;</span>;
+
+<span class="comment">//登录请求</span>
+<span class="keyword">function</span> <span class="title function_">loginAPI</span>(<span class="params">formData</span>)&#123;
+    <span class="keyword">return</span> <span class="title function_">request</span>(&#123;
+        <span class="attr">url</span>:<span class="string">&#x27;/authorizations&#x27;</span>,
+        <span class="attr">method</span>:<span class="string">&#x27;POST&#x27;</span>,
+        <span class="attr">data</span>:formData
+    &#125;)
+&#125;
+
+<span class="comment">//获取用户信息</span>
+<span class="keyword">function</span> <span class="title function_">getProfileAPT</span>(<span class="params"></span>)&#123;
+    <span class="keyword">return</span> <span class="title function_">request</span>(&#123;
+        <span class="attr">url</span>:<span class="string">&#x27;/user/profile&#x27;</span>,
+        <span class="attr">method</span>:<span class="string">&#x27;GET&#x27;</span>
+    &#125;)
+&#125;
+
+<span class="keyword">export</span> &#123;loginAPI,getProfileAPT&#125;</code></pre>
+
+<h3 id="14-富文本"><a href="#14-富文本" class="headerlink" title="14.富文本"></a>14.富文本</h3><p>npm i <a href="mailto:&#114;&#x65;&#97;&#x63;&#x74;&#x2d;&#x71;&#x75;&#x69;&#108;&#108;&#64;&#50;&#x2e;&#x30;&#46;&#x30;&#x2d;&#98;&#x65;&#116;&#97;&#46;&#x32;">&#114;&#x65;&#97;&#x63;&#x74;&#x2d;&#x71;&#x75;&#x69;&#108;&#108;&#64;&#50;&#x2e;&#x30;&#46;&#x30;&#x2d;&#98;&#x65;&#116;&#97;&#46;&#x32;</a> –legacy-peer-deps</p>
+<p>15.使用表单回填数据</p>
+<pre><code class="highlight javascript"><span class="keyword">const</span> [form] = <span class="title class_">Form</span>.<span class="title function_">useForm</span>()
+<span class="comment">//获取传来的id参数</span>
+<span class="keyword">const</span> [searchparam] = <span class="title function_">useSearchParams</span>()
+<span class="keyword">const</span> [form] = <span class="title class_">Form</span>.<span class="title function_">useForm</span>()
+<span class="comment">//获取id</span>
+<span class="keyword">const</span> myid = searchparam.<span class="title function_">get</span>(<span class="string">&quot;id&quot;</span>)
+<span class="title function_">useEffect</span>(<span class="function">()=&gt;</span>&#123;
+    <span class="keyword">async</span> <span class="keyword">function</span> <span class="title function_">getAriticle</span>(<span class="params"></span>)&#123;
+        <span class="keyword">const</span> res = <span class="keyword">await</span> <span class="title function_">getAriticleByIdAPI</span>(myid)
+        form.<span class="title function_">setFieldValue</span>(res.<span class="property">data</span>)
+    &#125;
+    <span class="title function_">getAriticle</span>()
+&#125;,[myid])
+
+&lt;<span class="title class_">Form</span>
+    labelCol=&#123;&#123; <span class="attr">span</span>: <span class="number">4</span> &#125;&#125;
+    wrapperCol=&#123;&#123; <span class="attr">span</span>: <span class="number">16</span> &#125;&#125;
+    <span class="comment">// 注意：此处需要为富文本编辑表示的 content 文章内容设置默认值</span>
+    initialValues=&#123;&#123; <span class="attr">type</span>: <span class="number">1</span> , <span class="attr">content</span>: <span class="string">&#x27;&#x27;</span> &#125;&#125;
+    onFinish=&#123;onFinish&#125;
+    form=&#123;form&#125;
+&gt;</code></pre>
+
+<h3 id="15-打包运行"><a href="#15-打包运行" class="headerlink" title="15.打包运行"></a>15.打包运行</h3><blockquote>
+<p>npm run build</p>
+<p>本地运行</p>
+<pre><code class="highlight plaintext">npm i -g serve
+serve -s build</code></pre>
+</blockquote>
+<h3 id="16-路由懒加载"><a href="#16-路由懒加载" class="headerlink" title="16.路由懒加载"></a>16.路由懒加载</h3><p>1.lazy函数进行动态导入</p>
+<p>2.使用react的Suspense组件包裹路由组件</p>
+<pre><code class="highlight javascript"><span class="keyword">import</span> &#123;lazy&#125; <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span>
+
+<span class="keyword">const</span> <span class="title class_">Home</span> = <span class="title function_">lazy</span>(<span class="function">()=&gt;</span><span class="keyword">import</span>(<span class="string">&quot;@/pages/Home&quot;</span>))
+<span class="keyword">const</span> <span class="title class_">Article</span> = <span class="title function_">lazy</span>(<span class="function">()=&gt;</span><span class="keyword">import</span>(<span class="string">&quot;@/pages/Article&quot;</span>))
+<span class="keyword">const</span> <span class="title class_">Publish</span> = <span class="title function_">lazy</span>(<span class="function">()=&gt;</span><span class="keyword">import</span>(<span class="string">&quot;@/pages/Publish&quot;</span>))</code></pre>
+
+<pre><code class="highlight javascript"><span class="attr">children</span>:[
+    &#123;
+        <span class="attr">index</span>:<span class="literal">true</span>,
+        <span class="attr">element</span>:<span class="language-xml"><span class="tag">&lt;<span class="name">Suspense</span> <span class="attr">fallback</span>=<span class="string">&#123;</span>&quot;<span class="attr">加载中</span>&quot;&#125;&gt;</span><span class="tag">&lt;<span class="name">Home</span>&gt;</span><span class="tag">&lt;/<span class="name">Home</span>&gt;</span><span class="tag">&lt;/<span class="name">Suspense</span>&gt;</span></span>
+    &#125;,
+        &#123;
+            <span class="attr">path</span>:<span class="string">&quot;/publish&quot;</span>,
+                <span class="attr">element</span>: <span class="language-xml"><span class="tag">&lt;<span class="name">Suspense</span> <span class="attr">fallback</span>=<span class="string">&#123;</span>&quot;<span class="attr">加载中</span>&quot;&#125;&gt;</span><span class="tag">&lt;<span class="name">Publish</span>&gt;</span><span class="tag">&lt;/<span class="name">Publish</span>&gt;</span><span class="tag">&lt;/<span class="name">Suspense</span>&gt;</span></span>
+        &#125;,
+            &#123;
+                <span class="attr">path</span>:<span class="string">&quot;/article&quot;</span>,
+                    <span class="attr">element</span>:<span class="language-xml"><span class="tag">&lt;<span class="name">Suspense</span> <span class="attr">fallback</span>=<span class="string">&#123;</span>&quot;<span class="attr">加载中</span>&quot;&#125;&gt;</span><span class="tag">&lt;<span class="name">Article</span>&gt;</span><span class="tag">&lt;/<span class="name">Article</span>&gt;</span><span class="tag">&lt;/<span class="name">Suspense</span>&gt;</span></span>
+            &#125;
+                    ]</code></pre>
+
+<h3 id="17-包体积分析"><a href="#17-包体积分析" class="headerlink" title="17.包体积分析"></a>17.包体积分析</h3><blockquote>
+<p>npm i source-map-explorer</p>
+</blockquote>
+<pre><code class="highlight json"><span class="attr">&quot;scripts&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span>
+    <span class="attr">&quot;start&quot;</span><span class="punctuation">:</span> <span class="string">&quot;craco start&quot;</span><span class="punctuation">,</span>
+    <span class="attr">&quot;build&quot;</span><span class="punctuation">:</span> <span class="string">&quot;craco build&quot;</span><span class="punctuation">,</span>
+    <span class="attr">&quot;test&quot;</span><span class="punctuation">:</span> <span class="string">&quot;craco test&quot;</span><span class="punctuation">,</span>
+    <span class="attr">&quot;eject&quot;</span><span class="punctuation">:</span> <span class="string">&quot;react-scripts eject&quot;</span><span class="punctuation">,</span>
+    <span class="attr">&quot;analyze&quot;</span><span class="punctuation">:</span><span class="string">&quot;source-map-explorer build/static/js/*.js&quot;</span>
+<span class="punctuation">&#125;</span><span class="punctuation">,</span></code></pre>
+
+<h3 id="18-CDN配置"><a href="#18-CDN配置" class="headerlink" title="18.CDN配置"></a>18.CDN配置</h3><p>craco.config.js</p>
+<pre><code class="highlight javascript"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">&#x27;path&#x27;</span>)
+
+<span class="variable language_">module</span>.<span class="property">exports</span> = &#123;
+    <span class="attr">webpack</span>:&#123;
+        <span class="attr">alias</span>:&#123;
+            <span class="string">&#x27;@&#x27;</span>:path.<span class="title function_">resolve</span>(__dirname,<span class="string">&#x27;src&#x27;</span>)
+        &#125;,
+        <span class="attr">configure</span>: <span class="function">(<span class="params">webpackConfig</span>) =&gt;</span> &#123;
+            <span class="comment">// webpackConfig自动注入的webpack配置对象</span>
+            <span class="comment">// 可以在这个函数中对它进行详细的自定义配置</span>
+            <span class="comment">// 只要最后return出去就行</span>
+            <span class="keyword">let</span> cdn = &#123;
+            <span class="attr">js</span>: [],
+            <span class="attr">css</span>: []
+            &#125;
+            <span class="comment">// 只有生产环境才配置</span>
+            <span class="title function_">whenProd</span>(<span class="function">() =&gt;</span> &#123;
+            <span class="comment">// key:需要不参与打包的具体的包</span>
+            <span class="comment">// value: cdn文件中 挂载于全局的变量名称 为了替换之前在开发环境下</span>
+            <span class="comment">// 通过import 导入的 react / react-dom</span>
+            webpackConfig.<span class="property">externals</span> = &#123;
+                <span class="attr">react</span>: <span class="string">&#x27;React&#x27;</span>,
+                <span class="string">&#x27;react-dom&#x27;</span>: <span class="string">&#x27;ReactDOM&#x27;</span>
+            &#125;
+            <span class="comment">// 配置现成的cdn 资源数组 现在是公共为了测试</span>
+            <span class="comment">// 实际开发的时候 用公司自己花钱买的cdn服务器</span>
+            cdn = &#123;
+                <span class="attr">js</span>: [
+                <span class="string">&#x27;https://cdnjs.cloudflare.com/ajax/libs/react/18.1.0/umd/react.production.min.js&#x27;</span>,
+                <span class="string">&#x27;https://cdnjs.cloudflare.com/ajax/libs/react-dom/18.1.0/umd/react-dom.production.min.js&#x27;</span>,
+                ],
+                <span class="attr">css</span>: []
+            &#125;
+            &#125;)
+    
+            <span class="comment">// 都是为了将来配置 htmlWebpackPlugin插件 将来在public/index.html注入</span>
+            <span class="comment">// cdn资源数组时 准备好的一些现成的资源</span>
+            <span class="keyword">const</span> &#123; isFound, match &#125; = <span class="title function_">getPlugin</span>(
+            webpackConfig,
+            <span class="title function_">pluginByName</span>(<span class="string">&#x27;HtmlWebpackPlugin&#x27;</span>)
+            )
+    
+            <span class="keyword">if</span> (isFound) &#123;
+            <span class="comment">// 找到了HtmlWebpackPlugin的插件</span>
+            match.<span class="property">userOptions</span>.<span class="property">cdn</span> = cdn
+            &#125;
+    
+            <span class="keyword">return</span> webpackConfig
+        &#125;
+    &#125;
+&#125;</code></pre>
+
+<p>index.html</p>
+<pre><code class="highlight javascript">&lt;body&gt;
+  <span class="language-xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">id</span>=<span class="string">&quot;root&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span></span>
+  &lt;!-- 加载第三发包的 <span class="variable constant_">CDN</span> 链接 --&gt;
+  &lt;% htmlWebpackPlugin.<span class="property">options</span>.<span class="property">cdn</span>.<span class="property">js</span>.<span class="title function_">forEach</span>(<span class="function"><span class="params">cdnURL</span> =&gt;</span> &#123; %&gt;
+    <span class="language-xml"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;&lt;%= cdnURL %&gt;&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span>
+  &lt;% &#125;) %&gt;
+&lt;/body&gt;</code></pre>
+
+<h2 id="19-useReducer"><a href="#19-useReducer" class="headerlink" title="19.useReducer"></a>19.useReducer</h2><blockquote>
+<p>和useState类似，用来管理相对复杂的状态数据</p>
+</blockquote>
+<p>1.定义一个reducer函数（根据不同的action返回不同的新状态）</p>
+<p>2.在组件中调用useReducer，并传入reducer函数和状态的初始值</p>
+<p>3.状态发生时通过dispatch分派一个action对象</p>
+<pre><code class="highlight plaintext">const [state,dispatch] = useReducer(reducer,0)</code></pre>
+
+<pre><code class="highlight javascript"><span class="keyword">import</span> &#123;useReducer&#125; <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span>
+
+<span class="keyword">function</span> <span class="title function_">reducer</span>(<span class="params">state,action</span>)&#123;
+  <span class="keyword">switch</span>(action.<span class="property">type</span>)&#123;
+    <span class="keyword">case</span> <span class="string">&quot;INC&quot;</span>:
+      <span class="keyword">return</span> state+<span class="number">1</span>
+    <span class="keyword">case</span> <span class="string">&quot;DEC&quot;</span>:
+      <span class="keyword">return</span> state-<span class="number">1</span>
+    <span class="attr">default</span>:
+      <span class="keyword">return</span> state
+  &#125;
+&#125;
+
+<span class="keyword">function</span> <span class="title function_">App</span>(<span class="params"></span>) &#123;
+  <span class="keyword">const</span> [state,dispatch] = <span class="title function_">useReducer</span>(reducer,<span class="number">0</span>)
+  <span class="keyword">return</span> (
+    <span class="language-xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&quot;App&quot;</span>&gt;</span></span>
+<span class="language-xml">      this is app ---&#123;state&#125;</span>
+<span class="language-xml">      <span class="tag">&lt;<span class="name">button</span> <span class="attr">onClick</span>=<span class="string">&#123;()</span>=&gt;</span>dispatch(&#123;type:&quot;INC&quot;&#125;)&#125;&gt;++<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span>
+<span class="language-xml">      <span class="tag">&lt;<span class="name">button</span> <span class="attr">onClick</span>=<span class="string">&#123;()</span>=&gt;</span>dispatch(&#123;type:&quot;DEC&quot;&#125;)&#125;&gt;--<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span>
+<span class="language-xml">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span>
+  );
+&#125;
+
+<span class="keyword">export</span> <span class="keyword">default</span> <span class="title class_">App</span>;</code></pre>
+
+<h2 id="20useMemo"><a href="#20useMemo" class="headerlink" title="20useMemo"></a>20useMemo</h2><blockquote>
+<p>只有在Count1发生变化才执行函数，减少重复的不必要的计算</p>
+<p>缓存的是计算的结果</p>
+<p>使用：消耗非常大的计算</p>
+</blockquote>
+<pre><code class="highlight javascript"><span class="keyword">const</span> [count1,setCount1] = <span class="title function_">useState</span>(<span class="number">5</span>)
+<span class="title function_">useMemo</span>(<span class="function">()=&gt;</span>&#123;
+    <span class="keyword">return</span> <span class="title function_">fib</span>(count1)
+&#125;,[count1])</code></pre>
+
+<h2 id="21-React-memo"><a href="#21-React-memo" class="headerlink" title="21.React.memo"></a>21.React.memo</h2><blockquote>
+<p>经过memo函数包裹生成的缓存组件只有在props发生变化的时候才会重新渲染</p>
+<p>默认渲染机制，父组件渲染子组件跟着一起渲染</p>
+</blockquote>
+<pre><code class="highlight javascript"><span class="keyword">const</span> memoComponent = <span class="title function_">memo</span>(<span class="keyword">function</span> <span class="title function_">son</span>(<span class="params"></span>)&#123;
+  <span class="keyword">return</span> <span class="language-xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span>son<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span>
+&#125;)</code></pre>
+
+<blockquote>
+<p>props   传递一个普通类型     prop改变时组件重新渲染</p>
+<p>props   传递一个引用类型    prop改变的时候组件比较引用是否相等，再重新渲染</p>
+<p>保证引用稳定  –》使用useMemo  组件渲染的过程中缓存一个值</p>
+</blockquote>
+<h2 id="22-useCallback"><a href="#22-useCallback" class="headerlink" title="22.useCallback"></a>22.useCallback</h2><blockquote>
+<p>在组件多次重新渲染时缓存函数</p>
+</blockquote>
+<pre><code class="highlight javascript"><span class="keyword">const</span> handler = <span class="title function_">useCallback</span>(<span class="function">()=&gt;</span>&#123;
+  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;123&quot;</span>)
+&#125;,[])</code></pre>
+
+<h2 id="23-React-forwardRef"><a href="#23-React-forwardRef" class="headerlink" title="23.React.forwardRef"></a>23.React.forwardRef</h2><blockquote>
+<p>ref暴露DOM节点给父组件</p>
+</blockquote>
+<pre><code class="highlight javascript"><span class="keyword">const</span> <span class="title class_">Son</span> = <span class="title function_">forwardRef</span>(<span class="function">(<span class="params">prop,ref</span>)=&gt;</span>&#123;
+    <span class="keyword">return</span> <span class="language-xml"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">ref</span>=<span class="string">&#123;ref&#125;/</span>&gt;</span></span>
+&#125;)
+
+<span class="keyword">function</span> <span class="title function_">App</span>(<span class="params"></span>)&#123;
+    <span class="keyword">const</span> <span class="title class_">SonRef</span> = <span class="title function_">useRef</span>(<span class="literal">null</span>)
+    <span class="keyword">const</span> <span class="title function_">showREf</span> = (<span class="params"></span>)=&gt;&#123;
+        <span class="comment">//console.log(SonRef)</span>
+        <span class="title class_">SonRef</span>.<span class="property">current</span>.<span class="title function_">focus</span>()
+    &#125;
+    <span class="keyword">return</span> (
+        <span class="language-xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&quot;App&quot;</span>&gt;</span></span>
+<span class="language-xml">            <span class="tag">&lt;<span class="name">Son</span> <span class="attr">ref</span>=<span class="string">&#123;SonRef&#125;/</span>&gt;</span></span>
+<span class="language-xml">            <span class="tag">&lt;<span class="name">button</span> <span class="attr">onClick</span>=<span class="string">&#123;showREf&#125;</span>&gt;</span>focus<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span>
+<span class="language-xml">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span>
+    )
+&#125;
+
+<span class="keyword">export</span> <span class="keyword">default</span> <span class="title class_">App</span></code></pre>
+
+<h2 id="24-useImperativeHandle"><a href="#24-useImperativeHandle" class="headerlink" title="24.useImperativeHandle"></a>24.useImperativeHandle</h2><blockquote>
+<p>向父组件暴露子组件的方法</p>
+</blockquote>
+<pre><code class="highlight javascript"><span class="keyword">import</span> &#123; useRef,forwardRef, useImperativeHandle &#125; <span class="keyword">from</span> <span class="string">&quot;react&quot;</span>
+
+<span class="comment">/* function Son()&#123;</span>
+<span class="comment">    return &lt;input type=&quot;text&quot;/&gt;</span>
+<span class="comment">&#125; */</span>
+
+<span class="comment">/* const Son = forwardRef((prop,ref)=&gt;&#123;</span>
+<span class="comment">    return &lt;input type=&quot;text&quot; ref=&#123;ref&#125;/&gt;</span>
+<span class="comment">&#125;)</span>
+<span class="comment"></span>
+<span class="comment">function App()&#123;</span>
+<span class="comment">    const SonRef = useRef(null)</span>
+<span class="comment">    const showREf = ()=&gt;&#123;</span>
+<span class="comment">        SonRef.current.focus()</span>
+<span class="comment">    &#125;</span>
+<span class="comment">    return (</span>
+<span class="comment">        &lt;div className=&quot;App&quot;&gt;</span>
+<span class="comment">            &lt;Son ref=&#123;SonRef&#125;/&gt;</span>
+<span class="comment">            &lt;button onClick=&#123;showREf&#125;&gt;focus&lt;/button&gt;</span>
+<span class="comment">        &lt;/div&gt;</span>
+<span class="comment">    )</span>
+<span class="comment">&#125;</span>
+<span class="comment"></span>
+<span class="comment">export default App */</span>
+
+<span class="keyword">const</span> <span class="title class_">Son</span> = <span class="title function_">forwardRef</span>(<span class="function">(<span class="params">prop,ref</span>)=&gt;</span>&#123;
+    <span class="keyword">const</span> inputRef = <span class="title function_">useRef</span>(<span class="literal">null</span>)
+    <span class="keyword">const</span> <span class="title function_">inputfocus</span> = (<span class="params"></span>)=&gt;&#123;
+        inputRef.<span class="property">current</span>.<span class="title function_">focus</span>()
+    &#125;
+    <span class="title function_">useImperativeHandle</span>(ref,<span class="function">()=&gt;</span>&#123;
+        <span class="keyword">return</span> &#123;
+            inputfocus
+        &#125;
+    &#125;)
+    <span class="keyword">return</span> <span class="language-xml"><span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">ref</span>=<span class="string">&#123;inputRef&#125;/</span>&gt;</span></span>
+&#125;)
+
+<span class="keyword">function</span> <span class="title function_">App</span>(<span class="params"></span>)&#123;
+    <span class="keyword">const</span> <span class="title class_">SonRef</span> = <span class="title function_">useRef</span>(<span class="literal">null</span>)
+    <span class="keyword">const</span> <span class="title function_">handlerclick</span> = (<span class="params"></span>)=&gt;&#123;
+        <span class="title class_">SonRef</span>.<span class="property">current</span>.<span class="title function_">inputfocus</span>()
+    &#125;
+    <span class="keyword">return</span> (
+        <span class="language-xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">className</span>=<span class="string">&quot;App&quot;</span>&gt;</span></span>
+<span class="language-xml">            <span class="tag">&lt;<span class="name">Son</span> <span class="attr">ref</span>=<span class="string">&#123;SonRef&#125;/</span>&gt;</span></span>
+<span class="language-xml">            <span class="tag">&lt;<span class="name">button</span> <span class="attr">onClick</span>=<span class="string">&#123;handlerclick&#125;</span>&gt;</span>focus<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span>
+<span class="language-xml">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span>
+    )
+&#125;
+
+<span class="keyword">export</span> <span class="keyword">default</span> <span class="title class_">App</span></code></pre>
+
+<h2 id="25类组件API"><a href="#25类组件API" class="headerlink" title="25类组件API"></a>25类组件API</h2><p>1.定义类属性state定义状态数据</p>
+<p>2.通过setState方法来修改状态数据</p>
+<p>3.通过reducer来写render来写UI模版</p>
+<pre><code class="highlight javascript"><span class="keyword">import</span> &#123; <span class="title class_">Component</span> &#125; <span class="keyword">from</span> <span class="string">&quot;react&quot;</span>;
+
+<span class="keyword">class</span> <span class="title class_">Counter</span> <span class="keyword">extends</span> <span class="title class_ inherited__">Component</span>&#123;
+    state = &#123;
+        count : <span class="number">0</span>
+    &#125;
+    setCount = <span class="function">()=&gt;</span>&#123;
+        <span class="variable language_">this</span>.<span class="title function_">setState</span>(&#123;
+            <span class="attr">count</span>:<span class="variable language_">this</span>.<span class="property">state</span>.<span class="property">count</span> + <span class="number">1</span>
+        &#125;)
+    &#125;
+
+    <span class="title function_">render</span>(<span class="params"></span>)&#123;
+        <span class="keyword">return</span> <span class="language-xml"><span class="tag">&lt;<span class="name">button</span> <span class="attr">onClick</span>=<span class="string">&#123;this.setCount&#125;</span>&gt;</span>&#123;this.state.count&#125;<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span>
+    &#125;
+&#125;
+
+<span class="keyword">function</span> <span class="title function_">App</span> (<span class="params"></span>) &#123;
+    <span class="keyword">return</span> (
+        <span class="language-xml"><span class="tag">&lt;&gt;</span></span>
+<span class="language-xml">            <span class="tag">&lt;<span class="name">Counter</span>/&gt;</span></span>
+<span class="language-xml">        <span class="tag">&lt;/&gt;</span></span>
+    )
+&#125;
+
+<span class="keyword">export</span> <span class="keyword">default</span> <span class="title class_">App</span>
+</code></pre>
+
+<h2 id="26-类组件的生命周期"><a href="#26-类组件的生命周期" class="headerlink" title="26.类组件的生命周期"></a>26.类组件的生命周期</h2><blockquote>
+<p>componentDidMount:组件挂载完毕自动执行  异步数据获取</p>
+<p>componentDidUpdate:组件更新</p>
+<p>componentWillUnmount:组件卸载时自动执行  清理副作用</p>
+</blockquote>
+<p>27.类组件中父子类传递信息</p>
+<pre><code class="highlight javascript"><span class="keyword">import</span> &#123;<span class="title class_">Component</span>&#125; <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span>
+
+<span class="keyword">class</span> <span class="title class_">Son</span> <span class="keyword">extends</span> <span class="title class_ inherited__">Component</span>&#123;
+    state=&#123;
+        msg : <span class="string">&quot;son&quot;</span>
+    &#125;
+    <span class="title function_">render</span>(<span class="params"></span>)&#123;
+        <span class="comment">//使用属性  使用this.props.属性名</span>
+        <span class="keyword">return</span> <span class="language-xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span>
+<span class="language-xml">            son  --&#123;this.props.msg&#125;</span>
+<span class="language-xml">            <span class="tag">&lt;<span class="name">button</span> <span class="attr">onClick</span>=<span class="string">&#123;this.props.onGet(this.state.msg)&#125;</span>&gt;</span>传递<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span>
+<span class="language-xml">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span>
+    &#125;
+&#125;
+
+<span class="keyword">class</span> <span class="title class_">Parent</span> <span class="keyword">extends</span> <span class="title class_ inherited__">Component</span>&#123;
+    state = &#123;
+        msg : <span class="string">&quot;test&quot;</span>
+    &#125;
+    onGet = <span class="function">(<span class="params">Sonmsg</span>)=&gt;</span>&#123;
+        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="title class_">Sonmsg</span>)
+    &#125;
+    <span class="title function_">render</span>(<span class="params"></span>) &#123;
+        <span class="keyword">return</span> (<span class="language-xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span>father</span>
+<span class="language-xml">            <span class="tag">&lt;<span class="name">Son</span> <span class="attr">msg</span>=<span class="string">&#123;this.state.msg&#125;</span> <span class="attr">onGet</span>=<span class="string">&#123;this.onGet&#125;/</span>&gt;</span></span>
+<span class="language-xml">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span>   )
+    &#125;
+&#125;
+
+<span class="keyword">function</span> <span class="title function_">App</span>(<span class="params"></span>)&#123;
+    <span class="keyword">return</span> (
+        <span class="language-xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span>
+<span class="language-xml">            <span class="tag">&lt;<span class="name">Parent</span>/&gt;</span></span>
+<span class="language-xml">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span>
+    )
+&#125;
+
+<span class="keyword">export</span> <span class="keyword">default</span> <span class="title class_">App</span></code></pre>
+
+<h2 id="27极简的状态管理工具zustand"><a href="#27极简的状态管理工具zustand" class="headerlink" title="27极简的状态管理工具zustand"></a>27极简的状态管理工具zustand</h2><h3 id="1-zustand的基本使用"><a href="#1-zustand的基本使用" class="headerlink" title="1.zustand的基本使用"></a>1.zustand的基本使用</h3><p>1.创建store 状态数据操作方法</p>
+<p>2.component消费数据和方法</p>
+<pre><code class="highlight javascript"><span class="keyword">import</span> &#123;create&#125; <span class="keyword">from</span> <span class="string">&#x27;zustand&#x27;</span>
+
+<span class="keyword">const</span> useStore = <span class="title function_">create</span>(<span class="function">(<span class="params">set</span>)=&gt;</span>&#123;
+    <span class="keyword">return</span> &#123;
+        <span class="attr">count</span>:<span class="number">1</span>,
+        <span class="attr">inc</span>:<span class="function">()=&gt;</span>&#123;
+            <span class="comment">//需要用到老数据传递函数</span>
+            <span class="title function_">set</span>(<span class="function">(<span class="params">state</span>)=&gt;</span>(&#123;<span class="attr">count</span>:state.<span class="property">count</span> + <span class="number">1</span>&#125;))
+            <span class="comment">//当不需要用到老对象时可以直接传递参数</span>
+            <span class="title function_">set</span>(&#123;<span class="attr">count</span>:<span class="number">100</span>&#125;)
+        &#125;
+    &#125;
+&#125;)
+
+<span class="keyword">function</span> <span class="title function_">App</span>(<span class="params"></span>)&#123;
+    <span class="keyword">const</span> &#123;count,inc&#125; = <span class="title function_">useStore</span>()
+    <span class="keyword">return</span> (
+        <span class="language-xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span>
+<span class="language-xml">            <span class="tag">&lt;<span class="name">button</span> <span class="attr">onClick</span>=<span class="string">&#123;inc&#125;</span>&gt;</span>&#123;count&#125;<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span>
+<span class="language-xml">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span>
+    )
+&#125;
+
+<span class="keyword">export</span> <span class="keyword">default</span> <span class="title class_">App</span></code></pre>
+
+<h3 id="2-zustand异步支持"><a href="#2-zustand异步支持" class="headerlink" title="2.zustand异步支持"></a>2.zustand异步支持</h3><pre><code class="highlight javascript"><span class="comment">//异步函数逻辑</span>
+<span class="attr">fetchList</span>:<span class="title function_">async</span> ()=&gt;&#123;
+    <span class="keyword">const</span> res = <span class="keyword">await</span> <span class="title function_">fetch</span>(<span class="string">&quot;http://geek.itheima.net/v1_0/channels&quot;</span>)
+    <span class="keyword">const</span> jsonRes = <span class="keyword">await</span> res.<span class="title function_">json</span>()
+    <span class="title function_">set</span>(&#123;<span class="attr">channelList</span>:jsonRes.<span class="property">data</span>.<span class="property">channels</span>&#125;)
+&#125;</code></pre>
+
+<blockquote>
+<p>使用</p>
+</blockquote>
+<pre><code class="highlight javascript"><span class="keyword">function</span> <span class="title function_">App</span>(<span class="params"></span>)&#123;
+    <span class="keyword">const</span> &#123;count,inc,fetchList,channelList&#125; = <span class="title function_">useStore</span>()
+    <span class="title function_">useEffect</span>(<span class="function">()=&gt;</span>&#123;
+        <span class="title function_">fetchList</span>()
+    &#125;,[fetchList])
+    <span class="keyword">return</span> (
+        <span class="language-xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span>
+<span class="language-xml">            <span class="tag">&lt;<span class="name">button</span> <span class="attr">onClick</span>=<span class="string">&#123;inc&#125;</span>&gt;</span>&#123;count&#125;<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span>
+<span class="language-xml">            <span class="tag">&lt;<span class="name">ul</span>&gt;</span>&#123;channelList.map((item)=&gt;<span class="tag">&lt;<span class="name">li</span> <span class="attr">key</span>=<span class="string">&#123;item.id&#125;</span>&gt;</span>&#123;item.name&#125;<span class="tag">&lt;/<span class="name">li</span>&gt;</span>)&#125;<span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span>
+<span class="language-xml">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span>
+    )
+&#125;</code></pre>
+
+<h3 id="3-zustand切片模式"><a href="#3-zustand切片模式" class="headerlink" title="3.zustand切片模式"></a>3.zustand切片模式</h3><blockquote>
+<p>当单个store比较大时，可以采用切片模式进行拆分</p>
+</blockquote>
+<pre><code class="highlight javascript"><span class="keyword">import</span> &#123; useEffect &#125; <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span>
+<span class="keyword">import</span> &#123;create&#125; <span class="keyword">from</span> <span class="string">&#x27;zustand&#x27;</span>
+
+<span class="keyword">const</span> <span class="title function_">countStore</span> = (<span class="params">set</span>)=&gt;&#123;
+    <span class="keyword">return</span> &#123;
+        <span class="attr">count</span>:<span class="number">1</span>,
+        <span class="attr">inc</span>:<span class="function">()=&gt;</span>&#123;
+            <span class="comment">//需要用到老数据传递函数</span>
+            <span class="title function_">set</span>(<span class="function">(<span class="params">state</span>)=&gt;</span>(&#123;<span class="attr">count</span>:state.<span class="property">count</span> + <span class="number">1</span>&#125;))
+            <span class="comment">//当不需要用到老对象时可以直接传递参数</span>
+        &#125;,
+    &#125;
+&#125;
+
+<span class="keyword">const</span> <span class="title function_">channelStore</span> = (<span class="params">set</span>)=&gt;&#123;
+    <span class="keyword">return</span> &#123;
+        <span class="attr">channelList</span>:[],
+        <span class="attr">fetchList</span>: <span class="title function_">async</span> ()=&gt;&#123;
+        <span class="keyword">const</span> res = <span class="keyword">await</span> <span class="title function_">fetch</span>(<span class="string">&quot;http://geek.itheima.net/v1_0/channels&quot;</span>)
+        <span class="keyword">const</span> jsonRes = <span class="keyword">await</span> res.<span class="title function_">json</span>()
+        <span class="title function_">set</span>(&#123;<span class="attr">channelList</span>:jsonRes.<span class="property">data</span>.<span class="property">channels</span>&#125;)
+    &#125;
+    &#125;
+&#125;
+
+<span class="keyword">const</span> useStore = <span class="title function_">create</span>(<span class="function">(<span class="params">...a</span>)=&gt;</span>&#123;<span class="comment">//...a固定写法</span>
+    <span class="keyword">return</span> &#123;
+        ...<span class="title function_">countStore</span>(...a),
+        ...<span class="title function_">channelStore</span>(...a)
+    &#125;
+&#125;)
+
+<span class="keyword">function</span> <span class="title function_">App</span>(<span class="params"></span>)&#123;
+    <span class="keyword">const</span> &#123;count,inc,fetchList,channelList&#125; = <span class="title function_">useStore</span>()
+    <span class="title function_">useEffect</span>(<span class="function">()=&gt;</span>&#123;
+        <span class="title function_">fetchList</span>()
+    &#125;,[fetchList])
+    <span class="keyword">return</span> (
+        <span class="language-xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span></span>
+<span class="language-xml">            <span class="tag">&lt;<span class="name">button</span> <span class="attr">onClick</span>=<span class="string">&#123;inc&#125;</span>&gt;</span>&#123;count&#125;<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span>
+<span class="language-xml">            <span class="tag">&lt;<span class="name">ul</span>&gt;</span>&#123;channelList.map((item)=&gt;<span class="tag">&lt;<span class="name">li</span> <span class="attr">key</span>=<span class="string">&#123;item.id&#125;</span>&gt;</span>&#123;item.name&#125;<span class="tag">&lt;/<span class="name">li</span>&gt;</span>)&#125;<span class="tag">&lt;/<span class="name">ul</span>&gt;</span></span>
+<span class="language-xml">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span>
+    )
+&#125;
+
+<span class="keyword">export</span> <span class="keyword">default</span> <span class="title class_">App</span></code></pre>
+
+<h2 id="28-React-TypeScript"><a href="#28-React-TypeScript" class="headerlink" title="28.React+TypeScript"></a>28.React+TypeScript</h2><h3 id="1-配置安装"><a href="#1-配置安装" class="headerlink" title="1.配置安装"></a>1.配置安装</h3><blockquote>
+<p>npm create vite@latest react-ts-pro – –template react-ts</p>
+<p>npm i</p>
+</blockquote>
+<h3 id="2-useState自动推导"><a href="#2-useState自动推导" class="headerlink" title="2.useState自动推导"></a>2.useState自动推导</h3><pre><code class="highlight javascript"><span class="keyword">const</span> [value,toggle] = <span class="title function_">useState</span>(<span class="literal">false</span>)
+<span class="keyword">const</span> <span class="title function_">change</span> = (<span class="params"></span>)=&gt;&#123;
+    <span class="title function_">toggle</span>(<span class="number">100</span>)
+&#125;
+<span class="comment">//类型“100”的参数不能赋给类型“SetStateAction&lt;boolean&gt;”的参数</span></code></pre>
+
+<h3 id="3-useState泛型参数"><a href="#3-useState泛型参数" class="headerlink" title="3.useState泛型参数"></a>3.useState泛型参数</h3><pre><code class="highlight javascript">type <span class="title class_">Person</span>&#123;
+  <span class="attr">name</span>:<span class="title class_">String</span>,
+  <span class="attr">age</span>:<span class="title class_">Number</span>
+&#125;
+
+<span class="keyword">function</span> <span class="title function_">App</span>(<span class="params"></span>) &#123;
+ <span class="keyword">const</span> [user,<span class="title class_">Setuser</span>] = useState&lt;<span class="title class_">Person</span>&gt;()
+  <span class="keyword">return</span> (  
+    <span class="language-xml"><span class="tag">&lt;&gt;</span></span>
+<span class="language-xml">      <span class="tag">&lt;<span class="name">div</span>&gt;</span></span>
+<span class="language-xml">        this is app</span>
+<span class="language-xml">      <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span>
+<span class="language-xml">    <span class="tag">&lt;/&gt;</span></span>
+  )
+&#125;</code></pre>
+
+<blockquote>
+<p>限制useState函数的参数为Person | ()&#x3D;&gt;Person</p>
+<p>限制setuser函数的参数必须满足类型为Person | ()&#x3D;&gt;User | undefined</p>
+<p>Person状态数据具备User类型相关的类型提示</p>
+</blockquote>
+<h3 id="4-useState初始值为null"><a href="#4-useState初始值为null" class="headerlink" title="4.useState初始值为null"></a>4.useState初始值为null</h3><blockquote>
+<p>限制useState的参数可以是Person | null</p>
+<p>限制setUser的参数可以是Person | null</p>
+</blockquote>
+<pre><code class="highlight javascript"><span class="keyword">const</span> [user,<span class="title class_">Setuser</span>] = useState&lt;<span class="title class_">Person</span> | <span class="literal">null</span>&gt;(<span class="literal">null</span>)</code></pre>
+
+<h3 id="5-props类型"><a href="#5-props类型" class="headerlink" title="5.props类型"></a>5.props类型</h3><pre><code class="highlight javascript">type <span class="title class_">Props</span>=&#123;
+  <span class="attr">className</span>:<span class="title class_">String</span>
+&#125;
+
+<span class="keyword">function</span> <span class="title function_">Son</span>(<span class="params">props:Props</span>)&#123;
+  <span class="keyword">const</span> &#123;className&#125; = props
+  <span class="variable language_">console</span>.<span class="title function_">log</span>(className)
+  <span class="keyword">return</span> (<span class="language-xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span>test<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span>)
+&#125;
+
+<span class="keyword">function</span> <span class="title function_">App</span>(<span class="params"></span>) &#123;
+  <span class="keyword">return</span> (  
+    <span class="language-xml"><span class="tag">&lt;&gt;</span></span>
+<span class="language-xml">      <span class="tag">&lt;<span class="name">div</span>&gt;</span></span>
+<span class="language-xml">        this is app</span>
+<span class="language-xml">        <span class="tag">&lt;<span class="name">Son</span> <span class="attr">className</span>=<span class="string">&#123;</span>&quot;<span class="attr">test</span>&quot;&#125;/&gt;</span></span>
+<span class="language-xml">      <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span>
+<span class="language-xml">    <span class="tag">&lt;/&gt;</span></span>
+  )
+&#125;</code></pre>
+
+<h3 id="6-children"><a href="#6-children" class="headerlink" title="6.children"></a>6.children</h3><blockquote>
+<p>children是特殊的props，支持不同的类型数据的传入，需要通过一个内置的ReactNode类型来注解</p>
+</blockquote>
+<pre><code class="highlight javascript">type <span class="title class_">Props</span>=&#123;
+  <span class="attr">className</span>:<span class="title class_">String</span>
+  <span class="attr">children</span>:<span class="title class_">React</span>.<span class="property">ReactNode</span>
+&#125;
+
+<span class="keyword">function</span> <span class="title function_">Son</span>(<span class="params">props:Props</span>)&#123;
+  <span class="keyword">const</span> &#123;className,children&#125; = props
+  <span class="variable language_">console</span>.<span class="title function_">log</span>(className)
+  <span class="keyword">return</span> (<span class="language-xml"><span class="tag">&lt;<span class="name">div</span>&gt;</span>&#123;children&#125;<span class="tag">&lt;/<span class="name">div</span>&gt;</span></span>)
+&#125;
+
+<span class="keyword">function</span> <span class="title function_">App</span>(<span class="params"></span>) &#123;
+  <span class="keyword">return</span> (  
+    <span class="language-xml"><span class="tag">&lt;&gt;</span></span>
+<span class="language-xml">      <span class="tag">&lt;<span class="name">div</span>&gt;</span></span>
+<span class="language-xml">        this is app</span>
+<span class="language-xml">        <span class="tag">&lt;<span class="name">Son</span> <span class="attr">className</span>=<span class="string">&#123;</span>&quot;<span class="attr">test</span>&quot;&#125;&gt;</span>this is son<span class="tag">&lt;/<span class="name">Son</span>&gt;</span></span>
+<span class="language-xml">      <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span>
+<span class="language-xml">    <span class="tag">&lt;/&gt;</span></span>
+  )
+&#125;</code></pre>
+
+<h3 id="7-为事件prop添加类型"><a href="#7-为事件prop添加类型" class="headerlink" title="7.为事件prop添加类型"></a>7.为事件prop添加类型</h3><pre><code class="highlight javascript"><span class="keyword">import</span> &#123; useState &#125; <span class="keyword">from</span> <span class="string">&quot;react&quot;</span>
+
+<span class="comment">/* type Person&#123;</span>
+<span class="comment">  name:String,</span>
+<span class="comment">  age:Number</span>
+<span class="comment">&#125; */</span>
+
+type <span class="title class_">Props</span>=&#123;
+  <span class="attr">onGetMsg</span>:<span class="function">(<span class="params">msg:<span class="built_in">String</span></span>)=&gt;</span><span class="keyword">void</span>
+&#125;
+
+<span class="keyword">function</span> <span class="title function_">Son</span>(<span class="params">props:Props</span>)&#123;
+    <span class="keyword">const</span> &#123;onGetMsg&#125; = props
+    <span class="keyword">const</span> msg = <span class="string">&quot;hello&quot;</span>
+  <span class="keyword">return</span> <span class="language-xml"><span class="tag">&lt;<span class="name">button</span> <span class="attr">onClick</span>=<span class="string">&#123;()</span>=&gt;</span>onGetMsg(msg)&#125;&gt;click me!!!<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span>
+&#125;
+
+<span class="keyword">function</span> <span class="title function_">App</span>(<span class="params"></span>) &#123;
+    <span class="keyword">const</span> <span class="title function_">onGetMsg</span> = (<span class="params">msg:<span class="built_in">String</span></span>)=&gt;&#123;
+        <span class="variable language_">console</span>.<span class="title function_">log</span>(msg)
+    &#125;
+  <span class="keyword">return</span> (  
+    <span class="language-xml"><span class="tag">&lt;&gt;</span></span>
+<span class="language-xml">      <span class="tag">&lt;<span class="name">div</span>&gt;</span></span>
+<span class="language-xml">        this is app</span>
+<span class="language-xml">        <span class="tag">&lt;<span class="name">Son</span> <span class="attr">onGetMsg</span>=<span class="string">&#123;onGetMsg&#125;/</span>&gt;</span></span>
+<span class="language-xml">      <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span>
+<span class="language-xml">    <span class="tag">&lt;/&gt;</span></span>
+  )
+&#125;
+
+<span class="keyword">export</span> <span class="keyword">default</span> <span class="title class_">App</span></code></pre>
+
+<h3 id="8-useRef"><a href="#8-useRef" class="headerlink" title="8.useRef"></a>8.useRef</h3><pre><code class="highlight javascript"><span class="keyword">import</span> &#123; useEffect, useRef, useState &#125; <span class="keyword">from</span> <span class="string">&quot;react&quot;</span>
+
+<span class="keyword">function</span> <span class="title function_">App</span>(<span class="params"></span>) &#123;
+    <span class="keyword">const</span> domRef = useRef&lt;<span class="title class_">HTMLInputElement</span>&gt;(<span class="literal">null</span>)
+    <span class="title function_">useEffect</span>(<span class="function">()=&gt;</span>&#123;
+        <span class="comment">//可选链</span>
+        domRef.<span class="property">current</span>?.<span class="title function_">focus</span>()
+    &#125;,[domRef])
+    <span class="keyword">return</span> (  
+        <span class="language-xml"><span class="tag">&lt;&gt;</span></span>
+<span class="language-xml">        <span class="tag">&lt;<span class="name">div</span>&gt;</span></span>
+<span class="language-xml">            this is app</span>
+<span class="language-xml">            <span class="tag">&lt;<span class="name">input</span> <span class="attr">ref</span>=<span class="string">&#123;domRef&#125;</span> <span class="attr">placeholder</span>=<span class="string">&quot;input&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">input</span>&gt;</span></span>
+<span class="language-xml">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span>
+<span class="language-xml">        <span class="tag">&lt;/&gt;</span></span>
+    )
+&#125;
+
+<span class="keyword">export</span> <span class="keyword">default</span> <span class="title class_">App</span>
+</code></pre>
+
+<blockquote>
+<p>当成稳定引用的存储器使用</p>
+</blockquote>
+<pre><code class="highlight javascript"><span class="keyword">import</span> &#123; useEffect, useRef, useState &#125; <span class="keyword">from</span> <span class="string">&quot;react&quot;</span>
+
+<span class="keyword">function</span> <span class="title function_">App</span>(<span class="params"></span>) &#123;
+    <span class="keyword">const</span> domRef = useRef&lt;<span class="title class_">HTMLInputElement</span>&gt;(<span class="literal">null</span>)
+    <span class="keyword">const</span> timeRef = useRef&lt;number | <span class="literal">undefined</span>&gt;(<span class="literal">undefined</span>)
+    <span class="title function_">useEffect</span>(<span class="function">()=&gt;</span>&#123;
+        <span class="comment">//可选链</span>
+        domRef.<span class="property">current</span>?.<span class="title function_">focus</span>()
+        timeRef.<span class="property">current</span>= <span class="built_in">setInterval</span>(<span class="function">() =&gt;</span> &#123;
+            <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;1&quot;</span>);
+        &#125;, <span class="number">1000</span>);
+
+        <span class="keyword">return</span> <span class="function">()=&gt;</span><span class="built_in">clearTimeout</span>(timeRef.<span class="property">current</span>)
+    &#125;,[domRef])
+    <span class="keyword">return</span> (  
+        <span class="language-xml"><span class="tag">&lt;&gt;</span></span>
+<span class="language-xml">        <span class="tag">&lt;<span class="name">div</span>&gt;</span></span>
+<span class="language-xml">            this is app</span>
+<span class="language-xml">            <span class="tag">&lt;<span class="name">input</span> <span class="attr">ref</span>=<span class="string">&#123;domRef&#125;</span> <span class="attr">placeholder</span>=<span class="string">&quot;input&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">input</span>&gt;</span></span>
+<span class="language-xml">        <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span>
+<span class="language-xml">        <span class="tag">&lt;/&gt;</span></span>
+    )
+&#125;
+
+<span class="keyword">export</span> <span class="keyword">default</span> <span class="title class_">App</span></code></pre>
+
+<p>9.路径别名配置</p>
+<blockquote>
+<p>让vite做路径解析</p>
+<p>让VScode做智能提示</p>
+</blockquote>
+<pre><code class="highlight typescript"><span class="comment">//vite.config.ts</span>
+
+<span class="keyword">import</span> &#123; defineConfig &#125; <span class="keyword">from</span> <span class="string">&#x27;vite&#x27;</span>
+<span class="keyword">import</span> react <span class="keyword">from</span> <span class="string">&#x27;@vitejs/plugin-react&#x27;</span>
+<span class="keyword">import</span> path <span class="keyword">from</span> <span class="string">&#x27;path&#x27;</span>
+
+<span class="comment">// https://vitejs.dev/config/</span>
+<span class="keyword">export</span> <span class="keyword">default</span> <span class="title function_">defineConfig</span>(&#123;
+  <span class="attr">plugins</span>: [<span class="title function_">react</span>()],
+  <span class="attr">resolve</span>:&#123;
+    <span class="attr">alias</span>:&#123;
+      <span class="string">&#x27;@&#x27;</span>:path.<span class="title function_">resolve</span>(__dirname,<span class="string">&#x27;./src&#x27;</span>)
+    &#125;
+  &#125;
+&#125;)</code></pre>
+
+<blockquote>
+<p>npm i @types&#x2F;node -D</p>
+</blockquote>
+<blockquote>
+<p>vscode智能提示</p>
+</blockquote>
+<pre><code class="highlight json"><span class="comment">//tsconfig.app.json</span>
+<span class="punctuation">&#123;</span>
+  <span class="attr">&quot;compilerOptions&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span>
+    <span class="attr">&quot;target&quot;</span><span class="punctuation">:</span> <span class="string">&quot;ES2020&quot;</span><span class="punctuation">,</span>
+    <span class="attr">&quot;useDefineForClassFields&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span>
+    <span class="attr">&quot;lib&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="string">&quot;ES2020&quot;</span><span class="punctuation">,</span> <span class="string">&quot;DOM&quot;</span><span class="punctuation">,</span> <span class="string">&quot;DOM.Iterable&quot;</span><span class="punctuation">]</span><span class="punctuation">,</span>
+    <span class="attr">&quot;module&quot;</span><span class="punctuation">:</span> <span class="string">&quot;ESNext&quot;</span><span class="punctuation">,</span>
+    <span class="attr">&quot;skipLibCheck&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span>
+    <span class="attr">&quot;baseUrl&quot;</span><span class="punctuation">:</span> <span class="string">&quot;.&quot;</span><span class="punctuation">,</span>
+    <span class="attr">&quot;paths&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span>
+      <span class="attr">&quot;@/*&quot;</span><span class="punctuation">:</span><span class="punctuation">[</span>
+        <span class="string">&quot;src/*&quot;</span>
+      <span class="punctuation">]</span>
+    <span class="punctuation">&#125;</span><span class="punctuation">,</span>
+    <span class="comment">/* Bundler mode */</span>
+    <span class="attr">&quot;moduleResolution&quot;</span><span class="punctuation">:</span> <span class="string">&quot;bundler&quot;</span><span class="punctuation">,</span>
+    <span class="attr">&quot;allowImportingTsExtensions&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span>
+    <span class="attr">&quot;isolatedModules&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span>
+    <span class="attr">&quot;moduleDetection&quot;</span><span class="punctuation">:</span> <span class="string">&quot;force&quot;</span><span class="punctuation">,</span>
+    <span class="attr">&quot;noEmit&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span>
+    <span class="attr">&quot;jsx&quot;</span><span class="punctuation">:</span> <span class="string">&quot;react-jsx&quot;</span><span class="punctuation">,</span>
+
+    <span class="comment">/* Linting */</span>
+    <span class="attr">&quot;strict&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span>
+    <span class="attr">&quot;noUnusedLocals&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span>
+    <span class="attr">&quot;noUnusedParameters&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span>
+    <span class="attr">&quot;noFallthroughCasesInSwitch&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span>
+  <span class="punctuation">&#125;</span><span class="punctuation">,</span>
+  <span class="attr">&quot;include&quot;</span><span class="punctuation">:</span> <span class="punctuation">[</span><span class="string">&quot;src&quot;</span><span class="punctuation">]</span>
+<span class="punctuation">&#125;</span>
+</code></pre>
+
+<p>API模块封装</p>
+<blockquote>
+<p>通用泛型</p>
+</blockquote>
+<pre><code class="highlight typescript"><span class="keyword">type</span> <span class="title class_">ResType</span>&lt;T&gt; = &#123;
+    <span class="attr">message</span>:<span class="title class_">String</span>,
+    <span class="attr">data</span>:T
+&#125;</code></pre>
+
+<blockquote>
+<p>具体泛型</p>
+</blockquote>
+<pre><code class="highlight typescript"><span class="keyword">type</span> <span class="title class_">User</span> = &#123;
+    <span class="attr">id</span>:<span class="built_in">number</span>,
+    <span class="attr">name</span>:<span class="title class_">String</span>
+&#125; 
+
+<span class="keyword">type</span> <span class="title class_">UserList</span> = &#123;
+    <span class="attr">users</span>:<span class="title class_">User</span>[]
+&#125;</code></pre>
+
+<blockquote>
+<p>使用泛型</p>
+</blockquote>
+<pre><code class="highlight typescript"><span class="keyword">function</span> <span class="title function_">fetchUserList</span>(<span class="params"></span>)&#123;
+    <span class="keyword">return</span> http.<span class="property">request</span>&lt;<span class="title class_">ResType</span>&lt;<span class="title class_">UserList</span>&gt;&gt;(&#123;
+        <span class="attr">url</span>:<span class="string">&quot;/channels&quot;</span>
+    &#125;)
+&#125;</code></pre>
+
+<blockquote>
+<p>反文件</p>
+</blockquote>
+<pre><code class="highlight typescript"><span class="keyword">export</span> <span class="keyword">type</span> <span class="title class_">UserList</span> = &#123;
+    <span class="attr">users</span>:<span class="title class_">User</span>[]
+&#125;
+
+<span class="keyword">export</span> <span class="keyword">type</span> <span class="title class_">ResType</span>&lt;T&gt; = &#123;
+    <span class="attr">message</span>:<span class="title class_">String</span>,
+    <span class="attr">data</span>:T
+&#125;
+
+<span class="keyword">type</span> <span class="title class_">User</span> = &#123;
+    <span class="attr">id</span>:<span class="built_in">number</span>,
+    <span class="attr">name</span>:<span class="title class_">String</span>
+&#125;</code></pre>
+
+<pre><code class="highlight typescript"><span class="keyword">import</span> &#123;http&#125; <span class="keyword">from</span> <span class="string">&#x27;@/utils&#x27;</span>
+<span class="keyword">import</span> <span class="keyword">type</span> &#123;<span class="title class_">ResType</span>,<span class="title class_">UserList</span>&#125; <span class="keyword">from</span> <span class="string">&#x27;@/apis/type/user&#x27;</span>
+
+
+<span class="keyword">function</span> <span class="title function_">fetchUserList</span>(<span class="params"></span>)&#123;
+    <span class="keyword">return</span> http.<span class="property">request</span>&lt;<span class="title class_">ResType</span>&lt;<span class="title class_">UserList</span>&gt;&gt;(&#123;
+        <span class="attr">url</span>:<span class="string">&quot;/channels&quot;</span>
+    &#125;)
+&#125;
+
+<span class="keyword">export</span> &#123;fetchUserList&#125;</code></pre>
+
+<blockquote>
+<p>使用hook优化代码，将代码逻辑抽离</p>
+</blockquote>
+<pre><code class="highlight typescript"><span class="keyword">import</span> &#123; useEffect, useState &#125; <span class="keyword">from</span> <span class="string">&#x27;react&#x27;</span>;
+<span class="keyword">import</span> <span class="keyword">type</span> &#123;<span class="title class_">User</span>&#125; <span class="keyword">from</span> <span class="string">&#x27;@/apis/type/user&#x27;</span>
+<span class="keyword">import</span> &#123;fetchUserList&#125; <span class="keyword">from</span> <span class="string">&#x27;@/apis/user&#x27;</span>
+
+<span class="keyword">const</span> <span class="title function_">useTab</span> = (<span class="params"></span>)=&gt;&#123;
+    <span class="keyword">const</span> [userList,setUserList] = useState&lt;<span class="title class_">User</span>[]&gt;([])
+<span class="title function_">useEffect</span>(<span class="function">()=&gt;</span>&#123;
+    <span class="keyword">const</span> <span class="title function_">getUsers</span> = <span class="keyword">async</span> (<span class="params"></span>)=&gt;&#123;
+        <span class="keyword">try</span>&#123;
+            <span class="keyword">const</span> res = <span class="keyword">await</span> <span class="title function_">fetchUserList</span>()
+            <span class="title function_">setUserList</span>(res.<span class="property">data</span>.<span class="property">data</span>.<span class="property">channels</span>)
+        &#125;<span class="keyword">catch</span>(error)&#123;
+        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">Error</span>(<span class="string">&quot;error&quot;</span>)
+        &#125;
+        &#125;
+        <span class="title function_">getUsers</span>()
+    &#125;,[])
+    <span class="keyword">return</span> &#123;
+        userList
+    &#125;
+&#125;
+
+<span class="keyword">export</span> &#123;useTab&#125;</code></pre>
+
+
+
+
+
+
+
+
+
+
+        </article>
+        <section class="post-near">
+            <ul>
+                
+                    <li>上一篇: 看完啦 (つд⊂)</li>
+                
+                
+                    <li>下一篇: <a href="/2024/09/10/Vue/">Vue</a></li>
+                
+            </ul>
+        </section>
+        
+            <section class="post-tags">
+            <a class="-none-link" href="/tags/React/" rel="tag">React</a><a class="-none-link" href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag">前端</a>
+            </section>
+        
+    
+        <section class="post-author">
+        
+            <figure class="author-avatar">
+                <img src="https://p1.meituan.net/csc/949ad40707d4b4bab7e2ebafbd649aa8211830.jpg" alt="日初" />
+            </figure>
+        
+            <div class="author-info">
+                <h4>日初</h4>
+                <p>一个什么都学的建模动画编程爱好者</p>
+            </div>
+        </section>
+    
+    </div>
+</main>
+
+    <footer>
+    <div class="buttons">
+        <a class="to-top" href="#"></a>
+    </div>
+    <div class="wrap min">
+        <section class="widget">
+            <div class="row">
+                <div class="col-m-4">
+                    <h3 class="title-recent">最新文章：</h3>
+                    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2024/09/10/React/">React</a></li><li class="post-list-item"><a class="post-list-link" href="/2024/09/10/Vue/">Vue</a></li><li class="post-list-item"><a class="post-list-link" href="/2024/08/31/Java%20Web/">Java Web</a></li><li class="post-list-item"><a class="post-list-link" href="/2024/08/31/Nginx/">Nginx</a></li></ul>
+                </div>
+                <div class="col-m-4">
+                    <h3 class="title-date">时光机：</h3>
+                    <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/09/">九月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/08/">八月 2024</a></li></ul>
+                </div>
+                <div class="col-m-4">
+                    <h3 class="title-tags">标签云：</h3>
+                    <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/Java-Web/" style="font-size: 20px;">Java Web</a> <a href="/tags/Nginx/" style="font-size: 20px;">Nginx</a> <a href="/tags/React/" style="font-size: 20px;">React</a> <a href="/tags/Vue/" style="font-size: 20px;">Vue</a> <a href="/tags/%E5%89%8D%E7%AB%AF/" style="font-size: 20px;">前端</a> <a href="/tags/%E8%BF%90%E7%BB%B4/" style="font-size: 20px;">运维</a>
+                </div>
+            </div>
+        </section>
+        <section class="sub-footer">
+            <p>© 2024 <a href="/">Richu</a>. All Rights Reserved. Theme By <a href="https://github.com/Dreamer-Paul/Hingle" target="_blank" rel="nofollow">Hingle</a>.</p>
+        </section>
+    </div>
+</footer>
+
+
+<script src="/static/kico.js"></script>
+<script src="/static/hingle.js"></script>
+
+
+<script>var hingle = new Paul_Hingle({"copyright":true,"night":false});</script>
+
+  </body>
+</html>

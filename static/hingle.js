@@ -167,5 +167,5 @@ ks.image(".post-content:not(.is-special) img, .page-content:not(.is-special) img
 
 // 请保留版权说明
 if(window.console && window.console.log){
-    console.log("%c Hingle %c https://paugram.com ","color: #fff; margin: 1em 0; padding: 5px 0; background: #6f9fc7;","margin: 1em 0; padding: 5px 0; background: #efefef;");
+    console.log("%c Richu %c https://richuff.top ","color: #fff; margin: 1em 0; padding: 5px 0; background: #6f9fc7;","margin: 1em 0; padding: 5px 0; background: #efefef;");
 }

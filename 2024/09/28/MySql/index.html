@@ -1,0 +1,1086 @@
+<!DOCTYPE html>
+<html>
+  <head>
+     
+    <meta charset="UTF-8">
+    <title>Mysql - Richu</title>
+    <link rel="shortcut icon" href="/static/img/icon.png">
+    <link rel="icon" href="/static/img/icon.png" sizes="192x192"/>
+    
+<link rel="stylesheet" href="/static/kico.css">
+<link rel="stylesheet" href="/static/hingle.css">
+
+    
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <meta name="viewport" content="width=device-width, maximum-scale=1, initial-scale=1"/>
+    <meta property="og:site_name" content="Richu">
+    <meta property="og:title" content="Mysql"/>
+    
+    <style>body:before{ content: ''; background-image: url(https://img.meituan.net/csc/d05518606ba7064dd445508e3cf3d4c42860983.png) }</style>
+    
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+  <body>
+    <header>
+    <div class="head-title">
+        <h4>Richu</h4>
+    </div>
+    <div class="head-action">
+        <div class="toggle-btn"></div>
+        <div class="light-btn"></div>
+        <div class="search-btn"></div>
+    </div>
+    <form class="head-search" method="post">
+        <input type="text" name="s" placeholder="搜索什么？">
+    </form>
+    <nav class="head-menu">
+        <a href="/">首页</a>
+        <div class="has-child">
+            <a>分类</a>
+            <div class="sub-menu">
+                <a class="category-link" href="/categories/Java/">Java</a><a class="category-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a><a class="category-link" href="/categories/%E8%BF%90%E7%BB%B4/">运维</a>
+            </div>
+        </div>
+        
+            <a href="/about">关于我</a>
+        
+    </nav>
+</header>
+
+    <main>
+    <div class="wrap min">
+        <section class="post-title">
+            <h2>Mysql</h2>
+            <div class="post-meta">
+                <time class="date">2024.09.28</time>
+            
+                <span class="category"><a class="category-link" href="/categories/Java/">Java</a></span>
+            
+            </div>
+        </section>
+        <article class="post-content">
+        
+            <p>MySQL 是一个关系型数据库管理系统，由瑞典 MySQL AB 公司开发，目前属于 Oracle 公司。MySQL 是一种关联数据库管理系统，关联数据库将数据保存在不同的表中，而不是将所有数据放在一个大仓库内，这样就增加了速度并提高了灵活性。</p>
+<h2 id="1-sql-分类"><a href="#1-sql-分类" class="headerlink" title="1.sql 分类"></a>1.sql 分类</h2><ul>
+<li>DDL 数据定义语言（操作表）</li>
+<li>DML 数据操作语言 （增删改）</li>
+<li>DQL 数据查询语言(查询)</li>
+<li>DCL 数据控制语言（创建数据库用户）</li>
+</ul>
+<h2 id="2-DDL-数据定义语言"><a href="#2-DDL-数据定义语言" class="headerlink" title="2.DDL(数据定义语言)"></a>2.DDL(数据定义语言)</h2><h3 id="1-查询"><a href="#1-查询" class="headerlink" title="1.查询"></a>1.查询</h3><p><code>show databases;</code></p>
+<h3 id="2-创建"><a href="#2-创建" class="headerlink" title="2.创建"></a>2.创建</h3><blockquote>
+<p>如果不存在则会创建，如果存在则不会创建</p>
+</blockquote>
+<p><code>create database 数据库名字;</code></p>
+<blockquote>
+<p>指定默认字符集</p>
+</blockquote>
+<p><code>create database 数据库名字 default charset utf8mb4;</code></p>
+<h3 id="3-删除数据库"><a href="#3-删除数据库" class="headerlink" title="3.删除数据库"></a>3.删除数据库</h3><p><code>drop database 数据库名;</code></p>
+<p><code>drop database if exists 数据库名;</code></p>
+<h3 id="4-使用数据库"><a href="#4-使用数据库" class="headerlink" title="4.使用数据库"></a>4.使用数据库</h3><p><code>use 数据库名</code></p>
+<blockquote>
+<p>查询当前目录</p>
+</blockquote>
+<p><code>select database();</code></p>
+<h3 id="5-查询所有表"><a href="#5-查询所有表" class="headerlink" title="5.查询所有表"></a>5.查询所有表</h3><p><code>show tables</code></p>
+<h3 id="6-创建表"><a href="#6-创建表" class="headerlink" title="6.创建表"></a>6.创建表</h3><h4 id="1-创建"><a href="#1-创建" class="headerlink" title="1.创建"></a>1.创建</h4><pre><code class="highlight sql"><span class="keyword">create</span> <span class="keyword">table</span> 表名(
+    字段<span class="number">1</span> 字段<span class="number">1</span>类型[],
+    #id <span class="type">int</span> comment <span class="string">&#x27;编号&#x27;</span>
+    #comment &quot;1&quot; <span class="operator">&lt;</span><span class="operator">-</span>芝士注释
+    ...
+)[表注释];</code></pre>
+
+<pre><code class="highlight sql"><span class="operator">+</span><span class="comment">--------+-------------+------+-----+---------+-------+</span>
+<span class="operator">|</span> Field  <span class="operator">|</span> Type        <span class="operator">|</span> <span class="keyword">Null</span> <span class="operator">|</span> Key <span class="operator">|</span> <span class="keyword">Default</span> <span class="operator">|</span> Extra <span class="operator">|</span>
+<span class="operator">+</span><span class="comment">--------+-------------+------+-----+---------+-------+</span>
+<span class="operator">|</span> id     <span class="operator">|</span> <span class="type">int</span>         <span class="operator">|</span> YES  <span class="operator">|</span>     <span class="operator">|</span> <span class="keyword">NULL</span>    <span class="operator">|</span>       <span class="operator">|</span>
+<span class="operator">|</span> name   <span class="operator">|</span> <span class="type">varchar</span>(<span class="number">20</span>) <span class="operator">|</span> YES  <span class="operator">|</span>     <span class="operator">|</span> <span class="keyword">NULL</span>    <span class="operator">|</span>       <span class="operator">|</span>
+<span class="operator">|</span> age    <span class="operator">|</span> <span class="type">int</span>         <span class="operator">|</span> YES  <span class="operator">|</span>     <span class="operator">|</span> <span class="keyword">NULL</span>    <span class="operator">|</span>       <span class="operator">|</span>
+<span class="operator">|</span> gender <span class="operator">|</span> <span class="type">varchar</span>(<span class="number">10</span>) <span class="operator">|</span> YES  <span class="operator">|</span>     <span class="operator">|</span> <span class="keyword">NULL</span>    <span class="operator">|</span>       <span class="operator">|</span>
+<span class="operator">|</span> idcard <span class="operator">|</span> text        <span class="operator">|</span> YES  <span class="operator">|</span>     <span class="operator">|</span> <span class="keyword">NULL</span>    <span class="operator">|</span>       <span class="operator">|</span>
+<span class="operator">+</span><span class="comment">--------+-------------+------+-----+---------+-------+</span></code></pre>
+
+<blockquote>
+<p>如果有上图的表，则可以创建字段如下图所示</p>
+</blockquote>
+<pre><code class="highlight sql"><span class="keyword">create</span> <span class="keyword">table</span> id(
+    id <span class="type">int</span> comment <span class="string">&#x27;id&#x27;</span>,
+    name <span class="type">varchar</span>(<span class="number">20</span>) comment <span class="string">&#x27;name&#x27;</span>,
+    age <span class="type">int</span> comment <span class="string">&#x27;age&#x27;</span>,
+    gender <span class="type">varchar</span>(<span class="number">10</span>) comment <span class="string">&#x27;gender&#x27;</span>,
+    idcard text comment <span class="string">&#x27;idcard&#x27;</span>
+);</code></pre>
+
+<blockquote>
+<p>用int表示整数</p>
+<p>vechar（长度）表示字符</p>
+</blockquote>
+<h4 id="2-显示表"><a href="#2-显示表" class="headerlink" title="2.显示表"></a>2.显示表</h4><p><code>desc 表名</code></p>
+<p><code>show create table 表名;</code></p>
+<pre><code class="highlight sql">  richu_user <span class="operator">|</span> <span class="keyword">CREATE</span> <span class="keyword">TABLE</span> `richu_user`(
+  idint <span class="keyword">DEFAULT</span> <span class="keyword">NULL</span> COMMENT <span class="string">&#x27;id&#x27;</span>,
+  name <span class="type">varchar</span>(<span class="number">20</span>) <span class="keyword">DEFAULT</span> <span class="keyword">NULL</span> COMMENT <span class="string">&#x27;name&#x27;</span>,
+  age <span class="type">int</span> <span class="keyword">DEFAULT</span> <span class="keyword">NULL</span> COMMENT <span class="string">&#x27;age&#x27;</span>,
+  gender <span class="type">varchar</span>(<span class="number">10</span>) <span class="keyword">DEFAULT</span> <span class="keyword">NULL</span> COMMENT <span class="string">&#x27;gender&#x27;</span>,
+  idcardtext COMMENT <span class="string">&#x27;idcard&#x27;</span>
+) ENGINE<span class="operator">=</span>InnoDB <span class="keyword">DEFAULT</span> CHARSET<span class="operator">=</span>utf8mb4 <span class="keyword">COLLATE</span><span class="operator">=</span>utf8mb4_0900_ai_ci <span class="operator">|</span></code></pre>
+
+<h3 id="7-数据类型"><a href="#7-数据类型" class="headerlink" title="7.数据类型"></a>7.数据类型</h3><h4 id="1-数值类型"><a href="#1-数值类型" class="headerlink" title="1.数值类型"></a>1.数值类型</h4><p>1.tinyint 1byte (小整数) （unsigned）(无符号)</p>
+<p>2.smallint   2byte</p>
+<p>3.mediumint  3byte</p>
+<p>4.int或integer  4byte</p>
+<p>5.bigint 8byte</p>
+<p>6.float (小数) 4byte</p>
+<p>7.double (小数) 8byte</p>
+<p>9.decimal (小数)</p>
+<p>double(4,1)-&gt;4(长度),1(小数点位数)</p>
+<h4 id="2-字符类型"><a href="#2-字符类型" class="headerlink" title="2.字符类型"></a>2.字符类型</h4><p>(二进制一般用于记录图片以及音频，但由于不方便管理，因此使用相对较少)</p>
+<p>1.char 定长字符串</p>
+<p>2.varchar 变长字符串</p>
+<p>3.tinyblob 不超过255个字符的二进制数据</p>
+<p>4.tinytaxt 短文本字符</p>
+<p>5.blob(二进制)  长文本</p>
+<p>6.text(文本) 长文本</p>
+<p>7.mediumblob(二进制)</p>
+<p>8.mediumtext(文本)</p>
+<p>9.longblob(二进制)</p>
+<p>10.longtext(文本)</p>
+<h4 id="3-日期类型"><a href="#3-日期类型" class="headerlink" title="3.日期类型"></a>3.日期类型</h4><p>1.date YYYY-MM-DD																		         3byte</p>
+<p>2.time HH:MM:SS																			          3byte</p>
+<p>3.year YYYY																					             1byte</p>
+<p>4.datetime YYYY-MM-DD HH:MM:SS										           8byte</p>
+<p>5.timestamp (最大到2038年)  YYYY-MM-DD HH:MM:SS              4byte</p>
+<p>练习:创建一张员工信息表</p>
+<p>1.编号（数字）</p>
+<p>2.员工工号（字符）</p>
+<p>3.员工姓名（字符）</p>
+<p>4.性别（字符）</p>
+<p>5.年龄（无负数）</p>
+<p>6.身份证 （字符）</p>
+<p>7.入职时间（年月日）</p>
+<h3 id="8-修改表"><a href="#8-修改表" class="headerlink" title="8.修改表"></a>8.修改表</h3><h4 id="1-添加字段"><a href="#1-添加字段" class="headerlink" title="1.添加字段"></a>1.添加字段</h4><p><code>alter table 表名 add 新增内容;</code></p>
+<blockquote>
+<p>alter table richu add new_id int comment ‘new id’;</p>
+</blockquote>
+<h4 id="2-修改字段"><a href="#2-修改字段" class="headerlink" title="2.修改字段"></a>2.修改字段</h4><p><code>alter table 表名 modify 字段名 新数据类型（长度）;</code></p>
+<p><code>alter table 表名 change 旧字段名 新字段名 类型;</code></p>
+<h4 id="3-删除字段"><a href="#3-删除字段" class="headerlink" title="3.删除字段"></a>3.删除字段</h4><p>alter table 表名 drop 字段名</p>
+<h4 id="4-修改表名"><a href="#4-修改表名" class="headerlink" title="4.修改表名"></a>4.修改表名</h4><p><code>alter table 表名 rename to 新表名;</code></p>
+<h4 id="5-删除表"><a href="#5-删除表" class="headerlink" title="5.删除表"></a>5.删除表</h4><p><code>drop table [if exists] 表名;</code></p>
+<h4 id="6-清空表"><a href="#6-清空表" class="headerlink" title="6.清空表"></a>6.清空表</h4><p><code>truncate table 表名;</code></p>
+<h2 id="3-DML-数据操作语言"><a href="#3-DML-数据操作语言" class="headerlink" title="3.DML(数据操作语言)"></a>3.DML(数据操作语言)</h2><h3 id="1-添加数据-insert"><a href="#1-添加数据-insert" class="headerlink" title="1.添加数据(insert)"></a>1.添加数据(insert)</h3><h4 id="1-给指定字段添加数据"><a href="#1-给指定字段添加数据" class="headerlink" title="1.给指定字段添加数据"></a>1.给指定字段添加数据</h4><p><code>insert into 表名(字段1，字段2) values(值1，值2);</code></p>
+<h4 id="2-给全部字段添加数据"><a href="#2-给全部字段添加数据" class="headerlink" title="2.给全部字段添加数据"></a>2.给全部字段添加数据</h4><p><code>insert into 表名 values(值1，值2);</code></p>
+<h4 id="3-批量添加数据"><a href="#3-批量添加数据" class="headerlink" title="3.批量添加数据"></a>3.批量添加数据</h4><p><code>insert into 表名(字段1，字段2) values(值1，值2),(值1，值2),(值1，值2),(值1，值2);</code></p>
+<p><code>insert into 表名 valuse(值1，值2),(值1，值2),(值1，值2);</code></p>
+<h3 id="2-修改数据-update"><a href="#2-修改数据-update" class="headerlink" title="2.修改数据(update)"></a>2.修改数据(update)</h3><p><code>updata 表名  set 字段1=值1，字段二=值2，...[where 条件];</code>(在使用where时不用加上括号)</p>
+<blockquote>
+<p>where 条件接 字段&#x3D;值</p>
+<p>如果不带where语句则会影响全局</p>
+</blockquote>
+<blockquote>
+<p>在指定的字段中指定的值行修改set后面指定的字段的内容。</p>
+</blockquote>
+<h3 id="3-删除数据-delete"><a href="#3-删除数据-delete" class="headerlink" title="3.删除数据(delete)"></a>3.删除数据(delete)</h3><p><code>delete from 表名 [where 条件];</code>(在使用where时括号不用加)</p>
+<blockquote>
+<p>如果不加where条件则会将整张表删除</p>
+</blockquote>
+<h2 id="3-DQl-数据查询语言"><a href="#3-DQl-数据查询语言" class="headerlink" title="3.DQl(数据查询语言)"></a>3.DQl(数据查询语言)</h2><h3 id="1-基本查询"><a href="#1-基本查询" class="headerlink" title="1.基本查询"></a>1.基本查询</h3><h4 id="1-查询多个字段"><a href="#1-查询多个字段" class="headerlink" title="1.查询多个字段"></a>1.查询多个字段</h4><blockquote>
+<p>多个字段</p>
+</blockquote>
+<p><code>select 字段1，字段2... from 表名;</code></p>
+<blockquote>
+<p>所有字段</p>
+</blockquote>
+<p><code>select* from 表名;</code></p>
+<h4 id="2-在查询的时候起别名"><a href="#2-在查询的时候起别名" class="headerlink" title="2.在查询的时候起别名"></a>2.在查询的时候起别名</h4><p><code>select id as id1 from 表名;</code></p>
+<p><code>selct id id1 from 表名;</code></p>
+<p><strong>其中id1是别名</strong></p>
+<h4 id="3-查询后去掉重复值"><a href="#3-查询后去掉重复值" class="headerlink" title="3.查询后去掉重复值"></a>3.查询后去掉重复值</h4><p><code>select distinct 字段 from 表名;</code></p>
+<h3 id="2-条件查询-where"><a href="#2-条件查询-where" class="headerlink" title="2.条件查询(where)"></a>2.条件查询(where)</h3><h4 id="1-语法"><a href="#1-语法" class="headerlink" title="1.语法"></a>1.语法</h4><p><code>select 字段列表 from 表名 where 条件</code></p>
+<h4 id="2-条件"><a href="#2-条件" class="headerlink" title="2.条件"></a>2.条件</h4><p>1.&#x3D;</p>
+<p>2.&gt;</p>
+<p>3.&lt;</p>
+<p>4.&gt;&#x3D;</p>
+<p>5.&lt;&#x3D;</p>
+<p>6.is null</p>
+<p>7.is not null</p>
+<p>8.&lt;&gt; (不等于)</p>
+<p>9.&amp;&amp; and</p>
+<p>10.|| or</p>
+<p>11.between 1 and 2 (大于等于1，并且小于等于2)</p>
+<p>12.! not</p>
+<p>13.in(1,2,3) (满足&#x3D;1，&#x3D;2，&#x3D;3即可)</p>
+<p>14like 占位符 (模糊匹配)   _(单个字符)   %(匹配任意个字符，在最后一位，在中间可以写成%X%)</p>
+<blockquote>
+<p>一个下划线为一个字符，两个下划线则为两个字符</p>
+</blockquote>
+<h3 id="3-聚合函数-count、max、min、avg、sum"><a href="#3-聚合函数-count、max、min、avg、sum" class="headerlink" title="3.聚合函数(count、max、min、avg、sum)"></a>3.聚合函数(count、max、min、avg、sum)</h3><h4 id="1-count-统计数量"><a href="#1-count-统计数量" class="headerlink" title="1.count(统计数量)"></a>1.count(统计数量)</h4><p><code>select count(字段) from 表名</code></p>
+<blockquote>
+<p>不统计null值</p>
+</blockquote>
+<h4 id="2-max-最大值"><a href="#2-max-最大值" class="headerlink" title="2.max(最大值)"></a>2.max(最大值)</h4><p><code>select max(字段) from 表名;</code></p>
+<h4 id="3-min-最小值"><a href="#3-min-最小值" class="headerlink" title="3.min(最小值)"></a>3.min(最小值)</h4><p><code>select min(字段) from 表名;</code></p>
+<h4 id="4-avg-平均值"><a href="#4-avg-平均值" class="headerlink" title="4.avg(平均值)"></a>4.avg(平均值)</h4><p><code>select avg(字段) from 表名;</code></p>
+<h4 id="5-sum-求和"><a href="#5-sum-求和" class="headerlink" title="5.sum(求和)"></a>5.sum(求和)</h4><p><code>select sum(字段) from 表名;</code></p>
+<h3 id="4-分组查询-group-by"><a href="#4-分组查询-group-by" class="headerlink" title="4.分组查询(group by)"></a>4.分组查询(group by)</h3><p>where 是分组前进行过滤，having是分组后进行过滤。</p>
+<h4 id="1-语法-1"><a href="#1-语法-1" class="headerlink" title="1.语法"></a>1.语法</h4><p><code>select 字段列表 from 表名 [where 条件] group by 分组字段名 having [分组后的过滤条件];</code></p>
+<h4 id="2-选择分组"><a href="#2-选择分组" class="headerlink" title="2.选择分组"></a>2.选择分组</h4><p><code>select 字段1,count(id) from 表名 group by id;</code></p>
+<h4 id="3-条件选择分组"><a href="#3-条件选择分组" class="headerlink" title="3.条件选择分组"></a>3.条件选择分组</h4><p><code>select 字段1,avg(id) from 表名 group by id having count(*) &gt;=3;</code></p>
+<blockquote>
+<p>根据id分组，分组后进行过滤数量大于3的</p>
+</blockquote>
+<h3 id="5-排序查询-order-by"><a href="#5-排序查询-order-by" class="headerlink" title="5.排序查询(order by)"></a>5.排序查询(order by)</h3><h4 id="1-语法-2"><a href="#1-语法-2" class="headerlink" title="1.语法"></a>1.语法</h4><p><code>select 字段名 from 表名 order by 字段名 asc;</code></p>
+<p><code>select 字段名 from 表名 order by 字段名 desc;</code></p>
+<p><code>select 字段名 from 表名 order by 字段名1 desc,字段名2 asc;</code></p>
+<h4 id="2-排序方式"><a href="#2-排序方式" class="headerlink" title="2.排序方式"></a>2.排序方式</h4><p>ASC  (升序) (默认可以省略)<br>DESC (降序)</p>
+<h3 id="6-分页查询-Limit"><a href="#6-分页查询-Limit" class="headerlink" title="6.分页查询(Limit)"></a>6.分页查询(Limit)</h3><p><code>select 字段列表 from 表名 limit 起始索引，查询记录数;</code></p>
+<p>起始索引从0开始，开始索引&#x3D;（查询页码-1）*每页显示记录数</p>
+<h3 id="7-DQL的执行顺序"><a href="#7-DQL的执行顺序" class="headerlink" title="7.DQL的执行顺序"></a>7.DQL的执行顺序</h3><h4 id="1-书写顺序"><a href="#1-书写顺序" class="headerlink" title="1.书写顺序"></a>1.书写顺序</h4><blockquote>
+<p>select</p>
+<p>​		字段列表</p>
+<p>from</p>
+<p>​		表名列表</p>
+<p>where</p>
+<p>​		条件列表</p>
+<p>group by</p>
+<p>​		分组字段列表</p>
+<p>having</p>
+<p>​		分组后条件列表</p>
+<p>order by</p>
+<p>​		排序字段列表</p>
+<p>limit</p>
+<p>​		分页参数</p>
+</blockquote>
+<h4 id="2-执行顺序"><a href="#2-执行顺序" class="headerlink" title="2.执行顺序"></a>2.执行顺序</h4><blockquote>
+<p>1.from</p>
+<p>2.where</p>
+<p>3.group by having</p>
+<p>4.select</p>
+<p>5.group by having</p>
+<p>6.limit</p>
+</blockquote>
+<h2 id="4-DCL-数据控制语言"><a href="#4-DCL-数据控制语言" class="headerlink" title="4.DCL(数据控制语言)"></a>4.DCL(数据控制语言)</h2><h3 id="1-介绍"><a href="#1-介绍" class="headerlink" title="1.介绍"></a>1.介绍</h3><blockquote>
+<p>管理数据库用户、控制数据库的访问权限</p>
+</blockquote>
+<h3 id="2-用户管理"><a href="#2-用户管理" class="headerlink" title="2.用户管理"></a>2.用户管理</h3><h4 id="1-查询用户"><a href="#1-查询用户" class="headerlink" title="1.查询用户"></a>1.查询用户</h4><blockquote>
+<p>localhost本机</p>
+<p>%任意主机</p>
+</blockquote>
+<p><code>use mysql;</code></p>
+<p><code>selct * from user;</code></p>
+<blockquote>
+<p>用win+R 进入mysql</p>
+<p>MySQL -u 用户名 -p</p>
+</blockquote>
+<h4 id="2-创建用户"><a href="#2-创建用户" class="headerlink" title="2.创建用户"></a>2.创建用户</h4><p><code>create user 用户名 @主机名 identified by 密码;</code></p>
+<h4 id="3-修改用户密码"><a href="#3-修改用户密码" class="headerlink" title="3.修改用户密码"></a>3.修改用户密码</h4><p><code>alter user 用户名@主机名 identified with 旧密码 by 新密码;</code></p>
+<h4 id="4-删除用户"><a href="#4-删除用户" class="headerlink" title="4.删除用户"></a>4.删除用户</h4><p><code>drop user 用户名@主机名;</code></p>
+<h3 id="3-权限控制"><a href="#3-权限控制" class="headerlink" title="3.权限控制"></a>3.权限控制</h3><p>1.权限描述</p>
+<p>*.* (全部表)</p>
+<p>数据库名.* 指定数据库的所有表</p>
+<p>1.all all privileges (所有权限)</p>
+<p>2.select (查询数据)</p>
+<p>3.insert (插入数据)</p>
+<p>4.update (修改数据)</p>
+<p>5.delete (删除数据)</p>
+<p>6.alter (修改表)</p>
+<p>7.drop(删除数据库)</p>
+<p>8.create(创建数据库)</p>
+<p>2.查询权限</p>
+<p><code>show grants fro 用户名@主机名;</code></p>
+<p>3.授予权限</p>
+<p><code>grant 权限列表 on 数据库名.表名 to 用户名@主机名;  </code></p>
+<p>3.撤销权限</p>
+<p><code>revoke 权限列表 on 数据库名.表名 from 用户名@表名;</code></p>
+<blockquote>
+<p>1.多个权限之间，用逗号分隔</p>
+<p>2.授权时，数据库名和表名可以用*进行通配，代表所有。</p>
+</blockquote>
+<h2 id="5-函数"><a href="#5-函数" class="headerlink" title="5.函数"></a>5.函数</h2><h3 id="1-字符串函数"><a href="#1-字符串函数" class="headerlink" title="1.字符串函数"></a>1.字符串函数</h3><h4 id="1-concat（字符串拼接）"><a href="#1-concat（字符串拼接）" class="headerlink" title="1.concat（字符串拼接）"></a>1.concat（字符串拼接）</h4><p><code>select concat(&quot;Hello&quot;,&quot;World&quot;);</code></p>
+<h4 id="2-lower（转为小写）"><a href="#2-lower（转为小写）" class="headerlink" title="2.lower（转为小写）"></a>2.lower（转为小写）</h4><p><code>select lower(&quot;HELLO&quot;);</code></p>
+<h4 id="3-upper-（转为大写）"><a href="#3-upper-（转为大写）" class="headerlink" title="3.upper （转为大写）"></a>3.upper （转为大写）</h4><p><code>select upper(&quot;hello&quot;);</code></p>
+<h4 id="4-lpad-左填充"><a href="#4-lpad-左填充" class="headerlink" title="4.lpad(左填充)"></a>4.lpad(左填充)</h4><blockquote>
+<p>用字符串pad对str进行填充，达到n个字符串长度</p>
+</blockquote>
+<p><code>select lpad(str,n,pad);</code></p>
+<h4 id="5-rpad-右填充"><a href="#5-rpad-右填充" class="headerlink" title="5.rpad(右填充)"></a>5.rpad(右填充)</h4><blockquote>
+<p>用字符串pad对str进行填充，达到n个字符串长度</p>
+</blockquote>
+<p><code>select rpad(str,n,pad);</code></p>
+<h4 id="6-trim-去掉头部的空格和尾部的空格"><a href="#6-trim-去掉头部的空格和尾部的空格" class="headerlink" title="6.trim(去掉头部的空格和尾部的空格)"></a>6.trim(去掉头部的空格和尾部的空格)</h4><p><code>select trim(str);</code></p>
+<h4 id="7-substr-求子串"><a href="#7-substr-求子串" class="headerlink" title="7.substr(求子串)"></a>7.substr(求子串)</h4><blockquote>
+<p>从start开始的n个字符</p>
+</blockquote>
+<p><code>select substr(str,start,len); </code></p>
+<h3 id="2-数值函数"><a href="#2-数值函数" class="headerlink" title="2.数值函数"></a>2.数值函数</h3><h4 id="1-ceil-（向上取整）"><a href="#1-ceil-（向上取整）" class="headerlink" title="1.ceil （向上取整）"></a>1.ceil （向上取整）</h4><p><code>select ceil(2.5);</code> (&#x3D;3)</p>
+<h4 id="2-floor-（向下取整）"><a href="#2-floor-（向下取整）" class="headerlink" title="2.floor （向下取整）"></a>2.floor （向下取整）</h4><p><code>select floor(2.5);</code> (&#x3D;2)</p>
+<h4 id="3-mod-（取模）"><a href="#3-mod-（取模）" class="headerlink" title="3.mod （取模）"></a>3.mod （取模）</h4><p><code>select mod(7,4);</code></p>
+<h4 id="4-rand（随机数）"><a href="#4-rand（随机数）" class="headerlink" title="4.rand（随机数）"></a>4.rand（随机数）</h4><p><code>select rand();</code></p>
+<h4 id="5-round（四舍五入，保留y位小数）"><a href="#5-round（四舍五入，保留y位小数）" class="headerlink" title="5.round（四舍五入，保留y位小数）"></a>5.round（四舍五入，保留y位小数）</h4><p><code>select round(2.5);</code></p>
+<p><code>select round(2.5,0);</code> (&#x3D;3)</p>
+<h3 id="3-日期函数"><a href="#3-日期函数" class="headerlink" title="3.日期函数"></a>3.日期函数</h3><h4 id="1-curdate-年月日"><a href="#1-curdate-年月日" class="headerlink" title="1.curdate (年月日)"></a>1.curdate (年月日)</h4><pre><code class="highlight sql"><span class="keyword">select</span> curdate();</code></pre>
+
+<h4 id="2-curtime-时分秒"><a href="#2-curtime-时分秒" class="headerlink" title="2.curtime (时分秒)"></a>2.curtime (时分秒)</h4><pre><code class="highlight sql"><span class="keyword">select</span> curtime();</code></pre>
+
+<h4 id="3-now-年月日时分秒"><a href="#3-now-年月日时分秒" class="headerlink" title="3.now (年月日时分秒)"></a>3.now (年月日时分秒)</h4><pre><code class="highlight sql"><span class="keyword">select</span> now();</code></pre>
+
+<h4 id="4-year-当前年份"><a href="#4-year-当前年份" class="headerlink" title="4.year (当前年份)"></a>4.year (当前年份)</h4><pre><code class="highlight sql"><span class="keyword">select</span> <span class="keyword">year</span>(now());</code></pre>
+
+<h4 id="5-month-当前月份"><a href="#5-month-当前月份" class="headerlink" title="5.month (当前月份)"></a>5.month (当前月份)</h4><pre><code class="highlight sql"><span class="keyword">select</span> <span class="keyword">month</span>(now());</code></pre>
+
+<h4 id="6-day-当前日期"><a href="#6-day-当前日期" class="headerlink" title="6.day (当前日期)"></a>6.day (当前日期)</h4><pre><code class="highlight sql"><span class="keyword">select</span> <span class="keyword">day</span>(now());</code></pre>
+
+<h4 id="7-date-add-增加时间"><a href="#7-date-add-增加时间" class="headerlink" title="7.date_add (增加时间)"></a>7.date_add (增加时间)</h4><blockquote>
+<p>interval(间隔)a</p>
+<p>70(间隔时间)</p>
+<p>day、month、year</p>
+</blockquote>
+<pre><code class="highlight sql"><span class="keyword">select</span> date_add(now(),<span class="type">interval</span> <span class="number">70</span> <span class="keyword">day</span> );</code></pre>
+
+<h4 id="8-datediff-第一个时间减去第二个时间"><a href="#8-datediff-第一个时间减去第二个时间" class="headerlink" title="8.datediff(第一个时间减去第二个时间)"></a>8.datediff(第一个时间减去第二个时间)</h4><pre><code class="highlight sql"><span class="keyword">select</span> datediff(<span class="string">&#x27;2025-3-26&#x27;</span>,<span class="string">&#x27;2024-3-26&#x27;</span>);</code></pre>
+
+<h3 id="4-流程函数"><a href="#4-流程函数" class="headerlink" title="4.流程函数"></a>4.流程函数</h3><p>1.if(value,t,f)   </p>
+<blockquote>
+<p>如果value为true返回t否则返回f</p>
+</blockquote>
+<pre><code class="highlight sql"><span class="keyword">select</span> if(<span class="literal">true</span>,<span class="number">9</span>,<span class="number">0</span>); <span class="operator">-</span><span class="operator">&gt;</span><span class="number">9</span>
+<span class="keyword">select</span> if(<span class="literal">false</span>,<span class="number">9</span>,<span class="number">0</span>); <span class="operator">-</span><span class="operator">&gt;</span><span class="number">0</span></code></pre>
+
+<p>2.ifnull(value1,value2) </p>
+<blockquote>
+<p>如果value1不为null则返回value1，否则返回value2</p>
+</blockquote>
+<pre><code class="highlight plaintext">select ifnull(&#x27;ok&#x27;,&#x27;default&#x27;); -&gt;ok
+select ifnull(&#x27;&#x27;,&#x27;default&#x27;); -&gt;&#x27;&#x27;
+select  ifnull(null,&#x27;default&#x27;); -&gt;default```</code></pre>
+
+<p>3.case when [val] the [res]… else[default] end;</p>
+<blockquote>
+<p>如果value为true，返回res1，…否则返回default默认值</p>
+</blockquote>
+<pre><code class="highlight sql"><span class="keyword">select</span> name,(<span class="keyword">case</span> richu_user.gender <span class="keyword">when</span> <span class="string">&#x27;男&#x27;</span> <span class="keyword">then</span> <span class="string">&#x27;0&#x27;</span> <span class="keyword">when</span> <span class="string">&#x27;女&#x27;</span> <span class="keyword">then</span> <span class="string">&#x27;1&#x27;</span> <span class="keyword">else</span> <span class="string">&#x27;default&#x27;</span> <span class="keyword">end</span>) <span class="keyword">as</span> <span class="string">&#x27;性别编号&#x27;</span> <span class="keyword">from</span> richu_user;</code></pre>
+
+<p>4.case[expr] when [val] then [res1].. res[default] end;</p>
+<blockquote>
+<p>如果expr的值等于val，返回res1，…否则返回default默认值</p>
+</blockquote>
+<pre><code class="highlight sql"><span class="keyword">select</span> name,(<span class="keyword">case</span>  <span class="keyword">when</span> <span class="type">date</span><span class="operator">&lt;=</span><span class="number">200</span> <span class="keyword">then</span> <span class="string">&#x27;短&#x27;</span> <span class="keyword">when</span> <span class="type">date</span><span class="operator">&lt;=</span> <span class="number">500</span> <span class="keyword">then</span> <span class="string">&#x27;中&#x27;</span> <span class="keyword">else</span> <span class="string">&#x27;长&#x27;</span> <span class="keyword">end</span>) <span class="string">&#x27;时间&#x27;</span> <span class="keyword">from</span> richu_user;</code></pre>
+
+<h2 id="6-约束"><a href="#6-约束" class="headerlink" title="6.约束"></a>6.约束</h2><h3 id="1概念"><a href="#1概念" class="headerlink" title="1概念"></a>1概念</h3><blockquote>
+<p>作用于表中字段上的规则，用于限制存储在表中的数据</p>
+</blockquote>
+<h3 id="2-目的"><a href="#2-目的" class="headerlink" title="2.目的"></a>2.目的</h3><blockquote>
+<p>保证数据库中数据的正确，有效性和完整性</p>
+</blockquote>
+<h3 id="3-分类"><a href="#3-分类" class="headerlink" title="3.分类"></a>3.分类</h3><h4 id="1-非空约束-not-null"><a href="#1-非空约束-not-null" class="headerlink" title="1.非空约束(not null)"></a>1.非空约束(not null)</h4><blockquote>
+<p>限制该字段数据不能为null</p>
+</blockquote>
+<pre><code class="highlight sql">name <span class="type">varchar</span>(<span class="number">10</span>) <span class="keyword">not</span> <span class="keyword">null</span> <span class="keyword">unique</span> comment <span class="string">&#x27;姓名&#x27;</span></code></pre>
+
+<h4 id="2-唯一约束-unique"><a href="#2-唯一约束-unique" class="headerlink" title="2.唯一约束(unique)"></a>2.唯一约束(unique)</h4><blockquote>
+<p>保证该字段的数据是唯一、不重复的</p>
+</blockquote>
+<pre><code class="highlight sql">name <span class="type">varchar</span>(<span class="number">10</span>) <span class="keyword">not</span> <span class="keyword">null</span> <span class="keyword">unique</span> comment <span class="string">&#x27;姓名&#x27;</span></code></pre>
+
+<h4 id="3-主键约束-primary-key"><a href="#3-主键约束-primary-key" class="headerlink" title="3.主键约束(primary key)"></a>3.主键约束(primary key)</h4><blockquote>
+<p>主键是一行的标识，要求非空且唯一</p>
+</blockquote>
+<pre><code class="highlight sql">id <span class="type">int</span> <span class="keyword">primary</span> key auto_increment comment <span class="string">&#x27;主键&#x27;</span>
+
+<span class="operator">/</span><span class="operator">/</span>auto_increment (自增)</code></pre>
+
+<h4 id="4-默认约束-default"><a href="#4-默认约束-default" class="headerlink" title="4.默认约束(default)"></a>4.默认约束(default)</h4><blockquote>
+<p>保存该数据时，如果未指定值则采用默认值</p>
+</blockquote>
+<pre><code class="highlight sql">status <span class="type">varchar</span>(<span class="number">10</span>) <span class="keyword">default</span> <span class="string">&#x27;1&#x27;</span> comment <span class="string">&#x27;状态&#x27;</span>
+<span class="operator">/</span><span class="operator">/</span>插入
+<span class="keyword">insert</span> <span class="keyword">into</span> richu_user2(id,name,age) <span class="keyword">values</span> (<span class="number">4</span>,<span class="string">&#x27;d&#x27;</span>,<span class="number">40</span>);</code></pre>
+
+<h4 id="5-检查约束-check"><a href="#5-检查约束-check" class="headerlink" title="5.检查约束(check)"></a>5.检查约束(check)</h4><blockquote>
+<p>保证字段满足一条件</p>
+</blockquote>
+<pre><code class="highlight sql">age <span class="type">int</span> <span class="keyword">check</span>(age <span class="operator">&gt;=</span><span class="number">0</span> <span class="keyword">and</span> age <span class="operator">&lt;=</span><span class="number">100</span>) comment <span class="string">&#x27;年龄&#x27;</span></code></pre>
+
+<h4 id="6-外键约束（两张表）-foreing-key"><a href="#6-外键约束（两张表）-foreing-key" class="headerlink" title="6.外键约束（两张表）(foreing key)"></a>6.外键约束（两张表）(foreing key)</h4><blockquote>
+<p>让两张表的数据之间建立联系，保证数据的一致性和完整性</p>
+</blockquote>
+<h5 id="1-创建外键"><a href="#1-创建外键" class="headerlink" title="1.创建外键"></a>1.创建外键</h5><pre><code class="highlight sql"><span class="keyword">create</span> <span class="keyword">table</span> 表名(
+
+ 				...
+
+				[<span class="keyword">constraint</span>] [外键名称] <span class="keyword">foreign</span> key [外字段名] <span class="keyword">references</span> 主表 [主表列表]
+
+ );</code></pre>
+
+<h5 id="2-建立外键关联"><a href="#2-建立外键关联" class="headerlink" title="2.建立外键关联"></a>2.建立外键关联</h5><p><code>alter table 表名 add constraint 外键名称 foreign key(外键字段名) references 主表(主列表名); </code></p>
+<h5 id="3-删除外键"><a href="#3-删除外键" class="headerlink" title="3.删除外键"></a>3.删除外键</h5><p><code>alter table 表名 drop foreign key 外键名称;</code></p>
+<h5 id="4-目的"><a href="#4-目的" class="headerlink" title="4.目的"></a>4.目的</h5><blockquote>
+<p>维护数据的完整性和一致性</p>
+</blockquote>
+<h5 id="5-外键删除更新行为"><a href="#5-外键删除更新行为" class="headerlink" title="5.外键删除更新行为"></a>5.外键删除更新行为</h5><p>1.删除&#x2F;更新行为</p>
+<ul>
+<li>no action 检查该记录是否存在对应外键，如果有则不允许删除&#x2F;更新 (与restrict相同)</li>
+<li>restrict    检查该记录是否存在对应外键，如果有则不允许删除&#x2F;更新  (与no action相同)</li>
+<li>cascade  检查该记录是否存在对应外键，如果有，则一起删除&#x2F;更新</li>
+<li>set null    检查该记录是否存在对应外键，如果有则子表中该外键的值为null (这要求该外键允许取null)</li>
+<li>set default 父表有变动时，子表将外键列设置成一个默认的值(Innodb不支持)</li>
+</ul>
+<p>2.添加行为</p>
+<p><code>alter table 表名 add constraint 外键名称 foreign (外键字段) references 主表名(主表字段名) on update cascade on delete cascade;</code></p>
+<blockquote>
+<p>update -&gt;更新行为</p>
+<p>delete-&gt;删除行为</p>
+</blockquote>
+<h2 id="7-多表查询"><a href="#7-多表查询" class="headerlink" title="7.多表查询"></a>7.多表查询</h2><h3 id="1-多表关系"><a href="#1-多表关系" class="headerlink" title="1.多表关系"></a>1.多表关系</h3><ul>
+<li>多对多</li>
+</ul>
+<blockquote>
+<p>多个表的主键通过一个中间表相关联</p>
+</blockquote>
+<ul>
+<li>一对一</li>
+</ul>
+<blockquote>
+<p>多用于单表拆分，将一张表的基础字段放在一张表中，其他详情字段就放在另外一张表中，以提升操作效率</p>
+<p>外键与主键一一对应，在任意一方加入外键，关联另外一方的主键，并且设置外键为唯一的(unique)</p>
+</blockquote>
+<h3 id="2-多表查询概述"><a href="#2-多表查询概述" class="headerlink" title="2.多表查询概述"></a>2.多表查询概述</h3><h4 id="1-概述"><a href="#1-概述" class="headerlink" title="1.概述"></a>1.概述</h4><blockquote>
+<p>指在多个表中查询数据</p>
+<p>笛卡尔积：两个集合的所有组合情况</p>
+</blockquote>
+<h4 id="2-分类"><a href="#2-分类" class="headerlink" title="2.分类"></a>2.分类</h4><h4 id="1-连接查询"><a href="#1-连接查询" class="headerlink" title="1.连接查询"></a>1.连接查询</h4><blockquote>
+<p>内连接：相当于查询A、B交集部分数据</p>
+<p>外连接：</p>
+<p>​				1.左外连接：查询左表所有数据，以及两张表交集部分数据</p>
+<p>​				2.右外连接：查询右表所有数据，以及两张表交集部分数据</p>
+<p>自连接：</p>
+<p>​				当前表与自身的连接查询，自连接查询，自连接必须使用表别名</p>
+</blockquote>
+<h4 id="2-子查询"><a href="#2-子查询" class="headerlink" title="2.子查询"></a>2.子查询</h4><h3 id="3-内连接"><a href="#3-内连接" class="headerlink" title="3.内连接"></a>3.内连接</h3><h4 id="1-隐式内连接"><a href="#1-隐式内连接" class="headerlink" title="1.隐式内连接"></a>1.隐式内连接</h4><p><code>select 字段列表 from 表1，表2 where 条件</code></p>
+<h4 id="2-显示内连接"><a href="#2-显示内连接" class="headerlink" title="2.显示内连接"></a>2.显示内连接</h4><p><code>select 字段列表 from 表1 [inner] join 表2 on 连接条件  </code>(inner可以省略)</p>
+<h3 id="4-外连接"><a href="#4-外连接" class="headerlink" title="4.外连接"></a>4.外连接</h3><h4 id="1-左外连接"><a href="#1-左外连接" class="headerlink" title="1.左外连接"></a>1.左外连接</h4><p><code>select 字段列表 from 表1 left[outer] join 表2 on 条件...</code></p>
+<h4 id="2-右外连接"><a href="#2-右外连接" class="headerlink" title="2.右外连接"></a>2.右外连接</h4><p><code>select 字段列表 from 表1 right[outer] join 表2 on 条件...</code></p>
+<h3 id="5-自连接"><a href="#5-自连接" class="headerlink" title="5.自连接"></a>5.自连接</h3><p><code>select 字段列表 表A 别名 join 表A 别名B on 条件...</code></p>
+<blockquote>
+<p>自连接可以是内连接也可以是外连接</p>
+<p>自连接必须使用别名</p>
+</blockquote>
+<h3 id="6-联合查询-union-union-all"><a href="#6-联合查询-union-union-all" class="headerlink" title="6.联合查询-union,union all"></a>6.联合查询-union,union all</h3><p><code>select 字段列表 from 表A</code></p>
+<p><code>union [all]</code></p>
+<p><code>select 字段列表 from 表B;</code></p>
+<pre><code class="highlight sql"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> richu_user <span class="keyword">where</span> age <span class="operator">&lt;</span><span class="number">20</span>
+<span class="keyword">union</span> <span class="keyword">all</span>
+<span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> richu_user <span class="keyword">where</span> id <span class="operator">&lt;</span><span class="number">2</span>; <span class="operator">-</span><span class="operator">&gt;</span>会有重复</code></pre>
+
+
+
+<pre><code class="highlight sql"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> richu_user <span class="keyword">where</span> age <span class="operator">&lt;</span><span class="number">20</span>
+<span class="keyword">union</span>
+<span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> richu_user <span class="keyword">where</span> id <span class="operator">&lt;</span><span class="number">2</span>;<span class="operator">-</span><span class="operator">&gt;</span>去重</code></pre>
+
+
+
+<h3 id="7-子查询"><a href="#7-子查询" class="headerlink" title="7.子查询"></a>7.子查询</h3><h4 id="1-概念"><a href="#1-概念" class="headerlink" title="1.概念"></a>1.概念</h4><blockquote>
+<p>sql语句中嵌套select语句，称为嵌套查询，又称子查询</p>
+</blockquote>
+<p><code>select * from t1 where column1=(select column from t2)</code></p>
+<h4 id="2-分类-1"><a href="#2-分类-1" class="headerlink" title="2.分类"></a>2.分类</h4><ul>
+<li><p>根据子查询结果<br>- 标量子查询 （结果为单个值）<br>- 列子查询 （子查询结果为一列）<br>- 行子查询（子查询结果为一行）<br>- 表子查询 （子查询结果为多行多列）</p>
+</li>
+<li><p>根据位置</p>
+</li>
+</ul>
+<p>​			where之后、from之后、select之后</p>
+<h4 id="3-标量子查询"><a href="#3-标量子查询" class="headerlink" title="3.标量子查询"></a>3.标量子查询</h4><blockquote>
+<p>常用操作符&#x3D;  &lt;&gt; &gt;&#x3D; &lt; &lt;&#x3D;</p>
+</blockquote>
+<p><code>select 字段列表 from 表=(select 字段列表 from 表 where 条件)</code>  </p>
+<h4 id="4-列子查询"><a href="#4-列子查询" class="headerlink" title="4.列子查询"></a>4.列子查询</h4><blockquote>
+<p>常用操作符 in、not in、any、some、all</p>
+</blockquote>
+<ul>
+<li>in 在指定的集合范围之内，多选一</li>
+<li>not in 不在指定的集合范围之内</li>
+<li>any 子查询返回列表中，有任意一个满足即可</li>
+<li>some 与any等同，使用some的地方都可以使用any</li>
+<li>all 返回列表的所有值必须满足</li>
+</ul>
+<p><code>select 字段列表 from 表 where 条件&gt; all (select 字段列表 from 表 where 条件)</code></p>
+<h4 id="5-行子查询"><a href="#5-行子查询" class="headerlink" title="5.行子查询"></a>5.行子查询</h4><blockquote>
+<p>常用操作符 &#x3D;、&lt;&gt;、in、not in</p>
+</blockquote>
+<p><code>select 字段列表 from 表 where (条件1，条件2) &gt; all (select 字段列表 from 表 where 条件)</code></p>
+<h4 id="6-表子查询"><a href="#6-表子查询" class="headerlink" title="6.表子查询"></a>6.表子查询</h4><blockquote>
+<p>常用操作符 in</p>
+<p>用select语句查询的表作为一张新表并且进行连查</p>
+</blockquote>
+<h2 id="8-事务"><a href="#8-事务" class="headerlink" title="8.事务"></a>8.事务</h2><h3 id="1-简介"><a href="#1-简介" class="headerlink" title="1.简介"></a>1.简介</h3><p>事务是一组操作的集合，它是一个不可分割的工作单位，事务会把所有的操作作为一个整体一起向系统提交或撤销操作请求，即这些操作要么同时成功要么同时失败。</p>
+<h3 id="2-事务操作"><a href="#2-事务操作" class="headerlink" title="2.事务操作"></a>2.事务操作</h3><ul>
+<li>查看&#x2F;设置事务提交方式</li>
+</ul>
+<blockquote>
+<p>select @@autocommit; (查看当前事务提交方式)</p>
+<p> 0 -&gt; 手动          1-&gt;自动</p>
+<p>set @@autocommit &#x3D;0 ; (设置当前事务提交方式)</p>
+</blockquote>
+<pre><code class="highlight sql"><span class="keyword">select</span> @<span class="variable">@autocommit</span>; <span class="comment">--注释</span>
+
+<span class="keyword">set</span> @<span class="variable">@autocommit</span> <span class="operator">=</span> <span class="number">0</span>;
+<span class="keyword">select</span> @<span class="variable">@autocommit</span>;</code></pre>
+
+<ul>
+<li>开启事务</li>
+</ul>
+<p><code>start transaction 或 begin</code></p>
+<ul>
+<li>提交事务</li>
+</ul>
+<blockquote>
+<p>成功则提交</p>
+</blockquote>
+<p><code>commit;</code></p>
+<ul>
+<li>回滚事务</li>
+</ul>
+<blockquote>
+<p>失败则回滚</p>
+</blockquote>
+<p><code>rollback;</code></p>
+<h3 id="3-四大特性（ACID）"><a href="#3-四大特性（ACID）" class="headerlink" title="3.四大特性（ACID）"></a>3.四大特性（ACID）</h3><h4 id="1-原子性：事务是不可分割的最小操作单元，要么全部成功，要么全部失败"><a href="#1-原子性：事务是不可分割的最小操作单元，要么全部成功，要么全部失败" class="headerlink" title="1.原子性：事务是不可分割的最小操作单元，要么全部成功，要么全部失败"></a>1.原子性：事务是不可分割的最小操作单元，要么全部成功，要么全部失败</h4><h4 id="2-一致性：事务完成时，必须使所有的数据都保持一致"><a href="#2-一致性：事务完成时，必须使所有的数据都保持一致" class="headerlink" title="2.一致性：事务完成时，必须使所有的数据都保持一致"></a>2.一致性：事务完成时，必须使所有的数据都保持一致</h4><h4 id="3-隔离性：数据库系统提供的隔离机制，保证事务在不受到外部并发操作影响的独立环境下运行"><a href="#3-隔离性：数据库系统提供的隔离机制，保证事务在不受到外部并发操作影响的独立环境下运行" class="headerlink" title="3.隔离性：数据库系统提供的隔离机制，保证事务在不受到外部并发操作影响的独立环境下运行"></a>3.隔离性：数据库系统提供的隔离机制，保证事务在不受到外部并发操作影响的独立环境下运行</h4><h4 id="4-持久性：事务一旦提交或回滚，它对数据库中的数据的改变就是永久的"><a href="#4-持久性：事务一旦提交或回滚，它对数据库中的数据的改变就是永久的" class="headerlink" title="4.持久性：事务一旦提交或回滚，它对数据库中的数据的改变就是永久的"></a>4.持久性：事务一旦提交或回滚，它对数据库中的数据的改变就是永久的</h4><h3 id="4-并发事务引发的问题"><a href="#4-并发事务引发的问题" class="headerlink" title="4.并发事务引发的问题"></a>4.并发事务引发的问题</h3><p>1.脏读：一个事务读到另外一个事务还没有提交的数据</p>
+<p>2.不可重复读：一个事务先后读取同一条记录，但两次读取的数据不同，称之为不可重复读</p>
+<p>3.幻读：一个事务按照条件查询数据时，没有对应的数据行，但是插入数据时，又发现这行数据已经存在，好像出现了一个幻影</p>
+<h3 id="5-事务隔离等级"><a href="#5-事务隔离等级" class="headerlink" title="5.事务隔离等级"></a>5.事务隔离等级</h3><ul>
+<li>read uncommitted     无法解决脏读、不可重复读、幻读</li>
+<li>read committed          无法解决不可重复读、幻读，可以解决脏读</li>
+<li>repeatable read （默认）          无法解决幻读，可以解决脏读、不可重复读</li>
+<li>serializable                    可以解决脏读、不可重复读、幻读</li>
+</ul>
+<blockquote>
+<p>查看事务隔离级别</p>
+</blockquote>
+<pre><code class="highlight sql"><span class="keyword">select</span> @<span class="variable">@transaction_isolation</span>;</code></pre>
+
+<blockquote>
+<p>更改事务隔离级别</p>
+</blockquote>
+<pre><code class="highlight sql"><span class="keyword">set</span> session transaction isolation level [read committed];</code></pre>
+
+<blockquote>
+<p>安全级别越高，性能越低</p>
+</blockquote>
+<h2 id="9-存储引擎"><a href="#9-存储引擎" class="headerlink" title="9.存储引擎"></a>9.存储引擎</h2><h3 id="1-MySQL体系结构"><a href="#1-MySQL体系结构" class="headerlink" title="1.MySQL体系结构"></a>1.MySQL体系结构</h3><ul>
+<li>连接层</li>
+<li>服务层</li>
+<li>引擎层</li>
+<li>存储层</li>
+</ul>
+<p><a target="_blank" rel="noopener" href="https://imgse.com/i/pFTrAqf"><img src="https://s21.ax1x.com/2024/03/30/pFTrAqf.png" alt="pFTrAqf.png"></a></p>
+<h3 id="2-存储引擎简介"><a href="#2-存储引擎简介" class="headerlink" title="2.存储引擎简介"></a>2.存储引擎简介</h3><blockquote>
+<p>存储引擎就是存储数据、建立索引</p>
+</blockquote>
+<blockquote>
+<p>查询建表语句</p>
+</blockquote>
+<p><code>show create table 表名;</code></p>
+<blockquote>
+<p>查询当前数据库支持的存储引擎</p>
+</blockquote>
+<p><code>show engines;</code></p>
+<blockquote>
+<p>设置创建表的引擎</p>
+<p>在后面加上endine&#x3D;innoDB</p>
+</blockquote>
+<h3 id="3-存储引擎特点"><a href="#3-存储引擎特点" class="headerlink" title="3.存储引擎特点"></a>3.存储引擎特点</h3><h4 id="1-innoDB"><a href="#1-innoDB" class="headerlink" title="1.innoDB"></a>1.innoDB</h4><h5 id="1-特点"><a href="#1-特点" class="headerlink" title="1.特点"></a>1.特点</h5><ul>
+<li>DML操作遵循ACID模型，支持事务</li>
+<li>行级锁，提高访问性能；</li>
+<li>支持外键foreign key 约束，保证数据的完整性和正确性</li>
+</ul>
+<h5 id="2-文件"><a href="#2-文件" class="headerlink" title="2.文件"></a>2.文件</h5><p>xxx.ibd:xxx代表的是表名，innoDB引擎的每一张表都会有一个表空间文件，存储该表的表结构（frm、sdi）、数据和索引。</p>
+<blockquote>
+<p>打开sdi文件,先打开cmd</p>
+</blockquote>
+<p><code>ibd2sdi ibd文件</code></p>
+<h5 id="3-逻辑存储结构"><a href="#3-逻辑存储结构" class="headerlink" title="3.逻辑存储结构"></a>3.逻辑存储结构</h5><ul>
+<li>tableSpace:表空间</li>
+<li>segment：段</li>
+<li>extent：区</li>
+<li>page：页</li>
+<li>row：行</li>
+</ul>
+<h4 id="2-myisam"><a href="#2-myisam" class="headerlink" title="2.myisam"></a>2.myisam</h4><h5 id="1-特点-1"><a href="#1-特点-1" class="headerlink" title="1.特点"></a>1.特点</h5><ul>
+<li><p>不支持事务</p>
+</li>
+<li><p>支持表锁，不支持行锁</p>
+</li>
+<li><p>访问速度快</p>
+</li>
+</ul>
+<h5 id="2-文件-1"><a href="#2-文件-1" class="headerlink" title="2.文件"></a>2.文件</h5><p>xxx.sdi    存储表结构信息</p>
+<p>xxx.myd   存储数据</p>
+<p>xxx.myi    存储索引</p>
+<h4 id="3-Memory"><a href="#3-Memory" class="headerlink" title="3.Memory"></a>3.Memory</h4><p>1.特点</p>
+<ul>
+<li>内存存放</li>
+<li>hash索引（默认）</li>
+</ul>
+<p>2.文件</p>
+<p>xxx.sdi:存储表结构信息</p>
+<blockquote>
+<p>innoDB 相对于myisam 支持事务安全、支持锁机制（行级锁）、支持外键</p>
+<p>Supports transactions, row-level locking, and foreign keys</p>
+</blockquote>
+<h3 id="4-存储引擎选择"><a href="#4-存储引擎选择" class="headerlink" title="4.存储引擎选择"></a>4.存储引擎选择</h3><blockquote>
+<p>在选择存储引擎时，应该根据应用系统的特点选择合适的存储引擎，对于复杂的应用系统，还可以根据实际情况选择多种存储引擎进行组合。</p>
+</blockquote>
+<ul>
+<li><p>InnoDB引擎</p>
+<p>InnoDB是MySQL中的一种事务性存储引擎，它支持事务、行级锁和外键等特性。InnoDB引擎适合于需要处理大量事务和并发操作的应用场景。</p>
+</li>
+<li><p>MyISAM引擎</p>
+</li>
+</ul>
+<p>  MyISAM是MySQL中的一种非事务性存储引擎，它具备较高的插入和查询性能，适用于读操作远多于写操作的应用场景</p>
+<ul>
+<li>MEMORY引擎</li>
+</ul>
+<p>​		MEMORY用到的很少，因为它是把数据存到内存中，如果内存出现异常就会影响数据。如果重启或者关机，所有数据都会消失。因		此，基于MEMORY的表的生命周期很短，一般是一次性的。</p>
+<h2 id="10-索引"><a href="#10-索引" class="headerlink" title="10.索引"></a>10.索引</h2><h3 id="1-索引概述"><a href="#1-索引概述" class="headerlink" title="1.索引概述"></a>1.索引概述</h3><blockquote>
+<p>index </p>
+<p>是帮助MySQL高效获取数据的数据结构（有序）。在数据之外，数据系统还维护着满足特定查找算法的数据结构，这些数据结构以某种方式引用（指向数据），这样就可以在这些数据结构上实现高级查找算法，这些数据结构就是索引。</p>
+</blockquote>
+<p>全表扫描-&gt;无索引</p>
+<p>二叉搜素树-&gt;有索引</p>
+<table>
+<thead>
+<tr>
+<th align="center">优势</th>
+<th align="center">劣势</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">提高数据检索的效率，降低数据库的IO成本</td>
+<td align="center">列索引也是要占用空间的</td>
+</tr>
+<tr>
+<td align="center">通过索引对数据进行排序，降低数据排序的成本，降低CPU的消耗</td>
+<td align="center">索引大大提高了查询效率，同时却也降低了更新表的速度，如对表进行insert、update、delete时，效率降低</td>
+</tr>
+</tbody></table>
+<h3 id="2-索引结构"><a href="#2-索引结构" class="headerlink" title="2.索引结构"></a>2.索引结构</h3><table>
+<thead>
+<tr>
+<th>索引结构</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>b+Tree索引</td>
+<td>最常见的索引类型，大部分引擎都支持b+树</td>
+</tr>
+<tr>
+<td>Hash索引</td>
+<td>底层数据结构是用哈希表实现的，只有精确匹配索引列的查询才有效，不支持范围查询</td>
+</tr>
+<tr>
+<td>R-tree(空间索引)</td>
+<td>空间索引是MyISAM引擎的一个特殊索引类型，主要用于地理空间数据类型，通常使用较少</td>
+</tr>
+<tr>
+<td>Full-text(全文索引)</td>
+<td>是一种通过建立倒排索引，快速匹配文档的方式，类似于Lucene，Solr，ES</td>
+</tr>
+</tbody></table>
+<table>
+<thead>
+<tr>
+<th>索引</th>
+<th>InnoDB</th>
+<th>MyISAM</th>
+<th>MEMORY</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>b+Tree索引</td>
+<td>支持</td>
+<td>支持</td>
+<td>支持</td>
+</tr>
+<tr>
+<td>Hash索引</td>
+<td>不支持</td>
+<td>不支持</td>
+<td>支持</td>
+</tr>
+<tr>
+<td>R-tree(空间索引)</td>
+<td>不支持</td>
+<td>支持</td>
+<td>不支持</td>
+</tr>
+<tr>
+<td>Full-text(全文索引)</td>
+<td>5.6版本后支持</td>
+<td>支持</td>
+<td>不支持</td>
+</tr>
+</tbody></table>
+<h4 id="1-b-tree（多路平衡查找树）"><a href="#1-b-tree（多路平衡查找树）" class="headerlink" title="1.b-tree（多路平衡查找树）"></a>1.b-tree（多路平衡查找树）</h4><blockquote>
+<p>以一颗最大度数（max-degree）为5（5阶）的b-tree为例（每个节点最多存储4个key，5个指针）</p>
+<p>每个结点的key顺序排列，如果大于最后一个key则指向最后一个指针，如果小于第一个key则指向第一个指针，如果在两个key之间则指向两个key之间的那个指针</p>
+</blockquote>
+<p><a target="_blank" rel="noopener" href="https://imgse.com/i/pFTbQSI"><img src="https://s21.ax1x.com/2024/03/31/pFTbQSI.jpg" alt="pFTbQSI.jpg"></a></p>
+<h4 id="2-b-tree"><a href="#2-b-tree" class="headerlink" title="2.b+tree"></a>2.b+tree</h4><blockquote>
+<p>以一颗最大度数为4（4阶）的b+tree为例</p>
+<p>所有元素都会出现在叶子结点，叶子结点组成了一个单向链表</p>
+</blockquote>
+<p><a target="_blank" rel="noopener" href="https://imgse.com/i/pFTbGm8"><img src="https://s21.ax1x.com/2024/03/31/pFTbGm8.png" alt="pFTbGm8.png"></a></p>
+<blockquote>
+<p>Mysql在b+树的基础上增加了一个指向相邻叶子节点的链表指针</p>
+</blockquote>
+<h4 id="3-hash"><a href="#3-hash" class="headerlink" title="3.hash"></a>3.hash</h4><blockquote>
+<p>哈希索引采用一定的hash算法，将键值换成新的hash值，映射到对应的槽位，然后存储在hash表中</p>
+</blockquote>
+<p>特点</p>
+<ul>
+<li>hash索引只能用于对等比较（&#x3D;，in），不支持范围查询（between，&gt;，&lt;，…）</li>
+<li>无法利用索引完成排序操作</li>
+<li>查询效率高，通常只要一次检索</li>
+</ul>
+<h3 id="3-索引分类"><a href="#3-索引分类" class="headerlink" title="3.索引分类"></a>3.索引分类</h3><table>
+<thead>
+<tr>
+<th>分类</th>
+<th>含义</th>
+<th>特点</th>
+<th>关键字</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>主键索引</td>
+<td>针对于表中某数据列中的值重复</td>
+<td>默认自动创建，只能有一个</td>
+<td>primary</td>
+</tr>
+<tr>
+<td>唯一索引</td>
+<td>避免同一个表中某数据列的值重复</td>
+<td>可以有多个</td>
+<td>unique</td>
+</tr>
+<tr>
+<td>常规索引</td>
+<td>快速定位特定数据</td>
+<td>可以有多个</td>
+<td></td>
+</tr>
+<tr>
+<td>全文索引</td>
+<td>全文索引查找的是文本中的关键字，而不是比较索引中的值</td>
+<td>可以有多个</td>
+<td>fulltext</td>
+</tr>
+</tbody></table>
+<p>1.在InnoDB中</p>
+<table>
+<thead>
+<tr>
+<th>分类</th>
+<th>含义</th>
+<th>特点</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>聚焦索引（Clustered Index）</td>
+<td>将数据存储于索引放到了一块，索引结构的用叶子结点保存了行数据</td>
+<td>必须有，而且只有一个</td>
+</tr>
+<tr>
+<td>二级索引（Secondary Index）</td>
+<td>将数据与索引分开存储，索引结构的叶子节点关联的是对应的主键</td>
+<td>可以存在多个</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>聚集索引选取原则</p>
+</blockquote>
+<ul>
+<li>如果存在主键，主键索引就是聚集索引。</li>
+<li>如果不存在主键，将使用第一个唯一（unique）索引作为聚集索引</li>
+<li>如果表没有主键，或没有合适的唯一索引，则InnoDB会自动生成一个rowid作为隐藏的聚集索引</li>
+</ul>
+<h3 id="4-索引语法"><a href="#4-索引语法" class="headerlink" title="4.索引语法"></a>4.索引语法</h3><h4 id="1-创建索引"><a href="#1-创建索引" class="headerlink" title="1.创建索引"></a>1.创建索引</h4><p><code>create [unique][fulltext] index index_name(索引名称) on table_name(字段名);</code></p>
+<h4 id="2-查看索引"><a href="#2-查看索引" class="headerlink" title="2.查看索引"></a>2.查看索引</h4><p><code>show index from 表名;</code></p>
+<h4 id="3-删除索引"><a href="#3-删除索引" class="headerlink" title="3.删除索引"></a>3.删除索引</h4><p><code>drop index 索引名 on 表名</code></p>
+<h3 id="5-SQL性能分析"><a href="#5-SQL性能分析" class="headerlink" title="5.SQL性能分析"></a>5.SQL性能分析</h3><h4 id="1-sql的执行频率"><a href="#1-sql的执行频率" class="headerlink" title="1.sql的执行频率"></a>1.sql的执行频率</h4><blockquote>
+<p>通过show[session|global] status like ‘com_______’命令可以提供服务器状态信息</p>
+</blockquote>
+<p><code>show global status like &#39;com_______&#39;</code>(7个_)</p>
+<h4 id="2-慢查询日志"><a href="#2-慢查询日志" class="headerlink" title="2.慢查询日志"></a>2.慢查询日志</h4><blockquote>
+<p>慢日志记录了所有执行时间超过指定参数的所有SQL语句的日志。默认是未开启。</p>
+</blockquote>
+<p>开启MySQL慢日志查询开关</p>
+<p><code>slow_query_log=1</code></p>
+<blockquote>
+<p>设置慢日志的时间为2秒，SQL语句的执行时间超过2秒，就会视为慢查询，记录查询日志</p>
+</blockquote>
+<p><code>slow_query_time=2</code></p>
+<blockquote>
+<p>配置完毕之后，通过以下指令重新启动MySQL服务器进行测试，查看慢日志文件中记录的信息&#x2F;var&#x2F;lib&#x2F;mysql&#x2F;localhost-slow.log</p>
+</blockquote>
+<p><code>systemctl restart mysqld</code>(重新启动MySQl服务器)</p>
+<p><code>show variables like &#39;slow_query_log&#39;</code>(查看日志)</p>
+<p><code>tail -f localhost-slow.log</code> (访问日志)</p>
+<h4 id="3-profile详情"><a href="#3-profile详情" class="headerlink" title="3.profile详情"></a>3.profile详情</h4><blockquote>
+<p>执行一系列的业务SQL的操作，然后通过如下指令查看指令的执行耗时</p>
+</blockquote>
+<p><code>select @@have_profilre;</code>(查看数据库是否支持profile)</p>
+<p><code>select @@profiling;</code> (查看是否打开profile)</p>
+<p><code>set profiling = 1;</code> (打开)</p>
+<blockquote>
+<p>查看每一条SQL的耗时基本情况</p>
+</blockquote>
+<p><code>show profiles;</code></p>
+<blockquote>
+<p>查看指定query_id的SQL语句各个阶段的耗时情况</p>
+</blockquote>
+<p><code>show profile for query query_id</code></p>
+<blockquote>
+<p>查看指定query_id的SQL语句CPU使用情况</p>
+</blockquote>
+<p><code>show profile cpu for query query_id</code></p>
+<h4 id="4-explain"><a href="#4-explain" class="headerlink" title="4.explain"></a>4.explain</h4><blockquote>
+<p>explain或者desc命令获取MySQL如何执行select语句的信息，包括在select语句执行过程中表如何连接和连接的顺序。</p>
+</blockquote>
+<h5 id="1-语法-3"><a href="#1-语法-3" class="headerlink" title="1.语法"></a>1.语法</h5><p><code>explain select 字段列表 from 表名 where 条件</code></p>
+<h5 id="2-执行计划"><a href="#2-执行计划" class="headerlink" title="2.执行计划"></a>2.执行计划</h5><ul>
+<li>id</li>
+</ul>
+<p>​	select查询的序列号，表示查询中执行select子句或者是操作表的顺序（id相同，执行顺序从上到下；id不同，值越大，越先执行）。</p>
+<ul>
+<li>select_type</li>
+</ul>
+<p>​	表示select的类型，最常见的取值有simple（简单表，即不使用表连接或者子查询）、primary（主查询，即外层的查询）、union（union中的第二个或者后面的查询语句）、subquery（select&#x2F;where之后包含了子查询）等。</p>
+<ul>
+<li>type</li>
+</ul>
+<p>​	表示连接类型，性能由好到差依次为NULL、system、eq_ref、ref、range、index、all。</p>
+<ul>
+<li>possible_key</li>
+</ul>
+<p>​	显示可能应用在这张表上的索引，一个或者多个。</p>
+<ul>
+<li>key</li>
+</ul>
+<p>​	实际使用的索引，如果为NULL，则没有使用索引。</p>
+<ul>
+<li>key_len</li>
+</ul>
+<p>​	表示索引中使用的字节数，该值为索引字段最大可能长度，并非实际长度，在不损失精确性的前提下，长度越短越好。</p>
+<ul>
+<li>rows</li>
+</ul>
+<p>​	MySQL认为必须要执行查询的行数，在InnoDB引擎的表中是一个估计值，可能并不是准确的。</p>
+<ul>
+<li>filtered</li>
+</ul>
+<p>​	表示返回结果的行数占需读取行数的百分比，filtered的值越大越好。</p>
+<h3 id="6-索引使用规则"><a href="#6-索引使用规则" class="headerlink" title="6.索引使用规则"></a>6.索引使用规则</h3><h4 id="1-最左前缀法则"><a href="#1-最左前缀法则" class="headerlink" title="1.最左前缀法则"></a>1.最左前缀法则</h4><blockquote>
+<p>mysql 会从左向右，匹配直到遇到范围查询（&gt;,&lt;,between,like）就停止匹配(之后的不会用到索引)</p>
+<p>比如建立（a,b,c,d）顺序的索引</p>
+<p>使用这样的查询语句 a &#x3D; 1 and b&#x3D;2 and c&gt;3 and d &#x3D;4 ; d是用不到索引的</p>
+<p>但如果建立（a,b,d,c）的索引则都可以用到 ， a,b,d 的顺序可以调整</p>
+</blockquote>
+<h4 id="2-索引失效情况1"><a href="#2-索引失效情况1" class="headerlink" title="2.索引失效情况1"></a>2.索引失效情况1</h4><ul>
+<li><p>1.要遵守最左前缀法则(最左边的字段必须存在,跳过某一字段后面字段索引失效).</p>
+</li>
+<li><p>2.索引字段不能使用函数否则失效.(不要使用运算操作)</p>
+</li>
+<li><p>3.索引字段,字符串字段使用时,字符串不加引号,导致索引失效.</p>
+</li>
+<li><p>4.索引字段进行模糊查询时,如果是头部进行模糊查询,则索引失效,若果是尾部进行模糊查询,索引可正常使用.</p>
+</li>
+</ul>
+<h4 id="3-索引失效情况2"><a href="#3-索引失效情况2" class="headerlink" title="3.索引失效情况2"></a>3.索引失效情况2</h4><ul>
+<li><p>1.索引字段使用or时,or的两边都必须有存在索引的字段,否则索引失效.</p>
+</li>
+<li><p>2.当查询时需要数据大于不需要数据时,索引失效,会全表扫描,当查询时需要数据小于不需要数据时,索引正常使用</p>
+</li>
+</ul>
+<h4 id="4-索引使用"><a href="#4-索引使用" class="headerlink" title="4.索引使用"></a>4.索引使用</h4><h5 id="1-sql提示"><a href="#1-sql提示" class="headerlink" title="1.sql提示"></a>1.sql提示</h5><blockquote>
+<p>是优化数据库的一个重要手段，即在数据库中加入一些人为的提示来优化操作</p>
+</blockquote>
+<p>use index:</p>
+<p><code>use表示建议使用某个索引(语法:select * from 表名 use index(索引名称) where .......)</code></p>
+<p>ignore index:</p>
+<p><code>ignore表示建议不使用某个索引(语法:select * from 表名 ignore index(索引名称) where .......)</code></p>
+<p>force index:</p>
+<p><code>force表示强制使用某个索引(语法:select * from 表名 force index(索引名称) where .......)</code></p>
+<h5 id="2-覆盖索引"><a href="#2-覆盖索引" class="headerlink" title="2.覆盖索引"></a>2.覆盖索引</h5><blockquote>
+<p>查询语句中尽量少使用” select * “,全表查询很容易造成回表查询 (即:查询时当查询字段不存在已经使用过的索引时,会将查询到的二级索引上挂载的<strong>主键</strong>重新传回表中到聚集索引中利用主键ID再次进行查询查到整行数据 (二级索引中挂载的是当前数据的id,聚集索引挂载的是当前整行数据) )</p>
+</blockquote>
+<ul>
+<li>using where using index 查找使用了索引，但是需要的数据都在索引列中能找到，所以不需要回表查询数据</li>
+<li>using index condition 查找使用了索引，但是需要回表查询</li>
+</ul>
+<h5 id="3-前缀索引"><a href="#3-前缀索引" class="headerlink" title="3.前缀索引"></a>3.前缀索引</h5><blockquote>
+<p>查询语句时如果当前字段储存的数据太长建立索引耗费空间太大,可以利用前缀索引进行对数据的前几个字符进行截取.从而利用少量空间来建立索引,加速查询.(较长字符串、文本时使用)</p>
+</blockquote>
+<p><code>create index idx_xxx on table_name(column(n));</code></p>
+<ul>
+<li>n代表的是使用前n个字符建立索引</li>
+</ul>
+<blockquote>
+<p>前缀长度</p>
+<p>可以根据索引的选择性来决定，而选择性是指不重复的索引值（基数）和数据表的记录总数的比值，索引选择性越高则查询效率越高，唯一的选择性是1，这是最好的索引选择性，性能也是最好的。</p>
+</blockquote>
+<p><code>select count(distinct richu) / count(*) from richu_user</code></p>
+<p><code>select count(distinct substring(richu,1,10)) / count(*) from richu_user</code></p>
+<blockquote>
+<p>substring(截取目标，开始位置，长度)</p>
+</blockquote>
+<h5 id="4-联合索引和单列索引的选择"><a href="#4-联合索引和单列索引的选择" class="headerlink" title="4.联合索引和单列索引的选择"></a>4.联合索引和单列索引的选择</h5><blockquote>
+<p>当存在多个查询字段时最好使用联合索引,单列索引很容易造成回表查询.</p>
+<p>多个查询的字段都有单列索引，此时查找会造成回表查询，此时最好创建联合索引</p>
+<p><strong>（尽量使用联合索引）</strong></p>
+</blockquote>
+<h5 id="5-索引设计原则"><a href="#5-索引设计原则" class="headerlink" title="5.索引设计原则"></a>5.索引设计原则</h5><ul>
+<li><p>1.针对数据量较大,数据查询较为频繁的表建立索引</p>
+</li>
+<li><p>2.针对常用于查询条件,分组,排序操作的字段(where,group by,order by)建立索引.</p>
+</li>
+<li><p>3.尽量针对区分度高的字段创建索引,比如(学生表中的学生id,身份证等等),区分度越高,索引查询效率也就越高</p>
+</li>
+<li><p>4.如果字符串类型的字段,字符串较长可以建立前缀索引,截取前几个字段来建立索引提高查询效率,这里要注意的是选择性(表中截取前面的字段数据总数(去重)&#x2F;表中不截取的字段数据总数,这个值越接近于1越好)</p>
+</li>
+<li><p>5.尽量使用联合索引,少使用单一索引,这样可以减少回表查询,而且还能节省空间,提高效率.</p>
+</li>
+<li><p>6.要控制索引数量,不是越多越好,索引越多,维护索引代价也就越大,索引过多会影响增删改的效率.</p>
+</li>
+<li><p>7.如果需要建立索引的字段不能为空值,那么建立字段时就给他设置 NOT NULL ,这样优化器知道那一列不能为空时,会更好的选择索引优化</p>
+</li>
+</ul>
+<h2 id="11-SQL优化"><a href="#11-SQL优化" class="headerlink" title="11.SQL优化"></a>11.SQL优化</h2><h3 id="1-插入数据"><a href="#1-插入数据" class="headerlink" title="1.插入数据"></a>1.插入数据</h3><p>inset优化</p>
+<blockquote>
+<p>批量插入</p>
+</blockquote>
+<ul>
+<li>大批量插入数据</li>
+</ul>
+<p>如果一次性需要插入大批量数据，使用insert语句插入性能较低，此时使用load函数进行插入</p>
+<blockquote>
+<p>#客户端连接服务端时，加上参数 –local-infile</p>
+<p>mysql –local-infile -u -root -p;</p>
+<p>#设置全局参数local_infile为1</p>
+<p>set global local_infile&#x3D;1;</p>
+<p>#执行load指令将准备好的数据，加载到表结构中</p>
+<p>load data local infile ‘linux路径’ into table ‘表名’ fields terminated by ‘,’ lines terminated by ‘\n’;</p>
+</blockquote>
+<h3 id="2-主键优化"><a href="#2-主键优化" class="headerlink" title="2.主键优化"></a>2.主键优化</h3><blockquote>
+<p>在InnoDB存储引擎中，表数据都是根据主键顺序组织存放的，这种存储方式的表称为索引组织表（index organized table IOT）</p>
+<p>主键顺序插入性能优于乱序插入</p>
+</blockquote>
+<blockquote>
+<p>主键顺序插入(插入效率高)</p>
+</blockquote>
+<blockquote>
+<p>主键乱序插入(插入效率低)</p>
+<p>插入效率低的原因</p>
+<ul>
+<li><p>页分裂</p>
+<ul>
+<li>页可以为空，页可以填充一半，也可以填充100%，每个页包含了2-N行数据(如果一行数据过大，会行溢出)，根据主键排列</li>
+</ul>
+</li>
+<li><p>页合并</p>
+<ul>
+<li><p>当删除一行记录时，实际上记录没有被物理删除，只是记录被标记为删除并且它的空间变得允许被其他记录声明使用</p>
+<p>当页中删除的记录达到MEREG-THRESHOLD（默认为页的50%），InnoDB会开始寻找最靠近的页（前或后）看看是否能将两个页合并以优化空间使用</p>
+</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<h2 id="附录（本文出现的英语单词及其翻译）"><a href="#附录（本文出现的英语单词及其翻译）" class="headerlink" title="附录（本文出现的英语单词及其翻译）"></a>附录（本文出现的英语单词及其翻译）</h2><p>1.alter                     v.改变、变动</p>
+<p>2.truncate               v.截短、去尾</p>
+<p>3.medium                adj.中等的、适中的</p>
+<p>4.grant                      v.允许、同意，准予</p>
+<p>5.revoke                   v.撤回、取消；废除</p>
+<p>6.pad                         v.填塞</p>
+<p>7.constraint            n.限制、拘束、强迫</p>
+<p>8.duplicate             v.复制、重复</p>
+<p>9.transaction         n.交易、办理、事务、学报</p>
+<p>10.profile                n.简介、概述</p>
+<p>11.query                  v.询问</p>
+<p>12.profile                 n.简介，概述</p>
+<p>13.terminate           v.使结束，终止</p>
+
+        </article>
+        <section class="post-near">
+            <ul>
+                
+                    <li>上一篇: 看完啦 (つд⊂)</li>
+                
+                
+                    <li>下一篇: <a href="/2024/09/10/React/">React</a></li>
+                
+            </ul>
+        </section>
+        
+            <section class="post-tags">
+            <a class="-none-link" href="/tags/Java-Web/" rel="tag">Java Web</a><a class="-none-link" href="/tags/MySql/" rel="tag">MySql</a>
+            </section>
+        
+    
+        <section class="post-author">
+        
+            <figure class="author-avatar">
+                <img src="https://p1.meituan.net/csc/949ad40707d4b4bab7e2ebafbd649aa8211830.jpg" alt="日初" />
+            </figure>
+        
+            <div class="author-info">
+                <h4>日初</h4>
+                <p>一个什么都学的建模动画编程爱好者</p>
+            </div>
+        </section>
+    
+    </div>
+</main>
+
+    <footer>
+    <div class="buttons">
+        <a class="to-top" href="#"></a>
+    </div>
+    <div class="wrap min">
+        <section class="widget">
+            <div class="row">
+                <div class="col-m-4">
+                    <h3 class="title-recent">最新文章：</h3>
+                    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2024/09/28/MySql/">Mysql</a></li><li class="post-list-item"><a class="post-list-link" href="/2024/09/10/React/">React</a></li><li class="post-list-item"><a class="post-list-link" href="/2024/09/10/Vue/">Vue</a></li><li class="post-list-item"><a class="post-list-link" href="/2024/08/31/Java%20Web/">Java Web</a></li><li class="post-list-item"><a class="post-list-link" href="/2024/08/31/Nginx/">Nginx</a></li></ul>
+                </div>
+                <div class="col-m-4">
+                    <h3 class="title-date">时光机：</h3>
+                    <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/09/">九月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/08/">八月 2024</a></li></ul>
+                </div>
+                <div class="col-m-4">
+                    <h3 class="title-tags">标签云：</h3>
+                    <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/Java-Web/" style="font-size: 20px;">Java Web</a> <a href="/tags/MySql/" style="font-size: 20px;">MySql</a> <a href="/tags/Nginx/" style="font-size: 20px;">Nginx</a> <a href="/tags/React/" style="font-size: 20px;">React</a> <a href="/tags/Vue/" style="font-size: 20px;">Vue</a> <a href="/tags/%E5%89%8D%E7%AB%AF/" style="font-size: 20px;">前端</a> <a href="/tags/%E8%BF%90%E7%BB%B4/" style="font-size: 20px;">运维</a>
+                </div>
+            </div>
+        </section>
+        <section class="sub-footer">
+            <p>© 2024 <a href="/">Richu</a>. All Rights Reserved. Theme By <a href="https://github.com/Dreamer-Paul/Hingle" target="_blank" rel="nofollow">Hingle</a>.</p>
+        </section>
+    </div>
+</footer>
+
+
+<script src="/static/kico.js"></script>
+<script src="/static/hingle.js"></script>
+
+
+<script>var hingle = new Paul_Hingle({"copyright":true,"night":false});</script>
+
+  </body>
+</html>

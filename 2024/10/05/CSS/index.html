@@ -1,0 +1,2855 @@
+<!DOCTYPE html>
+<html>
+  <head>
+     
+    <meta charset="UTF-8">
+    <title>CSS - Richu</title>
+    <link rel="shortcut icon" href="/static/img/icon.png">
+    <link rel="icon" href="/static/img/icon.png" sizes="192x192"/>
+    
+<link rel="stylesheet" href="/static/kico.css">
+<link rel="stylesheet" href="/static/hingle.css">
+
+    
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <meta name="viewport" content="width=device-width, maximum-scale=1, initial-scale=1"/>
+    <meta property="og:site_name" content="Richu">
+    <meta property="og:title" content="CSS"/>
+    
+    <style>body:before{ content: ''; background-image: url(https://img.meituan.net/csc/d05518606ba7064dd445508e3cf3d4c42860983.png) }</style>
+    
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+  <body>
+    <header>
+    <div class="head-title">
+        <h4>Richu</h4>
+    </div>
+    <div class="head-action">
+        <div class="toggle-btn"></div>
+        <div class="light-btn"></div>
+        <div class="search-btn"></div>
+    </div>
+    <form class="head-search" method="post">
+        <input type="text" name="s" placeholder="搜索什么？">
+    </form>
+    <nav class="head-menu">
+        <a href="/">首页</a>
+        <div class="has-child">
+            <a>分类</a>
+            <div class="sub-menu">
+                <a class="category-link" href="/categories/Java/">Java</a><a class="category-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a><a class="category-link" href="/categories/%E8%BF%90%E7%BB%B4/">运维</a>
+            </div>
+        </div>
+        
+            <a href="/about">关于我</a>
+        
+    </nav>
+</header>
+
+    <main>
+    <div class="wrap min">
+        <section class="post-title">
+            <h2>CSS</h2>
+            <div class="post-meta">
+                <time class="date">2024.10.05</time>
+            
+                <span class="category"><a class="category-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a></span>
+            
+            </div>
+        </section>
+        <article class="post-content">
+        
+            <p>CSS (Cascading Style Sheets，层叠样式表），是一种用来为结构化文档（如 HTML 文档或 XML 应用）添加样式（字体、间距和颜色等）的计算机语言，CSS 文件扩展名为 .css。CSS3 现在已被大部分现代浏览器支持,通过使用 CSS 我们可以大大提升网页开发的工作效率！</p>
+<h2 id="1-选择器"><a href="#1-选择器" class="headerlink" title="1.选择器"></a>1.选择器</h2><h3 id="1-基础选择器"><a href="#1-基础选择器" class="headerlink" title="1.基础选择器"></a>1.基础选择器</h3><h4 id="1-1-标签选择器"><a href="#1-1-标签选择器" class="headerlink" title="1.1 标签选择器"></a>1.1 标签选择器</h4><p>也称为元素选择器，使用HTML标签作为选择器的名称</p>
+<h4 id="1-2-类选择器"><a href="#1-2-类选择器" class="headerlink" title="1.2 类选择器"></a>1.2 类选择器</h4><p>使用自定义的名称，以 . 号作为前缀，然后再通过HTML标签的class属性调用类选择器</p>
+<p>以标签的class属性作为样式应用的依据</p>
+<p>注意事项：</p>
+<blockquote>
+<p>调用时不能添加 . 号<br>同时调用多个类选择器时，以 空格 分隔<br>类选择器名称不能以 数字 开头</p>
+</blockquote>
+<h4 id="1-3-ID选择器"><a href="#1-3-ID选择器" class="headerlink" title="1.3 ID选择器"></a>1.3 ID选择器</h4><p>使用自定义名称，以 # 作为前缀，然后通过HTML标签的id属性进行名称匹配</p>
+<p>以标签的id属性作为样式应用的依据，一对一的关系</p>
+<h3 id="2-复杂选择器"><a href="#2-复杂选择器" class="headerlink" title="2.复杂选择器"></a>2.复杂选择器</h3><h4 id="1-复合选择器"><a href="#1-复合选择器" class="headerlink" title="1.复合选择器"></a>1.复合选择器</h4><p>标签选择器和类选择器、标签选择器和ID选择器，一起使用</p>
+<p>必须同时满足两个条件才能应用样式</p>
+<blockquote>
+<p>标签选择器和类选择器合起来使用</p>
+</blockquote>
+<h4 id="2-组合选择器"><a href="#2-组合选择器" class="headerlink" title="2.组合选择器"></a>2.组合选择器</h4><blockquote>
+<p>使用,号</p>
+</blockquote>
+<p>将多个具有相同样式的选择器放在一起声明，使用逗号隔开</p>
+<h4 id="3-嵌套选择器"><a href="#3-嵌套选择器" class="headerlink" title="3.嵌套选择器"></a>3.嵌套选择器</h4><blockquote>
+<p>使用空格</p>
+</blockquote>
+<p>在某个选择器内部再设置选择器，通过空格隔开</p>
+<p>只有满足层次关系最里层的选择器所对应的标签才会应用样式</p>
+<p>注意：使用 空格 时不区分父子还是后代，使用CSS-3中新增的 &gt; 时必须是父子关系才行</p>
+<h4 id="4-伪类选择器"><a href="#4-伪类选择器" class="headerlink" title="4 .伪类选择器"></a>4 .伪类选择器</h4><p>根据不同的状态显示不同的样式，一般多用于 标签</p>
+<p>四种状态：</p>
+<ul>
+<li>:link 未访问的链接</li>
+<li>:visited 已访问的链接</li>
+<li>:hover 鼠标悬浮到连接上，即移动在连接上</li>
+<li>:active 选定的链接，被激活</li>
+</ul>
+<h4 id="5-伪元素选择器"><a href="#5-伪元素选择器" class="headerlink" title="5.伪元素选择器"></a>5.伪元素选择器</h4><ul>
+<li>:first-letter 为第一个字符的样式</li>
+<li>:first-line 为第一行添加样式</li>
+<li>:before 在元素内容的最前面添加的内容，需要配合content属性使用</li>
+<li>:after 在元素内容的最后面添加的内容，需要配合content属性使用</li>
+</ul>
+<pre><code class="highlight css"><span class="selector-tag">div</span><span class="selector-pseudo">::first-letter</span>&#123;
+    <span class="attribute">color</span>: red;
+&#125;
+<span class="selector-tag">div</span><span class="selector-pseudo">::first-line</span>&#123;
+    <span class="attribute">color</span>: blue;
+&#125;
+<span class="selector-tag">div</span><span class="selector-pseudo">::selection</span>&#123;
+    <span class="attribute">color</span>: aquamarine;
+&#125;
+<span class="selector-tag">input</span><span class="selector-pseudo">::placeholder</span>&#123;
+    <span class="attribute">color</span>: aquamarine;
+&#125;
+<span class="selector-tag">p</span><span class="selector-pseudo">::before</span>&#123;
+    <span class="attribute">content</span>: <span class="string">&quot;￥&quot;</span>;
+&#125;
+<span class="selector-tag">p</span><span class="selector-pseudo">::after</span>&#123;
+    <span class="attribute">content</span>:<span class="string">&quot;.00&quot;</span>
+&#125;</code></pre>
+
+<h4 id="6-父子选择器"><a href="#6-父子选择器" class="headerlink" title="6.父子选择器"></a>6.父子选择器</h4><blockquote>
+<p>使用&gt;符号</p>
+</blockquote>
+<pre><code class="highlight css">父选择器&gt;子选择器&#123;
+    样式属性:属性值;
+    样式属性:属性值;
+    ......
+&#125;</code></pre>
+
+<h4 id="7-相邻选择器"><a href="#7-相邻选择器" class="headerlink" title="7.相邻选择器"></a>7.相邻选择器</h4><blockquote>
+<p>使用+号</p>
+</blockquote>
+<pre><code class="highlight css">选择器<span class="number">1</span>+选择器<span class="number">2</span> &#123;
+    样式属性:属性值;
+    样式属性:属性值;
+    ......
+&#125;</code></pre>
+
+<h4 id="8-属性选择器"><a href="#8-属性选择器" class="headerlink" title="8.属性选择器"></a>8.属性选择器</h4><blockquote>
+<p>使用[]选择具有某属性的</p>
+</blockquote>
+<pre><code class="highlight css">标记名称<span class="selector-attr">[属性选择符]</span> &#123;
+    样式属性:属性值;
+    样式属性:属性值;
+    ......
+&#125;</code></pre>
+
+<h4 id="9-伪类选择器-结构伪类"><a href="#9-伪类选择器-结构伪类" class="headerlink" title="9.伪类选择器_结构伪类"></a>9.伪类选择器_结构伪类</h4><blockquote>
+<p>first-child()</p>
+<p>an+b的形式</p>
+</blockquote>
+<pre><code class="highlight css"><span class="selector-tag">div</span>&gt;<span class="selector-pseudo">:nth-child</span>(<span class="number">5</span>-n)&#123;
+    <span class="attribute">color</span>: red;
+&#125;</code></pre>
+
+<pre><code class="highlight css">//常用
+<span class="selector-tag">div</span>&gt;<span class="selector-pseudo">:nth-child</span>(<span class="number">3</span>)&#123;
+    <span class="attribute">color</span>: red;
+&#125;
+<span class="selector-tag">div</span><span class="selector-pseudo">:first-child</span>&#123;
+    <span class="attribute">color</span>: green;
+&#125;
+<span class="selector-tag">div</span>&gt;<span class="selector-tag">p</span><span class="selector-pseudo">:first-of-type</span>&#123;
+    <span class="attribute">color</span>: blue;
+&#125;
+<span class="selector-tag">div</span>&gt;<span class="selector-tag">p</span><span class="selector-pseudo">:last-of-type</span>&#123;
+    <span class="attribute">color</span>: blueviolet;
+&#125;
+<span class="selector-tag">div</span>&gt;<span class="selector-tag">p</span><span class="selector-pseudo">:last-child</span>&#123;
+    <span class="attribute">color</span>: aquamarine;
+&#125;
+<span class="selector-tag">div</span>&gt;<span class="selector-tag">p</span><span class="selector-pseudo">:nth-last-child</span>(<span class="number">3</span>)&#123;
+    <span class="attribute">color</span>: cyan;
+&#125;
+<span class="selector-tag">div</span>&gt;<span class="selector-tag">p</span><span class="selector-pseudo">:nth-last-of-type</span>(<span class="number">4</span>)&#123;
+    <span class="attribute">color</span>: chocolate;
+&#125;</code></pre>
+
+<pre><code class="highlight css">//不太常用的结构伪类
+
+//选择的是没有兄弟元素的<span class="selector-tag">span</span>标签
+<span class="selector-tag">span</span><span class="selector-pseudo">:only-child</span>&#123;
+    <span class="attribute">color</span>: aqua;
+&#125;
+//选择的是没有同类型兄弟的<span class="selector-tag">span</span>标签
+<span class="selector-tag">span</span><span class="selector-pseudo">:only-of-type</span>&#123;
+    <span class="attribute">color</span>: coral;
+&#125;
+//选中的是根元素
+<span class="selector-pseudo">:root</span>&#123;
+    <span class="attribute">background-color</span>: brown;
+&#125;
+//选中的是没有内容的<span class="selector-tag">div</span>，不能包含空格
+<span class="selector-tag">div</span><span class="selector-pseudo">:empty</span>&#123;
+    //无效果
+    <span class="attribute">background-color</span>: aqua;
+&#125;</code></pre>
+
+<h4 id="10-否定伪类"><a href="#10-否定伪类" class="headerlink" title="10.否定伪类"></a>10.否定伪类</h4><pre><code class="highlight css"><span class="selector-tag">div</span>&gt;<span class="selector-tag">p</span><span class="selector-pseudo">:not</span>(<span class="selector-class">.fall</span>)
+&#123;
+    <span class="attribute">color</span>: red;
+&#125;</code></pre>
+
+<h4 id="11-UI选择器"><a href="#11-UI选择器" class="headerlink" title="11.UI选择器"></a>11.UI选择器</h4><pre><code class="highlight css">//选中的是被选中的<span class="selector-tag">input</span>
+<span class="selector-tag">input</span><span class="selector-pseudo">:checked</span>&#123;
+<span class="attribute">width</span>: <span class="number">100px</span>;
+<span class="attribute">height</span>: <span class="number">100px</span>;
+&#125;
+//选中的是被禁用的<span class="selector-tag">input</span>
+<span class="selector-tag">input</span><span class="selector-pseudo">:disabled</span>&#123;
+    <span class="attribute">background-color</span>: green;;
+&#125;</code></pre>
+
+<h4 id="12-目标伪类"><a href="#12-目标伪类" class="headerlink" title="12.目标伪类"></a>12.目标伪类</h4><blockquote>
+<p>选择的是目标选中元素</p>
+</blockquote>
+<pre><code class="highlight css"><span class="selector-tag">div</span>&#123;
+<span class="attribute">background-color</span>: red;
+<span class="attribute">height</span>: <span class="number">200px</span>;
+&#125;
+<span class="selector-tag">div</span><span class="selector-pseudo">:target</span>&#123;
+<span class="attribute">background-color</span>: green;
+&#125;</code></pre>
+
+<h4 id="13-语言伪类"><a href="#13-语言伪类" class="headerlink" title="13.语言伪类"></a>13.语言伪类</h4><pre><code class="highlight css"><span class="selector-tag">div</span><span class="selector-pseudo">:lang</span>(en)
+&#123;
+<span class="attribute">background-color</span>: red;
+&#125;        
+<span class="selector-tag">div</span><span class="selector-pseudo">:lang</span>(ZH-cn)
+&#123;
+<span class="attribute">background-color</span>: green;
+&#125;</code></pre>
+
+<blockquote>
+<p>优先级</p>
+<p>行内 &gt; ID选择器 &gt; 类选择器  &gt; 元素选择器 &gt; 通配选择器</p>
+</blockquote>
+<blockquote>
+<p>格式</p>
+<p>(a,b,c)</p>
+<p>a: ID选择器的个数</p>
+<p>b: 类、伪类、属性选择器的个数</p>
+<p>c: 元素、伪元素 选择器的个数</p>
+</blockquote>
+<h2 id="2-CSS基本属性"><a href="#2-CSS基本属性" class="headerlink" title="2 CSS基本属性"></a>2 CSS基本属性</h2><h3 id="1-CSS三大特性"><a href="#1-CSS三大特性" class="headerlink" title="1.CSS三大特性"></a>1.CSS三大特性</h3><blockquote>
+<p>1.层叠性：如果发生样式冲突，会根据一定规则（选择器的优先级，进行样式的层叠）</p>
+<p>2.继承性：元素会自动拥有其父元素，或祖上元素的某些样式</p>
+<ul>
+<li>规则：优先继承离得近的</li>
+<li>常见的可继承属性：text-?? ,font-?? ,line-??,color</li>
+</ul>
+<p>3.优先级：</p>
+<p>行内 &gt; ID选择器 &gt; 类选择器  &gt; 元素选择器 &gt; 通配选择器&gt;继承的样式</p>
+</blockquote>
+<h3 id="2-颜色属性"><a href="#2-颜色属性" class="headerlink" title="2.颜色属性"></a>2.颜色属性</h3><blockquote>
+<p>表示方式</p>
+</blockquote>
+<h4 id="1-颜色名"><a href="#1-颜色名" class="headerlink" title="1.颜色名"></a>1.颜色名</h4><pre><code class="highlight css"><span class="selector-tag">p</span>&#123;
+    <span class="attribute">color</span>: red;
+&#125;</code></pre>
+
+<h4 id="2-RGB"><a href="#2-RGB" class="headerlink" title="2.RGB"></a>2.RGB</h4><pre><code class="highlight css"><span class="selector-tag">p</span>&#123;
+<span class="attribute">color</span>:<span class="built_in">rgb</span>(<span class="number">138</span>,<span class="number">43</span>,<span class="number">226</span>);
+&#125;</code></pre>
+
+<pre><code class="highlight css"><span class="selector-tag">p</span>&#123;
+<span class="attribute">color</span>: <span class="built_in">rgb</span>(<span class="number">0%</span>,<span class="number">0%</span>,<span class="number">100%</span>);
+&#125;</code></pre>
+
+<h4 id="3-RGBA"><a href="#3-RGBA" class="headerlink" title="3.RGBA"></a>3.RGBA</h4><blockquote>
+<p>A表示的是透明度</p>
+</blockquote>
+<pre><code class="highlight css"><span class="selector-tag">p</span>&#123;
+<span class="attribute">color</span>: <span class="built_in">rgba</span>(<span class="number">255</span>, <span class="number">0</span>, <span class="number">0</span>, <span class="number">0.5</span>);
+&#125;</code></pre>
+
+<h4 id="4-HEX"><a href="#4-HEX" class="headerlink" title="4.HEX"></a>4.HEX</h4><blockquote>
+<p>每两位表示RGB,可以大写也可以小写，最好统一</p>
+</blockquote>
+<pre><code class="highlight css"><span class="selector-tag">p</span>&#123;
+<span class="attribute">color</span>: <span class="number">#87ce87</span>;
+&#125;</code></pre>
+
+<h4 id="5-HEXA"><a href="#5-HEXA" class="headerlink" title="5.HEXA"></a>5.HEXA</h4><blockquote>
+<p>后两位是透明度,IE浏览器不支持.</p>
+</blockquote>
+<pre><code class="highlight css"><span class="selector-tag">p</span>&#123;
+    <span class="attribute">color</span>: <span class="number">#87ce8788</span>;
+&#125;</code></pre>
+
+<h4 id="6-HSL"><a href="#6-HSL" class="headerlink" title="6.HSL"></a>6.HSL</h4><blockquote>
+<p>色相环</p>
+</blockquote>
+<p><a target="_blank" rel="noopener" href="https://imgse.com/i/pkPCTBQ"><img src="https://s21.ax1x.com/2024/04/25/pkPCTBQ.jpg" alt="pkPCTBQ.jpg"></a></p>
+<pre><code class="highlight css"><span class="selector-tag">p</span>&#123;
+<span class="attribute">color</span>: <span class="built_in">hsl</span>(色相，饱和度，亮度);
+&#125;
+//饱和度 -加上灰色
+<span class="selector-tag">p</span>&#123;
+    <span class="attribute">color</span>: <span class="built_in">hsl</span>(<span class="number">230</span>,<span class="number">50%</span>,<span class="number">30%</span>);
+&#125;</code></pre>
+
+<h4 id="7-HSLA"><a href="#7-HSLA" class="headerlink" title="7.HSLA"></a>7.HSLA</h4><pre><code class="highlight css"><span class="selector-tag">p</span>&#123;
+<span class="attribute">color</span>: <span class="built_in">hsl</span>(<span class="number">0</span>,<span class="number">100%</span>,<span class="number">50%</span>,<span class="number">50%</span>);
+&#125;</code></pre>
+
+<h3 id="3-字体属性"><a href="#3-字体属性" class="headerlink" title="3. 字体属性"></a>3. 字体属性</h3><h4 id="1-字体属性及说明"><a href="#1-字体属性及说明" class="headerlink" title="1.字体属性及说明"></a>1.字体属性及说明</h4><p>属性	                                                                说明<br>font				    简写属性。把所有针对字体的属性设置在一个声明中</p>
+<p>font-size		   设置字体的尺寸。常用单位为像素(px)</p>
+<p>font-style		 设置字体风格。Normal 为正常; italic 为斜体; oblique 为倾斜</p>
+<p>font weight	 设置字体的粗细。Normal 为正常; lighter 为细体; bold 为粗体; bolder 为特粗体</p>
+<p>font- family	 设置字体系列。例如“隶书”等，当指定多种字体时，用逗号分隔，如果浏览器不支持第一个字体，则会尝试下一个字体;当							字体由多个单词组成时由双引号括起来</p>
+<h4 id="2-字体大小"><a href="#2-字体大小" class="headerlink" title="2.字体大小"></a>2.字体大小</h4><blockquote>
+<p>font-size</p>
+<p>字体在chrome浏览器显示的最小文字为12px，默认为16px</p>
+</blockquote>
+<h4 id="3-字体族"><a href="#3-字体族" class="headerlink" title="3.字体族"></a>3.字体族</h4><blockquote>
+<p>font-family</p>
+<p>如果写了多个字体，选择前面能够使用的字体</p>
+<p>所写的字体必须属于同一个字体族（衬线字体，和非衬线字体）</p>
+<ul>
+<li>衬线字体  () serif</li>
+<li>非衬线字体 () sans-serif</li>
+</ul>
+</blockquote>
+<pre><code class="highlight css"><span class="selector-class">.c1</span>&#123;
+<span class="attribute">font-size</span>: <span class="number">12px</span>;
+<span class="attribute">font-family</span>:<span class="string">&quot;隶书&quot;</span>;
+&#125;
+//当前两个字体都失效会选择一个衬线字体
+<span class="selector-class">.c2</span>&#123;
+<span class="attribute">font-size</span>: <span class="number">50px</span>;
+<span class="attribute">font-family</span>: <span class="string">&quot;华文彩云&quot;</span>,<span class="string">&quot;楷体&quot;</span>,serif;
+&#125;
+//当前两个字体都失效会选择一个非衬线字体
+<span class="selector-class">.c3</span>&#123;
+    <span class="attribute">font-family</span>: <span class="string">&quot;Bradley Hand ITC&quot;</span>,<span class="string">&quot;Microsoft YaHei&quot;</span>,sans-serif;
+&#125;</code></pre>
+
+<h4 id="4-字体风格"><a href="#4-字体风格" class="headerlink" title="4.字体风格"></a>4.字体风格</h4><p>font-style</p>
+<blockquote>
+<p>italic 斜体 自动转成倾斜字体</p>
+<p>oblique 斜体 字体设计的倾斜值（设计好的倾斜字体）</p>
+<p>normal 普通</p>
+</blockquote>
+<h4 id="5-字体粗细"><a href="#5-字体粗细" class="headerlink" title="5.字体粗细"></a>5.字体粗细</h4><p>font weight</p>
+<blockquote>
+<p>关键词</p>
+<p>lighter 细</p>
+<p>normal 正常</p>
+<p>bold 粗</p>
+<p>bolder 很粗 (很多字体不支持)</p>
+<p>数值</p>
+<p>100~1000</p>
+<p>100~300 &#x3D;  lighter 400-500&#x3D;normal 600以上&#x3D;bold</p>
+</blockquote>
+<pre><code class="highlight css"><span class="selector-class">.c4</span>&#123;
+    //关键字
+    <span class="attribute">font-weight</span>: bolder;
+    <span class="attribute">font-weight</span>: bold;
+    //数值
+    <span class="attribute">font-weight</span>:<span class="number">200</span>;
+&#125;</code></pre>
+
+<h4 id="6-字体复合属性"><a href="#6-字体复合属性" class="headerlink" title="6.字体复合属性"></a>6.字体复合属性</h4><blockquote>
+<p>字体大小和字体组在最后两位，其他属性用空格隔开</p>
+</blockquote>
+<pre><code class="highlight css"><span class="selector-class">.cc</span>&#123;
+    <span class="attribute">font</span>:bold  italic  <span class="number">100px</span> <span class="string">&quot;2华文彩云&quot;</span>,<span class="string">&quot;华文琥珀&quot;</span>;
+&#125;</code></pre>
+
+<h3 id="4-常用文本属性"><a href="#4-常用文本属性" class="headerlink" title="4.常用文本属性"></a>4.常用文本属性</h3><h4 id="1-文本颜色"><a href="#1-文本颜色" class="headerlink" title="1.文本颜色"></a>1.文本颜色</h4><blockquote>
+<p>color </p>
+</blockquote>
+<h4 id="2-文本间距"><a href="#2-文本间距" class="headerlink" title="2.文本间距"></a>2.文本间距</h4><blockquote>
+<p>letter-spacing 字母间的距离</p>
+<p>word-spacing 单词之间的空隙 根据空格判断，对中文不起作用</p>
+<p>属性值为像素值（px） 正的距离增加，负的距离减小</p>
+</blockquote>
+<pre><code class="highlight css"><span class="selector-class">.c1</span>&#123;
+    <span class="attribute">letter-spacing</span>: <span class="number">10px</span>;
+    <span class="attribute">word-spacing</span>: <span class="number">10px</span>;
+&#125;</code></pre>
+
+<h4 id="3-文本修饰"><a href="#3-文本修饰" class="headerlink" title="3.文本修饰"></a>3.文本修饰</h4><blockquote>
+<p>增加去掉划线，或者更改划线的样式</p>
+</blockquote>
+<p>可选值</p>
+<blockquote>
+<p>none 无装饰线(常用)</p>
+<p>underline 下划线-常用(常用)</p>
+<p>overline 上划线</p>
+<p>line-through 删除线</p>
+</blockquote>
+<blockquote>
+<p>dotted 虚线</p>
+<p>wavy 波浪线</p>
+<p>也可以指定颜色</p>
+</blockquote>
+<pre><code class="highlight css"><span class="selector-class">.c2</span>&#123;
+	<span class="comment">/*上划线*/</span>
+	<span class="attribute">text-decoration</span>: overline;
+	<span class="comment">/*下划线*/</span>
+	<span class="attribute">text-decoration</span>: underline;
+	<span class="comment">/*中间划线*/</span>
+	<span class="attribute">text-decoration</span>: line-through;
+	<span class="comment">/*去掉划线*/</span>
+	<span class="attribute">text-decoration</span>: none;
+    <span class="comment">/*wavy*/</span>
+    <span class="attribute">text-decoration</span>: overline wavy red;
+&#125;</code></pre>
+
+<h4 id="4-文本缩进"><a href="#4-文本缩进" class="headerlink" title="4.文本缩进"></a>4.文本缩进</h4><blockquote>
+<p>indent缩进，每个字是40px，缩进80px，即缩进两个字符</p>
+</blockquote>
+<pre><code class="highlight css"><span class="attribute">font-size</span>: <span class="number">40px</span>;
+<span class="attribute">text-indent</span>: <span class="number">80px</span>;</code></pre>
+
+<h4 id="5-文本对齐"><a href="#5-文本对齐" class="headerlink" title="5.文本对齐"></a>5.文本对齐</h4><p>text-align </p>
+<blockquote>
+<p>align对齐</p>
+<p>center 居中</p>
+<p>left 左对齐</p>
+<p>right 右对齐</p>
+</blockquote>
+<blockquote>
+<p>由于字体设计原因，文字最终呈现的大小，并不一定与font-size的值一致，可能大，也可能小</p>
+<p>通常情况下，文字相对字体设计框，并不是垂直居中的，通常要靠下一些</p>
+</blockquote>
+<h4 id="6-行高"><a href="#6-行高" class="headerlink" title="6.行高"></a>6.行高</h4><blockquote>
+<p>line-height</p>
+<p>不能太小，并且不能小于等于font-size</p>
+<p>1.normal</p>
+<p>2.px</p>
+<p>3.数字 参考自身font-size的倍数（常用）</p>
+<p>4.百分比</p>
+</blockquote>
+<pre><code class="highlight css"><span class="selector-tag">div</span> &#123;
+	<span class="attribute">line-height</span>:<span class="number">60px</span>;
+	<span class="attribute">line-height</span>:<span class="number">1.5</span>;
+	<span class="attribute">line-height</span>:<span class="number">150%</span>;
+&#125;</code></pre>
+
+<blockquote>
+<ul>
+<li><p>行高为0会重叠，不能小于0</p>
+</li>
+<li><p>行高是可以继承的</p>
+</li>
+<li><p>height与line-height的关系</p>
+</li>
+</ul>
+<p>设置了height，高度就是height</p>
+<p>没有设置height，高度就是line-heigh*行数</p>
+</blockquote>
+<blockquote>
+<p>应用场景：</p>
+<p>调整多行文字之间的间距</p>
+<p>单行文字垂直居中</p>
+</blockquote>
+<pre><code class="highlight css"><span class="selector-class">.c</span>&#123;
+    <span class="attribute">font-size</span>: <span class="number">20px</span>;
+    <span class="attribute">line-height</span>: <span class="number">1.5</span>;
+&#125;
+
+<span class="selector-class">.c</span>&#123;
+    <span class="attribute">font-size</span>: <span class="number">20px</span>;
+    <span class="attribute">height</span>: <span class="number">400px</span>;
+    <span class="attribute">background-color</span>: skyblue;
+    <span class="attribute">line-height</span>: <span class="number">400px</span>;
+&#125;</code></pre>
+
+<h4 id="7-文本对齐-垂直"><a href="#7-文本对齐-垂直" class="headerlink" title="7.文本对齐_垂直"></a>7.文本对齐_垂直</h4><p>对于单行元素</p>
+<ul>
+<li>顶部 默认</li>
+<li>居中</li>
+</ul>
+<blockquote>
+<p>让height&#x3D; line-height</p>
+</blockquote>
+<ul>
+<li>底部</li>
+</ul>
+<blockquote>
+<p>line-height &#x3D; (height x 2) - font - size -x</p>
+</blockquote>
+<h4 id="8-vertical-align"><a href="#8-vertical-align" class="headerlink" title="8.vertical-align"></a>8.vertical-align</h4><blockquote>
+<p>默认基线对齐</p>
+<p>top 顶部</p>
+<p>bottom 底部</p>
+<p>middle 基线加上x的一半对齐</p>
+<p>一行的高度由最高的元素决定，并依照它对齐</p>
+<p>vertical-align不能控制块级元素，操作行内元素(或操作表格)</p>
+</blockquote>
+<h3 id="5-列表属性"><a href="#5-列表属性" class="headerlink" title="5.列表属性"></a>5.列表属性</h3><blockquote>
+<p>列表符号</p>
+<p>none(不显示前面的符号，常用)</p>
+</blockquote>
+<p><code>list-style-type: upper-roman</code></p>
+<p>列表符号的位置</p>
+<pre><code class="highlight css">&lt;style&gt;
+<span class="selector-tag">ul</span>&#123;
+    <span class="attribute">list-style-position</span>: outside;
+&#125;
+<span class="selector-tag">li</span>&#123;
+    <span class="attribute">background-color</span>: orange;
+&#125;
+&lt;/style&gt;</code></pre>
+
+<p>自定义列表符号</p>
+<p><code>list-style-image: url(&quot;目录&quot;) ;</code></p>
+<p>复合属性</p>
+<blockquote>
+<p>没有顺序和数量的要求</p>
+</blockquote>
+<pre><code class="highlight css"><span class="attribute">list-style</span>: upper-roman outside;</code></pre>
+
+<h3 id="6-表格相关属性"><a href="#6-表格相关属性" class="headerlink" title="6.表格相关属性"></a>6.表格相关属性</h3><h4 id="1-边框属性"><a href="#1-边框属性" class="headerlink" title="1.边框属性"></a>1.边框属性</h4><p>border-width 边框宽度 </p>
+<ul>
+<li>CSS中可用的长度值</li>
+</ul>
+<p>border-color 边框颜色</p>
+<ul>
+<li>CSS中可用的颜色值</li>
+</ul>
+<p>border-style 边框风格</p>
+<ul>
+<li>none 默认值</li>
+<li>solid 实线</li>
+<li>dashed 虚线</li>
+<li>dotted 点线</li>
+<li>double 双实线</li>
+</ul>
+<p>border 边框复合属性 没有数量、顺序的要求</p>
+<h4 id="2-表格独有属性"><a href="#2-表格独有属性" class="headerlink" title="2.表格独有属性"></a>2.表格独有属性</h4><blockquote>
+<p>table-layout 设置列宽度 </p>
+<ul>
+<li>auto 自动，列宽根据内容计算（默认值）</li>
+<li>fixed 固定列宽，平均分</li>
+</ul>
+<p>border-spacing  单元格的间距</p>
+<ul>
+<li>CSS中可用的长度值</li>
+<li>生效的前提：单元格边框不能合并</li>
+</ul>
+<p>border-collapse  合并单元表格</p>
+<ul>
+<li>collapse 合并</li>
+<li>separate 不合并</li>
+</ul>
+<p>empty-cells 隐藏没有内容的单元格</p>
+<ul>
+<li>show 显示，默认</li>
+<li>hide 隐藏</li>
+</ul>
+<p>生效前提：单元格不能合并</p>
+<p>caption-side 设置表格标题的位置</p>
+<ul>
+<li>top 上面（默认）</li>
+<li>bottom  表格下面</li>
+</ul>
+</blockquote>
+<pre><code class="highlight css"><span class="comment">/* 混合属性 */</span>
+<span class="attribute">border</span>: <span class="number">2px</span> green solid;
+<span class="comment">/* 控制表的列宽 */</span>
+<span class="attribute">table-layout</span>: fixed;
+<span class="comment">/* 单元格的间距 */</span>
+<span class="attribute">border-spacing</span>: <span class="number">0px</span>;
+<span class="comment">/* 合并单元表格 */</span>
+<span class="attribute">border-collapse</span>: separate;
+<span class="comment">/* 隐藏没有内容的单元格 */</span>
+<span class="attribute">empty-cells</span>: hide;
+<span class="comment">/* 设置表格标题的位置 */</span>
+<span class="attribute">caption-side</span>: top;</code></pre>
+
+<p>3.背景相关属性</p>
+<blockquote>
+<p>背景颜色</p>
+<p>transparent 默认值透明</p>
+</blockquote>
+<pre><code class="highlight css"><span class="attribute">background-color</span>: transparent;</code></pre>
+
+<blockquote>
+<p>背景图片</p>
+<p>小图片会一张一张拼接起来</p>
+</blockquote>
+<pre><code class="highlight css"><span class="attribute">background-image</span>: <span class="built_in">url</span>(<span class="string">&quot;文件目录&quot;</span>);
+<span class="comment">/* 控制图片是否重复repeat是重复，no-repeat是不重复*/</span>
+<span class="comment">/* 控制图片是否重复repeat-x是水平方向重复，repeat-y是垂直方向重复*/</span>
+<span class="attribute">background-repeat</span>: repeat;
+<span class="attribute">background-repeat</span>: repeat-x;
+<span class="attribute">background-repeat</span>: repeat-y;
+<span class="attribute">background-repeat</span>: no-repeat;
+<span class="comment">/* 控制背景图片的位置*/</span>
+<span class="comment">/* 左上 */</span>
+<span class="attribute">background-position</span>: left top;
+<span class="comment">/* 右中 */</span>
+<span class="attribute">background-position</span>: right center;
+<span class="comment">/* 中中 */</span>
+<span class="attribute">background-position</span>: center center
+<span class="comment">/* 两个相同可以简写 */</span>
+background-position: center;
+<span class="comment">/* 控制背景图片的位置 用具体大的像素值*/</span>
+<span class="attribute">background-position</span>: <span class="number">300</span>;
+
+<span class="attribute">background</span>: skyblue <span class="built_in">url</span>(<span class="string">&quot;文件目录&quot;</span>);</code></pre>
+
+<blockquote>
+<p>right left center 水平方向上</p>
+<p>bottom center top 垂直方向上</p>
+</blockquote>
+<blockquote>
+<p>控制背景图片的位置 用具体大的像素值</p>
+<p>以左上角为基准，做xy轴</p>
+</blockquote>
+<h3 id="7-鼠标相关属性"><a href="#7-鼠标相关属性" class="headerlink" title="7.鼠标相关属性"></a>7.鼠标相关属性</h3><blockquote>
+<p>pointer:小手</p>
+<p>move:移动图标</p>
+<p>text:文字选择器</p>
+<p>crosshair 十字架</p>
+<p>wait 等待</p>
+<p>help 帮助</p>
+</blockquote>
+<pre><code class="highlight css"><span class="attribute">cursor</span>: pointer; (自定义鼠标的图标，pointer-&gt;小手)
+<span class="comment">/* 设置鼠标样式 */</span>
+<span class="attribute">cursor</span>: <span class="built_in">url</span>(<span class="string">&quot;文件目录&quot;</span>),pointer;</code></pre>
+
+<h2 id="3-盒子模型"><a href="#3-盒子模型" class="headerlink" title="3.盒子模型"></a>3.盒子模型</h2><h3 id="1-常用的长度单位"><a href="#1-常用的长度单位" class="headerlink" title="1.常用的长度单位"></a>1.常用的长度单位</h3><p>1.第一种单位是px</p>
+<p>2.第二种是em（相当于font-size的倍数）</p>
+<p>3.第三种是rem（相当于根元素的font-size的倍数）（默认html标签）</p>
+<p>4.第四种是% （相当于其父元素的font-size的倍数） </p>
+<pre><code class="highlight css"><span class="selector-class">.c2</span>&#123;
+    <span class="attribute">width</span>: <span class="number">50%</span>;
+    <span class="attribute">height</span>: <span class="number">25%</span>;
+    <span class="comment">/* font-size: 150%; */</span>
+    <span class="attribute">background-color</span>: red;
+&#125;</code></pre>
+
+<h3 id="2-元素的显示模式"><a href="#2-元素的显示模式" class="headerlink" title="2.元素的显示模式"></a>2.元素的显示模式</h3><h4 id="块元素（block）"><a href="#块元素（block）" class="headerlink" title="块元素（block）"></a>块元素（block）</h4><blockquote>
+<p>独占一行，</p>
+<p>默认宽度，排满父元素</p>
+<p>默认高度：由内容撑开</p>
+<p>可以通过CSS设置宽高</p>
+</blockquote>
+<h4 id="行内元素-（inline）"><a href="#行内元素-（inline）" class="headerlink" title="行内元素 （inline）"></a>行内元素 （inline）</h4><blockquote>
+<p>不独占一行，一行不能容纳下的行内元素，会在下一行继续从左到右排列</p>
+<p>默认宽度：由内容撑开</p>
+<p>默认高度：由内容撑开</p>
+<p>无法通过CSS设置宽高</p>
+</blockquote>
+<h4 id="3-行内块元素-（inline-block）"><a href="#3-行内块元素-（inline-block）" class="headerlink" title="3.行内块元素 （inline-block）"></a>3.行内块元素 （inline-block）</h4><blockquote>
+<p>img</p>
+<p>在页面中不独占一行，一行中不能容纳下的行内元素，会在下一行从左到由排列</p>
+<p>默认宽度：由内容撑开</p>
+<p>默认高度：由内容撑开</p>
+<p>可以通过CSS设置宽高</p>
+</blockquote>
+<h4 id="3-总结各元素的显示模式"><a href="#3-总结各元素的显示模式" class="headerlink" title="3.总结各元素的显示模式"></a>3.总结各元素的显示模式</h4><p>块级元素</p>
+<blockquote>
+<p>主体结构标签：html,body</p>
+<p>2.排版标签：h1~h6 hr p pre(按原文显示) div</p>
+<p>3.列表标签：ul ol li dl dt dd</p>
+<p>4.表格相关标签：table tbody thead tfoot tr caption</p>
+<p>form,option</p>
+</blockquote>
+<p>行内元素</p>
+<blockquote>
+<p>文本标签：br em strong sup sub del ins</p>
+<p>a label</p>
+</blockquote>
+<p>行内块元素</p>
+<blockquote>
+<p>图片 img</p>
+<p>单元格 td  th</p>
+<p>表单控件 input textarea select button</p>
+<p>框架标签 iframe</p>
+</blockquote>
+<h4 id="4-修改显示模式"><a href="#4-修改显示模式" class="headerlink" title="4.修改显示模式"></a>4.修改显示模式</h4><blockquote>
+<p>display</p>
+<p>none 元素会被隐藏</p>
+<p>block 元素会作为块级元素隐藏</p>
+<p>inline 元素会作为内联元素隐藏</p>
+<p>inline-inline元素会作为行内块元素元素隐藏</p>
+</blockquote>
+<pre><code class="highlight html"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="language-css"></span>
+<span class="language-css">    <span class="selector-tag">div</span>&#123;</span>
+<span class="language-css">        <span class="attribute">display</span>: inline-block;</span>
+<span class="language-css">    &#125;</span>
+<span class="language-css">    <span class="selector-class">.c1</span>&#123;</span>
+<span class="language-css">        <span class="attribute">width</span>: <span class="number">200px</span>;</span>
+<span class="language-css">        <span class="attribute">height</span>: <span class="number">200px</span>;</span>
+<span class="language-css">        <span class="attribute">background-color</span>: red;</span>
+<span class="language-css">    &#125;</span>
+<span class="language-css">    <span class="selector-class">.c2</span>&#123;</span>
+<span class="language-css">        <span class="attribute">width</span>: <span class="number">200px</span>;</span>
+<span class="language-css">        <span class="attribute">height</span>: <span class="number">200px</span>;</span>
+<span class="language-css">        <span class="attribute">background-color</span>: orange;</span>
+<span class="language-css">    &#125;</span>
+<span class="language-css">    <span class="selector-class">.c3</span>&#123;</span>
+<span class="language-css">        <span class="attribute">width</span>: <span class="number">200px</span>;</span>
+<span class="language-css">        <span class="attribute">height</span>: <span class="number">200px</span>;</span>
+<span class="language-css">        <span class="attribute">background-color</span>: skyblue;</span>
+<span class="language-css">    &#125;</span>
+<span class="language-css"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></code></pre>
+
+<h3 id="3-盒子的组成部分"><a href="#3-盒子的组成部分" class="headerlink" title="3.盒子的组成部分"></a>3.盒子的组成部分</h3><blockquote>
+<p>外面为外边距，中间是内边距（补白），里面则是内容区</p>
+<p>外边距</p>
+<p>margin（不会影响大小，只影响位置）</p>
+<p>边框</p>
+<p>border</p>
+<p>内边距</p>
+<p>padding</p>
+<p>内容</p>
+<p>content</p>
+</blockquote>
+<h4 id="1-content"><a href="#1-content" class="headerlink" title="1.content"></a>1.content</h4><p>设置内容区域的最大宽度</p>
+<blockquote>
+<p>不写宽度，可以使用min-width设置最小的宽度，用max-width设置最宽宽度</p>
+</blockquote>
+<p><code>min-width：600px;</code></p>
+<p><code>max-width：1000px</code></p>
+<blockquote>
+<p>不写高度，可以使用min-height设置最小的宽度，用max-height设置最宽宽度</p>
+<p>当文字比较少时，高度不会低于min-height，当文字过多时，高度不会超过max-height</p>
+</blockquote>
+<p><code>min-height: 200px;</code></p>
+<p><code>max-height: 800px;</code></p>
+<h4 id="2-默认宽度"><a href="#2-默认宽度" class="headerlink" title="2.默认宽度"></a>2.默认宽度</h4><blockquote>
+<p>不设置width属性时，元素所呈现出来的宽度</p>
+<p>总宽度&#x3D;父的content - 自身的左右margin</p>
+<p>内容区的宽度 &#x3D; 父的content - 自身的左右margin-自身的左右border - 自身的左右padding</p>
+</blockquote>
+<h4 id="3-padding"><a href="#3-padding" class="headerlink" title="3.padding"></a>3.padding</h4><pre><code class="highlight html"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="language-css"></span>
+<span class="language-css">    <span class="selector-tag">div</span>&#123;</span>
+<span class="language-css">        <span class="comment">/*width: 200px;</span></span>
+<span class="comment"><span class="language-css">        height: 200px; */</span></span>
+<span class="language-css">        <span class="comment">/* 左侧内边框 */</span></span>
+<span class="language-css">        <span class="attribute">padding-left</span>: <span class="number">20px</span>;</span>
+<span class="language-css">        <span class="comment">/* 上内边框 */</span></span>
+<span class="language-css">        <span class="attribute">padding-top</span>: <span class="number">30px</span>;</span>
+<span class="language-css">        <span class="comment">/* 右侧内边框 */</span></span>
+<span class="language-css">        <span class="attribute">padding-right</span>: <span class="number">40px</span>;</span>
+<span class="language-css">        <span class="comment">/* 底内边框 */</span></span>
+<span class="language-css">        <span class="attribute">padding-bottom</span>: <span class="number">50px</span>;</span>
+<span class="language-css">        <span class="comment">/* 复合属性 四边都是20px*/</span></span>
+<span class="language-css">        <span class="attribute">padding</span>: <span class="number">20px</span>;</span>
+<span class="language-css">        <span class="comment">/* 复合属性写两个值 上下 左右 */</span></span>
+<span class="language-css">        <span class="attribute">padding</span>: <span class="number">20px</span> <span class="number">30px</span>;</span>
+<span class="language-css">        <span class="comment">/* 复合属性写三个值 上 左右 下 */</span></span>
+<span class="language-css">        <span class="attribute">padding</span>:<span class="number">10px</span> <span class="number">20px</span> <span class="number">30px</span>;</span>
+<span class="language-css">        <span class="comment">/* 复合属性写四个值 上 右 下 左 */</span></span>
+<span class="language-css">        <span class="attribute">padding</span>: <span class="number">10px</span> <span class="number">20px</span> <span class="number">30px</span> <span class="number">40px</span>;</span>
+<span class="language-css">        <span class="attribute">background-color</span>: red;</span>
+<span class="language-css">    &#125;</span>
+<span class="language-css"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></code></pre>
+
+<blockquote>
+<p>padding的值不能为负数</p>
+<p>行内元素的左右边距没有问题，但是上下内边距不能完美调整</p>
+<p>块级元素、行内元素，四个方向内边距都可以完美设置</p>
+</blockquote>
+<h4 id="4-border"><a href="#4-border" class="headerlink" title="4.border"></a>4.border</h4><blockquote>
+<p>border-style</p>
+<p>border-width</p>
+<p>border-color</p>
+<p>border</p>
+<p>left right-top-bottom与style width color搭配使用</p>
+</blockquote>
+<h4 id="5-margin"><a href="#5-margin" class="headerlink" title="5.margin"></a>5.margin</h4><blockquote>
+<p>调整与padding类似</p>
+</blockquote>
+<blockquote>
+<p>margin-left</p>
+<p>margin-right</p>
+<p>margin-top</p>
+<p>margin-bottom</p>
+<p>margin 一个参数</p>
+<p>margin 两个参数</p>
+<p>margin 三个参数</p>
+<p>margin 四个参数</p>
+</blockquote>
+<h5 id="margin的注意事项"><a href="#margin的注意事项" class="headerlink" title="margin的注意事项"></a>margin的注意事项</h5><blockquote>
+<p> 1.子元素的margin，是参考父元素的content计算的。（因为是父亲的content中承载着子元素）</p>
+<p>2.上margin、左margin：影响自己的位置；下margin、右margin：影响兄弟元素的位置</p>
+<p>3.块级元素、行内元素、均可以完美设置四个方向的margin；但行内元素，左右margin可以完美设置，上下margin设置无效</p>
+<p>4.margin的值也可以是auto（margin-left:auto 为能多右就往多右移动），如果给一个块级元素设置左右margin都为auto，该块级元素会在父元素中水平居中</p>
+<p>5.margin的值可以是负数</p>
+</blockquote>
+<h5 id="margin塌陷问题"><a href="#margin塌陷问题" class="headerlink" title="margin塌陷问题"></a>margin塌陷问题</h5><blockquote>
+<p>第一个子元素的上margin会作用在父元素上，最后一个子元素的margin会作用在父元素上</p>
+</blockquote>
+<pre><code class="highlight css">&lt;style&gt;
+    <span class="selector-id">#c1</span>&#123;
+        <span class="attribute">height</span>: <span class="number">400px</span>;
+        <span class="attribute">width</span>: <span class="number">400px</span>;
+        <span class="attribute">background-color</span>: gray;
+    &#125;
+    <span class="selector-class">.box1</span>&#123;
+        <span class="attribute">height</span>: <span class="number">100px</span>;
+        <span class="attribute">width</span>: <span class="number">100px</span>;
+        <span class="attribute">background-color</span>: orange;
+        <span class="attribute">margin-top</span>: <span class="number">50px</span>;
+    &#125;
+    <span class="selector-class">.box2</span>&#123;
+        <span class="attribute">height</span>: <span class="number">100px</span>;
+        <span class="attribute">width</span>: <span class="number">100px</span>;
+        <span class="attribute">background-color</span>: red;
+    &#125;
+&lt;/style&gt;</code></pre>
+
+<p>解决措施</p>
+<ol>
+<li></li>
+</ol>
+<pre><code class="highlight css"><span class="attribute">border</span>: <span class="number">1px</span> solid red;</code></pre>
+
+<ol start="2">
+<li></li>
+</ol>
+<pre><code class="highlight css"><span class="attribute">padding</span>: <span class="number">10px</span>;</code></pre>
+
+<ol start="3">
+<li></li>
+</ol>
+<blockquote>
+<p>超出的隐藏</p>
+</blockquote>
+<pre><code class="highlight css"><span class="attribute">overflow</span>: hidden;</code></pre>
+
+<h5 id="margin合并问题"><a href="#margin合并问题" class="headerlink" title="margin合并问题"></a>margin合并问题</h5><blockquote>
+<p>margin合并问题</p>
+<p>上下兄弟之间top和bottom的合并，相同合并，不相同取大值</p>
+<p>左右兄弟之间left和right不会合并</p>
+</blockquote>
+<pre><code class="highlight css">&lt;style&gt;
+	<span class="selector-class">.c1</span>&#123;
+        <span class="attribute">width</span>: <span class="number">100px</span>;
+        <span class="attribute">height</span>: <span class="number">100px</span>;
+        <span class="attribute">background-color</span>: deepskyblue;
+        <span class="attribute">margin-bottom</span>: <span class="number">50px</span>;
+       &#125;
+	<span class="selector-class">.c2</span>&#123;
+		<span class="attribute">width</span>: <span class="number">100px</span>;
+		<span class="attribute">height</span>: <span class="number">100px</span>;
+		<span class="attribute">background-color</span>: deeppink;
+		<span class="attribute">margin-top</span>: <span class="number">60px</span>;
+	&#125;
+&lt;/style&gt;</code></pre>
+
+<h3 id="4-处理内容的溢出"><a href="#4-处理内容的溢出" class="headerlink" title="4.处理内容的溢出"></a>4.处理内容的溢出</h3><blockquote>
+<p>overflow</p>
+<p>overflow-x 横向</p>
+<p>overflow-y 纵向</p>
+<ul>
+<li>scroll 滚动条 （不论是否溢出）</li>
+<li>visible 默认（显示）</li>
+<li>hidden 隐藏</li>
+<li>auto 如果溢出则显示滚动条</li>
+</ul>
+</blockquote>
+<h3 id="5-隐藏元素的两种方式"><a href="#5-隐藏元素的两种方式" class="headerlink" title="5.隐藏元素的两种方式"></a>5.隐藏元素的两种方式</h3><blockquote>
+<p>display 不占位</p>
+<p>visibility 占位</p>
+</blockquote>
+<pre><code class="highlight css">&lt;style&gt;
+	<span class="selector-class">.c1</span>&#123;
+        <span class="attribute">width</span>: <span class="number">100px</span>;
+        <span class="attribute">height</span>: <span class="number">100px</span>;
+        <span class="attribute">background-color</span>: red;
+        <span class="attribute">margin-bottom</span>: <span class="number">100px</span>;
+        <span class="comment">/* 不占位 */</span>
+        <span class="attribute">display</span>: none;
+        <span class="comment">/* 占位 */</span>
+        <span class="attribute">visibility</span>: hidden;
+	&#125;
+    <span class="selector-class">.c2</span>&#123;
+        <span class="attribute">width</span>: <span class="number">100px</span>;
+        <span class="attribute">height</span>: <span class="number">100px</span>;
+        <span class="attribute">background-color</span>: orange;
+	&#125;
+&lt;/style&gt;</code></pre>
+
+<h3 id="6-样式的继承"><a href="#6-样式的继承" class="headerlink" title="6.样式的继承"></a>6.样式的继承</h3><blockquote>
+<p>会继承的CSS样式</p>
+<p>字体属性、文本属性、文字颜色等</p>
+<p>不影响布局，不影响盒子模型</p>
+</blockquote>
+<blockquote>
+<p>不会继承的CSS样式</p>
+<p>边框、背景、内边距、外边距、宽高、溢出方式</p>
+</blockquote>
+<h3 id="7-元素的默认样式"><a href="#7-元素的默认样式" class="headerlink" title="7.元素的默认样式"></a>7.元素的默认样式</h3><blockquote>
+<p>浏览器设置的默认样式</p>
+</blockquote>
+<blockquote>
+<p>a</p>
+<p>h1~h6</p>
+<p>p</p>
+<p>ul、ol</p>
+<p>body 8px的外边距</p>
+</blockquote>
+<h3 id="8-布局技巧"><a href="#8-布局技巧" class="headerlink" title="8.布局技巧"></a>8.布局技巧</h3><p>1.行内元素，行内块元素，可以被父元素当作文本处理</p>
+<p>text-align line-height text-indent</p>
+<h3 id="9-元素之前的空白问题"><a href="#9-元素之前的空白问题" class="headerlink" title="9.元素之前的空白问题"></a>9.元素之前的空白问题</h3><p>1.去掉换行和空格</p>
+<p>2.给父元素设置font-size:0，再给需要显示文字的元素，单独设置字体大小（推荐）</p>
+<h3 id="10-行内块的幽灵空白问题"><a href="#10-行内块的幽灵空白问题" class="headerlink" title="10.行内块的幽灵空白问题"></a>10.行内块的幽灵空白问题</h3><p>1.vertical-align: top;</p>
+<p>2.display: block;</p>
+<p>3.font-size:0 然后再选中字体再设置字体大小</p>
+<h2 id="4-浮动"><a href="#4-浮动" class="headerlink" title="4.浮动"></a>4.浮动</h2><h3 id="1-简介"><a href="#1-简介" class="headerlink" title="1.简介"></a>1.简介</h3><blockquote>
+<p>文字环绕图片</p>
+<p>用来布局</p>
+<p>float:left right</p>
+</blockquote>
+<h3 id="2-特点"><a href="#2-特点" class="headerlink" title="2.特点"></a>2.特点</h3><blockquote>
+<p>浮动之后</p>
+<p>1.脱离文档流</p>
+<p>2.不管浮动前是什么元素，默认宽高都由内容撑开，而且可以设置宽高</p>
+<p>3.不会独占一行，可以与其他元素共用一行</p>
+<p>4.不会margin合并，也不会margin塌陷，能够完美设置四个方向的margin和padding</p>
+<p>5.不会像行内块一样被当作文本处理</p>
+</blockquote>
+<h3 id="3-浮动后的影响"><a href="#3-浮动后的影响" class="headerlink" title="3.浮动后的影响"></a>3.浮动后的影响</h3><p>对兄弟元素的影响：后面的兄弟元素，会占据浮动元素之前的位置，在浮动元素的下面；对前面的兄弟无影响</p>
+<p>对父元素的影响：不能撑起父元素的高度，导致父元素高度塌陷；但父元素的宽度依然束缚浮动的元素</p>
+<p>4.消除浮动产生的影响</p>
+<p>1.设置父元素的height</p>
+<p>2.给父元素也设置浮动</p>
+<p>3.overflow-hidden</p>
+<p>4.在所有浮动元素的最后面加块元素，并设置clear: both</p>
+<pre><code class="highlight css"><span class="selector-class">.box4</span>&#123;
+	<span class="attribute">clear</span>: both;
+&#125;</code></pre>
+
+<p>5.（推荐使用）</p>
+<pre><code class="highlight css"><span class="selector-class">.outer</span><span class="selector-pseudo">::after</span>&#123;
+    <span class="attribute">content</span>: <span class="string">&quot;&quot;</span>;
+    <span class="attribute">display</span>: block;
+    <span class="attribute">clear</span>: both;
+&#125;</code></pre>
+
+<h2 id="5-定位"><a href="#5-定位" class="headerlink" title="5.定位"></a>5.定位</h2><h3 id="1-相对定位"><a href="#1-相对定位" class="headerlink" title="1.相对定位"></a>1.相对定位</h3><blockquote>
+<p>给元素设置position：relative 即可实现相对定位。</p>
+<p>可以使用 left、right、top、bottom 四个属性调整位置。</p>
+</blockquote>
+<blockquote>
+<p>参考点</p>
+<p>相对自己原来的位置</p>
+</blockquote>
+<p>特点:<br>1.不会脱离文档流，元素位置的变化，只是视觉效果上的变化，不会对其他元素产生任何影响。<br>2.定位元素的显示层级比普通元素高，无论什么定位，显示层级都是一样的。<br>    默认规则是:<br>         定位的元素会盖在普通元素之上。<br>     	都发生定位的两个元素，后写的元素会盖在先写的元素之上。</p>
+<p>3.left不能和right—起设置，top和bottom不能一起设置。<br>4.相对定位的元素，也能继续浮动，但不推荐这样做。<br>5.相对行为的元素，也能通过margin调整位置，但不推荐这样做。</p>
+<blockquote>
+<p>注意：绝大多数情况下，相对定位，会与绝对定位配合使用。</p>
+</blockquote>
+<h3 id="2-绝对定位"><a href="#2-绝对定位" class="headerlink" title="2.绝对定位"></a>2.绝对定位</h3><blockquote>
+<p>给元素设置 position：absolute 即可实现绝对定位。</p>
+<p>可以使用 left、right、top、bottom 四个属性调整位置。</p>
+</blockquote>
+<blockquote>
+<p>参考它的包含块</p>
+</blockquote>
+<p>1.对于没有脱离文档流的元素：包含块就是父元素;</p>
+<p>2.对于脱离文档流的元素：包含块是第一个拥有定位属性的祖先元素（如果所有祖先都没定位，那包含块就是整个页面)</p>
+<blockquote>
+<p>绝对定位元素的特点:</p>
+</blockquote>
+<p>1.脱离文档流，会对后面的兄弟元素、父元素有影响。</p>
+<p>2.left不能和right一起设置，top和bottom不能一起设置</p>
+<p>3.绝对定位、浮动不能同时设置，如果同时设置，浮动失效，以定位为主。</p>
+<p>4.绝对定位的元素，也能通过margin调整位置，但不推荐这样做。</p>
+<p>5.无论是什么元素（行内、行内块、块级）设置为绝对定位之后，</p>
+<blockquote>
+<p>何为定位元素？ – 默认宽、高都被内容所撑开，且能自由设置宽高。</p>
+</blockquote>
+<h3 id="3-固定定位"><a href="#3-固定定位" class="headerlink" title="3.固定定位"></a>3.固定定位</h3><blockquote>
+<p>给元素设置 position：fixed 即可实现固定定位。</p>
+<p>可以使用left、right、top、bottom 四个属性调整位置。</p>
+</blockquote>
+<blockquote>
+<p>参考它的视口</p>
+</blockquote>
+<blockquote>
+<p>固定定位元素的特点</p>
+</blockquote>
+<p>1.脱离文档流，会对后面的兄弟元素、父元素有影响。</p>
+<p>2.left不能和right一起设置，top和bottom不能一起设置。</p>
+<p>3.固定定位和浮动不能同时设置，如果同时设置，浮动失效，以固定定位为主。</p>
+<p>4.固定定位的元素，也能通过margin调整位置，但不推荐这样做。</p>
+<p>5.无论是什么元素（行内、行内块、块级）设置为固定定位之后，都变成了定位元素</p>
+<p>一对于 PC浏览器来说，视口就是我们看网页的那扇“窗户”。</p>
+<h3 id="4-粘性定位"><a href="#4-粘性定位" class="headerlink" title="4.粘性定位"></a>4.粘性定位</h3><blockquote>
+<p>给元素设置 position：sticky 即可实现粘性定位。</p>
+<p>可以使用left、right、top、bottom四个属性调整位置，不过最常用的是top值。</p>
+</blockquote>
+<blockquote>
+<p>离它最近的一个拥有“滚动机制”的祖先元素，即便这个祖先不是最近的真实可滚动祖先。</p>
+</blockquote>
+<p>粘性定位元素的特点</p>
+<p>不会脱离文档流，它是一种专门用于窗口滚动时的新的定位方式。</p>
+<p>最常用的值是top值。</p>
+<p>粘性定位和浮动可以同时设置，但不推荐这样做。</p>
+<p>粘性定位的元素，也能通过margin调整位置，但不推荐这样做。</p>
+<ul>
+<li>粘性定位和相对定位的特点基本一致，不同的是：粘性定位可以在元素到达某个位置时将其固定。</li>
+</ul>
+<h3 id="5-定位的层级"><a href="#5-定位的层级" class="headerlink" title="5.定位的层级"></a>5.定位的层级</h3><pre><code class="highlight html"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span>
+<span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;zh-CN&quot;</span>&gt;</span>
+<span class="tag">&lt;<span class="name">head</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">title</span>&gt;</span>定位的层级<span class="tag">&lt;/<span class="name">title</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="language-css"></span>
+<span class="language-css">        <span class="selector-class">.outer</span>&#123;</span>
+<span class="language-css">            <span class="attribute">background-color</span>: gray;</span>
+<span class="language-css">            <span class="attribute">height</span>: <span class="number">400px</span>;</span>
+<span class="language-css">            <span class="attribute">width</span>: <span class="number">400px</span>;</span>
+<span class="language-css">            <span class="attribute">padding</span>: <span class="number">20px</span>;</span>
+<span class="language-css">            <span class="attribute">border</span>: <span class="number">1px</span> solid black;</span>
+<span class="language-css">            <span class="attribute">position</span>: relative;</span>
+<span class="language-css">        &#125;</span>
+<span class="language-css">        <span class="selector-class">.box</span>&#123;</span>
+<span class="language-css">            <span class="attribute">font-size</span>: <span class="number">20px</span>;</span>
+<span class="language-css">            <span class="attribute">height</span>: <span class="number">100px</span>;</span>
+<span class="language-css">            <span class="attribute">width</span>: <span class="number">100px</span>;</span>
+<span class="language-css">        &#125;</span>
+<span class="language-css">        <span class="selector-class">.box1</span>&#123;</span>
+<span class="language-css">            <span class="attribute">background-color</span>: aqua;</span>
+<span class="language-css">        &#125;</span>
+<span class="language-css">        <span class="selector-class">.box2</span>&#123;</span>
+<span class="language-css">            <span class="attribute">background-color</span>: red;</span>
+<span class="language-css">            <span class="attribute">position</span>: relative;</span>
+<span class="language-css">            <span class="attribute">left</span>:<span class="number">25px</span>;</span>
+<span class="language-css">            <span class="attribute">top</span>: -<span class="number">75px</span>;</span>
+<span class="language-css">        &#125;</span>
+<span class="language-css">        <span class="selector-class">.box3</span>&#123;</span>
+<span class="language-css">            <span class="attribute">background-color</span>: skyblue;</span>
+<span class="language-css">            <span class="attribute">position</span>: absolute;</span>
+<span class="language-css">            <span class="attribute">left</span>: <span class="number">75px</span>;</span>
+<span class="language-css">            <span class="attribute">top</span>:<span class="number">75px</span>;</span>
+<span class="language-css">        &#125;</span>
+<span class="language-css">        <span class="selector-class">.box4</span>&#123;</span>
+<span class="language-css">            <span class="attribute">background-color</span>: chocolate;</span>
+<span class="language-css">            <span class="attribute">position</span>: fixed;</span>
+<span class="language-css">            <span class="attribute">left</span>:<span class="number">110px</span>;</span>
+<span class="language-css">            <span class="attribute">top</span>: <span class="number">110px</span>;</span>
+<span class="language-css">        &#125;</span>
+<span class="language-css">    </span><span class="tag">&lt;/<span class="name">style</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">head</span>&gt;</span>
+<span class="tag">&lt;<span class="name">body</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;outer&quot;</span>&gt;</span>
+        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;box box1&quot;</span>&gt;</span>1<span class="tag">&lt;/<span class="name">div</span>&gt;</span>
+        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;box box2&quot;</span>&gt;</span>2<span class="tag">&lt;/<span class="name">div</span>&gt;</span>
+        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;box box3&quot;</span>&gt;</span>3<span class="tag">&lt;/<span class="name">div</span>&gt;</span>
+        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;box box4&quot;</span>&gt;</span>4<span class="tag">&lt;/<span class="name">div</span>&gt;</span>
+        
+    <span class="tag">&lt;/<span class="name">div</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">body</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">html</span>&gt;</span></code></pre>
+
+<blockquote>
+<p>z-index</p>
+</blockquote>
+<p>z-index:数值</p>
+<p>1.定位元素的显示层级比普通元素高，无论什么定位，显示层级都是一样的。</p>
+<p>2.如果位置发生重叠，默认情况是：后面的元素，会显示在前面元素之上。</p>
+<p>3.可以通过css属性 z-index 调整元素的显示层级</p>
+<p>4.z-index的属性值是数字，没有单位，值越大显示层级越高。</p>
+<p>5.只有定位的元素设置z-index才有效。</p>
+<p>6.如果z-index值大的元素，依然没有覆盖掉z-index值小的元素，那么请检查其包含块的层级。</p>
+<h3 id="6-定位的特殊应用"><a href="#6-定位的特殊应用" class="headerlink" title="6.定位的特殊应用"></a>6.定位的特殊应用</h3><blockquote>
+<p>注意：</p>
+<p>1.发生固定定位、绝对定位后，元素都变成了定位元素，默认宽高被内容撑开，且依然可以设置宽高。</p>
+<p>2.发生相对定位后，元素依然是之前的显示模式。</p>
+<p>3.以下所说的特殊应用，只针对 绝对定位 和 固定定位的元素，不包括相对定位的元素。</p>
+</blockquote>
+<blockquote>
+<p>让定位元素的宽充满包含块</p>
+</blockquote>
+<p>1.块宽想与包含块一致，可以给定位元素同时设置left和right为0。</p>
+<p>2.高度想与包含块一致，top和bottom设置为0。</p>
+<blockquote>
+<p>让定位元素在包含块中居中</p>
+</blockquote>
+<p>1.方案一</p>
+<pre><code class="highlight css"><span class="attribute">left</span>:<span class="number">0</span>;<span class="attribute">right</span>:<span class="number">0</span>.top:<span class="number">0</span>;<span class="attribute">bottom</span>:<span class="number">0</span>;<span class="attribute">margin</span>:auto;</code></pre>
+
+<p>2.方案二:</p>
+<pre><code class="highlight css"><span class="attribute">left</span>:<span class="number">50%</span>;
+
+<span class="attribute">top</span>:<span class="number">50%</span>;
+
+<span class="attribute">margin-left</span>：负的宽度一半
+
+<span class="attribute">margin-top</span>：负的高度一半;</code></pre>
+
+<blockquote>
+<p>注意：该定位的元素必须设置宽高！！!</p>
+</blockquote>
+<h2 id="6-布局"><a href="#6-布局" class="headerlink" title="6.布局"></a>6.布局</h2><h3 id="1-版心"><a href="#1-版心" class="headerlink" title="1.版心"></a>1.版心</h3><p>1.版心<br>在PC端网页中，一般都会有一个固定宽度且水平居中的盒子，来显示网页的主要内容，这是网页的版心。<br>版心的宽度一般是960~1200像素之间。<br>版心可以是一个，也可以是多个。版心png</p>
+<h3 id="2-常见布局名词"><a href="#2-常见布局名词" class="headerlink" title="2.常见布局名词"></a>2.常见布局名词</h3><p>顶部导航条  topbar</p>
+<p>页头 header、page-header</p>
+<p>导航  nav、navigator.、navbar</p>
+<p>搜索框 search、search-box</p>
+<p>横幅、广告、宣传图 banner</p>
+<p>主要内容 content main</p>
+<p>侧边栏  aside、 sidebar</p>
+<p>页脚 footer.page-footer</p>
+<h3 id="3-重置默认样式"><a href="#3-重置默认样式" class="headerlink" title="3.重置默认样式"></a>3.重置默认样式</h3><h4 id="1-通配选择器"><a href="#1-通配选择器" class="headerlink" title="1.通配选择器"></a>1.通配选择器</h4><pre><code class="highlight css">* &#123;
+	<span class="attribute">padding</span>:<span class="number">0</span>;
+	<span class="attribute">margin</span>:<span class="number">0</span>;
+&#125;</code></pre>
+
+<h4 id="2-reset-css"><a href="#2-reset-css" class="headerlink" title="2.reset.css"></a>2.reset.css</h4><pre><code class="highlight css"><span class="comment">/* http://meyerweb.com/eric/tools/css/reset/ </span>
+<span class="comment">   v2.0 | 20110126</span>
+<span class="comment">   License: none (public domain)</span>
+<span class="comment">*/</span>
+
+<span class="selector-tag">html</span>, <span class="selector-tag">body</span>, <span class="selector-tag">div</span>, <span class="selector-tag">span</span>, applet, <span class="selector-tag">object</span>, <span class="selector-tag">iframe</span>,
+<span class="selector-tag">h1</span>, <span class="selector-tag">h2</span>, <span class="selector-tag">h3</span>, <span class="selector-tag">h4</span>, <span class="selector-tag">h5</span>, <span class="selector-tag">h6</span>, <span class="selector-tag">p</span>, <span class="selector-tag">blockquote</span>, pre,
+<span class="selector-tag">a</span>, <span class="selector-tag">abbr</span>, acronym, <span class="selector-tag">address</span>, big, <span class="selector-tag">cite</span>, <span class="selector-tag">code</span>,
+<span class="selector-tag">del</span>, <span class="selector-tag">dfn</span>, <span class="selector-tag">em</span>, <span class="selector-tag">img</span>, <span class="selector-tag">ins</span>, <span class="selector-tag">kbd</span>, <span class="selector-tag">q</span>, s, <span class="selector-tag">samp</span>,
+small, strike, <span class="selector-tag">strong</span>, sub, <span class="selector-tag">sup</span>, tt, <span class="selector-tag">var</span>,
+<span class="selector-tag">b</span>, u, <span class="selector-tag">i</span>, center,
+<span class="selector-tag">dl</span>, <span class="selector-tag">dt</span>, <span class="selector-tag">dd</span>, <span class="selector-tag">ol</span>, <span class="selector-tag">ul</span>, <span class="selector-tag">li</span>,
+<span class="selector-tag">fieldset</span>, <span class="selector-tag">form</span>, <span class="selector-tag">label</span>, <span class="selector-tag">legend</span>,
+<span class="selector-tag">table</span>, <span class="selector-tag">caption</span>, <span class="selector-tag">tbody</span>, <span class="selector-tag">tfoot</span>, <span class="selector-tag">thead</span>, <span class="selector-tag">tr</span>, <span class="selector-tag">th</span>, <span class="selector-tag">td</span>,
+<span class="selector-tag">article</span>, <span class="selector-tag">aside</span>, <span class="selector-tag">canvas</span>, <span class="selector-tag">details</span>, embed, 
+<span class="selector-tag">figure</span>, <span class="selector-tag">figcaption</span>, <span class="selector-tag">footer</span>, <span class="selector-tag">header</span>, <span class="selector-tag">hgroup</span>, 
+<span class="selector-tag">menu</span>, <span class="selector-tag">nav</span>, output, ruby, <span class="selector-tag">section</span>, <span class="selector-tag">summary</span>,
+<span class="selector-tag">time</span>, <span class="selector-tag">mark</span>, <span class="selector-tag">audio</span>, <span class="selector-tag">video</span> &#123;
+	<span class="attribute">margin</span>: <span class="number">0</span>;
+	<span class="attribute">padding</span>: <span class="number">0</span>;
+	<span class="attribute">border</span>: <span class="number">0</span>;
+	<span class="attribute">font-size</span>: <span class="number">100%</span>;
+	<span class="attribute">font</span>: inherit;
+	<span class="attribute">vertical-align</span>: baseline;
+&#125;
+<span class="comment">/* HTML5 display-role reset for older browsers */</span>
+<span class="selector-tag">article</span>, <span class="selector-tag">aside</span>, <span class="selector-tag">details</span>, <span class="selector-tag">figcaption</span>, <span class="selector-tag">figure</span>, 
+<span class="selector-tag">footer</span>, <span class="selector-tag">header</span>, <span class="selector-tag">hgroup</span>, <span class="selector-tag">menu</span>, <span class="selector-tag">nav</span>, <span class="selector-tag">section</span> &#123;
+	<span class="attribute">display</span>: block;
+&#125;
+<span class="selector-tag">body</span> &#123;
+	<span class="attribute">line-height</span>: <span class="number">1</span>;
+&#125;
+<span class="selector-tag">ol</span>, <span class="selector-tag">ul</span> &#123;
+	<span class="attribute">list-style</span>: none;
+&#125;
+<span class="selector-tag">blockquote</span>, <span class="selector-tag">q</span> &#123;
+	<span class="attribute">quotes</span>: none;
+&#125;
+<span class="selector-tag">blockquote</span><span class="selector-pseudo">:before</span>, <span class="selector-tag">blockquote</span><span class="selector-pseudo">:after</span>,
+<span class="selector-tag">q</span><span class="selector-pseudo">:before</span>, <span class="selector-tag">q</span><span class="selector-pseudo">:after</span> &#123;
+	<span class="attribute">content</span>: <span class="string">&#x27;&#x27;</span>;
+	<span class="attribute">content</span>: none;
+&#125;
+<span class="selector-tag">table</span> &#123;
+	<span class="attribute">border-collapse</span>: collapse;
+	<span class="attribute">border-spacing</span>: <span class="number">0</span>;
+&#125;</code></pre>
+
+<h4 id="3-Normalize-css"><a href="#3-Normalize-css" class="headerlink" title="3.Normalize.css"></a>3.Normalize.css</h4><pre><code class="highlight css"><span class="comment">/*! normalize.css v8.0.1 | MIT License | github.com/necolas/normalize.css */</span>
+
+<span class="comment">/* Document</span>
+<span class="comment">   ========================================================================== */</span>
+
+<span class="comment">/**</span>
+<span class="comment"> * 1. Correct the line height in all browsers.</span>
+<span class="comment"> * 2. Prevent adjustments of font size after orientation changes in iOS.</span>
+<span class="comment"> */</span>
+
+ <span class="selector-tag">html</span> &#123;
+    <span class="attribute">line-height</span>: <span class="number">1.15</span>; <span class="comment">/* 1 */</span>
+    -webkit-<span class="selector-tag">text</span>-size-adjust: <span class="number">100%</span>; <span class="comment">/* 2 */</span>
+  &#125;
+  
+  <span class="comment">/* Sections</span>
+<span class="comment">     ========================================================================== */</span>
+  
+  <span class="comment">/**</span>
+<span class="comment">   * Remove the margin in all browsers.</span>
+<span class="comment">   */</span>
+  
+  <span class="selector-tag">body</span> &#123;
+    <span class="attribute">margin</span>: <span class="number">0</span>;
+  &#125;
+  
+  <span class="comment">/**</span>
+<span class="comment">   * Render the `main` element consistently in IE.</span>
+<span class="comment">   */</span>
+  
+  <span class="selector-tag">main</span> &#123;
+    <span class="attribute">display</span>: block;
+  &#125;
+  
+  <span class="comment">/**</span>
+<span class="comment">   * Correct the font size and margin on `h1` elements within `section` and</span>
+<span class="comment">   * `article` contexts in Chrome, Firefox, and Safari.</span>
+<span class="comment">   */</span>
+  
+  <span class="selector-tag">h1</span> &#123;
+    <span class="attribute">font-size</span>: <span class="number">2em</span>;
+    <span class="attribute">margin</span>: <span class="number">0.67em</span> <span class="number">0</span>;
+  &#125;
+  
+  <span class="comment">/* Grouping content</span>
+<span class="comment">     ========================================================================== */</span>
+  
+  <span class="comment">/**</span>
+<span class="comment">   * 1. Add the correct box sizing in Firefox.</span>
+<span class="comment">   * 2. Show the overflow in Edge and IE.</span>
+<span class="comment">   */</span>
+  
+  hr &#123;
+    <span class="attribute">box-sizing</span>: content-box; <span class="comment">/* 1 */</span>
+    <span class="attribute">height</span>: <span class="number">0</span>; <span class="comment">/* 1 */</span>
+    <span class="attribute">overflow</span>: visible; <span class="comment">/* 2 */</span>
+  &#125;
+  
+  <span class="comment">/**</span>
+<span class="comment">   * 1. Correct the inheritance and scaling of font size in all browsers.</span>
+<span class="comment">   * 2. Correct the odd `em` font sizing in all browsers.</span>
+<span class="comment">   */</span>
+  
+  pre &#123;
+    <span class="attribute">font-family</span>: monospace, monospace; <span class="comment">/* 1 */</span>
+    <span class="attribute">font-size</span>: <span class="number">1em</span>; <span class="comment">/* 2 */</span>
+  &#125;
+  
+  <span class="comment">/* Text-level semantics</span>
+<span class="comment">     ========================================================================== */</span>
+  
+  <span class="comment">/**</span>
+<span class="comment">   * Remove the gray background on active links in IE 10.</span>
+<span class="comment">   */</span>
+  
+  <span class="selector-tag">a</span> &#123;
+    <span class="attribute">background-color</span>: transparent;
+  &#125;
+  
+  <span class="comment">/**</span>
+<span class="comment">   * 1. Remove the bottom border in Chrome 57-</span>
+<span class="comment">   * 2. Add the correct text decoration in Chrome, Edge, IE, Opera, and Safari.</span>
+<span class="comment">   */</span>
+  
+  <span class="selector-tag">abbr</span><span class="selector-attr">[title]</span> &#123;
+    <span class="attribute">border-bottom</span>: none; <span class="comment">/* 1 */</span>
+    <span class="attribute">text-decoration</span>: underline; <span class="comment">/* 2 */</span>
+    <span class="attribute">text-decoration</span>: underline dotted; <span class="comment">/* 2 */</span>
+  &#125;
+  
+  <span class="comment">/**</span>
+<span class="comment">   * Add the correct font weight in Chrome, Edge, and Safari.</span>
+<span class="comment">   */</span>
+  
+  <span class="selector-tag">b</span>,
+  <span class="selector-tag">strong</span> &#123;
+    <span class="attribute">font-weight</span>: bolder;
+  &#125;
+  
+  <span class="comment">/**</span>
+<span class="comment">   * 1. Correct the inheritance and scaling of font size in all browsers.</span>
+<span class="comment">   * 2. Correct the odd `em` font sizing in all browsers.</span>
+<span class="comment">   */</span>
+  
+  <span class="selector-tag">code</span>,
+  <span class="selector-tag">kbd</span>,
+  <span class="selector-tag">samp</span> &#123;
+    <span class="attribute">font-family</span>: monospace, monospace; <span class="comment">/* 1 */</span>
+    <span class="attribute">font-size</span>: <span class="number">1em</span>; <span class="comment">/* 2 */</span>
+  &#125;
+  
+  <span class="comment">/**</span>
+<span class="comment">   * Add the correct font size in all browsers.</span>
+<span class="comment">   */</span>
+  
+  small &#123;
+    <span class="attribute">font-size</span>: <span class="number">80%</span>;
+  &#125;
+  
+  <span class="comment">/**</span>
+<span class="comment">   * Prevent `sub` and `sup` elements from affecting the line height in</span>
+<span class="comment">   * all browsers.</span>
+<span class="comment">   */</span>
+  
+  sub,
+  <span class="selector-tag">sup</span> &#123;
+    <span class="attribute">font-size</span>: <span class="number">75%</span>;
+    <span class="attribute">line-height</span>: <span class="number">0</span>;
+    <span class="attribute">position</span>: relative;
+    <span class="attribute">vertical-align</span>: baseline;
+  &#125;
+  
+  sub &#123;
+    <span class="attribute">bottom</span>: -<span class="number">0.25em</span>;
+  &#125;
+  
+  <span class="selector-tag">sup</span> &#123;
+    <span class="attribute">top</span>: -<span class="number">0.5em</span>;
+  &#125;
+  
+  <span class="comment">/* Embedded content</span>
+<span class="comment">     ========================================================================== */</span>
+  
+  <span class="comment">/**</span>
+<span class="comment">   * Remove the border on images inside links in IE 10.</span>
+<span class="comment">   */</span>
+  
+  <span class="selector-tag">img</span> &#123;
+    <span class="attribute">border-style</span>: none;
+  &#125;
+  
+  <span class="comment">/* Forms</span>
+<span class="comment">     ========================================================================== */</span>
+  
+  <span class="comment">/**</span>
+<span class="comment">   * 1. Change the font styles in all browsers.</span>
+<span class="comment">   * 2. Remove the margin in Firefox and Safari.</span>
+<span class="comment">   */</span>
+  
+  <span class="selector-tag">button</span>,
+  <span class="selector-tag">input</span>,
+  <span class="selector-tag">optgroup</span>,
+  <span class="selector-tag">select</span>,
+  <span class="selector-tag">textarea</span> &#123;
+    <span class="attribute">font-family</span>: inherit; <span class="comment">/* 1 */</span>
+    <span class="attribute">font-size</span>: <span class="number">100%</span>; <span class="comment">/* 1 */</span>
+    <span class="attribute">line-height</span>: <span class="number">1.15</span>; <span class="comment">/* 1 */</span>
+    <span class="attribute">margin</span>: <span class="number">0</span>; <span class="comment">/* 2 */</span>
+  &#125;
+  
+  <span class="comment">/**</span>
+<span class="comment">   * Show the overflow in IE.</span>
+<span class="comment">   * 1. Show the overflow in Edge.</span>
+<span class="comment">   */</span>
+  
+  <span class="selector-tag">button</span>,
+  <span class="selector-tag">input</span> &#123; <span class="comment">/* 1 */</span>
+    <span class="attribute">overflow</span>: visible;
+  &#125;
+  
+  <span class="comment">/**</span>
+<span class="comment">   * Remove the inheritance of text transform in Edge, Firefox, and IE.</span>
+<span class="comment">   * 1. Remove the inheritance of text transform in Firefox.</span>
+<span class="comment">   */</span>
+  
+  <span class="selector-tag">button</span>,
+  <span class="selector-tag">select</span> &#123; <span class="comment">/* 1 */</span>
+    <span class="attribute">text-transform</span>: none;
+  &#125;
+  
+  <span class="comment">/**</span>
+<span class="comment">   * Correct the inability to style clickable types in iOS and Safari.</span>
+<span class="comment">   */</span>
+  
+  <span class="selector-tag">button</span>,
+  <span class="selector-attr">[type=<span class="string">&quot;button&quot;</span>]</span>,
+  <span class="selector-attr">[type=<span class="string">&quot;reset&quot;</span>]</span>,
+  <span class="selector-attr">[type=<span class="string">&quot;submit&quot;</span>]</span> &#123;
+    <span class="attribute">appearance</span>: none;
+    -webkit-<span class="attribute">appearance</span>: button;
+  &#125;
+  
+  <span class="comment">/**</span>
+<span class="comment">   * Remove the inner border and padding in Firefox.</span>
+<span class="comment">   */</span>
+  
+  <span class="selector-tag">button</span>::-moz-focus-inner,
+  [type=<span class="string">&quot;button&quot;</span>]::-moz-focus-inner,
+  [type=<span class="string">&quot;reset&quot;</span>]::-moz-focus-inner,
+  [type=<span class="string">&quot;submit&quot;</span>]::-moz-focus-inner &#123;
+    <span class="attribute">border-style</span>: none;
+    <span class="attribute">padding</span>: <span class="number">0</span>;
+  &#125;
+  
+  <span class="comment">/**</span>
+<span class="comment">   * Restore the focus styles unset by the previous rule.</span>
+<span class="comment">   */</span>
+  
+  <span class="selector-tag">button</span>:-moz-focusring,
+  [type=<span class="string">&quot;button&quot;</span>]:-moz-focusring,
+  [type=<span class="string">&quot;reset&quot;</span>]:-moz-focusring,
+  [type=<span class="string">&quot;submit&quot;</span>]:-moz-focusring &#123;
+    <span class="attribute">outline</span>: <span class="number">1px</span> dotted ButtonText;
+  &#125;
+  
+  <span class="comment">/**</span>
+<span class="comment">   * Correct the padding in Firefox.</span>
+<span class="comment">   */</span>
+  
+  <span class="selector-tag">fieldset</span> &#123;
+    <span class="attribute">padding</span>: <span class="number">0.35em</span> <span class="number">0.75em</span> <span class="number">0.625em</span>;
+  &#125;
+  
+  <span class="comment">/**</span>
+<span class="comment">   * 1. Correct the text wrapping in Edge and IE.</span>
+<span class="comment">   * 2. Correct the color inheritance from `fieldset` elements in IE.</span>
+<span class="comment">   * 3. Remove the padding so developers are not caught out when they zero out</span>
+<span class="comment">   *    `fieldset` elements in all browsers.</span>
+<span class="comment">   */</span>
+  
+  <span class="selector-tag">legend</span> &#123;
+    <span class="attribute">box-sizing</span>: border-box; <span class="comment">/* 1 */</span>
+    <span class="attribute">color</span>: inherit; <span class="comment">/* 2 */</span>
+    <span class="attribute">display</span>: table; <span class="comment">/* 1 */</span>
+    <span class="attribute">max-width</span>: <span class="number">100%</span>; <span class="comment">/* 1 */</span>
+    <span class="attribute">padding</span>: <span class="number">0</span>; <span class="comment">/* 3 */</span>
+    <span class="attribute">white-space</span>: normal; <span class="comment">/* 1 */</span>
+  &#125;
+  
+  <span class="comment">/**</span>
+<span class="comment">   * Add the correct vertical alignment in Chrome, Firefox, and Opera.</span>
+<span class="comment">   */</span>
+  
+  progress &#123;
+    <span class="attribute">vertical-align</span>: baseline;
+  &#125;
+  
+  <span class="comment">/**</span>
+<span class="comment">   * Remove the default vertical scrollbar in IE 10+.</span>
+<span class="comment">   */</span>
+  
+  <span class="selector-tag">textarea</span> &#123;
+    <span class="attribute">overflow</span>: auto;
+  &#125;
+  
+  <span class="comment">/**</span>
+<span class="comment">   * 1. Add the correct box sizing in IE 10.</span>
+<span class="comment">   * 2. Remove the padding in IE 10.</span>
+<span class="comment">   */</span>
+  
+  <span class="selector-attr">[type=<span class="string">&quot;checkbox&quot;</span>]</span>,
+  <span class="selector-attr">[type=<span class="string">&quot;radio&quot;</span>]</span> &#123;
+    <span class="attribute">box-sizing</span>: border-box; <span class="comment">/* 1 */</span>
+    <span class="attribute">padding</span>: <span class="number">0</span>; <span class="comment">/* 2 */</span>
+  &#125;
+  
+  <span class="comment">/**</span>
+<span class="comment">   * Correct the cursor style of increment and decrement buttons in Chrome.</span>
+<span class="comment">   */</span>
+  
+  <span class="selector-attr">[type=<span class="string">&quot;number&quot;</span>]</span>::-webkit-inner-spin-button,
+  [type=<span class="string">&quot;number&quot;</span>]::-webkit-outer-spin-button &#123;
+    <span class="attribute">height</span>: auto;
+  &#125;
+  
+  <span class="comment">/**</span>
+<span class="comment">   * 1. Correct the odd appearance in Chrome and Safari.</span>
+<span class="comment">   * 2. Correct the outline style in Safari.</span>
+<span class="comment">   */</span>
+  
+  <span class="selector-attr">[type=<span class="string">&quot;search&quot;</span>]</span> &#123;
+    <span class="attribute">appearance</span>: none;
+    -webkit-<span class="attribute">appearance</span>: textfield; <span class="comment">/* 1 */</span>
+    <span class="attribute">outline-offset</span>: -<span class="number">2px</span>; <span class="comment">/* 2 */</span>
+  &#125;
+  
+  <span class="comment">/**</span>
+<span class="comment">   * Remove the inner padding in Chrome and Safari on macOS.</span>
+<span class="comment">   */</span>
+  
+  <span class="selector-attr">[type=<span class="string">&quot;search&quot;</span>]</span>::-webkit-search-decoration &#123;
+    -webkit-<span class="attribute">appearance</span>: none;
+  &#125;
+  
+  <span class="comment">/**</span>
+<span class="comment">   * 1. Correct the inability to style clickable types in iOS and Safari.</span>
+<span class="comment">   * 2. Change font properties to `inherit` in Safari.</span>
+<span class="comment">   */</span>
+  
+  ::-webkit-file-upload-button &#123;
+    -webkit-<span class="attribute">appearance</span>: button; <span class="comment">/* 1 */</span>
+    <span class="attribute">font</span>: inherit; <span class="comment">/* 2 */</span>
+  &#125;
+  
+  <span class="comment">/* Interactive</span>
+<span class="comment">     ========================================================================== */</span>
+  
+  <span class="comment">/*</span>
+<span class="comment">   * Add the correct display in Edge, IE 10+, and Firefox.</span>
+<span class="comment">   */</span>
+  
+  <span class="selector-tag">details</span> &#123;
+    <span class="attribute">display</span>: block;
+  &#125;
+  
+  <span class="comment">/*</span>
+<span class="comment">   * Add the correct display in all browsers.</span>
+<span class="comment">   */</span>
+  
+  <span class="selector-tag">summary</span> &#123;
+    <span class="attribute">display</span>: list-item;
+  &#125;
+  
+  <span class="comment">/* Misc</span>
+<span class="comment">     ========================================================================== */</span>
+  
+  <span class="comment">/**</span>
+<span class="comment">   * Add the correct display in IE 10+.</span>
+<span class="comment">   */</span>
+  
+  template &#123;
+    <span class="attribute">display</span>: none;
+  &#125;
+  
+  <span class="comment">/**</span>
+<span class="comment">   * Add the correct display in IE 10.</span>
+<span class="comment">   */</span>
+  
+  <span class="selector-attr">[hidden]</span> &#123;
+    <span class="attribute">display</span>: none;
+  &#125;</code></pre>
+
+<h2 id="7-HTML5"><a href="#7-HTML5" class="headerlink" title="7.HTML5"></a>7.HTML5</h2><h3 id="1-HTML5简介"><a href="#1-HTML5简介" class="headerlink" title="1.HTML5简介"></a>1.HTML5简介</h3><blockquote>
+<p>HTML5是新一代的 HTML标准，2014年10月由万维网联盟（W3C）完成标准制定。</p>
+</blockquote>
+<p>1.官网地址:</p>
+<p> W3C 提供：<a target="_blank" rel="noopener" href="https://www.w3.org/TR/html/index.html">https://www.w3.org/TR/html/index.html</a></p>
+<p> WHATWG 提供：<a target="_blank" rel="noopener" href="https://whatwg-cn.github.io/html/multipage">https://whatwg-cn.github.io/html/multipage</a></p>
+<p>HTML5 在狭义上是指新一代的 HTML标准，在广义上是指：整个前端。</p>
+<blockquote>
+<p>HTML5优势</p>
+<p>1.针对Javascript，新增了很多可操作的接口。</p>
+<p>2.新增了一些语义化标签、全局属性。</p>
+<p>3.新增了多媒体标签，可以很好的替代flash。</p>
+<p>4.更加侧重语义化，对于 SEO更友好。</p>
+<p>5.可移植性好，可以大量应用在移动设备上。</p>
+</blockquote>
+<p>3.HTML5兼容性</p>
+<p>支持:Chrome、Safari、Opera、Firefox等主流浏览器。</p>
+<p>IE 浏览器必须是9及以上版本才支持HTML5，且IE9仅支持部分HTML5新特性。</p>
+<h3 id="2-新增语义化标签"><a href="#2-新增语义化标签" class="headerlink" title="2.新增语义化标签"></a>2.新增语义化标签</h3><h4 id="1-新增布局标签"><a href="#1-新增布局标签" class="headerlink" title="1.新增布局标签"></a>1.新增布局标签</h4><p>header 整个页面，或部分区域的头部 双标签</p>
+<p>footer 整个页面，或部分区域的底部 双标签</p>
+<p>nav 导航 双标签</p>
+<p>article 文章、帖子、杂志、新闻、博客、评论等。 双标签</p>
+<p>section 内面中的某段文字，或文章中的某段文字（里面文字通常里面会包含标题）。 双标签</p>
+<p>aside 侧边栏 双标签</p>
+<p>main 文档的主要内容（WHATWG没有语义，IE不支持)，几乎不用。 双标签</p>
+<p>hgroup 包裹连续的标题，如文章主标题、副标题的组合（W3C将其删除） 双标签</p>
+<blockquote>
+<p>关于 article和section:</p>
+<p>1.artical里面可以有多个section。</p>
+<p>2.section强调的是分段或分块，如果你想将一块内容分成几段的时候，可使用section元素。</p>
+<p>3.article比section 更强调独立性，一块内容如果比较独立、比较完整，应该使用article元素。</p>
+</blockquote>
+<h4 id="2-新增状态标签"><a href="#2-新增状态标签" class="headerlink" title="2.新增状态标签"></a>2.新增状态标签</h4><blockquote>
+<p>meter标签</p>
+<p>语义：定义已知范围内的标量测量。也被称为gauge(尺度），双标签，例如：电量、磁盘用量等。<br>常用属性如下:<br>high 规定高值<br>low 规定低值<br>max 规定最大值<br>min 规定最小值<br>optimum 规定最优值<br>value 规定当前值</p>
+</blockquote>
+<blockquote>
+<p>progress 标签<br>语义：显示某个任务完成的进度的指示器，一般用于表示进度条，双标签，例如：工作完成进度等<br>常用属性如下:</p>
+<p>max  规定目标值。</p>
+<p>value 规定当前值。</p>
+</blockquote>
+<pre><code class="highlight html"><span class="tag">&lt;<span class="name">span</span>&gt;</span>电量:<span class="tag">&lt;/<span class="name">span</span>&gt;</span>
+   <span class="tag">&lt;<span class="name">meter</span> <span class="attr">max</span>=<span class="string">&quot;100&quot;</span> <span class="attr">min</span>=<span class="string">&quot;0&quot;</span> <span class="attr">value</span>=<span class="string">&quot;10&quot;</span> <span class="attr">low</span>=<span class="string">&quot;20&quot;</span> <span class="attr">high</span>=<span class="string">&quot;80&quot;</span> <span class="attr">optimum</span>=<span class="string">&quot;90&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">meter</span>&gt;</span>
+   <span class="tag">&lt;<span class="name">br</span>&gt;</span>
+   <span class="tag">&lt;<span class="name">span</span>&gt;</span>当前进度:<span class="tag">&lt;/<span class="name">span</span>&gt;</span>
+   <span class="tag">&lt;<span class="name">progress</span> <span class="attr">max</span>=<span class="string">&quot;100&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">progress</span>&gt;</span></code></pre>
+
+<h4 id="3-新增列表标签"><a href="#3-新增列表标签" class="headerlink" title="3.新增列表标签"></a>3.新增列表标签</h4><blockquote>
+<p>detalist 用于搜素框的关键字提示</p>
+<p>details 用于展示问题和答案，或对专有名词进行解释</p>
+<p>summary 写在details的里面，用于指定问题或专有名词</p>
+</blockquote>
+<pre><code class="highlight html"><span class="tag">&lt;<span class="name">form</span> <span class="attr">action</span>=<span class="string">&quot;#&quot;</span> &gt;</span>
+    <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">list</span>=<span class="string">&quot;mylist&quot;</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">button</span>&gt;</span>搜素<span class="tag">&lt;/<span class="name">button</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">form</span>&gt;</span>
+<span class="tag">&lt;<span class="name">datalist</span> <span class="attr">id</span>=<span class="string">&quot;mylist&quot;</span>&gt;</span> 
+    <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;1&quot;</span>&gt;</span>1<span class="tag">&lt;/<span class="name">option</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;2&quot;</span>&gt;</span>2<span class="tag">&lt;/<span class="name">option</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;3&quot;</span>&gt;</span>3<span class="tag">&lt;/<span class="name">option</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;4&quot;</span>&gt;</span>4<span class="tag">&lt;/<span class="name">option</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">option</span> <span class="attr">value</span>=<span class="string">&quot;5&quot;</span>&gt;</span>5<span class="tag">&lt;/<span class="name">option</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">datalist</span>&gt;</span>
+<span class="tag">&lt;<span class="name">hr</span>&gt;</span>
+<span class="tag">&lt;<span class="name">details</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">summary</span>&gt;</span>如何<span class="tag">&lt;/<span class="name">summary</span>&gt;</span>
+	<span class="tag">&lt;<span class="name">p</span>&gt;</span>123<span class="tag">&lt;/<span class="name">p</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">details</span>&gt;</span></code></pre>
+
+<h4 id="4-新增文本标签"><a href="#4-新增文本标签" class="headerlink" title="4.新增文本标签"></a>4.新增文本标签</h4><blockquote>
+<p>ruby 包裹需要注音的文字</p>
+<p>rt 写注音，rt标签写在ruby的里面</p>
+</blockquote>
+<blockquote>
+<p>mark 标记</p>
+</blockquote>
+<pre><code class="highlight html"><span class="tag">&lt;<span class="name">body</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">ruby</span>&gt;</span>
+        <span class="tag">&lt;<span class="name">span</span>&gt;</span>魑魅魍魉<span class="tag">&lt;/<span class="name">span</span>&gt;</span>
+        <span class="tag">&lt;<span class="name">rt</span>&gt;</span>chi mei wang lia<span class="tag">&lt;/<span class="name">rt</span>&gt;</span>
+    <span class="tag">&lt;/<span class="name">ruby</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">hr</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">div</span>&gt;</span>
+        <span class="tag">&lt;<span class="name">ruby</span>&gt;</span>
+            <span class="tag">&lt;<span class="name">span</span>&gt;</span>魑<span class="tag">&lt;/<span class="name">span</span>&gt;</span>
+            <span class="tag">&lt;<span class="name">rt</span>&gt;</span>chi<span class="tag">&lt;/<span class="name">rt</span>&gt;</span>
+        <span class="tag">&lt;/<span class="name">ruby</span>&gt;</span>
+    <span class="tag">&lt;/<span class="name">div</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">hr</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">p</span>&gt;</span>Lorem ipsum dolor sit amet <span class="tag">&lt;<span class="name">mark</span>&gt;</span>consectetur<span class="tag">&lt;/<span class="name">mark</span>&gt;</span> adipisicing elit. Nemo, voluptatum magnam temporibus incidunt ad, soluta, ex molestiae sequ<span class="tag">&lt;/<span class="name">p</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">body</span>&gt;</span></code></pre>
+
+<h3 id="3-新增表单功能"><a href="#3-新增表单功能" class="headerlink" title="3.新增表单功能"></a>3.新增表单功能</h3><h4 id="1-表单控件新增属性"><a href="#1-表单控件新增属性" class="headerlink" title="1.表单控件新增属性"></a>1.表单控件新增属性</h4><p>placeholder 提示文字（注意：不是默认值，yalue 是默认值），适用于文字输入类的表单控件。</p>
+<p>required 表示该输入项必填，适用于除按钮外其他表单控件。</p>
+<p>autofocus 自动获取焦点，适用于所有表单控件。</p>
+<p> autocomplete 自动完成，可以设置为on或off，适用于文字输入类的表单控件。</p>
+<p>注意：密码输入框、多行输入框不可用</p>
+<p> pattern 填写正则表达式，适用于文本输入类表单控件。</p>
+<p>注意：多行输入不可用，且空的输入框不会验证，往往与required 配合。</p>
+<pre><code class="highlight html"><span class="tag">&lt;<span class="name">body</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">form</span> <span class="attr">action</span>=<span class="string">&quot;#&quot;</span>&gt;</span>
+        账号：<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;text&quot;</span> <span class="attr">placeholder</span>=<span class="string">&quot;请输入账号&quot;</span> <span class="attr">required</span> <span class="attr">autofocus</span> <span class="attr">autocomplete</span>=<span class="string">&quot;on&quot;</span> <span class="attr">pattern</span>=<span class="string">&quot;\w&#123;6&#125;&quot;</span>&gt;</span>
+        <span class="tag">&lt;<span class="name">br</span>&gt;</span>
+        密码：<span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;password&quot;</span> <span class="attr">placeholder</span>=<span class="string">&quot;请输入密码&quot;</span> <span class="attr">required</span> &gt;</span>
+        <span class="tag">&lt;<span class="name">br</span>&gt;</span>
+        性别：
+            <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;radio&quot;</span> <span class="attr">value</span>=<span class="string">&quot;male&quot;</span> <span class="attr">name</span>=<span class="string">&quot;gender&quot;</span>&gt;</span>男
+            <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;radio&quot;</span> <span class="attr">value</span>=<span class="string">&quot;famale&quot;</span> <span class="attr">name</span>=<span class="string">&quot;gender&quot;</span> &gt;</span>女
+        <span class="tag">&lt;<span class="name">br</span>&gt;</span>
+        爱好
+            <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;checkbox&quot;</span> <span class="attr">name</span>=<span class="string">&quot;hobby&quot;</span> <span class="attr">value</span>=<span class="string">&quot;sing&quot;</span>&gt;</span>唱
+            <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;checkbox&quot;</span> <span class="attr">name</span>=<span class="string">&quot;hobby&quot;</span> <span class="attr">value</span>=<span class="string">&quot;jump&quot;</span>&gt;</span>跳
+            <span class="tag">&lt;<span class="name">input</span> <span class="attr">type</span>=<span class="string">&quot;checkbox&quot;</span> <span class="attr">name</span>=<span class="string">&quot;hobby&quot;</span> <span class="attr">value</span>=<span class="string">&quot;rap&quot;</span> &gt;</span>rap
+        <span class="tag">&lt;<span class="name">br</span>&gt;</span>
+        其他：
+        <span class="tag">&lt;<span class="name">textarea</span> <span class="attr">name</span>=<span class="string">&quot;text&quot;</span> <span class="attr">cols</span>=<span class="string">&quot;30&quot;</span> <span class="attr">rows</span>=<span class="string">&quot;10&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">textarea</span>&gt;</span>
+        <span class="tag">&lt;<span class="name">button</span> &gt;</span>提交<span class="tag">&lt;/<span class="name">button</span>&gt;</span>
+    <span class="tag">&lt;/<span class="name">form</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">body</span>&gt;</span></code></pre>
+
+<h4 id="2-input新增属性值"><a href="#2-input新增属性值" class="headerlink" title="2.input新增属性值"></a>2.input新增属性值</h4><p>email 邮箱类型的输入框，表单提交时会验证格式，输入为空则不验证格式。</p>
+<p>url url类型的输入框，表单提交时会验证格式，输入为空则不验证格式。</p>
+<p>number 数字类型的输入框，表单提交时会验证格式，输入为空则不验证格式。</p>
+<p>search 搜索类型的输入框，表单提交时不会验证格式。</p>
+<p>tel 电话类型的输入框，表单提交时不会验证格式，在移动端使用时，会唤起数字键盘.</p>
+<p>range 范围选择框，默认值为50，表单提交时不会验证格式。</p>
+<p>color 颜色选择框，默认值为黑色，表单提交时不会验证格式。</p>
+<p>date 日期选择框，默认值为空，表单提交时不会验证格式。</p>
+<p>month 月份选择框，默认值为空，表单提交时不会验证格式。</p>
+<p>week 周选择框，默认值为空，表单提交时不会验证格式。</p>
+<p>time 时间选择框，默认值为空，表单提交时不会验证格式。</p>
+<p>datetime-loca 日期+时间选择框，默认值为空，表单提交时不会验证格式。</p>
+<h4 id="3-form标签新增属性"><a href="#3-form标签新增属性" class="headerlink" title="3.form标签新增属性"></a>3.form标签新增属性</h4><blockquote>
+<p>novalidate</p>
+<p>如果给form标签设置了该属性，表单提交的时候不再进行验证。</p>
+</blockquote>
+<h3 id="4-视频标签"><a href="#4-视频标签" class="headerlink" title="4.视频标签"></a>4.视频标签</h3><p>video标签用来定义视频，它是双标签。</p>
+<p>src URL地址 视频地址</p>
+<p>width 	像素值 	设置视频播放器的宽度</p>
+<p>height 	像素值 	设置视频播放器的高度</p>
+<p>controls 	向用户显示视频控件	（比如播放&#x2F;暂停按钮）</p>
+<p>muted 	视频静音</p>
+<p>autoplay 	视频自动播放</p>
+<p>loop	 循环播放</p>
+<p>poster	 视频封面</p>
+<blockquote>
+<p>preload  auto &#x2F; metadata&#x2F; none		视频预加载，如果使用autoplay，则忽略该属性。</p>
+<p>none：不预加载视频。</p>
+<p>metadata：仅预先获取视频的元数据（例如长度）</p>
+<p>auto：下载整个视频文件，即使用户不希望使用它。</p>
+</blockquote>
+<h3 id="5-音频标签"><a href="#5-音频标签" class="headerlink" title="5.音频标签"></a>5.音频标签</h3><blockquote>
+<p>audio标签用来定义音频，它是双标签。</p>
+</blockquote>
+<p>src	 URL地址  	音频地址</p>
+<p>controls  	向用户显示音频控件	（比如播放&#x2F;暂停按钮）</p>
+<p>muted 	音频静音</p>
+<p>autoplay	音频自动播放</p>
+<p>loop 	循环播放</p>
+<blockquote>
+<p>preload  	音频预加载，如果使用autoplay，则忽略该属性。</p>
+<p>auto &#x2F; metadata &#x2F; none</p>
+<p>none：不预加载音频。</p>
+<p>metadata：仅预先获取音频的元数据（例如长度)</p>
+<p>auto：可以下载整个音频文件，即使用户不希望使用它。</p>
+</blockquote>
+<h3 id="6-新增全局属性"><a href="#6-新增全局属性" class="headerlink" title="6.新增全局属性"></a>6.新增全局属性</h3><blockquote>
+<p>contenteditable</p>
+<p>表示元素是否可被用户编辑，可选值如下:</p>
+<p>true：可编辑</p>
+<p>false：不可编辑</p>
+</blockquote>
+<blockquote>
+<p>draggable</p>
+<p>表示元素可以被拖动，可选值如下:</p>
+<p>true：可拖动</p>
+<p>false：不可拖动</p>
+</blockquote>
+<blockquote>
+<p>hidden 隐藏元素</p>
+</blockquote>
+<blockquote>
+<p>spellcheck</p>
+<p>规定是否对元素进行拼写和语法检查，可选值如下:</p>
+<p>true：检查</p>
+<p>false：不检查</p>
+</blockquote>
+<blockquote>
+<p>contextmenu</p>
+<p>规定元素的上下文菜单，在用户鼠标右键点击元素时显示。</p>
+</blockquote>
+<blockquote>
+<p>data-*</p>
+<p>用于存储页面的私有定制数据。</p>
+</blockquote>
+<p>六、HTML5兼容性处理</p>
+<pre><code class="highlight html">添加元信息，让浏览器处于最优渲染模式
+&lt;！--设置IE总是使用最新的文档模式进行渲染--&gt;
+<span class="tag">&lt;<span class="name">meta</span> <span class="attr">http-equiv</span>=<span class="string">&quot;X-UA-Compatible&quot;</span> <span class="attr">content</span>=<span class="string">&quot;IE=Edge&quot;</span>&gt;</span>
+&lt;！--优先使用 webkit(Chromium）内核进行渲染，针对360等壳浏览器--&gt;
+<span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;renderer&quot;</span> <span class="attr">content</span>=<span class="string">&quot;webkit&quot;</span>&gt;</span>
+ 
+使用html5shiv让低版本浏览器认识H5的语义化标签
+<span class="comment">&lt;!--[if lt ie 9]&gt;</span>
+<span class="comment">&lt;script src=&quot;../sources/js/html5shiv.js&quot;&gt;&lt;/script&gt;</span>
+<span class="comment">&lt;![endif]--&gt;</span></code></pre>
+
+<blockquote>
+<p>扩展<br>1t 小于1te 小于等于gt大于gte大于等于！逻辑非</p>
+</blockquote>
+<h2 id="8-CSS3"><a href="#8-CSS3" class="headerlink" title="8.CSS3"></a>8.CSS3</h2><h3 id="1-CSS3概述"><a href="#1-CSS3概述" class="headerlink" title="1.CSS3概述"></a>1.CSS3概述</h3><blockquote>
+<p>CSS3是CSS2的升级版本，它在CSS2的基础上，新增了很多强大的新功能，从而解决一些实际面临的问题。</p>
+<p>CSS3 在未来会按照模块化的方式去发展： <a target="_blank" rel="noopener" href="https://www.w3.org/Style/CSS/current-work.html">https://www.w3.org/Style/CSS/current-work.html</a></p>
+</blockquote>
+<p>CSS3的新特性如下：</p>
+<p>新增了更加实用的选择器，例如：动态伪类选择器、目标伪类选择器、伪元素选择器等等</p>
+<p>新增了更好的视觉效果，例如：圆角、阴影、渐变等</p>
+<p>新增了丰富的背景效果，例如：支持多个背景图片，同时新增了若干个背景相关的属性</p>
+<p>新增了全新的布局方案—一弹性盒子</p>
+<p>新增了Web字体，可以显示用户电脑上没有安装的字体</p>
+<p>增强了颜色，例如： HSL、HSLA、RGBA几种新的颜色模式，新增opacity 属性来控制透明度</p>
+<p>增加了2D和3D变换，例如：旋转、扭曲、缩放、位移等</p>
+<p>增加动画与过渡效果，让效果的变换更具流线性、平滑性</p>
+<h3 id="2-CSS3私有前缀"><a href="#2-CSS3私有前缀" class="headerlink" title="2.CSS3私有前缀"></a>2.CSS3私有前缀</h3><blockquote>
+<p>W3C标准所提出的某个CSS特性，在被浏览器正式支持之前浏览器厂商会根据浏览器的内核，使用私有前缀来测试该 CSS特性，在浏览器正式支持该 CSS特性后，就不需要私有前缀了</p>
+</blockquote>
+<p>·举个例子:</p>
+<p>-webkit-border-radius:20px;</p>
+<p>-moz-border-radius: 20px;</p>
+<p>-ms-border-radius:20px;</p>
+<p>-o-border-radius: 20px;</p>
+<p>border-radius: 20px;</p>
+<p>·查询 CSS3兼容性的网站：<a target="_blank" rel="noopener" href="https://caniuse.com/">https://caniuse.com/</a></p>
+<blockquote>
+<p>常见浏览器私有前缀</p>
+<p>Chrome 浏览器：-webkit-</p>
+<p>Safari浏览器：-webkit-</p>
+<p>Firefox 浏览器:-moz-</p>
+<p>Edge 浏览器:-webkit-</p>
+<p>旧 IE浏览器：-mS-</p>
+</blockquote>
+<h3 id="3-CSS3新增长度单位"><a href="#3-CSS3新增长度单位" class="headerlink" title="3.CSS3新增长度单位"></a>3.CSS3新增长度单位</h3><p>1.rem根元素字体大小的倍数，只与根元素字体大小有关。</p>
+<p>2.vw 视口宽度的百分之多少   10vw 就是视口宽度的10%</p>
+<p>3.vh 视口高度的百分之多少     10vh就是视口高度的10%。</p>
+<p>4.vmax视口宽高中大的那个的百分之多少。</p>
+<p>5.vmin 视口宽高中小的那个的百分之多少。</p>
+<h3 id="4-CSS3新增颜色设置方式"><a href="#4-CSS3新增颜色设置方式" class="headerlink" title="4.CSS3新增颜色设置方式"></a>4.CSS3新增颜色设置方式</h3><blockquote>
+<p>CSS3新增了三种颜色设置方式，分别是：rgba、hsl、hsla，由于之前已经详细讲解，此处略过。</p>
+</blockquote>
+<h3 id="5-CSS3新增选择器"><a href="#5-CSS3新增选择器" class="headerlink" title="5.CSS3新增选择器"></a>5.CSS3新增选择器</h3><blockquote>
+<p>css3 新增的选择器有：动态伪类、目标伪类、语言伪类、 UI 伪类、结构伪类、否定伪类、伪元素：</p>
+</blockquote>
+<h3 id="6-新增盒子模型相关属性"><a href="#6-新增盒子模型相关属性" class="headerlink" title="6.新增盒子模型相关属性"></a>6.新增盒子模型相关属性</h3><h4 id="box-sizing"><a href="#box-sizing" class="headerlink" title="box-sizing"></a>box-sizing</h4><blockquote>
+<p>box-sizing: content-box;</p>
+<p>box-sizing: border-box;</p>
+</blockquote>
+<h4 id="resize（加上overflow使用）"><a href="#resize（加上overflow使用）" class="headerlink" title="resize（加上overflow使用）"></a>resize（加上overflow使用）</h4><blockquote>
+<p>resize: horizontal; 水平可调整</p>
+<p>resize: vertical; 竖直可调整</p>
+</blockquote>
+<h4 id="box-shadow-阴影"><a href="#box-shadow-阴影" class="headerlink" title="box-shadow(阴影)"></a>box-shadow(阴影)</h4><pre><code class="highlight html">    <span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="language-css"></span>
+<span class="language-css">        <span class="selector-class">.box1</span>&#123;</span>
+<span class="language-css">            <span class="attribute">height</span>: <span class="number">400px</span>;</span>
+<span class="language-css">            <span class="attribute">width</span>:  <span class="number">400px</span>;</span>
+<span class="language-css">            <span class="attribute">background-color</span>: orange;</span>
+<span class="language-css">            <span class="attribute">margin</span>: <span class="number">0</span> auto;</span>
+<span class="language-css">            <span class="attribute">margin-top</span>: <span class="number">100px</span>;</span>
+<span class="language-css">            <span class="comment">/* 水平位置 垂直位置 */</span></span>
+<span class="language-css">            <span class="attribute">box-shadow</span>: <span class="number">10px</span> <span class="number">10px</span>;</span>
+<span class="language-css">            <span class="comment">/* 水平位置 垂直位置 阴影颜色*/</span></span>
+<span class="language-css">            <span class="attribute">box-shadow</span>: <span class="number">10px</span> <span class="number">10px</span> blue;</span>
+<span class="language-css">            <span class="comment">/* 水平位置 垂直位置  阴影的模糊程度*/</span></span>
+<span class="language-css">            <span class="attribute">box-shadow</span>: <span class="number">10px</span> <span class="number">10px</span> <span class="number">20px</span>;</span>
+<span class="language-css">            <span class="comment">/* 水平位置 垂直位置  阴影的模糊程度 阴影颜色*/</span></span>
+<span class="language-css">            <span class="attribute">box-shadow</span>: <span class="number">10px</span> <span class="number">10px</span> <span class="number">20px</span> blue;</span>
+<span class="language-css">            <span class="comment">/* 水平位置 垂直位置  阴影的模糊程度 阴影的外沿 阴影颜色*/</span></span>
+<span class="language-css">            <span class="attribute">box-shadow</span>: <span class="number">10px</span> <span class="number">10px</span> <span class="number">20px</span> <span class="number">10px</span> blue;</span>
+<span class="language-css">            <span class="comment">/* 水平位置 垂直位置  阴影的模糊程度 阴影的外沿 阴影颜色*/</span></span>
+<span class="language-css">            <span class="attribute">box-shadow</span>: <span class="number">10px</span> <span class="number">10px</span> <span class="number">20px</span> <span class="number">10px</span> blue inset;</span>
+<span class="language-css">			<span class="comment">/* inset：内部阴影 不填：外部阴影*/</span></span>
+<span class="language-css">        &#125;</span>
+<span class="language-css">    </span><span class="tag">&lt;/<span class="name">style</span>&gt;</span>
+<span class="tag">&lt;<span class="name">body</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;box1&quot;</span>&gt;</span>
+        你好
+    <span class="tag">&lt;/<span class="name">div</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">body</span>&gt;</span></code></pre>
+
+<h4 id="opacity-不透明度"><a href="#opacity-不透明度" class="headerlink" title="opacity(不透明度)"></a>opacity(不透明度)</h4><p>0~1的数</p>
+<h3 id="7-新增背景属性"><a href="#7-新增背景属性" class="headerlink" title="7.新增背景属性"></a>7.新增背景属性</h3><h4 id="1-background-origin"><a href="#1-background-origin" class="headerlink" title="1.background-origin"></a>1.background-origin</h4><blockquote>
+<p>设置背景图的原点</p>
+</blockquote>
+<ul>
+<li>padding-box 从padding区域开始显示背景图像默认值</li>
+<li>border-box 从border区域开始显示背景图像</li>
+<li>content-box 从content区域开始显示背景图像</li>
+</ul>
+<h4 id="2-background-clip"><a href="#2-background-clip" class="headerlink" title="2.background-clip"></a>2.background-clip</h4><blockquote>
+<p>设置背景图的向外裁剪的区域</p>
+</blockquote>
+<ul>
+<li>border-box 从border区域开始向外裁剪背景  默认</li>
+<li>padding-box 从padding-区域开始向外裁剪背景</li>
+<li>content-box 从content区域开始向外裁剪背景</li>
+<li>text 背景图只呈现在文字上</li>
+</ul>
+<h4 id="3-background-size"><a href="#3-background-size" class="headerlink" title="3.background-size"></a>3.background-size</h4><blockquote>
+<p>设置背景图的尺寸</p>
+</blockquote>
+<p>1.用长度指定背景图片的大小,不允许负值</p>
+<p>background-size:200px 300px;</p>
+<p>2.用百分比指定背景图片的大小,不允许负值</p>
+<p>background-size:100% 100%;</p>
+<p>3.auto ： 背景图的真实大小 默认值</p>
+<p>4.contain 将背景图片等比例缩放，使背景图片的宽或高，与容器的宽或高相等，再将完整背景图片包含在容器内，但要注意：可能会造成容器里部分区域没有背景图片</p>
+<p>background-size:contain;</p>
+<p>5.cover:将背景图片等比例缩放直到完全覆盖容器，图片会尽可能全的显示在元素上，但要注意：背景图片可能显示不完整 相对较好</p>
+<p>background-size:cover;</p>
+<h4 id="4-background-复合属性"><a href="#4-background-复合属性" class="headerlink" title="4.background-复合属性"></a>4.background-复合属性</h4><blockquote>
+<p>background:背景颜色 背景url 是否重复 位置 大小 &#x2F; 原点 裁剪方式</p>
+</blockquote>
+<p>如果origin和clip值一样，只写一个值，则clip和origin都设置;如果设置了两个值，前面的是origin，后面的是clip</p>
+<p>size的值必须写在position值的后面，并且用&#x2F;分开</p>
+<h4 id="5-多背景图"><a href="#5-多背景图" class="headerlink" title="5.多背景图"></a>5.多背景图</h4><p>利用background复合属性</p>
+<pre><code class="highlight css"><span class="attribute">background</span>: <span class="built_in">url</span>() no-repeat left top,
+            <span class="built_in">url</span>() no-repeat left bottom,
+            <span class="built_in">url</span>() no-repeat right bottom,
+            <span class="built_in">url</span>() no-repeat right bottom;</code></pre>
+
+<h3 id="8-新增边框属性"><a href="#8-新增边框属性" class="headerlink" title="8.新增边框属性"></a>8.新增边框属性</h3><h4 id="1-边框圆角"><a href="#1-边框圆角" class="headerlink" title="1.边框圆角"></a>1.边框圆角</h4><pre><code class="highlight css"><span class="attribute">border-radius</span>: <span class="number">200px</span>;
+<span class="attribute">border-radius</span>: <span class="number">50%</span>;</code></pre>
+
+
+<p>在CSS3中，使用border-radius 属性可以将盒子变为圆角。</p>
+<blockquote>
+<p>同时设置四个角的圆角:</p>
+<p>border-radius:10px;</p>
+</blockquote>
+<blockquote>
+<p>分开设置每个角的圆角（几乎不用)</p>
+<p>border-top-left-radius</p>
+<p>设置左上角圆角半径<br>1.一个值是正圆半径</p>
+<p>2.两个值分别是椭圆的×半径、y半径。</p>
+<p>border-top-right-radius</p>
+<p>设置右上角圆角半径:</p>
+<p>1.一个值是正圆半径,</p>
+<p>2.两个值分别是椭圆的×半径、y半径。</p>
+<p>border-bottom-right-radius</p>
+<p>设置右下角圆角半径：</p>
+<p>1.一个值是正圆半径.</p>
+<p>2.两个值分别是椭圆的×半径、y半径。</p>
+<p>porder-bottom-left-radius</p>
+<p>设置左下角圆角半径:</p>
+<p>1.一个值是正圆半径</p>
+<p>2.两个值分别是椭圆的×半径、y半径。</p>
+</blockquote>
+<blockquote>
+<p>border-raidus：左上角x右上角x右下角x左下角x &#x2F;左上y 右上y 右下y 左下y</p>
+</blockquote>
+<h4 id="2-边框外轮廓"><a href="#2-边框外轮廓" class="headerlink" title="2.边框外轮廓"></a>2.边框外轮廓</h4><p>outline-width：外轮廓的宽度。</p>
+<p>outline-color：外轮廓的颜色。</p>
+<blockquote>
+<p>outline-style：外轮廓的风格</p>
+<p>​	none：无轮廓</p>
+<p>​	dotted：点状轮廓</p>
+<p>​	dashed：虚线轮廓</p>
+<p>​	solid:实线轮廓</p>
+<p>​	double：双线轮廓</p>
+</blockquote>
+<p>outline-offset 设置外轮廓与边框的距离，正负值都可以设置</p>
+<p>注意：outline-offset不是outline的子属性，是一个独立的属性。</p>
+<p>outline复合属性</p>
+<p>outline:50px solid blue;</p>
+<h3 id="9-新增文本相关属性"><a href="#9-新增文本相关属性" class="headerlink" title="9.新增文本相关属性"></a>9.新增文本相关属性</h3><h4 id="1-文本阴影"><a href="#1-文本阴影" class="headerlink" title="1.文本阴影"></a>1.文本阴影</h4><p>在CSS3中，我们可以使用text-shadow 属性给文本添加阴影。</p>
+<blockquote>
+<p>text-shadow: h-shadow v-shadow blur color;</p>
+<p>​	h-shadow	必需写，水平阴影的位置，允许负值</p>
+<p>​	v-shadow	必需写，垂直阴影的位置，允许负值</p>
+<p>​	blur	可选，模糊的距离。</p>
+<p>​	color	可选，阴影的颜色</p>
+</blockquote>
+<blockquote>
+<p>默认值：text-shadow：none表示没有阴影</p>
+</blockquote>
+<h4 id="2-文本换行"><a href="#2-文本换行" class="headerlink" title="2.文本换行"></a>2.文本换行</h4><p>在CSS3中，我们可以使用white-space 属性设置文本换行方式。</p>
+<blockquote>
+<p>normal 文本超出边界自动换行，文本中的换行被浏览器识别为一个空格。（默认值)</p>
+<p>pre 原样输出，与pre标签的效果相同</p>
+<p>pre-wrap 在pre效果的基础上，超出元素边界自动换行</p>
+<p>pre-line 在pre效果的基础上，超出元素边界自动换行，且只识别文本中的换行，空格会忽略</p>
+<p>nowarp 强制不换行</p>
+</blockquote>
+<h4 id="3-文本溢出"><a href="#3-文本溢出" class="headerlink" title="3.文本溢出"></a>3.文本溢出</h4><p>在CSS3中，我们可以使用text-overflow 属性设置文本内容溢出时的呈现模式。</p>
+<p>clip			当内联内容溢出时，将溢出部分裁切掉。（默认值)</p>
+<p>ellipsis  	当内联内容溢出块容器时，将溢出部分替换为.….。</p>
+<blockquote>
+<p>注意：要使得text-overflow 属性生效，块容器必须显式定义overflow 为非visible值，white-space 为nowrap值。</p>
+</blockquote>
+<h4 id="4-文本修饰"><a href="#4-文本修饰" class="headerlink" title="4.文本修饰"></a>4.文本修饰</h4><blockquote>
+<p>CSS3升级了text-decoration属性，让其变成了复合属性</p>
+<p>text-decoration: text-decoration-line || text-decoration-style || text-decoration-color</p>
+</blockquote>
+<p>子属性及其含义:</p>
+<blockquote>
+<p>text-decoration-line 设置文本装饰线的位置none：指定文字无装饰（默认值）</p>
+<p>underline：指定文字的装饰是下划线</p>
+<p>overline：指定文字的装饰是上划线</p>
+<p>line-through：指定文字的装饰是贯穿线 </p>
+</blockquote>
+<blockquote>
+<p>text-decoration-style 文本装饰线条的形状</p>
+<p>solid：实线（默认）</p>
+<p>double：双线</p>
+<p>dotted：点状线条</p>
+<p>wavy：波浪线</p>
+</blockquote>
+<blockquote>
+<p>text-decoration-color文本装饰线条的颜色</p>
+</blockquote>
+<h4 id="5-文本描边"><a href="#5-文本描边" class="headerlink" title="5.文本描边"></a>5.文本描边</h4><p>颜色</p>
+<p>-webkit-text-stroke-color: aqua;</p>
+<p>宽度</p>
+<p> -webkit-text-stroke-width: 1px;</p>
+<p>复合属性，设置宽度和颜色</p>
+<p>-webkit-text-stroke: aqua 1px;</p>
+<h3 id="10-新增渐变"><a href="#10-新增渐变" class="headerlink" title="10.新增渐变"></a>10.新增渐变</h3><h4 id="1-线性渐变"><a href="#1-线性渐变" class="headerlink" title="1.线性渐变"></a>1.线性渐变</h4><p>background-image : linear-gradient()</p>
+<blockquote>
+<p>默认从上到下</p>
+<p>to top</p>
+<p>deg角度</p>
+<p>调整渐变的位置</p>
+</blockquote>
+<pre><code class="highlight html">    <span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="language-css"></span>
+<span class="language-css">        *&#123;</span>
+<span class="language-css">            <span class="attribute">padding</span>: <span class="number">0</span>;</span>
+<span class="language-css">            <span class="attribute">margin</span>: <span class="number">0</span>;</span>
+<span class="language-css">            <span class="attribute">box-sizing</span>: border-box;</span>
+<span class="language-css">        &#125;</span>
+<span class="language-css">        <span class="selector-class">.box</span>&#123;</span>
+<span class="language-css">            <span class="attribute">height</span>: <span class="number">200px</span>;</span>
+<span class="language-css">            <span class="attribute">width</span>: <span class="number">200px</span>;</span>
+<span class="language-css">            <span class="attribute">border</span>: <span class="number">1px</span> solid black;</span>
+<span class="language-css">            <span class="attribute">float</span>: left;</span>
+<span class="language-css">        &#125;</span>
+<span class="language-css">        <span class="selector-class">.box1</span>&#123;</span>
+<span class="language-css">            <span class="attribute">background-image</span>: <span class="built_in">linear-gradient</span>(<span class="number">120deg</span>, <span class="number">#e0c3fc</span> <span class="number">0%</span>, <span class="number">#8ec5fc</span> <span class="number">100%</span>)</span>
+<span class="language-css">        &#125;</span>
+<span class="language-css">        <span class="selector-class">.box2</span>&#123;</span>
+<span class="language-css">            <span class="attribute">background-image</span>: <span class="built_in">linear-gradient</span>(to right, <span class="number">#e0c3fc</span> <span class="number">0%</span>, <span class="number">#8ec5fc</span> <span class="number">100%</span>)</span>
+<span class="language-css">        &#125;</span>
+<span class="language-css">        <span class="selector-class">.box3</span>&#123;</span>
+<span class="language-css">            <span class="attribute">background-image</span>: <span class="built_in">linear-gradient</span>(red <span class="number">50px</span>,yellow <span class="number">100px</span> , green <span class="number">150px</span>);</span>
+<span class="language-css">        &#125;</span>
+<span class="language-css">        <span class="selector-class">.box4</span>&#123;</span>
+<span class="language-css">            <span class="attribute">font-size</span>: <span class="number">80px</span>;</span>
+<span class="language-css">            <span class="attribute">text-align</span>: center;</span>
+<span class="language-css">            <span class="attribute">line-height</span>: <span class="number">200px</span>;</span>
+<span class="language-css">            <span class="attribute">font-weight</span>: <span class="number">200</span>;</span>
+<span class="language-css">            <span class="attribute">color</span>: transparent;</span>
+<span class="language-css"></span>
+<span class="language-css">            <span class="attribute">background-clip</span>: text;</span>
+<span class="language-css">            <span class="attribute">background-image</span>: <span class="built_in">linear-gradient</span>(<span class="number">120deg</span>, <span class="number">#e0c3fc</span> <span class="number">0%</span>, <span class="number">#8ec5fc</span> <span class="number">100%</span>)</span>
+<span class="language-css">        &#125;</span>
+<span class="language-css">    </span><span class="tag">&lt;/<span class="name">style</span>&gt;</span>
+
+
+<span class="tag">&lt;<span class="name">body</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;box box1&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;box box2&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;box box3&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;box box4&quot;</span>&gt;</span>你好<span class="tag">&lt;/<span class="name">div</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">body</span>&gt;</span></code></pre>
+
+<h4 id="2-径向渐变"><a href="#2-径向渐变" class="headerlink" title="2.径向渐变"></a>2.径向渐变</h4><p>background-image : radial-gradient()</p>
+<pre><code class="highlight html">    <span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="language-css"></span>
+<span class="language-css">        *&#123;</span>
+<span class="language-css">            <span class="attribute">padding</span>: <span class="number">0</span>;</span>
+<span class="language-css">            <span class="attribute">margin</span>: <span class="number">0</span>;</span>
+<span class="language-css">            <span class="attribute">box-sizing</span>: border-box;</span>
+<span class="language-css">        &#125;</span>
+<span class="language-css">        <span class="selector-class">.box</span>&#123;</span>
+<span class="language-css">            <span class="attribute">height</span>: <span class="number">200px</span>;</span>
+<span class="language-css">            <span class="attribute">width</span>: <span class="number">200px</span>;</span>
+<span class="language-css">            <span class="attribute">border</span>: <span class="number">1px</span> solid black;</span>
+<span class="language-css">            <span class="attribute">float</span>: left;</span>
+<span class="language-css">        &#125;</span>
+<span class="language-css">        <span class="selector-class">.box1</span>&#123;</span>
+<span class="language-css">            </span>
+<span class="language-css">            <span class="attribute">background-image</span>: <span class="built_in">radial-gradient</span>( <span class="number">#e0c3fc</span> <span class="number">0%</span>, <span class="number">#8ec5fc</span> <span class="number">100%</span>);</span>
+<span class="language-css">        &#125;</span>
+<span class="language-css">        <span class="selector-class">.box2</span>&#123;</span>
+<span class="language-css">            <span class="comment">/* 关键词 */</span></span>
+<span class="language-css">            <span class="attribute">background-image</span>: <span class="built_in">radial-gradient</span>(at left top,<span class="number">#e0c3fc</span> <span class="number">0%</span>, <span class="number">#8ec5fc</span> <span class="number">100%</span>);</span>
+<span class="language-css">        &#125;</span>
+<span class="language-css">        <span class="selector-class">.box3</span>&#123;</span>
+<span class="language-css">            <span class="comment">/* 通过像素值 */</span></span>
+<span class="language-css">            <span class="attribute">background-image</span>: <span class="built_in">radial-gradient</span>(at <span class="number">50px</span> <span class="number">100px</span>,<span class="number">#e0c3fc</span> <span class="number">0%</span>, <span class="number">#8ec5fc</span> <span class="number">100%</span>);</span>
+<span class="language-css">        &#125;</span>
+<span class="language-css">        <span class="selector-class">.box4</span>&#123;</span>
+<span class="language-css">            <span class="comment">/* circle关键字 设置为正圆*/</span></span>
+<span class="language-css">            <span class="attribute">background-image</span>: <span class="built_in">radial-gradient</span>(circle,<span class="number">#e0c3fc</span> <span class="number">0%</span>, <span class="number">#8ec5fc</span> <span class="number">100%</span>);</span>
+<span class="language-css">        &#125;</span>
+<span class="language-css">        <span class="selector-class">.box5</span>&#123;</span>
+<span class="language-css">            <span class="comment">/* 通过设置像素值，设置为正圆 */</span></span>
+<span class="language-css">            <span class="attribute">background-image</span>: <span class="built_in">radial-gradient</span>(at <span class="number">200px</span> <span class="number">200px</span>,<span class="number">#e0c3fc</span> <span class="number">0%</span>, <span class="number">#8ec5fc</span> <span class="number">100%</span>);</span>
+<span class="language-css">        &#125;</span>
+<span class="language-css">        <span class="selector-class">.box6</span>&#123;</span>
+<span class="language-css">            <span class="comment">/* 设置区域 */</span></span>
+<span class="language-css">            <span class="attribute">background-image</span>: <span class="built_in">radial-gradient</span>(<span class="number">#e0c3fc</span> <span class="number">0%</span> <span class="number">50px</span>, <span class="number">#8ec5fc</span> <span class="number">100%</span> <span class="number">150px</span>);</span>
+<span class="language-css">        &#125;</span>
+<span class="language-css">        <span class="selector-class">.box7</span>&#123;</span>
+<span class="language-css">            <span class="comment">/* 综合写法 */</span></span>
+<span class="language-css">            <span class="attribute">background-image</span>: <span class="built_in">radial-gradient</span>(<span class="number">100px</span> <span class="number">50px</span> at <span class="number">150px</span> <span class="number">150px</span>,<span class="number">#e0c3fc</span> <span class="number">0%</span> <span class="number">50px</span>, <span class="number">#8ec5fc</span> <span class="number">100%</span> <span class="number">150px</span>);</span>
+<span class="language-css">        &#125;</span>
+<span class="language-css">    </span><span class="tag">&lt;/<span class="name">style</span>&gt;</span>
+
+
+<span class="tag">&lt;<span class="name">body</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;box box1&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;box box2&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;box box3&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;box box4&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;box box5&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;box box6&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;box box7&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">body</span>&gt;</span></code></pre>
+
+<h4 id="3-重复渐变"><a href="#3-重复渐变" class="headerlink" title="3.重复渐变"></a>3.重复渐变</h4><p><code>background-image: repeating-linear-gradient()</code></p>
+<p><code>background-image: repeating-radial-gradient()</code></p>
+<h3 id="11-Web字体和字体图标"><a href="#11-Web字体和字体图标" class="headerlink" title="11.Web字体和字体图标"></a>11.Web字体和字体图标</h3><h4 id="1-Web字体"><a href="#1-Web字体" class="headerlink" title="1.Web字体"></a>1.Web字体</h4><pre><code class="highlight html">    <span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="language-css"></span>
+<span class="language-css">        <span class="keyword">@font-face</span> &#123;</span>
+<span class="language-css">            <span class="attribute">font-family</span>: <span class="string">&#x27;c&#x27;</span>;</span>
+<span class="language-css">            <span class="attribute">src</span>: <span class="built_in">url</span>(<span class="string">../font/Rainbow-Party-2.ttf</span>);</span>
+<span class="language-css">        &#125;</span>
+<span class="language-css">        <span class="selector-class">.h</span>&#123;</span>
+<span class="language-css">            <span class="attribute">font-family</span>: <span class="string">&#x27;c&#x27;</span>;</span>
+<span class="language-css">        &#125;</span>
+<span class="language-css">    </span><span class="tag">&lt;/<span class="name">style</span>&gt;</span>
+
+
+<span class="tag">&lt;<span class="name">body</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">h1</span> <span class="attr">class</span>=<span class="string">&quot;h&quot;</span>&gt;</span>
+        ABDC
+    <span class="tag">&lt;/<span class="name">h1</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">body</span>&gt;</span></code></pre>
+
+<h4 id="2-字体图标"><a href="#2-字体图标" class="headerlink" title="2.字体图标"></a>2.字体图标</h4><ul>
+<li>相比图片更加清晰</li>
+<li>灵活性高，更方便改变大小，颜色，风格</li>
+<li>兼容性好</li>
+</ul>
+<p><a target="_blank" rel="noopener" href="https://www.iconfont.cn/">https://www.iconfont.cn/</a></p>
+<ol>
+<li></li>
+</ol>
+<pre><code class="highlight html">    <span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="language-css"></span>
+<span class="language-css">        <span class="keyword">@font-face</span> &#123;</span>
+<span class="language-css">            <span class="attribute">font-family</span>: <span class="string">&#x27;iconfont&#x27;</span>;</span>
+<span class="language-css">            <span class="attribute">src</span>: <span class="built_in">url</span>(<span class="string">&#x27;../font/font_img/iconfont.woff2t=1714807215615&#x27;</span>) <span class="built_in">format</span>(<span class="string">&#x27;woff2&#x27;</span>),</span>
+<span class="language-css">            <span class="built_in">url</span>(<span class="string">&#x27;../font/font_img/iconfont.woff?t=1714807215615&#x27;</span>) <span class="built_in">format</span>(<span class="string">&#x27;woff&#x27;</span>),</span>
+<span class="language-css">            <span class="built_in">url</span>(<span class="string">&#x27;../font/font_img/iconfont.ttf?t=1714807215615&#x27;</span>) <span class="built_in">format</span>(<span class="string">&#x27;truetype&#x27;</span>);</span>
+<span class="language-css">        &#125;</span>
+<span class="language-css">        <span class="selector-class">.iconfont</span> &#123;</span>
+<span class="language-css">            <span class="attribute">font-family</span>: <span class="string">&quot;iconfont&quot;</span> <span class="meta">!important</span>;</span>
+<span class="language-css">            <span class="attribute">font-size</span>: <span class="number">16px</span>;</span>
+<span class="language-css">            <span class="attribute">font-style</span>: normal;</span>
+<span class="language-css">            -webkit-<span class="attribute">font-smoothing</span>: antialiased;</span>
+<span class="language-css">            -moz-osx-<span class="attribute">font-smoothing</span>: grayscale;</span>
+<span class="language-css">        &#125;</span>
+<span class="language-css">    </span><span class="tag">&lt;/<span class="name">style</span>&gt;</span>
+
+
+
+<span class="tag">&lt;<span class="name">body</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;box iconfont&quot;</span>&gt;</span>
+        <span class="symbol">&amp;#xe88d;</span>
+        <span class="symbol">&amp;#xe891;</span>
+    <span class="tag">&lt;/<span class="name">div</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">&quot;iconfont&quot;</span>&gt;</span><span class="symbol">&amp;#xe88c;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">body</span>&gt;</span></code></pre>
+
+<ol start="2">
+<li></li>
+</ol>
+<pre><code class="highlight html"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">&quot;stylesheet&quot;</span> <span class="attr">href</span>=<span class="string">&quot;../font/font_img/iconfont.css&quot;</span>&gt;</span>
+
+
+<span class="tag">&lt;<span class="name">body</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">&quot;iconfont icon-sousuo&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">body</span>&gt;</span></code></pre>
+
+<ol start="3">
+<li></li>
+</ol>
+<pre><code class="highlight html"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;../font/font_img/iconfont.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span>
+
+<span class="tag">&lt;<span class="name">svg</span> <span class="attr">class</span>=<span class="string">&quot;icon&quot;</span> <span class="attr">aria-hidden</span>=<span class="string">&quot;true&quot;</span>&gt;</span>
+        <span class="tag">&lt;<span class="name">use</span> <span class="attr">xlink:href</span>=<span class="string">&quot;#icon-sousuo&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">use</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">svg</span>&gt;</span></code></pre>
+
+<p>4.在线使用</p>
+<ol>
+<li></li>
+</ol>
+<pre><code class="highlight css"><span class="keyword">@font-face</span> &#123;
+	<span class="attribute">font-family</span>: <span class="string">&#x27;iconfont&#x27;</span>;
+	<span class="attribute">src</span>: <span class="built_in">url</span>(<span class="string">&#x27;//at.alicdn.com/t/c/font_4532917_3e3p56tm3wy.woff2?t=1714808277434&#x27;</span>) <span class="built_in">format</span>(<span class="string">&#x27;woff2&#x27;</span>),
+	<span class="built_in">url</span>(<span class="string">&#x27;//at.alicdn.com/t/c/font_4532917_3e3p56tm3wy.woff?t=1714808277434&#x27;</span>) <span class="built_in">format</span>(<span class="string">&#x27;woff&#x27;</span>),
+	<span class="built_in">url</span>(<span class="string">&#x27;//at.alicdn.com/t/c/font_4532917_3e3p56tm3wy.ttf?t=1714808277434&#x27;</span>) <span class="built_in">format</span>(<span class="string">&#x27;truetype&#x27;</span>);
+&#125;
+	<span class="selector-class">.iconfont</span>&#123;
+    <span class="attribute">font-family</span>: <span class="string">&#x27;iconfont&#x27;</span>;
+&#125;
+
+&lt;<span class="selector-tag">span</span> class=&quot;iconfont&quot;&gt;&amp;<span class="selector-id">#xe89b</span>;&lt;/<span class="selector-tag">span</span>&gt;</code></pre>
+
+<ol start="2">
+<li></li>
+</ol>
+<pre><code class="highlight html"><span class="tag">&lt;<span class="name">link</span> <span class="attr">rel</span>=<span class="string">&quot;stylesheet&quot;</span> <span class="attr">href</span>=<span class="string">&quot;//at.alicdn.com/t/c/font_4532917_3e3p56tm3wy.css&quot;</span>&gt;</span>
+
+<span class="tag">&lt;<span class="name">span</span> <span class="attr">class</span>=<span class="string">&quot;iconfont icon-sousuo&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">span</span>&gt;</span></code></pre>
+
+<ol start="3">
+<li></li>
+</ol>
+<pre><code class="highlight html"><span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;//at.alicdn.com/t/c/font_4532917_3e3p56tm3wy.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span>
+
+<span class="tag">&lt;<span class="name">svg</span> <span class="attr">class</span>=<span class="string">&quot;icon&quot;</span> <span class="attr">aria-hidden</span>=<span class="string">&quot;true&quot;</span>&gt;</span>
+        <span class="tag">&lt;<span class="name">use</span> <span class="attr">xlink:href</span>=<span class="string">&quot;#icon-sousuo&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">use</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">svg</span>&gt;</span></code></pre>
+
+<blockquote>
+<p>可以使用i标签引入</p>
+</blockquote>
+<h3 id="12-2D变换"><a href="#12-2D变换" class="headerlink" title="12.2D变换"></a>12.2D变换</h3><p>transform</p>
+<blockquote>
+<p>设置水平方向位移，需指定长度值；若指定的是百分比，是参考自身宽度的百分比。设置垂直方向位移，需指定长度值；若指定的是分比，是参考自身高度的百分比。一个值代表水平方向，两个值代表：水平和垂直方向。</p>
+</blockquote>
+<h4 id="1-位移"><a href="#1-位移" class="headerlink" title="1.位移"></a>1.位移</h4><blockquote>
+<p>以左上位坐标原点</p>
+<p>translate() translateX() translateY()</p>
+<ol>
+<li></li>
+</ol>
+<p>transform: translateX(50px) translateY(50px);</p>
+<ol start="2">
+<li></li>
+</ol>
+<p>translateX(50%)位移自己宽度的50%</p>
+</blockquote>
+<p>1.位移与相对定位很相似，都不脱离文档流，不会影响到其它元素。</p>
+<p>2.与相对定位的区别：相对定位的百分比值，参考的是其父元素；定位的百分比值，参考的是其自身。</p>
+<p>3.浏览器针对位移有优化，与定位相比，浏览器处理位移的效率更高。</p>
+<p>4.transform 可以链式编写，例如:</p>
+<p>transform: translateX(30px) translateY(40px);</p>
+<p>5.位移对行内元素无效。</p>
+<p>6.位移配合定位，可实现元素水平垂直居中</p>
+<pre><code class="highlight css"><span class="selector-class">.box</span>&#123;
+	<span class="attribute">position</span>:absolute;
+    <span class="attribute">left</span>:<span class="number">50%</span>;
+	<span class="attribute">top</span>:<span class="number">50%</span>;
+	<span class="attribute">transform</span>: <span class="built_in">translate</span>(-<span class="number">50%</span>,-<span class="number">50%</span>);
+&#125;</code></pre>
+
+<h4 id="2-缩放"><a href="#2-缩放" class="headerlink" title="2.缩放"></a>2.缩放</h4><blockquote>
+<p>transform: scale(1.5);</p>
+<p>2D缩放是指：让元素放大或缩小</p>
+<p>按比例缩放</p>
+</blockquote>
+<p>scaleX	设置水平方向的缩放比例，值为一个数字，1表示不缩放，大于1放大，小于1缩小。</p>
+<p>scaleY	设置垂直方向的缩放比例，值为一个数字，1表示不缩放，大于1放大，小于1缩小。</p>
+<p>scale	同时设置水平方向、垂直方向的缩放比例，一个值代表同时设置水平和垂直缩放；两个值分别代表：水平缩放、垂直缩放。</p>
+<blockquote>
+<p>scale的值，是支持写负数的，但几乎不用，因为容易让人产生误解。</p>
+<p>借助缩放，可实现小于 12px的文字。</p>
+</blockquote>
+<h4 id="3-旋转"><a href="#3-旋转" class="headerlink" title="3.旋转"></a>3.旋转</h4><p>2D旋转是指：让元素在二维平面内，顺时针旋转或逆时针旋转</p>
+<p>1.先给元素添加 转换属性transform</p>
+<p>2.编写transform的具体值，相关可选值如下：</p>
+<p>设置旋转角度，需指定一个角度值（deg)，正值顺时针，负值逆时针。</p>
+<blockquote>
+<p>注意：rotateZ(20deg)相当于rotate(20deg），当然到了3D变换的时候，还能写：rotate(x，X，x)</p>
+</blockquote>
+<h4 id="4-扭曲"><a href="#4-扭曲" class="headerlink" title="4.扭曲"></a>4.扭曲</h4><blockquote>
+<p>2D扭曲是指：让元素在二维平面内被“拉扯”，进而“走形”，实际开发几乎不用，了解即可</p>
+</blockquote>
+<p>1.先给元素添加 转换属性 transform</p>
+<p>2.编写transform的具体值，相关可选值如下:</p>
+<p>skewX 	设置元素在水平方向扭曲，值为角度值，会将元素的左上角、右下角 拉扯</p>
+<p>skewY 	设置元素在垂直方向扭曲，值为角度值，会将元素的左上角、右下角拉扯。</p>
+<p>skew 	一个值代表 skewX，两个值分别代表：skewX、skewY</p>
+<h4 id="5-多重变换"><a href="#5-多重变换" class="headerlink" title="5.多重变换"></a>5.多重变换</h4><blockquote>
+<p>建议最后进行旋转，因为旋转会破坏坐标原点</p>
+</blockquote>
+<h4 id="6-变换原点"><a href="#6-变换原点" class="headerlink" title="6.变换原点"></a>6.变换原点</h4><blockquote>
+<p>默认原点在中间，位移变换不参考原点</p>
+</blockquote>
+<p>元素变换时，默认的原点是元素的中心，使用transform-origin可以设置变换的原点。</p>
+<p>修改变换原点对位移没有影响，对旋转和缩放会产生影响。</p>
+<p>如果提供两个值，第一个用于横坐标，第二个用于纵坐标。</p>
+<p>如果只提供一个，若是像素值，表示横坐标，纵坐标取50%；若是关键词，则另一个坐标取50%</p>
+<p>transform-origin：50%50%，变换原点在元素的中心位置，百分比是相对于自身</p>
+<p>transform-origin：left top，变换原点在元素的左上角。</p>
+<p>transform-origin:50px50px，变换原点距离元素左上角50px 50px的位置。</p>
+<p>transform-origin:0，只写一个值的时候，第二个值默认为50%。</p>
+<h3 id="13-3D变换"><a href="#13-3D变换" class="headerlink" title="13.3D变换"></a>13.3D变换</h3><p>transform</p>
+<h4 id="1-空间与景深"><a href="#1-空间与景深" class="headerlink" title="1.空间与景深"></a>1.空间与景深</h4><p>1.开启3D空间</p>
+<blockquote>
+<p>重要原则：元素进行 3D变换的首要操作：父元素必须开启 3D空间!</p>
+</blockquote>
+<p>使用transform-style开启3D空间</p>
+<p>flat：让子元素位于此元素的二维平面内（2D空间)</p>
+<p>preserve-3d：让子元素位于此元素的三维空间内（3D空间)</p>
+<p>2.设置景深</p>
+<p>何为景深？—— 指定观察者与Y&#x3D;0平面的距离，能让发生3D变换的元素，产生透视效果，看来更加立体。</p>
+<p>使用perspective 设置景深，可选值如下:</p>
+<ul>
+<li><p>none：不指定透视–（默认值）</p>
+</li>
+<li><p>长度值：指定观察者距离z&#x3D;0平面的距离，不允许负值.</p>
+</li>
+</ul>
+<blockquote>
+<p>注意：perspective 设置给发生3D变换元素的父元素!</p>
+</blockquote>
+<h4 id="2-透视点位置"><a href="#2-透视点位置" class="headerlink" title="2.透视点位置"></a>2.透视点位置</h4><blockquote>
+<p>所谓透视点位置，就是观察者位置；默认的透视点在元素的中心。</p>
+</blockquote>
+<p>使用perspective-origin设置观察者位置（透视点的位置）</p>
+<p>相对坐标轴往右偏移400px，往下偏移300px（相当于人蹲下300像素，然后向右移动400像素看元素）</p>
+<p>perspective-origin: 400px 300px;</p>
+<blockquote>
+<p>注意：通常情况下，我们不需要调整透视点位置。</p>
+</blockquote>
+<h4 id="3-位移"><a href="#3-位移" class="headerlink" title="3.位移"></a>3.位移</h4><blockquote>
+<p>3D位移是在2D位移的基础上，可以让元素沿z轴位移</p>
+<p>1.先给元素添加 转换属性transform</p>
+<p>2.编写transform的具体值，3D相关可选值如下：</p>
+<p>设置z轴位移，需指定长度值，正值向屏幕外，负值向屏幕里，且不能写百分比。</p>
+<p>第1个参数对应×轴，第2个参数对应y轴，第3个参数对应z轴，且均不能省略。</p>
+</blockquote>
+<h4 id="4-旋转"><a href="#4-旋转" class="headerlink" title="4.旋转"></a>4.旋转</h4><blockquote>
+<p>3D 旋转是在20旋转的基础上，可以让元素沿×轴和y轴旋转，具体使用方式如下:</p>
+<p>1.先给元素添加 转换属性 transform</p>
+<p>2.编写transform的具体值，3D相关可选值如下：</p>
+<p>设置×轴旋转角度，需指定一个角度值(deg)，面对×轴正方向：正值顺时针，负值逆时针。</p>
+<p>设置y轴旋转角度，需指定一个角度值(deg)，面对y轴正方向：正值顺时针，负值逆时针。</p>
+<p>前3个参数分别表示坐标轴：×，y，2，第4个参数表示旋转的角度，参数不允许省略。</p>
+<p>例如：transform：rotate3d(1，1,1,30deg），意思是：x、y、z分别旋转30度。</p>
+</blockquote>
+<h4 id="5-缩放"><a href="#5-缩放" class="headerlink" title="5.缩放"></a>5.缩放</h4><blockquote>
+<p>3D缩放是在2D缩放的基础上，可以让元素沿z轴缩放</p>
+<p>1.先给元素添加转换属性transform</p>
+<p>2.编写transform 的层体值，3D相关可选值</p>
+<p>​	scaleZ</p>
+<p>​	scale3d</p>
+<p>设置z轴方向的缩放比例，值为一个数字，1表示不缩放，大于1放大，小于1缩小。第1个参数对应×轴，第2个参数对应y轴，第3个参数对应z轴，参数不允许省略。</p>
+</blockquote>
+<h4 id="6-多重变换"><a href="#6-多重变换" class="headerlink" title="6.多重变换"></a>6.多重变换</h4><p>多个变换，可以同时使用一个transform来编写</p>
+<p>transform: translateZ(100px)	scaleZ(3) 	rotateY(40deg);</p>
+<p>注意点：多重变换时，建议最后旋转</p>
+<h4 id="7-背部"><a href="#7-背部" class="headerlink" title="7.背部"></a>7.背部</h4><blockquote>
+<p>backface-visibility</p>
+</blockquote>
+<p>backface-visibility:hidden</p>
+<h3 id="14-过渡"><a href="#14-过渡" class="headerlink" title="14.过渡"></a>14.过渡</h3><h4 id="1-基本"><a href="#1-基本" class="headerlink" title="1.基本"></a>1.基本</h4><p>过渡可以在不使用Flash动画，不使用JavaScript的情况下，让元素从一种样式，平滑过渡为另一种样式。</p>
+<blockquote>
+<p>transition-property</p>
+</blockquote>
+<p>作用：定义哪个属性需要过渡，只有在该属性中定义的属性（比如宽、高、颜色等）才会以有过渡效果。</p>
+<p>1.none：不过渡任何属性</p>
+<p>2.all：过渡所有能过渡的属性</p>
+<p>3.具体某个属性名，例如：width若有多个以逗号分隔</p>
+<p>常见的支持过渡的属性有：颜色、长度值、百分比、z-index、opacity、2D变换属性、3D变换属性、阴影</p>
+<blockquote>
+<p>transition-duration</p>
+</blockquote>
+<p>作用：设置过渡的持续时间，即：一个状态过渡到另外一个状态耗时多久。</p>
+<p>默认值。</p>
+<p>0：没有任何过渡时间</p>
+<p>s或ms：秒或毫秒。</p>
+<p>如果想让所有属性都持续一个时间，那就写一个值。</p>
+<p>如果想让每个属性持续不同的时间那就写一个时间的列表。</p>
+<blockquote>
+<p>transition-delay 延迟时间</p>
+<p>transition-delay : 2s;</p>
+</blockquote>
+<h4 id="2-高级"><a href="#2-高级" class="headerlink" title="2.高级"></a>2.高级</h4><p>transition-delay</p>
+<p>作用：指定开始过渡的延迟时间，单位：s或ms</p>
+<p>transition-timing-function</p>
+<p>作用：设置过渡的类型</p>
+<p>1.ease:平滑过渡 	–默认值</p>
+<p>2.linear:线性过渡</p>
+<p>3.ease-in: 慢→快</p>
+<p>4.ease-out：快→慢</p>
+<p>5.ease-in-out:慢→快→慢</p>
+<p>6.step-start：等同于 steps(1，start)</p>
+<p>7.step-end:等同于steps(1, end)</p>
+<p>8.steps( integer,?)：接受两个参数的步进函数。第一个参数必须为正整数，指定函数的步数。第二个参数取值可以是start或end，指定每一步的值发生变化的时间点。第二个参数默认值为end。</p>
+<p>9.cubic-bezie(number,number,number,number):特定的贝塞尔曲线类型</p>
+<p>在线制作贝赛尔曲线：<a target="_blank" rel="noopener" href="https://cubic-bezier.com/">https://cubic-bezier.com</a></p>
+<h4 id="3-复合属性"><a href="#3-复合属性" class="headerlink" title="3.复合属性"></a>3.复合属性</h4><p>transition 复合属性</p>
+<ul>
+<li>如果设置了一个时间，表示duration；如果设置了两个时间，第一个是duration，第二个是delay；其他值没有顺序要求</li>
+</ul>
+<p>transition: 1s 1s linear all;</p>
+<h4 id="4-案例"><a href="#4-案例" class="headerlink" title="4.案例"></a>4.案例</h4><h3 id="15-动画"><a href="#15-动画" class="headerlink" title="15.动画"></a>15.动画</h3><h4 id="1-使用"><a href="#1-使用" class="headerlink" title="1.使用"></a>1.使用</h4><pre><code class="highlight html"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span>
+<span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span>&gt;</span>
+<span class="tag">&lt;<span class="name">head</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;viewport&quot;</span> <span class="attr">content</span>=<span class="string">&quot;width=device-width, initial-scale=1.0&quot;</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Document<span class="tag">&lt;/<span class="name">title</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="language-css"></span>
+<span class="language-css">        <span class="selector-class">.outer</span>&#123;</span>
+<span class="language-css">            <span class="attribute">width</span>: <span class="number">1000px</span>;</span>
+<span class="language-css">            <span class="attribute">height</span>: <span class="number">200px</span>;</span>
+<span class="language-css">            <span class="attribute">border</span>: <span class="number">1px</span> solid black;</span>
+<span class="language-css">        &#125;</span>
+<span class="language-css">        <span class="keyword">@keyframes</span> yidong&#123;</span>
+<span class="language-css">            <span class="comment">/* 第一帧 */</span></span>
+<span class="language-css">            <span class="selector-tag">form</span>&#123;</span>
+<span class="language-css"></span>
+<span class="language-css">            &#125;</span>
+<span class="language-css">            <span class="comment">/* 最后一帧 */</span></span>
+<span class="language-css">            <span class="selector-tag">to</span>&#123;</span>
+<span class="language-css">                <span class="attribute">background-color</span>: blue;</span>
+<span class="language-css">                <span class="attribute">transform</span>: <span class="built_in">translateX</span>(<span class="number">800px</span>);</span>
+<span class="language-css">                <span class="attribute">border-radius</span>: <span class="number">50%</span>;</span>
+<span class="language-css">            &#125;</span>
+<span class="language-css">        &#125;</span>
+<span class="language-css"></span>
+<span class="language-css">        <span class="selector-class">.inner</span>&#123;</span>
+<span class="language-css">            <span class="attribute">width</span>: <span class="number">200px</span>;</span>
+<span class="language-css">            <span class="attribute">height</span>: <span class="number">200px</span>;</span>
+<span class="language-css">            <span class="attribute">background-color</span>: orange;</span>
+<span class="language-css">            <span class="comment">/* 应用动画到元素 */</span></span>
+<span class="language-css">            <span class="attribute">animation-name</span>: yidong;</span>
+<span class="language-css">            <span class="comment">/* 持续时间 */</span></span>
+<span class="language-css">            <span class="attribute">animation-duration</span>: <span class="number">3s</span>;</span>
+<span class="language-css">            <span class="comment">/* 延迟时间 */</span></span>
+<span class="language-css">            <span class="attribute">animation-delay</span>: <span class="number">0.5s</span>;</span>
+<span class="language-css">            <span class="comment">/* 其他属性 */</span></span>
+<span class="language-css">            <span class="comment">/* 播放方式 */</span></span>
+<span class="language-css">            <span class="attribute">animation-timing-function</span>: linear;</span>
+<span class="language-css">            <span class="comment">/* 次数 */</span></span>
+<span class="language-css">            <span class="comment">/* animation-iteration-count: infinite; */</span></span>
+<span class="language-css">            <span class="comment">/* 方向 */</span></span>
+<span class="language-css">            <span class="attribute">animation-direction</span>: alternate;</span>
+<span class="language-css"></span>
+<span class="language-css">            <span class="comment">/* forwards 最后一帧停住  不发生动画的状态*/</span></span>
+<span class="language-css">            <span class="attribute">animation-fill-mode</span>: forwards;</span>
+<span class="language-css">        &#125;</span>
+<span class="language-css">        <span class="selector-class">.outer</span><span class="selector-pseudo">:hover</span> <span class="selector-class">.inner</span>&#123;</span>
+<span class="language-css">            <span class="attribute">animation-play-state</span>: paused;</span>
+<span class="language-css">        &#125;</span>
+<span class="language-css">    </span><span class="tag">&lt;/<span class="name">style</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">head</span>&gt;</span>
+<span class="tag">&lt;<span class="name">body</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;outer&quot;</span>&gt;</span>
+        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;inner&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">div</span>&gt;</span>
+    <span class="tag">&lt;/<span class="name">div</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">body</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">html</span>&gt;</span></code></pre>
+
+<p>animation-name：给元素指定具体的动画（具体的关键帧)</p>
+<p>animation-duration：设置动画所需时间</p>
+<p>animation-delay：设置动画延迟<br>.box {<br>&#x2F;* 指定动画 *&#x2F;<br>animation-name: testKey;&#x2F;*设置动画所需时间 *&#x2F;animation-duration:5s;&#x2F;*设置动画延迟 *&#x2F;animation-delay:0.5s;</p>
+<p>}</p>
+<blockquote>
+<p>animation-iteration-count，指定动画的播放次数，常用值如下:</p>
+<p>number：动画循环次数</p>
+<p>infinite：无限循环</p>
+</blockquote>
+<blockquote>
+<p>animation-direction，指定动画方向，常用值如下:</p>
+<p>normal:	正常方向（默认)</p>
+<p>reverse :	反方向运行</p>
+<p>alternate：动画先正常运行再反方向运行，并持续交替运行</p>
+<p>alternate-reverse：动画先反运行再正方向运行，并持续交替运行</p>
+</blockquote>
+<blockquote>
+<p>animation-fill-mode，设置动画之外的状态</p>
+<p>forwards：设置对象状态为动画结束时的状态</p>
+<p>backwards： 设置对象状态为动画开始时的状态</p>
+</blockquote>
+<blockquote>
+<p>animation-play-state，设置动画的播放状态，常用值如下:</p>
+<p>running运动（默认）</p>
+<p>paused暂停</p>
+</blockquote>
+<h4 id="2-复合属性"><a href="#2-复合属性" class="headerlink" title="2.复合属性"></a>2.复合属性</h4><p>只设置一个时间表示duration，设置两个时间分别是：duration和delay，其他属性没有数量和顺序要求。</p>
+<p>animation: name 3s 0.5s linear alternate-reverse forwards;</p>
+<p>备注：</p>
+<p>animation-play-state一般单独使用。</p>
+<h4 id="3-动画与过渡"><a href="#3-动画与过渡" class="headerlink" title="3.动画与过渡"></a>3.动画与过渡</h4><pre><code class="highlight html"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span>
+<span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span>&gt;</span>
+<span class="tag">&lt;<span class="name">head</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;viewport&quot;</span> <span class="attr">content</span>=<span class="string">&quot;width=device-width, initial-scale=1.0&quot;</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Document<span class="tag">&lt;/<span class="name">title</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="language-css"></span>
+<span class="language-css">        <span class="selector-class">.outer</span>&#123;</span>
+<span class="language-css">            <span class="attribute">width</span>: <span class="number">1000px</span>;</span>
+<span class="language-css">            <span class="attribute">height</span>: <span class="number">400px</span>;</span>
+<span class="language-css">            <span class="attribute">border</span>: <span class="number">2px</span> solid black;</span>
+<span class="language-css">        &#125;</span>
+<span class="language-css">        <span class="selector-class">.inner</span>&#123;</span>
+<span class="language-css">            <span class="attribute">width</span>: <span class="number">100px</span>;</span>
+<span class="language-css">            <span class="attribute">height</span>: <span class="number">100px</span>;</span>
+<span class="language-css">        &#125;</span>
+<span class="language-css">        <span class="selector-class">.inner1</span>&#123;</span>
+<span class="language-css">            <span class="attribute">background-color</span>: green;</span>
+<span class="language-css">            <span class="attribute">transition</span>: <span class="number">3s</span> <span class="number">0.5s</span> linear;</span>
+<span class="language-css">        &#125;</span>
+<span class="language-css">        <span class="keyword">@keyframes</span> name&#123;</span>
+<span class="language-css">            <span class="selector-tag">from</span>&#123;</span>
+<span class="language-css"></span>
+<span class="language-css">            &#125;</span>
+<span class="language-css">            <span class="selector-tag">to</span>&#123;</span>
+<span class="language-css">                <span class="attribute">transform</span>: <span class="built_in">translateX</span>(<span class="number">900px</span>);</span>
+<span class="language-css">            &#125;</span>
+<span class="language-css">        &#125;</span>
+<span class="language-css">        <span class="selector-class">.inner2</span>&#123;</span>
+<span class="language-css">            <span class="attribute">background-color</span>: skyblue;</span>
+<span class="language-css">        &#125;</span>
+<span class="language-css">        <span class="selector-class">.outer</span><span class="selector-pseudo">:hover</span> <span class="selector-class">.inner1</span>&#123;</span>
+<span class="language-css">            </span>
+<span class="language-css">            <span class="attribute">transform</span>: <span class="built_in">translateX</span>(<span class="number">900px</span>);</span>
+<span class="language-css">        &#125;</span>
+<span class="language-css">        <span class="selector-class">.outer</span><span class="selector-pseudo">:hover</span> <span class="selector-class">.inner2</span>&#123;</span>
+<span class="language-css">            <span class="attribute">animation-name</span>: name;</span>
+<span class="language-css">            <span class="attribute">animation-duration</span>: <span class="number">3s</span>;</span>
+<span class="language-css">            <span class="attribute">animation-delay</span>: <span class="number">0.5</span>;</span>
+<span class="language-css">            <span class="comment">/* animation-play-state: paused; */</span></span>
+<span class="language-css">            <span class="attribute">animation-fill-mode</span>: forwards;</span>
+<span class="language-css">        &#125;</span>
+<span class="language-css">    </span><span class="tag">&lt;/<span class="name">style</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">head</span>&gt;</span>
+<span class="tag">&lt;<span class="name">body</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;outer&quot;</span>&gt;</span>
+        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;inner inner1&quot;</span>&gt;</span>1<span class="tag">&lt;/<span class="name">div</span>&gt;</span>
+        <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;inner inner2&quot;</span>&gt;</span>2<span class="tag">&lt;/<span class="name">div</span>&gt;</span>
+    <span class="tag">&lt;/<span class="name">div</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">body</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">html</span>&gt;</span></code></pre>
+
+<h4 id="4-案例-1"><a href="#4-案例-1" class="headerlink" title="4.案例"></a>4.案例</h4><h3 id="16-多布局"><a href="#16-多布局" class="headerlink" title="16.多布局"></a>16.多布局</h3><blockquote>
+<p>指定列数</p>
+<p>column-count: 2;</p>
+<p>指定列的宽度</p>
+<p>column-width: 220px;</p>
+<p>复合属性</p>
+<p>columns: 2;</p>
+<p>间距</p>
+<p>column-gap: 30px;</p>
+</blockquote>
+<p>column-count：指定列数，值是数字</p>
+<p>column-width：指定列宽，值是长度</p>
+<p>columns：同时指定列宽和列数，复合属性；值没有数量和顺序要求</p>
+<p>column-gap：设置列边距，值是长度</p>
+<p>column-rule-style：设置列与列之间边框的风格，值与 border-style—致</p>
+<p>column-rule-width ：设置列与列之间边框的宽度，值是长度</p>
+<p>column-rule-color：设置列与列之间边框的颜色</p>
+<p>coumn-rule：设置列边框，复合属性</p>
+<p>column-span 指定是否跨列；值：none、all</p>
+<h3 id="17-伸缩盒模型"><a href="#17-伸缩盒模型" class="headerlink" title="17.伸缩盒模型"></a>17.伸缩盒模型</h3><h4 id="1-伸缩盒模型简介"><a href="#1-伸缩盒模型简介" class="headerlink" title="1.伸缩盒模型简介"></a>1.伸缩盒模型简介</h4><p>2009年，W3C 提出了一种新的盒子模型–Flexible Box（伸缩盒模型，又称：弹性盒子）</p>
+<p>它可以轻松的控制：元素分布方式、元素对齐方式、元素视觉顺序.………</p>
+<p>截止目前，除了在部分IE 浏览器不支持，其他浏览器均已全部支持,伸缩盒模型的出现，逐渐演变出了一套新的布局方案–flex布局</p>
+<p>1.传统布局是指：基于传统盒状模型，主要靠： display 属性+ position 属性+float 属性。</p>
+<p>2.flex布局目前在移动端应用比较广泛，因为传统布局不能很好的呈现在移动设备上。</p>
+<h4 id="2-伸缩容器、伸缩项目"><a href="#2-伸缩容器、伸缩项目" class="headerlink" title="2.伸缩容器、伸缩项目"></a>2.伸缩容器、伸缩项目</h4><blockquote>
+<p>伸缩容器：开启了flex的元素，就是：伸缩容器。</p>
+<p>1.给元素设置：display:flex或 display：inline-flex，该元素就变为了伸缩容器</p>
+<p>2.display: inline-flex很少使用，因为可以给多个伸缩容器的父容器，也设置为伸缩容器</p>
+<p>3.一个元素可以同时是：伸缩容器、伸缩项目</p>
+</blockquote>
+<blockquote>
+<p>伸缩项目：伸缩容器所有子元素自动成为了：伸缩项目。</p>
+<p>1.仅伸缩容器的子元素成为了伸缩项目，孙子元素、重孙子元素等后代，不是伸缩项目。</p>
+<p>2.无论原来是哪种元素（块、行内块、行内），一旦成为了伸缩项目，全都会“块状化”</p>
+</blockquote>
+<h4 id="3-主轴和侧轴"><a href="#3-主轴和侧轴" class="headerlink" title="3.主轴和侧轴"></a>3.主轴和侧轴</h4><p>主轴： 伸缩项目沿着主轴排列，主轴默认是水平的，默认方向是：从左到右（左边是起点，右边是终点）</p>
+<p>侧轴： 与主轴垂直的就是侧轴，侧轴默认是垂直的，默认方向是：从上到下（上边是起点，下边是终点）</p>
+<h4 id="4-主轴方向"><a href="#4-主轴方向" class="headerlink" title="4.主轴方向"></a>4.主轴方向</h4><blockquote>
+<p>属性名：flex-direction</p>
+</blockquote>
+<p>常用值如下:</p>
+<p>1.row：主轴方向水平从左到右—- 默认值</p>
+<p>2.row-reverse：主轴方向水平从右到左。</p>
+<p>3.column：主轴方向垂直从上到下。</p>
+<p>4.column-reverse：主轴方向垂直从下到上。</p>
+<p>注意：改变了主轴的方向，侧轴方向也随之改变。</p>
+<h4 id="5-主轴上的换行方式"><a href="#5-主轴上的换行方式" class="headerlink" title="5.主轴上的换行方式"></a>5.主轴上的换行方式</h4><blockquote>
+<p>flex-wrap</p>
+</blockquote>
+<p>wrap（自动换行）、nowrap(默认)（不换行）、warp-reverse（反向换行）</p>
+<h4 id="6-flex-flow"><a href="#6-flex-flow" class="headerlink" title="6.flex-flow"></a>6.flex-flow</h4><blockquote>
+<p>复合了flex-direction和flex-wrap</p>
+<p>flex-flow: column-reverse wrap-reverse;</p>
+</blockquote>
+<h4 id="7-主轴对齐方式"><a href="#7-主轴对齐方式" class="headerlink" title="7.主轴对齐方式"></a>7.主轴对齐方式</h4><blockquote>
+<p>属性名：justify-content</p>
+</blockquote>
+<p>1.flex-start：主轴起点对齐。– 默认值</p>
+<p>2.flex-end：主轴终点对齐。</p>
+<p>3.center：居中对齐 （常用）</p>
+<p>4.space-between：均匀分布，两端对齐（最常用）。</p>
+<p>5.space-around：均匀分布，两端距离是中间距离的一半。</p>
+<p>6.space-evenly：均匀分布，两端距离与中间距离一致。</p>
+<h4 id="8-侧轴对齐方式"><a href="#8-侧轴对齐方式" class="headerlink" title="8.侧轴对齐方式"></a>8.侧轴对齐方式</h4><h5 id="8-1只有一行的情况"><a href="#8-1只有一行的情况" class="headerlink" title="8.1只有一行的情况"></a>8.1只有一行的情况</h5><blockquote>
+<p>所需属性：align-items</p>
+</blockquote>
+<p>1.flex-start：侧轴的起点对齐。</p>
+<p>2.flex-end：侧轴的终点对齐。</p>
+<p>3.center：侧轴的中点对齐。</p>
+<p>4.baseline：伸缩项目的第一行文字的基线对齐。</p>
+<p>5.stretch：如果伸缩项目未设置高度，将占满整个容器的高度。–（默认值)</p>
+<h5 id="8-2多行的情况"><a href="#8-2多行的情况" class="headerlink" title="8.2多行的情况"></a>8.2多行的情况</h5><blockquote>
+<p>所需属性：align-content</p>
+</blockquote>
+<p>1.flex-start：与侧轴的起点对齐</p>
+<p>2.flex-end：与侧轴的终点对齐</p>
+<p>3.cented	与侧轴的中点对齐</p>
+<p>4.space-between：与侧轴两端对齐，中间平均分布</p>
+<p>5.space-around：伸缩项目间的距离相等，比距边缘大一倍</p>
+<p>6.space-evenly：在侧轴上完全平分</p>
+<p>7.stretch：占满整个侧轴。—- 默认值</p>
+<h4 id="9-基准长度"><a href="#9-基准长度" class="headerlink" title="9.基准长度"></a>9.基准长度</h4><p>1.flex-basis</p>
+<p>概念：flex-basis 设置的是生轴方向的基准长度</p>
+<p>备注：主轴横向：宽度失效；主轴纵向：高度失效</p>
+<p>作用：浏览器根据这个属性设置的值，计算主轴上是否有多余空间，默认值auto，即：伸缩项目的宽或高</p>
+<h4 id="10-伸缩性"><a href="#10-伸缩性" class="headerlink" title="10.伸缩性"></a>10.伸缩性</h4><h5 id="1-flex-grow（伸"><a href="#1-flex-grow（伸" class="headerlink" title="1.flex-grow（伸)"></a>1.flex-grow（伸)</h5><p>概念:</p>
+<p>flex-grow 定义伸缩项目的放大比例，默认为0，即：纵使主轴存在剩余空间，也不拉伸（放大）</p>
+<p>规则:</p>
+<p>1.若所有伸缩项目的flex-grow 值都为1，则：它们将等分剩余空间（如果有空间的话）</p>
+<p>2.若三个伸缩项目的flex-grow值分别为：1、2、3，则：分别瓜分到：1&#x2F;6、2&#x2F;6、3&#x2F;6的空间</p>
+<h5 id="2-flex-shrink（缩）"><a href="#2-flex-shrink（缩）" class="headerlink" title="2.flex-shrink（缩）"></a>2.flex-shrink（缩）</h5><p>概念：flex-shrink定义了项目的压缩比例，默认为1，即：如果空间不足，该项目将会缩小</p>
+<p>收缩项目的计算，略微复杂一点，我们拿一个场景举例:</p>
+<p>例如：</p>
+<p>三个收缩项目，宽度分别为：200px、300px2aapx，它们的flex-shrink 值分别为：1、2、3</p>
+<p>若想刚好容纳下三个项目，需要总宽度为700px，但目前容器只有400px，还差300px</p>
+<p>所以每个人都要收缩一下才可以放下，具体收缩的值，这样计算:</p>
+<p>1.计算分母：（200x1）+（300x2）+（200x3）&#x3D;1400</p>
+<p>2.计算比例：</p>
+<p>项目一：（200×1）&#x2F;1400&#x3D;比例值1项目二：（300x2）&#x2F;1400&#x3D;比例值2项目三：（200×3)&#x2F;1400&#x3D;比例值3 3.计算最终收缩大小：</p>
+<p>项目一需要收缩：比例值1×300</p>
+<p>项目二需要收缩：比例值2×300</p>
+<p>项目三需要收缩：比例值3×300</p>
+<h4 id="11-flex复合属性"><a href="#11-flex复合属性" class="headerlink" title="11.flex复合属性"></a>11.flex复合属性</h4><p>flex 是复合属性，复合了:flex-grow 、flex-shrink、flex-basis</p>
+<p>如果写flex：1 1 auto，则可简写为：flex：auto</p>
+<p>如果写 flex：1 1 0，则可简写为：flex:1</p>
+<p>如果写flex:0 θ auto，则可简写为：flex：none</p>
+<p>如果写 flex：0 1 auto，则可简写为:flex:0 auto</p>
+<p>flex-shrink、flex-basis 三个属性，默认值为0 1 auto	–即flex初始值</p>
+<h4 id="12-项目排序"><a href="#12-项目排序" class="headerlink" title="12.项目排序"></a>12.项目排序</h4><blockquote>
+<p>order属性定义项目的排列顺序。数值越小，排列越靠前，默认为0</p>
+</blockquote>
+<h4 id="13-单独对齐"><a href="#13-单独对齐" class="headerlink" title="13.单独对齐"></a>13.单独对齐</h4><blockquote>
+<p>通过align-self属性，可以单独调整某个伸缩项目的对齐方式</p>
+<p>默认值为auto，表示继承父元素的align-items属性</p>
+</blockquote>
+<h3 id="18-响应式布局"><a href="#18-响应式布局" class="headerlink" title="18.响应式布局"></a>18.响应式布局</h3><h4 id="1-媒体查询"><a href="#1-媒体查询" class="headerlink" title="1.媒体查询"></a>1.媒体查询</h4><p>1.all 所有设备</p>
+<p>2.screen 电子屏幕</p>
+<p>3.检测打印机</p>
+<pre><code class="highlight css"><span class="keyword">@media</span> screen &#123;
+
+&#125;</code></pre>
+
+<h4 id="2-媒体特性"><a href="#2-媒体特性" class="headerlink" title="2.媒体特性"></a>2.媒体特性</h4><pre><code class="highlight css"><span class="keyword">@media</span> (<span class="attribute">min-width</span>:<span class="number">800px</span>)
+&#123;
+    <span class="selector-tag">div</span>&#123;
+        <span class="attribute">background-color</span>: red;
+    &#125;
+
+&#125;</code></pre>
+
+<p>width	检测视口宽度</p>
+<p>max-width	检测视口最大宽度</p>
+<p>min-width	检测视口最小宽度</p>
+<p>height	检测视口高度</p>
+<p>max-height	检测视口最大高度</p>
+<p>min-height	检测视口最小高度</p>
+<p>device-width	检测设备屏幕的宽度</p>
+<p>max-device-width	检测设备屏幕的最大宽度</p>
+<p>min-device-width	检测设备屏幕的最小宽度</p>
+<p>orientation	检测视口的旋转方向（是否横屏）</p>
+<p>1.portrait：视口处于纵向，即高度大于等于宽度</p>
+<p>2.landscape：视口处于横向，即宽度大于高度</p>
+<p>完整列表请参考：<a target="_blank" rel="noopener" href="https://developer.mozilla.org/zh-CN/docs/Web/CSS/@media">https://developer.mozilla.org/zh-CN/docs/Web/CSS/@media</a></p>
+<h4 id="3-运算符"><a href="#3-运算符" class="headerlink" title="3.运算符"></a>3.运算符</h4><p>and		并且</p>
+<p>,、or	 或</p>
+<p>not	 否定</p>
+<p>only	 肯定</p>
+<h4 id="4-常用域值"><a href="#4-常用域值" class="headerlink" title="4.常用域值"></a>4.常用域值</h4><p>超小屏幕：&lt;768px</p>
+<p>中等屏幕：768px~992px</p>
+<p>大屏幕：992px~1200px</p>
+<p>超大屏幕：&gt;1200px</p>
+<h3 id="19BFC"><a href="#19BFC" class="headerlink" title="19BFC"></a>19BFC</h3><p>块格式化上下文，是Wen页面的可视CSS渲染的一部分，是块盒子的布局过程发生的区域，也是浮动元素与其他元素交互的区域</p>
+<p>当开启了BFC后</p>
+<p>1.其子元素不会再产生margin塌陷问题</p>
+<p>2.自己不会被其他浮动元素覆盖</p>
+<p>3.就算其子元素浮动，元素自身高度也不会塌陷</p>
+<blockquote>
+<p>开始BFC</p>
+</blockquote>
+<ul>
+<li>根元素</li>
+<li>浮动元素</li>
+<li>绝对定位、固定定位的元素</li>
+<li>行内块元素</li>
+<li>表格单元格</li>
+<li>overflow的值不为visible的块元素</li>
+<li>伸缩项目</li>
+<li>多列容器</li>
+<li>column-span为all的元素（即使该元素没有包裹在多列容器中）</li>
+<li>display的值，设置为flow-root</li>
+</ul>
+<h2 id="9-grid"><a href="#9-grid" class="headerlink" title="9.grid"></a>9.grid</h2><pre><code class="highlight css"><span class="selector-class">.layout</span>&#123;
+    <span class="attribute">display</span>: grid;
+    <span class="attribute">grid-template-columns</span>: <span class="number">1</span>fr <span class="number">1</span>fr;
+    <span class="attribute">gap</span>: <span class="number">30px</span>;
+&#125;</code></pre>
+
+<blockquote>
+<p>display:grid	开启grid布局</p>
+<p>grid-template-columns:1fr 1fr    表示每列两个元素</p>
+<p>gap表示间距</p>
+</blockquote>
+<pre><code class="highlight css"><span class="selector-class">.layout</span>&#123;
+    <span class="attribute">display</span>: grid;
+    <span class="attribute">grid-template-columns</span>:<span class="built_in">repeat</span>(<span class="number">5</span>,<span class="number">1</span>fr);
+    <span class="attribute">gap</span>: <span class="number">30px</span>;
+&#125;</code></pre>
+
+<blockquote>
+<p>repeate(5,1fr) 重复5次1fr 类似1fr 1fr 1fr 1fr 1fr</p>
+</blockquote>
+<pre><code class="highlight css"><span class="selector-class">.layout</span> <span class="selector-class">.box1</span>&#123;
+    <span class="attribute">grid-row</span>: <span class="number">1</span>/<span class="number">3</span>;
+    <span class="attribute">grid-column</span>:<span class="number">1</span>/<span class="number">3</span> ;
+&#125;</code></pre>
+
+<blockquote>
+<p>1&#x2F;3</p>
+<p>1 &#x3D;&#x3D;&gt;从第几列开始   3&#x3D;&#x3D;》跨两列+自身一份2+1&#x3D;&#x3D;3</p>
+</blockquote>
+<h2 id="10svg"><a href="#10svg" class="headerlink" title="10svg"></a>10svg</h2><h3 id="1-svg"><a href="#1-svg" class="headerlink" title="1.svg"></a>1.svg</h3><blockquote>
+<p>width svg的宽度   height svg的高度</p>
+</blockquote>
+<pre><code class="highlight html"><span class="tag">&lt;<span class="name">svg</span> <span class="attr">width</span>=<span class="string">&quot;400&quot;</span> <span class="attr">height</span>=<span class="string">&quot;100&quot;</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">rect</span> <span class="attr">width</span>=<span class="string">&quot;300&quot;</span> <span class="attr">height</span>=<span class="string">&quot;100&quot;</span> <span class="attr">fill</span>=<span class="string">&quot;blue&quot;</span> <span class="attr">stroke-width</span>=<span class="string">&quot;3&quot;</span> <span class="attr">stroke</span>=<span class="string">&quot;black&quot;</span>/&gt;</span>
+<span class="tag">&lt;/<span class="name">svg</span>&gt;</span></code></pre>
+
+<h3 id="2-rect"><a href="#2-rect" class="headerlink" title="2.rect"></a>2.rect</h3><blockquote>
+<p>fill  矩形内部的填充颜色</p>
+<p>stroke-width 描边的长度</p>
+<p>stroke 描边的颜色</p>
+<p>x 距离左边的距离</p>
+<p>y距离上面的距离</p>
+<p>fill-opacity   填充的透明度</p>
+<p>stroke-opacity   描边的透明度</p>
+<p>opacity  整体的透明度</p>
+</blockquote>
+<pre><code class="highlight html"><span class="tag">&lt;<span class="name">svg</span> <span class="attr">width</span>=<span class="string">&quot;400&quot;</span> <span class="attr">height</span>=<span class="string">&quot;100&quot;</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">rect</span> <span class="attr">width</span>=<span class="string">&quot;300&quot;</span> <span class="attr">height</span>=<span class="string">&quot;100&quot;</span> <span class="attr">fill</span>=<span class="string">&quot;blue&quot;</span> </span>
+<span class="tag">          <span class="attr">stroke-width</span>=<span class="string">&quot;3&quot;</span> <span class="attr">stroke</span>=<span class="string">&quot;black&quot;</span> <span class="attr">stroke-opacity</span>=<span class="string">&quot;0.9&quot;</span></span>
+<span class="tag">          <span class="attr">fill-opacity</span>=<span class="string">&quot;0.1&quot;</span>/&gt;</span>
+<span class="tag">&lt;/<span class="name">svg</span>&gt;</span></code></pre>
+
+<blockquote>
+<p>rx</p>
+<p>ry</p>
+<p>如果两个相等就是圆角，不相等则为椭圆</p>
+</blockquote>
+<h3 id="3-circle"><a href="#3-circle" class="headerlink" title="3.circle"></a>3.circle</h3><blockquote>
+<p>cx   中心的x坐标 </p>
+<p>cy  中心的y坐标</p>
+<p>r 圆的半径</p>
+</blockquote>
+<pre><code class="highlight html"><span class="tag">&lt;<span class="name">svg</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">circle</span> <span class="attr">cx</span>=<span class="string">&quot;40&quot;</span> <span class="attr">cy</span>=<span class="string">&quot;40&quot;</span> <span class="attr">r</span>=<span class="string">&quot;40&quot;</span>/&gt;</span>
+<span class="tag">&lt;/<span class="name">svg</span>&gt;</span></code></pre>
+
+<h3 id="4-ellipse"><a href="#4-ellipse" class="headerlink" title="4.ellipse"></a>4.ellipse</h3><blockquote>
+<p>cx  中心的x坐标 </p>
+<p>cy    中心的y坐标</p>
+<p>rx  水平半径</p>
+<p>ry  垂直半径</p>
+</blockquote>
+<pre><code class="highlight html"><span class="tag">&lt;<span class="name">svg</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">ellipse</span> <span class="attr">cx</span>=<span class="string">&quot;60&quot;</span> <span class="attr">cy</span>=<span class="string">&quot;60&quot;</span> <span class="attr">ry</span>=<span class="string">&quot;30&quot;</span> <span class="attr">rx</span>=<span class="string">&quot;20&quot;</span> <span class="attr">fill</span>=<span class="string">&quot;tomato&quot;</span> <span class="attr">stroke</span>=<span class="string">&quot;black&quot;</span>/&gt;</span>
+<span class="tag">&lt;/<span class="name">svg</span>&gt;</span></code></pre>
+
+<h3 id="5-line"><a href="#5-line" class="headerlink" title="5.line"></a>5.line</h3><blockquote>
+<p>x1 y1  起始点的坐标</p>
+<p>x2 y2 结束点的坐标</p>
+</blockquote>
+<pre><code class="highlight html"><span class="tag">&lt;<span class="name">svg</span> <span class="attr">width</span>=<span class="string">&quot;500&quot;</span> <span class="attr">height</span>=<span class="string">&quot;210&quot;</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">line</span> <span class="attr">x1</span>=<span class="string">&quot;0&quot;</span> <span class="attr">x2</span>=<span class="string">&quot;200&quot;</span> <span class="attr">y1</span>=<span class="string">&quot;0&quot;</span> <span class="attr">y2</span>=<span class="string">&quot;200&quot;</span> <span class="attr">stroke</span>=<span class="string">&quot;black&quot;</span> <span class="attr">stroke-width</span>=<span class="string">&quot;3&quot;</span>/&gt;</span>
+<span class="tag">&lt;/<span class="name">svg</span>&gt;</span></code></pre>
+
+<h3 id="6-polygon"><a href="#6-polygon" class="headerlink" title="6.polygon"></a>6.polygon</h3><blockquote>
+<p>points  每个点的坐标</p>
+</blockquote>
+<pre><code class="highlight html"><span class="tag">&lt;<span class="name">svg</span> <span class="attr">width</span>=<span class="string">&quot;500&quot;</span> <span class="attr">height</span>=<span class="string">&quot;210&quot;</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">polygon</span> <span class="attr">points</span>=<span class="string">&quot;200,20 300,30 200,40&quot;</span> <span class="attr">stroke</span>=<span class="string">&quot;black&quot;</span> <span class="attr">stroke-width</span>=<span class="string">&quot;1&quot;</span>/&gt;</span>
+<span class="tag">&lt;/<span class="name">svg</span>&gt;</span></code></pre>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </article>
+        <section class="post-near">
+            <ul>
+                
+                    <li>上一篇: 看完啦 (つд⊂)</li>
+                
+                
+                    <li>下一篇: <a href="/2024/09/30/JavaScript/">JavaScript</a></li>
+                
+            </ul>
+        </section>
+        
+            <section class="post-tags">
+            <a class="-none-link" href="/tags/CSS/" rel="tag">CSS</a><a class="-none-link" href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag">前端</a>
+            </section>
+        
+    
+        <section class="post-author">
+        
+            <figure class="author-avatar">
+                <img src="https://p1.meituan.net/csc/949ad40707d4b4bab7e2ebafbd649aa8211830.jpg" alt="日初" />
+            </figure>
+        
+            <div class="author-info">
+                <h4>日初</h4>
+                <p>一个什么都学的建模动画编程爱好者</p>
+            </div>
+        </section>
+    
+    </div>
+</main>
+
+    <footer>
+    <div class="buttons">
+        <a class="to-top" href="#"></a>
+    </div>
+    <div class="wrap min">
+        <section class="widget">
+            <div class="row">
+                <div class="col-m-4">
+                    <h3 class="title-recent">最新文章：</h3>
+                    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2024/10/05/CSS/">CSS</a></li><li class="post-list-item"><a class="post-list-link" href="/2024/09/30/JavaScript/">JavaScript</a></li><li class="post-list-item"><a class="post-list-link" href="/2024/09/28/MySql/">Mysql</a></li><li class="post-list-item"><a class="post-list-link" href="/2024/09/10/React/">React</a></li><li class="post-list-item"><a class="post-list-link" href="/2024/09/10/Vue/">Vue</a></li><li class="post-list-item"><a class="post-list-link" href="/2024/08/31/Java%20Web/">Java Web</a></li></ul>
+                </div>
+                <div class="col-m-4">
+                    <h3 class="title-date">时光机：</h3>
+                    <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/10/">十月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/09/">九月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/08/">八月 2024</a></li></ul>
+                </div>
+                <div class="col-m-4">
+                    <h3 class="title-tags">标签云：</h3>
+                    <a href="/tags/CSS/" style="font-size: 20px;">CSS</a> <a href="/tags/JS/" style="font-size: 20px;">JS</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/Java-Web/" style="font-size: 20px;">Java Web</a> <a href="/tags/MySql/" style="font-size: 20px;">MySql</a> <a href="/tags/Nginx/" style="font-size: 20px;">Nginx</a> <a href="/tags/React/" style="font-size: 20px;">React</a> <a href="/tags/Vue/" style="font-size: 20px;">Vue</a> <a href="/tags/%E5%89%8D%E7%AB%AF/" style="font-size: 20px;">前端</a> <a href="/tags/%E8%BF%90%E7%BB%B4/" style="font-size: 20px;">运维</a>
+                </div>
+            </div>
+        </section>
+        <section class="sub-footer">
+            <p>© 2024 <a href="/">Richu</a>. All Rights Reserved. Theme By <a href="https://github.com/Dreamer-Paul/Hingle" target="_blank" rel="nofollow">Hingle</a>.</p>
+        </section>
+    </div>
+</footer>
+
+
+<script src="/static/kico.js"></script>
+<script src="/static/hingle.js"></script>
+
+
+<script>var hingle = new Paul_Hingle({"copyright":true,"night":false});</script>
+
+  </body>
+</html>

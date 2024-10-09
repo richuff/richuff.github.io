@@ -314,7 +314,7 @@ a, .btn{
 blockquote{
     margin: 0 0 1em;
     line-height: 1.8;
-    font-style: oblique;
+    font-style: normal;
     background: #f5fafd;
     padding: 1em 1em 1em 2em;
     border-left: 5px #3498db solid;

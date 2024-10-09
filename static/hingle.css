@@ -403,7 +403,7 @@ main img {
 .home-title span{
     display: block;
     margin-bottom: 1em;
-    font-style: oblique;
+    font-style:normal;
 }
 
 /* - 社交链接 */
@@ -935,7 +935,7 @@ footer .sub-footer p{ font-size: .875em }
 }
 
 .token.bold { font-weight: bold }
-.token.italic { font-style: italic }
+.token.italic { font-style: normal }
 .token.entity { cursor: help }
 .token.important { font-weight: normal }
 

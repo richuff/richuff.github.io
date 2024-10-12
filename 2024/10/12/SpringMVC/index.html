@@ -61,7 +61,8 @@
         </section>
         <article class="post-content">
         
-            <p>SpringMVC是隶属于Spring框架的一部分，主要是用来进行Web开发，是对Servlet进行了封装。</p>
+            <p>SpringMVC 也叫 Spring web mvc。是 Spring 框架的一部分，是在Spring3.0 后发布的。基于 MVC 架构，功能分工明确、解耦合。</p>
+<p>SpringMVC也是一个容器，使用IoC核心技术，管理界面层中的控制器对象。SpringMVC的底层就是servlet，以servlet为核心，接收请求、处理请求，显示处理结果给用户。在此之前这个功能是由Servlet来实现的，现在使用SpringMVC来代替Servlet行驶控制器的角色和功能。</p>
 <h2 id="1-SpringMVC概述"><a href="#1-SpringMVC概述" class="headerlink" title="1.SpringMVC概述"></a>1.SpringMVC概述</h2><p>学习SpringMVC我们先来回顾下现在web程序是如何做的，咱们现在web程序大都基于三层架构来实现。</p>
 <p>三层架构</p>
 <ul>
@@ -554,7 +555,6 @@
 &#125;</code></pre></li>
 </ul>
 <p>最终创建好的项目结构如下:</p>
-<p><img src="/assets/1630461261820.png" alt="1630461261820"></p>
 <h4 id="2-5-5-设置bean加载控制"><a href="#2-5-5-设置bean加载控制" class="headerlink" title="2.5.5 设置bean加载控制"></a>2.5.5 设置bean加载控制</h4><p>方式一:修改Spring配置类，设定扫描范围为精准范围。</p>
 <pre><code class="highlight java"><span class="meta">@Configuration</span>
 <span class="meta">@ComponentScan(&#123;&quot;com.itheima.service&quot;,&quot;comitheima.dao&quot;&#125;)</span>
@@ -599,8 +599,7 @@
 &#125;</code></pre>
 
 <p>如果被排除了，该方法执行就会报bean未被定义的错误</p>
-<p><img src="/assets/1630462200947.png" alt="1630462200947"></p>
-<p>&#x3D;&#x3D;注意:测试的时候，需要把SpringMvcConfig配置类上的@ComponentScan注解注释掉，否则不会报错&#x3D;&#x3D;</p>
+<p>注意:测试的时候，需要把SpringMvcConfig配置类上的@ComponentScan注解注释掉，否则不会报错</p>
 <p>出现问题的原因是，</p>
 <ul>
 <li>Spring配置类扫描的包是<code>com.itheima</code></li>
@@ -967,11 +966,10 @@
 &#125;</code></pre></li>
 </ul>
 <p>最终创建好的项目结构如下:</p>
-<p><img src="/assets/1630467830654.png" alt="1630467830654"></p>
 <h4 id="4-2-2-参数传递"><a href="#4-2-2-参数传递" class="headerlink" title="4.2.2 参数传递"></a>4.2.2 参数传递</h4><h5 id="GET发送单个参数"><a href="#GET发送单个参数" class="headerlink" title="GET发送单个参数"></a>GET发送单个参数</h5><p>发送请求与参数:</p>
 <pre><code class="highlight plaintext">http://localhost/commonParam?name=itcast</code></pre>
 
-<p><img src="/assets/1630467921300.png" alt="1630467921300"></p>
+
 <p>接收参数：</p>
 <pre><code class="highlight java"><span class="meta">@Controller</span>
 <span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">UserController</span> &#123;
@@ -987,7 +985,7 @@
 <h5 id="GET发送多个参数"><a href="#GET发送多个参数" class="headerlink" title="GET发送多个参数"></a>GET发送多个参数</h5><p>发送请求与参数:</p>
 <pre><code class="highlight plaintext">http://localhost/commonParam?name=itcast&amp;age=15</code></pre>
 
-<p><img src="/assets/1630468045733.png" alt="1630468045733"></p>
+
 <p>接收参数：</p>
 <pre><code class="highlight java"><span class="meta">@Controller</span>
 <span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">UserController</span> &#123;
@@ -1004,7 +1002,6 @@
 <h5 id="GET请求中文乱码"><a href="#GET请求中文乱码" class="headerlink" title="GET请求中文乱码"></a>GET请求中文乱码</h5><p>如果我们传递的参数中有中文，你会发现接收到的参数会出现中文乱码问题。</p>
 <p>发送请求:<code>http://localhost/commonParam?name=张三&amp;age=18</code></p>
 <p>控制台:</p>
-<p><img src="/assets/1630480536510.png" alt="1630480536510"></p>
 <p>出现乱码的原因相信大家都清楚，Tomcat8.5以后的版本已经处理了中文乱码的问题，但是IDEA中的Tomcat插件目前只到Tomcat7，所以需要修改pom.xml来解决GET请求中文乱码问题</p>
 <pre><code class="highlight xml"><span class="tag">&lt;<span class="name">build</span>&gt;</span>
     <span class="tag">&lt;<span class="name">plugins</span>&gt;</span>
@@ -1022,7 +1019,6 @@
   <span class="tag">&lt;/<span class="name">build</span>&gt;</span></code></pre>
 
 <h5 id="POST发送参数"><a href="#POST发送参数" class="headerlink" title="POST发送参数"></a>POST发送参数</h5><p>发送请求与参数:</p>
-<p><img src="/assets/1630480812809.png" alt="1630480812809">接收参数：</p>
 <p>和GET一致，不用做任何修改</p>
 <pre><code class="highlight java"><span class="meta">@Controller</span>
 <span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">UserController</span> &#123;
@@ -1037,10 +1033,8 @@
 &#125;</code></pre>
 
 <h5 id="POST请求中文乱码"><a href="#POST请求中文乱码" class="headerlink" title="POST请求中文乱码"></a>POST请求中文乱码</h5><p>发送请求与参数:</p>
-<p><img src="/assets/1630480964421.png" alt="1630480964421"></p>
 <p>接收参数:</p>
 <p>控制台打印，会发现有中文乱码问题。</p>
-<p><img src="/assets/1630481008109.png" alt="1630481008109"></p>
 <p>解决方案:配置过滤器</p>
 <pre><code class="highlight java"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ServletContainersInitConfig</span> <span class="keyword">extends</span> <span class="title class_">AbstractAnnotationConfigDispatcherServletInitializer</span> &#123;
     <span class="keyword">protected</span> Class&lt;?&gt;[] getRootConfigClasses() &#123;
@@ -1091,7 +1085,6 @@
 &#125;</code></pre>
 
 <p>因为前端给的是<code>name</code>,后台接收使用的是<code>userName</code>,两个名称对不上，导致接收数据失败:</p>
-<p><img src="/assets/1630481772035.png" alt="1630481772035"></p>
 <p>解决方案:使用@RequestParam注解</p>
 <pre><code class="highlight java"><span class="meta">@RequestMapping(&quot;/commonParamDifferentName&quot;)</span>
     <span class="meta">@ResponseBody</span>
@@ -1948,7 +1941,6 @@
 &#125;</code></pre></li>
 </ul>
 <p>最终创建好的项目结构如下:</p>
-<p><img src="/assets/1630503741455.png" alt="1630503741455"></p>
 <h4 id="5-2-2-思路分析"><a href="#5-2-2-思路分析" class="headerlink" title="5.2.2 思路分析"></a>5.2.2 思路分析</h4><blockquote>
 <p>需求:将之前的增删改查替换成RESTful的开发方式。</p>
 <p>1.之前不同的请求有不同的路径,现在要将其修改为统一的请求路径</p>
@@ -1976,9 +1968,7 @@
 </li>
 <li><p>使用method属性限定该方法的访问方式为<code>POST</code></p>
 <ul>
-<li><p>如果发送的不是POST请求，比如发送GET请求，则会报错</p>
-<p><img src="/assets/1630505392070.png" alt="1630505392070"></p>
-</li>
+<li>如果发送的不是POST请求，比如发送GET请求，则会报错</li>
 </ul>
 </li>
 </ul>
@@ -2019,7 +2009,6 @@
 
 <p><strong>思考如下两个问题:</strong></p>
 <p>(1)如果方法形参的名称和路径<code>&#123;&#125;</code>中的值不一致，该怎么办?</p>
-<p><img src="/assets/1630506231379.png" alt="1630506231379"></p>
 <p>(2)如果有多个参数需要传递该如何编写?</p>
 <p>前端发送请求的时候使用:<code>http://localhost/users/1/tom</code>,路径中的<code>1</code>和<code>tom</code>就是我们想要传递的两个参数。</p>
 <p>后端获取参数，需要做如下修改:</p>
@@ -2052,7 +2041,6 @@
 </ul>
 </li>
 <li><p>访问并携带参数:</p>
-<p><img src="/assets/1630506507096.png" alt="1630506507096"></p>
 </li>
 </ul>
 <h5 id="根据ID查询"><a href="#根据ID查询" class="headerlink" title="根据ID查询"></a>根据ID查询</h5><pre><code class="highlight java"><span class="meta">@Controller</span>
@@ -2130,7 +2118,6 @@
 </li>
 </ul>
 <h3 id="5-3-RESTful快速开发"><a href="#5-3-RESTful快速开发" class="headerlink" title="5.3 RESTful快速开发"></a>5.3 RESTful快速开发</h3><p>做完了RESTful的开发，你会发现&#x3D;&#x3D;好麻烦&#x3D;&#x3D;，麻烦在哪?</p>
-<p><img src="/assets/1630507339724.png" alt="1630507339724"></p>
 <p>问题1：每个方法的@RequestMapping注解中都定义了访问路径&#x2F;books，重复性太高。</p>
 <p>问题2：每个方法的@RequestMapping注解中都要使用method属性定义请求方式，重复性太高。</p>
 <p>问题3：每个方法响应json都需要加上@ResponseBody注解，重复性太高。</p>
@@ -2232,9 +2219,7 @@
 </tr>
 </tbody></table>
 <h3 id="5-4-RESTful案例"><a href="#5-4-RESTful案例" class="headerlink" title="5.4 RESTful案例"></a>5.4 RESTful案例</h3><h4 id="5-4-1-需求分析"><a href="#5-4-1-需求分析" class="headerlink" title="5.4.1 需求分析"></a>5.4.1 需求分析</h4><p>需求一:图片列表查询，从后台返回数据，将数据展示在页面上</p>
-<p><img src="/assets/1630508310063.png" alt="1630508310063"></p>
 <p>需求二:新增图片，将新增图书的数据传递到后台，并在控制台打印</p>
-<p><img src="/assets/1630508367105.png" alt="1630508367105"></p>
 <p>**说明:**此次案例的重点是在SpringMVC中如何使用RESTful实现前后台交互，所以本案例并没有和数据库进行交互，所有数据使用<code>假</code>数据来完成开发。</p>
 <p>步骤分析:</p>
 <blockquote>
@@ -2346,7 +2331,6 @@
 &#125;</code></pre></li>
 </ul>
 <p>最终创建好的项目结构如下:</p>
-<p><img src="/assets/1630508864017.png" alt="1630508864017"></p>
 <h4 id="5-4-2-后台接口开发"><a href="#5-4-2-后台接口开发" class="headerlink" title="5.4.2 后台接口开发"></a>5.4.2 后台接口开发</h4><h5 id="步骤1-编写Controller类并使用RESTful进行配置"><a href="#步骤1-编写Controller类并使用RESTful进行配置" class="headerlink" title="步骤1:编写Controller类并使用RESTful进行配置"></a>步骤1:编写Controller类并使用RESTful进行配置</h5><pre><code class="highlight java"><span class="meta">@RestController</span>
 <span class="meta">@RequestMapping(&quot;/books&quot;)</span>
 <span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">BookController</span> &#123;
@@ -2392,18 +2376,14 @@
     <span class="attr">&quot;description&quot;</span><span class="punctuation">:</span><span class="string">&quot;这是一本好书&quot;</span>
 <span class="punctuation">&#125;</span></code></pre>
 
-<p><img src="/assets/1630509266954.png" alt="1630509266954"></p>
+
 <p>测试查询</p>
 <p><img src="/assets/image-20210805140307371.png"></p>
 <h4 id="5-4-3-页面访问处理"><a href="#5-4-3-页面访问处理" class="headerlink" title="5.4.3 页面访问处理"></a>5.4.3 页面访问处理</h4><h5 id="步骤1-拷贝静态页面"><a href="#步骤1-拷贝静态页面" class="headerlink" title="步骤1:拷贝静态页面"></a>步骤1:拷贝静态页面</h5><p>将<code>资料\功能页面</code>下的所有内容拷贝到项目的<code>webapp</code>目录下</p>
-<p><img src="/assets/1630510166433.png" alt="1630510166433"></p>
 <h5 id="步骤2-访问pages目录下的books-html"><a href="#步骤2-访问pages目录下的books-html" class="headerlink" title="步骤2:访问pages目录下的books.html"></a>步骤2:访问pages目录下的books.html</h5><p>打开浏览器输入<code>http://localhost/pages/books.html</code></p>
-<p><img src="/assets/1630510225182.png" alt="1630510225182"></p>
 <p>(1)出现错误的原因?</p>
-<p><img src="/assets/1630510264650.png" alt="1630510264650"></p>
 <p>SpringMVC拦截了静态资源，根据&#x2F;pages&#x2F;books.html去controller找对应的方法，找不到所以会报404的错误。</p>
 <p>(2)SpringMVC为什么会拦截静态资源呢?</p>
-<p><img src="/assets/1630510397429.png" alt="1630510397429"></p>
 <p>(3)解决方案?</p>
 <ul>
 <li>SpringMVC需要将静态资源进行放行。</li>
@@ -3702,7 +3682,6 @@ use ssm_db;
 </code></pre>
 
 <p>(4)测试错误情况，将图书类别长度设置超出范围即可</p>
-<p><img src="/assets/1630668954348.png" alt="1630668954348"></p>
 <p>处理完新增后，会发现新增还存在一个问题，</p>
 <p>新增成功后，再次点击<code>新增</code>按钮会发现之前的数据还存在，这个时候就需要在新增的时候将表单内容清空。</p>
 <pre><code class="highlight js"><span class="title function_">resetForm</span>(<span class="params"></span>)&#123;

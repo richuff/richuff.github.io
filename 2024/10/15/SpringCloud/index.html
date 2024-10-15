@@ -1,0 +1,1964 @@
+<!DOCTYPE html>
+<html>
+  <head>
+     
+    <meta charset="UTF-8">
+    <title>Spring Cloud - Richu</title>
+    <link rel="shortcut icon" href="/static/img/icon.png">
+    <link rel="icon" href="/static/img/icon.png" sizes="192x192"/>
+    
+<link rel="stylesheet" href="/static/kico.css">
+<link rel="stylesheet" href="/static/hingle.css">
+
+    
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <meta name="viewport" content="width=device-width, maximum-scale=1, initial-scale=1"/>
+    <meta property="og:site_name" content="Richu">
+    <meta property="og:title" content="Spring Cloud"/>
+    
+    <style>body:before{ content: ''; background-image: url(https://img.meituan.net/csc/d05518606ba7064dd445508e3cf3d4c42860983.png) }</style>
+    
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+  <body>
+    <header>
+    <div class="head-title">
+        <h4>Richu</h4>
+    </div>
+    <div class="head-action">
+        <div class="toggle-btn"></div>
+        <div class="light-btn"></div>
+        <div class="search-btn"></div>
+    </div>
+    <form class="head-search" method="post">
+        <input type="text" name="s" placeholder="搜索什么？">
+    </form>
+    <nav class="head-menu">
+        <a href="/">首页</a>
+        <div class="has-child">
+            <a>分类</a>
+            <div class="sub-menu">
+                <a class="category-link" href="/categories/Java/">Java</a><a class="category-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a><a class="category-link" href="/categories/%E8%BF%90%E7%BB%B4/">运维</a>
+            </div>
+        </div>
+        
+            <a href="/about">关于我</a>
+        
+    </nav>
+</header>
+
+    <main>
+    <div class="wrap min">
+        <section class="post-title">
+            <h2>Spring Cloud</h2>
+            <div class="post-meta">
+                <time class="date">2024.10.15</time>
+            
+                <span class="category"><a class="category-link" href="/categories/Java/">Java</a></span>
+            
+            </div>
+        </section>
+        <article class="post-content">
+        
+            <p>Spring Cloud 是一系列框架的有序集合，它利用 Spring Boot 的开发便利性简化了分布式系统的开发，比如服务发现、服务网关、服务路由、链路追踪等。Spring Cloud 并不重复造轮子，而是将市面上开发得比较好的模块集成进去，进行封装，从而减少了各模块的开发成本。换句话说：Spring Cloud 提供了构建分布式系统所需的“全家桶”。</p>
+<h2 id="1-nacos"><a href="#1-nacos" class="headerlink" title="1.nacos"></a>1.nacos</h2><p>1.引入依赖</p>
+<p>你需要下载Nacos的安装包，你可以从Nacos的官方网站上下载：<a target="_blank" rel="noopener" href="https://github.com/alibaba/nacos/releases">https://github.com/alibaba/nacos/releases</a></p>
+<p>2.配置文件</p>
+<p>父工程：</p>
+<pre><code class="highlight xml"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.alibaba.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-alibaba-dependencies<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">version</span>&gt;</span>2.2.5.RELEASE<span class="tag">&lt;/<span class="name">version</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">type</span>&gt;</span>pom<span class="tag">&lt;/<span class="name">type</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">scope</span>&gt;</span>import<span class="tag">&lt;/<span class="name">scope</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></code></pre>
+
+<p>客户端:</p>
+<pre><code class="highlight xml"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.alibaba.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-starter-alibaba-nacos-discovery<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></code></pre>
+
+<p>配置nacos地址</p>
+<pre><code class="highlight plaintext">string:
+	application:
+		iname:item-service
+	cloud:
+		nacos:
+			server-addr:192.168.3.133:8848</code></pre>
+
+
+
+<pre><code class="highlight plaintext">PREFER_HOST_MODE=hostname
+MODE=standalone
+SPRING_DATASOURCE_PLATFORM=mysql
+MYSQL_SERVICE_HOST=192.168.3.133    //配置为自己的ip
+MYSQL_SERVICE_DB_NAME=nacos
+MYSQL_SERVICE_PORT=3306
+MYSQL_SERVICE_USER=root
+MYSQL_SERVICE_PASSWORD=123
+MYSQL_SERVICE_DB_PARAM=characterEncoding=utf8&amp;connectTimeout=1000&amp;socketTimeout=3000&amp;autoReconnect=true&amp;useSSL=false&amp;allowPublicKeyRetrieval=true&amp;serverTimezone=Asia/Shanghai</code></pre>
+
+<pre><code class="highlight plaintext">docker run -d --name nacos --env-file /root/nacos/custom.env -p 8848:8848 -p 9848:9848 -p 9849:9849 --restart=always nacos/nacos-server:v2.1.1-slim</code></pre>
+
+<h2 id="2-openFeign"><a href="#2-openFeign" class="headerlink" title="2.openFeign"></a>2.openFeign</h2><p>1.引入依赖</p>
+<pre><code class="highlight xml"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-starter-openfeign<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">dependency</span>&gt;</span>
+<span class="tag">&lt;<span class="name">dependency</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-starter-loadbalancer<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></code></pre>
+
+<p>2.通过@EnableFeignCilents注解</p>
+<pre><code class="highlight java"><span class="keyword">import</span> org.mybatis.spring.annotation.MapperScan;
+<span class="keyword">import</span> org.springframework.boot.SpringApplication;
+<span class="keyword">import</span> org.springframework.boot.autoconfigure.SpringBootApplication;
+<span class="keyword">import</span> org.springframework.cloud.openfeign.EnableFeignClients;
+
+<span class="meta">@EnableFeignClients</span>
+<span class="meta">@MapperScan(&quot;com.cartService.mapper&quot;)</span>
+<span class="meta">@SpringBootApplication</span>
+<span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">CartServiceApplication</span> &#123;
+    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;
+        SpringApplication.run(CartServiceApplication.class, args);
+    &#125;
+&#125;</code></pre>
+
+<p>3.编写FeignCilent</p>
+<pre><code class="highlight java"><span class="keyword">import</span> com.cartService.domain.dto.ItemDTO;
+<span class="keyword">import</span> org.springframework.cloud.openfeign.FeignClient;
+<span class="keyword">import</span> org.springframework.web.bind.annotation.GetMapping;
+<span class="keyword">import</span> org.springframework.web.bind.annotation.RequestParam;
+
+<span class="keyword">import</span> java.util.List;
+
+<span class="meta">@FeignClient(&quot;item-service&quot;)</span>
+<span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">itemClient</span> &#123;
+    <span class="meta">@GetMapping(&quot;/items&quot;)</span>
+    List&lt;ItemDTO&gt; <span class="title function_">queryItemByIds</span><span class="params">(<span class="meta">@RequestParam(&quot;ids&quot;)</span> List&lt;Long&gt; ids)</span>;
+&#125;</code></pre>
+
+<p>4.使用FeignCilent，实现远程调用</p>
+<pre><code class="highlight java"><span class="keyword">private</span> <span class="keyword">final</span> itemClient itemClient;
+
+List&lt;ItemDTO&gt; items = itemClient.queryItemByIds(itemIds);</code></pre>
+
+<h2 id="3-OpenFeign整合OkHttp"><a href="#3-OpenFeign整合OkHttp" class="headerlink" title="3.OpenFeign整合OkHttp"></a>3.OpenFeign整合OkHttp</h2><p>1.引入依赖</p>
+<pre><code class="highlight xml"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>io.github.openfeign<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>feign-okhttp<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></code></pre>
+
+<p>2.开启连接池</p>
+<pre><code class="highlight yaml"><span class="attr">feign:</span>
+  <span class="attr">okhttp:</span>
+    <span class="attr">enabled:</span> <span class="literal">true</span></code></pre>
+
+<h2 id="4-最佳实践"><a href="#4-最佳实践" class="headerlink" title="4.最佳实践"></a>4.最佳实践</h2><blockquote>
+<p>多个微服务使用相同的cilent，可能需要重复写多遍，如果此时更改，那么全部都要更改</p>
+</blockquote>
+<blockquote>
+<p>1.新建一个模块richu-api  引入openFeign的依赖</p>
+<p>2.配置dto和client</p>
+<p>3.在其他模块引入</p>
+<pre><code class="highlight xml"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.richu<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>richu-api<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.0.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></code></pre>
+
+<p>4.指定包名</p>
+<pre><code class="highlight java"><span class="meta">@EnableFeignClients(basePackages = &quot;com.hmall.api.client&quot;)</span></code></pre>
+</blockquote>
+<h2 id="5-日志输出"><a href="#5-日志输出" class="headerlink" title="5.日志输出"></a>5.日志输出</h2><blockquote>
+<p>openFeign只有在日志级别为Debug才会进行日志输出</p>
+<ul>
+<li>None，不记录任何值，默认值</li>
+<li>BASIC 仅记录请求的方法，URL和响应状态码和执行时间</li>
+<li>Headers：在basic的基础上，额外记录请求和响应的头信息</li>
+<li>Full：记录所有的请求和响应的明细，包括头信息，请求体，元数据</li>
+</ul>
+</blockquote>
+<pre><code class="highlight java"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">DefaultFeignConfig</span> &#123;
+    <span class="meta">@Bean</span>
+    <span class="keyword">public</span> Logger.Level <span class="title function_">feignLoggerLevel</span><span class="params">()</span> &#123;
+        <span class="keyword">return</span> Logger.Level.FULL;
+    &#125;
+&#125;</code></pre>
+
+<p>局部配置，在@FeignClient注解中声明</p>
+<pre><code class="highlight java"><span class="meta">@FeignClient(value = &quot;item-service&quot;,configuration = DefaultFeignConfig.class)</span>
+<span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">ItemClient</span> &#123;
+
+    <span class="meta">@GetMapping(&quot;/items&quot;)</span>
+    List&lt;ItemDTO&gt; <span class="title function_">queryItemByIds</span><span class="params">(<span class="meta">@RequestParam(&quot;ids&quot;)</span> Collection&lt;Long&gt; ids)</span>;
+&#125;</code></pre>
+
+<p>全局配置，在@EnableFeignClients注解中声明</p>
+<pre><code class="highlight java"><span class="meta">@EnableFeignClients(basePackages = &quot;com.hmall.api.client&quot;,defaultConfiguration = DefaultFeignConfig.class)</span>
+<span class="meta">@MapperScan(&quot;com.cartService.mapper&quot;)</span>
+<span class="meta">@SpringBootApplication</span>
+<span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">CartServiceApplication</span> &#123;
+    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;
+        SpringApplication.run(CartServiceApplication.class, args);
+    &#125;
+&#125;</code></pre>
+
+<h2 id="6-网关"><a href="#6-网关" class="headerlink" title="6.网关"></a>6.网关</h2><h3 id="1-使用"><a href="#1-使用" class="headerlink" title="1.使用"></a>1.使用</h3><blockquote>
+<p>网络 关口，负责请求的路由、转发、身份校验</p>
+</blockquote>
+<blockquote>
+<p>1.创建新模块</p>
+</blockquote>
+<blockquote>
+<p>2.引入网关依赖</p>
+</blockquote>
+<pre><code class="highlight xml"><span class="tag">&lt;<span class="name">dependencies</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span>
+        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span>
+        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-starter-gateway<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span>
+    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span>
+        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.alibaba.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span>
+        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-starter-alibaba-nacos-discovery<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span>
+    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span>
+        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span>
+        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-starter-loadbalancer<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span>
+    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></code></pre>
+
+<blockquote>
+<p>3.编写启动类</p>
+</blockquote>
+<pre><code class="highlight java"><span class="meta">@SpringBootApplication</span>
+<span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">GatewayApplication</span> &#123;
+    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;
+        SpringApplication.run(GatewayApplication.class,args);
+    &#125;
+&#125;</code></pre>
+
+<blockquote>
+<p>4.配置路由规则</p>
+</blockquote>
+<pre><code class="highlight yaml"><span class="attr">spring:</span>
+  <span class="attr">application:</span>
+    <span class="string">name:gateway</span>
+  <span class="attr">cloud:</span>
+    <span class="attr">nacos:</span>
+      <span class="attr">discovery:</span>
+        <span class="attr">server-addr:</span> <span class="number">192.168</span><span class="number">.3</span><span class="number">.1</span><span class="string">:8848</span>
+    <span class="attr">gateway:</span>
+      <span class="attr">routes:</span>
+        <span class="bullet">-</span> <span class="attr">id:</span> <span class="string">item-service</span>    <span class="string">//路由id</span> <span class="string">自定义</span> <span class="string">唯一</span>
+          <span class="attr">uri:</span> <span class="string">lb://item-service</span>  <span class="string">//目标微服务</span> <span class="string">lb代表负载均衡</span>
+          <span class="attr">predicates:</span>     <span class="string">//路由断言</span>
+            <span class="bullet">-</span> <span class="string">Path=/items/**</span>  <span class="string">//请求路径做判断</span>
+        <span class="bullet">-</span> <span class="attr">id:</span> <span class="string">cart-service</span>
+          <span class="attr">uri:</span> <span class="string">lb://cart-service</span>
+          <span class="attr">predicates:</span>
+            <span class="bullet">-</span> <span class="string">Path=/carts/**</span></code></pre>
+
+<h3 id="2-路由属性"><a href="#2-路由属性" class="headerlink" title="2.路由属性"></a>2.路由属性</h3><blockquote>
+<p>id 路由唯一标识</p>
+<p>uri路由目标地址</p>
+</blockquote>
+<blockquote>
+<p>路由断言</p>
+</blockquote>
+<pre><code class="highlight plaintext">After：在指定时间之后进行路由
+
+Before：在指定时间之前进行路由
+
+Between：在指定时间之间进行路由
+
+Cookie   配置说明：【Cookie=cookie名, cookie值的正则表达式规则】
+
+Header  配置说明：【Header=header名, header值的正则表达式规则】
+
+Host  配置说明：【Host=主机名（可配置多个，也可以使用通配符）】
+
+Method   配置说明：【Method=请求类型】
+
+Path  配置说明：【Path=请求路径】
+
+Query  配置说明：【Query=参数名，参数值】</code></pre>
+
+<blockquote>
+<p>路由过滤器</p>
+</blockquote>
+<h3 id="3-自定义过滤器"><a href="#3-自定义过滤器" class="headerlink" title="3.自定义过滤器"></a>3.自定义过滤器</h3><p>GateWayFilter:路由过滤器，作用于任意指定的路由</p>
+<p>GlobalFilter:全局过滤器，作用范围是所有路由，声明后自动生效</p>
+<pre><code class="highlight java"><span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">GlobalFilter</span>&#123;
+	Mono&lt;<span class="keyword">void</span>&gt; <span class="title function_">filter</span><span class="params">(ServerWebExchange exchange,GatewayFilterChain chain)</span>
+	<span class="comment">//请求上下文request,response                      过滤器链</span>
+&#125;</code></pre>
+
+<h4 id="3-1-GlobalFilter"><a href="#3-1-GlobalFilter" class="headerlink" title="3.1.GlobalFilter"></a>3.1.GlobalFilter</h4><pre><code class="highlight java"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">GlobalFilters</span> <span class="keyword">implements</span> <span class="title class_">GlobalFilter</span>, Ordered &#123;
+    <span class="meta">@Override</span>
+    <span class="keyword">public</span> Mono&lt;Void&gt; <span class="title function_">filter</span><span class="params">(ServerWebExchange exchange, GatewayFilterChain chain)</span> &#123;
+        <span class="comment">//TODO 请求校验逻辑</span>
+        <span class="type">ServerHttpRequest</span> <span class="variable">request</span> <span class="operator">=</span> exchange.getRequest();
+        <span class="type">HttpHeaders</span> <span class="variable">headers</span> <span class="operator">=</span> request.getHeaders();
+        System.out.println(<span class="string">&quot;headers = &quot;</span>+headers);
+        <span class="comment">//放行</span>
+        
+        <span class="keyword">return</span> chain.filter(exchange);
+    &#125;
+
+    <span class="meta">@Override</span>
+    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">getOrder</span><span class="params">()</span> &#123;
+        <span class="keyword">return</span> <span class="number">0</span>;
+    &#125;
+&#125;</code></pre>
+
+<h4 id="3-2GateWayFilter"><a href="#3-2GateWayFilter" class="headerlink" title="3.2GateWayFilter"></a>3.2GateWayFilter</h4><pre><code class="highlight java"><span class="meta">@Component</span>
+<span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">GateWayFilter</span> <span class="keyword">extends</span> <span class="title class_">AbstractGatewayFilterFactory</span> &#123;
+    <span class="meta">@Override</span>
+    <span class="keyword">public</span> GatewayFilter <span class="title function_">apply</span><span class="params">(Object config)</span> &#123;
+        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">GatewayFilter</span>() &#123;
+            <span class="meta">@Override</span>
+            <span class="keyword">public</span> Mono&lt;Void&gt; <span class="title function_">filter</span><span class="params">(ServerWebExchange exchange, GatewayFilterChain chain)</span> &#123;
+                <span class="keyword">return</span> chain.filter(exchange);
+            &#125;
+        &#125;;
+    &#125;
+&#125;</code></pre>
+
+<blockquote>
+<p>装饰类可以指定顺序</p>
+</blockquote>
+<pre><code class="highlight java"><span class="meta">@Component</span>
+<span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">GateWayFilter</span> <span class="keyword">extends</span> <span class="title class_">AbstractGatewayFilterFactory</span> &#123;
+    <span class="meta">@Override</span>
+    <span class="keyword">public</span> GatewayFilter <span class="title function_">apply</span><span class="params">(Object config)</span> &#123;
+        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">OrderedGatewayFilter</span>(<span class="keyword">new</span> <span class="title class_">GatewayFilter</span>() &#123;
+            <span class="meta">@Override</span>
+            <span class="keyword">public</span> Mono&lt;Void&gt; <span class="title function_">filter</span><span class="params">(ServerWebExchange exchange, GatewayFilterChain chain)</span> &#123;
+                <span class="keyword">return</span> chain.filter(exchange);
+            &#125;
+        &#125;,<span class="number">1</span>);
+    &#125;
+&#125;</code></pre>
+
+<blockquote>
+<p>实现登录校验</p>
+</blockquote>
+<pre><code class="highlight java"><span class="keyword">package</span> com.richu.gateway.filters;
+
+<span class="keyword">import</span> cn.hutool.core.text.AntPathMatcher;
+<span class="keyword">import</span> com.hmall.common.exception.UnauthorizedException;
+<span class="keyword">import</span> com.richu.gateway.config.AuthProperties;
+<span class="keyword">import</span> com.richu.gateway.util.JwtTool;
+<span class="keyword">import</span> lombok.RequiredArgsConstructor;
+<span class="keyword">import</span> org.springframework.cloud.gateway.filter.GatewayFilterChain;
+<span class="keyword">import</span> org.springframework.cloud.gateway.filter.GlobalFilter;
+<span class="keyword">import</span> org.springframework.core.Ordered;
+<span class="keyword">import</span> org.springframework.http.HttpHeaders;
+<span class="keyword">import</span> org.springframework.http.HttpStatus;
+<span class="keyword">import</span> org.springframework.http.server.reactive.ServerHttpRequest;
+<span class="keyword">import</span> org.springframework.http.server.reactive.ServerHttpResponse;
+<span class="keyword">import</span> org.springframework.stereotype.Component;
+<span class="keyword">import</span> org.springframework.web.server.ServerWebExchange;
+<span class="keyword">import</span> reactor.core.publisher.Mono;
+
+<span class="keyword">import</span> java.util.List;
+
+<span class="meta">@Component</span>
+<span class="meta">@RequiredArgsConstructor</span>
+<span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">GlobalFilters</span> <span class="keyword">implements</span> <span class="title class_">GlobalFilter</span>, Ordered &#123;
+
+    <span class="keyword">private</span> <span class="keyword">final</span> AuthProperties authProperties;
+
+    <span class="keyword">private</span> <span class="keyword">final</span> JwtTool jwtTool;
+    
+    <span class="keyword">private</span> <span class="type">AntPathMatcher</span> <span class="variable">antPathMatcher</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">AntPathMatcher</span>();
+    <span class="keyword">private</span> String token;
+
+    <span class="meta">@Override</span>
+    <span class="keyword">public</span> Mono&lt;Void&gt; <span class="title function_">filter</span><span class="params">(ServerWebExchange exchange, GatewayFilterChain chain)</span> &#123;
+        <span class="comment">//获取request</span>
+        <span class="type">ServerHttpRequest</span> <span class="variable">request</span> <span class="operator">=</span> exchange.getRequest();
+        <span class="comment">//判断是否需要进行登录拦截</span>
+        <span class="keyword">if</span> (isExclude(request.getPath().toString()))&#123;
+            <span class="keyword">return</span> chain.filter(exchange);
+        &#125;
+        <span class="comment">//获取token</span>
+        List&lt;String&gt; hearders = request.getHeaders().get(<span class="string">&quot;Authorization&quot;</span>);
+        <span class="keyword">if</span> (hearders != <span class="literal">null</span> &amp;&amp; !hearders.isEmpty()) &#123;
+            token = hearders.get(<span class="number">0</span>);
+        &#125;
+        <span class="type">Long</span> <span class="variable">userid</span> <span class="operator">=</span> <span class="literal">null</span>;
+        <span class="comment">//校验token</span>
+        <span class="keyword">try</span> &#123;
+            userid = jwtTool.parseToken(token);
+        &#125;<span class="keyword">catch</span> (UnauthorizedException e)&#123;
+            <span class="type">ServerHttpResponse</span> <span class="variable">response</span> <span class="operator">=</span> exchange.getResponse();
+            response.setStatusCode(HttpStatus.UNAUTHORIZED);
+            <span class="keyword">return</span> response.setComplete();
+        &#125;
+        <span class="comment">//TODO 传递用户信息</span>
+        System.out.println(userid);
+        <span class="comment">//放行</span>
+        <span class="keyword">return</span> chain.filter(exchange);
+    &#125;
+
+    <span class="keyword">private</span> <span class="type">boolean</span> <span class="title function_">isExclude</span><span class="params">(String path)</span> &#123;
+        <span class="keyword">for</span> (String pathPattern: authProperties.getExcludePaths())&#123;
+            <span class="keyword">if</span> (antPathMatcher.match(path,pathPattern))&#123;
+                <span class="keyword">return</span> <span class="literal">true</span>;
+            &#125;
+        &#125;
+        <span class="keyword">return</span> <span class="literal">false</span>;
+    &#125;
+
+    <span class="meta">@Override</span>
+    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">getOrder</span><span class="params">()</span> &#123;
+        <span class="keyword">return</span> <span class="number">0</span>;
+    &#125;
+&#125;</code></pre>
+
+<h3 id="4-网关传递信息到微服务"><a href="#4-网关传递信息到微服务" class="headerlink" title="4.网关传递信息到微服务"></a>4.网关传递信息到微服务</h3><pre><code class="highlight java"><span class="comment">//传递用户信息</span>
+<span class="type">String</span> <span class="variable">userinfo</span> <span class="operator">=</span> userid.toString();
+<span class="type">ServerWebExchange</span> <span class="variable">swe</span> <span class="operator">=</span> exchange.mutate()
+    .request(builder -&gt; builder.header(<span class="string">&quot;user-info&quot;</span>, userinfo)).build();
+<span class="comment">//放行</span>
+<span class="keyword">return</span> chain.filter(swe);</code></pre>
+
+<blockquote>
+<p>在微服务的common模块拦截器中获取，这样在其他业务就可以直接使用</p>
+</blockquote>
+<p>1.定义拦截器类</p>
+<pre><code class="highlight java"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">UseInfoInterceptor</span> <span class="keyword">implements</span> <span class="title class_">HandlerInterceptor</span> &#123;
+    <span class="meta">@Override</span>
+    <span class="keyword">public</span> <span class="type">boolean</span> <span class="title function_">preHandle</span><span class="params">(HttpServletRequest request, HttpServletResponse response, Object handler)</span> <span class="keyword">throws</span> Exception &#123;
+        <span class="comment">//获取登录用户信息</span>
+        <span class="type">String</span> <span class="variable">userinfo</span> <span class="operator">=</span> request.getHeader(<span class="string">&quot;user-info&quot;</span>);
+        <span class="comment">//判断是否获取了用户如果是，存入ThreadLocal</span>
+        <span class="keyword">if</span> (StrUtil.isBlankIfStr(userinfo))&#123;
+            UserContext.setUser(Long.parseLong(userinfo));
+        &#125;
+        <span class="comment">//放行</span>
+        <span class="keyword">return</span> <span class="literal">true</span>;
+    &#125;
+
+    <span class="meta">@Override</span>
+    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">afterCompletion</span><span class="params">(HttpServletRequest request, HttpServletResponse response, Object handler, Exception ex)</span> <span class="keyword">throws</span> Exception &#123;
+        HandlerInterceptor.<span class="built_in">super</span>.afterCompletion(request, response, handler, ex);
+    &#125;
+&#125;</code></pre>
+
+<p>2.配置类</p>
+<pre><code class="highlight java"><span class="meta">@Configuration</span>
+<span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MvcConfig</span> <span class="keyword">implements</span> <span class="title class_">WebMvcConfigurer</span> &#123;
+    <span class="meta">@Override</span>
+    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">addInterceptors</span><span class="params">(InterceptorRegistry registry)</span> &#123;
+        registry.addInterceptor(<span class="keyword">new</span> <span class="title class_">UseInfoInterceptor</span>());
+    &#125;
+&#125;</code></pre>
+
+<p>3.配置</p>
+<pre><code class="highlight plaintext">org.springframework.boot.autoconfigure.EnableAutoConfiguration=\
+  com.hmall.common.config.MyBatisConfig,\
+  com.hmall.common.config.MvcConfig,\
+  com.hmall.common.config.JsonConfig</code></pre>
+
+<blockquote>
+<p>MvcConfig类会被其他没有SpringMvc的环境加载，此时会报错</p>
+</blockquote>
+<pre><code class="highlight java"><span class="comment">//解决措施，在MvcConfig上加</span>
+<span class="meta">@ConditionalOnClass(DispatcherServlet.class)</span></code></pre>
+
+<h2 id="7-配置管理"><a href="#7-配置管理" class="headerlink" title="7.配置管理"></a>7.配置管理</h2><h3 id="1-配置热更新"><a href="#1-配置热更新" class="headerlink" title="1.配置热更新"></a>1.配置热更新</h3><blockquote>
+<p>减少重复配置，简化开发</p>
+</blockquote>
+<blockquote>
+<p>nacos   –&gt; 配置管理</p>
+<p>将yaml配置文件移到nacos配置</p>
+</blockquote>
+<pre><code class="highlight xml">//nacos项
+<span class="tag">&lt;<span class="name">dependency</span>&gt;</span>
+	<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.alibaba.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span>
+	<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>pring-cloud-starter-alibaba-nacos-config<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">dependency</span>&gt;</span>
+
+//bootstrap配置
+<span class="tag">&lt;<span class="name">dependency</span>&gt;</span>
+	<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span>
+	<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-starter-bootstrap<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></code></pre>
+
+<pre><code class="highlight yaml"><span class="attr">spring:</span>
+	<span class="attr">cloud:</span>
+		<span class="attr">nacos:</span>
+			<span class="string">server-addr:192.168.3.133</span>
+			<span class="attr">config:</span>
+				<span class="string">file-extension:yaml</span>
+				<span class="attr">sgared-configs:</span>
+					<span class="string">--data-id:shared-jdbc.yaml</span>
+					<span class="string">--data-id:shared-log.yaml</span>
+					<span class="string">--data-id:shared-swagger.yaml</span></code></pre>
+
+<blockquote>
+<p>配置热更新</p>
+<p>无需重启即可使配置重新生效</p>
+</blockquote>
+<p>前提条件</p>
+<p>1.nacos</p>
+<pre><code class="highlight java"><span class="meta">@Data</span>
+<span class="meta">@Component</span>
+<span class="meta">@ConfigurationPreperties(prefix = &quot;hm.cart&quot;)</span>
+<span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">config</span>&#123;
+	<span class="keyword">private</span> Integer num;
+&#125;</code></pre>
+
+<h3 id="2-动态路由"><a href="#2-动态路由" class="headerlink" title="2.动态路由"></a>2.动态路由</h3><blockquote>
+<p>监听到路由信息之后，可以利用RouteDefinitionWriter来更新路由表</p>
+</blockquote>
+<pre><code class="highlight java"><span class="keyword">package</span> com.richu.gateway.routers;
+
+
+<span class="keyword">import</span> cn.hutool.json.JSONUtil;
+<span class="keyword">import</span> com.alibaba.cloud.nacos.NacosConfigManager;
+<span class="keyword">import</span> com.alibaba.nacos.api.config.listener.Listener;
+<span class="keyword">import</span> com.alibaba.nacos.api.exception.NacosException;
+<span class="keyword">import</span> lombok.RequiredArgsConstructor;
+<span class="keyword">import</span> lombok.extern.slf4j.Slf4j;
+<span class="keyword">import</span> org.springframework.cloud.gateway.route.RouteDefinition;
+<span class="keyword">import</span> org.springframework.cloud.gateway.route.RouteDefinitionWriter;
+<span class="keyword">import</span> org.springframework.stereotype.Component;
+<span class="keyword">import</span> reactor.core.publisher.Mono;
+
+<span class="keyword">import</span> javax.annotation.PostConstruct;
+<span class="keyword">import</span> java.util.HashSet;
+<span class="keyword">import</span> java.util.List;
+<span class="keyword">import</span> java.util.Set;
+<span class="keyword">import</span> java.util.concurrent.Executor;
+
+<span class="meta">@Slf4j</span>
+<span class="meta">@Component</span>
+<span class="meta">@RequiredArgsConstructor</span>
+<span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">DunamicRoute</span> &#123;
+    <span class="keyword">private</span> <span class="keyword">final</span> NacosConfigManager nacosConfigManager;
+
+    <span class="keyword">private</span> <span class="keyword">final</span> RouteDefinitionWriter writer;
+
+    <span class="keyword">private</span> <span class="keyword">final</span> <span class="type">String</span> <span class="variable">dataId</span> <span class="operator">=</span> <span class="string">&quot;gateway-routes.json&quot;</span>;
+
+    <span class="keyword">private</span> <span class="keyword">final</span> <span class="type">String</span> <span class="variable">group</span> <span class="operator">=</span> <span class="string">&quot;DEFAULT_GROUP&quot;</span>;
+
+    <span class="keyword">private</span> <span class="keyword">final</span> Set&lt;String&gt; RouteIds = <span class="keyword">new</span> <span class="title class_">HashSet</span>&lt;&gt;();
+    <span class="comment">//项目启动时，先拉取一次配置，并且添加配置监听器</span>
+    <span class="meta">@PostConstruct</span>
+    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">init</span><span class="params">()</span> <span class="keyword">throws</span> NacosException &#123;
+        <span class="type">String</span> <span class="variable">configInfo</span> <span class="operator">=</span>  nacosConfigManager.getConfigService().getConfigAndSignListener(dataId, group, <span class="number">5000</span>, <span class="keyword">new</span> <span class="title class_">Listener</span>() &#123;
+            <span class="meta">@Override</span>
+            <span class="keyword">public</span> Executor <span class="title function_">getExecutor</span><span class="params">()</span> &#123;
+                <span class="keyword">return</span> <span class="literal">null</span>;
+            &#125;
+
+            <span class="meta">@Override</span>
+            <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">receiveConfigInfo</span><span class="params">(String configInfo)</span>&#123;
+                <span class="comment">//监听到配置变更，需要更新路由表</span>
+                updateConfigInfo(configInfo);
+            &#125;
+        &#125;);
+        <span class="comment">//第一次读取配置</span>
+        updateConfigInfo(configInfo);
+    &#125;
+
+    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">updateConfigInfo</span><span class="params">(String config)</span>&#123;
+        <span class="comment">//1.解析配置信息</span>
+        List&lt;RouteDefinition&gt; list = JSONUtil.toList(config, RouteDefinition.class);
+        <span class="comment">//2.删除旧的路由表</span>
+        <span class="keyword">for</span> (String ids : RouteIds) &#123;
+            <span class="comment">//删除路由表</span>
+            writer.delete(Mono.just(ids)).subscribe();
+        &#125;
+        RouteIds.clear();
+        <span class="comment">//3.更新路由表</span>
+       <span class="keyword">for</span> (RouteDefinition routeDefinition : list) &#123;
+           <span class="comment">//更新路由表</span>
+           writer.save(Mono.just(routeDefinition)).subscribe();
+           <span class="comment">//记录路由id</span>
+           RouteIds.add(routeDefinition.getId());
+       &#125;
+    &#125;
+&#125;
+</code></pre>
+
+<blockquote>
+<p>将路由配置写入nacos的gateway-routes.json配置文件中</p>
+</blockquote>
+<h2 id="8-微服务保护和分布式事务"><a href="#8-微服务保护和分布式事务" class="headerlink" title="8.微服务保护和分布式事务"></a>8.微服务保护和分布式事务</h2><blockquote>
+<p>雪崩问题   微服务调用链的某个服务故障，导致整个链路的微服务都不可用</p>
+</blockquote>
+<h3 id="1-解决方案"><a href="#1-解决方案" class="headerlink" title="1.解决方案"></a>1.解决方案</h3><blockquote>
+<p>请求限流：限制访问微服务的请求的并发量</p>
+</blockquote>
+<blockquote>
+<p>线程隔离：舱壁模式</p>
+</blockquote>
+<blockquote>
+<p>服务熔断：</p>
+<p>​	由断路器统计请求的异常比例或慢调用比例，如果超出阈值则会熔断该业务，则拦截该接口的请求</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th></th>
+<th>Sentinel</th>
+<th>Hystrix</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>隔离策略</td>
+<td>信号量隔离</td>
+<td>线程池隔离&#x2F;信号量隔离</td>
+</tr>
+<tr>
+<td>熔断降级策略</td>
+<td>基于慢调⽤⽐例或异常⽐例</td>
+<td>基于失败⽐率</td>
+</tr>
+<tr>
+<td>实时指标实现</td>
+<td>滑动窗⼝</td>
+<td>滑动窗⼝（基于 RxJava）</td>
+</tr>
+<tr>
+<td>规则配置</td>
+<td>⽀持多种数据源</td>
+<td>⽀持多种数据源</td>
+</tr>
+<tr>
+<td>扩展性</td>
+<td>多个扩展点</td>
+<td>插件的形式</td>
+</tr>
+<tr>
+<td>基于注解的⽀持</td>
+<td>⽀持</td>
+<td>⽀持</td>
+</tr>
+<tr>
+<td>限流</td>
+<td>基于 QPS，⽀持基于调⽤关系的限流</td>
+<td>有限的⽀持</td>
+</tr>
+<tr>
+<td>流量整形</td>
+<td>⽀持慢启动、匀速排队模式</td>
+<td>不⽀持</td>
+</tr>
+<tr>
+<td>系统⾃适应保护</td>
+<td>⽀持</td>
+<td>不⽀持</td>
+</tr>
+<tr>
+<td>控制台</td>
+<td>开箱即⽤，可配置规则、查看秒级监控、机器发现等</td>
+<td>不完善</td>
+</tr>
+<tr>
+<td>常⻅框架的适配</td>
+<td>Servlet、Spring Cloud、Dubbo、gRPC 等</td>
+<td>Servlet、Spring Cloud Netflix</td>
+</tr>
+</tbody></table>
+<h3 id="2-Sentinel"><a href="#2-Sentinel" class="headerlink" title="2.Sentinel"></a>2.Sentinel</h3><h4 id="1-安装控制台"><a href="#1-安装控制台" class="headerlink" title="1.安装控制台"></a>1.安装控制台</h4><p><a target="_blank" rel="noopener" href="https://github.com/alibaba/Sentinel">alibaba&#x2F;Sentinel: A powerful flow control component enabling reliability, resilience and monitoring for microservices. (面向云原生微服务的高可用流控防护组件) (github.com)</a></p>
+<blockquote>
+<p>启动</p>
+</blockquote>
+<pre><code class="highlight plaintext">java  -server -Xms64m -Xmx256m  -Dserver.port=8090 -Dcsp.sentinel.dashboard.server=localhost:8090 -Dproject.name=sentinel-dashboard -jar sentinel-dashboard.jar</code></pre>
+
+<blockquote>
+<p>访问</p>
+<p>用户名和密码sentinel</p>
+</blockquote>
+<p><code>[Sentinel Dashboard](http://localhost:8090/#/login)</code></p>
+<h4 id="2-引入依赖"><a href="#2-引入依赖" class="headerlink" title="2.引入依赖"></a>2.引入依赖</h4><pre><code class="highlight xml"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.alibaba.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-starter-alibaba-sentinel<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></code></pre>
+
+<h4 id="3-配置文件"><a href="#3-配置文件" class="headerlink" title="3.配置文件"></a>3.配置文件</h4><pre><code class="highlight yaml"><span class="attr">spring:</span>
+  <span class="attr">cloud:</span>
+    <span class="attr">sentinel:</span>
+      <span class="attr">transport:</span>
+        <span class="attr">dashboard:</span> <span class="string">localhost:8090</span></code></pre>
+
+<h4 id="4-簇点链路"><a href="#4-簇点链路" class="headerlink" title="4.簇点链路"></a>4.簇点链路</h4><blockquote>
+<p>单机调用链路，是进入服务后被Sentinel监控的资源链，默认Sentinel只会监控SpringMvc的每一个Endpoint(http接口)</p>
+<p>RestFul的API请求路径相同，这会导致簇点资源名称重复。</p>
+</blockquote>
+<pre><code class="highlight yaml"><span class="attr">spring:</span>
+  <span class="attr">cloud:</span>
+    <span class="attr">sentinel:</span>
+      <span class="attr">transport:</span>
+        <span class="attr">dashboard:</span> <span class="string">localhost:8090</span>
+      <span class="attr">http-method-specify:</span> <span class="literal">true</span></code></pre>
+
+<h4 id="5-请求限流"><a href="#5-请求限流" class="headerlink" title="5.请求限流"></a>5.请求限流</h4><p><img src="../img/144447.png"></img></p>
+<blockquote>
+<p>点击流控，配置单机阈值</p>
+</blockquote>
+<h4 id="6-线程隔离"><a href="#6-线程隔离" class="headerlink" title="6.线程隔离"></a>6.线程隔离</h4><p><img src="../img/144447.png"></img></p>
+<blockquote>
+<p>点击流控，选择并发线程数，设置单机阈值</p>
+</blockquote>
+<h4 id="7-Fallback"><a href="#7-Fallback" class="headerlink" title="7.Fallback"></a>7.Fallback</h4><pre><code class="highlight yaml"><span class="attr">feign:</span>
+  <span class="attr">sentinel:</span>
+    <span class="attr">enabled:</span> <span class="literal">true</span>
+  <span class="attr">okhttp:</span>
+    <span class="attr">enabled:</span> <span class="literal">true</span></code></pre>
+
+<blockquote>
+<p>定义fallbackFactory</p>
+</blockquote>
+<pre><code class="highlight java"><span class="meta">@Slf4j</span>
+<span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ItemClientFallbackFactory</span> <span class="keyword">implements</span> <span class="title class_">FallbackFactory</span>&lt;ItemClient&gt; &#123;
+
+    <span class="meta">@Override</span>
+    <span class="keyword">public</span> ItemClient <span class="title function_">create</span><span class="params">(Throwable cause)</span> &#123;
+        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">ItemClient</span>() &#123;
+            <span class="meta">@Override</span>
+            <span class="keyword">public</span> List&lt;ItemDTO&gt; <span class="title function_">queryItemByIds</span><span class="params">(Collection&lt;Long&gt; ids)</span> &#123;
+                <span class="comment">//进行错误处理</span>
+                log.info(<span class="string">&quot;查询商品失败&quot;</span>,cause);
+                <span class="keyword">return</span> <span class="literal">null</span>;
+            &#125;
+        &#125;;
+    &#125;
+&#125;</code></pre>
+
+<blockquote>
+<p>将该类定义为bean</p>
+</blockquote>
+<pre><code class="highlight java"><span class="meta">@Bean</span>
+<span class="keyword">public</span> ItemClientFallbackFactory <span class="title function_">itemClientFallbackFactory</span><span class="params">()</span>&#123;
+    <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">ItemClientFallbackFactory</span>();
+&#125;</code></pre>
+
+<blockquote>
+<p>写上fallbackFactory</p>
+</blockquote>
+<pre><code class="highlight java"><span class="meta">@FeignClient(value = &quot;item-service&quot;,fallbackFactory = ItemClientFallbackFactory.class)</span>
+<span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">ItemClient</span> &#123;
+
+    <span class="meta">@GetMapping(&quot;/items&quot;)</span>
+    List&lt;ItemDTO&gt; <span class="title function_">queryItemByIds</span><span class="params">(<span class="meta">@RequestParam(&quot;ids&quot;)</span> Collection&lt;Long&gt; ids)</span>;
+&#125;</code></pre>
+
+<h4 id="8-服务熔断"><a href="#8-服务熔断" class="headerlink" title="8.服务熔断"></a>8.服务熔断</h4><blockquote>
+<p>断路器统计服务调用的异常比例、慢请求比例，如果超出阈值就会熔断该服务。拦截该服务的一切请求；当服务恢复时，断路器会放行</p>
+</blockquote>
+<h3 id="3-分布式事务"><a href="#3-分布式事务" class="headerlink" title="3.分布式事务"></a>3.分布式事务</h3><blockquote>
+<p>分布式事务就是指事务的发起者、资源及资源管理器和事务协调者分别位于分布式系统的不同节点之上。在上述转账的业务中，用户A-100操作和用户B+100操作不是位于同一个节点上。本质上来说，分布式事务就是为了保证在分布式场景下，数据操作的正确执行。</p>
+</blockquote>
+<h4 id="1-seata"><a href="#1-seata" class="headerlink" title="1.seata"></a>1.seata</h4><blockquote>
+<p>seata事务管理有三个角色</p>
+<p>TC:事务协调：维护全局和分支事务的状态，协调全局事务提交或者回滚</p>
+<p>TM:事务管理器：定义全局事务的范围，开始全局事务提交和回滚全局事务 </p>
+<p>TC:资源管理器：管理分支事务，与TC交谈以注册分支事务和报告分支事务的状态</p>
+</blockquote>
+<h4 id="2-部署TC服务"><a href="#2-部署TC服务" class="headerlink" title="2.部署TC服务"></a>2.部署TC服务</h4><p>1.导入数据库</p>
+<p>2.导入配置文件</p>
+<p>3.Docker部署</p>
+<pre><code class="highlight plaintext">docker load -i  seata-1.5.2.tar
+docker inspect mysql</code></pre>
+
+<pre><code class="highlight plaintext">docker run --name seata -p 8099:8099 -p 7099:7099 -e SEATA_IP=192.168.3.133 -v ./seata:/seata-server/resources --privileged=true --network richu -d seataio/seata-server:1.5.2</code></pre>
+
+<h4 id="3-微服务整合seata"><a href="#3-微服务整合seata" class="headerlink" title="3.微服务整合seata"></a>3.微服务整合seata</h4><p>1.导入依赖</p>
+<pre><code class="highlight xml"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.alibaba.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-starter-alibaba-nacos-config<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">dependency</span>&gt;</span>
+<span class="tag">&lt;<span class="name">dependency</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-starter-bootstrap<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">dependency</span>&gt;</span>
+<span class="tag">&lt;<span class="name">dependency</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.alibaba.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-starter-alibaba-seata<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></code></pre>
+
+<p>2.在nacos里田家庵配置</p>
+<pre><code class="highlight yaml"><span class="attr">seata:</span>
+	<span class="attr">registery:</span>
+		<span class="string">type:nacos</span>  <span class="string">注册中心nacos</span>
+		<span class="attr">nacos:</span>
+			<span class="string">server-addr:nacos地址</span>
+			<span class="string">namespace:&quot;&quot;</span>
+			<span class="string">group:DEFAULT_GROUP</span>
+			<span class="string">application:service</span>   <span class="comment">#seata服务名</span>
+			<span class="string">username:nacos</span>
+			<span class="string">password:nacos</span>
+		<span class="string">tx-service-group:事务组名</span>
+		<span class="attr">service:</span>
+			<span class="attr">vgroup-mapping:</span>
+			<span class="string">事务名:&quot;default&quot;</span></code></pre>
+
+<h4 id="4-XA模式"><a href="#4-XA模式" class="headerlink" title="4.XA模式"></a>4.XA模式</h4><pre><code class="highlight yaml"><span class="attr">seata:</span>
+	<span class="attr">registery:</span>
+		<span class="string">type:nacos</span>  <span class="string">注册中心nacos</span>
+		<span class="attr">nacos:</span>
+			<span class="string">server-addr:nacos地址</span>
+			<span class="string">namespace:&quot;&quot;</span>
+			<span class="string">group:DEFAULT_GROUP</span>
+			<span class="string">application:service</span>   <span class="comment">#seata服务名</span>
+			<span class="string">username:nacos</span>
+			<span class="string">password:nacos</span>
+		<span class="string">tx-service-group:事务组名</span>
+		<span class="attr">service:</span>
+			<span class="attr">vgroup-mapping:</span>
+			<span class="string">事务名:&quot;default&quot;</span>
+	<span class="string">data-source-proxy-mode:XA</span></code></pre>
+
+<blockquote>
+<p>入口声明为GlobalTransational</p>
+<p>其他相关方法注解Transational</p>
+</blockquote>
+<h4 id="5-AT模式"><a href="#5-AT模式" class="headerlink" title="5.AT模式"></a>5.AT模式</h4><blockquote>
+<p>seata主推的是AT模式</p>
+<p>在一阶段，Seata 会拦截“业务 SQL”，首先解析 SQL 语义，找到“业务 SQL”要更新的业务数据，在业务数据被更新前，将其保存</p>
+<p>成“before image”，然后执行“业务 SQL”更新业务数据，在业务数据更新之后，再将其保存成“after image”，最后生成行锁。以上操作</p>
+<p>全部在一个数据库事务内完成，这样保证了一阶段操作的原子性。</p>
+</blockquote>
+<p>1.将undo-log数据表添加到每一个微服务数据库中</p>
+<blockquote>
+<p>因为seata默认使用at，所以可以不用配置</p>
+</blockquote>
+<h2 id="8-RabbitMQ"><a href="#8-RabbitMQ" class="headerlink" title="8.RabbitMQ"></a>8.RabbitMQ</h2><blockquote>
+<p>高性能异步通信组件</p>
+</blockquote>
+<p>同步调用优点</p>
+<blockquote>
+<p>时效性强，等到结果才返回</p>
+</blockquote>
+<p>同步调用缺点</p>
+<blockquote>
+<p>扩展性差	</p>
+<p>性能下降</p>
+<p>级联失败问题</p>
+</blockquote>
+<p>异步调用</p>
+<blockquote>
+<p>消息发送者：投递消息的人，就是原来的调用者   Publisher</p>
+<p>消费接收者：接收和处理消息的人，就是原来的服务提供者			Consumer</p>
+<p>消息代理：管理、暂存、转发消息，类似与服务器  Broker </p>
+</blockquote>
+<h3 id="1-安装rabbitMQ"><a href="#1-安装rabbitMQ" class="headerlink" title="1.安装rabbitMQ"></a>1.安装rabbitMQ</h3><blockquote>
+<p>docker run -e RABBITMQ_DEFAULT_USER&#x3D;richu -e RABBITMQ_DEFAULT_PASS&#x3D;12345678 -v mq-plugins:&#x2F;plugins –name mq –hostname mq -p 15672:15672 -p 5672:5672 –network richu -d rabbitmq:3.8-management</p>
+</blockquote>
+<h3 id="2-Java客户端的收发流程"><a href="#2-Java客户端的收发流程" class="headerlink" title="2.Java客户端的收发流程"></a>2.Java客户端的收发流程</h3><blockquote>
+<p>消息通信协议AMQP，该协议与语言无关，更符合微服务中独立性的要求</p>
+</blockquote>
+<h4 id="1-创建queue"><a href="#1-创建queue" class="headerlink" title="1.创建queue"></a>1.创建queue</h4><h4 id="2-在父工程引入依赖"><a href="#2-在父工程引入依赖" class="headerlink" title="2.在父工程引入依赖"></a>2.在父工程引入依赖</h4><pre><code class="highlight xml"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-amqp<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></code></pre>
+
+<h4 id="3-配置yaml文件"><a href="#3-配置yaml文件" class="headerlink" title="3.配置yaml文件"></a>3.配置yaml文件</h4><pre><code class="highlight yaml"><span class="attr">spring:</span>
+  <span class="attr">rabbitmq:</span>
+    <span class="attr">host:</span> <span class="number">192.168</span><span class="number">.3</span><span class="number">.133</span>
+    <span class="attr">port:</span> <span class="number">5672</span>
+    <span class="attr">virtual-host:</span> <span class="string">/</span>
+    <span class="attr">username:</span> <span class="string">richu</span>
+    <span class="attr">password:</span> <span class="number">12345678</span></code></pre>
+
+<h4 id="4-测试发送"><a href="#4-测试发送" class="headerlink" title="4.测试发送"></a>4.测试发送</h4><pre><code class="highlight java"><span class="meta">@SpringBootTest</span>
+<span class="keyword">class</span> <span class="title class_">PublisherApplicationTest</span> &#123;
+    <span class="meta">@Autowired</span>
+    <span class="keyword">private</span> RabbitTemplate rabbitTemplate;
+
+    <span class="meta">@Test</span>
+    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">testqueue</span><span class="params">()</span>&#123;
+        <span class="type">String</span> <span class="variable">queueName</span> <span class="operator">=</span> <span class="string">&quot;queue1&quot;</span>;
+        <span class="type">String</span> <span class="variable">Message</span> <span class="operator">=</span> <span class="string">&quot;hello mq&quot;</span>;
+        
+        rabbitTemplate.convertAndSend(queueName,Message);
+    &#125;
+&#125;</code></pre>
+
+<h4 id="5-测试接收"><a href="#5-测试接收" class="headerlink" title="5.测试接收"></a>5.测试接收</h4><pre><code class="highlight java"><span class="meta">@Slf4j</span>
+<span class="meta">@Component</span>
+<span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">SpringRabiitListener</span> &#123;
+
+    <span class="meta">@RabbitListener(queues = &quot;queue1&quot;)</span>
+    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">receive1</span><span class="params">(String msg)</span> &#123;
+        log.info(<span class="string">&quot;收到的消息为:&#123;&#125;&quot;</span>,msg);
+    &#125;
+&#125;</code></pre>
+
+<h3 id="3-Work-Queues"><a href="#3-Work-Queues" class="headerlink" title="3.Work Queues"></a>3.Work Queues</h3><blockquote>
+<p>多个消费者监听一个队列</p>
+</blockquote>
+<pre><code class="highlight java"><span class="meta">@Slf4j</span>
+<span class="meta">@Component</span>
+<span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">SpringRabiitListener</span> &#123;
+
+    <span class="meta">@RabbitListener(queues = &quot;queue1&quot;)</span>
+    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">receive1</span><span class="params">(String msg)</span> &#123;
+        log.info(<span class="string">&quot;1收到的消息为:&#123;&#125;&quot;</span>,msg);
+    &#125;
+
+    <span class="meta">@RabbitListener(queues = &quot;queue1&quot;)</span>
+    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">receive2</span><span class="params">(String msg)</span> &#123;
+        System.out.printf(<span class="string">&quot;2收到的消息为:%s\n&quot;</span>,msg);
+    &#125;
+&#125;
+
+<span class="meta">@Test</span>
+<span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">testqueue</span><span class="params">()</span>&#123;
+    <span class="type">String</span> <span class="variable">queueName</span> <span class="operator">=</span> <span class="string">&quot;queue1&quot;</span>;
+    <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; <span class="number">10</span>; i++) &#123;
+        <span class="type">String</span> <span class="variable">Message</span> <span class="operator">=</span> <span class="string">&quot;hahaha&quot;</span> + i;
+        rabbitTemplate.convertAndSend(queueName,Message);
+    &#125;
+&#125;</code></pre>
+
+<pre><code class="highlight plaintext">2收到的消息为:hahaha1
+2收到的消息为:hahaha3
+2收到的消息为:hahaha5
+2收到的消息为:hahaha7
+08-28 13:19:07:463  INFO 18392 --- [ntContainer#0-1] c.i.consumer.mq.SpringRabiitListener     : 1收到的消息为:hahaha0
+2收到的消息为:hahaha9
+08-28 13:19:07:464  INFO 18392 --- [ntContainer#0-1] c.i.consumer.mq.SpringRabiitListener     : 1收到的消息为:hahaha2
+08-28 13:19:07:464  INFO 18392 --- [ntContainer#0-1] c.i.consumer.mq.SpringRabiitListener     : 1收到的消息为:hahaha4
+08-28 13:19:07:464  INFO 18392 --- [ntContainer#0-1] c.i.consumer.mq.SpringRabiitListener     : 1收到的消息为:hahaha6
+08-28 13:19:07:464  INFO 18392 --- [ntContainer#0-1] c.i.consumer.mq.SpringRabiitListener     : 1收到的消息为:hahaha8</code></pre>
+
+<blockquote>
+<p>同一个消息只能被一个消费者处理</p>
+<p>默认情况为轮询，但不同设备的处理速度可能不同，从而导致慢的很忙，快的很闲</p>
+</blockquote>
+<blockquote>
+<p>更改配置</p>
+</blockquote>
+<pre><code class="highlight yaml"><span class="attr">spring:</span>
+  <span class="attr">rabbitmq:</span>
+    <span class="attr">host:</span> <span class="number">192.168</span><span class="number">.3</span><span class="number">.133</span>
+    <span class="attr">port:</span> <span class="number">5672</span>
+    <span class="attr">virtual-host:</span> <span class="string">/</span>
+    <span class="attr">username:</span> <span class="string">richu</span>
+    <span class="attr">password:</span> <span class="number">12345678</span>
+    <span class="attr">listener:</span>
+      <span class="attr">direct:</span>
+        <span class="attr">prefetch:</span> <span class="number">1</span></code></pre>
+
+<h3 id="4-Fanout交换机exchange"><a href="#4-Fanout交换机exchange" class="headerlink" title="4.Fanout交换机exchange"></a>4.Fanout交换机exchange</h3><blockquote>
+<p>交换机接收发送者发送的消息，并且将消息发送到绑定的队列</p>
+</blockquote>
+<p>fanout—&gt;广播</p>
+<p>Direct —&gt;定向</p>
+<p>Topic –&gt;话题</p>
+<blockquote>
+<p>向交换机发送消息</p>
+</blockquote>
+<pre><code class="highlight java"><span class="meta">@Test</span>
+<span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">testqueue1</span><span class="params">()</span>&#123;
+    <span class="type">String</span> <span class="variable">queueName</span> <span class="operator">=</span> <span class="string">&quot;richu.fanout&quot;</span>;
+    <span class="type">String</span> <span class="variable">Message</span> <span class="operator">=</span> <span class="string">&quot;hahaha&quot;</span>;
+    <span class="comment">//交换机名称    RoutingKey    消息</span>
+    rabbitTemplate.convertAndSend(queueName,<span class="literal">null</span>,Message);
+&#125;</code></pre>
+
+<blockquote>
+<p>接收消息</p>
+</blockquote>
+<pre><code class="highlight java"><span class="meta">@RabbitListener(queues = &quot;queue1&quot;)</span>
+<span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">receive1</span><span class="params">(String msg)</span> &#123;
+    log.info(<span class="string">&quot;1收到的消息为:&#123;&#125;&quot;</span>,msg);
+&#125;
+
+<span class="meta">@RabbitListener(queues = &quot;queue2&quot;)</span>
+<span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">receive2</span><span class="params">(String msg)</span> &#123;
+    log.info(<span class="string">&quot;2收到的消息为:&#123;&#125;&quot;</span>,msg);
+&#125;</code></pre>
+
+<blockquote>
+<p>结果：两个消费者都收到消息</p>
+</blockquote>
+<pre><code class="highlight plaintext">08-28 14:06:18:718  INFO 2900 --- [ntContainer#1-1] c.i.consumer.mq.SpringRabiitListener     : 1收到的消息为:hahaha
+08-28 14:06:18:718  INFO 2900 --- [ntContainer#0-1] c.i.consumer.mq.SpringRabiitListener     : 2收到的消息为:hahaha</code></pre>
+
+<blockquote>
+<p>声明两个队列，交换机绑定两个队列</p>
+</blockquote>
+<h3 id="5-Direct交换机"><a href="#5-Direct交换机" class="headerlink" title="5.Direct交换机"></a>5.Direct交换机</h3><blockquote>
+<p>部分交换机收到消息</p>
+</blockquote>
+<blockquote>
+<p>每一个队列和交换机都设置Bindingkey</p>
+<p>发布者发消息的时候指消息的BingKey</p>
+<p>交换机将消息路由到BingKey一致的队列</p>
+</blockquote>
+<pre><code class="highlight java"><span class="meta">@Test</span>
+<span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">testqueue1</span><span class="params">()</span>&#123;
+    <span class="type">String</span> <span class="variable">queueName</span> <span class="operator">=</span> <span class="string">&quot;richu.fanout&quot;</span>;
+    <span class="type">String</span> <span class="variable">Message</span> <span class="operator">=</span> <span class="string">&quot;我是消息&quot;</span>;
+    rabbitTemplate.convertAndSend(queueName,<span class="string">&quot;blue&quot;</span>,Message);
+&#125;</code></pre>
+
+<h3 id="6-Topic交换机"><a href="#6-Topic交换机" class="headerlink" title="6.Topic交换机"></a>6.Topic交换机</h3><blockquote>
+<p>也是基于RouteKey,但是通常是多个单词的组合,以.做分割符</p>
+<p># 代表0或多个单词</p>
+<p>*代表一个单词</p>
+</blockquote>
+<p><code>chain.#</code> <code>#.news</code></p>
+<h3 id="7-声明队列交换机"><a href="#7-声明队列交换机" class="headerlink" title="7.声明队列交换机"></a>7.声明队列交换机</h3><blockquote>
+<p>Queue :声明队列，用工厂类QueueBuilder构建</p>
+<p>Exchange:声明交换机  用工厂类ExchangeBuilder构建</p>
+<p>Binding:声明队列和交换机的绑定关系， 用工厂类BingdingBuilder构建</p>
+</blockquote>
+<pre><code class="highlight java"><span class="meta">@Configuration</span>
+<span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">FanoutConfiguration</span> &#123;
+    <span class="meta">@Bean</span>
+    <span class="keyword">public</span> FanoutExchange <span class="title function_">fanoutExchange</span><span class="params">()</span> &#123;
+        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">FanoutExchange</span>(<span class="string">&quot;richu.exchange&quot;</span>);
+    &#125;
+
+    <span class="meta">@Bean</span>
+    <span class="keyword">public</span> Queue <span class="title function_">fanoutQueue</span><span class="params">()</span> &#123;
+        <span class="comment">//return QueueBuilder.durable(&quot;richu.queue&quot;).build();</span>
+        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">Queue</span>(<span class="string">&quot;richu.queue&quot;</span>);
+    &#125;
+
+    <span class="meta">@Bean</span>
+    <span class="keyword">public</span> Binding <span class="title function_">fanoutBinding</span><span class="params">(Queue fanoutQueue, FanoutExchange fanoutExchange)</span> &#123;
+        <span class="keyword">return</span> BindingBuilder.bind(fanoutQueue).to(fanoutExchange);
+    &#125;
+&#125;</code></pre>
+
+<blockquote>
+<p>SpringAMQP</p>
+</blockquote>
+<pre><code class="highlight java"><span class="comment">//基于注解开发</span>
+<span class="meta">@RabbitListener(bindings = @QueueBinding(</span>
+<span class="meta">    value = @Queue(name=&quot;queue1&quot;,durable = &quot;true&quot;),</span>
+<span class="meta">    exchange = @Exchange(name = &quot;richu.fanout&quot;,type = ExchangeTypes.DIRECT),</span>
+<span class="meta">    key = &#123;&quot;red&quot;,&quot;blue&quot;&#125;</span>
+<span class="meta">))</span>
+<span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">receive1</span><span class="params">(String msg)</span> &#123;
+    log.info(<span class="string">&quot;1收到的消息为:&#123;&#125;&quot;</span>,msg);
+&#125;
+
+<span class="meta">@RabbitListener(bindings = @QueueBinding(</span>
+<span class="meta">    value = @Queue(name=&quot;queue2&quot;,durable = &quot;true&quot;),</span>
+<span class="meta">    exchange = @Exchange(name = &quot;richu.fanout&quot;,type = ExchangeTypes.DIRECT),</span>
+<span class="meta">    key = &#123;&quot;red&quot;,&quot;blue&quot;&#125;</span>
+<span class="meta">))</span>
+<span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">receive2</span><span class="params">(String msg)</span> &#123;
+    log.info(<span class="string">&quot;2收到的消息为:&#123;&#125;&quot;</span>,msg);
+    &#125;</code></pre>
+
+<h3 id="8-消息转换器"><a href="#8-消息转换器" class="headerlink" title="8.消息转换器"></a>8.消息转换器</h3><blockquote>
+<p>使用Json的序列化代替JDK的转换器</p>
+</blockquote>
+<p>1.引入依赖</p>
+<pre><code class="highlight xml"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>com.fasterxml.jackson.core<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>jackson-databind<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></code></pre>
+
+<p>2.publish和consumer都要设置</p>
+<pre><code class="highlight java"><span class="meta">@SpringBootApplication</span>
+<span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">PublisherApplication</span> &#123;
+    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;
+        SpringApplication.run(PublisherApplication.class);
+    &#125;
+
+    <span class="meta">@Bean</span>
+    <span class="keyword">public</span> Jackson2JsonMessageConverter <span class="title function_">messageConverter</span><span class="params">()</span>&#123;
+        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">Jackson2JsonMessageConverter</span>();
+    &#125;
+&#125;</code></pre>
+
+<h2 id="9-RabbitMQ高级"><a href="#9-RabbitMQ高级" class="headerlink" title="9.RabbitMQ高级"></a>9.RabbitMQ高级</h2><h3 id="1-发送者重连"><a href="#1-发送者重连" class="headerlink" title="1.发送者重连"></a>1.发送者重连</h3><blockquote>
+<p>有时候由于网络波动可能会导致MQ丢失消息</p>
+</blockquote>
+<pre><code class="highlight yaml"><span class="attr">logging:</span>
+  <span class="attr">pattern:</span>
+    <span class="attr">dateformat:</span> <span class="string">MM-dd</span> <span class="string">HH:mm:ss:SSS</span>
+<span class="attr">spring:</span>
+  <span class="attr">rabbitmq:</span>
+    <span class="attr">host:</span> <span class="number">192.168</span><span class="number">.3</span><span class="number">.133</span>
+    <span class="attr">port:</span> <span class="number">5672</span>
+    <span class="attr">virtual-host:</span> <span class="string">/</span>
+    <span class="attr">username:</span> <span class="string">richu</span>
+    <span class="attr">password:</span> <span class="number">12345678</span>
+    <span class="attr">template:</span>
+      <span class="attr">retry:</span>
+        <span class="attr">enabled:</span> <span class="literal">true</span>  <span class="comment">#开启超时重试机制</span>
+        <span class="attr">initial-interval:</span> <span class="string">100ms</span> <span class="comment">#失败后的等待时长</span>
+        <span class="attr">multiplier:</span> <span class="number">1</span> <span class="comment">#下次的等待时长倍数</span>
+        <span class="attr">max-attempts:</span> <span class="number">3</span> <span class="comment">#最大尝试次数</span></code></pre>
+
+<h3 id="2-发送者确认"><a href="#2-发送者确认" class="headerlink" title="2.发送者确认"></a>2.发送者确认</h3><blockquote>
+<p>发送者发消息给MQ时，MQ会返回确认结果返回给发送者</p>
+</blockquote>
+<h4 id="1-添加配置"><a href="#1-添加配置" class="headerlink" title="1.添加配置"></a>1.添加配置</h4><pre><code class="highlight plaintext">logging:
+  pattern:
+    dateformat: MM-dd HH:mm:ss:SSS
+spring:
+  rabbitmq:
+    host: 192.168.3.133
+    port: 5672
+    virtual-host: /
+    username: richu
+    password: 12345678
+    listener:
+      direct:
+        prefetch: 1
+    publisher-confirm-type: correlated
+    publisher-returns: true</code></pre>
+
+<blockquote>
+<p>publisher-confirm-type</p>
+</blockquote>
+<ul>
+<li>none	关闭confirm机制</li>
+<li>simple同步阻塞等待MQ的回执消息</li>
+<li>correlate MQ异步回调方式返回回执消息</li>
+</ul>
+<h4 id="2-配置"><a href="#2-配置" class="headerlink" title="2.配置"></a>2.配置</h4><pre><code class="highlight java"><span class="meta">@Slf4j</span>
+<span class="meta">@Configuration</span>
+<span class="meta">@RequiredArgsConstructor</span>
+<span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Mqconfig</span> &#123;
+
+    <span class="keyword">private</span> <span class="keyword">final</span> RabbitTemplate rabbitTemplate;
+
+    <span class="meta">@PostConstruct</span>
+    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">init</span><span class="params">()</span> &#123;
+        rabbitTemplate.setReturnsCallback(returned -&gt; &#123;
+            log.error(<span class="string">&quot;监听到了消息return&quot;</span>);
+            log.debug(<span class="string">&quot;exchange:&#123;&#125;&quot;</span>,returned.getExchange());
+            log.debug(<span class="string">&quot;routingKey:&#123;&#125;&quot;</span>,returned.getRoutingKey());
+            log.debug(<span class="string">&quot;message:&#123;&#125;&quot;</span>,returned.getMessage());
+            log.debug(<span class="string">&quot;replyCode:&#123;&#125;&quot;</span>,returned.getReplyCode());
+            log.debug(<span class="string">&quot;replyText:&#123;&#125;&quot;</span>,returned.getReplyText());
+        &#125;);
+    &#125;
+&#125;</code></pre>
+
+<h4 id="3-配置发送者"><a href="#3-配置发送者" class="headerlink" title="3.配置发送者"></a>3.配置发送者</h4><pre><code class="highlight java"><span class="meta">@Test</span>
+<span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">testqueue1</span><span class="params">()</span>&#123;
+    <span class="type">CorrelationData</span> <span class="variable">cd</span>  <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">CorrelationData</span>(UUID.randomUUID().toString());
+    cd.getFuture().addCallback(<span class="keyword">new</span> <span class="title class_">ListenableFutureCallback</span>&lt;CorrelationData.Confirm&gt;() &#123;
+        <span class="meta">@Override</span>
+        <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">onFailure</span><span class="params">(Throwable ex)</span> &#123;
+            log.error(<span class="string">&quot;处理结果异常&quot;</span>,ex);
+        &#125;
+
+        <span class="meta">@Override</span>
+        <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">onSuccess</span><span class="params">(CorrelationData.Confirm result)</span> &#123;
+            <span class="keyword">if</span> (result.isAck())&#123;
+                log.debug(<span class="string">&quot;收到了confirm ack&quot;</span>);
+            &#125;<span class="keyword">else</span>&#123;
+                log.error(<span class="string">&quot;收到了confirm nack !reson:&#123;&#125;&quot;</span>,result.getReason());
+            &#125;
+        &#125;
+    &#125;);
+    <span class="type">String</span> <span class="variable">queueName</span> <span class="operator">=</span> <span class="string">&quot;richu.fanout&quot;</span>;
+    <span class="type">String</span> <span class="variable">Message</span> <span class="operator">=</span> <span class="string">&quot;我是消息&quot;</span>;
+
+    rabbitTemplate.convertAndSend(queueName,<span class="string">&quot;blue&quot;</span>,Message,cd);
+&#125;</code></pre>
+
+<h3 id="3-MQ的可靠性"><a href="#3-MQ的可靠性" class="headerlink" title="3.MQ的可靠性"></a>3.MQ的可靠性</h3><blockquote>
+<p>一旦宕机内存中的所有数据消息都会丢失</p>
+<p>内存空间有限，当消费者故障或者处理过慢时，会导致消息积压，引发MQ阻塞</p>
+</blockquote>
+<pre><code class="highlight java">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">testqueue</span><span class="params">()</span>&#123;
+        <span class="comment">//1.自定义构建消息</span>
+<span class="comment">/*        Message message = MessageBuilder.withBody(&quot;hello0&quot;.getBytes(StandardCharsets.UTF_8))</span>
+<span class="comment">                .setDeliveryMode(MessageDeliveryMode.NON_PERSISTENT).build(); //不持久*/</span>
+        <span class="type">Message</span> <span class="variable">message</span> <span class="operator">=</span> MessageBuilder.withBody(<span class="string">&quot;hello0&quot;</span>.getBytes(StandardCharsets.UTF_8))
+                .setDeliveryMode(MessageDeliveryMode.PERSISTENT).build(); <span class="comment">//持久</span>
+        <span class="type">String</span> <span class="variable">queueName</span> <span class="operator">=</span> <span class="string">&quot;queue1&quot;</span>;
+        <span class="keyword">for</span> (<span class="type">int</span> <span class="variable">i</span> <span class="operator">=</span> <span class="number">0</span>; i &lt; <span class="number">100000</span>; i++) &#123;
+            rabbitTemplate.convertAndSend(queueName,message);
+        &#125;
+    &#125;</code></pre>
+
+<h3 id="4-Lazy-Queue"><a href="#4-Lazy-Queue" class="headerlink" title="4.Lazy Queue"></a>4.Lazy Queue</h3><blockquote>
+<p>只写入磁盘，消息持久化到磁盘</p>
+<p>需要消息时才会从磁盘中读取并加载到内存</p>
+</blockquote>
+<blockquote>
+<p>3.12后默认支持</p>
+</blockquote>
+<pre><code class="highlight plaintext">x-queue-mode = lazy</code></pre>
+
+<h3 id="4-消费者可靠性"><a href="#4-消费者可靠性" class="headerlink" title="4.消费者可靠性"></a>4.消费者可靠性</h3><h4 id="1-消费者确认机制"><a href="#1-消费者确认机制" class="headerlink" title="1.消费者确认机制"></a>1.消费者确认机制</h4><blockquote>
+<p>ack 成功处理消息，MQ队列删除消息</p>
+<p>nack 处理失败，MQ队列需要再次投递消息</p>
+<p>reject拒绝接收,MQ队列删除消息 </p>
+</blockquote>
+<pre><code class="highlight yaml"><span class="attr">logging:</span>
+  <span class="attr">pattern:</span>
+    <span class="attr">dateformat:</span> <span class="string">MM-dd</span> <span class="string">HH:mm:ss:SSS</span>
+<span class="attr">spring:</span>
+  <span class="attr">rabbitmq:</span>
+    <span class="attr">host:</span> <span class="number">192.168</span><span class="number">.3</span><span class="number">.133</span>
+    <span class="attr">port:</span> <span class="number">5672</span>
+    <span class="attr">virtual-host:</span> <span class="string">/</span>
+    <span class="attr">username:</span> <span class="string">richu</span>
+    <span class="attr">password:</span> <span class="number">12345678</span>
+    <span class="attr">template:</span>
+      <span class="attr">retry:</span>
+        <span class="attr">enabled:</span> <span class="literal">true</span>  <span class="comment">#开启超时重试机制</span>
+        <span class="attr">initial-interval:</span> <span class="string">100ms</span> <span class="comment">#失败后的等待时长</span>
+        <span class="attr">multiplier:</span> <span class="number">1</span> <span class="comment">#下次的等待时长倍数</span>
+        <span class="attr">max-attempts:</span> <span class="number">3</span> <span class="comment">#最大尝试次数</span>
+    <span class="attr">listener:</span>
+      <span class="attr">direct:</span>
+        <span class="attr">acknowledge-mode:</span> <span class="string">auto</span></code></pre>
+
+<h4 id="2-失败重试机制"><a href="#2-失败重试机制" class="headerlink" title="2.失败重试机制"></a>2.失败重试机制</h4><ul>
+<li>失败消息处理机制</li>
+</ul>
+<blockquote>
+<p>在开启重试模式后，重试次数耗尽，如果消息依然失败，则需要有MessageRecoverer接口来处理，它包含三种不同的实现:</p>
+<p>  1、RejectAndDontRequeueRecoverer:重试耗尽后，直接reject，丢弃消息。默认就是这种方式。</p>
+<p> 2、ImmediateRequeueMessageRecoverer:重试耗尽后，返回nack，消息重新入队(不建议采用：会出现死循环)。</p>
+<p>  3、RepublishMessageRecoverer:重试耗尽后，将失败消息投递到指定的交换机。(推荐使用)</p>
+</blockquote>
+<pre><code class="highlight yaml"><span class="attr">listener:</span> <span class="comment"># 开启消费者确认其机制</span>
+      <span class="attr">simple:</span>
+        <span class="attr">prefetch:</span> <span class="number">1</span>  <span class="comment">#消费者每次只能获取一条消息，处理完才能获取下一条（可实现能者多劳）</span>
+        <span class="attr">acknowledge-mode:</span> <span class="string">AUTO</span>  <span class="comment"># none：关闭ack；manual：手动ack；auto：自动ack</span>
+        <span class="attr">retry:</span>
+          <span class="attr">enabled:</span> <span class="literal">true</span>  <span class="comment">#开启消费者失败重试</span>
+          <span class="attr">initial-interval:</span> <span class="string">1000ms</span>  <span class="comment">#初始的失败等待时长为1秒</span>
+          <span class="attr">multiplier:</span> <span class="number">1</span> <span class="comment">#下次失败的等待时长倍数，下次等待时长 = multiplier * last-interval</span>
+          <span class="attr">max-attempts:</span> <span class="number">3</span> <span class="comment">#最大重试次数</span>
+          <span class="attr">stateless:</span> <span class="literal">true</span> <span class="comment">#true无状态;false有状态。如果业务中包含事务，这里改为false</span></code></pre>
+
+<blockquote>
+<p>RepublishMessageRecoverer</p>
+</blockquote>
+<pre><code class="highlight java"><span class="meta">@Configuration</span>
+<span class="meta">@RequiredArgsConstructor</span>
+<span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">ErrorMessageConfig</span> &#123;
+    <span class="keyword">private</span> <span class="keyword">final</span> RabbitTemplate rabbitTemplate;
+
+    <span class="meta">@Bean</span>
+    <span class="keyword">public</span> DirectExchange <span class="title function_">directExchange</span><span class="params">()</span> &#123;
+        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">DirectExchange</span>(<span class="string">&quot;error&quot;</span>);
+    &#125;
+
+    <span class="meta">@Bean</span>
+    <span class="keyword">public</span> Queue <span class="title function_">errorQueue</span><span class="params">()</span> &#123;
+        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">Queue</span>(<span class="string">&quot;error&quot;</span>);
+    &#125;
+
+    <span class="meta">@Bean</span>
+    <span class="keyword">public</span> Binding <span class="title function_">bindingError</span><span class="params">(Queue queue, DirectExchange directExchange)</span> &#123;
+        <span class="keyword">return</span> BindingBuilder.bind(queue).to(directExchange).with(<span class="string">&quot;error&quot;</span>);
+    &#125;
+
+    <span class="meta">@Bean</span>
+    <span class="keyword">public</span> RepublishMessageRecoverer <span class="title function_">messageConverter</span><span class="params">(RabbitTemplate rabbitTemplate)</span> &#123;
+        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">RepublishMessageRecoverer</span>(rabbitTemplate,<span class="string">&quot;error&quot;</span>,<span class="string">&quot;error&quot;</span>);
+    &#125;
+&#125;
+</code></pre>
+
+<h3 id="5-业务幂等性"><a href="#5-业务幂等性" class="headerlink" title="5.业务幂等性"></a>5.业务幂等性</h3><blockquote>
+<p>执行一个业务一次或者多次对业务状态的影响的一致</p>
+</blockquote>
+<blockquote>
+<p>1.给每一个消息设置一个唯一id</p>
+</blockquote>
+<blockquote>
+<p>发送者(不太推荐)</p>
+</blockquote>
+<pre><code class="highlight java"><span class="meta">@Bean</span>
+<span class="keyword">public</span> MessageConverter <span class="title function_">messageConverter</span><span class="params">()</span>&#123;
+    <span class="type">Jackson2JsonMessageConverter</span> <span class="variable">jjmc</span> <span class="operator">=</span>  <span class="keyword">new</span> <span class="title class_">Jackson2JsonMessageConverter</span>();
+    jjmc.setCreateMessageIds(<span class="literal">true</span>);
+    <span class="keyword">return</span> jjmc;
+&#125;</code></pre>
+
+<blockquote>
+<p>2.业务判断(基于业务本身做判断)</p>
+</blockquote>
+<h3 id="6-延迟消息"><a href="#6-延迟消息" class="headerlink" title="6.延迟消息"></a>6.延迟消息</h3><h4 id="1-死信交换机"><a href="#1-死信交换机" class="headerlink" title="1.死信交换机"></a>1.死信交换机</h4><blockquote>
+<p>消费者声明为消费失败，消息的requeue参数设置为false，就会成为死信</p>
+<p>消息是一个过期消息</p>
+<p>队列消息积满</p>
+</blockquote>
+<blockquote>
+<p>通过dead-letter-exchange属性指定一个交换机，那么该队列的死信就会投递到这个交换机中</p>
+</blockquote>
+<pre><code class="highlight java"><span class="meta">@RabbitListener(bindings = @QueueBinding(</span>
+<span class="meta">    value = @Queue(name=&quot;dlx.queue&quot;,durable = &quot;true&quot;),</span>
+<span class="meta">    exchange = @Exchange(name = &quot;dlx.direct&quot;,type = ExchangeTypes.DIRECT),</span>
+<span class="meta">    key = &#123;&quot;hi&quot;&#125;</span>
+<span class="meta">))</span>
+<span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">listenexchange</span><span class="params">(Message msg)</span> &#123;
+    log.info(<span class="string">&quot;死信交换机和死信队列收到的消息为:&#123;&#125;&quot;</span>,msg);
+&#125;</code></pre>
+
+<pre><code class="highlight java"><span class="meta">@Configuration</span>
+<span class="meta">@RequiredArgsConstructor</span>
+<span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">NormalConfig</span> &#123;
+
+    <span class="meta">@Bean</span>
+    <span class="keyword">public</span> DirectExchange <span class="title function_">normalExchange</span><span class="params">()</span> &#123;
+        <span class="keyword">return</span> <span class="keyword">new</span> <span class="title class_">DirectExchange</span>(<span class="string">&quot;normal.exchange&quot;</span>);
+    &#125;
+
+    <span class="meta">@Bean</span>
+    <span class="keyword">public</span> Queue <span class="title function_">normalQueue</span><span class="params">()</span> &#123;
+        <span class="keyword">return</span> QueueBuilder.durable(<span class="string">&quot;normal.queue&quot;</span>).deadLetterExchange(<span class="string">&quot;dlx.direct&quot;</span>).build();
+    &#125;
+
+    <span class="meta">@Bean</span>
+    <span class="keyword">public</span> Binding <span class="title function_">bindingNormal</span><span class="params">( Queue queue, DirectExchange directExchange)</span> &#123;
+        <span class="keyword">return</span> BindingBuilder.bind(queue).to(directExchange).with(<span class="string">&quot;hi&quot;</span>);
+    &#125;
+&#125;</code></pre>
+
+<blockquote>
+<p>发送消息</p>
+</blockquote>
+<pre><code class="highlight java"><span class="meta">@Test</span>
+<span class="keyword">void</span> <span class="title function_">testSendDelayMessage</span><span class="params">()</span>&#123;
+    rabbitTemplate.convertAndSend(<span class="string">&quot;normal.exchange&quot;</span>,<span class="string">&quot;hi&quot;</span>,<span class="string">&quot;我是一只坤&quot;</span>,message-&gt;&#123;
+        message.getMessageProperties().setDelay(<span class="number">10000</span>);
+        <span class="keyword">return</span> message;
+    &#125;);
+&#125;</code></pre>
+
+<h4 id="2-延迟消息插件"><a href="#2-延迟消息插件" class="headerlink" title="2.延迟消息插件"></a>2.延迟消息插件</h4><blockquote>
+<p>安装  docker exec -it mq rabbitmq-plugins enable rabbitmq_delayed_message_exchange</p>
+</blockquote>
+<pre><code class="highlight java"><span class="meta">@RabbitListener(bindings = @QueueBinding(</span>
+<span class="meta">    value = @Queue(name=&quot;dlx.queue&quot;,durable = &quot;true&quot;),</span>
+<span class="meta">    exchange = @Exchange(name = &quot;dlx.direct&quot;,delayed = &quot;true&quot;),</span>
+<span class="meta">    key = &#123;&quot;hi&quot;&#125;</span>
+<span class="meta">))</span>
+<span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">delayedexchange</span><span class="params">(Message msg)</span> &#123;
+    log.info(<span class="string">&quot;死信交换机和死信队列收到的消息为:&#123;&#125;&quot;</span>,msg);
+&#125;</code></pre>
+
+<blockquote>
+<p>发送消息 </p>
+</blockquote>
+<pre><code class="highlight java"><span class="meta">@Test</span>
+<span class="keyword">void</span> <span class="title function_">testSendDelayMessage</span><span class="params">()</span>&#123;
+    rabbitTemplate.convertAndSend(<span class="string">&quot;normal.exchange&quot;</span>,<span class="string">&quot;hi&quot;</span>,<span class="string">&quot;我是一只坤&quot;</span>,message-&gt;&#123;
+        message.getMessageProperties().setDelay(<span class="number">10000</span>);
+        <span class="keyword">return</span> message;
+    &#125;);
+&#125;</code></pre>
+
+<h2 id="10-Elasticsearch"><a href="#10-Elasticsearch" class="headerlink" title="10.Elasticsearch"></a>10.Elasticsearch</h2><h3 id="1-安装"><a href="#1-安装" class="headerlink" title="1.安装"></a>1.安装</h3><ul>
+<li>Elasticsearch</li>
+</ul>
+<pre><code class="highlight plaintext">docker run -d --name es -e ES_JAVA_OPTS=&quot;-Xms512m -Xmx512m&quot; \
+  -e &quot;discovery.type=single-node&quot; \
+  -v es-data:/usr/share/elasticsearch/data \
+  -v es-plugins:/usr/share/elasticsearch/plugins \
+  --privileged \
+  --network richu \
+  -p 9200:9200 \
+  -p 9300:9300 \
+  elasticsearch:7.12.1</code></pre>
+
+<pre><code class="highlight plaintext">docker run -d --name es -e ES_JAVA_OPTS=&quot;-Xms512m -Xmx512m&quot; -e &quot;discovery.type=single-node&quot; -v es-data:/usr/share/elasticsearch/data -v es-plugins:/usr/share/elasticsearch/plugins --privileged --network richu -p 9200:9200 -p 9300:9300 elasticsearch:7.12.1</code></pre>
+
+<ul>
+<li>kibana 图形化</li>
+</ul>
+<pre><code class="highlight plaintext">docker run -d --name kibana -e ELASTICSEARCH_HOST=http://es:9200 --network=richu -p 5601:5601 kibana:7.12.1</code></pre>
+
+<h3 id="2-倒排索引"><a href="#2-倒排索引" class="headerlink" title="2.倒排索引"></a>2.倒排索引</h3><blockquote>
+<p>文档：每条数据就是一个文档</p>
+<p>词条：文档按照语义分成的词语</p>
+</blockquote>
+<pre><code class="highlight plaintext">POST /_analyze
+&#123;
+	&quot;analyzer&quot;:&quot;standard&quot;,
+	&quot;test&quot;:&quot;我爱学习，我每天学习&quot;
+&#125;</code></pre>
+
+<blockquote>
+<p>扩展分词器</p>
+<p>IkAnalyzer.cfg.xml</p>
+</blockquote>
+<pre><code class="highlight plaintext">&lt;entry key=&quot;ext_dict&quot;&gt;ext.dic&lt;/entry&gt;</code></pre>
+
+<h3 id="3-基础概念"><a href="#3-基础概念" class="headerlink" title="3.基础概念"></a>3.基础概念</h3><blockquote>
+<p>索引库   ： 相同类型的文档的集合</p>
+</blockquote>
+<blockquote>
+<p>type 字段数据类型，常见的简单类型有：</p>
+<ul>
+<li>字符串：text(可分词文本)、keyword(精确值、品牌、国家、ip地址)</li>
+<li>数值:long 、integer、short、byte、double、float</li>
+<li>布尔:boolean</li>
+<li>日期:date</li>
+<li>对象:object</li>
+</ul>
+<p>index是否创建索引，默认为true</p>
+<p>analyzer：使用哪种分词器</p>
+<p>properties：该字段的子字段</p>
+</blockquote>
+<h3 id="4-索引库的CURD操作"><a href="#4-索引库的CURD操作" class="headerlink" title="4.索引库的CURD操作"></a>4.索引库的CURD操作</h3><pre><code class="highlight plaintext">PUT /索引库
+&#123;
+	&quot;mapping&quot;:&#123;
+		&quot;properties&quot;:&#123;
+			&quot;字段名&quot;:&#123;
+				&quot;type&quot;:&quot;text&quot;,
+				&quot;analyzer&quot;:&quot;ik_smart&quot;
+			&#125;
+		&#125;
+	&#125;
+&#125;</code></pre>
+
+<blockquote>
+<p>查询</p>
+</blockquote>
+<pre><code class="highlight plaintext">GET /richu</code></pre>
+
+<blockquote>
+<p>删除</p>
+</blockquote>
+<pre><code class="highlight plaintext">DELETE /richu</code></pre>
+
+<blockquote>
+<p>修改</p>
+</blockquote>
+<pre><code class="highlight plaintext">PUT /修改的索引库/_mapping&#123;
+	&quot;properties&quot;:&#123;
+		&quot;新字段名&quot;:&#123;
+			&quot;type&quot;:&quot;text&quot;,
+			&quot;analyzer&quot;:&quot;ik_smart&quot;
+		&#125;
+	&#125;
+&#125;</code></pre>
+
+<h3 id="5-文档的CURD"><a href="#5-文档的CURD" class="headerlink" title="5.文档的CURD"></a>5.文档的CURD</h3><blockquote>
+<p>新增文档</p>
+</blockquote>
+<pre><code class="highlight plaintext">POST /索引库/_doc/文档id
+&#123;
+	&quot;字段1&quot;:&quot;值1&quot;,
+	&quot;字段2&quot;:&quot;值2&quot;,
+	&quot;字段3&quot;:&quot;值3&quot;
+&#125;</code></pre>
+
+<blockquote>
+<p>查询</p>
+</blockquote>
+<pre><code class="highlight plaintext">GET /索引库/_doc/文档id</code></pre>
+
+<blockquote>
+<p>删除</p>
+</blockquote>
+<pre><code class="highlight plaintext">DELETE /索引库/_doc/文档id</code></pre>
+
+<blockquote>
+<p>修改(先删除再新增)(如果没有就会添加)</p>
+</blockquote>
+<pre><code class="highlight plaintext">PUT /索引库/_doc/文档id
+&#123;
+	&quot;字段1&quot;:&quot;值1&quot;,
+	&quot;字段2&quot;:&quot;值2&quot;,
+	&quot;字段3&quot;:&quot;值3&quot;
+&#125;</code></pre>
+
+<blockquote>
+<p>增量修改</p>
+</blockquote>
+<pre><code class="highlight plaintext">POST /索引库/_doc/文档id
+&#123;
+	&quot;doc&quot;:&#123;
+		&quot;字段名&quot;:&quot;值&quot;
+	&#125;
+&#125;</code></pre>
+
+<p>6.批处理请求</p>
+<pre><code class="highlight plaintext">POST /_bulk
+//新增
+&#123;&quot;index&quot; : &#123; &quot;_index&quot;:&quot;索引名&quot;,&quot;_id&quot;:&quot;1&quot;&#125;&#125;
+&#123;&quot;字段1&quot;:&quot;值1&quot;,&quot;字段2&quot;:&quot;值2&quot;&#125;
+
+//删除
+&#123;&quot;delete&quot;:&#123;&quot;_index&quot;:&quot;test&quot;,&quot;_id&quot;:2&#125;&#125;
+
+//修改
+&#123;&quot;update&quot;:&#123;&quot;_id&quot;:&quot;1&quot;,&quot;_index&quot;:&quot;test&quot;&#125;&#125;
+&#123;&quot;doc&quot;:&#123;&quot;field2&quot;:&quot;value&quot;&#125;&#125;</code></pre>
+
+<h3 id="6-JavaRestClient"><a href="#6-JavaRestClient" class="headerlink" title="6.JavaRestClient"></a>6.JavaRestClient</h3><pre><code class="highlight xml"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span>
+	<span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.elasticsearch.client<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span>
+	<span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>elasticsearch-rest-high-level-client<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></code></pre>
+
+<blockquote>
+<p>默认为7.17.10            覆盖版本</p>
+</blockquote>
+<pre><code class="highlight plaintext">&lt;elasticsearch.version&gt;7.12.1&lt;/elasticsearch.version&gt;</code></pre>
+
+<blockquote>
+<p>创建client</p>
+</blockquote>
+<pre><code class="highlight java"><span class="meta">@BeforeEach</span>
+<span class="keyword">void</span> <span class="title function_">setUp</span><span class="params">()</span>&#123;
+    client = <span class="keyword">new</span> <span class="title class_">RestHighLevelClient</span>(RestClient.builder(HttpHost.create(<span class="string">&quot;http://192.16.3.133:9200&quot;</span>)));
+&#125;
+<span class="meta">@AfterEach</span>
+<span class="keyword">void</span> <span class="title function_">destrory</span><span class="params">()</span> <span class="keyword">throws</span> IOException &#123;
+    <span class="keyword">if</span> (client != <span class="literal">null</span>)&#123;
+        client.close();
+    &#125;
+&#125;</code></pre>
+
+<blockquote>
+<p>测试</p>
+</blockquote>
+<pre><code class="highlight java"><span class="meta">@Test</span>
+<span class="keyword">void</span> <span class="title function_">test</span><span class="params">()</span>&#123;
+    System.out.println(<span class="string">&quot;client&quot;</span>+client);
+&#125;</code></pre>
+
+<h3 id="7-操作索引库的API"><a href="#7-操作索引库的API" class="headerlink" title="7.操作索引库的API"></a>7.操作索引库的API</h3><blockquote>
+<p>新增</p>
+</blockquote>
+<pre><code class="highlight java"><span class="meta">@Test</span>
+<span class="keyword">void</span> <span class="title function_">createIndex</span><span class="params">()</span> <span class="keyword">throws</span> IOException &#123;
+    <span class="comment">//准备request对象</span>
+    <span class="type">CreateIndexRequest</span> <span class="variable">request</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">CreateIndexRequest</span>(<span class="string">&quot;items&quot;</span>);
+    <span class="comment">//2.准备发送请求</span>
+    request.source(MAPPING_TEMPLATE, XContentType.JSON);
+    <span class="comment">//发送</span>
+    client.indices().create(request, RequestOptions.DEFAULT);
+&#125;
+
+
+ <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">String</span> <span class="variable">MAPPING_TEMPLATE</span> <span class="operator">=</span> <span class="string">&quot;&#123;\n&quot;</span> +
+            <span class="string">&quot;    \&quot;mappings\&quot;:&#123;\n&quot;</span> +
+            <span class="string">&quot;        \&quot;properties\&quot;:&#123;\n&quot;</span> +
+            <span class="string">&quot;            \&quot;id\&quot;:&#123;\n&quot;</span> +
+            <span class="string">&quot;                \&quot;type\&quot;:\&quot;keyword\&quot;\n&quot;</span> +
+            <span class="string">&quot;            &#125;,\n&quot;</span> +
+            <span class="string">&quot;            \&quot;name\&quot;:&#123;\n&quot;</span> +
+            <span class="string">&quot;                \&quot;type\&quot;:\&quot;keyword\&quot;,\n&quot;</span> +
+            <span class="string">&quot;                \&quot;analyzer\&quot;:\&quot;ik_smart\&quot;\n&quot;</span> +
+            <span class="string">&quot;            &#125;,\n&quot;</span> +
+            <span class="string">&quot;            \&quot;price\&quot;:&#123;\n&quot;</span> +
+            <span class="string">&quot;                \&quot;type\&quot;:\&quot;keyword\&quot;,\n&quot;</span> +
+            <span class="string">&quot;                \&quot;index\&quot;:false\n&quot;</span> +
+            <span class="string">&quot;            &#125;,\n&quot;</span> +
+            <span class="string">&quot;            \&quot;category\&quot;:&#123;\n&quot;</span> +
+            <span class="string">&quot;                \&quot;type\&quot;:\&quot;keyword\&quot;\n&quot;</span> +
+            <span class="string">&quot;            &#125;,\n&quot;</span> +
+            <span class="string">&quot;            \&quot;brand\&quot;:&#123;\n&quot;</span> +
+            <span class="string">&quot;                \&quot;type\&quot;:\&quot;keyword\&quot;\n&quot;</span> +
+            <span class="string">&quot;            &#125;,\n&quot;</span> +
+            <span class="string">&quot;            \&quot;sold\&quot;:&#123;\n&quot;</span> +
+            <span class="string">&quot;                \&quot;type\&quot;:\&quot;integer\&quot;\n&quot;</span> +
+            <span class="string">&quot;            &#125;,\n&quot;</span> +
+            <span class="string">&quot;            \&quot;commentCount\&quot;:&#123;\n&quot;</span> +
+            <span class="string">&quot;                \&quot;type\&quot;:\&quot;integger\&quot;,\n&quot;</span> +
+            <span class="string">&quot;                \&quot;index\&quot;:false\n&quot;</span> +
+            <span class="string">&quot;            &#125;,\n&quot;</span> +
+            <span class="string">&quot;            \&quot;isAD\&quot;:&#123;\n&quot;</span> +
+            <span class="string">&quot;                \&quot;type\&quot;:\&quot;boolean\&quot;\n&quot;</span> +
+            <span class="string">&quot;            &#125;,\n&quot;</span> +
+            <span class="string">&quot;            \&quot;updateTime\&quot;:&#123;\n&quot;</span> +
+            <span class="string">&quot;                \&quot;type\&quot;:\&quot;date\&quot;\n&quot;</span> +
+            <span class="string">&quot;            &#125;\n&quot;</span> +
+            <span class="string">&quot;\t    &#125;\n&quot;</span> +
+            <span class="string">&quot;    &#125;\n&quot;</span> +
+            <span class="string">&quot;&#125;&quot;</span>;</code></pre>
+
+<blockquote>
+<p>查询</p>
+</blockquote>
+<pre><code class="highlight java"><span class="meta">@Test</span>
+<span class="keyword">void</span> <span class="title function_">selectIndex</span><span class="params">()</span> <span class="keyword">throws</span> IOException &#123;
+    <span class="type">GetIndexRequest</span> <span class="variable">request</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">GetIndexRequest</span>(<span class="string">&quot;items&quot;</span>);
+    <span class="comment">//判断是否存在</span>
+    client.indices().exists(request, RequestOptions.DEFAULT);
+&#125;</code></pre>
+
+<blockquote>
+<p>删除</p>
+</blockquote>
+<pre><code class="highlight java"><span class="meta">@Test</span>
+<span class="keyword">void</span> <span class="title function_">deleteIndex</span><span class="params">()</span> <span class="keyword">throws</span> IOException &#123;
+    <span class="type">DeleteIndexRequest</span> <span class="variable">request</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">DeleteIndexRequest</span>(<span class="string">&quot;items&quot;</span>);
+    <span class="comment">//判断是否存在</span>
+    client.indices().delete(request, RequestOptions.DEFAULT);
+&#125;</code></pre>
+
+<h3 id="8-操作文档"><a href="#8-操作文档" class="headerlink" title="8.操作文档"></a>8.操作文档</h3><pre><code class="highlight java"><span class="meta">@Test</span>
+<span class="keyword">void</span> <span class="title function_">createIndex</span><span class="params">()</span> <span class="keyword">throws</span> IOException &#123;
+    <span class="comment">//准备一个request</span>
+    <span class="type">IndexRequest</span> <span class="variable">request</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">IndexRequest</span>(<span class="string">&quot;items&quot;</span>).id(<span class="string">&quot;1&quot;</span>);
+    <span class="comment">//准备参数</span>
+    request.source(<span class="string">&quot;&#123;\&quot;name\&quot;:\&quot;tom\&quot;,\&quot;age\&quot;:\&quot;18\&quot;&#125;&quot;</span>,XContentType.JSON);
+    <span class="comment">//发送请求</span>
+    client.index(request,RequestOptions.DEFAULT);
+&#125;</code></pre>
+
+<blockquote>
+<p>查询</p>
+</blockquote>
+<pre><code class="highlight java"><span class="meta">@Test</span>
+<span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">getIndex</span><span class="params">()</span> <span class="keyword">throws</span> IOException &#123;
+    <span class="comment">//准备一个request</span>
+    <span class="type">GetRequest</span> <span class="variable">request</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">GetRequest</span>(<span class="string">&quot;items&quot;</span>,<span class="string">&quot;1&quot;</span>);
+    <span class="comment">//发送请求</span>
+    <span class="type">GetResponse</span> <span class="variable">response</span> <span class="operator">=</span> client.get(request, RequestOptions.DEFAULT);
+    <span class="comment">//解析结果</span>
+    <span class="type">String</span> <span class="variable">sourceAsString</span> <span class="operator">=</span> response.getSourceAsString();
+    System.out.println(sourceAsString);
+&#125;</code></pre>
+
+<blockquote>
+<p>删除</p>
+</blockquote>
+<pre><code class="highlight java"><span class="meta">@Test</span>
+<span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">changeIndex</span><span class="params">()</span> <span class="keyword">throws</span> IOException &#123;
+    <span class="comment">//准备一个request</span>
+    <span class="type">IndexRequest</span> <span class="variable">request</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">IndexRequest</span>(<span class="string">&quot;items&quot;</span>).id(<span class="string">&quot;1&quot;</span>);
+    <span class="comment">//发送请求</span>
+    <span class="type">IndexResponse</span> <span class="variable">rep</span> <span class="operator">=</span> client.index(request, RequestOptions.DEFAULT);
+    <span class="comment">//解析结果</span>
+    System.out.println(rep);
+&#125;</code></pre>
+
+<blockquote>
+<p>全量更新</p>
+</blockquote>
+<pre><code class="highlight java"><span class="meta">@Test</span>
+<span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">changeIndex</span><span class="params">()</span> <span class="keyword">throws</span> IOException &#123;
+    <span class="comment">//准备一个request</span>
+    <span class="type">IndexRequest</span> <span class="variable">request</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">IndexRequest</span>(<span class="string">&quot;items&quot;</span>).id(<span class="string">&quot;1&quot;</span>);
+    request.source(MAPPING_TEMPLATE, XContentType.JSON);
+    <span class="type">IndexResponse</span> <span class="variable">rep</span> <span class="operator">=</span> client.index(request, RequestOptions.DEFAULT);
+    
+    System.out.println(rep);
+&#125;</code></pre>
+
+<blockquote>
+<p>局部更新</p>
+</blockquote>
+<pre><code class="highlight java"><span class="meta">@Test</span>
+<span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">updateIndex</span><span class="params">()</span> <span class="keyword">throws</span> IOException &#123;
+    <span class="comment">//准备一个request</span>
+    <span class="type">UpdateRequest</span> <span class="variable">request</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">UpdateRequest</span>(<span class="string">&quot;items&quot;</span>,<span class="string">&quot;1&quot;</span>);
+    <span class="comment">//发送请求</span>
+    request.doc(
+        <span class="string">&quot;name&quot;</span>,<span class="string">&quot;zs&quot;</span>,
+        <span class="string">&quot;age&quot;</span>,<span class="string">&quot;46&quot;</span>
+    );
+    <span class="comment">//解析结果</span>
+    client.update(request, RequestOptions.DEFAULT);
+&#125;</code></pre>
+
+<h3 id="9-批处理"><a href="#9-批处理" class="headerlink" title="9.批处理"></a>9.批处理</h3><pre><code class="highlight java"><span class="meta">@Test</span>
+<span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">bulkIndex</span><span class="params">()</span> <span class="keyword">throws</span> IOException &#123;
+    <span class="comment">//准备一个request</span>
+    <span class="type">BulkRequest</span> <span class="variable">bulkRequest</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">BulkRequest</span>();
+    <span class="comment">//发送请求</span>
+    bulkRequest.add(<span class="keyword">new</span> <span class="title class_">IndexRequest</span>(<span class="string">&quot;items&quot;</span>,<span class="string">&quot;1&quot;</span>).
+                    source(<span class="string">&quot;&#123;\&quot;name\&quot;:\&quot;tom\&quot;,\&quot;age\&quot;:\&quot;18\&quot;&#125;&quot;</span>,XContentType.JSON));
+    bulkRequest.add(<span class="keyword">new</span> <span class="title class_">DeleteRequest</span>(<span class="string">&quot;items&quot;</span>,<span class="string">&quot;1&quot;</span>));
+    <span class="comment">//解析结果</span>
+    client.bulk(bulkRequest, RequestOptions.DEFAULT);
+&#125;</code></pre>
+
+<h2 id="11-DSL操作"><a href="#11-DSL操作" class="headerlink" title="11.DSL操作"></a>11.DSL操作</h2><blockquote>
+<p>查询语法</p>
+</blockquote>
+<pre><code class="highlight plaintext">GET /indexName/_search
+&#123;
+	&quot;query&quot;:&#123;
+		&quot;查询类型&quot;:&#123;
+			&quot;查询条件&quot;:条件值
+		&#125;
+	&#125;
+&#125;
+//查询所有
+GET /indexName/_search
+&#123;
+	&quot;query&quot;:&#123;
+		&quot;match_all&quot;:&#123;
+		&#125;
+	&#125;
+&#125;</code></pre>
+
+<h3 id="1-叶子查询"><a href="#1-叶子查询" class="headerlink" title="1.叶子查询"></a>1.叶子查询</h3><blockquote>
+<ul>
+<li><p>全文检索 full text</p>
+<ul>
+<li>match_query</li>
+<li>multi_match_query</li>
+</ul>
+</li>
+<li><p>精确查询   </p>
+<ul>
+<li>ids</li>
+<li>range</li>
+<li>term</li>
+</ul>
+</li>
+<li><p>地理geo查询  搜索地理位置</p>
+<ul>
+<li>geo_distance</li>
+<li>geo_bounding_box</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<blockquote>
+<p>match查询，对输入内容分词，然后查询</p>
+</blockquote>
+<pre><code class="highlight plaintext">GET /indexName/_search
+&#123;
+	&quot;query&quot;:&#123;
+		&quot;match&quot;:&#123;
+			&quot;FILELD&quot;:&quot;TEXT&quot;
+		&#125;
+	&#125;
+&#125;</code></pre>
+<blockquote>
+<p>multi_match查询，支持同时查询多个字段，然后查询</p>
+</blockquote>
+<pre><code class="highlight plaintext">GET /indexName/_search
+&#123;
+	&quot;query&quot;:&#123;
+		&quot;multi_match&quot;:&#123;
+			&quot;query&quot;:&quot;TEXT&quot;,
+			&quot;fields&quot;:[&quot;FIELD1&quot;,&quot;FIELD2&quot;]
+		&#125;
+	&#125;
+&#125;</code></pre>
+
+<blockquote>
+<p>term精确查询</p>
+</blockquote>
+<pre><code class="highlight plaintext">GET /indexName/_search
+&#123;
+	&quot;query&quot;:&#123;
+		&quot;term&quot;:&#123;
+			&quot;fields&quot;:&#123;
+				&quot;value&quot;:&quot;values&quot;
+			&#125;
+		&#125;
+	&#125;
+&#125;</code></pre>
+
+<blockquote>
+<p>range范围查询</p>
+</blockquote>
+<pre><code class="highlight plaintext">GET /indexName/_search
+&#123;
+	&quot;query&quot;:&#123;
+		&quot;range&quot;:&#123;
+			&quot;fields&quot;:&#123;
+				&quot;gte&quot;:value,
+				&quot;lte&quot;:value
+			&#125;
+		&#125;
+	&#125;
+&#125;</code></pre>
+
+<blockquote>
+<p>ids根据id查询</p>
+</blockquote>
+<pre><code class="highlight plaintext">GET /indexName/_search
+&#123;
+	&quot;query&quot;:&#123;
+		&quot;ids&quot;:&#123;
+			&quot;values&quot;:[&quot;12&quot;,&quot;13&quot;]
+		&#125;
+	&#125;
+&#125;</code></pre>
+
+<h3 id="2-复合查询"><a href="#2-复合查询" class="headerlink" title="2.复合查询"></a>2.复合查询</h3><blockquote>
+<p>基于逻辑运算组合叶子查询，实现组合条件</p>
+<p>bool</p>
+</blockquote>
+<blockquote>
+<p>基于算法修改查询时的文档相关性算分，从而改变文档排名</p>
+<p>function_score</p>
+<p>dis_max</p>
+</blockquote>
+<ul>
+<li>must 与</li>
+<li>should 或</li>
+<li>must_not 非</li>
+<li>filter 必须匹配，不参与算分</li>
+</ul>
+<pre><code class="highlight plaintext">GET /items/_search
+&#123;
+	&quot;query&quot;:&#123;
+		&quot;bool&quot;:&#123;
+			&quot;must&quot;:[&#123;&quot;match&quot;:&#123;&quot;fileds&quot;:&quot;value&quot;&#125;&#125;],
+			&quot;filter&quot;:[&quot;term&quot;:&#123;&quot;fileds&quot;:&quot;value&quot;&#125;,&quot;range&quot;:&#123;&quot;gte&quot;:&quot;value&quot;,&quot;lte&quot;:&quot;value&quot;&#125;]
+		&#125;
+	&#125;
+&#125;</code></pre>
+
+<h3 id="3-排序和分页"><a href="#3-排序和分页" class="headerlink" title="3.排序和分页"></a>3.排序和分页</h3><blockquote>
+<p>排序sort</p>
+</blockquote>
+<pre><code class="highlight plaintext">GET /indexName/_search
+&#123;
+	&quot;query&quot;:&#123;
+		&quot;match_all&quot;:&#123;&#125;
+	&#125;,
+	&quot;sort&quot;:&#123;
+		&quot;FIELD&quot;:&quot;DESC&quot;  ASC、DESC
+	&#125;
+&#125;</code></pre>
+
+<blockquote>
+<p>分页</p>
+<ul>
+<li>from 从第几个文档开始</li>
+<li>size总共查询几个文档</li>
+</ul>
+</blockquote>
+<pre><code class="highlight plaintext">GET /indexName/_search
+&#123;
+	&quot;query&quot;:&#123;
+		&quot;match_all&quot;:&#123;&#125;
+	&#125;,
+	&quot;from&quot;:0,
+	&quot;size&quot;:10,
+	&quot;sort&quot;:&#123;
+		&quot;FIELD&quot;:&quot;DESC&quot;  ASC、DESC
+	&#125;
+&#125;</code></pre>
+
+<h3 id="4-深度分页问题"><a href="#4-深度分页问题" class="headerlink" title="4.深度分页问题"></a>4.深度分页问题</h3><pre><code class="highlight plaintext">GET /items/_search
+&#123;
+	&quot;query&quot;:&#123;
+		&quot;match&quot;:&#123;
+			&quot;filed&quot;:&quot;value&quot;
+		&#125;
+	&#125;,
+	&quot;highlight&quot;:&#123;
+		&quot;fields&quot;:&#123;
+			&quot;fields&quot;:&#123;
+				&quot;pre_tags&quot;:&quot;&lt;em&gt;&quot;,
+				&quot;post_tags&quot;:&quot;&lt;/em&gt;&quot;
+			&#125;
+		&#125;
+	&#125;
+&#125;</code></pre>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </article>
+        <section class="post-near">
+            <ul>
+                
+                    <li>上一篇: 看完啦 (つд⊂)</li>
+                
+                
+                    <li>下一篇: <a href="/2024/10/12/SpringMVC/">SpringMVC</a></li>
+                
+            </ul>
+        </section>
+        
+            <section class="post-tags">
+            <a class="-none-link" href="/tags/Java/" rel="tag">Java</a><a class="-none-link" href="/tags/Java-Web/" rel="tag">Java Web</a><a class="-none-link" href="/tags/Spring-Cloud/" rel="tag">Spring Cloud</a>
+            </section>
+        
+    
+        <section class="post-author">
+        
+            <figure class="author-avatar">
+                <img src="https://p1.meituan.net/csc/949ad40707d4b4bab7e2ebafbd649aa8211830.jpg" alt="日初" />
+            </figure>
+        
+            <div class="author-info">
+                <h4>日初</h4>
+                <p>一个什么都学的建模动画编程爱好者</p>
+            </div>
+        </section>
+    
+    </div>
+</main>
+
+    <footer>
+    <div class="buttons">
+        <a class="to-top" href="#"></a>
+    </div>
+    <div class="wrap min">
+        <section class="widget">
+            <div class="row">
+                <div class="col-m-4">
+                    <h3 class="title-recent">最新文章：</h3>
+                    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2024/10/15/SpringCloud/">Spring Cloud</a></li><li class="post-list-item"><a class="post-list-link" href="/2024/10/12/SpringMVC/">SpringMVC</a></li><li class="post-list-item"><a class="post-list-link" href="/2024/10/09/Linux/">Linux</a></li><li class="post-list-item"><a class="post-list-link" href="/2024/10/05/CSS/">CSS</a></li><li class="post-list-item"><a class="post-list-link" href="/2024/09/30/JavaScript/">JavaScript</a></li><li class="post-list-item"><a class="post-list-link" href="/2024/09/28/MySql/">Mysql</a></li></ul>
+                </div>
+                <div class="col-m-4">
+                    <h3 class="title-date">时光机：</h3>
+                    <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/10/">十月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/09/">九月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/08/">八月 2024</a></li></ul>
+                </div>
+                <div class="col-m-4">
+                    <h3 class="title-tags">标签云：</h3>
+                    <a href="/tags/CSS/" style="font-size: 20px;">CSS</a> <a href="/tags/JS/" style="font-size: 20px;">JS</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/Java-Web/" style="font-size: 20px;">Java Web</a> <a href="/tags/Linux/" style="font-size: 20px;">Linux</a> <a href="/tags/MySql/" style="font-size: 20px;">MySql</a> <a href="/tags/Nginx/" style="font-size: 20px;">Nginx</a> <a href="/tags/React/" style="font-size: 20px;">React</a> <a href="/tags/Spring-Cloud/" style="font-size: 20px;">Spring Cloud</a> <a href="/tags/Vue/" style="font-size: 20px;">Vue</a> <a href="/tags/%E5%89%8D%E7%AB%AF/" style="font-size: 20px;">前端</a> <a href="/tags/%E8%BF%90%E7%BB%B4/" style="font-size: 20px;">运维</a>
+                </div>
+            </div>
+        </section>
+        <section class="sub-footer">
+            <p>© 2024 <a href="/">Richu</a>. All Rights Reserved. Theme By <a href="https://github.com/Dreamer-Paul/Hingle" target="_blank" rel="nofollow">Hingle</a>.</p>
+        </section>
+    </div>
+</footer>
+
+
+<script src="/static/kico.js"></script>
+<script src="/static/hingle.js"></script>
+
+
+<script>var hingle = new Paul_Hingle({"copyright":true,"night":false});</script>
+
+  </body>
+</html>

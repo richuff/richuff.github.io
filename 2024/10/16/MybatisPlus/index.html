@@ -1,0 +1,403 @@
+<!DOCTYPE html>
+<html>
+  <head>
+     
+    <meta charset="UTF-8">
+    <title>MybatisPlus - Richu</title>
+    <link rel="shortcut icon" href="/static/img/icon.png">
+    <link rel="icon" href="/static/img/icon.png" sizes="192x192"/>
+    
+<link rel="stylesheet" href="/static/kico.css">
+<link rel="stylesheet" href="/static/hingle.css">
+
+    
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <meta name="viewport" content="width=device-width, maximum-scale=1, initial-scale=1"/>
+    <meta property="og:site_name" content="Richu">
+    <meta property="og:title" content="MybatisPlus"/>
+    
+    <style>body:before{ content: ''; background-image: url(https://img.meituan.net/csc/d05518606ba7064dd445508e3cf3d4c42860983.png) }</style>
+    
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+  <body>
+    <header>
+    <div class="head-title">
+        <h4>Richu</h4>
+    </div>
+    <div class="head-action">
+        <div class="toggle-btn"></div>
+        <div class="light-btn"></div>
+        <div class="search-btn"></div>
+    </div>
+    <form class="head-search" method="post">
+        <input type="text" name="s" placeholder="搜索什么？">
+    </form>
+    <nav class="head-menu">
+        <a href="/">首页</a>
+        <div class="has-child">
+            <a>分类</a>
+            <div class="sub-menu">
+                <a class="category-link" href="/categories/Java/">Java</a><a class="category-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a><a class="category-link" href="/categories/%E8%BF%90%E7%BB%B4/">运维</a>
+            </div>
+        </div>
+        
+            <a href="/about">关于我</a>
+        
+    </nav>
+</header>
+
+    <main>
+    <div class="wrap min">
+        <section class="post-title">
+            <h2>MybatisPlus</h2>
+            <div class="post-meta">
+                <time class="date">2024.10.16</time>
+            
+                <span class="category"><a class="category-link" href="/categories/Java/">Java</a></span>
+            
+            </div>
+        </section>
+        <article class="post-content">
+        
+            <p>无侵入：只做增强不做改变，引入它不会对现有工程产生影响，如丝般顺滑<br>损耗小：启动即会自动注入基本 CURD，性能基本无损耗，直接面向对象操作<br>强大的 CRUD 操作：内置通用 Mapper、通用 Service，仅仅通过少量配置即可实现单表大部分 CRUD 操作，更有强大的条件构造器，满足各类使用需求<br>支持 Lambda 形式调用：通过 Lambda 表达式，方便的编写各类查询条件，无需再担心字段写错<br>支持主键自动生成：支持多达 4 种主键策略（内含分布式唯一 ID 生成器 - Sequence），可自由配置，完美解决主键问题<br>支持 ActiveRecord 模式：支持 ActiveRecord 形式调用，实体类只需继承 Model 类即可进行强大的 CRUD 操作<br>支持自定义全局通用操作：支持全局通用方法注入（ Write once, use anywhere ）<br>内置代码生成器：采用代码或者 Maven 插件可快速生成 Mapper 、 Model 、 Service 、 Controller 层代码，支持模板引擎，更有超多自定义配置等您来使用<br>内置分页插件：基于 MyBatis 物理分页，开发者无需关心具体操作，配置好插件之后，写分页等同于普通 List 查询<br>分页插件支持多种数据库：支持 MySQL、MariaDB、Oracle、DB2、H2、HSQL、SQLite、Postgre、SQLServer 等多种数据库<br>内置性能分析插件：可输出 SQL 语句以及其执行时间，建议开发测试时启用该功能，能快速揪出慢查询<br>内置全局拦截插件：提供全表 delete 、 update 操作智能分析阻断，也可自定义拦截规则，预防误操作</p>
+<h2 id="1-快速入门"><a href="#1-快速入门" class="headerlink" title="1.快速入门"></a>1.快速入门</h2><p>1.添加依赖</p>
+<pre><code class="highlight plaintext">&lt;parent&gt;
+    &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+    &lt;artifactId&gt;spring-boot-starter-parent&lt;/artifactId&gt;
+    &lt;version&gt;2.6.5&lt;/version&gt;
+    &lt;relativePath/&gt;
+&lt;/parent&gt;</code></pre>
+
+<pre><code class="highlight plaintext">&lt;dependencies&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+        &lt;artifactId&gt;spring-boot-starter&lt;/artifactId&gt;
+    &lt;/dependency&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+        &lt;artifactId&gt;spring-boot-starter-test&lt;/artifactId&gt;
+        &lt;scope&gt;test&lt;/scope&gt;
+    &lt;/dependency&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;com.baomidou&lt;/groupId&gt;
+        &lt;artifactId&gt;mybatis-plus-boot-starter&lt;/artifactId&gt;
+        &lt;version&gt;3.5.1&lt;/version&gt;
+    &lt;/dependency&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;mysql&lt;/groupId&gt;
+        &lt;artifactId&gt;mysql-connector-java&lt;/artifactId&gt;
+    &lt;/dependency&gt;
+&lt;/dependencies&gt;</code></pre>
+
+<p>2.配置数据库连接</p>
+<pre><code class="highlight plaintext">spring:
+  datasource:
+    username: root
+    password: password
+    url: jdbc:mysql:///mybatis_plus?userUnicode=true&amp;characterEncoding=utf-8
+    driver-class-name: com.mysql.cj.jdbc.Driver</code></pre>
+
+<p>3.在spring boot启动类中添加@MapperScan注解，扫描Mapper文件夹：</p>
+<blockquote>
+<p>一定要用MapperScan不要用ComponentScan</p>
+</blockquote>
+<pre><code class="highlight java"><span class="meta">@SpringBootApplication</span>
+<span class="meta">@MapperScan(&quot;com.wen.mybatis_plus.mapper&quot;)</span>  <span class="comment">//扫描mapper</span>
+<span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MybatisPlusApplication</span> &#123;
+    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">main</span><span class="params">(String[] args)</span> &#123;
+        SpringApplication.run(MybatisPlusApplication.class, args);
+    &#125;
+&#125;</code></pre>
+
+<p>4.配置实体类</p>
+<pre><code class="highlight java"><span class="keyword">import</span> lombok.Data;
+
+<span class="meta">@Data</span>
+<span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">User</span> &#123;
+    <span class="keyword">private</span> Long id;
+    <span class="keyword">private</span> String name;
+    <span class="keyword">private</span> Integer age;
+    <span class="keyword">private</span> String email;
+&#125;</code></pre>
+
+<p>5.编写Mapper包下的UserMapper接口</p>
+<pre><code class="highlight java"><span class="keyword">import</span> com.baomidou.mybatisplus.core.mapper.BaseMapper;
+<span class="keyword">import</span> com.wen.mybatis_plus.pojo.User;
+<span class="keyword">import</span> org.apache.ibatis.annotations.Mapper;
+
+<span class="comment">//再对应的mapper上面实现基本的接口 BaseMapper</span>
+<span class="meta">@Mapper</span>
+<span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">UserMapper</span> <span class="keyword">extends</span> <span class="title class_">BaseMapper</span>&lt;User&gt; &#123;
+    <span class="comment">//所有的CRUD都已经完成</span>
+    <span class="comment">//不需要像以前一样配置一大堆文件：pojo-dao（连接mybatis，配置mapper.xml文件）==&gt;service-controller</span>
+&#125;</code></pre>
+
+<p>6.测试</p>
+<pre><code class="highlight java"><span class="meta">@SpringBootTest</span>
+<span class="keyword">class</span> <span class="title class_">MybatisPlusApplicationTests</span> &#123;
+
+    <span class="comment">//继承了BaseMapper所有的方法，可以编写自己的扩展方法</span>
+    <span class="meta">@Autowired</span>
+    <span class="keyword">private</span> UserMapper userMapper;
+
+    <span class="meta">@Test</span>
+    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">testSelect</span><span class="params">()</span>&#123;
+        System.out.println(<span class="string">&quot;--------selectAll method test-------&quot;</span>);
+        <span class="comment">//查询全部用户，参数是一个Wrapper，条件构造器，先不使用为null</span>
+        List&lt;User&gt; userList = userMapper.selectList(<span class="literal">null</span>);
+        userList.forEach(System.out::println);
+    &#125;</code></pre>
+
+<h2 id="2-Iservice"><a href="#2-Iservice" class="headerlink" title="2.Iservice"></a>2.Iservice</h2><p>1.继承接口</p>
+<pre><code class="highlight java">#Userservice.java
+<span class="keyword">package</span> com.richu.iorichu1.Service;
+
+<span class="keyword">import</span> com.baomidou.mybatisplus.extension.service.IService;
+<span class="keyword">import</span> com.richu.iorichu1.domain.po.User;
+
+<span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">Userservice</span> <span class="keyword">extends</span> <span class="title class_">IService</span>&lt;User&gt;&#123;
+&#125;
+</code></pre>
+
+<p>2.实现类</p>
+<pre><code class="highlight java"><span class="keyword">package</span> com.richu.iorichu1.Service.impl;
+
+<span class="keyword">import</span> com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
+<span class="keyword">import</span> com.richu.iorichu1.Mapper.UserMapper;
+<span class="keyword">import</span> com.richu.iorichu1.Service.Userservice;
+<span class="keyword">import</span> com.richu.iorichu1.domain.po.User;
+<span class="keyword">import</span> org.springframework.stereotype.Service;
+
+<span class="meta">@Service</span>
+<span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Userserviceimpl</span> <span class="keyword">extends</span> <span class="title class_">ServiceImpl</span>&lt;UserMapper, User&gt; <span class="keyword">implements</span> <span class="title class_">Userservice</span>&#123;
+
+&#125;
+</code></pre>
+
+<p>3.测试</p>
+<pre><code class="highlight java"><span class="meta">@Autowired</span>
+<span class="keyword">private</span> Userservice userservice;
+
+<span class="meta">@Test</span>
+<span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">testsaveUser</span><span class="params">()</span>&#123;
+    <span class="type">User</span> <span class="variable">user</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">User</span>();
+    user.setId(<span class="number">7L</span>);
+    user.setUsername(<span class="string">&quot;李磊&quot;</span>);
+    user.setPassword(<span class="string">&quot;123&quot;</span>);
+    user.setPhone(<span class="string">&quot;18688990011&quot;</span>);
+    user.setBalance(<span class="number">200</span>);
+    user.setInfo(<span class="string">&quot;&#123;\&quot;age\&quot;: 24, \&quot;intro\&quot;: \&quot;数学老师\&quot;, \&quot;gender\&quot;: \&quot;female\&quot;&#125;&quot;</span>);
+    user.setCreateTime(LocalDateTime.now());
+    user.setUpdateTime(LocalDateTime.now());
+    userservice.save(user);
+&#125;</code></pre>
+
+<h2 id="3-自定义SQL"><a href="#3-自定义SQL" class="headerlink" title="3.自定义SQL"></a>3.自定义SQL</h2><p>1.测试类</p>
+<pre><code class="highlight java"><span class="meta">@Test</span>
+<span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">CustomTest</span><span class="params">()</span> &#123;
+    List&lt;Long&gt; ids = List.of(<span class="number">1L</span>, <span class="number">2L</span>, <span class="number">3L</span>, <span class="number">4L</span>);
+    <span class="type">int</span> amount=<span class="number">200</span>;
+    QueryWrapper&lt;User&gt; queryWrapper = <span class="keyword">new</span> <span class="title class_">QueryWrapper</span>&lt;User&gt;().in(<span class="string">&quot;id&quot;</span>,ids);
+    userMapper.updateblance(queryWrapper,amount);
+&#125;</code></pre>
+
+<p>2.Mapper</p>
+<pre><code class="highlight java"><span class="meta">@Mapper</span>
+<span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">UserMapper</span> <span class="keyword">extends</span> <span class="title class_">BaseMapper</span>&lt;User&gt; &#123;
+    <span class="keyword">void</span> <span class="title function_">updateblance</span><span class="params">(<span class="meta">@Param(&quot;ew&quot;)</span> QueryWrapper&lt;User&gt; queryWrapper,<span class="meta">@Param(&quot;amount&quot;)</span> <span class="type">int</span> amount)</span>;
+&#125;</code></pre>
+
+<p>3.xml</p>
+<pre><code class="highlight java">&lt;?xml version=<span class="string">&quot;1.0&quot;</span> encoding=<span class="string">&quot;UTF-8&quot;</span> ?&gt;
+&lt;!DOCTYPE mapper PUBLIC <span class="string">&quot;-//mybatis.org//DTD Mapper 3.0//EN&quot;</span> <span class="string">&quot;http://mybatis.org/dtd/mybatis-3-mapper.dtd&quot;</span>&gt;
+&lt;mapper namespace=<span class="string">&quot;com.richu.iorichu1.Mapper.UserMapper&quot;</span>&gt;
+
+    &lt;update id=<span class="string">&quot;updateblance&quot;</span>&gt;
+        update user <span class="type">set</span> <span class="variable">balance</span> <span class="operator">=</span> balance- #&#123;amount&#125; $&#123;ew.customSqlSegment&#125;
+    &lt;/update&gt;
+&lt;/mapper&gt;</code></pre>
+
+<h2 id="4-DB静态工具"><a href="#4-DB静态工具" class="headerlink" title="4.DB静态工具"></a>4.DB静态工具</h2><pre><code class="highlight java"><span class="comment">//静态DB</span>
+        List&lt;Address&gt; addresses=Db.lambdaQuery(Address.class)
+                .eq(Address::getUserId,user.getId()).list();</code></pre>
+
+<h2 id="5-逻辑删除支持"><a href="#5-逻辑删除支持" class="headerlink" title="5.逻辑删除支持"></a>5.逻辑删除支持</h2><h3 id="配置全局逻辑删除属性"><a href="#配置全局逻辑删除属性" class="headerlink" title="配置全局逻辑删除属性"></a>配置全局逻辑删除属性</h3><p>在 <code>application.yml</code> 中配置 MyBatis-Plus 的全局逻辑删除属性：</p>
+<pre><code class="highlight plaintext">mybatis-plus:
+  global-config:
+    db-config:
+      logic-delete-field: deleted # 全局逻辑删除字段名
+      logic-delete-value: 1 # 逻辑已删除值
+      logic-not-delete-value: 0 # 逻辑未删除值</code></pre>
+
+<h3 id="步骤-2-在实体类中使用-TableLogic-注解"><a href="#步骤-2-在实体类中使用-TableLogic-注解" class="headerlink" title="步骤 2: 在实体类中使用 @TableLogic 注解"></a>步骤 2: 在实体类中使用 <code>@TableLogic</code> 注解</h3><p>在实体类中，对应数据库表的逻辑删除字段上添加 <code>@TableLogic</code> 注解：</p>
+<pre><code class="highlight plaintext">import com.baomidou.mybatisplus.annotation.TableLogic;
+
+public class User &#123;
+    // 其他字段...
+
+    @TableLogic
+    private Integer deleted;
+&#125;</code></pre>
+
+<h2 id="6-枚举处理器"><a href="#6-枚举处理器" class="headerlink" title="6.枚举处理器"></a>6.枚举处理器</h2><h3 id="方式一：注解标记"><a href="#方式一：注解标记" class="headerlink" title="方式一：注解标记"></a>方式一：注解标记</h3><p>枚举属性使用 <code>@EnumValue</code> 注解，指定枚举值在数据库中存储的实际值。支持枚举类中的任意字段，如序号或编码。</p>
+<pre><code class="highlight java"><span class="meta">@Getter</span>
+<span class="meta">@AllArgsConstructor</span>
+<span class="keyword">public</span> <span class="keyword">enum</span> <span class="title class_">GradeEnum</span> &#123;
+    PRIMARY(<span class="number">1</span>, <span class="string">&quot;小学&quot;</span>),
+    SECONDARY(<span class="number">2</span>, <span class="string">&quot;中学&quot;</span>),
+    HIGH(<span class="number">3</span>, <span class="string">&quot;高中&quot;</span>);
+
+    <span class="meta">@EnumValue</span> <span class="comment">// 标记数据库存的值是code</span>
+    <span class="keyword">private</span> <span class="keyword">final</span> <span class="type">int</span> code;
+    <span class="comment">// 其他属性...</span>
+&#125;</code></pre>
+
+<pre><code class="highlight plaintext">mybatis-plus:
+  configuration:
+    default-enum-type-handler: xx.xx.xx.MyEnumTypeHandler</code></pre>
+
+<p>7.JSON处理器</p>
+<pre><code class="highlight java"><span class="meta">@Data</span>
+<span class="meta">@TableName(value = &quot;user&quot;,autoResultMap = true)</span>
+<span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">UserVo</span> &#123;
+
+    <span class="keyword">private</span> Long id;
+
+    <span class="keyword">private</span> String username;
+    
+    <span class="meta">@TableField(typeHandler = JacksonTypeHandler.class)</span>
+    <span class="keyword">private</span> UserInfo info;
+    
+    <span class="keyword">private</span> Integer status;
+
+    <span class="keyword">private</span> String balance;
+
+    <span class="keyword">public</span> List&lt;AddressVo&gt; addresses;
+&#125;</code></pre>
+
+<h2 id="7-配置分页插件"><a href="#7-配置分页插件" class="headerlink" title="7.配置分页插件"></a>7.配置分页插件</h2><pre><code class="highlight java"><span class="keyword">package</span> com.richu.iorichu1.Config;
+
+<span class="keyword">import</span> com.baomidou.mybatisplus.annotation.DbType;
+<span class="keyword">import</span> com.baomidou.mybatisplus.extension.plugins.MybatisPlusInterceptor;
+<span class="keyword">import</span> com.baomidou.mybatisplus.extension.plugins.inner.PaginationInnerInterceptor;
+<span class="keyword">import</span> org.springframework.context.annotation.Bean;
+<span class="keyword">import</span> org.springframework.context.annotation.Configuration;
+
+<span class="meta">@Configuration</span>
+<span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MybatisConfig</span> &#123;
+
+    <span class="meta">@Bean</span>
+    <span class="keyword">public</span> MybatisPlusInterceptor <span class="title function_">mybatisPlusInterceptor</span><span class="params">()</span> &#123;
+        <span class="type">MybatisPlusInterceptor</span> <span class="variable">interceptor</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">MybatisPlusInterceptor</span>();
+
+        <span class="type">PaginationInnerInterceptor</span> <span class="variable">paginationInnerInterceptor</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">PaginationInnerInterceptor</span>(DbType.MYSQL);
+        paginationInnerInterceptor.setMaxLimit(<span class="number">1000L</span>);
+
+        interceptor.addInnerInterceptor(paginationInnerInterceptor);
+        <span class="keyword">return</span> interceptor;
+    &#125;
+&#125;
+</code></pre>
+
+<p>实现复杂业务</p>
+<pre><code class="highlight java"><span class="meta">@Override</span>
+<span class="keyword">public</span> PageDto&lt;UserVo&gt; <span class="title function_">pagelist</span><span class="params">(UserQuery query)</span> &#123;
+    <span class="type">String</span> <span class="variable">name</span> <span class="operator">=</span> query.getName();
+    <span class="type">Integer</span> <span class="variable">status</span> <span class="operator">=</span> query.getStatus();
+    <span class="comment">//配置分页条件</span>
+    Page&lt;User&gt; page = Page.of(query.getPageNo(),query.getPageSize());
+    <span class="comment">//判断是否传入排序字段</span>
+    <span class="keyword">if</span> (StrUtil.isNotBlank(query.getSortBy()))&#123;
+        page.addOrder(<span class="keyword">new</span> <span class="title class_">OrderItem</span>(query.getSortBy(),query.getIsAsc()));
+    &#125;<span class="keyword">else</span>&#123;
+        page.addOrder(<span class="keyword">new</span> <span class="title class_">OrderItem</span>(<span class="string">&quot;update_time&quot;</span>,<span class="literal">false</span>));
+    &#125;
+    <span class="comment">//查询</span>
+    Page&lt;User&gt; pagelist = lambdaQuery().like(name != <span class="literal">null</span>,User::getUsername,name)
+            .eq(status != <span class="literal">null</span>,User::getStatus,status)
+            .page(page);
+    <span class="comment">//封装结果</span>
+    PageDto&lt;UserVo&gt; dto = <span class="keyword">new</span> <span class="title class_">PageDto</span>&lt;&gt;();
+    dto.setPage((<span class="type">int</span>) pagelist.getPages());
+    dto.setTotal((<span class="type">int</span>) pagelist.getTotal());
+    <span class="keyword">if</span> (CollUtil.isEmpty(pagelist.getRecords()))&#123;
+        dto.setList(Collections.emptyList());
+        <span class="keyword">return</span> dto;
+    &#125;
+    List&lt;User&gt; p = pagelist.getRecords();
+    dto.setList(BeanUtil.copyToList(p,UserVo.class));
+    <span class="keyword">return</span> dto;
+&#125;</code></pre>
+
+<p>8.通用分页实体</p>
+
+        </article>
+        <section class="post-near">
+            <ul>
+                
+                    <li>上一篇: 看完啦 (つд⊂)</li>
+                
+                
+                    <li>下一篇: <a href="/2024/10/15/SpringCloud/">Spring Cloud</a></li>
+                
+            </ul>
+        </section>
+        
+            <section class="post-tags">
+            <a class="-none-link" href="/tags/Java/" rel="tag">Java</a><a class="-none-link" href="/tags/Java-Web/" rel="tag">Java Web</a><a class="-none-link" href="/tags/MybatisPlus/" rel="tag">MybatisPlus</a>
+            </section>
+        
+    
+        <section class="post-author">
+        
+            <figure class="author-avatar">
+                <img src="https://p1.meituan.net/csc/949ad40707d4b4bab7e2ebafbd649aa8211830.jpg" alt="日初" />
+            </figure>
+        
+            <div class="author-info">
+                <h4>日初</h4>
+                <p>一个什么都学的建模动画编程爱好者</p>
+            </div>
+        </section>
+    
+    </div>
+</main>
+
+    <footer>
+    <div class="buttons">
+        <a class="to-top" href="#"></a>
+    </div>
+    <div class="wrap min">
+        <section class="widget">
+            <div class="row">
+                <div class="col-m-4">
+                    <h3 class="title-recent">最新文章：</h3>
+                    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2024/10/16/MybatisPlus/">MybatisPlus</a></li><li class="post-list-item"><a class="post-list-link" href="/2024/10/15/SpringCloud/">Spring Cloud</a></li><li class="post-list-item"><a class="post-list-link" href="/2024/10/12/SpringMVC/">SpringMVC</a></li><li class="post-list-item"><a class="post-list-link" href="/2024/10/09/Linux/">Linux</a></li><li class="post-list-item"><a class="post-list-link" href="/2024/10/05/CSS/">CSS</a></li><li class="post-list-item"><a class="post-list-link" href="/2024/09/30/JavaScript/">JavaScript</a></li></ul>
+                </div>
+                <div class="col-m-4">
+                    <h3 class="title-date">时光机：</h3>
+                    <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/10/">十月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/09/">九月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/08/">八月 2024</a></li></ul>
+                </div>
+                <div class="col-m-4">
+                    <h3 class="title-tags">标签云：</h3>
+                    <a href="/tags/CSS/" style="font-size: 20px;">CSS</a> <a href="/tags/JS/" style="font-size: 20px;">JS</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/Java-Web/" style="font-size: 20px;">Java Web</a> <a href="/tags/Linux/" style="font-size: 20px;">Linux</a> <a href="/tags/MySql/" style="font-size: 20px;">MySql</a> <a href="/tags/MybatisPlus/" style="font-size: 20px;">MybatisPlus</a> <a href="/tags/Nginx/" style="font-size: 20px;">Nginx</a> <a href="/tags/React/" style="font-size: 20px;">React</a> <a href="/tags/Spring-Cloud/" style="font-size: 20px;">Spring Cloud</a> <a href="/tags/Vue/" style="font-size: 20px;">Vue</a> <a href="/tags/%E5%89%8D%E7%AB%AF/" style="font-size: 20px;">前端</a> <a href="/tags/%E8%BF%90%E7%BB%B4/" style="font-size: 20px;">运维</a>
+                </div>
+            </div>
+        </section>
+        <section class="sub-footer">
+            <p>© 2024 <a href="/">Richu</a>. All Rights Reserved. Theme By <a href="https://github.com/Dreamer-Paul/Hingle" target="_blank" rel="nofollow">Hingle</a>.</p>
+        </section>
+    </div>
+</footer>
+
+
+<script src="/static/kico.js"></script>
+<script src="/static/hingle.js"></script>
+
+
+<script>var hingle = new Paul_Hingle({"copyright":true,"night":false});</script>
+
+  </body>
+</html>

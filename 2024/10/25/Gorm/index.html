@@ -1,0 +1,942 @@
+<!DOCTYPE html>
+<html>
+  <head>
+     
+    <meta charset="UTF-8">
+    <title>Gorm - Richu</title>
+    <link rel="shortcut icon" href="/static/img/icon.png">
+    <link rel="icon" href="/static/img/icon.png" sizes="192x192"/>
+    
+<link rel="stylesheet" href="/static/kico.css">
+<link rel="stylesheet" href="/static/hingle.css">
+
+    
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <meta name="viewport" content="width=device-width, maximum-scale=1, initial-scale=1"/>
+    <meta property="og:site_name" content="Richu">
+    <meta property="og:title" content="Gorm"/>
+    
+    <style>body:before{ content: ''; background-image: url(https://img.meituan.net/csc/d05518606ba7064dd445508e3cf3d4c42860983.png) }</style>
+    
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+  <body>
+    <header>
+    <div class="head-title">
+        <h4>Richu</h4>
+    </div>
+    <div class="head-action">
+        <div class="toggle-btn"></div>
+        <div class="light-btn"></div>
+        <div class="search-btn"></div>
+    </div>
+    <form class="head-search" method="post">
+        <input type="text" name="s" placeholder="搜索什么？">
+    </form>
+    <nav class="head-menu">
+        <a href="/">首页</a>
+        <div class="has-child">
+            <a>分类</a>
+            <div class="sub-menu">
+                <a class="category-link" href="/categories/Android/">Android</a><a class="category-link" href="/categories/Go/">Go</a><a class="category-link" href="/categories/Java/">Java</a><a class="category-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a><a class="category-link" href="/categories/%E8%BF%90%E7%BB%B4/">运维</a>
+            </div>
+        </div>
+        
+            <a href="/about">关于我</a>
+        
+    </nav>
+</header>
+
+    <main>
+    <div class="wrap min">
+        <section class="post-title">
+            <h2>Gorm</h2>
+            <div class="post-meta">
+                <time class="date">2024.10.25</time>
+            
+                <span class="category"><a class="category-link" href="/categories/Go/">Go</a></span>
+            
+            </div>
+        </section>
+        <article class="post-content">
+        
+            <p>全功能 ORM<br>关联 (Has One，Has Many，Belongs To，Many To Many，多态，单表继承)<br>Create，Save，Update，Delete，Find 中钩子方法<br>支持 Preload、Joins 的预加载<br>事务，嵌套事务，Save Point，Rollback To Saved Point<br>Context、预编译模式、DryRun 模式<br>批量插入，FindInBatches，Find&#x2F;Create with Map，使用 SQL 表达式、Context Valuer 进行 CRUD<br>SQL 构建器，Upsert，数据库锁，Optimizer&#x2F;Index&#x2F;Comment Hint，命名参数，子查询<br>复合主键，索引，约束<br>Auto Migration<br>自定义 Logger<br>灵活的可扩展插件 API：Database Resolver（多数据库，读写分离）、Prometheus…<br>每个特性都经过了测试的重重考验<br>开发者友好</p>
+<h2 id="1-基本使用"><a href="#1-基本使用" class="headerlink" title="1.基本使用"></a>1.基本使用</h2><h3 id="1-配置"><a href="#1-配置" class="headerlink" title="1.配置"></a>1.配置</h3><blockquote>
+<p>go get -u github.com&#x2F;jinzhu&#x2F;gorm</p>
+</blockquote>
+<p>2.创建表和字段数据</p>
+<pre><code class="highlight go"><span class="keyword">type</span> UserInfo <span class="keyword">struct</span> &#123;
+	ID      <span class="type">int</span>
+	Name    <span class="type">string</span>
+	Age     <span class="type">int</span>
+	Address <span class="type">string</span>
+&#125;
+
+<span class="function"><span class="keyword">func</span> <span class="title">main</span><span class="params">()</span></span> &#123;
+	db, err := gorm.Open(<span class="string">&quot;mysql&quot;</span>, <span class="string">&quot;root:password(127.0.0.1:3306)/mp?charset=utf8&amp;parseTime=True&amp;loc=Local&quot;</span>)
+	<span class="keyword">if</span> err != <span class="literal">nil</span> &#123;
+		fmt.Println(err)
+	&#125;
+	<span class="keyword">defer</span> db.Close()
+	<span class="comment">//创建表，自动迁移  (将结构体和数据表进行对应)</span>
+	db.AutoMigrate(&amp;UserInfo&#123;&#125;)
+
+	u1 := UserInfo&#123;<span class="number">1</span>, <span class="string">&quot;richu&quot;</span>, <span class="number">62</span>, <span class="string">&quot;there&quot;</span>&#125;
+	db.Create(&amp;u1)
+&#125;</code></pre>
+
+<blockquote>
+<p>查询</p>
+</blockquote>
+<pre><code class="highlight go"><span class="keyword">var</span> u UserInfo
+db.First(&amp;u)</code></pre>
+
+<blockquote>
+<p>更新</p>
+</blockquote>
+<pre><code class="highlight go"><span class="keyword">var</span> u UserInfo
+db.First(&amp;u)
+db.Model(&amp;u).Update(<span class="string">&quot;address&quot;</span>, <span class="string">&quot;that&quot;</span>)
+fmt.Println(u)</code></pre>
+
+<blockquote>
+<p>删除</p>
+</blockquote>
+<pre><code class="highlight go"><span class="comment">//删除</span>
+db.Delete(&amp;u)</code></pre>
+
+<h2 id="2-GORM-Model定义"><a href="#2-GORM-Model定义" class="headerlink" title="2.GORM Model定义"></a>2.GORM Model定义</h2><p>在使用ORM工具时，通常我们需要在代码中定义模型（Models）与数据库中的数据表进行映射，在GORM中模型（Models）通常是正常定义的结构体、基本的go类型或它们的指针。 同时也支持<code>sql.Scanner</code>及<code>driver.Valuer</code>接口（interfaces）。</p>
+<h3 id="1-gorm-Model"><a href="#1-gorm-Model" class="headerlink" title="1.gorm.Model"></a>1.gorm.Model</h3><p>为了方便模型定义，GORM内置了一个<code>gorm.Model</code>结构体。<code>gorm.Model</code>是一个包含了<code>ID</code>, <code>CreatedAt</code>, <code>UpdatedAt</code>, <code>DeletedAt</code>四个字段的Golang结构体。</p>
+<pre><code class="highlight go"><span class="comment">// gorm.Model 定义</span>
+<span class="keyword">type</span> Model <span class="keyword">struct</span> &#123;
+  ID        <span class="type">uint</span> <span class="string">`gorm:&quot;primary_key&quot;`</span>
+  CreatedAt time.Time
+  UpdatedAt time.Time
+  DeletedAt *time.Time
+&#125;</code></pre>
+
+<p>你可以将它嵌入到你自己的模型中：</p>
+<pre><code class="highlight go"><span class="comment">// 将 `ID`, `CreatedAt`, `UpdatedAt`, `DeletedAt`字段注入到`User`模型中</span>
+<span class="keyword">type</span> User <span class="keyword">struct</span> &#123;
+  gorm.Model
+  Name <span class="type">string</span>
+&#125;</code></pre>
+
+<p>当然你也可以完全自己定义模型：</p>
+<pre><code class="highlight go"><span class="comment">// 不使用gorm.Model，自行定义模型</span>
+<span class="keyword">type</span> User <span class="keyword">struct</span> &#123;
+  ID   <span class="type">int</span>
+  Name <span class="type">string</span>
+&#125;</code></pre>
+
+<h3 id="2-模型定义示例"><a href="#2-模型定义示例" class="headerlink" title="2.模型定义示例"></a>2.模型定义示例</h3><pre><code class="highlight go"><span class="keyword">type</span> User <span class="keyword">struct</span> &#123;
+  gorm.Model
+  Name         <span class="type">string</span>
+  Age          sql.NullInt64
+  Birthday     *time.Time
+  Email        <span class="type">string</span>  <span class="string">`gorm:&quot;type:varchar(100);unique_index&quot;`</span>
+  Role         <span class="type">string</span>  <span class="string">`gorm:&quot;size:255&quot;`</span> <span class="comment">// 设置字段大小为255</span>
+  MemberNumber *<span class="type">string</span> <span class="string">`gorm:&quot;unique;not null&quot;`</span> <span class="comment">// 设置会员号（member number）唯一并且不为空</span>
+  Num          <span class="type">int</span>     <span class="string">`gorm:&quot;AUTO_INCREMENT&quot;`</span> <span class="comment">// 设置 num 为自增类型</span>
+  Address      <span class="type">string</span>  <span class="string">`gorm:&quot;index:addr&quot;`</span> <span class="comment">// 给address字段创建名为addr的索引</span>
+  IgnoreMe     <span class="type">int</span>     <span class="string">`gorm:&quot;-&quot;`</span> <span class="comment">// 忽略本字段</span>
+&#125;</code></pre>
+
+<h3 id="3-结构体标记（tags）"><a href="#3-结构体标记（tags）" class="headerlink" title="3.结构体标记（tags）"></a>3.结构体标记（tags）</h3><p>使用结构体声明模型时，标记（tags）是可选项。gorm支持以下标记:</p>
+<h4 id="支持的结构体标记（Struct-tags）"><a href="#支持的结构体标记（Struct-tags）" class="headerlink" title="支持的结构体标记（Struct tags）"></a>支持的结构体标记（Struct tags）</h4><table>
+<thead>
+<tr>
+<th align="center">结构体标记（Tag）</th>
+<th align="center">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">Column</td>
+<td align="center">指定列名</td>
+</tr>
+<tr>
+<td align="center">Type</td>
+<td align="center">指定列数据类型</td>
+</tr>
+<tr>
+<td align="center">Size</td>
+<td align="center">指定列大小, 默认值255</td>
+</tr>
+<tr>
+<td align="center">PRIMARY_KEY</td>
+<td align="center">将列指定为主键</td>
+</tr>
+<tr>
+<td align="center">UNIQUE</td>
+<td align="center">将列指定为唯一</td>
+</tr>
+<tr>
+<td align="center">DEFAULT</td>
+<td align="center">指定列默认值</td>
+</tr>
+<tr>
+<td align="center">PRECISION</td>
+<td align="center">指定列精度</td>
+</tr>
+<tr>
+<td align="center">NOT NULL</td>
+<td align="center">将列指定为非 NULL</td>
+</tr>
+<tr>
+<td align="center">AUTO_INCREMENT</td>
+<td align="center">指定列是否为自增类型</td>
+</tr>
+<tr>
+<td align="center">INDEX</td>
+<td align="center">创建具有或不带名称的索引, 如果多个索引同名则创建复合索引</td>
+</tr>
+<tr>
+<td align="center">UNIQUE_INDEX</td>
+<td align="center">和 <code>INDEX</code> 类似，只不过创建的是唯一索引</td>
+</tr>
+<tr>
+<td align="center">EMBEDDED</td>
+<td align="center">将结构设置为嵌入</td>
+</tr>
+<tr>
+<td align="center">EMBEDDED_PREFIX</td>
+<td align="center">设置嵌入结构的前缀</td>
+</tr>
+<tr>
+<td align="center">-</td>
+<td align="center">忽略此字段</td>
+</tr>
+</tbody></table>
+<h4 id="关联相关标记（tags）"><a href="#关联相关标记（tags）" class="headerlink" title="关联相关标记（tags）"></a>关联相关标记（tags）</h4><table>
+<thead>
+<tr>
+<th align="center">结构体标记（Tag）</th>
+<th align="center">描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="center">MANY2MANY</td>
+<td align="center">指定连接表</td>
+</tr>
+<tr>
+<td align="center">FOREIGNKEY</td>
+<td align="center">设置外键</td>
+</tr>
+<tr>
+<td align="center">ASSOCIATION_FOREIGNKEY</td>
+<td align="center">设置关联外键</td>
+</tr>
+<tr>
+<td align="center">POLYMORPHIC</td>
+<td align="center">指定多态类型</td>
+</tr>
+<tr>
+<td align="center">POLYMORPHIC_VALUE</td>
+<td align="center">指定多态值</td>
+</tr>
+<tr>
+<td align="center">JOINTABLE_FOREIGNKEY</td>
+<td align="center">指定连接表的外键</td>
+</tr>
+<tr>
+<td align="center">ASSOCIATION_JOINTABLE_FOREIGNKEY</td>
+<td align="center">指定连接表的关联外键</td>
+</tr>
+<tr>
+<td align="center">SAVE_ASSOCIATIONS</td>
+<td align="center">是否自动完成 save 的相关操作</td>
+</tr>
+<tr>
+<td align="center">ASSOCIATION_AUTOUPDATE</td>
+<td align="center">是否自动完成 update 的相关操作</td>
+</tr>
+<tr>
+<td align="center">ASSOCIATION_AUTOCREATE</td>
+<td align="center">是否自动完成 create 的相关操作</td>
+</tr>
+<tr>
+<td align="center">ASSOCIATION_SAVE_REFERENCE</td>
+<td align="center">是否自动完成引用的 save 的相关操作</td>
+</tr>
+<tr>
+<td align="center">PRELOAD</td>
+<td align="center">是否自动完成预加载的相关操作</td>
+</tr>
+</tbody></table>
+<h2 id="3-主键、表名、列名的约定"><a href="#3-主键、表名、列名的约定" class="headerlink" title="3.主键、表名、列名的约定"></a>3.主键、表名、列名的约定</h2><h3 id="1-主键（Primary-Key）"><a href="#1-主键（Primary-Key）" class="headerlink" title="1.主键（Primary Key）"></a>1.主键（Primary Key）</h3><p>GORM 默认会使用名为ID的字段作为表的主键。</p>
+<pre><code class="highlight go"><span class="keyword">type</span> User <span class="keyword">struct</span> &#123;
+  ID   <span class="type">string</span> <span class="comment">// 名为`ID`的字段会默认作为表的主键</span>
+  Name <span class="type">string</span>
+&#125;
+
+<span class="comment">// 使用`AnimalID`作为主键</span>
+<span class="keyword">type</span> Animal <span class="keyword">struct</span> &#123;
+  AnimalID <span class="type">int64</span> <span class="string">`gorm:&quot;primary_key&quot;`</span>
+  Name     <span class="type">string</span>
+  Age      <span class="type">int64</span>
+&#125;</code></pre>
+
+<h3 id="2-表名（Table-Name）"><a href="#2-表名（Table-Name）" class="headerlink" title="2.表名（Table Name）"></a>2.表名（Table Name）</h3><p>表名默认就是结构体名称的复数，例如：</p>
+<pre><code class="highlight go"><span class="keyword">type</span> User <span class="keyword">struct</span> &#123;&#125; <span class="comment">// 默认表名是 `users`</span>
+
+<span class="comment">// 将 User 的表名设置为 `profiles`</span>
+<span class="function"><span class="keyword">func</span> <span class="params">(User)</span></span> TableName() <span class="type">string</span> &#123;
+  <span class="keyword">return</span> <span class="string">&quot;profiles&quot;</span>
+&#125;
+
+<span class="function"><span class="keyword">func</span> <span class="params">(u User)</span></span> TableName() <span class="type">string</span> &#123;
+  <span class="keyword">if</span> u.Role == <span class="string">&quot;admin&quot;</span> &#123;
+    <span class="keyword">return</span> <span class="string">&quot;admin_users&quot;</span>
+  &#125; <span class="keyword">else</span> &#123;
+    <span class="keyword">return</span> <span class="string">&quot;users&quot;</span>
+  &#125;
+&#125;
+
+<span class="comment">// 禁用默认表名的复数形式，如果置为 true，则 `User` 的默认表名是 `user`</span>
+db.SingularTable(<span class="literal">true</span>)</code></pre>
+
+<p>也可以通过<code>Table()</code>指定表名：</p>
+<pre><code class="highlight go"><span class="comment">// 使用User结构体创建名为`deleted_users`的表</span>
+db.Table(<span class="string">&quot;deleted_users&quot;</span>).CreateTable(&amp;User&#123;&#125;)
+
+<span class="keyword">var</span> deleted_users []User
+db.Table(<span class="string">&quot;deleted_users&quot;</span>).Find(&amp;deleted_users)
+<span class="comment">//// SELECT * FROM deleted_users;</span>
+
+db.Table(<span class="string">&quot;deleted_users&quot;</span>).Where(<span class="string">&quot;name = ?&quot;</span>, <span class="string">&quot;jinzhu&quot;</span>).Delete()
+<span class="comment">//// DELETE FROM deleted_users WHERE name = &#x27;jinzhu&#x27;;</span></code></pre>
+
+<p>GORM还支持更改默认表名称规则：</p>
+<pre><code class="highlight go">gorm.DefaultTableNameHandler = <span class="function"><span class="keyword">func</span> <span class="params">(db *gorm.DB, defaultTableName <span class="type">string</span>)</span></span> <span class="type">string</span>  &#123;
+  <span class="keyword">return</span> <span class="string">&quot;prefix_&quot;</span> + defaultTableName;
+&#125;</code></pre>
+
+<h3 id="3-列名（Column-Name）"><a href="#3-列名（Column-Name）" class="headerlink" title="3.列名（Column Name）"></a>3.列名（Column Name）</h3><p>列名由字段名称进行下划线分割来生成</p>
+<pre><code class="highlight go"><span class="keyword">type</span> User <span class="keyword">struct</span> &#123;
+  ID        <span class="type">uint</span>      <span class="comment">// column name is `id`</span>
+  Name      <span class="type">string</span>    <span class="comment">// column name is `name`</span>
+  Birthday  time.Time <span class="comment">// column name is `birthday`</span>
+  CreatedAt time.Time <span class="comment">// column name is `created_at`</span>
+&#125;</code></pre>
+
+<p>可以使用结构体tag指定列名：</p>
+<pre><code class="highlight go"><span class="keyword">type</span> Animal <span class="keyword">struct</span> &#123;
+  AnimalId    <span class="type">int64</span>     <span class="string">`gorm:&quot;column:beast_id&quot;`</span>         <span class="comment">// set column name to `beast_id`</span>
+  Birthday    time.Time <span class="string">`gorm:&quot;column:day_of_the_beast&quot;`</span> <span class="comment">// set column name to `day_of_the_beast`</span>
+  Age         <span class="type">int64</span>     <span class="string">`gorm:&quot;column:age_of_the_beast&quot;`</span> <span class="comment">// set column name to `age_of_the_beast`</span>
+&#125;</code></pre>
+
+<h3 id="4-时间戳跟踪"><a href="#4-时间戳跟踪" class="headerlink" title="4.时间戳跟踪"></a>4.时间戳跟踪</h3><h4 id="CreatedAt"><a href="#CreatedAt" class="headerlink" title="CreatedAt"></a>CreatedAt</h4><p>如果模型有 <code>CreatedAt</code>字段，该字段的值将会是初次创建记录的时间。</p>
+<pre><code class="highlight go">db.Create(&amp;user) <span class="comment">// `CreatedAt`将会是当前时间</span>
+
+<span class="comment">// 可以使用`Update`方法来改变`CreateAt`的值</span>
+db.Model(&amp;user).Update(<span class="string">&quot;CreatedAt&quot;</span>, time.Now())</code></pre>
+
+<h4 id="UpdatedAt"><a href="#UpdatedAt" class="headerlink" title="UpdatedAt"></a>UpdatedAt</h4><p>如果模型有<code>UpdatedAt</code>字段，该字段的值将会是每次更新记录的时间。</p>
+<pre><code class="highlight go">db.Save(&amp;user) <span class="comment">// `UpdatedAt`将会是当前时间</span>
+
+db.Model(&amp;user).Update(<span class="string">&quot;name&quot;</span>, <span class="string">&quot;jinzhu&quot;</span>) <span class="comment">// `UpdatedAt`将会是当前时间</span></code></pre>
+
+<h4 id="DeletedAt"><a href="#DeletedAt" class="headerlink" title="DeletedAt"></a>DeletedAt</h4><p>如果模型有<code>DeletedAt</code>字段，调用<code>Delete</code>删除该记录时，将会设置<code>DeletedAt</code>字段为当前时间，而不是直接将记录从数据库中删除。</p>
+<h2 id="4-创建"><a href="#4-创建" class="headerlink" title="4.创建"></a>4.创建</h2><h3 id="1-创建记录"><a href="#1-创建记录" class="headerlink" title="1.创建记录"></a>1.创建记录</h3><p>首先定义模型：</p>
+<pre><code class="highlight go"><span class="keyword">type</span> User <span class="keyword">struct</span> &#123;
+	ID           <span class="type">int64</span>
+	Name         <span class="type">string</span>
+	Age          <span class="type">int64</span>
+&#125;</code></pre>
+
+<p>使用使用<code>NewRecord()</code>查询主键是否存在，主键为空使用<code>Create()</code>创建记录：</p>
+<pre><code class="highlight go">user := User&#123;Name: <span class="string">&quot;richu&quot;</span>, Age: <span class="number">18</span>&#125;
+
+db.NewRecord(user) <span class="comment">// 主键为空返回`true`</span>
+db.Create(&amp;user)   <span class="comment">// 创建user</span>
+db.NewRecord(user) <span class="comment">// 创建`user`后返回`false`</span></code></pre>
+
+<h3 id="2-默认值"><a href="#2-默认值" class="headerlink" title="2.默认值"></a>2.默认值</h3><p>可以通过 tag 定义字段的默认值，比如：</p>
+<pre><code class="highlight go"><span class="keyword">type</span> User <span class="keyword">struct</span> &#123;
+  ID   <span class="type">int64</span>
+  Name <span class="type">string</span> <span class="string">`gorm:&quot;default:&#x27;richu&#x27;&quot;`</span>
+  Age  <span class="type">int64</span>
+&#125;</code></pre>
+
+<p><strong>注意：</strong>通过tag定义字段的默认值，在创建记录时候生成的 SQL 语句会排除没有值或值为 零值 的字段。 在将记录插入到数据库后，Gorm会从数据库加载那些字段的默认值。</p>
+<p>举个例子：</p>
+<pre><code class="highlight go"><span class="keyword">var</span> user = User&#123;Name: <span class="string">&quot;&quot;</span>, Age: <span class="number">99</span>&#125;
+db.Create(&amp;user)</code></pre>
+
+<p>上面代码实际执行的SQL语句是<code>INSERT INTO users(&quot;age&quot;) values(&#39;99&#39;);</code>，排除了零值字段<code>Name</code>，而在数据库中这一条数据会使用设置的默认值<code>小王子</code>作为Name字段的值。</p>
+<p><strong>注意：</strong>所有字段的零值, 比如<code>0</code>, <code>&quot;&quot;</code>,<code>false</code>或者其它<code>零值</code>，都不会保存到数据库内，但会使用他们的默认值。 如果你想避免这种情况，可以考虑使用指针或实现 <code>Scanner/Valuer</code>接口，比如：</p>
+<h4 id="使用指针方式实现零值存入数据库"><a href="#使用指针方式实现零值存入数据库" class="headerlink" title="使用指针方式实现零值存入数据库"></a>使用指针方式实现零值存入数据库</h4><pre><code class="highlight go"><span class="comment">// 使用指针</span>
+<span class="keyword">type</span> User <span class="keyword">struct</span> &#123;
+  ID   <span class="type">int64</span>
+  Name *<span class="type">string</span> <span class="string">`gorm:&quot;default:&#x27;小王子&#x27;&quot;`</span>
+  Age  <span class="type">int64</span>
+&#125;
+user := User&#123;Name: <span class="built_in">new</span>(<span class="type">string</span>), Age: <span class="number">18</span>))&#125;
+db.Create(&amp;user)  <span class="comment">// 此时数据库中该条记录name字段的值就是&#x27;&#x27;</span></code></pre>
+
+<h4 id="使用Scanner-Valuer接口方式实现零值存入数据库"><a href="#使用Scanner-Valuer接口方式实现零值存入数据库" class="headerlink" title="使用Scanner&#x2F;Valuer接口方式实现零值存入数据库"></a>使用Scanner&#x2F;Valuer接口方式实现零值存入数据库</h4><pre><code class="highlight go"><span class="comment">// 使用 Scanner/Valuer</span>
+<span class="keyword">type</span> User <span class="keyword">struct</span> &#123;
+	ID <span class="type">int64</span>
+	Name sql.NullString <span class="string">`gorm:&quot;default:&#x27;小王子&#x27;&quot;`</span> <span class="comment">// sql.NullString 实现了Scanner/Valuer接口</span>
+	Age  <span class="type">int64</span>
+&#125;
+user := User&#123;Name: sql.NullString&#123;<span class="string">&quot;&quot;</span>, <span class="literal">true</span>&#125;, Age:<span class="number">18</span>&#125;
+db.Create(&amp;user)  <span class="comment">// 此时数据库中该条记录name字段的值就是&#x27;&#x27;</span></code></pre>
+
+<h3 id="扩展创建选项"><a href="#扩展创建选项" class="headerlink" title="扩展创建选项"></a>扩展创建选项</h3><p>例如<code>PostgreSQL</code>数据库中可以使用下面的方式实现合并插入, 有则更新, 无则插入。</p>
+<pre><code class="highlight go"><span class="comment">// 为Instert语句添加扩展SQL选项</span>
+db.Set(<span class="string">&quot;gorm:insert_option&quot;</span>, <span class="string">&quot;ON CONFLICT&quot;</span>).Create(&amp;product)
+<span class="comment">// INSERT INTO products (name, code) VALUES (&quot;name&quot;, &quot;code&quot;) ON CONFLICT;</span></code></pre>
+
+<h2 id="5-查询"><a href="#5-查询" class="headerlink" title="5.查询"></a>5.查询</h2><p>一般查询</p>
+<pre><code class="highlight go"><span class="comment">// 根据主键查询第一条记录</span>
+db.First(&amp;user)
+<span class="comment">//// SELECT * FROM users ORDER BY id LIMIT 1;</span>
+
+<span class="comment">// 随机获取一条记录</span>
+db.Take(&amp;user)
+<span class="comment">//// SELECT * FROM users LIMIT 1;</span>
+
+<span class="comment">// 根据主键查询最后一条记录</span>
+db.Last(&amp;user)
+<span class="comment">//// SELECT * FROM users ORDER BY id DESC LIMIT 1;</span>
+
+<span class="comment">// 查询所有的记录</span>
+db.Find(&amp;users)
+<span class="comment">//// SELECT * FROM users;</span>
+
+<span class="comment">// 查询指定的某条记录(仅当主键为整型时可用)</span>
+db.First(&amp;user, <span class="number">10</span>)
+<span class="comment">//// SELECT * FROM users WHERE id = 10;</span></code></pre>
+
+<h3 id="Where-条件"><a href="#Where-条件" class="headerlink" title="Where 条件"></a>Where 条件</h3><h4 id="普通SQL查询"><a href="#普通SQL查询" class="headerlink" title="普通SQL查询"></a>普通SQL查询</h4><pre><code class="highlight go"><span class="comment">// Get first matched record</span>
+db.Where(<span class="string">&quot;name = ?&quot;</span>, <span class="string">&quot;jinzhu&quot;</span>).First(&amp;user)
+<span class="comment">//// SELECT * FROM users WHERE name = &#x27;jinzhu&#x27; limit 1;</span>
+
+<span class="comment">// Get all matched records</span>
+db.Where(<span class="string">&quot;name = ?&quot;</span>, <span class="string">&quot;jinzhu&quot;</span>).Find(&amp;users)
+<span class="comment">//// SELECT * FROM users WHERE name = &#x27;jinzhu&#x27;;</span>
+
+<span class="comment">// &lt;&gt;</span>
+db.Where(<span class="string">&quot;name &lt;&gt; ?&quot;</span>, <span class="string">&quot;jinzhu&quot;</span>).Find(&amp;users)
+<span class="comment">//// SELECT * FROM users WHERE name &lt;&gt; &#x27;jinzhu&#x27;;</span>
+
+<span class="comment">// IN</span>
+db.Where(<span class="string">&quot;name IN (?)&quot;</span>, []<span class="type">string</span>&#123;<span class="string">&quot;jinzhu&quot;</span>, <span class="string">&quot;jinzhu 2&quot;</span>&#125;).Find(&amp;users)
+<span class="comment">//// SELECT * FROM users WHERE name in (&#x27;jinzhu&#x27;,&#x27;jinzhu 2&#x27;);</span>
+
+<span class="comment">// LIKE</span>
+db.Where(<span class="string">&quot;name LIKE ?&quot;</span>, <span class="string">&quot;%jin%&quot;</span>).Find(&amp;users)
+<span class="comment">//// SELECT * FROM users WHERE name LIKE &#x27;%jin%&#x27;;</span>
+
+<span class="comment">// AND</span>
+db.Where(<span class="string">&quot;name = ? AND age &gt;= ?&quot;</span>, <span class="string">&quot;jinzhu&quot;</span>, <span class="string">&quot;22&quot;</span>).Find(&amp;users)
+<span class="comment">//// SELECT * FROM users WHERE name = &#x27;jinzhu&#x27; AND age &gt;= 22;</span>
+
+<span class="comment">// Time</span>
+db.Where(<span class="string">&quot;updated_at &gt; ?&quot;</span>, lastWeek).Find(&amp;users)
+<span class="comment">//// SELECT * FROM users WHERE updated_at &gt; &#x27;2000-01-01 00:00:00&#x27;;</span>
+
+<span class="comment">// BETWEEN</span>
+db.Where(<span class="string">&quot;created_at BETWEEN ? AND ?&quot;</span>, lastWeek, today).Find(&amp;users)
+<span class="comment">//// SELECT * FROM users WHERE created_at BETWEEN &#x27;2000-01-01 00:00:00&#x27; AND &#x27;2000-01-08 00:00:00&#x27;;</span></code></pre>
+
+<h4 id="Struct-Map查询"><a href="#Struct-Map查询" class="headerlink" title="Struct &amp; Map查询"></a>Struct &amp; Map查询</h4><pre><code class="highlight go"><span class="comment">// Struct</span>
+db.Where(&amp;User&#123;Name: <span class="string">&quot;jinzhu&quot;</span>, Age: <span class="number">20</span>&#125;).First(&amp;user)
+<span class="comment">//// SELECT * FROM users WHERE name = &quot;jinzhu&quot; AND age = 20 LIMIT 1;</span>
+
+<span class="comment">// Map</span>
+db.Where(<span class="keyword">map</span>[<span class="type">string</span>]<span class="keyword">interface</span>&#123;&#125;&#123;<span class="string">&quot;name&quot;</span>: <span class="string">&quot;jinzhu&quot;</span>, <span class="string">&quot;age&quot;</span>: <span class="number">20</span>&#125;).Find(&amp;users)
+<span class="comment">//// SELECT * FROM users WHERE name = &quot;jinzhu&quot; AND age = 20;</span>
+
+<span class="comment">// 主键的切片</span>
+db.Where([]<span class="type">int64</span>&#123;<span class="number">20</span>, <span class="number">21</span>, <span class="number">22</span>&#125;).Find(&amp;users)
+<span class="comment">//// SELECT * FROM users WHERE id IN (20, 21, 22);</span></code></pre>
+
+<p><strong>提示：</strong>当通过结构体进行查询时，GORM将会只通过非零值字段查询，这意味着如果你的字段值为<code>0</code>，<code>&#39;&#39;</code>，<code>false</code>或者其他<code>零值</code>时，将不会被用于构建查询条件，例如：</p>
+<pre><code class="highlight go">db.Where(&amp;User&#123;Name: <span class="string">&quot;jinzhu&quot;</span>, Age: <span class="number">0</span>&#125;).Find(&amp;users)
+<span class="comment">//// SELECT * FROM users WHERE name = &quot;jinzhu&quot;;</span></code></pre>
+
+<p>你可以使用指针或实现 Scanner&#x2F;Valuer 接口来避免这个问题.</p>
+<pre><code class="highlight go"><span class="comment">// 使用指针</span>
+<span class="keyword">type</span> User <span class="keyword">struct</span> &#123;
+  gorm.Model
+  Name <span class="type">string</span>
+  Age  *<span class="type">int</span>
+&#125;
+
+<span class="comment">// 使用 Scanner/Valuer</span>
+<span class="keyword">type</span> User <span class="keyword">struct</span> &#123;
+  gorm.Model
+  Name <span class="type">string</span>
+  Age  sql.NullInt64  <span class="comment">// sql.NullInt64 实现了 Scanner/Valuer 接口</span>
+&#125;</code></pre>
+
+<h3 id="Not-条件"><a href="#Not-条件" class="headerlink" title="Not 条件"></a>Not 条件</h3><p>作用与 Where 类似的情形如下：</p>
+<pre><code class="highlight go">db.Not(<span class="string">&quot;name&quot;</span>, <span class="string">&quot;jinzhu&quot;</span>).First(&amp;user)
+<span class="comment">//// SELECT * FROM users WHERE name &lt;&gt; &quot;jinzhu&quot; LIMIT 1;</span>
+
+<span class="comment">// Not In</span>
+db.Not(<span class="string">&quot;name&quot;</span>, []<span class="type">string</span>&#123;<span class="string">&quot;jinzhu&quot;</span>, <span class="string">&quot;jinzhu 2&quot;</span>&#125;).Find(&amp;users)
+<span class="comment">//// SELECT * FROM users WHERE name NOT IN (&quot;jinzhu&quot;, &quot;jinzhu 2&quot;);</span>
+
+<span class="comment">// Not In slice of primary keys</span>
+db.Not([]<span class="type">int64</span>&#123;<span class="number">1</span>,<span class="number">2</span>,<span class="number">3</span>&#125;).First(&amp;user)
+<span class="comment">//// SELECT * FROM users WHERE id NOT IN (1,2,3);</span>
+
+db.Not([]<span class="type">int64</span>&#123;&#125;).First(&amp;user)
+<span class="comment">//// SELECT * FROM users;</span>
+
+<span class="comment">// Plain SQL</span>
+db.Not(<span class="string">&quot;name = ?&quot;</span>, <span class="string">&quot;jinzhu&quot;</span>).First(&amp;user)
+<span class="comment">//// SELECT * FROM users WHERE NOT(name = &quot;jinzhu&quot;);</span>
+
+<span class="comment">// Struct</span>
+db.Not(User&#123;Name: <span class="string">&quot;jinzhu&quot;</span>&#125;).First(&amp;user)
+<span class="comment">//// SELECT * FROM users WHERE name &lt;&gt; &quot;jinzhu&quot;;</span></code></pre>
+
+<h3 id="Or条件"><a href="#Or条件" class="headerlink" title="Or条件"></a>Or条件</h3><pre><code class="highlight go">db.Where(<span class="string">&quot;role = ?&quot;</span>, <span class="string">&quot;admin&quot;</span>).Or(<span class="string">&quot;role = ?&quot;</span>, <span class="string">&quot;super_admin&quot;</span>).Find(&amp;users)
+<span class="comment">//// SELECT * FROM users WHERE role = &#x27;admin&#x27; OR role = &#x27;super_admin&#x27;;</span>
+
+<span class="comment">// Struct</span>
+db.Where(<span class="string">&quot;name = &#x27;jinzhu&#x27;&quot;</span>).Or(User&#123;Name: <span class="string">&quot;jinzhu 2&quot;</span>&#125;).Find(&amp;users)
+<span class="comment">//// SELECT * FROM users WHERE name = &#x27;jinzhu&#x27; OR name = &#x27;jinzhu 2&#x27;;</span>
+
+<span class="comment">// Map</span>
+db.Where(<span class="string">&quot;name = &#x27;jinzhu&#x27;&quot;</span>).Or(<span class="keyword">map</span>[<span class="type">string</span>]<span class="keyword">interface</span>&#123;&#125;&#123;<span class="string">&quot;name&quot;</span>: <span class="string">&quot;jinzhu 2&quot;</span>&#125;).Find(&amp;users)
+<span class="comment">//// SELECT * FROM users WHERE name = &#x27;jinzhu&#x27; OR name = &#x27;jinzhu 2&#x27;;</span></code></pre>
+
+<h3 id="内联条件"><a href="#内联条件" class="headerlink" title="内联条件"></a>内联条件</h3><p>作用与<code>Where</code>查询类似，当内联条件与多个<a target="_blank" rel="noopener" href="https://www.liwenzhou.com/posts/Go/gorm-crud/#autoid-1-3-1">立即执行方法</a>一起使用时, 内联条件不会传递给后面的立即执行方法。</p>
+<pre><code class="highlight go"><span class="comment">// 根据主键获取记录 (只适用于整形主键)</span>
+db.First(&amp;user, <span class="number">23</span>)
+<span class="comment">//// SELECT * FROM users WHERE id = 23 LIMIT 1;</span>
+<span class="comment">// 根据主键获取记录, 如果它是一个非整形主键</span>
+db.First(&amp;user, <span class="string">&quot;id = ?&quot;</span>, <span class="string">&quot;string_primary_key&quot;</span>)
+<span class="comment">//// SELECT * FROM users WHERE id = &#x27;string_primary_key&#x27; LIMIT 1;</span>
+
+<span class="comment">// Plain SQL</span>
+db.Find(&amp;user, <span class="string">&quot;name = ?&quot;</span>, <span class="string">&quot;jinzhu&quot;</span>)
+<span class="comment">//// SELECT * FROM users WHERE name = &quot;jinzhu&quot;;</span>
+
+db.Find(&amp;users, <span class="string">&quot;name &lt;&gt; ? AND age &gt; ?&quot;</span>, <span class="string">&quot;jinzhu&quot;</span>, <span class="number">20</span>)
+<span class="comment">//// SELECT * FROM users WHERE name &lt;&gt; &quot;jinzhu&quot; AND age &gt; 20;</span>
+
+<span class="comment">// Struct</span>
+db.Find(&amp;users, User&#123;Age: <span class="number">20</span>&#125;)
+<span class="comment">//// SELECT * FROM users WHERE age = 20;</span>
+
+<span class="comment">// Map</span>
+db.Find(&amp;users, <span class="keyword">map</span>[<span class="type">string</span>]<span class="keyword">interface</span>&#123;&#125;&#123;<span class="string">&quot;age&quot;</span>: <span class="number">20</span>&#125;)
+<span class="comment">//// SELECT * FROM users WHERE age = 20;</span></code></pre>
+
+<h3 id="额外查询选项"><a href="#额外查询选项" class="headerlink" title="额外查询选项"></a>额外查询选项</h3><pre><code class="highlight go"><span class="comment">// 为查询 SQL 添加额外的 SQL 操作</span>
+db.Set(<span class="string">&quot;gorm:query_option&quot;</span>, <span class="string">&quot;FOR UPDATE&quot;</span>).First(&amp;user, <span class="number">10</span>)
+<span class="comment">//// SELECT * FROM users WHERE id = 10 FOR UPDATE;</span></code></pre>
+
+<h3 id="FirstOrInit"><a href="#FirstOrInit" class="headerlink" title="FirstOrInit"></a>FirstOrInit</h3><p>获取匹配的第一条记录，否则根据给定的条件初始化一个新的对象 (仅支持 struct 和 map 条件)</p>
+<pre><code class="highlight go"><span class="comment">// 未找到</span>
+db.FirstOrInit(&amp;user, User&#123;Name: <span class="string">&quot;non_existing&quot;</span>&#125;)
+<span class="comment">//// user -&gt; User&#123;Name: &quot;non_existing&quot;&#125;</span>
+
+<span class="comment">// 找到</span>
+db.Where(User&#123;Name: <span class="string">&quot;Jinzhu&quot;</span>&#125;).FirstOrInit(&amp;user)
+<span class="comment">//// user -&gt; User&#123;Id: 111, Name: &quot;Jinzhu&quot;, Age: 20&#125;</span>
+db.FirstOrInit(&amp;user, <span class="keyword">map</span>[<span class="type">string</span>]<span class="keyword">interface</span>&#123;&#125;&#123;<span class="string">&quot;name&quot;</span>: <span class="string">&quot;jinzhu&quot;</span>&#125;)
+<span class="comment">//// user -&gt; User&#123;Id: 111, Name: &quot;Jinzhu&quot;, Age: 20&#125;</span></code></pre>
+
+<h4 id="Attrs"><a href="#Attrs" class="headerlink" title="Attrs"></a>Attrs</h4><p>如果记录未找到，将使用参数初始化 struct.</p>
+<pre><code class="highlight go"><span class="comment">// 未找到</span>
+db.Where(User&#123;Name: <span class="string">&quot;non_existing&quot;</span>&#125;).Attrs(User&#123;Age: <span class="number">20</span>&#125;).FirstOrInit(&amp;user)
+<span class="comment">//// SELECT * FROM USERS WHERE name = &#x27;non_existing&#x27;;</span>
+<span class="comment">//// user -&gt; User&#123;Name: &quot;non_existing&quot;, Age: 20&#125;</span>
+
+db.Where(User&#123;Name: <span class="string">&quot;non_existing&quot;</span>&#125;).Attrs(<span class="string">&quot;age&quot;</span>, <span class="number">20</span>).FirstOrInit(&amp;user)
+<span class="comment">//// SELECT * FROM USERS WHERE name = &#x27;non_existing&#x27;;</span>
+<span class="comment">//// user -&gt; User&#123;Name: &quot;non_existing&quot;, Age: 20&#125;</span>
+
+<span class="comment">// 找到</span>
+db.Where(User&#123;Name: <span class="string">&quot;Jinzhu&quot;</span>&#125;).Attrs(User&#123;Age: <span class="number">30</span>&#125;).FirstOrInit(&amp;user)
+<span class="comment">//// SELECT * FROM USERS WHERE name = jinzhu&#x27;;</span>
+<span class="comment">//// user -&gt; User&#123;Id: 111, Name: &quot;Jinzhu&quot;, Age: 20&#125;</span></code></pre>
+
+<h4 id="Assign"><a href="#Assign" class="headerlink" title="Assign"></a>Assign</h4><p>不管记录是否找到，都将参数赋值给 struct.</p>
+<pre><code class="highlight go"><span class="comment">// 未找到</span>
+db.Where(User&#123;Name: <span class="string">&quot;non_existing&quot;</span>&#125;).Assign(User&#123;Age: <span class="number">20</span>&#125;).FirstOrInit(&amp;user)
+<span class="comment">//// user -&gt; User&#123;Name: &quot;non_existing&quot;, Age: 20&#125;</span>
+
+<span class="comment">// 找到</span>
+db.Where(User&#123;Name: <span class="string">&quot;Jinzhu&quot;</span>&#125;).Assign(User&#123;Age: <span class="number">30</span>&#125;).FirstOrInit(&amp;user)
+<span class="comment">//// SELECT * FROM USERS WHERE name = jinzhu&#x27;;</span>
+<span class="comment">//// user -&gt; User&#123;Id: 111, Name: &quot;Jinzhu&quot;, Age: 30&#125;</span></code></pre>
+
+<h3 id="FirstOrCreate"><a href="#FirstOrCreate" class="headerlink" title="FirstOrCreate"></a>FirstOrCreate</h3><p>获取匹配的第一条记录, 否则根据给定的条件创建一个新的记录 (仅支持 struct 和 map 条件)</p>
+<pre><code class="highlight go"><span class="comment">// 未找到</span>
+db.FirstOrCreate(&amp;user, User&#123;Name: <span class="string">&quot;non_existing&quot;</span>&#125;)
+<span class="comment">//// INSERT INTO &quot;users&quot; (name) VALUES (&quot;non_existing&quot;);</span>
+<span class="comment">//// user -&gt; User&#123;Id: 112, Name: &quot;non_existing&quot;&#125;</span>
+
+<span class="comment">// 找到</span>
+db.Where(User&#123;Name: <span class="string">&quot;Jinzhu&quot;</span>&#125;).FirstOrCreate(&amp;user)
+<span class="comment">//// user -&gt; User&#123;Id: 111, Name: &quot;Jinzhu&quot;&#125;</span></code></pre>
+
+<h4 id="Attrs-1"><a href="#Attrs-1" class="headerlink" title="Attrs"></a>Attrs</h4><p>如果记录未找到，将使用参数创建 struct 和记录.</p>
+<pre><code class="highlight go"> <span class="comment">// 未找到</span>
+db.Where(User&#123;Name: <span class="string">&quot;non_existing&quot;</span>&#125;).Attrs(User&#123;Age: <span class="number">20</span>&#125;).FirstOrCreate(&amp;user)
+<span class="comment">//// SELECT * FROM users WHERE name = &#x27;non_existing&#x27;;</span>
+<span class="comment">//// INSERT INTO &quot;users&quot; (name, age) VALUES (&quot;non_existing&quot;, 20);</span>
+<span class="comment">//// user -&gt; User&#123;Id: 112, Name: &quot;non_existing&quot;, Age: 20&#125;</span>
+
+<span class="comment">// 找到</span>
+db.Where(User&#123;Name: <span class="string">&quot;jinzhu&quot;</span>&#125;).Attrs(User&#123;Age: <span class="number">30</span>&#125;).FirstOrCreate(&amp;user)
+<span class="comment">//// SELECT * FROM users WHERE name = &#x27;jinzhu&#x27;;</span>
+<span class="comment">//// user -&gt; User&#123;Id: 111, Name: &quot;jinzhu&quot;, Age: 20&#125;</span></code></pre>
+
+<h4 id="Assign-1"><a href="#Assign-1" class="headerlink" title="Assign"></a>Assign</h4><p>不管记录是否找到，都将参数赋值给 struct 并保存至数据库.</p>
+<pre><code class="highlight go"><span class="comment">// 未找到</span>
+db.Where(User&#123;Name: <span class="string">&quot;non_existing&quot;</span>&#125;).Assign(User&#123;Age: <span class="number">20</span>&#125;).FirstOrCreate(&amp;user)
+<span class="comment">//// SELECT * FROM users WHERE name = &#x27;non_existing&#x27;;</span>
+<span class="comment">//// INSERT INTO &quot;users&quot; (name, age) VALUES (&quot;non_existing&quot;, 20);</span>
+<span class="comment">//// user -&gt; User&#123;Id: 112, Name: &quot;non_existing&quot;, Age: 20&#125;</span>
+
+<span class="comment">// 找到</span>
+db.Where(User&#123;Name: <span class="string">&quot;jinzhu&quot;</span>&#125;).Assign(User&#123;Age: <span class="number">30</span>&#125;).FirstOrCreate(&amp;user)
+<span class="comment">//// SELECT * FROM users WHERE name = &#x27;jinzhu&#x27;;</span>
+<span class="comment">//// UPDATE users SET age=30 WHERE id = 111;</span>
+<span class="comment">//// user -&gt; User&#123;Id: 111, Name: &quot;jinzhu&quot;, Age: 30&#125;</span></code></pre>
+
+<h3 id="高级查询"><a href="#高级查询" class="headerlink" title="高级查询"></a>高级查询</h3><h4 id="子查询"><a href="#子查询" class="headerlink" title="子查询"></a>子查询</h4><p>基于 <code>*gorm.expr</code> 的子查询</p>
+<pre><code class="highlight go">db.Where(<span class="string">&quot;amount &gt; ?&quot;</span>, db.Table(<span class="string">&quot;orders&quot;</span>).Select(<span class="string">&quot;AVG(amount)&quot;</span>).Where(<span class="string">&quot;state = ?&quot;</span>, <span class="string">&quot;paid&quot;</span>).SubQuery()).Find(&amp;orders)
+<span class="comment">// SELECT * FROM &quot;orders&quot;  WHERE &quot;orders&quot;.&quot;deleted_at&quot; IS NULL AND (amount &gt; (SELECT AVG(amount) FROM &quot;orders&quot;  WHERE (state = &#x27;paid&#x27;)));</span></code></pre>
+
+<h4 id="选择字段"><a href="#选择字段" class="headerlink" title="选择字段"></a>选择字段</h4><p>Select，指定你想从数据库中检索出的字段，默认会选择全部字段。</p>
+<pre><code class="highlight go">db.Select(<span class="string">&quot;name, age&quot;</span>).Find(&amp;users)
+<span class="comment">//// SELECT name, age FROM users;</span>
+
+db.Select([]<span class="type">string</span>&#123;<span class="string">&quot;name&quot;</span>, <span class="string">&quot;age&quot;</span>&#125;).Find(&amp;users)
+<span class="comment">//// SELECT name, age FROM users;</span>
+
+db.Table(<span class="string">&quot;users&quot;</span>).Select(<span class="string">&quot;COALESCE(age,?)&quot;</span>, <span class="number">42</span>).Rows()
+<span class="comment">//// SELECT COALESCE(age,&#x27;42&#x27;) FROM users;</span></code></pre>
+
+<h4 id="排序"><a href="#排序" class="headerlink" title="排序"></a>排序</h4><p>Order，指定从数据库中检索出记录的顺序。设置第二个参数 reorder 为 <code>true</code> ，可以覆盖前面定义的排序条件。</p>
+<pre><code class="highlight go">db.Order(<span class="string">&quot;age desc, name&quot;</span>).Find(&amp;users)
+<span class="comment">//// SELECT * FROM users ORDER BY age desc, name;</span>
+
+<span class="comment">// 多字段排序</span>
+db.Order(<span class="string">&quot;age desc&quot;</span>).Order(<span class="string">&quot;name&quot;</span>).Find(&amp;users)
+<span class="comment">//// SELECT * FROM users ORDER BY age desc, name;</span>
+
+<span class="comment">// 覆盖排序</span>
+db.Order(<span class="string">&quot;age desc&quot;</span>).Find(&amp;users1).Order(<span class="string">&quot;age&quot;</span>, <span class="literal">true</span>).Find(&amp;users2)
+<span class="comment">//// SELECT * FROM users ORDER BY age desc; (users1)</span>
+<span class="comment">//// SELECT * FROM users ORDER BY age; (users2)</span></code></pre>
+
+<h4 id="数量"><a href="#数量" class="headerlink" title="数量"></a>数量</h4><p>Limit，指定从数据库检索出的最大记录数。</p>
+<pre><code class="highlight go">db.Limit(<span class="number">3</span>).Find(&amp;users)
+<span class="comment">//// SELECT * FROM users LIMIT 3;</span>
+
+<span class="comment">// -1 取消 Limit 条件</span>
+db.Limit(<span class="number">10</span>).Find(&amp;users1).Limit(<span class="number">-1</span>).Find(&amp;users2)
+<span class="comment">//// SELECT * FROM users LIMIT 10; (users1)</span>
+<span class="comment">//// SELECT * FROM users; (users2)</span></code></pre>
+
+<h4 id="偏移"><a href="#偏移" class="headerlink" title="偏移"></a>偏移</h4><p>Offset，指定开始返回记录前要跳过的记录数。</p>
+<pre><code class="highlight go">db.Offset(<span class="number">3</span>).Find(&amp;users)
+<span class="comment">//// SELECT * FROM users OFFSET 3;</span>
+
+<span class="comment">// -1 取消 Offset 条件</span>
+db.Offset(<span class="number">10</span>).Find(&amp;users1).Offset(<span class="number">-1</span>).Find(&amp;users2)
+<span class="comment">//// SELECT * FROM users OFFSET 10; (users1)</span>
+<span class="comment">//// SELECT * FROM users; (users2)</span></code></pre>
+
+<h4 id="总数"><a href="#总数" class="headerlink" title="总数"></a>总数</h4><p>Count，该 model 能获取的记录总数。</p>
+<pre><code class="highlight go">db.Where(<span class="string">&quot;name = ?&quot;</span>, <span class="string">&quot;jinzhu&quot;</span>).Or(<span class="string">&quot;name = ?&quot;</span>, <span class="string">&quot;jinzhu 2&quot;</span>).Find(&amp;users).Count(&amp;count)
+<span class="comment">//// SELECT * from USERS WHERE name = &#x27;jinzhu&#x27; OR name = &#x27;jinzhu 2&#x27;; (users)</span>
+<span class="comment">//// SELECT count(*) FROM users WHERE name = &#x27;jinzhu&#x27; OR name = &#x27;jinzhu 2&#x27;; (count)</span>
+
+db.Model(&amp;User&#123;&#125;).Where(<span class="string">&quot;name = ?&quot;</span>, <span class="string">&quot;jinzhu&quot;</span>).Count(&amp;count)
+<span class="comment">//// SELECT count(*) FROM users WHERE name = &#x27;jinzhu&#x27;; (count)</span>
+
+db.Table(<span class="string">&quot;deleted_users&quot;</span>).Count(&amp;count)
+<span class="comment">//// SELECT count(*) FROM deleted_users;</span>
+
+db.Table(<span class="string">&quot;deleted_users&quot;</span>).Select(<span class="string">&quot;count(distinct(name))&quot;</span>).Count(&amp;count)
+<span class="comment">//// SELECT count( distinct(name) ) FROM deleted_users; (count)</span></code></pre>
+
+<p><strong>注意</strong> <code>Count</code> 必须是链式查询的最后一个操作 ，因为它会覆盖前面的 <code>SELECT</code>，但如果里面使用了 <code>count</code> 时不会覆盖</p>
+<h4 id="Group-Having"><a href="#Group-Having" class="headerlink" title="Group &amp; Having"></a>Group &amp; Having</h4><pre><code class="highlight go">rows, err := db.Table(<span class="string">&quot;orders&quot;</span>).Select(<span class="string">&quot;date(created_at) as date, sum(amount) as total&quot;</span>).Group(<span class="string">&quot;date(created_at)&quot;</span>).Rows()
+<span class="keyword">for</span> rows.Next() &#123;
+  ...
+&#125;
+
+<span class="comment">// 使用Scan将多条结果扫描进事先准备好的结构体切片中</span>
+<span class="keyword">type</span> Result <span class="keyword">struct</span> &#123;
+	Date time.Time
+	Total <span class="type">int</span>
+&#125;
+<span class="keyword">var</span> rets []Result
+db.Table(<span class="string">&quot;users&quot;</span>).Select(<span class="string">&quot;date(created_at) as date, sum(age) as total&quot;</span>).Group(<span class="string">&quot;date(created_at)&quot;</span>).Scan(&amp;rets)
+
+rows, err := db.Table(<span class="string">&quot;orders&quot;</span>).Select(<span class="string">&quot;date(created_at) as date, sum(amount) as total&quot;</span>).Group(<span class="string">&quot;date(created_at)&quot;</span>).Having(<span class="string">&quot;sum(amount) &gt; ?&quot;</span>, <span class="number">100</span>).Rows()
+<span class="keyword">for</span> rows.Next() &#123;
+  ...
+&#125;
+
+<span class="keyword">type</span> Result <span class="keyword">struct</span> &#123;
+  Date  time.Time
+  Total <span class="type">int64</span>
+&#125;
+db.Table(<span class="string">&quot;orders&quot;</span>).Select(<span class="string">&quot;date(created_at) as date, sum(amount) as total&quot;</span>).Group(<span class="string">&quot;date(created_at)&quot;</span>).Having(<span class="string">&quot;sum(amount) &gt; ?&quot;</span>, <span class="number">100</span>).Scan(&amp;results)</code></pre>
+
+<h4 id="连接"><a href="#连接" class="headerlink" title="连接"></a>连接</h4><p>Joins，指定连接条件</p>
+<pre><code class="highlight go">rows, err := db.Table(<span class="string">&quot;users&quot;</span>).Select(<span class="string">&quot;users.name, emails.email&quot;</span>).Joins(<span class="string">&quot;left join emails on emails.user_id = users.id&quot;</span>).Rows()
+<span class="keyword">for</span> rows.Next() &#123;
+  ...
+&#125;
+
+db.Table(<span class="string">&quot;users&quot;</span>).Select(<span class="string">&quot;users.name, emails.email&quot;</span>).Joins(<span class="string">&quot;left join emails on emails.user_id = users.id&quot;</span>).Scan(&amp;results)
+
+<span class="comment">// 多连接及参数</span>
+db.Joins(<span class="string">&quot;JOIN emails ON emails.user_id = users.id AND emails.email = ?&quot;</span>, <span class="string">&quot;jinzhu@example.org&quot;</span>).Joins(<span class="string">&quot;JOIN credit_cards ON credit_cards.user_id = users.id&quot;</span>).Where(<span class="string">&quot;credit_cards.number = ?&quot;</span>, <span class="string">&quot;411111111111&quot;</span>).Find(&amp;user)</code></pre>
+
+<h3 id="Pluck"><a href="#Pluck" class="headerlink" title="Pluck"></a>Pluck</h3><p>Pluck，查询 model 中的一个列作为切片，如果您想要查询多个列，您应该使用 <a target="_blank" rel="noopener" href="https://www.liwenzhou.com/posts/Go/gorm-crud/#Scan"><code>Scan</code></a></p>
+<pre><code class="highlight go"><span class="keyword">var</span> ages []<span class="type">int64</span>
+db.Find(&amp;users).Pluck(<span class="string">&quot;age&quot;</span>, &amp;ages)
+
+<span class="keyword">var</span> names []<span class="type">string</span>
+db.Model(&amp;User&#123;&#125;).Pluck(<span class="string">&quot;name&quot;</span>, &amp;names)
+
+db.Table(<span class="string">&quot;deleted_users&quot;</span>).Pluck(<span class="string">&quot;name&quot;</span>, &amp;names)
+
+<span class="comment">// 想查询多个字段？ 这样做：</span>
+db.Select(<span class="string">&quot;name, age&quot;</span>).Find(&amp;users)</code></pre>
+
+<h3 id="扫描"><a href="#扫描" class="headerlink" title="扫描"></a>扫描</h3><p>Scan，扫描结果至一个 struct.</p>
+<pre><code class="highlight go"><span class="keyword">type</span> Result <span class="keyword">struct</span> &#123;
+  Name <span class="type">string</span>
+  Age  <span class="type">int</span>
+&#125;
+
+<span class="keyword">var</span> result Result
+db.Table(<span class="string">&quot;users&quot;</span>).Select(<span class="string">&quot;name, age&quot;</span>).Where(<span class="string">&quot;name = ?&quot;</span>, <span class="string">&quot;Antonio&quot;</span>).Scan(&amp;result)
+
+<span class="keyword">var</span> results []Result
+db.Table(<span class="string">&quot;users&quot;</span>).Select(<span class="string">&quot;name, age&quot;</span>).Where(<span class="string">&quot;id &gt; ?&quot;</span>, <span class="number">0</span>).Scan(&amp;results)
+
+<span class="comment">// 原生 SQL</span>
+db.Raw(<span class="string">&quot;SELECT name, age FROM users WHERE name = ?&quot;</span>, <span class="string">&quot;Antonio&quot;</span>).Scan(&amp;result)</code></pre>
+
+<h2 id="6-更新"><a href="#6-更新" class="headerlink" title="6.更新"></a>6.更新</h2><h3 id="更新所有字段"><a href="#更新所有字段" class="headerlink" title="更新所有字段"></a>更新所有字段</h3><p><code>Save()</code>默认会更新该对象的所有字段，即使你没有赋值。</p>
+<pre><code class="highlight go">db.First(&amp;user)
+
+user.Name = <span class="string">&quot;七米&quot;</span>
+user.Age = <span class="number">99</span>
+db.Save(&amp;user)
+
+<span class="comment">////  UPDATE `users` SET `created_at` = &#x27;2020-02-16 12:52:20&#x27;, `updated_at` = &#x27;2020-02-16 12:54:55&#x27;, `deleted_at` = NULL, `name` = &#x27;七米&#x27;, `age` = 99, `active` = true  WHERE `users`.`deleted_at` IS NULL AND `users`.`id` = 1</span></code></pre>
+
+<h3 id="更新修改字段"><a href="#更新修改字段" class="headerlink" title="更新修改字段"></a>更新修改字段</h3><p>如果你只希望更新指定字段，可以使用<code>Update</code>或者<code>Updates</code></p>
+<pre><code class="highlight go"><span class="comment">// 更新单个属性，如果它有变化</span>
+db.Model(&amp;user).Update(<span class="string">&quot;name&quot;</span>, <span class="string">&quot;hello&quot;</span>)
+<span class="comment">//// UPDATE users SET name=&#x27;hello&#x27;, updated_at=&#x27;2013-11-17 21:34:10&#x27; WHERE id=111;</span>
+
+<span class="comment">// 根据给定的条件更新单个属性</span>
+db.Model(&amp;user).Where(<span class="string">&quot;active = ?&quot;</span>, <span class="literal">true</span>).Update(<span class="string">&quot;name&quot;</span>, <span class="string">&quot;hello&quot;</span>)
+<span class="comment">//// UPDATE users SET name=&#x27;hello&#x27;, updated_at=&#x27;2013-11-17 21:34:10&#x27; WHERE id=111 AND active=true;</span>
+
+<span class="comment">// 使用 map 更新多个属性，只会更新其中有变化的属性</span>
+db.Model(&amp;user).Updates(<span class="keyword">map</span>[<span class="type">string</span>]<span class="keyword">interface</span>&#123;&#125;&#123;<span class="string">&quot;name&quot;</span>: <span class="string">&quot;hello&quot;</span>, <span class="string">&quot;age&quot;</span>: <span class="number">18</span>, <span class="string">&quot;active&quot;</span>: <span class="literal">false</span>&#125;)
+<span class="comment">//// UPDATE users SET name=&#x27;hello&#x27;, age=18, active=false, updated_at=&#x27;2013-11-17 21:34:10&#x27; WHERE id=111;</span>
+
+<span class="comment">// 使用 struct 更新多个属性，只会更新其中有变化且为非零值的字段</span>
+db.Model(&amp;user).Updates(User&#123;Name: <span class="string">&quot;hello&quot;</span>, Age: <span class="number">18</span>&#125;)
+<span class="comment">//// UPDATE users SET name=&#x27;hello&#x27;, age=18, updated_at = &#x27;2013-11-17 21:34:10&#x27; WHERE id = 111;</span>
+
+<span class="comment">// 警告：当使用 struct 更新时，GORM只会更新那些非零值的字段</span>
+<span class="comment">// 对于下面的操作，不会发生任何更新，&quot;&quot;, 0, false 都是其类型的零值</span>
+db.Model(&amp;user).Updates(User&#123;Name: <span class="string">&quot;&quot;</span>, Age: <span class="number">0</span>, Active: <span class="literal">false</span>&#125;)</code></pre>
+
+<h3 id="更新选定字段"><a href="#更新选定字段" class="headerlink" title="更新选定字段"></a>更新选定字段</h3><p>如果你想更新或忽略某些字段，你可以使用 <code>Select</code>，<code>Omit</code></p>
+<pre><code class="highlight go">db.Model(&amp;user).Select(<span class="string">&quot;name&quot;</span>).Updates(<span class="keyword">map</span>[<span class="type">string</span>]<span class="keyword">interface</span>&#123;&#125;&#123;<span class="string">&quot;name&quot;</span>: <span class="string">&quot;hello&quot;</span>, <span class="string">&quot;age&quot;</span>: <span class="number">18</span>, <span class="string">&quot;active&quot;</span>: <span class="literal">false</span>&#125;)
+<span class="comment">//// UPDATE users SET name=&#x27;hello&#x27;, updated_at=&#x27;2013-11-17 21:34:10&#x27; WHERE id=111;</span>
+
+db.Model(&amp;user).Omit(<span class="string">&quot;name&quot;</span>).Updates(<span class="keyword">map</span>[<span class="type">string</span>]<span class="keyword">interface</span>&#123;&#125;&#123;<span class="string">&quot;name&quot;</span>: <span class="string">&quot;hello&quot;</span>, <span class="string">&quot;age&quot;</span>: <span class="number">18</span>, <span class="string">&quot;active&quot;</span>: <span class="literal">false</span>&#125;)
+<span class="comment">//// UPDATE users SET age=18, active=false, updated_at=&#x27;2013-11-17 21:34:10&#x27; WHERE id=111;</span></code></pre>
+
+<h3 id="无Hooks更新"><a href="#无Hooks更新" class="headerlink" title="无Hooks更新"></a>无Hooks更新</h3><p>上面的更新操作会自动运行 model 的 <code>BeforeUpdate</code>, <code>AfterUpdate</code> 方法，更新 <code>UpdatedAt</code> 时间戳, 在更新时保存其 <code>Associations</code>, 如果你不想调用这些方法，你可以使用 <code>UpdateColumn</code>， <code>UpdateColumns</code></p>
+<pre><code class="highlight go"><span class="comment">// 更新单个属性，类似于 `Update`</span>
+db.Model(&amp;user).UpdateColumn(<span class="string">&quot;name&quot;</span>, <span class="string">&quot;hello&quot;</span>)
+<span class="comment">//// UPDATE users SET name=&#x27;hello&#x27; WHERE id = 111;</span>
+
+<span class="comment">// 更新多个属性，类似于 `Updates`</span>
+db.Model(&amp;user).UpdateColumns(User&#123;Name: <span class="string">&quot;hello&quot;</span>, Age: <span class="number">18</span>&#125;)
+<span class="comment">//// UPDATE users SET name=&#x27;hello&#x27;, age=18 WHERE id = 111;</span></code></pre>
+
+<h3 id="批量更新"><a href="#批量更新" class="headerlink" title="批量更新"></a>批量更新</h3><p>批量更新时<code>Hooks（钩子函数）</code>不会运行。</p>
+<pre><code class="highlight go">db.Table(<span class="string">&quot;users&quot;</span>).Where(<span class="string">&quot;id IN (?)&quot;</span>, []<span class="type">int</span>&#123;<span class="number">10</span>, <span class="number">11</span>&#125;).Updates(<span class="keyword">map</span>[<span class="type">string</span>]<span class="keyword">interface</span>&#123;&#125;&#123;<span class="string">&quot;name&quot;</span>: <span class="string">&quot;hello&quot;</span>, <span class="string">&quot;age&quot;</span>: <span class="number">18</span>&#125;)
+<span class="comment">//// UPDATE users SET name=&#x27;hello&#x27;, age=18 WHERE id IN (10, 11);</span>
+
+<span class="comment">// 使用 struct 更新时，只会更新非零值字段，若想更新所有字段，请使用map[string]interface&#123;&#125;</span>
+db.Model(User&#123;&#125;).Updates(User&#123;Name: <span class="string">&quot;hello&quot;</span>, Age: <span class="number">18</span>&#125;)
+<span class="comment">//// UPDATE users SET name=&#x27;hello&#x27;, age=18;</span>
+
+<span class="comment">// 使用 `RowsAffected` 获取更新记录总数</span>
+db.Model(User&#123;&#125;).Updates(User&#123;Name: <span class="string">&quot;hello&quot;</span>, Age: <span class="number">18</span>&#125;).RowsAffected</code></pre>
+
+<h3 id="使用SQL表达式更新"><a href="#使用SQL表达式更新" class="headerlink" title="使用SQL表达式更新"></a>使用SQL表达式更新</h3><p>先查询表中的第一条数据保存至user变量。</p>
+<pre><code class="highlight go"><span class="keyword">var</span> user User
+db.First(&amp;user)
+db.Model(&amp;user).Update(<span class="string">&quot;age&quot;</span>, gorm.Expr(<span class="string">&quot;age * ? + ?&quot;</span>, <span class="number">2</span>, <span class="number">100</span>))
+<span class="comment">//// UPDATE `users` SET `age` = age * 2 + 100, `updated_at` = &#x27;2020-02-16 13:10:20&#x27;  WHERE `users`.`id` = 1;</span>
+
+db.Model(&amp;user).Updates(<span class="keyword">map</span>[<span class="type">string</span>]<span class="keyword">interface</span>&#123;&#125;&#123;<span class="string">&quot;age&quot;</span>: gorm.Expr(<span class="string">&quot;age * ? + ?&quot;</span>, <span class="number">2</span>, <span class="number">100</span>)&#125;)
+<span class="comment">//// UPDATE &quot;users&quot; SET &quot;age&quot; = age * &#x27;2&#x27; + &#x27;100&#x27;, &quot;updated_at&quot; = &#x27;2020-02-16 13:05:51&#x27; WHERE `users`.`id` = 1;</span>
+
+db.Model(&amp;user).UpdateColumn(<span class="string">&quot;age&quot;</span>, gorm.Expr(<span class="string">&quot;age - ?&quot;</span>, <span class="number">1</span>))
+<span class="comment">//// UPDATE &quot;users&quot; SET &quot;age&quot; = age - 1 WHERE &quot;id&quot; = &#x27;1&#x27;;</span>
+
+db.Model(&amp;user).Where(<span class="string">&quot;age &gt; 10&quot;</span>).UpdateColumn(<span class="string">&quot;age&quot;</span>, gorm.Expr(<span class="string">&quot;age - ?&quot;</span>, <span class="number">1</span>))
+<span class="comment">//// UPDATE &quot;users&quot; SET &quot;age&quot; = age - 1 WHERE &quot;id&quot; = &#x27;1&#x27; AND quantity &gt; 10;</span></code></pre>
+
+<h3 id="修改Hooks中的值"><a href="#修改Hooks中的值" class="headerlink" title="修改Hooks中的值"></a>修改Hooks中的值</h3><p>如果你想修改 <code>BeforeUpdate</code>, <code>BeforeSave</code> 等 Hooks 中更新的值，你可以使用 <code>scope.SetColumn</code>, 例如：</p>
+<pre><code class="highlight go"><span class="function"><span class="keyword">func</span> <span class="params">(user *User)</span></span> BeforeSave(scope *gorm.Scope) (err <span class="type">error</span>) &#123;
+  <span class="keyword">if</span> pw, err := bcrypt.GenerateFromPassword(user.Password, <span class="number">0</span>); err == <span class="literal">nil</span> &#123;
+    scope.SetColumn(<span class="string">&quot;EncryptedPassword&quot;</span>, pw)
+  &#125;
+&#125;</code></pre>
+
+<h3 id="其它更新选项"><a href="#其它更新选项" class="headerlink" title="其它更新选项"></a>其它更新选项</h3><pre><code class="highlight go"><span class="comment">// 为 update SQL 添加其它的 SQL</span>
+db.Model(&amp;user).Set(<span class="string">&quot;gorm:update_option&quot;</span>, <span class="string">&quot;OPTION (OPTIMIZE FOR UNKNOWN)&quot;</span>).Update(<span class="string">&quot;name&quot;</span>, <span class="string">&quot;hello&quot;</span>)
+<span class="comment">//// UPDATE users SET name=&#x27;hello&#x27;, updated_at = &#x27;2013-11-17 21:34:10&#x27; WHERE id=111 OPTION (OPTIMIZE FOR UNKNOWN);</span></code></pre>
+
+<h2 id="7-删除"><a href="#7-删除" class="headerlink" title="7.删除"></a>7.删除</h2><h3 id="删除记录"><a href="#删除记录" class="headerlink" title="删除记录"></a>删除记录</h3><p><strong>警告</strong> 删除记录时，请确保主键字段有值，GORM 会通过主键去删除记录，如果主键为空，GORM 会删除该 model 的所有记录。</p>
+<pre><code class="highlight go"><span class="comment">// 删除现有记录</span>
+db.Delete(&amp;email)
+<span class="comment">//// DELETE from emails where id=10;</span>
+
+<span class="comment">// 为删除 SQL 添加额外的 SQL 操作</span>
+db.Set(<span class="string">&quot;gorm:delete_option&quot;</span>, <span class="string">&quot;OPTION (OPTIMIZE FOR UNKNOWN)&quot;</span>).Delete(&amp;email)
+<span class="comment">//// DELETE from emails where id=10 OPTION (OPTIMIZE FOR UNKNOWN);</span></code></pre>
+
+<h3 id="批量删除"><a href="#批量删除" class="headerlink" title="批量删除"></a>批量删除</h3><p>删除全部匹配的记录</p>
+<pre><code class="highlight go">db.Where(<span class="string">&quot;email LIKE ?&quot;</span>, <span class="string">&quot;%jinzhu%&quot;</span>).Delete(Email&#123;&#125;)
+<span class="comment">//// DELETE from emails where email LIKE &quot;%jinzhu%&quot;;</span>
+
+db.Delete(Email&#123;&#125;, <span class="string">&quot;email LIKE ?&quot;</span>, <span class="string">&quot;%jinzhu%&quot;</span>)
+<span class="comment">//// DELETE from emails where email LIKE &quot;%jinzhu%&quot;;</span></code></pre>
+
+<h3 id="软删除"><a href="#软删除" class="headerlink" title="软删除"></a>软删除</h3><p>如果一个 model 有 <code>DeletedAt</code> 字段，他将自动获得软删除的功能！ 当调用 <code>Delete</code> 方法时， 记录不会真正的从数据库中被删除， 只会将<code>DeletedAt</code> 字段的值会被设置为当前时间</p>
+<pre><code class="highlight go">db.Delete(&amp;user)
+<span class="comment">//// UPDATE users SET deleted_at=&quot;2013-10-29 10:23&quot; WHERE id = 111;</span>
+
+<span class="comment">// 批量删除</span>
+db.Where(<span class="string">&quot;age = ?&quot;</span>, <span class="number">20</span>).Delete(&amp;User&#123;&#125;)
+<span class="comment">//// UPDATE users SET deleted_at=&quot;2013-10-29 10:23&quot; WHERE age = 20;</span>
+
+<span class="comment">// 查询记录时会忽略被软删除的记录</span>
+db.Where(<span class="string">&quot;age = 20&quot;</span>).Find(&amp;user)
+<span class="comment">//// SELECT * FROM users WHERE age = 20 AND deleted_at IS NULL;</span>
+
+<span class="comment">// Unscoped 方法可以查询被软删除的记录</span>
+db.Unscoped().Where(<span class="string">&quot;age = 20&quot;</span>).Find(&amp;users)
+<span class="comment">//// SELECT * FROM users WHERE age = 20;</span></code></pre>
+
+<h3 id="物理删除"><a href="#物理删除" class="headerlink" title="物理删除"></a>物理删除</h3><pre><code class="highlight go"><span class="comment">// Unscoped 方法可以物理删除记录</span>
+db.Unscoped().Delete(&amp;order)
+<span class="comment">//// DELETE FROM orders WHERE id=10;</span></code></pre>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </article>
+        <section class="post-near">
+            <ul>
+                
+                    <li>上一篇: 看完啦 (つд⊂)</li>
+                
+                
+                    <li>下一篇: <a href="/2024/10/24/Vue%20development/">Vue development</a></li>
+                
+            </ul>
+        </section>
+        
+            <section class="post-tags">
+            <a class="-none-link" href="/tags/Go/" rel="tag">Go</a><a class="-none-link" href="/tags/Go-Web/" rel="tag">Go Web</a>
+            </section>
+        
+    
+        <section class="post-author">
+        
+            <figure class="author-avatar">
+                <img src="https://p1.meituan.net/csc/949ad40707d4b4bab7e2ebafbd649aa8211830.jpg" alt="日初" />
+            </figure>
+        
+            <div class="author-info">
+                <h4>日初</h4>
+                <p>一个什么都学的建模动画编程爱好者</p>
+            </div>
+        </section>
+    
+    </div>
+</main>
+
+    <footer>
+    <div class="buttons">
+        <a class="to-top" href="#"></a>
+    </div>
+    <div class="wrap min">
+        <section class="widget">
+            <div class="row">
+                <div class="col-m-4">
+                    <h3 class="title-recent">最新文章：</h3>
+                    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2024/10/25/Gorm/">Gorm</a></li><li class="post-list-item"><a class="post-list-link" href="/2024/10/24/Vue%20development/">Vue development</a></li><li class="post-list-item"><a class="post-list-link" href="/2024/10/23/Gin/">Gin</a></li><li class="post-list-item"><a class="post-list-link" href="/2024/10/21/Andriod/">Android</a></li><li class="post-list-item"><a class="post-list-link" href="/2024/10/19/Go/">Go</a></li><li class="post-list-item"><a class="post-list-link" href="/2024/10/16/MybatisPlus/">MybatisPlus</a></li></ul>
+                </div>
+                <div class="col-m-4">
+                    <h3 class="title-date">时光机：</h3>
+                    <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/10/">十月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/09/">九月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/08/">八月 2024</a></li></ul>
+                </div>
+                <div class="col-m-4">
+                    <h3 class="title-tags">标签云：</h3>
+                    <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/CSS/" style="font-size: 20px;">CSS</a> <a href="/tags/Go/" style="font-size: 20px;">Go</a> <a href="/tags/Go-Web/" style="font-size: 20px;">Go Web</a> <a href="/tags/JS/" style="font-size: 20px;">JS</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/Java-Web/" style="font-size: 20px;">Java Web</a> <a href="/tags/Linux/" style="font-size: 20px;">Linux</a> <a href="/tags/MySql/" style="font-size: 20px;">MySql</a> <a href="/tags/MybatisPlus/" style="font-size: 20px;">MybatisPlus</a> <a href="/tags/Nginx/" style="font-size: 20px;">Nginx</a> <a href="/tags/React/" style="font-size: 20px;">React</a> <a href="/tags/Spring-Cloud/" style="font-size: 20px;">Spring Cloud</a> <a href="/tags/Vue/" style="font-size: 20px;">Vue</a> <a href="/tags/%E5%89%8D%E7%AB%AF/" style="font-size: 20px;">前端</a> <a href="/tags/%E8%BF%90%E7%BB%B4/" style="font-size: 20px;">运维</a>
+                </div>
+            </div>
+        </section>
+        <section class="sub-footer">
+            <p>© 2024 <a href="/">Richu</a>. All Rights Reserved. Theme By <a href="https://github.com/Dreamer-Paul/Hingle" target="_blank" rel="nofollow">Hingle</a>.</p>
+        </section>
+    </div>
+</footer>
+
+
+<script src="/static/kico.js"></script>
+<script src="/static/hingle.js"></script>
+
+
+<script>var hingle = new Paul_Hingle({"copyright":true,"night":false});</script>
+
+  </body>
+</html>

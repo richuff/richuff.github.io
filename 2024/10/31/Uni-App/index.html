@@ -1,0 +1,2071 @@
+<!DOCTYPE html>
+<html>
+  <head>
+     
+    <meta charset="UTF-8">
+    <title>Uni-App - Richu</title>
+    <link rel="shortcut icon" href="/static/img/icon.png">
+    <link rel="icon" href="/static/img/icon.png" sizes="192x192"/>
+    
+<link rel="stylesheet" href="/static/kico.css">
+<link rel="stylesheet" href="/static/hingle.css">
+
+    
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <meta name="viewport" content="width=device-width, maximum-scale=1, initial-scale=1"/>
+    <meta property="og:site_name" content="Richu">
+    <meta property="og:title" content="Uni-App"/>
+    
+    <style>body:before{ content: ''; background-image: url(https://img.meituan.net/csc/d05518606ba7064dd445508e3cf3d4c42860983.png) }</style>
+    
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+  <body>
+    <header>
+    <div class="head-title">
+        <h4>Richu</h4>
+    </div>
+    <div class="head-action">
+        <div class="toggle-btn"></div>
+        <div class="light-btn"></div>
+        <div class="search-btn"></div>
+    </div>
+    <form class="head-search" method="post">
+        <input type="text" name="s" placeholder="搜索什么？">
+    </form>
+    <nav class="head-menu">
+        <a href="/">首页</a>
+        <div class="has-child">
+            <a>分类</a>
+            <div class="sub-menu">
+                <a class="category-link" href="/categories/Android/">Android</a><a class="category-link" href="/categories/Go/">Go</a><a class="category-link" href="/categories/Java/">Java</a><a class="category-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a><a class="category-link" href="/categories/%E8%BF%90%E7%BB%B4/">运维</a>
+            </div>
+        </div>
+        
+            <a href="/about">关于我</a>
+        
+    </nav>
+</header>
+
+    <main>
+    <div class="wrap min">
+        <section class="post-title">
+            <h2>Uni-App</h2>
+            <div class="post-meta">
+                <time class="date">2024.10.31</time>
+            
+                <span class="category"><a class="category-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a></span>
+            
+            </div>
+        </section>
+        <article class="post-content">
+        
+            <p>uni-app 是一个使用 Vue.js 开发所有前端应用的框架，开发者编写一套代码，可发布到iOS、Android、Web（响应式）、以及各种小程序（微信&#x2F;支付宝&#x2F;百度&#x2F;头条&#x2F;飞书&#x2F;QQ&#x2F;快手&#x2F;钉钉&#x2F;淘宝）、快应用等多个平台。</p>
+<h2 id="1-下载Hbuilder"><a href="#1-下载Hbuilder" class="headerlink" title="1.下载Hbuilder"></a>1.下载Hbuilder</h2><p><a target="_blank" rel="noopener" href="https://dcloud.io/hbuilderx.html">HBuilderX-高效极客技巧 (dcloud.io)</a></p>
+<h2 id="2-uni-app官方文档"><a href="#2-uni-app官方文档" class="headerlink" title="2.uni-app官方文档"></a>2.uni-app官方文档</h2><p><a target="_blank" rel="noopener" href="https://uniapp.dcloud.net.cn/resource.html">uni-app官网 (dcloud.net.cn)</a></p>
+<h2 id="3-unplugin-auto-import自动导入插件"><a href="#3-unplugin-auto-import自动导入插件" class="headerlink" title="3.unplugin-auto-import自动导入插件"></a>3.unplugin-auto-import自动导入插件</h2><blockquote>
+<p>npm i unplugin-auto-import</p>
+</blockquote>
+<blockquote>
+<p>创建vite.config.js文件</p>
+</blockquote>
+<pre><code class="highlight javascript"><span class="keyword">import</span> uni <span class="keyword">from</span> <span class="string">&#x27;@dcloudio/vite-plugin-uni&#x27;</span>;
+<span class="keyword">import</span> &#123;defineConfig&#125; <span class="keyword">from</span> <span class="string">&#x27;vite&#x27;</span>
+<span class="keyword">import</span> <span class="title class_">AutoImport</span> <span class="keyword">from</span> <span class="string">&#x27;unplugin-auto-import/vite&#x27;</span>
+
+<span class="keyword">export</span> <span class="keyword">default</span> <span class="title function_">defineConfig</span>(&#123;
+	<span class="attr">plugins</span>:[
+		<span class="title function_">uni</span>(),
+		<span class="title class_">AutoImport</span>(&#123;
+			<span class="attr">imports</span>:[
+				<span class="string">&#x27;vue&#x27;</span>,
+				<span class="string">&#x27;uni-app&#x27;</span>
+			] 
+		&#125;)
+	]
+&#125;)</code></pre>
+
+<h2 id="4-内置组件"><a href="#4-内置组件" class="headerlink" title="4.内置组件"></a>4.内置组件</h2><h3 id="1-view"><a href="#1-view" class="headerlink" title="1.view"></a>1.view</h3><p>视图容器。</p>
+<p>它类似于传统html中的div，用于包裹各种元素内容。</p>
+<p>如果使用<a target="_blank" rel="noopener" href="https://uniapp.dcloud.io/tutorial/nvue-outline">nvue</a>，则需注意，包裹文字应该使用<code>&lt;text&gt;</code>组件。</p>
+<h3 id="2-scroll-view"><a href="#2-scroll-view" class="headerlink" title="2.scroll-view"></a>2.scroll-view</h3><p>可滚动视图区域。用于区域滚动。</p>
+<p>需注意在webview渲染的页面中，区域滚动的性能不及页面滚动。</p>
+<p>属性说明</p>
+<table>
+<thead>
+<tr>
+<th align="left">属性名</th>
+<th align="left">类型</th>
+<th align="left">默认值</th>
+<th align="left">说明</th>
+<th align="left">平台差异说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">scroll-x</td>
+<td align="left">Boolean</td>
+<td align="left">false</td>
+<td align="left">允许横向滚动</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">scroll-y</td>
+<td align="left">Boolean</td>
+<td align="left">false</td>
+<td align="left">允许纵向滚动</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">upper-threshold</td>
+<td align="left">Number&#x2F;String</td>
+<td align="left">50</td>
+<td align="left">距顶部&#x2F;左边多远时（单位px），触发 scrolltoupper 事件</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">lower-threshold</td>
+<td align="left">Number&#x2F;String</td>
+<td align="left">50</td>
+<td align="left">距底部&#x2F;右边多远时（单位px），触发 scrolltolower 事件</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">scroll-top</td>
+<td align="left">Number&#x2F;String</td>
+<td align="left"></td>
+<td align="left">设置竖向滚动条位置</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">scroll-left</td>
+<td align="left">Number&#x2F;String</td>
+<td align="left"></td>
+<td align="left">设置横向滚动条位置</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">scroll-into-view</td>
+<td align="left">String</td>
+<td align="left"></td>
+<td align="left">值应为某子元素id（id不能以数字开头）。设置哪个方向可滚动，则在哪个方向滚动到该元素</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">scroll-with-animation</td>
+<td align="left">Boolean</td>
+<td align="left">false</td>
+<td align="left">在设置滚动条位置时使用动画过渡</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">enable-back-to-top</td>
+<td align="left">Boolean</td>
+<td align="left">false</td>
+<td align="left">iOS点击顶部状态栏、安卓双击标题栏时，滚动条返回顶部，只支持竖向</td>
+<td align="left">app-nvue，微信小程序</td>
+</tr>
+<tr>
+<td align="left">show-scrollbar</td>
+<td align="left">Boolean</td>
+<td align="left">false</td>
+<td align="left">控制是否出现滚动条</td>
+<td align="left">App-nvue 2.1.5+</td>
+</tr>
+<tr>
+<td align="left">refresher-enabled</td>
+<td align="left">Boolean</td>
+<td align="left">false</td>
+<td align="left">开启自定义下拉刷新</td>
+<td align="left">H5、app-vue 2.5.12+,微信小程序基础库2.10.1+</td>
+</tr>
+<tr>
+<td align="left">refresher-threshold</td>
+<td align="left">Number</td>
+<td align="left">45</td>
+<td align="left">设置自定义下拉刷新阈值</td>
+<td align="left">H5、app-vue 2.5.12+,微信小程序基础库2.10.1+</td>
+</tr>
+<tr>
+<td align="left">refresher-default-style</td>
+<td align="left">String</td>
+<td align="left">“black”</td>
+<td align="left">设置自定义下拉刷新默认样式，支持设置 black，white，none，none 表示不使用默认样式</td>
+<td align="left">H5、app-vue 2.5.12+,微信小程序基础库2.10.1+</td>
+</tr>
+<tr>
+<td align="left">refresher-background</td>
+<td align="left">String</td>
+<td align="left">“#FFF”</td>
+<td align="left">设置自定义下拉刷新区域背景颜色</td>
+<td align="left">H5、app-vue 2.5.12+,微信小程序基础库2.10.1+</td>
+</tr>
+<tr>
+<td align="left">refresher-triggered</td>
+<td align="left">Boolean</td>
+<td align="left">false</td>
+<td align="left">设置当前下拉刷新状态，true 表示下拉刷新已经被触发，false 表示下拉刷新未被触发</td>
+<td align="left">H5、app-vue 2.5.12+,微信小程序基础库2.10.1+</td>
+</tr>
+<tr>
+<td align="left">enable-flex</td>
+<td align="left">Boolean</td>
+<td align="left">false</td>
+<td align="left">启用 flexbox 布局。开启后，当前节点声明了 display: flex 就会成为 flex container，并作用于其孩子节点。</td>
+<td align="left">微信小程序 2.7.3</td>
+</tr>
+<tr>
+<td align="left">scroll-anchoring</td>
+<td align="left">Boolean</td>
+<td align="left">false</td>
+<td align="left">开启 scroll anchoring 特性，即控制滚动位置不随内容变化而抖动，仅在 iOS 下生效，安卓下可参考 CSS overflow-anchor 属性。</td>
+<td align="left">微信小程序 2.8.2</td>
+</tr>
+<tr>
+<td align="left">@scrolltoupper</td>
+<td align="left">EventHandle</td>
+<td align="left"></td>
+<td align="left">滚动到顶部&#x2F;左边，会触发 scrolltoupper 事件</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">@scrolltolower</td>
+<td align="left">EventHandle</td>
+<td align="left"></td>
+<td align="left">滚动到底部&#x2F;右边，会触发 scrolltolower 事件</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">@scroll</td>
+<td align="left">EventHandle</td>
+<td align="left"></td>
+<td align="left">滚动时触发，event.detail &#x3D; {scrollLeft, scrollTop, scrollHeight, scrollWidth, deltaX, deltaY}</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">@refresherpulling</td>
+<td align="left">EventHandle</td>
+<td align="left"></td>
+<td align="left">自定义下拉刷新控件被下拉</td>
+<td align="left">H5、app-vue 2.5.12+,微信小程序基础库2.10.1+</td>
+</tr>
+<tr>
+<td align="left">@refresherrefresh</td>
+<td align="left">EventHandle</td>
+<td align="left"></td>
+<td align="left">自定义下拉刷新被触发</td>
+<td align="left">H5、app-vue 2.5.12+,微信小程序基础库2.10.1+</td>
+</tr>
+<tr>
+<td align="left">@refresherrestore</td>
+<td align="left">EventHandle</td>
+<td align="left"></td>
+<td align="left">自定义下拉刷新被复位</td>
+<td align="left">H5、app-vue 2.5.12+,微信小程序基础库2.10.1+</td>
+</tr>
+<tr>
+<td align="left">@refresherabort</td>
+<td align="left">EventHandle</td>
+<td align="left"></td>
+<td align="left">自定义下拉刷新被中止</td>
+<td align="left">H5、app-vue 2.5.12+,微信小程序基础库2.10.1+</td>
+</tr>
+</tbody></table>
+<pre><code class="highlight vue">&lt;!-- 本示例未包含完整css，获取外链css请参考上文，在hello uni-app项目中查看 --&gt;
+&lt;template&gt;
+	&lt;view&gt;
+		&lt;view class=&quot;uni-padding-wrap uni-common-mt&quot;&gt;
+			&lt;view class=&quot;uni-title uni-common-mt&quot;&gt;
+				Vertical Scroll
+				&lt;text&gt;\n纵向滚动&lt;/text&gt;
+			&lt;/view&gt;
+			&lt;view&gt;
+				&lt;scroll-view :scroll-top=&quot;scrollTop&quot; scroll-y=&quot;true&quot; class=&quot;scroll-Y&quot; @scrolltoupper=&quot;upper&quot;
+					@scrolltolower=&quot;lower&quot; @scroll=&quot;scroll&quot;&gt;
+					&lt;view id=&quot;demo1&quot; class=&quot;scroll-view-item uni-bg-red&quot;&gt;A&lt;/view&gt;
+					&lt;view id=&quot;demo2&quot; class=&quot;scroll-view-item uni-bg-green&quot;&gt;B&lt;/view&gt;
+					&lt;view id=&quot;demo3&quot; class=&quot;scroll-view-item uni-bg-blue&quot;&gt;C&lt;/view&gt;
+				&lt;/scroll-view&gt;
+			&lt;/view&gt;
+			&lt;view @tap=&quot;goTop&quot; class=&quot;uni-link uni-center uni-common-mt&quot;&gt;
+				点击这里返回顶部
+			&lt;/view&gt;
+
+			&lt;view class=&quot;uni-title uni-common-mt&quot;&gt;
+				Horizontal Scroll
+				&lt;text&gt;\n横向滚动&lt;/text&gt;
+			&lt;/view&gt;
+			&lt;view&gt;
+				&lt;scroll-view class=&quot;scroll-view_H&quot; scroll-x=&quot;true&quot; @scroll=&quot;scroll&quot; scroll-left=&quot;120&quot;&gt;
+					&lt;view id=&quot;demo1&quot; class=&quot;scroll-view-item_H uni-bg-red&quot;&gt;A&lt;/view&gt;
+					&lt;view id=&quot;demo2&quot; class=&quot;scroll-view-item_H uni-bg-green&quot;&gt;B&lt;/view&gt;
+					&lt;view id=&quot;demo3&quot; class=&quot;scroll-view-item_H uni-bg-blue&quot;&gt;C&lt;/view&gt;
+				&lt;/scroll-view&gt;
+			&lt;/view&gt;
+			&lt;view class=&quot;uni-common-pb&quot;&gt;&lt;/view&gt;
+		&lt;/view&gt;
+	&lt;/view&gt;
+&lt;/template&gt;
+
+&lt;script&gt;
+	export default &#123;
+		data() &#123;
+			return &#123;
+				scrollTop: 0,
+				old: &#123;
+					scrollTop: 0
+				&#125;
+			&#125;
+		&#125;,
+		methods: &#123;
+			upper: function(e) &#123;
+				console.log(e)
+			&#125;,
+			lower: function(e) &#123;
+				console.log(e)
+			&#125;,
+			scroll: function(e) &#123;
+				console.log(e)
+				this.old.scrollTop = e.detail.scrollTop
+			&#125;,
+			goTop: function(e) &#123;
+				// 解决view层不同步的问题
+				this.scrollTop = this.old.scrollTop
+				this.$nextTick(function() &#123;
+					this.scrollTop = 0
+				&#125;);
+				uni.showToast(&#123;
+					icon: &quot;none&quot;,
+					title: &quot;纵向滚动 scrollTop 值已被修改为 0&quot;
+				&#125;)
+			&#125;
+		&#125;
+	&#125;
+&lt;/script&gt;</code></pre>
+
+<h3 id="3-swiper"><a href="#3-swiper" class="headerlink" title="3.swiper"></a>3.swiper</h3><p>滑块视图容器。</p>
+<p>一般用于左右滑动或上下滑动，比如banner轮播图。</p>
+<p>注意滑动切换和滚动的区别，滑动切换是一屏一屏的切换。swiper下的每个swiper-item是一个滑动切换区域，不能停留在2个滑动区域之间。</p>
+<p><strong>属性说明</strong></p>
+<table>
+<thead>
+<tr>
+<th align="left">属性名</th>
+<th align="left">类型</th>
+<th align="left">默认值</th>
+<th align="left">说明</th>
+<th align="left">平台差异说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">indicator-dots</td>
+<td align="left">Boolean</td>
+<td align="left">false</td>
+<td align="left">是否显示面板指示点</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">indicator-color</td>
+<td align="left">Color</td>
+<td align="left">rgba(0, 0, 0, .3)</td>
+<td align="left">指示点颜色</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">indicator-active-color</td>
+<td align="left">Color</td>
+<td align="left">#000000</td>
+<td align="left">当前选中的指示点颜色</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">active-class</td>
+<td align="left">String</td>
+<td align="left"></td>
+<td align="left">swiper-item 可见时的 class</td>
+<td align="left">支付宝小程序</td>
+</tr>
+<tr>
+<td align="left">changing-class</td>
+<td align="left">String</td>
+<td align="left"></td>
+<td align="left">acceleration 设置为 true 时且处于滑动过程中，中间若干屏处于可见时的class</td>
+<td align="left">支付宝小程序</td>
+</tr>
+<tr>
+<td align="left">autoplay</td>
+<td align="left">Boolean</td>
+<td align="left">false</td>
+<td align="left">是否自动切换</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">current</td>
+<td align="left">Number</td>
+<td align="left">0</td>
+<td align="left">当前所在滑块的 index</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">current-item-id</td>
+<td align="left">String</td>
+<td align="left"></td>
+<td align="left">当前所在滑块的 item-id ，不能与 current 被同时指定</td>
+<td align="left">支付宝小程序不支持</td>
+</tr>
+<tr>
+<td align="left">interval</td>
+<td align="left">Number</td>
+<td align="left">5000</td>
+<td align="left">自动切换时间间隔</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">duration</td>
+<td align="left">Number</td>
+<td align="left">500</td>
+<td align="left">滑动动画时长</td>
+<td align="left">app-nvue不支持</td>
+</tr>
+<tr>
+<td align="left">circular</td>
+<td align="left">Boolean</td>
+<td align="left">false</td>
+<td align="left">是否采用衔接滑动，即播放到末尾后重新回到开头</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">vertical</td>
+<td align="left">Boolean</td>
+<td align="left">false</td>
+<td align="left">滑动方向是否为纵向</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">previous-margin</td>
+<td align="left">String</td>
+<td align="left">0px</td>
+<td align="left">前边距，可用于露出前一项的一小部分，接受 px 和 rpx 值</td>
+<td align="left">app-nvue、抖音小程序、飞书小程序不支持</td>
+</tr>
+<tr>
+<td align="left">next-margin</td>
+<td align="left">String</td>
+<td align="left">0px</td>
+<td align="left">后边距，可用于露出后一项的一小部分，接受 px 和 rpx 值</td>
+<td align="left">app-nvue、抖音小程序、飞书小程序不支持</td>
+</tr>
+<tr>
+<td align="left">acceleration</td>
+<td align="left">Boolean</td>
+<td align="left">false</td>
+<td align="left">当开启时，会根据滑动速度，连续滑动多屏</td>
+<td align="left">支付宝小程序</td>
+</tr>
+<tr>
+<td align="left">disable-programmatic-animation</td>
+<td align="left">Boolean</td>
+<td align="left">false</td>
+<td align="left">是否禁用代码变动触发 swiper 切换时使用动画。</td>
+<td align="left">支付宝小程序</td>
+</tr>
+<tr>
+<td align="left">display-multiple-items</td>
+<td align="left">Number</td>
+<td align="left">1</td>
+<td align="left">同时显示的滑块数量</td>
+<td align="left">app-nvue、支付宝小程序不支持</td>
+</tr>
+<tr>
+<td align="left">skip-hidden-item-layout</td>
+<td align="left">Boolean</td>
+<td align="left">false</td>
+<td align="left">是否跳过未显示的滑块布局，设为 true 可优化复杂情况下的滑动性能，但会丢失隐藏状态滑块的布局信息</td>
+<td align="left">App、微信小程序、京东小程序</td>
+</tr>
+<tr>
+<td align="left">disable-touch</td>
+<td align="left">Boolean</td>
+<td align="left">false</td>
+<td align="left">是否禁止用户 touch 操作</td>
+<td align="left">App 2.5.5+、H5 2.5.5+、支付宝小程序、抖音小程序与飞书小程序（只在初始化时有效，不能动态变更）</td>
+</tr>
+<tr>
+<td align="left">touchable</td>
+<td align="left">Boolean</td>
+<td align="left">true</td>
+<td align="left">是否监听用户的触摸事件，只在初始化时有效，不能动态变更</td>
+<td align="left">抖音小程序与飞书小程序（uni-app 2.5.5+ 推荐统一使用 disable-touch）</td>
+</tr>
+<tr>
+<td align="left">easing-function</td>
+<td align="left">String</td>
+<td align="left">default</td>
+<td align="left">指定 swiper 切换缓动动画类型，有效值：default、linear、easeInCubic、easeOutCubic、easeInOutCubic</td>
+<td align="left">微信小程序、快手小程序、京东小程序</td>
+</tr>
+<tr>
+<td align="left">@change</td>
+<td align="left">EventHandle</td>
+<td align="left"></td>
+<td align="left">current 改变时会触发 change 事件，event.detail &#x3D; {current: current, source: source}</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">@transition</td>
+<td align="left">EventHandle</td>
+<td align="left"></td>
+<td align="left">swiper-item 的位置发生改变时会触发 transition 事件，event.detail &#x3D; {dx: dx, dy: dy}，支付宝小程序暂不支持dx, dy</td>
+<td align="left">App、H5、微信小程序、支付宝小程序、抖音小程序、飞书小程序、QQ小程序、快手小程序</td>
+</tr>
+<tr>
+<td align="left">@animationfinish</td>
+<td align="left">EventHandle</td>
+<td align="left"></td>
+<td align="left">动画结束时会触发 animationfinish 事件，event.detail &#x3D; {current: current, source: source}</td>
+<td align="left">抖音小程序与飞书小程序不支持</td>
+</tr>
+</tbody></table>
+<h3 id="4-icon"><a href="#4-icon" class="headerlink" title="4.icon"></a>4.icon</h3><pre><code class="highlight html"><span class="tag">&lt;<span class="name">view</span> <span class="attr">class</span>=<span class="string">&quot;item&quot;</span> <span class="attr">v-for</span>=<span class="string">&quot;(value,index) in iconType&quot;</span> <span class="attr">:key</span>=<span class="string">&quot;index&quot;</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">icon</span> <span class="attr">:type</span>=<span class="string">&quot;value&quot;</span> <span class="attr">size</span>=<span class="string">&quot;26&quot;</span>/&gt;</span>
+    <span class="tag">&lt;<span class="name">text</span>&gt;</span>&#123;&#123;value&#125;&#125;<span class="tag">&lt;/<span class="name">text</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">view</span>&gt;</span></code></pre>
+
+<h3 id="5-form"><a href="#5-form" class="headerlink" title="5.form"></a>5.form</h3><p>表单，将组件内的用户输入的<code>&lt;switch&gt;</code> <code>&lt;input&gt;</code> <code>&lt;checkbox&gt;</code> <code>&lt;slider&gt;</code> <code>&lt;radio&gt;</code> <code>&lt;picker&gt;</code> 提交。</p>
+<p>当点击 <code>&lt;form&gt;</code> 表单中 formType 为 submit 的 <code>&lt;button&gt;</code> 组件时，会将表单组件中的 value 值进行提交，需要在表单组件中加上 name 来作为 key。</p>
+<p><strong>属性说明</strong></p>
+<table>
+<thead>
+<tr>
+<th align="left">属性名</th>
+<th align="left">类型</th>
+<th align="left">说明</th>
+<th align="left">平台差 异说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">report-submit</td>
+<td align="left">Boolean</td>
+<td align="left">是否返回 formId 用于发送<a target="_blank" rel="noopener" href="https://developers.weixin.qq.com/miniprogram/dev/framework/open-ability/template-message.html">模板消息</a></td>
+<td align="left">微信小程序、支付宝小程序</td>
+</tr>
+<tr>
+<td align="left">report-submit-timeout</td>
+<td align="left">number</td>
+<td align="left">等待一段时间（毫秒数）以确认 formId 是否生效。如果未指定这个参数，formId 有很小的概率是无效的（如遇到网络失败的情况）。指定这个参数将可以检测 formId 是否有效，以这个参数的时间作为这项检测的超时时间。如果失败，将返回 requestFormId:fail 开头的 formId</td>
+<td align="left">微信小程序2.6.2</td>
+</tr>
+<tr>
+<td align="left">@submit</td>
+<td align="left">EventHandle</td>
+<td align="left">携带 form 中的数据触发 submit 事件，event.detail &#x3D; {value : {‘name’: ‘value’} , formId: ‘’}，report-submit 为 true 时才会返回 formId</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">@reset</td>
+<td align="left">EventHandle</td>
+<td align="left">表单重置时会触发 reset 事件</td>
+<td align="left"></td>
+</tr>
+</tbody></table>
+<h3 id="6-navigator"><a href="#6-navigator" class="headerlink" title="6.navigator"></a>6.navigator</h3><p>页面跳转。</p>
+<p>该组件类似HTML中的<code>&lt;a&gt;</code>组件，但只能跳转本地页面。目标页面必须在pages.json中注册。</p>
+<p>除了组件方式，API方式也可以实现页面跳转，另见：<a target="_blank" rel="noopener" href="https://uniapp.dcloud.io/api/router?id=navigateto">https://uniapp.dcloud.io/api/router?id=navigateto</a></p>
+<p><strong>属性说明</strong></p>
+<table>
+<thead>
+<tr>
+<th align="left">属性名</th>
+<th align="left">类型</th>
+<th align="left">默认值</th>
+<th align="left">说明</th>
+<th align="left">平台差异说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">url</td>
+<td align="left">String</td>
+<td align="left"></td>
+<td align="left">应用内的跳转链接，值为相对路径或绝对路径，如：”..&#x2F;first&#x2F;first”，”&#x2F;pages&#x2F;first&#x2F;first”，注意不能加 <code>.vue</code> 后缀</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">open-type</td>
+<td align="left">String</td>
+<td align="left">navigate</td>
+<td align="left">跳转方式</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">delta</td>
+<td align="left">Number</td>
+<td align="left"></td>
+<td align="left">当 open-type 为 ‘navigateBack’ 时有效，表示回退的层数</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">animation-type</td>
+<td align="left">String</td>
+<td align="left">pop-in&#x2F;out</td>
+<td align="left">当 open-type 为 navigate、navigateBack 时有效，窗口的显示&#x2F;关闭动画效果，详见：<a target="_blank" rel="noopener" href="https://uniapp.dcloud.net.cn/api/router#animation">窗口动画</a></td>
+<td align="left">App</td>
+</tr>
+<tr>
+<td align="left">animation-duration</td>
+<td align="left">Number</td>
+<td align="left">300</td>
+<td align="left">当 open-type 为 navigate、navigateBack 时有效，窗口显示&#x2F;关闭动画的持续时间。</td>
+<td align="left">App</td>
+</tr>
+<tr>
+<td align="left">render-link</td>
+<td align="left">boolean</td>
+<td align="left">true</td>
+<td align="left">是否给 navigator 组件加一层 a 标签控制 ssr 渲染</td>
+<td align="left">web3.7.6+、App-vue3.7.6+</td>
+</tr>
+<tr>
+<td align="left">hover-class</td>
+<td align="left">String</td>
+<td align="left">navigator-hover</td>
+<td align="left">指定点击时的样式类，当hover-class&#x3D;”none”时，没有点击态效果</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">hover-stop-propagation</td>
+<td align="left">Boolean</td>
+<td align="left">false</td>
+<td align="left">指定是否阻止本节点的祖先节点出现点击态</td>
+<td align="left">微信小程序</td>
+</tr>
+<tr>
+<td align="left">hover-start-time</td>
+<td align="left">Number</td>
+<td align="left">50</td>
+<td align="left">按住后多久出现点击态，单位毫秒</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">hover-stay-time</td>
+<td align="left">Number</td>
+<td align="left">600</td>
+<td align="left">手指松开后点击态保留时间，单位毫秒</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">target</td>
+<td align="left">String</td>
+<td align="left">self</td>
+<td align="left">在哪个小程序目标上发生跳转，默认当前小程序，值域self&#x2F;miniProgram</td>
+<td align="left">微信2.0.7+、百度2.5.2+、QQ</td>
+</tr>
+</tbody></table>
+<p><strong>open-type 有效值</strong></p>
+<table>
+<thead>
+<tr>
+<th align="left">值</th>
+<th align="left">说明</th>
+<th align="left">平台差异说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">navigate</td>
+<td align="left">对应 uni.navigateTo 的功能</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">redirect</td>
+<td align="left">对应 uni.redirectTo 的功能</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">switchTab</td>
+<td align="left">对应 uni.switchTab 的功能</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">reLaunch</td>
+<td align="left">对应 uni.reLaunch 的功能</td>
+<td align="left">抖音小程序与飞书小程序不支持</td>
+</tr>
+<tr>
+<td align="left">navigateBack</td>
+<td align="left">对应 uni.navigateBack 的功能</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">exit</td>
+<td align="left">退出小程序，target&#x3D;”miniProgram”时生效</td>
+<td align="left">微信2.1.0+、百度2.5.2+、QQ1.4.7+</td>
+</tr>
+</tbody></table>
+<p>这些细节可在<a target="_blank" rel="noopener" href="https://uniapp.dcloud.io/api/router?id=navigateto">页面路由API文档</a>查阅。</p>
+<p><strong>注意</strong></p>
+<ul>
+<li>跳转tabbar页面，必须设置open-type&#x3D;”switchTab”</li>
+<li>navigator-hover 默认为 {background-color: rgba(0, 0, 0, 0.1); opacity: 0.7;}, <code>&lt;navigator&gt;</code> 的子节点背景色应为透明色。</li>
+<li>navigator-<code>open-type</code>属性 如果使用对应的值，则对应值的功能会高于对应跳转路径。</li>
+<li>app-nvue 平台只有纯nvue项目（render为native）才支持 <code>&lt;navigator&gt;</code>。非render为native的情况下，nvue暂不支持navigator组件，请使用API跳转。</li>
+<li>app下退出应用，Android平台可以使用<a target="_blank" rel="noopener" href="https://www.html5plus.org/doc/zh_cn/runtime.html#plus.runtime.quit">plus.runtime.quit</a>。iOS没有退出应用的概念。</li>
+<li><a target="_blank" rel="noopener" href="https://ext.dcloud.net.cn/plugin?id=1182">uLink组件</a>是navigator组件的增强版，样式上自带下划线，功能上支持打开在线网页、其他App的schema、mailto发邮件、tel打电话。</li>
+<li>Vue3 项目因 SSR 需要，H5 端会在外层嵌套 a 标签</li>
+</ul>
+<h3 id="7-button"><a href="#7-button" class="headerlink" title="7.button"></a>7.button</h3><p>按钮。</p>
+<p><strong>属性说明</strong></p>
+<table>
+<thead>
+<tr>
+<th align="left">属性名</th>
+<th>默认值</th>
+<th align="left">类型</th>
+<th align="left">说明</th>
+<th align="left">生效时机</th>
+<th align="left">平台差异说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">size</td>
+<td>default</td>
+<td align="left">String</td>
+<td align="left">按钮的大小</td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">type</td>
+<td>default</td>
+<td align="left">String</td>
+<td align="left">按钮的样式类型</td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">plain</td>
+<td>false</td>
+<td align="left">Boolean</td>
+<td align="left">按钮是否镂空，背景色透明</td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">disabled</td>
+<td>false</td>
+<td align="left">Boolean</td>
+<td align="left">是否禁用</td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">loading</td>
+<td>false</td>
+<td align="left">Boolean</td>
+<td align="left">名称前是否带 loading 图标</td>
+<td align="left"></td>
+<td align="left">H5、App(App-nvue 平台，在 ios 上为雪花，Android上为圆圈)</td>
+</tr>
+<tr>
+<td align="left">form-type</td>
+<td></td>
+<td align="left">String</td>
+<td align="left">用于 <code>&lt;form&gt;</code> 组件，点击分别会触发 <code>&lt;form&gt;</code> 组件的 submit&#x2F;reset 事件</td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">open-type</td>
+<td></td>
+<td align="left">String</td>
+<td align="left">开放能力</td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">hover-class</td>
+<td>button-hover</td>
+<td align="left">String</td>
+<td align="left">指定按钮按下去的样式类。当 hover-class&#x3D;”none” 时，没有点击态效果</td>
+<td align="left"></td>
+<td align="left">App-nvue 平台暂不支持</td>
+</tr>
+<tr>
+<td align="left">hover-start-time</td>
+<td>20</td>
+<td align="left">Number</td>
+<td align="left">按住后多久出现点击态，单位毫秒</td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">hover-stay-time</td>
+<td>70</td>
+<td align="left">Number</td>
+<td align="left">手指松开后点击态保留时间，单位毫秒</td>
+<td align="left"></td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">app-parameter</td>
+<td></td>
+<td align="left">String</td>
+<td align="left">打开 APP 时，向 APP 传递的参数，open-type&#x3D;launchApp时有效</td>
+<td align="left"></td>
+<td align="left">微信小程序、QQ小程序</td>
+</tr>
+<tr>
+<td align="left">hover-stop-propagation</td>
+<td>false</td>
+<td align="left">boolean</td>
+<td align="left">指定是否阻止本节点的祖先节点出现点击态</td>
+<td align="left"></td>
+<td align="left">微信小程序</td>
+</tr>
+<tr>
+<td align="left">lang</td>
+<td>‘en’</td>
+<td align="left">string</td>
+<td align="left">指定返回用户信息的语言，zh_CN 简体中文，zh_TW 繁体中文，en 英文。</td>
+<td align="left"></td>
+<td align="left">微信小程序</td>
+</tr>
+<tr>
+<td align="left">session-from</td>
+<td></td>
+<td align="left">string</td>
+<td align="left">会话来源，open-type&#x3D;”contact”时有效</td>
+<td align="left"></td>
+<td align="left">微信小程序</td>
+</tr>
+<tr>
+<td align="left">send-message-title</td>
+<td>当前标题</td>
+<td align="left">string</td>
+<td align="left">会话内消息卡片标题，open-type&#x3D;”contact”时有效</td>
+<td align="left"></td>
+<td align="left">微信小程序</td>
+</tr>
+<tr>
+<td align="left">send-message-path</td>
+<td>当前分享路径</td>
+<td align="left">string</td>
+<td align="left">会话内消息卡片点击跳转小程序路径，open-type&#x3D;”contact”时有效</td>
+<td align="left"></td>
+<td align="left">微信小程序</td>
+</tr>
+<tr>
+<td align="left">send-message-img</td>
+<td>截图</td>
+<td align="left">string</td>
+<td align="left">会话内消息卡片图片，open-type&#x3D;”contact”时有效</td>
+<td align="left"></td>
+<td align="left">微信小程序</td>
+</tr>
+<tr>
+<td align="left">show-message-card</td>
+<td>false</td>
+<td align="left">boolean</td>
+<td align="left">是否显示会话内消息卡片，设置此参数为 true，用户进入客服会话会在右下角显示”可能要发送的小程序”提示，用户点击后可以快速发送小程序消息，open-type&#x3D;”contact”时有效</td>
+<td align="left"></td>
+<td align="left">微信小程序</td>
+</tr>
+<tr>
+<td align="left">group-id</td>
+<td></td>
+<td align="left">String</td>
+<td align="left">打开群资料卡时，传递的群号</td>
+<td align="left">open-type&#x3D;”openGroupProfile”</td>
+<td align="left">QQ小程序</td>
+</tr>
+<tr>
+<td align="left">guild-id</td>
+<td></td>
+<td align="left">String</td>
+<td align="left">打开频道页面时，传递的频道号</td>
+<td align="left">open-type&#x3D;”openGuildProfile”</td>
+<td align="left">QQ小程序</td>
+</tr>
+<tr>
+<td align="left">public-id</td>
+<td></td>
+<td align="left">String</td>
+<td align="left">打开公众号资料卡时，传递的号码</td>
+<td align="left">open-type&#x3D;”openPublicProfile”</td>
+<td align="left">QQ小程序</td>
+</tr>
+<tr>
+<td align="left">data-im-id</td>
+<td></td>
+<td align="left">String</td>
+<td align="left">客服的抖音号</td>
+<td align="left">open-type&#x3D;”im”</td>
+<td align="left">抖音小程序2.68.0版本+</td>
+</tr>
+<tr>
+<td align="left">data-im-type</td>
+<td></td>
+<td align="left">String</td>
+<td align="left">IM卡片类型</td>
+<td align="left">open-type&#x3D;”im”</td>
+<td align="left">抖音小程序2.80.0版本+</td>
+</tr>
+<tr>
+<td align="left">data-goods-id</td>
+<td></td>
+<td align="left">String</td>
+<td align="left">商品的id，仅支持泛知识课程库和生活服务商品库中的商品</td>
+<td align="left">open-type&#x3D;”im”</td>
+<td align="left">抖音小程序2.80.0版本+</td>
+</tr>
+<tr>
+<td align="left">data-order-id</td>
+<td></td>
+<td align="left">String</td>
+<td align="left">订单的id，仅支持交易2.0订单</td>
+<td align="left">open-type&#x3D;”im”</td>
+<td align="left">抖音小程序2.80.0版本+</td>
+</tr>
+<tr>
+<td align="left">data-biz-line</td>
+<td></td>
+<td align="left">String</td>
+<td align="left">商品类型，“1”代表生活服务，“2”代表泛知识。</td>
+<td align="left">open-type&#x3D;”im”</td>
+<td align="left">抖音小程序2.80.0版本+</td>
+</tr>
+<tr>
+<td align="left">@getphonenumber</td>
+<td></td>
+<td align="left">Handler</td>
+<td align="left">获取用户手机号回调</td>
+<td align="left">open-type&#x3D;”getPhoneNumber”</td>
+<td align="left">微信、支付宝、百度、抖音、快手、京东小程序</td>
+</tr>
+<tr>
+<td align="left">@getuserinfo</td>
+<td></td>
+<td align="left">Handler</td>
+<td align="left">用户点击该按钮时，会返回获取到的用户信息，从返回参数的detail中获取到的值同uni.getUserInfo</td>
+<td align="left">open-type&#x3D;”getUserInfo”</td>
+<td align="left">微信、QQ、百度、快手、京东小程序</td>
+</tr>
+<tr>
+<td align="left">@error</td>
+<td></td>
+<td align="left">Handler</td>
+<td align="left">当使用开放能力时，发生错误的回调</td>
+<td align="left">open-type&#x3D;”launchApp”</td>
+<td align="left">微信、QQ、快手、京东小程序</td>
+</tr>
+<tr>
+<td align="left">@opensetting</td>
+<td></td>
+<td align="left">Handler</td>
+<td align="left">在打开授权设置页并关闭后回调</td>
+<td align="left">open-type&#x3D;”openSetting”</td>
+<td align="left">微信、QQ、百度、快手、京东小程序</td>
+</tr>
+<tr>
+<td align="left">@launchapp</td>
+<td></td>
+<td align="left">Handler</td>
+<td align="left">从小程序打开 App 成功的回调</td>
+<td align="left">open-type&#x3D;”launchApp”</td>
+<td align="left">微信、QQ、快手、京东小程序</td>
+</tr>
+<tr>
+<td align="left">@contact</td>
+<td></td>
+<td align="left">Handler</td>
+<td align="left">客服消息回调</td>
+<td align="left">open-type&#x3D;”contact”</td>
+<td align="left">微信、QQ、百度、快手小程序</td>
+</tr>
+<tr>
+<td align="left">@chooseavatar</td>
+<td></td>
+<td align="left">Handler</td>
+<td align="left">获取用户头像回调</td>
+<td align="left">open-type&#x3D;”chooseAvatar”</td>
+<td align="left">微信小程序</td>
+</tr>
+<tr>
+<td align="left">@agreeprivacyauthorization</td>
+<td></td>
+<td align="left">Handler</td>
+<td align="left">用户同意隐私协议事件回调，open-type&#x3D;”agreePrivacyAuthorization”时有效</td>
+<td align="left">open-type&#x3D;”agreeprivacyauthorization”</td>
+<td align="left">微信小程序2.33.0</td>
+</tr>
+<tr>
+<td align="left">@addgroupapp</td>
+<td></td>
+<td align="left">Handler</td>
+<td align="left">添加群应用的回调</td>
+<td align="left">open-type&#x3D;”addGroupApp”</td>
+<td align="left">QQ小程序</td>
+</tr>
+<tr>
+<td align="left">@chooseaddress</td>
+<td></td>
+<td align="left">Handler</td>
+<td align="left">调起用户编辑并选择收货地址的回调</td>
+<td align="left">open-type&#x3D;”chooseAddress”</td>
+<td align="left">百度小程序</td>
+</tr>
+<tr>
+<td align="left">@chooseinvoicetitle</td>
+<td></td>
+<td align="left">Handler</td>
+<td align="left">用户选择发票抬头的回调</td>
+<td align="left">open-type&#x3D;”chooseInvoiceTitle”</td>
+<td align="left">百度小程序</td>
+</tr>
+<tr>
+<td align="left">@subscribe</td>
+<td></td>
+<td align="left">Handler</td>
+<td align="left">订阅消息授权回调</td>
+<td align="left">open-type&#x3D;”subscribe”</td>
+<td align="left">百度小程序</td>
+</tr>
+<tr>
+<td align="left">@login</td>
+<td></td>
+<td align="left">Handler</td>
+<td align="left">登录回调</td>
+<td align="left">open-type&#x3D;”login”</td>
+<td align="left">百度小程序</td>
+</tr>
+<tr>
+<td align="left">@im</td>
+<td></td>
+<td align="left">Handler</td>
+<td align="left">监听跳转IM的成功回调</td>
+<td align="left">open-type&#x3D;”im”</td>
+<td align="left">抖音小程序2.68.0版本+</td>
+</tr>
+</tbody></table>
+<ul>
+<li><strong>注1：<code>button-hover</code> 默认为 <code>&#123;background-color: rgba(0, 0, 0, 0.1); opacity: 0.7;&#125;</code></strong></li>
+<li><code>open-type=&quot;launchApp&quot;</code>时需要调起的APP接入微信OpenSDK<a target="_blank" rel="noopener" href="https://developers.weixin.qq.com/miniprogram/dev/framework/open-ability/launchApp.html">详见</a></li>
+<li>微信小程序、Web、App平台 button组件的默认边框宽度为0.5px，不会占据实际的渲染宽高；当type属性为plain时，边框宽度是1px，如果未指定元素的宽高，此时边框宽度会占据实际渲染宽高。</li>
+</ul>
+<blockquote>
+<p>size 有效值</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th align="left">值</th>
+<th align="left">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">default</td>
+<td align="left">默认大小</td>
+</tr>
+<tr>
+<td align="left">mini</td>
+<td align="left">小尺寸</td>
+</tr>
+</tbody></table>
+<p>button组件也支持style中通过css定义文字大小。<a target="_blank" rel="noopener" href="https://uniapp.dcloud.net.cn/component/button.html#style">见下</a></p>
+<blockquote>
+<p>type 有效值</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th align="left">值</th>
+<th align="left">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">primary</td>
+<td align="left">微信小程序、360小程序为绿色，App、H5、百度小程序、支付宝小程序、飞书小程序、快应用为蓝色，抖音小程序为红色，QQ小程序为浅蓝色。如想在多端统一颜色，请改用default，然后自行写样式</td>
+</tr>
+<tr>
+<td align="left">default</td>
+<td align="left">白色</td>
+</tr>
+<tr>
+<td align="left">warn</td>
+<td align="left">红色</td>
+</tr>
+</tbody></table>
+<p>button组件也支持style中通过css定义颜色。<a target="_blank" rel="noopener" href="https://uniapp.dcloud.net.cn/component/button.html#style">见下</a></p>
+<blockquote>
+<p>form-type 有效值</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th align="left">值</th>
+<th align="left">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">submit</td>
+<td align="left">提交表单</td>
+</tr>
+<tr>
+<td align="left">reset</td>
+<td align="left">重置表单</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>open-type 有效值</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th align="left">值</th>
+<th align="left">说明</th>
+<th align="left">平台差异说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">feedback</td>
+<td align="left">打开“意见反馈”页面，用户可提交反馈内容并上传日志</td>
+<td align="left">App、微信小程序、QQ小程序</td>
+</tr>
+<tr>
+<td align="left">share</td>
+<td align="left">触发用户转发</td>
+<td align="left">微信小程序、百度小程序、支付宝小程序、抖音小程序、飞书小程序、QQ小程序、快手小程序、京东小程序、360小程序</td>
+</tr>
+<tr>
+<td align="left">getUserInfo</td>
+<td align="left">获取用户信息，可以从@getuserinfo回调中获取到用户信息</td>
+<td align="left">微信小程序、百度小程序、QQ小程序、快手小程序、京东小程序、360小程序</td>
+</tr>
+<tr>
+<td align="left">contact</td>
+<td align="left">打开客服会话，如果用户在会话中点击消息卡片后返回应用，可以从 @contact 回调中获得具体信息</td>
+<td align="left">微信小程序、百度小程序、快手小程序、抖音小程序</td>
+</tr>
+<tr>
+<td align="left">getPhoneNumber</td>
+<td align="left">获取用户手机号，可以从@getphonenumber回调中获取到用户信息</td>
+<td align="left">微信小程序、百度小程序、抖音小程序、支付宝小程序、快手小程序、京东小程序。App平台另见<a target="_blank" rel="noopener" href="https://uniapp.dcloud.net.cn/univerify">一键登陆</a></td>
+</tr>
+<tr>
+<td align="left">launchApp</td>
+<td align="left">小程序中打开APP，可以通过app-parameter属性设定向APP传的参数</td>
+<td align="left"><a target="_blank" rel="noopener" href="https://developers.weixin.qq.com/miniprogram/dev/framework/open-ability/launchApp.html">微信小程序</a>、<a target="_blank" rel="noopener" href="https://q.qq.com/wiki/develop/miniprogram/frame/open_ability/open_app.html">QQ小程序</a>、快手小程序、京东小程序</td>
+</tr>
+<tr>
+<td align="left">openSetting</td>
+<td align="left">打开授权设置页</td>
+<td align="left">微信小程序、QQ小程序、百度小程序、快手小程序、京东小程序、360小程序</td>
+</tr>
+<tr>
+<td align="left">chooseAvatar</td>
+<td align="left">获取用户头像，可以从@chooseavatar回调中获取到头像信息</td>
+<td align="left">微信小程序2.21.2版本+</td>
+</tr>
+<tr>
+<td align="left">agreePrivacyAuthorization</td>
+<td align="left">用户同意隐私协议按钮。用户点击一次此按钮后，所有隐私接口可以正常调用。可通过 @agreeprivacyauthorization 监听用户同意隐私协议事件。隐私合规开发指南详情可见<a target="_blank" rel="noopener" href="https://developers.weixin.qq.com/miniprogram/dev/framework/user-privacy/PrivacyAuthorize.html">《小程序隐私协议开发指南》</a></td>
+<td align="left">微信小程序2.33.0版本+</td>
+</tr>
+<tr>
+<td align="left">uploadDouyinVideo</td>
+<td align="left">发布抖音视频</td>
+<td align="left">抖音小程序2.65.0版本+</td>
+</tr>
+<tr>
+<td align="left">im</td>
+<td align="left">跳转到抖音IM客服</td>
+<td align="left">抖音小程序2.80.0版本+</td>
+</tr>
+<tr>
+<td align="left">getAuthorize</td>
+<td align="left">支持小程序授权</td>
+<td align="left">支付宝小程序</td>
+</tr>
+<tr>
+<td align="left">lifestyle</td>
+<td align="left">关注生活号</td>
+<td align="left">支付宝小程序</td>
+</tr>
+<tr>
+<td align="left">contactShare</td>
+<td align="left">分享到通讯录好友</td>
+<td align="left">支付宝小程序基础库1.11.0版本+</td>
+</tr>
+<tr>
+<td align="left">openGroupProfile</td>
+<td align="left">呼起QQ群资料卡页面，可以通过group-id属性设定需要打开的群资料卡的群号，同时manifest.json中必须配置groupIdList</td>
+<td align="left">QQ小程序基础库1.4.7版本+</td>
+</tr>
+<tr>
+<td align="left">openGuildProfile</td>
+<td align="left">呼起频道页面，可以通过guild-id属性设定需要打开的频道ID</td>
+<td align="left">QQ小程序基础库1.46.8版本+</td>
+</tr>
+<tr>
+<td align="left">openPublicProfile</td>
+<td align="left">打开公众号资料卡，可以通过public-id属性设定需要打开的公众号资料卡的号码，同时manifest.json中必须配置publicIdList</td>
+<td align="left">QQ小程序基础库1.12.0版本+</td>
+</tr>
+<tr>
+<td align="left">shareMessageToFriend</td>
+<td align="left">在自定义开放数据域组件中,向指定好友发起分享据</td>
+<td align="left">QQ小程序基础库1.17.0版本+</td>
+</tr>
+<tr>
+<td align="left">addFriend</td>
+<td align="left">添加好友， 对方需要通过该小程序进行授权，允许被加好友后才能调用成功用户授权</td>
+<td align="left">QQ小程序</td>
+</tr>
+<tr>
+<td align="left">addColorSign</td>
+<td align="left">添加彩签，点击后添加状态有用户提示，无回调</td>
+<td align="left">QQ小程序基础库1.10.0版本+</td>
+</tr>
+<tr>
+<td align="left">addGroupApp</td>
+<td align="left">添加群应用（只有管理员或群主有权操作），添加后给button绑定@addgroupapp事件接收回调数据</td>
+<td align="left">QQ小程序基础库1.16.0版本+</td>
+</tr>
+<tr>
+<td align="left">addToFavorites</td>
+<td align="left">收藏当前页面，点击按钮后会触发Page.onAddToFavorites方法</td>
+<td align="left">QQ小程序基础库1.19.0版本+</td>
+</tr>
+<tr>
+<td align="left">chooseAddress</td>
+<td align="left">选择用户收货地址，可以从@chooseaddress回调中获取到用户选择的地址信息</td>
+<td align="left">百度小程序3.160.3版本+</td>
+</tr>
+<tr>
+<td align="left">chooseInvoiceTitle</td>
+<td align="left">选择用户发票抬头，可以从@chooseinvoicetitle回调中获取到用户选择发票抬头信息</td>
+<td align="left">百度小程序3.160.3版本+</td>
+</tr>
+<tr>
+<td align="left">login</td>
+<td align="left">登录，可以从@login回调中确认是否登录成功</td>
+<td align="left">百度小程序3.230.1版本+</td>
+</tr>
+<tr>
+<td align="left">subscribe</td>
+<td align="left">订阅类模板消息，需要用户授权才可发送</td>
+<td align="left">百度小程序</td>
+</tr>
+<tr>
+<td align="left">favorite</td>
+<td align="left">触发用户收藏</td>
+<td align="left">快手小程序</td>
+</tr>
+<tr>
+<td align="left">watchLater</td>
+<td align="left">触发用户稍后再看</td>
+<td align="left">快手小程序</td>
+</tr>
+<tr>
+<td align="left">openProfile</td>
+<td align="left">触发打开用户主页</td>
+<td align="left">快手小程序</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>feedback</p>
+</blockquote>
+<p>open-type 为 feedback时：</p>
+<ul>
+<li>小程序中，开发者可以登录 <a target="_blank" rel="noopener" href="https://mp.weixin.qq.com/">微信小程序管理后台</a> 、<a target="_blank" rel="noopener" href="https://q.qq.com/#/">QQ小程序后台</a>后，进入菜单“客服反馈”页面获取反馈内容。</li>
+<li>在 App 中，开发者登录 <a target="_blank" rel="noopener" href="https://dev.dcloud.net.cn/">DCloud开发者中心</a> 后点击应用名称，进入左侧菜单“用户反馈”页面获取反馈内容。</li>
+<li>但推荐使用全端的、开源的、云端一体的意见反馈功能，<a target="_blank" rel="noopener" href="https://ext.dcloud.net.cn/plugin?id=50">前端部分</a>、<a target="_blank" rel="noopener" href="https://ext.dcloud.net.cn/plugin?id=4992">管理端部分</a></li>
+</ul>
+<p><strong>注意</strong></p>
+<ul>
+<li>button组件支持style中通过css定义文字大小、颜色</li>
+</ul>
+<blockquote>
+<p>button样式修改</p>
+</blockquote>
+<p>button组件属性中的size和type，属于预置样式，方便开发者使用。开发者也可以通过style和class来自定义样式。</p>
+<p>button虽然可以内嵌text组件，但不建议通过text组件来修改button样式，因为会导致hover-class不生效。尤其是uvue中样式不继承。建议直接在button组件的style或class属性编写样式。</p>
+<p>style和class的优先级，高于size和type属性。</p>
+<h2 id="5-内置API"><a href="#5-内置API" class="headerlink" title="5.内置API"></a>5.内置API</h2><h3 id="1-showToast"><a href="#1-showToast" class="headerlink" title="1.showToast"></a>1.showToast</h3><p>交换提示</p>
+<pre><code class="highlight javascript">uni.<span class="title function_">showToast</span>(&#123;
+	<span class="attr">title</span>:<span class="string">&quot;操作成功&quot;</span>,
+&#125;)</code></pre>
+
+<h3 id="2-showActionSheet"><a href="#2-showActionSheet" class="headerlink" title="2.showActionSheet"></a>2.showActionSheet</h3><p>下拉菜单</p>
+<pre><code class="highlight vue">&lt;template&gt;
+	&lt;view&gt;
+		&lt;h1&gt;用户&lt;/h1&gt;
+		&lt;button @click=&quot;choose&quot;&gt;选择&lt;/button&gt;
+	&lt;/view&gt;
+&lt;/template&gt;
+
+&lt;script setup&gt;
+function choose()&#123;
+	uni.showActionSheet(&#123;
+		title:&quot;请选择&quot;,
+		itemList:[&quot;大一&quot;,&quot;大二&quot;,&quot;大三&quot;,&quot;大四&quot;],
+		itemColor:&quot;#4cd964&quot;
+	&#125;)
+&#125;
+&lt;/script&gt;</code></pre>
+
+<h3 id="3-uni-showLoading-OBJECT"><a href="#3-uni-showLoading-OBJECT" class="headerlink" title="3.uni.showLoading(OBJECT)"></a>3.uni.showLoading(OBJECT)</h3><p>显示 loading 提示框, 需主动调用 <a target="_blank" rel="noopener" href="https://uniapp.dcloud.net.cn/api/ui/prompt.html#hideloading">uni.hideLoading</a> 才能关闭提示框。</p>
+<p><strong>OBJECT参数说明</strong></p>
+<table>
+<thead>
+<tr>
+<th align="left">参数</th>
+<th align="left">类型</th>
+<th align="left">必     填</th>
+<th align="left">说明</th>
+<th align="left">平台差异说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">title</td>
+<td align="left">String</td>
+<td align="left">是</td>
+<td align="left">提示的文字内容，显示在loading的下方</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">mask</td>
+<td align="left">Boolean</td>
+<td align="left">否</td>
+<td align="left">是否显示透明蒙层，防止触摸穿透，默认：false</td>
+<td align="left">H5、App、微信小程序、百度小程序、抖音小程序（2.47.0+）</td>
+</tr>
+<tr>
+<td align="left">success</td>
+<td align="left">Function</td>
+<td align="left">否</td>
+<td align="left">接口调用成功的回调函数</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">fail</td>
+<td align="left">Function</td>
+<td align="left">否</td>
+<td align="left">接口调用失败的回调函数</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">complete</td>
+<td align="left">Function</td>
+<td align="left">否</td>
+<td align="left">接口调用结束的回调函数（调用成功、失败都会执行）</td>
+<td align="left"></td>
+</tr>
+</tbody></table>
+<p><strong>示例</strong></p>
+<pre><code class="highlight javascript">uni.<span class="title function_">showLoading</span>(&#123;
+	<span class="attr">title</span>: <span class="string">&#x27;加载中&#x27;</span>
+&#125;);</code></pre>
+
+<h3 id="4-uni-hideLoading"><a href="#4-uni-hideLoading" class="headerlink" title="4.uni.hideLoading()"></a>4.uni.hideLoading()</h3><p>隐藏 loading 提示框。</p>
+<p><strong>示例</strong></p>
+<pre><code class="highlight javascript">uni.<span class="title function_">showLoading</span>(&#123;
+	<span class="attr">title</span>: <span class="string">&#x27;加载中&#x27;</span>
+&#125;);
+
+<span class="built_in">setTimeout</span>(<span class="keyword">function</span> (<span class="params"></span>) &#123;
+	uni.<span class="title function_">hideLoading</span>();
+&#125;, <span class="number">2000</span>);</code></pre>
+
+<h3 id="5-uni-showModal-OBJECT"><a href="#5-uni-showModal-OBJECT" class="headerlink" title="5.uni.showModal(OBJECT)"></a>5.uni.showModal(OBJECT)</h3><p>显示模态弹窗，可以只有一个确定按钮，也可以同时有确定和取消按钮。类似于一个API整合了 html 中：alert、confirm。</p>
+<p><strong>OBJECT参数说明</strong></p>
+<table>
+<thead>
+<tr>
+<th align="left">参数</th>
+<th align="left">类型</th>
+<th align="left">必填</th>
+<th align="left">说明</th>
+<th align="left">平台差异说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">title</td>
+<td align="left">String</td>
+<td align="left">否</td>
+<td align="left">提示的标题</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">content</td>
+<td align="left">String</td>
+<td align="left">否</td>
+<td align="left">提示的内容</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">showCancel</td>
+<td align="left">Boolean</td>
+<td align="left">否</td>
+<td align="left">是否显示取消按钮，默认为 true</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">cancelText</td>
+<td align="left">String</td>
+<td align="left">否</td>
+<td align="left">取消按钮的文字，默认为”取消”</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">cancelColor</td>
+<td align="left">HexColor</td>
+<td align="left">否</td>
+<td align="left">取消按钮的文字颜色，默认为”#000000”</td>
+<td align="left">H5、微信小程序、百度小程序、抖音小程序（2.62.0+）</td>
+</tr>
+<tr>
+<td align="left">confirmText</td>
+<td align="left">String</td>
+<td align="left">否</td>
+<td align="left">确定按钮的文字，默认为”确定”</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">confirmColor</td>
+<td align="left">HexColor</td>
+<td align="left">否</td>
+<td align="left">确定按钮的文字颜色，H5平台默认为”#007aff”，微信小程序平台默认为”#576B95”，百度小程序平台默认为”#3c76ff”</td>
+<td align="left">H5、微信小程序、百度小程序、抖音小程序（2.62.0+）</td>
+</tr>
+<tr>
+<td align="left">editable</td>
+<td align="left">Boolean</td>
+<td align="left">否</td>
+<td align="left">是否显示输入框</td>
+<td align="left">H5 (3.2.10+)、App (3.2.10+)、微信小程序 (2.17.1+)、抖音小程序（2.62.0+）</td>
+</tr>
+<tr>
+<td align="left">placeholderText</td>
+<td align="left">String</td>
+<td align="left">否</td>
+<td align="left">显示输入框时的提示文本</td>
+<td align="left">H5 (3.2.10+)、App (3.2.10+)、微信小程序 (2.17.1+)、抖音小程序（2.62.0+）</td>
+</tr>
+<tr>
+<td align="left">success</td>
+<td align="left">Function</td>
+<td align="left">否</td>
+<td align="left">接口调用成功的回调函数</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">fail</td>
+<td align="left">Function</td>
+<td align="left">否</td>
+<td align="left">接口调用失败的回调函数</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">complete</td>
+<td align="left">Function</td>
+<td align="left">否</td>
+<td align="left">接口调用结束的回调函数（调用成功、失败都会执行）</td>
+<td align="left"></td>
+</tr>
+</tbody></table>
+<p><strong>success返回参数说明</strong></p>
+<table>
+<thead>
+<tr>
+<th align="left">参数</th>
+<th align="left">类型</th>
+<th align="left">说明</th>
+<th align="left">平台差异说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">confirm</td>
+<td align="left">Boolean</td>
+<td align="left">为 true 时，表示用户点击了确定按钮</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">cancel</td>
+<td align="left">Boolean</td>
+<td align="left">为 true 时，表示用户点击了取消（用于 Android 系统区分点击蒙层关闭还是点击取消按钮关闭）</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">content</td>
+<td align="left">String</td>
+<td align="left"><code>editable</code> 为 true 时，用户输入的文本</td>
+<td align="left">H5 (3.2.10+)、App (3.2.10+)、微信小程序 (2.17.1+)、抖音小程序（2.62.0+）</td>
+</tr>
+</tbody></table>
+<p><strong>示例</strong></p>
+<pre><code class="highlight javascript">uni.<span class="title function_">showModal</span>(&#123;
+	<span class="attr">title</span>: <span class="string">&#x27;提示&#x27;</span>,
+	<span class="attr">content</span>: <span class="string">&#x27;这是一个模态弹窗&#x27;</span>,
+	<span class="attr">success</span>: <span class="keyword">function</span> (<span class="params">res</span>) &#123;
+		<span class="keyword">if</span> (res.<span class="property">confirm</span>) &#123;
+			<span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;用户点击确定&#x27;</span>);
+		&#125; <span class="keyword">else</span> <span class="keyword">if</span> (res.<span class="property">cancel</span>) &#123;
+			<span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;用户点击取消&#x27;</span>);
+		&#125;
+	&#125;
+&#125;);</code></pre>
+
+<h3 id="6-uni-setNavigationBarTitle-OBJECT"><a href="#6-uni-setNavigationBarTitle-OBJECT" class="headerlink" title="6.uni.setNavigationBarTitle(OBJECT)"></a>6.uni.setNavigationBarTitle(OBJECT)</h3><p>动态设置当前页面的标题。</p>
+<blockquote>
+<p>可用于发送网络请求之后动态更新当前页面的</p>
+</blockquote>
+<p><strong>OBJECT参数说明</strong></p>
+<table>
+<thead>
+<tr>
+<th align="left">参数</th>
+<th align="left">类型</th>
+<th align="left">必填</th>
+<th align="left">说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">title</td>
+<td align="left">String</td>
+<td align="left">是</td>
+<td align="left">页面标题</td>
+</tr>
+<tr>
+<td align="left">success</td>
+<td align="left">Function</td>
+<td align="left">否</td>
+<td align="left">接口调用成功的回调函数</td>
+</tr>
+<tr>
+<td align="left">fail</td>
+<td align="left">Function</td>
+<td align="left">否</td>
+<td align="left">接口调用失败的回调函数</td>
+</tr>
+<tr>
+<td align="left">complete</td>
+<td align="left">Function</td>
+<td align="left">否</td>
+<td align="left">接口调用结束的回调函数（调用成功、失败都会执行）</td>
+</tr>
+</tbody></table>
+<p><strong>示例</strong></p>
+<pre><code class="highlight javascript">uni.<span class="title function_">setNavigationBarTitle</span>(&#123;
+	<span class="attr">title</span>: <span class="string">&#x27;新的标题&#x27;</span>
+&#125;);</code></pre>
+
+<h3 id="7-uni-setTabBarBadge"><a href="#7-uni-setTabBarBadge" class="headerlink" title="7.uni.setTabBarBadge"></a>7.uni.setTabBarBadge</h3><pre><code class="highlight javascript"><span class="attr">onLaunch</span>: <span class="keyword">function</span>(<span class="params"></span>) &#123;
+    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;App Launch&#x27;</span>)
+    uni.<span class="title function_">setTabBarBadge</span>(&#123;
+        <span class="attr">index</span>:<span class="number">1</span>,
+        <span class="attr">text</span>:<span class="number">6</span>
+    &#125;)
+&#125;,</code></pre>
+
+<h3 id="8-uni-showTabBarRedDot"><a href="#8-uni-showTabBarRedDot" class="headerlink" title="8.uni.showTabBarRedDot"></a>8.uni.showTabBarRedDot</h3><p>显示 tabBar 某一项的右上角的红点。</p>
+<pre><code class="highlight javascript">uni.<span class="title function_">showTabBarRedDot</span>(&#123;
+    <span class="attr">index</span>:<span class="number">2</span>
+&#125;)</code></pre>
+
+<h3 id="9-uni-stopPullDownRefresh"><a href="#9-uni-stopPullDownRefresh" class="headerlink" title="9.uni.stopPullDownRefresh()"></a>9.uni.stopPullDownRefresh()</h3><p>停止当前页面下拉刷新。</p>
+<pre><code class="highlight javascript"><span class="keyword">export</span> <span class="keyword">default</span> &#123;
+	<span class="title function_">data</span>(<span class="params"></span>) &#123;
+		<span class="keyword">return</span> &#123;
+			<span class="attr">text</span>: <span class="string">&#x27;uni-app&#x27;</span>
+		&#125;
+	&#125;,
+	<span class="attr">onLoad</span>: <span class="keyword">function</span> (<span class="params">options</span>) &#123;
+		<span class="built_in">setTimeout</span>(<span class="keyword">function</span> (<span class="params"></span>) &#123;
+			<span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;start pulldown&#x27;</span>);
+		&#125;, <span class="number">1000</span>);
+		uni.<span class="title function_">startPullDownRefresh</span>();
+	&#125;,
+	<span class="title function_">onPullDownRefresh</span>(<span class="params"></span>) &#123;
+		<span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;refresh&#x27;</span>);
+		<span class="built_in">setTimeout</span>(<span class="keyword">function</span> (<span class="params"></span>) &#123;
+			uni.<span class="title function_">stopPullDownRefresh</span>();
+		&#125;, <span class="number">1000</span>);
+	&#125;
+&#125;</code></pre>
+
+<h3 id="10-uni-navigateTo"><a href="#10-uni-navigateTo" class="headerlink" title="10.uni.navigateTo"></a>10.uni.navigateTo</h3><blockquote>
+<p>跳转指定页面，非tabbar</p>
+</blockquote>
+<pre><code class="highlight javascript">uni.<span class="title function_">navigateTo</span>(&#123;
+    <span class="attr">url</span>:<span class="string">&quot;/pages/list/list&quot;</span>
+&#125;)</code></pre>
+
+<h3 id="11-uni-reLaunch"><a href="#11-uni-reLaunch" class="headerlink" title="11.uni.reLaunch"></a>11.uni.reLaunch</h3><blockquote>
+<p>跳转指定页面</p>
+</blockquote>
+<pre><code class="highlight javascript">uni.<span class="title function_">reLaunch</span>(&#123;
+    <span class="attr">url</span>:<span class="string">&quot;/pages/list/list&quot;</span>
+&#125;)</code></pre>
+
+<h3 id="12-uni-navigateBack"><a href="#12-uni-navigateBack" class="headerlink" title="12.uni.navigateBack()"></a>12.uni.navigateBack()</h3><blockquote>
+<p>返回上一页</p>
+</blockquote>
+<h3 id="13-uni-request"><a href="#13-uni-request" class="headerlink" title="13.uni.request()"></a>13.uni.request()</h3><blockquote>
+<p>uni.request(OBJECT)</p>
+</blockquote>
+<p>发起网络请求。</p>
+<blockquote>
+<p>在各个小程序平台运行时，网络相关的 API 在使用前需要配置域名白名单。</p>
+</blockquote>
+<p><strong>OBJECT 参数说明</strong></p>
+<table>
+<thead>
+<tr>
+<th align="left">参数名</th>
+<th align="left">类型</th>
+<th align="left">必填</th>
+<th align="left">默认值</th>
+<th align="left">说明</th>
+<th align="left">平台差异说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td align="left">url</td>
+<td align="left">String</td>
+<td align="left">是</td>
+<td align="left"></td>
+<td align="left">开发者服务器接口地址</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">data</td>
+<td align="left">Object&#x2F;String&#x2F;ArrayBuffer</td>
+<td align="left">否</td>
+<td align="left"></td>
+<td align="left">请求的参数</td>
+<td align="left">App 3.3.7 以下不支持 ArrayBuffer 类型</td>
+</tr>
+<tr>
+<td align="left">header</td>
+<td align="left">Object</td>
+<td align="left">否</td>
+<td align="left"></td>
+<td align="left">设置请求的 header，header 中不能设置 Referer</td>
+<td align="left">App、H5端会自动带上cookie，且H5端不可手动修改</td>
+</tr>
+<tr>
+<td align="left">method</td>
+<td align="left">String</td>
+<td align="left">否</td>
+<td align="left">GET</td>
+<td align="left">有效值详见下方说明</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">timeout</td>
+<td align="left">Number</td>
+<td align="left">否</td>
+<td align="left">60000</td>
+<td align="left">超时时间，单位 ms</td>
+<td align="left">H5(HBuilderX 2.9.9+)、APP(HBuilderX 2.9.9+)、微信小程序（2.10.0）、支付宝小程序</td>
+</tr>
+<tr>
+<td align="left">dataType</td>
+<td align="left">String</td>
+<td align="left">否</td>
+<td align="left">json</td>
+<td align="left">如果设为 json，会对返回的数据进行一次 JSON.parse，非 json 不会进行 JSON.parse</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">responseType</td>
+<td align="left">String</td>
+<td align="left">否</td>
+<td align="left">text</td>
+<td align="left">设置响应的数据类型。合法值：text、arraybuffer</td>
+<td align="left">支付宝小程序不支持</td>
+</tr>
+<tr>
+<td align="left">sslVerify</td>
+<td align="left">Boolean</td>
+<td align="left">否</td>
+<td align="left">true</td>
+<td align="left">验证 ssl 证书</td>
+<td align="left">仅App安卓端支持（HBuilderX 2.3.3+），不支持离线打包</td>
+</tr>
+<tr>
+<td align="left">withCredentials</td>
+<td align="left">Boolean</td>
+<td align="left">否</td>
+<td align="left">false</td>
+<td align="left">跨域请求时是否携带凭证（cookies）</td>
+<td align="left">仅H5支持（HBuilderX 2.6.15+）</td>
+</tr>
+<tr>
+<td align="left">firstIpv4</td>
+<td align="left">Boolean</td>
+<td align="left">否</td>
+<td align="left">false</td>
+<td align="left">DNS解析时优先使用ipv4</td>
+<td align="left">仅 App-Android 支持 (HBuilderX 2.8.0+)</td>
+</tr>
+<tr>
+<td align="left">enableHttp2</td>
+<td align="left">Boolean</td>
+<td align="left">否</td>
+<td align="left">false</td>
+<td align="left">开启 http2</td>
+<td align="left">微信小程序</td>
+</tr>
+<tr>
+<td align="left">enableQuic</td>
+<td align="left">Boolean</td>
+<td align="left">否</td>
+<td align="left">false</td>
+<td align="left">开启 quic</td>
+<td align="left">微信小程序</td>
+</tr>
+<tr>
+<td align="left">enableCache</td>
+<td align="left">Boolean</td>
+<td align="left">否</td>
+<td align="left">false</td>
+<td align="left">开启 cache</td>
+<td align="left">微信小程序、抖音小程序 2.31.0+</td>
+</tr>
+<tr>
+<td align="left">enableHttpDNS</td>
+<td align="left">Boolean</td>
+<td align="left">否</td>
+<td align="left">false</td>
+<td align="left">是否开启 HttpDNS 服务。如开启，需要同时填入 httpDNSServiceId 。 HttpDNS 用法详见 <a target="_blank" rel="noopener" href="https://developers.weixin.qq.com/miniprogram/dev/framework/ability/HTTPDNS.html">移动解析HttpDNS</a></td>
+<td align="left">微信小程序</td>
+</tr>
+<tr>
+<td align="left">httpDNSServiceId</td>
+<td align="left">String</td>
+<td align="left">否</td>
+<td align="left"></td>
+<td align="left">HttpDNS 服务商 Id。 HttpDNS 用法详见 <a target="_blank" rel="noopener" href="https://developers.weixin.qq.com/miniprogram/dev/framework/ability/HTTPDNS.html">移动解析HttpDNS</a></td>
+<td align="left">微信小程序</td>
+</tr>
+<tr>
+<td align="left">enableChunked</td>
+<td align="left">Boolean</td>
+<td align="left">否</td>
+<td align="left">false</td>
+<td align="left">开启 transfer-encoding chunked</td>
+<td align="left">微信小程序</td>
+</tr>
+<tr>
+<td align="left">forceCellularNetwork</td>
+<td align="left">Boolean</td>
+<td align="left">否</td>
+<td align="left">false</td>
+<td align="left">wifi下使用移动网络发送请求</td>
+<td align="left">微信小程序</td>
+</tr>
+<tr>
+<td align="left">enableCookie</td>
+<td align="left">Boolean</td>
+<td align="left">否</td>
+<td align="left">false</td>
+<td align="left">开启后可在headers中编辑cookie</td>
+<td align="left">支付宝小程序 10.2.33+</td>
+</tr>
+<tr>
+<td align="left">cloudCache</td>
+<td align="left">Object&#x2F;Boolean</td>
+<td align="left">否</td>
+<td align="left">false</td>
+<td align="left">是否开启云加速（详见<a target="_blank" rel="noopener" href="https://smartprogram.baidu.com/docs/develop/extended/component-codeless/cloud-speed/introduction/">云加速服务</a>）</td>
+<td align="left">百度小程序 3.310.11+</td>
+</tr>
+<tr>
+<td align="left">defer</td>
+<td align="left">Boolean</td>
+<td align="left">否</td>
+<td align="left">false</td>
+<td align="left">控制当前请求是否延时至首屏内容渲染后发送</td>
+<td align="left">百度小程序 3.310.11+</td>
+</tr>
+<tr>
+<td align="left">success</td>
+<td align="left">Function</td>
+<td align="left">否</td>
+<td align="left"></td>
+<td align="left">收到开发者服务器成功返回的回调函数</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">fail</td>
+<td align="left">Function</td>
+<td align="left">否</td>
+<td align="left"></td>
+<td align="left">接口调用失败的回调函数</td>
+<td align="left"></td>
+</tr>
+<tr>
+<td align="left">complete</td>
+<td align="left">Function</td>
+<td align="left">否</td>
+<td align="left"></td>
+<td align="left">接口调用结束的回调函数（调用成功、失败都会执行）</td>
+<td align="left"></td>
+</tr>
+</tbody></table>
+<h2 id="6-属性"><a href="#6-属性" class="headerlink" title="6.属性"></a>6.属性</h2><h3 id="1-lazy-load"><a href="#1-lazy-load" class="headerlink" title="1.lazy-load"></a>1.lazy-load</h3><blockquote>
+<p>懒加载</p>
+</blockquote>
+<pre><code class="highlight plaintext">&lt;image lazy-load :src=&quot;item.url&quot; mode=&quot;widthFix&quot; @click=&quot;Onshowimg(index)&quot;&gt;&lt;/image&gt;</code></pre>
+
+<h2 id="7-小项目"><a href="#7-小项目" class="headerlink" title="7.小项目"></a>7.小项目</h2><pre><code class="highlight vue">&lt;template&gt;
+	&lt;view class=&quot;content&quot;&gt;
+	  &lt;view class=&quot;segmented&quot;&gt;
+			&lt;uni-segmented-control 
+			:current=&quot;currents&quot; 
+			:values=&quot;values&quot; 
+			styleType=&quot;button&quot; 
+			activeColor=&quot;#4cd964&quot;
+			 @clickItem=&quot;OnClickItem&quot;
+			&gt;&lt;/uni-segmented-control&gt;
+		&lt;/view&gt;
+		&lt;view class=&quot;main&quot; v-for=&quot;(item,index) of pets&quot; :key=&quot;item._id&quot;&gt;
+			&lt;view class=&quot;pic&quot;&gt;
+				&lt;image lazy-load :src=&quot;item.url&quot; mode=&quot;widthFix&quot; @click=&quot;Onshowimg(index)&quot;&gt;&lt;/image&gt;
+			&lt;/view&gt;
+			&lt;view class=&quot;context&quot;&gt;&#123;&#123;item.content&#125;&#125;&lt;/view&gt;
+		&lt;/view&gt;
+		
+		&lt;view class=&quot;float&quot;&gt;
+			&lt;view class=&quot;item&quot; @click=&quot;refreshing&quot;&gt;
+				&lt;uni-icons type=&quot;refreshempty&quot; size=&quot;26&quot; color=&quot;#888&quot;&gt;&lt;/uni-icons&gt;
+			&lt;/view&gt;
+			&lt;view class=&quot;item&quot; @click=&quot;totop&quot;&gt;
+				&lt;uni-icons type=&quot;arrow-up&quot; size=&quot;26&quot; color=&quot;#888&quot;&gt;&lt;/uni-icons&gt;
+			&lt;/view&gt;
+		&lt;/view&gt;
+		
+		&lt;view class=&quot;loadmore&quot;&gt;
+			&lt;uni-load-more status=&quot;loading&quot;&gt;&lt;/uni-load-more&gt;
+		&lt;/view&gt;
+	&lt;/view&gt;
+&lt;/template&gt;
+
+&lt;script setup&gt;
+import &#123;onReachBottom,onPullDownRefresh&#125; from &#x27;@dcloudio/uni-app&#x27;
+let pets = ref([])
+let classify = [&#123;key:&quot;all&quot;,value:&quot;all&quot;&#125;,&#123;key:&quot;dog&quot;,value:&quot;dog&quot;&#125;,&#123;key:&quot;cat&quot;,value:&quot;cat&quot;&#125;];
+let currents = ref(0);
+
+const values = computed(()=&gt;classify.map(item=&gt;item.value));
+//发送异步请求
+const network = async (type)=&gt;&#123;
+	uni.showNavigationBarLoading();
+	let result = await uni.request(&#123;
+		url:&quot;https://tea.qingnian8.com/tools/petShow&quot;,
+		data:&#123;
+			size:10,
+			type:type?type:&quot;all&quot;
+		&#125;
+	&#125;);
+	if (result.data.errCode === 0)&#123;
+		pets.value = [...pets.value,...result.data.data];
+	&#125;else if (result.data.errCode === 400)&#123;
+		uni.showToast(&#123;
+			icon:&quot;error&quot;,
+			title:&quot;none&quot;
+		&#125;)
+	&#125;
+	uni.hideNavigationBarLoading();
+	uni.hideLoading();
+	uni.stopPullDownRefresh();
+	
+&#125;
+const Onshowimg = (index)=&gt;&#123;
+	let urls = pets.value.map(item=&gt;item.url);
+	uni.previewImage(&#123;
+		current:index,
+		urls:urls
+	&#125;)
+&#125;
+//发送网络请求
+network();
+
+onReachBottom(()=&gt;&#123;
+	network();
+&#125;)
+
+onPullDownRefresh(()=&gt;&#123;
+	pets.value = [];
+	network();
+&#125;)
+
+//刷新
+const refreshing = ()=&gt;&#123;
+	uni.startPullDownRefresh();
+&#125;
+
+//返回顶部
+const totop = ()=&gt;&#123;
+	uni.pageScrollTo(&#123;
+		scrollTop:0
+	&#125;);
+&#125;
+
+const OnClickItem = (e)=&gt;&#123;
+	currents.value = e.currentIndex;
+	pets.value = [];
+	network(classify[currents.value].value);
+&#125;
+&lt;/script&gt;
+
+&lt;style lang=&quot;less&quot;&gt;
+	.content&#123;
+		padding-right:50rpx;
+		padding-left: 50rpx;
+		.main&#123;
+			margin-top: 60rpx;
+			box-shadow: 0 10rpx 30rpx rgba(0,0,0,0.08);
+			border-radius:15rpx;
+			.pic&#123;
+				width: 100%;
+			&#125;
+			.context&#123;
+				padding: 30rpx 30rpx;
+				font-size:20rpx;
+				color: red;
+			&#125;
+		&#125;
+		
+		.float&#123;
+			position: fixed;
+			right: 30rpx;
+			bottom: 80rpx;
+			.item&#123;
+				width: 90rpx;
+				height: 90rpx;
+				border-radius: 50%;
+				background-color: rgba(255,255,255,0.9);
+				margin-bottom: 20rpx;
+				display: flex;
+				align-items: center;
+				justify-content: center;
+			&#125;
+			padding-bottom: 30px;
+		&#125;
+		.loadmore&#123;
+			padding-bottom: 30px;
+		&#125;
+	&#125;
+&lt;/style&gt;
+</code></pre>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </article>
+        <section class="post-near">
+            <ul>
+                
+                    <li>上一篇: 看完啦 (つд⊂)</li>
+                
+                
+                    <li>下一篇: <a href="/2024/10/30/Flutter/">Flutter</a></li>
+                
+            </ul>
+        </section>
+        
+            <section class="post-tags">
+            <a class="-none-link" href="/tags/UniApp/" rel="tag">UniApp</a><a class="-none-link" href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag">前端</a>
+            </section>
+        
+    
+        <section class="post-author">
+        
+            <figure class="author-avatar">
+                <img src="https://p1.meituan.net/csc/949ad40707d4b4bab7e2ebafbd649aa8211830.jpg" alt="日初" />
+            </figure>
+        
+            <div class="author-info">
+                <h4>日初</h4>
+                <p>一个什么都学的建模动画编程爱好者</p>
+            </div>
+        </section>
+    
+    </div>
+</main>
+
+    <footer>
+    <div class="buttons">
+        <a class="to-top" href="#"></a>
+    </div>
+    <div class="wrap min">
+        <section class="widget">
+            <div class="row">
+                <div class="col-m-4">
+                    <h3 class="title-recent">最新文章：</h3>
+                    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2024/10/31/Uni-App/">Uni-App</a></li><li class="post-list-item"><a class="post-list-link" href="/2024/10/30/Flutter/">Flutter</a></li><li class="post-list-item"><a class="post-list-link" href="/2024/10/25/Gorm/">Gorm</a></li><li class="post-list-item"><a class="post-list-link" href="/2024/10/24/Vue%20development/">Vue development</a></li><li class="post-list-item"><a class="post-list-link" href="/2024/10/23/Gin/">Gin</a></li><li class="post-list-item"><a class="post-list-link" href="/2024/10/21/Andriod/">Android</a></li></ul>
+                </div>
+                <div class="col-m-4">
+                    <h3 class="title-date">时光机：</h3>
+                    <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/10/">十月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/09/">九月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/08/">八月 2024</a></li></ul>
+                </div>
+                <div class="col-m-4">
+                    <h3 class="title-tags">标签云：</h3>
+                    <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/CSS/" style="font-size: 20px;">CSS</a> <a href="/tags/Flutter/" style="font-size: 20px;">Flutter</a> <a href="/tags/Go/" style="font-size: 20px;">Go</a> <a href="/tags/Go-Web/" style="font-size: 20px;">Go Web</a> <a href="/tags/JS/" style="font-size: 20px;">JS</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/Java-Web/" style="font-size: 20px;">Java Web</a> <a href="/tags/Linux/" style="font-size: 20px;">Linux</a> <a href="/tags/MySql/" style="font-size: 20px;">MySql</a> <a href="/tags/MybatisPlus/" style="font-size: 20px;">MybatisPlus</a> <a href="/tags/Nginx/" style="font-size: 20px;">Nginx</a> <a href="/tags/React/" style="font-size: 20px;">React</a> <a href="/tags/Spring-Cloud/" style="font-size: 20px;">Spring Cloud</a> <a href="/tags/UniApp/" style="font-size: 20px;">UniApp</a> <a href="/tags/Vue/" style="font-size: 20px;">Vue</a> <a href="/tags/%E5%89%8D%E7%AB%AF/" style="font-size: 20px;">前端</a> <a href="/tags/%E8%BF%90%E7%BB%B4/" style="font-size: 20px;">运维</a>
+                </div>
+            </div>
+        </section>
+        <section class="sub-footer">
+            <p>© 2024 <a href="/">Richu</a>. All Rights Reserved. Theme By <a href="https://github.com/Dreamer-Paul/Hingle" target="_blank" rel="nofollow">Hingle</a>.</p>
+        </section>
+    </div>
+</footer>
+
+
+<script src="/static/kico.js"></script>
+<script src="/static/hingle.js"></script>
+
+
+<script>var hingle = new Paul_Hingle({"copyright":true,"night":false});</script>
+
+  </body>
+</html>

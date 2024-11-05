@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+  <head>
+     
+    <meta charset="UTF-8">
+    <title>Docker&amp;mysql&amp;nacos - Richu</title>
+    <link rel="shortcut icon" href="/static/img/icon.png">
+    <link rel="icon" href="/static/img/icon.png" sizes="192x192"/>
+    
+<link rel="stylesheet" href="/static/kico.css">
+<link rel="stylesheet" href="/static/hingle.css">
+
+    
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <meta name="viewport" content="width=device-width, maximum-scale=1, initial-scale=1"/>
+    <meta property="og:site_name" content="Richu">
+    <meta property="og:title" content="Docker&amp;mysql&amp;nacos"/>
+    
+    <style>body:before{ content: ''; background-image: url(https://img.meituan.net/csc/d05518606ba7064dd445508e3cf3d4c42860983.png) }</style>
+    
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+  <body>
+    <header>
+    <div class="head-title">
+        <h4>Richu</h4>
+    </div>
+    <div class="head-action">
+        <div class="toggle-btn"></div>
+        <div class="light-btn"></div>
+        <div class="search-btn"></div>
+    </div>
+    <form class="head-search" method="post">
+        <input type="text" name="s" placeholder="搜索什么？">
+    </form>
+    <nav class="head-menu">
+        <a href="/">首页</a>
+        <div class="has-child">
+            <a>分类</a>
+            <div class="sub-menu">
+                <a class="category-link" href="/categories/Android/">Android</a><a class="category-link" href="/categories/Go/">Go</a><a class="category-link" href="/categories/Java/">Java</a><a class="category-link" href="/categories/Unity/">Unity</a><a class="category-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a><a class="category-link" href="/categories/%E8%BF%90%E7%BB%B4/">运维</a>
+            </div>
+        </div>
+        
+            <a href="/about">关于我</a>
+        
+    </nav>
+</header>
+
+    <main>
+    <div class="wrap min">
+        <section class="post-title">
+            <h2>Docker&amp;mysql&amp;nacos</h2>
+            <div class="post-meta">
+                <time class="date">2024.11.05</time>
+            
+                <span class="category"><a class="category-link" href="/categories/%E8%BF%90%E7%BB%B4/">运维</a></span>
+            
+            </div>
+        </section>
+        <article class="post-content">
+        
+            <p>Docker是一个旨在帮助开发人员构建、共享和运行现代应用程序的平台。该应用程序提供了在Mac、Windows或Linux操作系统上免费下载的能力。使用Docker Desktop，您可以通过容器快速、安全地开始开发应用程序。</p>
+<h2 id="1-下载Vmware"><a href="#1-下载Vmware" class="headerlink" title="1.下载Vmware"></a>1.下载Vmware</h2><p><a target="_blank" rel="noopener" href="https://www.vmware.com/content/vmware/vmware-published-sites/cn/products/workstation-pro/workstation-pro-evaluation.html.html.html">下载 VMware Workstation Pro | CN</a></p>
+<h2 id="2-下载Centos8"><a href="#2-下载Centos8" class="headerlink" title="2.下载Centos8"></a>2.下载Centos8</h2><p><a target="_blank" rel="noopener" href="https://mirrors.aliyun.com/centos/8/isos/x86_64/?spm=a2c6h.25603864.0.0.446e1ce4MQ5qtK">centos-8-isos-x86_64安装包下载_开源镜像站-阿里云 (aliyun.com)</a></p>
+<h2 id="3-安装虚拟机"><a href="#3-安装虚拟机" class="headerlink" title="3.安装虚拟机"></a>3.安装虚拟机</h2><blockquote>
+<p>如果没有找到软件安装源就使用<code>https://mirrors.aliyun.com/centos/8-stream/BaseOS/x86_64/os/</code>,并且在网络中添加DNS	8.8.8.8</p>
+</blockquote>
+<blockquote>
+<p>安装完之后输入yum update</p>
+<p>如果和我一样出现了下载元数据失败,输入下面两条指令，然后重新开启yum update</p>
+</blockquote>
+<pre><code class="highlight plaintext">sudo sed -i -e “s|mirrorlist=|#mirrorlist=|g” /etc/yum.repos.d/CentOS-*
+sudo sed -i -e “s|#baseurl=http://mirror.centos.org|baseurl=http://vault.centos.org|g” /etc/yum.repos.d/CentOS-*</code></pre>
+
+<h2 id="4-安装docker"><a href="#4-安装docker" class="headerlink" title="4.安装docker"></a>4.安装docker</h2><pre><code class="highlight plaintext">yum - y install gcc
+yum -y install gcc-c++
+yum install -y yum-utils
+yum-config-manager --add-repo http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo
+yum install docker-ce docker-ce-cli containerd.io docker-compose-plugin
+systemctl start docker
+systemctl enable docker</code></pre>
+
+<blockquote>
+<p>检测docker安装是否成功</p>
+</blockquote>
+<pre><code class="highlight plaintext">docker version</code></pre>
+
+<h2 id="5-配置docker镜像加速器"><a href="#5-配置docker镜像加速器" class="headerlink" title="5.配置docker镜像加速器"></a>5.配置docker镜像加速器</h2><pre><code class="highlight plaintext">https://cr.console.aliyun.com/cn-hangzhou/instances/mirrors?accounttraceid=54ebb47dd2134ed59f6d5d2b9215f808mvmm</code></pre>
+
+<pre><code class="highlight plaintext">sudo mkdir -p /etc/docker
+sudo tee /etc/docker/daemon.json &lt;&lt;-&#x27;EOF&#x27;
+&#123;
+  &quot;registry-mirrors&quot;:[加速器地址]
+&#125;
+EOF
+sudo systemctl daemon-reload
+sudo systemctl restart docker</code></pre>
+
+<h2 id="6-拉取mysql和nginx"><a href="#6-拉取mysql和nginx" class="headerlink" title="6.拉取mysql和nginx"></a>6.拉取mysql和nginx</h2><pre><code class="highlight plaintext">docker pull mysql
+socker pull nginx</code></pre>
+
+<h2 id="7-配置mysql"><a href="#7-配置mysql" class="headerlink" title="7.配置mysql"></a>7.配置mysql</h2><blockquote>
+<p>创建网络</p>
+</blockquote>
+<pre><code class="highlight plaintext">docker network create richu</code></pre>
+
+<blockquote>
+<p>运行mysql容器</p>
+</blockquote>
+<pre><code class="highlight plaintext">docker run -d --name mysql -p 3306:3306 -e TZ=Asia/Shanghai -e MYSQL_ROOT_PASSWORD=123 -v /root/mysql/data:/var/lib/mysql -v /root/mysql/conf:/etc/mysql/conf.d -v /root/mysql/init:/docker-entrypoint-initdb.d --network richu mysql</code></pre>
+
+<h2 id="8-配置nacos"><a href="#8-配置nacos" class="headerlink" title="8.配置nacos"></a>8.配置nacos</h2><p>1.配置mysql表</p>
+<p>2.配置env文件</p>
+<pre><code class="highlight plaintext">PREFER_HOST_MODE=hostname
+MODE=standalone
+SPRING_DATASOURCE_PLATFORM=mysql
+MYSQL_SERVICE_HOST=192.168.3.133
+MYSQL_SERVICE_DB_NAME=nacos
+MYSQL_SERVICE_PORT=3306
+MYSQL_SERVICE_USER=root
+MYSQL_SERVICE_PASSWORD=123
+MYSQL_SERVICE_DB_PARAM=characterEncoding=utf8&amp;connectTimeout=1000&amp;socketTimeout=3000&amp;autoReconnect=true&amp;useSSL=false&amp;allowPublicKeyRetrieval=true&amp;serverTimezone=Asia/Shanghai</code></pre>
+
+<p>3.运行开始</p>
+<blockquote>
+<p>如果出现了no DateSource Set 可以添加–network  与mysql相同的同一网络</p>
+</blockquote>
+<pre><code class="highlight plaintext">docker run -d --name nacos --env-file ./nacos/custom.env -p 8848:8848 -p 9848:9848 -p 9849:9849 --restart=always nacos/nacos-server:v2.1.0-slim --network richu</code></pre>
+
+<p>4.访问</p>
+<blockquote>
+<p>虚拟机ip:8848&#x2F;nacos</p>
+<p>登录账号:nacos</p>
+<p>密码:nacos</p>
+</blockquote>
+
+        </article>
+        <section class="post-near">
+            <ul>
+                
+                    <li>上一篇: 看完啦 (つд⊂)</li>
+                
+                
+                    <li>下一篇: <a href="/2024/11/02/Unity3D/">Unity</a></li>
+                
+            </ul>
+        </section>
+        
+            <section class="post-tags">
+            <a class="-none-link" href="/tags/Docker/" rel="tag">Docker</a><a class="-none-link" href="/tags/%E8%BF%90%E7%BB%B4/" rel="tag">运维</a>
+            </section>
+        
+    
+        <section class="post-author">
+        
+            <figure class="author-avatar">
+                <img src="https://p1.meituan.net/csc/949ad40707d4b4bab7e2ebafbd649aa8211830.jpg" alt="日初" />
+            </figure>
+        
+            <div class="author-info">
+                <h4>日初</h4>
+                <p>一个什么都学的建模动画编程爱好者</p>
+            </div>
+        </section>
+    
+    </div>
+</main>
+
+    <footer>
+    <div class="buttons">
+        <a class="to-top" href="#"></a>
+    </div>
+    <div class="wrap min">
+        <section class="widget">
+            <div class="row">
+                <div class="col-m-4">
+                    <h3 class="title-recent">最新文章：</h3>
+                    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2024/11/05/Docker%E5%92%8Cmysql%E7%9A%84%E6%90%AD%E5%BB%BA/">Docker&mysql&nacos</a></li><li class="post-list-item"><a class="post-list-link" href="/2024/11/02/Unity3D/">Unity</a></li><li class="post-list-item"><a class="post-list-link" href="/2024/10/31/Uni-App/">Uni-App</a></li><li class="post-list-item"><a class="post-list-link" href="/2024/10/30/Flutter/">Flutter</a></li><li class="post-list-item"><a class="post-list-link" href="/2024/10/25/Gorm/">Gorm</a></li><li class="post-list-item"><a class="post-list-link" href="/2024/10/24/Vue%20development/">Vue development</a></li></ul>
+                </div>
+                <div class="col-m-4">
+                    <h3 class="title-date">时光机：</h3>
+                    <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/11/">十一月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/10/">十月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/09/">九月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/08/">八月 2024</a></li></ul>
+                </div>
+                <div class="col-m-4">
+                    <h3 class="title-tags">标签云：</h3>
+                    <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/CSS/" style="font-size: 20px;">CSS</a> <a href="/tags/Docker/" style="font-size: 20px;">Docker</a> <a href="/tags/Flutter/" style="font-size: 20px;">Flutter</a> <a href="/tags/Game/" style="font-size: 20px;">Game</a> <a href="/tags/Go/" style="font-size: 20px;">Go</a> <a href="/tags/Go-Web/" style="font-size: 20px;">Go Web</a> <a href="/tags/JS/" style="font-size: 20px;">JS</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/Java-Web/" style="font-size: 20px;">Java Web</a> <a href="/tags/Linux/" style="font-size: 20px;">Linux</a> <a href="/tags/MySql/" style="font-size: 20px;">MySql</a> <a href="/tags/MybatisPlus/" style="font-size: 20px;">MybatisPlus</a> <a href="/tags/Nginx/" style="font-size: 20px;">Nginx</a> <a href="/tags/React/" style="font-size: 20px;">React</a> <a href="/tags/Spring-Cloud/" style="font-size: 20px;">Spring Cloud</a> <a href="/tags/UniApp/" style="font-size: 20px;">UniApp</a> <a href="/tags/Unity/" style="font-size: 20px;">Unity</a> <a href="/tags/Vue/" style="font-size: 20px;">Vue</a> <a href="/tags/%E5%89%8D%E7%AB%AF/" style="font-size: 20px;">前端</a> <a href="/tags/%E8%BF%90%E7%BB%B4/" style="font-size: 20px;">运维</a>
+                </div>
+            </div>
+        </section>
+        <section class="sub-footer">
+            <p>© 2024 <a href="/">Richu</a>. All Rights Reserved. Theme By <a href="https://github.com/Dreamer-Paul/Hingle" target="_blank" rel="nofollow">Hingle</a>.</p>
+        </section>
+    </div>
+</footer>
+
+
+<script src="/static/kico.js"></script>
+<script src="/static/hingle.js"></script>
+
+
+<script>var hingle = new Paul_Hingle({"copyright":true,"night":false});</script>
+
+  </body>
+</html>

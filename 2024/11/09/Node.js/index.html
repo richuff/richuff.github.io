@@ -1,0 +1,1019 @@
+<!DOCTYPE html>
+<html>
+  <head>
+     
+    <meta charset="UTF-8">
+    <title>NodeJs - Richu</title>
+    <link rel="shortcut icon" href="/static/img/icon.png">
+    <link rel="icon" href="/static/img/icon.png" sizes="192x192"/>
+    
+<link rel="stylesheet" href="/static/kico.css">
+<link rel="stylesheet" href="/static/hingle.css">
+
+    
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <meta name="viewport" content="width=device-width, maximum-scale=1, initial-scale=1"/>
+    <meta property="og:site_name" content="Richu">
+    <meta property="og:title" content="NodeJs"/>
+    
+    <style>body:before{ content: ''; background-image: url(https://img.meituan.net/csc/d05518606ba7064dd445508e3cf3d4c42860983.png) }</style>
+    
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+  <body>
+    <header>
+    <div class="head-title">
+        <h4>Richu</h4>
+    </div>
+    <div class="head-action">
+        <div class="toggle-btn"></div>
+        <div class="light-btn"></div>
+        <div class="search-btn"></div>
+    </div>
+    <form class="head-search" method="post">
+        <input type="text" name="s" placeholder="搜索什么？">
+    </form>
+    <nav class="head-menu">
+        <a href="/">首页</a>
+        <div class="has-child">
+            <a>分类</a>
+            <div class="sub-menu">
+                <a class="category-link" href="/categories/Android/">Android</a><a class="category-link" href="/categories/Go/">Go</a><a class="category-link" href="/categories/Java/">Java</a><a class="category-link" href="/categories/Unity/">Unity</a><a class="category-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a><a class="category-link" href="/categories/%E8%BF%90%E7%BB%B4/">运维</a>
+            </div>
+        </div>
+        
+            <a href="/about">关于我</a>
+        
+    </nav>
+</header>
+
+    <main>
+    <div class="wrap min">
+        <section class="post-title">
+            <h2>NodeJs</h2>
+            <div class="post-meta">
+                <time class="date">2024.11.09</time>
+            
+                <span class="category"><a class="category-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a></span>
+            
+            </div>
+        </section>
+        <article class="post-content">
+        
+            <p>Node.js is a free, open-source, cross-platform JavaScript runtime environment that lets developers create servers, web apps, command line tools and scripts. </p>
+<h2 id="1-入门"><a href="#1-入门" class="headerlink" title="1.入门"></a>1.入门</h2><h3 id="1-下载"><a href="#1-下载" class="headerlink" title="1.下载"></a>1.下载</h3><p><a target="_blank" rel="noopener" href="https://nodejs.cn/download/">下载 | Node.js 中文网 (nodejs.cn)</a></p>
+<h3 id="2-初识-Node-js"><a href="#2-初识-Node-js" class="headerlink" title="2.初识 Node.js"></a>2.初识 Node.js</h3><p>Nodejs@ is a JavaScript runtime built on Chrome’s V8 JavaScript engine.</p>
+<p>Node.js 是一个基于Chrome V8引擎的JavaScript 运行环境。</p>
+<p>Node.js 的官网地址：<a target="_blank" rel="noopener" href="https://nodejs.org/zh-cn/">https://nodejs.org/zh-cn/</a></p>
+<h3 id="3-fs-文件系统模块"><a href="#3-fs-文件系统模块" class="headerlink" title="3.fs 文件系统模块"></a>3.fs 文件系统模块</h3><h4 id="1-什么是fs-文件系统模块"><a href="#1-什么是fs-文件系统模块" class="headerlink" title="1.什么是fs 文件系统模块"></a>1.什么是fs 文件系统模块</h4><p>fs 模块是Node.js官方提供的、用来操作文件的模块。它提供了一系列的方法和属性，用来满足用户对文件的操作需求。</p>
+<p>例如：</p>
+<p>fs.readFile0方法，用来读取指定文件中的内容</p>
+<p>fs.writefile0方法，用来向指定的文件中写入内容</p>
+<blockquote>
+<p>如果要在JavaScript代码中，使用fs模块来操作文件，则需要使用如下的方式先导入它：</p>
+<p>const	fs &#x3D; require(‘fs’)</p>
+</blockquote>
+<h4 id="2-fs-文件系统模块"><a href="#2-fs-文件系统模块" class="headerlink" title="2.fs 文件系统模块"></a>2.fs 文件系统模块</h4><p>1.读取指定文件中的内容</p>
+<blockquote>
+<p>fs.readFile()的语法格式</p>
+<p>使用 fs.readFile0方法，可以读取指定文件中的内容，语法格式如下:</p>
+<p>1 fs.readFile(path[, options], callback)</p>
+<p>参数1：必选参数，字符串，表示文件的路径</p>
+<p>参数2：可选参数，表示以什么编码格式来读取文件</p>
+<p>参数3：必选参数，文件读取完成后，通过回调函数拿到读取的结果</p>
+</blockquote>
+<p>2.向指定的文件中写入内容</p>
+<blockquote>
+<p>1.fs.writeFile()的语法格式</p>
+<p>使用 fs.writeFile0方法，可以向指定的文件中写入内容，语法格式如下:</p>
+<p>1 fs.writeFile(file, data[, options], callback)</p>
+<p>参数1：必选参数，需要指定一个文件路径的字符串，表示文件的存放路径</p>
+<p>参数2：必选参数，表示要写入的内容</p>
+<p>参数3：可选参数，表示以什么格式写入文件内容，默认值是 utf8</p>
+</blockquote>
+<pre><code class="highlight javascript"><span class="keyword">const</span> fs=<span class="built_in">require</span>(<span class="string">&#x27;fs&#x27;</span>);
+
+<span class="comment">/* fs.readFile(&quot;1.txt&quot;,&quot;utf-8&quot;,function(err,dataStr)</span>
+<span class="comment">&#123;</span>
+<span class="comment">    console.log(dataStr);</span>
+<span class="comment">&#125;) */</span>
+
+<span class="comment">/* fs.writeFile(&quot;1.txt&quot;,&quot;ik&quot;,&quot;utf-8&quot;,function(err)&#123;</span>
+<span class="comment">    console.log(err);</span>
+<span class="comment">&#125;) */</span>
+
+fs.<span class="title function_">readFile</span>(<span class="string">&quot;1.txt&quot;</span>,<span class="string">&quot;utf-8&quot;</span>,<span class="keyword">function</span>(<span class="params">err,dataStr</span>)
+&#123;
+    <span class="keyword">const</span> arrNew=[];
+    <span class="keyword">const</span> arr = dataStr.<span class="title function_">split</span>(<span class="string">&#x27; &#x27;</span>);
+
+    arr.<span class="title function_">forEach</span>(<span class="function"><span class="params">item</span>=&gt;</span>&#123;
+        arrNew.<span class="title function_">push</span>(item.<span class="title function_">replace</span>(<span class="string">&#x27;=&#x27;</span>,<span class="string">&#x27;：&#x27;</span>));
+    &#125;)
+    <span class="keyword">const</span> garr=arrNew.<span class="title function_">join</span>(<span class="string">&#x27;\r\n&#x27;</span>);
+    <span class="variable language_">console</span>.<span class="title function_">log</span>(arr);
+    <span class="variable language_">console</span>.<span class="title function_">log</span>(arrNew);
+    <span class="variable language_">console</span>.<span class="title function_">log</span>(garr);
+    fs.<span class="title function_">writeFile</span>(<span class="string">&#x27;2.txt&#x27;</span>,garr,<span class="string">&#x27;utf-8&#x27;</span>,<span class="keyword">function</span>(<span class="params">err</span>)&#123;
+        <span class="variable language_">console</span>.<span class="title function_">log</span>(err);
+    &#125;)
+&#125;)</code></pre>
+
+<h2 id="2-路径"><a href="#2-路径" class="headerlink" title="2.路径"></a>2.路径</h2><h3 id="1-路径的拼接"><a href="#1-路径的拼接" class="headerlink" title="1.路径的拼接"></a>1.路径的拼接</h3><p>路径的拼接使用join方法</p>
+<pre><code class="highlight javascript"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">&quot;path&quot;</span>);
+
+<span class="keyword">const</span> pathStr = path.<span class="title function_">join</span>(<span class="string">&#x27;/a&#x27;</span>,<span class="string">&#x27;/b/c&#x27;</span>,<span class="string">&#x27;../../&#x27;</span>,<span class="string">&#x27;./d&#x27;</span>,<span class="string">&#x27;e&#x27;</span>);
+
+<span class="variable language_">console</span>.<span class="title function_">log</span>(pathStr);</code></pre>
+
+<blockquote>
+<p>__dirname 路径名</p>
+</blockquote>
+<h3 id="2-获取路径中的文件名"><a href="#2-获取路径中的文件名" class="headerlink" title="2.获取路径中的文件名"></a>2.获取路径中的文件名</h3><p>basename</p>
+<pre><code class="highlight javascript">path1=<span class="string">&quot;1.txt&quot;</span>;
+<span class="keyword">const</span> str = path.<span class="title function_">basename</span>(path1,<span class="string">&quot;.txt&quot;</span>);
+<span class="variable language_">console</span>.<span class="title function_">log</span>(str);</code></pre>
+
+<h3 id="3-获取文件的后缀名"><a href="#3-获取文件的后缀名" class="headerlink" title="3.获取文件的后缀名"></a>3.获取文件的后缀名</h3><p>extname</p>
+<pre><code class="highlight javascript"><span class="keyword">const</span> fpath= <span class="string">&quot;1.txt&quot;</span>;
+<span class="keyword">const</span> ftxt = path.<span class="title function_">extname</span>(fpath);
+<span class="variable language_">console</span>.<span class="title function_">log</span>(ftxt);</code></pre>
+
+<blockquote>
+<p>小脚本</p>
+</blockquote>
+<pre><code class="highlight javascript"><span class="keyword">const</span> fs =<span class="built_in">require</span>(<span class="string">&quot;fs&quot;</span>);
+<span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">&quot;path&quot;</span>);
+
+<span class="keyword">const</span> regStyle = <span class="regexp">/&lt;style&gt;[\s\S]*&lt;\/style&gt;/</span>
+<span class="keyword">const</span> regScript = <span class="regexp">/&lt;script&gt;[\s\S]*&lt;\/script&gt;/</span>
+
+fs.<span class="title function_">readFile</span>(<span class="string">&quot;./index.html&quot;</span>,<span class="string">&#x27;utf-8&#x27;</span>,<span class="keyword">function</span>(<span class="params">err,dataStr</span>)&#123;
+    <span class="keyword">if</span> (err) <span class="keyword">return</span> <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;读取失败&quot;</span>+err.<span class="property">message</span>);
+    <span class="title function_">resolveCSS</span>(dataStr);
+    <span class="title function_">resolveScript</span>(dataStr);
+    <span class="title function_">resolveHTML</span>(dataStr);
+&#125;)
+
+<span class="keyword">function</span> <span class="title function_">resolveCSS</span>(<span class="params">htmlstr</span>)&#123;
+    <span class="keyword">const</span> str1 = regStyle.<span class="title function_">exec</span>(htmlstr);
+    <span class="keyword">const</span> nstr = str1[<span class="number">0</span>].<span class="title function_">replace</span>(<span class="string">&#x27;&lt;style&gt;&#x27;</span>,<span class="string">&#x27;&#x27;</span>).<span class="title function_">replace</span>(<span class="string">&#x27;&lt;/style&gt;&#x27;</span>,<span class="string">&#x27;&#x27;</span>);
+    fs.<span class="title function_">writeFile</span>(path.<span class="title function_">join</span>(__dirname,<span class="string">&#x27;/clcok.css&#x27;</span>),nstr,<span class="keyword">function</span>(<span class="params">err,dataStr</span>)&#123;
+        <span class="keyword">if</span> (err) <span class="keyword">return</span> <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;写入失败&quot;</span>);
+        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;写入成功&quot;</span>);
+    &#125;)
+&#125;
+
+<span class="keyword">function</span> <span class="title function_">resolveScript</span>(<span class="params">htmlstr1</span>)&#123;
+    <span class="keyword">const</span> str2 = regScript.<span class="title function_">exec</span>(htmlstr1);
+    <span class="keyword">const</span> nstr2 = str2[<span class="number">0</span>].<span class="title function_">replace</span>(<span class="string">&#x27;&lt;script&gt;&#x27;</span>,<span class="string">&#x27;&#x27;</span>).<span class="title function_">replace</span>(<span class="string">&#x27;&lt;/script&gt;&#x27;</span>,<span class="string">&#x27;&#x27;</span>);
+    fs.<span class="title function_">writeFile</span>(path.<span class="title function_">join</span>(__dirname,<span class="string">&#x27;/clcoks.js&#x27;</span>),nstr2,<span class="keyword">function</span>(<span class="params">err,dataStr</span>)&#123;
+        <span class="keyword">if</span> (err) <span class="keyword">return</span> <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;写入失败&quot;</span>);
+        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;写入成功&quot;</span>);
+    &#125;)
+&#125;
+
+<span class="keyword">function</span> <span class="title function_">resolveHTML</span>(<span class="params">htmlstr</span>)&#123;
+    <span class="keyword">const</span> html = htmlstr.<span class="title function_">replace</span>(regStyle,<span class="string">&#x27;&lt;link rel=&quot;stylesheet&quot; href=&quot;./clcok.css&quot;&gt;&#x27;</span>).<span class="title function_">replace</span>(regScript,<span class="string">&#x27;&lt;script src=&quot;./clcoks.js&quot;&gt;&lt;/script&gt;&#x27;</span>);
+    fs.<span class="title function_">writeFile</span>(<span class="string">&#x27;index.html&#x27;</span>,html,<span class="keyword">function</span>(<span class="params">err,dataStr</span>)&#123;
+        <span class="keyword">if</span> (err) <span class="keyword">return</span> <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;写入失败&quot;</span>);
+        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;写入成功&quot;</span>);
+    &#125;)
+&#125;</code></pre>
+
+<blockquote>
+<p>后写入的内容会覆盖之前写入的内容</p>
+</blockquote>
+<h2 id="3-http模块"><a href="#3-http模块" class="headerlink" title="3.http模块"></a>3.http模块</h2><p>1.导入http模块</p>
+<blockquote>
+<p>const http &#x3D; require(‘http’)</p>
+</blockquote>
+<pre><code class="highlight javascript"><span class="keyword">const</span> http = <span class="built_in">require</span>(<span class="string">&#x27;http&#x27;</span>)
+
+
+<span class="keyword">const</span> serve = http.<span class="title function_">createServer</span>()
+
+serve.<span class="title function_">on</span>(<span class="string">&#x27;request&#x27;</span>,<span class="function">(<span class="params">req,res</span>)=&gt;</span>&#123;
+    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;web serve start&quot;</span>);
+&#125;)
+
+serve.<span class="title function_">listen</span>(<span class="number">1910</span>,<span class="function">()=&gt;</span>&#123;
+    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;port:&quot;</span>+<span class="number">1910</span>);
+&#125;)</code></pre>
+
+<ol start="2">
+<li></li>
+</ol>
+<blockquote>
+<p>req.url 获取网址</p>
+<p>req.method 获取请求方式</p>
+</blockquote>
+<pre><code class="highlight javascript">serve.<span class="title function_">on</span>(<span class="string">&#x27;request&#x27;</span>,<span class="keyword">function</span>(<span class="params">req,res</span>)&#123;
+    <span class="keyword">const</span> url = req.<span class="property">url</span>;
+    <span class="keyword">const</span> method  = req.<span class="property">method</span>;
+    <span class="variable language_">console</span>.<span class="title function_">log</span>(url+<span class="string">&quot;   &quot;</span>+method);
+&#125;)</code></pre>
+
+<ol start="3">
+<li></li>
+</ol>
+<blockquote>
+<p>解决中文乱码</p>
+<p>res.setHeader(‘Content-Type’,’text&#x2F;html; charset&#x3D;utf-8’);</p>
+</blockquote>
+<pre><code class="highlight javascript"><span class="keyword">const</span> http = <span class="built_in">require</span>(<span class="string">&#x27;http&#x27;</span>);
+
+<span class="keyword">const</span> serve =http.<span class="title function_">createServer</span>();
+
+serve.<span class="title function_">on</span>(<span class="string">&#x27;request&#x27;</span>,<span class="keyword">function</span>(<span class="params">req,res</span>)&#123;
+    <span class="keyword">const</span> url = req.<span class="property">url</span>;
+    <span class="keyword">const</span> method  = req.<span class="property">method</span>;
+    <span class="variable language_">console</span>.<span class="title function_">log</span>(url+<span class="string">&quot;   &quot;</span>+method);
+    <span class="keyword">const</span> str = <span class="string">&quot;启动&quot;</span>;
+    res.<span class="title function_">setHeader</span>(<span class="string">&#x27;Content-Type&#x27;</span>,<span class="string">&#x27;text/html; charset=utf-8&#x27;</span>);
+    res.<span class="title function_">end</span>(str);
+
+&#125;)
+
+serve.<span class="title function_">listen</span>(<span class="number">1910</span>,<span class="keyword">function</span>(<span class="params"></span>)&#123;
+    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;启动&quot;</span>);
+&#125;)</code></pre>
+
+<ol start="4">
+<li></li>
+</ol>
+<pre><code class="highlight javascript"><span class="keyword">const</span> http = <span class="built_in">require</span>(<span class="string">&#x27;http&#x27;</span>);
+
+<span class="keyword">const</span> serve = http.<span class="title function_">createServer</span>();
+
+serve.<span class="title function_">on</span>(<span class="string">&#x27;request&#x27;</span>,<span class="keyword">function</span>(<span class="params">req,res</span>)&#123;
+    <span class="keyword">const</span> url = req.<span class="property">url</span>;
+
+    <span class="keyword">let</span> content = <span class="string">&#x27;404 Not Found&#x27;</span>;
+
+    <span class="keyword">if</span> (url === <span class="string">&#x27;/&#x27;</span> || url === <span class="string">&#x27;/index.html&#x27;</span>)&#123;
+        content = <span class="string">&#x27;&lt;h1&gt;首页&lt;/h1&gt;&#x27;</span>
+    &#125;<span class="keyword">else</span> <span class="keyword">if</span> (url === <span class="string">&#x27;/other.html&#x27;</span>)&#123;
+        content = <span class="string">&#x27;&lt;h2&gt;其他&lt;/h2&gt;&#x27;</span>
+    &#125;
+
+    res.<span class="title function_">setHeader</span>(<span class="string">&#x27;Content-Type&#x27;</span>,<span class="string">&#x27;text/html; charset=utf-8&#x27;</span>);
+
+    res.<span class="title function_">end</span>(content);
+&#125;)
+
+serve.<span class="title function_">listen</span>(<span class="number">1910</span>,<span class="keyword">function</span>(<span class="params"></span>)&#123;
+    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;启动服务&quot;</span>);
+&#125;)</code></pre>
+
+<p>5.小案例</p>
+<pre><code class="highlight javascript"><span class="keyword">const</span> fs = <span class="built_in">require</span>(<span class="string">&quot;fs&quot;</span>);
+<span class="keyword">const</span> http = <span class="built_in">require</span>(<span class="string">&quot;http&quot;</span>);
+<span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">&quot;path&quot;</span>);
+
+<span class="keyword">const</span> serve = http.<span class="title function_">createServer</span>();
+
+serve.<span class="title function_">on</span>(<span class="string">&#x27;request&#x27;</span>,<span class="function">(<span class="params">req,res</span>)=&gt;</span>&#123;
+    <span class="keyword">const</span> url = req.<span class="property">url</span>;
+    <span class="keyword">const</span> str1 = path.<span class="title function_">join</span>(__dirname,url);
+    <span class="variable language_">console</span>.<span class="title function_">log</span>(str1);
+    fs.<span class="title function_">readFile</span>(str1,<span class="string">&#x27;utf-8&#x27;</span>,<span class="keyword">function</span>(<span class="params">err,dataStr</span>)&#123;
+        <span class="keyword">if</span> (err) <span class="keyword">return</span> res.<span class="title function_">end</span>(<span class="string">&quot;404 Not found&quot;</span>);
+        res.<span class="title function_">end</span>(dataStr);
+    &#125;)
+&#125;)
+
+serve.<span class="title function_">listen</span>(<span class="number">1910</span>,<span class="keyword">function</span>(<span class="params"></span>)&#123;
+    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;启动&quot;</span>);
+&#125;)</code></pre>
+
+<h2 id="4-模块化"><a href="#4-模块化" class="headerlink" title="4.模块化"></a>4.模块化</h2><h3 id="1-模块的规范性"><a href="#1-模块的规范性" class="headerlink" title="1.模块的规范性"></a>1.模块的规范性</h3><p>模块化规范就是对代码进行模块化的拆分与组合时，需要遵守的那些规则。</p>
+<p>例如：</p>
+<p>使用什么样的语法格式来引用模块</p>
+<p>在模块中使用什么样的语法格式向外暴露成员</p>
+<p>模块化规范的好处：大家都遵守同样的模块化规范写代码，降低了沟通的成本，极大方便了各个模块之间的相互调用利人利己</p>
+<h3 id="2-Node-js模块"><a href="#2-Node-js模块" class="headerlink" title="2.Node.js模块"></a>2.Node.js模块</h3><ul>
+<li>内置模块	fs path http</li>
+<li>自定义模块   .js 用户创建</li>
+<li>第三方模块   第三方开发的模块</li>
+</ul>
+<p>加载模块</p>
+<blockquote>
+<p>require()</p>
+</blockquote>
+<h3 id="3-模块作用域"><a href="#3-模块作用域" class="headerlink" title="3.模块作用域"></a>3.模块作用域</h3><p>在自定义模块中的变量、方法等成员，只能在当前模块内被访问，这种模块级别的限制就叫做模块作用域</p>
+<blockquote>
+<p>好处</p>
+<ul>
+<li>防止全局变量被污染</li>
+</ul>
+</blockquote>
+<blockquote>
+<p>向外共享模块作用域中的成员</p>
+<p>moudule对象</p>
+<p>存储和当前模块有关的信息</p>
+</blockquote>
+<p>moudule.exports对象</p>
+<p>可以将模块的成员共享出去，供外界使用</p>
+<p>在外界用require()导入自定义模块得到moudule.exports对象</p>
+<blockquote>
+<p>默认情况下moudule.exports等于空对象</p>
+</blockquote>
+<pre><code class="highlight javascript"><span class="variable language_">module</span>.<span class="property">exports</span>.<span class="property">uname</span> = <span class="string">&quot;zs&quot;</span>;
+
+<span class="variable language_">module</span>.<span class="property">exports</span>.<span class="property">say</span> = <span class="keyword">function</span>(<span class="params"></span>)&#123;
+    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;Hi&quot;</span>);
+&#125;</code></pre>
+
+<blockquote>
+<p>以moudule.exports指向的对象为准</p>
+</blockquote>
+<pre><code class="highlight javascript"><span class="variable language_">module</span>.<span class="property">exports</span>.<span class="property">uname</span> = <span class="string">&quot;zs&quot;</span>;
+
+<span class="variable language_">module</span>.<span class="property">exports</span>.<span class="property">say</span> = <span class="keyword">function</span>(<span class="params"></span>)&#123;
+    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;Hi&quot;</span>);
+&#125;
+
+<span class="variable language_">module</span>.<span class="property">exports</span> = &#123;
+    nuname : <span class="string">&#x27;ls&#x27;</span>,
+    <span class="title function_">nsay</span>(<span class="params"></span>)&#123;
+        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;HHi&quot;</span>)
+    &#125;
+&#125;</code></pre>
+
+<p>exports对象</p>
+<blockquote>
+<p>moudule.exports对象与exports对象指向同一个对象</p>
+</blockquote>
+<pre><code class="highlight javascript"><span class="built_in">exports</span>.<span class="property">uname</span>=<span class="string">&#x27;ls&#x27;</span>;
+
+<span class="built_in">exports</span>.<span class="property">age</span>=<span class="number">19</span>;</code></pre>
+
+<p>建议不要在同一个文件使用moudule.export、exports</p>
+<h3 id="4-CommonJS规范"><a href="#4-CommonJS规范" class="headerlink" title="4.CommonJS规范"></a>4.CommonJS规范</h3><p>1.每个模块的moudule代表当前模块</p>
+<p>2.moudule变量是一个对象,moudule.export是一个接口</p>
+<p>3.require()用来加载模块</p>
+<h2 id="5-npm包"><a href="#5-npm包" class="headerlink" title="5.npm包"></a>5.npm包</h2><h3 id="1-格式化时间"><a href="#1-格式化时间" class="headerlink" title="1.格式化时间"></a>1.格式化时间</h3><pre><code class="highlight javascript"><span class="keyword">function</span> <span class="title function_">dateformat</span>(<span class="params">dastr</span>)&#123;
+    <span class="keyword">function</span> <span class="title function_">zero</span>(<span class="params">str</span>)&#123;
+        <span class="keyword">if</span> (str&lt;<span class="number">10</span>) <span class="keyword">return</span> <span class="string">&#x27;0&#x27;</span>+str
+    &#125;
+    <span class="keyword">const</span> dt = <span class="keyword">new</span> <span class="title class_">Date</span>(dastr);
+
+    <span class="keyword">const</span> m = dt.<span class="title function_">getFullYear</span>();
+
+    <span class="keyword">const</span> n = <span class="title function_">zero</span>(dt.<span class="title function_">getMonth</span>());
+
+    <span class="keyword">const</span> d = <span class="title function_">zero</span>(dt.<span class="title function_">getDay</span>());
+
+    <span class="keyword">return</span> <span class="string">`<span class="subst">$&#123;m&#125;</span>-<span class="subst">$&#123;n&#125;</span>-<span class="subst">$&#123;d&#125;</span>`</span>;
+&#125;
+
+<span class="variable language_">module</span>.<span class="property">exports</span>.<span class="property">dateformat</span>=dateformat;</code></pre>
+
+<pre><code class="highlight javascript"><span class="keyword">const</span> req = <span class="built_in">require</span>(<span class="string">&quot;./time&quot;</span>)
+
+<span class="keyword">const</span> dt = <span class="keyword">new</span> <span class="title class_">Date</span>();
+
+<span class="keyword">const</span> s = req.<span class="title function_">dateformat</span>(dt);
+
+<span class="variable language_">console</span>.<span class="title function_">log</span>(s)</code></pre>
+
+<h3 id="2"><a href="#2" class="headerlink" title="2."></a>2.</h3><p>npm install 包名</p>
+<blockquote>
+<p>简写</p>
+</blockquote>
+<p>npm i 包名</p>
+<pre><code class="highlight javascript"><span class="keyword">const</span> moment = <span class="built_in">require</span>(<span class="string">&quot;moment&quot;</span>);
+
+<span class="keyword">const</span> dt = <span class="title function_">moment</span>().<span class="title function_">format</span>(<span class="string">&#x27;YYYY-MM-DD&#x27;</span>);
+
+<span class="variable language_">console</span>.<span class="title function_">log</span>(dt);</code></pre>
+
+<p>npm i moment@版本 安装指定版本的包</p>
+<h3 id="3-包的语义化版本规范"><a href="#3-包的语义化版本规范" class="headerlink" title="3.包的语义化版本规范"></a>3.包的语义化版本规范</h3><p>2.24.0</p>
+<ul>
+<li>1-&gt;大版本</li>
+<li>2-&gt;功能版本</li>
+<li>3-&gt;Bug修复版本</li>
+</ul>
+<h3 id="4-包管理配置文件"><a href="#4-包管理配置文件" class="headerlink" title="4.包管理配置文件"></a>4.包管理配置文件</h3><blockquote>
+<p>快速创建package.json文件</p>
+<p>npm init -y</p>
+</blockquote>
+<p>要在gitingnore文件添加node_modules</p>
+<h3 id="5-dependencies"><a href="#5-dependencies" class="headerlink" title="5.dependencies"></a>5.dependencies</h3><blockquote>
+<p>用来记录使用npm下载了哪些包</p>
+</blockquote>
+<p>npm i 直接安装所有包</p>
+<p>npm uninstall 包名 卸载包</p>
+<h3 id="6-devDependencies"><a href="#6-devDependencies" class="headerlink" title="6.devDependencies"></a>6.devDependencies</h3><p>某些包只在开发阶段使用，加入devDependencies节点</p>
+<p>某些包在开发使用上线也需要使用，加入dependencies节点</p>
+<blockquote>
+<p>npm install webpack -D</p>
+</blockquote>
+<h3 id="7-镜像源"><a href="#7-镜像源" class="headerlink" title="7.镜像源"></a>7.镜像源</h3><p>查看当前镜像源</p>
+<blockquote>
+<p>npm config get registry</p>
+</blockquote>
+<blockquote>
+<p>npm config set registry&#x3D;<a target="_blank" rel="noopener" href="https://registry.npm.taobao.org/">https://registry.npm.taobao.org/</a></p>
+</blockquote>
+<p>nrm</p>
+<blockquote>
+<p>方便地切换镜像源</p>
+<p>npx nrm ls</p>
+<p>npx nrm use taobao</p>
+</blockquote>
+<h3 id="8-包的分类"><a href="#8-包的分类" class="headerlink" title="8.包的分类"></a>8.包的分类</h3><blockquote>
+<p>项目包，被安装到node_moudules目录</p>
+<ul>
+<li>开发依赖包 devDependencies</li>
+<li>核心依赖包 dependencies</li>
+</ul>
+</blockquote>
+<blockquote>
+<p>全局包，在使用npm install 加上-g参数</p>
+<p>C:\Users\用户名\AppData\Roaming\npm\node_modules</p>
+<p>npm uninstall 包名 -g</p>
+</blockquote>
+<p>i5ting_toc</p>
+<p>可以把md转成html</p>
+<blockquote>
+<p>npm install -g i5ting_toc</p>
+<p>i5ting_toc -f  .md -o</p>
+</blockquote>
+<h3 id="9-包的规范"><a href="#9-包的规范" class="headerlink" title="9.包的规范"></a>9.包的规范</h3><p>1.单独目录存在</p>
+<p>2.有文件package.json</p>
+<p>3.有name,version,main三个属性，包名，版本号，包的入口</p>
+<h3 id="10-自定义包"><a href="#10-自定义包" class="headerlink" title="10.自定义包"></a>10.自定义包</h3><p>新建文件夹作为根目录</p>
+<p>1.package.json</p>
+<p>2.index.js</p>
+<p>3.README.md</p>
+<pre><code class="highlight javascript"><span class="keyword">function</span> <span class="title function_">htmlEscape</span>(<span class="params">htmlstr</span>)&#123;
+    <span class="keyword">return</span> htmlstr.<span class="title function_">replace</span>(<span class="regexp">/&lt;|&gt;|&quot;|&amp;/g</span>,<span class="function"><span class="params">match</span>=&gt;</span>&#123;
+        <span class="keyword">switch</span> (match)&#123;
+            <span class="keyword">case</span> <span class="string">&#x27;&lt;&#x27;</span>:
+                <span class="keyword">return</span> <span class="string">&#x27;&amp;lt;&#x27;</span>;
+            <span class="keyword">case</span> <span class="string">&#x27;&gt;&#x27;</span>:
+                <span class="keyword">return</span> <span class="string">&#x27;&amp;gt;&#x27;</span>
+            <span class="keyword">case</span> <span class="string">&#x27;&quot;&#x27;</span>:
+                <span class="keyword">return</span> <span class="string">&#x27;&amp;quot;&#x27;</span>
+            <span class="keyword">case</span> <span class="string">&#x27;&amp;&#x27;</span>:
+                <span class="keyword">return</span> <span class="string">&#x27;&amp;amp;&#x27;</span>
+        &#125;
+    &#125;)
+&#125;
+
+<span class="keyword">function</span> <span class="title function_">htmlUnEscape</span>(<span class="params">htmlstr</span>)&#123;
+    <span class="keyword">return</span> htmlstr.<span class="title function_">replace</span>(<span class="regexp">/&amp;lt;|&amp;gt;|&amp;quot;|&amp;amp;/g</span>,<span class="function"><span class="params">match</span>=&gt;</span>&#123;
+        <span class="keyword">switch</span> (match)&#123;
+            <span class="keyword">case</span> <span class="string">&#x27;&amp;lt;&#x27;</span>:
+                <span class="keyword">return</span> <span class="string">&#x27;&lt;&#x27;</span>;
+            <span class="keyword">case</span> <span class="string">&#x27;&amp;gt;&#x27;</span>:
+                <span class="keyword">return</span> <span class="string">&#x27;&gt;&#x27;</span>
+            <span class="keyword">case</span> <span class="string">&#x27;&amp;quot;&#x27;</span>:
+                <span class="keyword">return</span> <span class="string">&#x27;&quot;&#x27;</span>
+            <span class="keyword">case</span> <span class="string">&#x27;&amp;amp;&#x27;</span>:
+                <span class="keyword">return</span> <span class="string">&#x27;&amp;&#x27;</span>
+        &#125;
+    &#125;)
+&#125;
+
+<span class="variable language_">module</span>.<span class="property">exports</span>=&#123;
+    htmlEscape,
+    htmlUnEscape
+&#125;</code></pre>
+
+<p>模块拆分</p>
+<p>src</p>
+<pre><code class="highlight javascript"><span class="keyword">const</span> html = <span class="built_in">require</span>(<span class="string">&quot;./src/html&quot;</span>)
+<span class="keyword">const</span> unhtml = <span class="built_in">require</span>(<span class="string">&quot;./src/unhtml&quot;</span>)
+
+<span class="variable language_">module</span>.<span class="property">exports</span>=&#123;
+    ...html,
+    ...unhtml
+&#125;</code></pre>
+
+<h3 id="11-发布npm包"><a href="#11-发布npm包" class="headerlink" title="11.发布npm包"></a>11.发布npm包</h3><p>1.注册npm账号</p>
+<p>2.登录 npm login</p>
+<p>3.npm publish 发布</p>
+<p>4.删除包 npm unpublish 包名 –force</p>
+<blockquote>
+<p>只能删除72小时以内发布的包</p>
+<p>删除的包，在24小时内不允许发布没有意义的包</p>
+</blockquote>
+<h3 id="12-模块的加载机制"><a href="#12-模块的加载机制" class="headerlink" title="12.模块的加载机制"></a>12.模块的加载机制</h3><blockquote>
+<p>模块加载一次后会被缓存</p>
+<p>内置模块加载优先级最高</p>
+<p>在载入内置模块是要以.&#x2F;或..&#x2F;开头</p>
+<p>默认加载main入口，如果没找到，会找index.js否则报错</p>
+</blockquote>
+<h2 id="6-Express"><a href="#6-Express" class="headerlink" title="6.Express"></a>6.Express</h2><h3 id="1-基本使用"><a href="#1-基本使用" class="headerlink" title="1.基本使用"></a>1.基本使用</h3><blockquote>
+<p>获取url中携带的参数</p>
+<p>req.query</p>
+</blockquote>
+<h3 id="2-获取url中的动态参数"><a href="#2-获取url中的动态参数" class="headerlink" title="2.获取url中的动态参数"></a>2.获取url中的动态参数</h3><pre><code class="highlight javascript"><span class="keyword">const</span> express = <span class="built_in">require</span>(<span class="string">&quot;express&quot;</span>);
+
+<span class="keyword">const</span> app = <span class="title function_">express</span>();
+
+app.<span class="title function_">all</span>(<span class="string">&quot;/serve/:id&quot;</span>,<span class="keyword">function</span>(<span class="params">req,res</span>)&#123;
+    <span class="variable language_">console</span>.<span class="title function_">log</span>(req.<span class="property">params</span>);
+    <span class="keyword">const</span> str = <span class="title class_">JSON</span>.<span class="title function_">stringify</span>(req.<span class="property">params</span>)
+    res.<span class="title function_">end</span>(str)
+&#125;)
+
+app.<span class="title function_">listen</span>(<span class="number">4400</span>,<span class="function">()=&gt;</span>&#123;
+    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;启动服务&quot;</span>);
+&#125;)</code></pre>
+
+<h3 id="3-托管静态资源"><a href="#3-托管静态资源" class="headerlink" title="3.托管静态资源"></a>3.托管静态资源</h3><p>express.static0)</p>
+<p>创建一个静态资源服务器，通过如下代码就可以将public目录下的图片、CSS文件、JavaScript 文件对外开放访问了：</p>
+<blockquote>
+<p>app.use(express.static(‘public’))</p>
+<p>app.use(‘&#x2F;file’,express.static(‘public’))</p>
+</blockquote>
+<p><a target="_blank" rel="noopener" href="http://localhost:3000/images/bg.jpg">http://localhost:3000/images/bg.jpg</a></p>
+<p><a target="_blank" rel="noopener" href="http://localhost:3000/css/style.css">http://localhost:3000/css/style.css</a></p>
+<p><a target="_blank" rel="noopener" href="http://localhost:3000/js/login.js">http://localhost:3000/js/login.js</a></p>
+<p>注意：Express 在指定的静态目录中查找文件，并对外提供资源的访问路径</p>
+<p>因此，存放静态文件的目录名不会出现在URL中</p>
+<blockquote>
+<p>有多个静态资源目录就多次调用这个函数</p>
+</blockquote>
+<h3 id="4-路由模块"><a href="#4-路由模块" class="headerlink" title="4.路由模块"></a>4.路由模块</h3><pre><code class="highlight javascript"><span class="keyword">const</span> express = <span class="built_in">require</span>(<span class="string">&quot;express&quot;</span>);
+
+<span class="keyword">const</span> router = express.<span class="title class_">Router</span>();
+
+router.<span class="title function_">get</span>(<span class="string">&quot;/serve/:id&quot;</span>,<span class="keyword">function</span>(<span class="params">req,res</span>)&#123;
+    <span class="variable language_">console</span>.<span class="title function_">log</span>(req.<span class="property">params</span>);
+    <span class="keyword">const</span> str = <span class="title class_">JSON</span>.<span class="title function_">stringify</span>(req.<span class="property">params</span>);
+    res.<span class="title function_">end</span>(str);
+&#125;)
+
+router.<span class="title function_">post</span>(<span class="string">&quot;/serve&quot;</span>,<span class="keyword">function</span>(<span class="params">req,res</span>)&#123;
+    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;POST&quot;</span>);
+    res.<span class="title function_">end</span>(<span class="string">&quot;123&quot;</span>);
+&#125;)
+
+<span class="variable language_">module</span>.<span class="property">exports</span> = router;</code></pre>
+
+<pre><code class="highlight javascript"><span class="keyword">const</span> express = <span class="built_in">require</span>(<span class="string">&quot;express&quot;</span>);
+
+<span class="keyword">const</span> app = <span class="title function_">express</span>();
+
+<span class="keyword">const</span> router = <span class="built_in">require</span>(<span class="string">&#x27;./model1&#x27;</span>)
+
+app.<span class="title function_">use</span>(router);
+
+app.<span class="title function_">listen</span>(<span class="number">4400</span>,<span class="function">()=&gt;</span>&#123;
+    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;启动服务&quot;</span>);
+&#125;)</code></pre>
+
+<h2 id="7-中间件"><a href="#7-中间件" class="headerlink" title="7.中间件"></a>7.中间件</h2><h3 id="1-简介"><a href="#1-简介" class="headerlink" title="1.简介"></a>1.简介</h3><p>本质是一个function处理函数</p>
+<blockquote>
+<p>必须包含next函数，路由处理函数只包含req和res</p>
+<p>next-&gt;把流转关系交给下一个中间件和路由</p>
+</blockquote>
+<pre><code class="highlight javascript"><span class="keyword">const</span> mv = <span class="keyword">function</span>(<span class="params">req,res,next</span>)&#123;
+    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;中间件函数&quot;</span>);
+    <span class="title function_">next</span>();
+&#125;</code></pre>
+
+<pre><code class="highlight javascript"><span class="comment">//将mv注册为全局生效的中间件</span>
+app.<span class="title function_">use</span>(mv);</code></pre>
+
+<h3 id="2-简写形式"><a href="#2-简写形式" class="headerlink" title="2.简写形式"></a>2.简写形式</h3><pre><code class="highlight javascript">app.<span class="title function_">use</span>(<span class="keyword">function</span>(<span class="params">req,res,next</span>)&#123;
+    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;中间件&quot;</span>);
+    <span class="title function_">next</span>();
+&#125;)</code></pre>
+
+<h3 id="3-在中间件挂载属性"><a href="#3-在中间件挂载属性" class="headerlink" title="3.在中间件挂载属性"></a>3.在中间件挂载属性</h3><pre><code class="highlight javascript">app.<span class="title function_">use</span>(<span class="keyword">function</span>(<span class="params">req,res,next</span>)&#123;
+    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;中间件&quot;</span>);
+    <span class="keyword">const</span> time =<span class="keyword">new</span> <span class="title class_">Date</span>()
+    req.<span class="property">stime</span> = time;
+    <span class="title function_">next</span>();
+&#125;)
+
+app.<span class="title function_">all</span>(<span class="string">&#x27;/&#x27;</span>,<span class="function">(<span class="params">req,res</span>)=&gt;</span>&#123;
+    <span class="variable language_">console</span>.<span class="title function_">log</span>(req.<span class="property">stime</span>);
+    res.<span class="title function_">end</span>(req.<span class="property">stime</span>)
+&#125;)</code></pre>
+
+<h3 id="4-定义多个全局中间件"><a href="#4-定义多个全局中间件" class="headerlink" title="4.定义多个全局中间件"></a>4.定义多个全局中间件</h3><p>多次调用use方法</p>
+<pre><code class="highlight javascript"><span class="keyword">const</span> express = <span class="built_in">require</span>(<span class="string">&quot;express&quot;</span>);
+
+<span class="keyword">const</span> app = <span class="title function_">express</span>();
+
+app.<span class="title function_">use</span>(<span class="keyword">function</span>(<span class="params">req,res,next</span>)&#123;
+    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;1&quot;</span>);
+    <span class="title function_">next</span>();
+&#125;)
+
+app.<span class="title function_">use</span>(<span class="keyword">function</span>(<span class="params">req,res,next</span>)&#123;
+    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;2&quot;</span>);
+    <span class="title function_">next</span>();
+&#125;)
+
+app.<span class="title function_">all</span>(<span class="string">&#x27;/&#x27;</span>,<span class="function">(<span class="params">req,res</span>)=&gt;</span>&#123;
+    res.<span class="title function_">end</span>(<span class="string">&quot;1&quot;</span>)
+&#125;)
+
+app.<span class="title function_">listen</span>(<span class="number">4400</span>,<span class="function">()=&gt;</span>&#123;
+    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;启动服务&quot;</span>);
+&#125;)</code></pre>
+
+<h3 id="5-局部生效的中间件"><a href="#5-局部生效的中间件" class="headerlink" title="5.局部生效的中间件"></a>5.局部生效的中间件</h3><blockquote>
+<p>不适用app.use()声明</p>
+</blockquote>
+<pre><code class="highlight javascript"><span class="keyword">const</span> express = <span class="built_in">require</span>(<span class="string">&quot;express&quot;</span>);
+
+<span class="keyword">const</span> app = <span class="title function_">express</span>();
+
+<span class="keyword">const</span> mv = <span class="keyword">function</span>(<span class="params">req,res,next</span>)&#123;
+    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;局部中间件&quot;</span>);
+    <span class="title function_">next</span>();
+&#125;
+
+app.<span class="title function_">all</span>(<span class="string">&#x27;/&#x27;</span>,mv,<span class="function">(<span class="params">req,res</span>)=&gt;</span>&#123;
+    res.<span class="title function_">send</span>(<span class="string">&quot;HOME&quot;</span>);
+&#125;)
+
+app.<span class="title function_">listen</span>(<span class="number">4400</span>,<span class="function">()=&gt;</span>&#123;
+    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;启动服务&quot;</span>);
+&#125;)</code></pre>
+
+<blockquote>
+<p>定义多个中间件</p>
+</blockquote>
+<pre><code class="highlight javascript"><span class="keyword">const</span> mv1 = <span class="keyword">function</span>(<span class="params">req,res,next</span>)&#123;
+    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;局部中间件1&quot;</span>);
+    <span class="title function_">next</span>();
+&#125;
+
+<span class="keyword">const</span> mv2 = <span class="keyword">function</span>(<span class="params">req,res,next</span>)&#123;
+    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;局部中间件2&quot;</span>);
+    <span class="title function_">next</span>();
+&#125;
+
+app.<span class="title function_">all</span>(<span class="string">&#x27;/serve&#x27;</span>,mv1,mv2,<span class="function">(<span class="params">req,res</span>)=&gt;</span>&#123;
+    res.<span class="title function_">send</span>(<span class="string">&quot;HOME1&quot;</span>);
+
+&#125;)
+app.<span class="title function_">all</span>(<span class="string">&#x27;/serve&#x27;</span>,[mv1,mv2],<span class="function">(<span class="params">req,res</span>)=&gt;</span>&#123;
+    res.<span class="title function_">send</span>(<span class="string">&quot;HOME1&quot;</span>);
+&#125;)</code></pre>
+
+<blockquote>
+<p>mv1,mv2 &#x3D;&#x3D;&#x3D; [mv1,mv2]</p>
+</blockquote>
+<h3 id="6-注意事项"><a href="#6-注意事项" class="headerlink" title="6.注意事项"></a>6.注意事项</h3><blockquote>
+<p>一定要在路由的之前定义中间件</p>
+<p>客户端发过来的请求，可以连续调用多个中间件进行处理</p>
+<p>执行完中间件代码后要调用next函数</p>
+<p>next函数后面不要再写代码</p>
+<p>连续调用多个中间件时，连续多个中间件共享req和res对象</p>
+</blockquote>
+<h3 id="7-中间件的分类"><a href="#7-中间件的分类" class="headerlink" title="7.中间件的分类"></a>7.中间件的分类</h3><blockquote>
+<p>5大类</p>
+<p>应用级别的中间件</p>
+<p>绑定到了app.use,app.get,app.post,绑定到了app实例上的中间件</p>
+<p>路由级别的中间件</p>
+<p>绑定到express.Router</p>
+</blockquote>
+<blockquote>
+<p>错误级别的中间件，用来捕获整个项目发生的异常错误，从而防止项目异常崩溃</p>
+<p>(err,req,res,next)</p>
+</blockquote>
+<blockquote>
+<p>express内置的中间件</p>
+<p>express.static 托管静态资源</p>
+<p>express.json 解析JSON格式的请求实体数据</p>
+<p>express.urlencoded 解析URL-encoded格式的请求实体数据</p>
+</blockquote>
+<pre><code class="highlight javascript"><span class="keyword">const</span> express = <span class="built_in">require</span>(<span class="string">&quot;express&quot;</span>);
+
+<span class="keyword">const</span> app = <span class="title function_">express</span>();
+
+app.<span class="title function_">use</span>(<span class="keyword">function</span>(<span class="params">req,res,next</span>)&#123;
+    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;1&quot;</span>);
+    <span class="title function_">next</span>();
+&#125;)
+
+<span class="comment">/* 配置解析json格式的数据 */</span>
+app.<span class="title function_">use</span>(express.<span class="property">json</span>)
+app.<span class="title function_">use</span>(express.<span class="title function_">urlencoded</span>(&#123;<span class="attr">extented</span>:<span class="literal">false</span>&#125;))
+app.<span class="title function_">post</span>(<span class="string">&#x27;/serve&#x27;</span>,<span class="function">(<span class="params">req,res</span>)=&gt;</span>&#123;
+    <span class="comment">/* req.body获取请求体的数据 */</span>
+    <span class="variable language_">console</span>.<span class="title function_">log</span>(req.<span class="property">body</span>);
+    res.<span class="title function_">end</span>(req.<span class="property">body</span>)
+&#125;)
+
+app.<span class="title function_">listen</span>(<span class="number">4400</span>,<span class="function">()=&gt;</span>&#123;
+    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;启动服务&quot;</span>);
+&#125;)</code></pre>
+
+<blockquote>
+<p>第三方中间件</p>
+<p>require()</p>
+<p>app.use()</p>
+</blockquote>
+<h2 id="8-自定义中间件"><a href="#8-自定义中间件" class="headerlink" title="8.自定义中间件"></a>8.自定义中间件</h2><ol>
+<li></li>
+</ol>
+<pre><code class="highlight javascript"><span class="keyword">const</span> express = <span class="built_in">require</span>(<span class="string">&quot;express&quot;</span>);
+<span class="keyword">const</span> app = <span class="title function_">express</span>();
+
+
+<span class="keyword">const</span> qs = <span class="built_in">require</span>(<span class="string">&quot;querystring&quot;</span>);
+<span class="comment">/* 数据量较大无法一次传输完 */</span>
+<span class="keyword">const</span> mymod = <span class="keyword">function</span>(<span class="params">req,res,next</span>)&#123;
+    <span class="comment">/* 监听data事件 */</span>
+    <span class="keyword">let</span> str=<span class="string">&#x27;&#x27;</span>
+    req.<span class="title function_">on</span>(<span class="string">&#x27;data&#x27;</span>,<span class="function">(<span class="params">Chunk</span>)=&gt;</span>&#123;
+        str += <span class="title class_">Chunk</span>;
+    &#125;)
+    <span class="comment">/* 当数据接受完毕会触发end事件 */</span>
+    req.<span class="title function_">on</span>(<span class="string">&#x27;end&#x27;</span>,<span class="function">()=&gt;</span> &#123;
+        <span class="keyword">const</span> body = qs.<span class="title function_">parse</span>(str);
+        req.<span class="property">body</span>=body;
+        <span class="title function_">next</span>();
+    &#125;)
+&#125;
+
+<span class="variable language_">module</span>.<span class="property">exports</span> = mymod;</code></pre>
+
+<pre><code class="highlight javascript"><span class="keyword">const</span> express = <span class="built_in">require</span>(<span class="string">&quot;express&quot;</span>);
+<span class="keyword">const</span> mymod = <span class="built_in">require</span>(<span class="string">&quot;./moudule&quot;</span>);
+
+<span class="keyword">const</span> app = <span class="title function_">express</span>();
+app.<span class="title function_">use</span>(mymod);
+
+app.<span class="title function_">post</span>(<span class="string">&#x27;/&#x27;</span>,<span class="keyword">function</span>(<span class="params">req,res</span>)&#123;
+    <span class="variable language_">console</span>.<span class="title function_">log</span>(req.<span class="property">body</span>);
+    res.<span class="title function_">end</span>(<span class="string">&quot;end&quot;</span>);
+&#125;)
+
+app.<span class="title function_">listen</span>(<span class="number">4400</span>,<span class="function">()=&gt;</span>&#123;
+    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;启动服务&quot;</span>);
+&#125;)</code></pre>
+
+<h2 id="9-接口跨域问题"><a href="#9-接口跨域问题" class="headerlink" title="9.接口跨域问题"></a>9.接口跨域问题</h2><h3 id="1-cors中间件"><a href="#1-cors中间件" class="headerlink" title="1.cors中间件"></a>1.cors中间件</h3><p>1.npm i cors</p>
+<p>2.const cors &#x3D; require(“cors”)</p>
+<p>3.app.use(cors)</p>
+<p>CORS</p>
+<blockquote>
+<p>由一系列HTTP响应头组成</p>
+<p>在服务端进行配置，不需要做额外配置</p>
+<p>在浏览器中有兼容性</p>
+</blockquote>
+<pre><code class="highlight javascript"><span class="keyword">const</span> express = <span class="built_in">require</span>(<span class="string">&quot;express&quot;</span>);
+<span class="keyword">const</span> cors = <span class="built_in">require</span>(<span class="string">&quot;cors&quot;</span>);
+<span class="keyword">const</span> app = <span class="title function_">express</span>();
+
+app.<span class="title function_">use</span>(<span class="title function_">cors</span>());
+
+app.<span class="title function_">all</span>(<span class="string">&#x27;/&#x27;</span>,<span class="function">(<span class="params">req,res</span>)=&gt;</span>&#123;
+    res.<span class="title function_">send</span>(<span class="string">&quot;a&quot;</span>);
+&#125;)
+
+app.<span class="title function_">listen</span>(<span class="number">4400</span>,<span class="function">()=&gt;</span>&#123;
+    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;启动&quot;</span>);
+&#125;)</code></pre>
+
+<h2 id="10-前后端的身份认证"><a href="#10-前后端的身份认证" class="headerlink" title="10.前后端的身份认证"></a>10.前后端的身份认证</h2><pre><code class="highlight plaintext">npm i jsonwebtoken
+npm i express-jwt</code></pre>
+
+<h3 id="1-导入JWT相关的包"><a href="#1-导入JWT相关的包" class="headerlink" title="1.导入JWT相关的包"></a>1.导入JWT相关的包</h3><pre><code class="highlight javascript"><span class="keyword">const</span> express = <span class="built_in">require</span>(<span class="string">&#x27;express&#x27;</span>);
+
+<span class="keyword">const</span> app = <span class="title function_">express</span>();
+
+<span class="keyword">const</span> jwt = <span class="built_in">require</span>(<span class="string">&quot;jsonwebtoken&quot;</span>);
+<span class="keyword">const</span> expressjwt = <span class="built_in">require</span>(<span class="string">&quot;express-jwt&quot;</span>);
+
+app.<span class="title function_">listen</span>(<span class="number">4400</span>,<span class="function">()=&gt;</span>&#123;
+    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;qd&quot;</span>);
+&#125;)</code></pre>
+
+<h3 id="2-secret密钥"><a href="#2-secret密钥" class="headerlink" title="2.secret密钥"></a>2.secret密钥</h3><blockquote>
+<p>const secretKey &#x3D; “^-^hi”;</p>
+</blockquote>
+<h3 id="3-生成jwt字符串"><a href="#3-生成jwt字符串" class="headerlink" title="3.生成jwt字符串"></a>3.生成jwt字符串</h3><p>jsonwebtoken的sign()方法</p>
+<pre><code class="highlight javascript">app.<span class="title function_">all</span>(<span class="string">&#x27;/&#x27;</span>,<span class="function">(<span class="params">req,res</span>)=&gt;</span>&#123;
+    <span class="keyword">const</span> tokenstr=jwt.<span class="title function_">sign</span>(&#123;<span class="attr">username</span>:<span class="string">&#x27;zs&#x27;</span>&#125;,secret,&#123;<span class="attr">expiresIn</span>:<span class="string">&#x27;30s&#x27;</span>&#125;);
+    res.<span class="title function_">send</span>(&#123;
+        <span class="attr">status</span>:<span class="number">200</span>,
+        <span class="attr">message</span>:<span class="string">&quot;dl&quot;</span>,
+        <span class="attr">token</span>:tokenstr
+    &#125;)
+&#125;)</code></pre>
+
+<h3 id="4-解析还原成JSON对象"><a href="#4-解析还原成JSON对象" class="headerlink" title="4.解析还原成JSON对象"></a>4.解析还原成JSON对象</h3><p>express-jwt</p>
+<pre><code class="highlight javascript">app.<span class="title function_">use</span>(<span class="title function_">expressjwt</span>(&#123;<span class="attr">secret</span>:secret&#125;)).<span class="title function_">unless</span>(&#123;<span class="attr">path</span>:[<span class="regexp">/^\/api\//</span>]&#125;)
+<span class="comment">//secret-&gt;密钥</span>
+<span class="comment">//unless不需要解析的路径</span></code></pre>
+
+<pre><code class="highlight javascript"><span class="keyword">const</span> jwt = <span class="built_in">require</span>(<span class="string">&quot;jsonwebtoken&quot;</span>);
+<span class="keyword">const</span> &#123; <span class="attr">expressjwt</span>:expressJWT &#125; = <span class="built_in">require</span>(<span class="string">&quot;express-jwt&quot;</span>);
+<span class="keyword">const</span> secret = <span class="string">&quot;^-^hi&quot;</span>;
+app.<span class="title function_">use</span>(<span class="title function_">expressJWT</span>(&#123;<span class="attr">secret</span>:secret, <span class="attr">algorithms</span>:[<span class="string">&#x27;HS256&#x27;</span>]&#125;));</code></pre>
+
+<h3 id="5-捕获错误信息"><a href="#5-捕获错误信息" class="headerlink" title="5.捕获错误信息"></a>5.捕获错误信息</h3><blockquote>
+<p>定义一个全局的中间件</p>
+</blockquote>
+<pre><code class="highlight javascript">app.<span class="title function_">use</span>(<span class="function">(<span class="params">err,req,res,next</span>)=&gt;</span>&#123;
+    <span class="comment">//if (err.name=)</span>
+&#125;)</code></pre>
+
+<h2 id="11-node项目"><a href="#11-node项目" class="headerlink" title="11.node项目"></a>11.node项目</h2><h2 id="1-创建项目"><a href="#1-创建项目" class="headerlink" title="1.创建项目"></a>1.创建项目</h2><p>npm  init -y</p>
+<p>安装express</p>
+<pre><code class="highlight javascript"><span class="keyword">const</span> express = <span class="built_in">require</span>(<span class="string">&quot;express&quot;</span>);
+
+<span class="keyword">const</span> app = <span class="title function_">express</span>();
+
+app.<span class="title function_">listen</span>(<span class="number">4400</span>,<span class="function">()=&gt;</span>&#123;
+    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;启动服务器&quot;</span>);
+&#125;)</code></pre>
+
+<p>配置cors跨域</p>
+<pre><code class="highlight javascript"><span class="keyword">const</span> cors = <span class="built_in">require</span>(<span class="string">&quot;cors&quot;</span>);
+
+app.<span class="title function_">use</span>(cors);</code></pre>
+
+<p>配置表单解析的中间件</p>
+<pre><code class="highlight javascript"><span class="comment">//解析x-www格式</span>
+app.<span class="title function_">use</span>(express.<span class="title function_">urlencoded</span>(&#123;<span class="attr">extended</span>:<span class="literal">false</span>&#125;));</code></pre>
+
+<p>安装mysql,创建数据库和数据库表</p>
+<pre><code class="highlight plaintext">npm i mysql</code></pre>
+
+<p>创建db文件夹和index.js</p>
+<pre><code class="highlight javascript"><span class="keyword">const</span> mysql =<span class="built_in">require</span>(<span class="string">&quot;mysql&quot;</span>);
+
+<span class="keyword">const</span> db = mysql.<span class="title function_">createPool</span>(&#123;
+    <span class="attr">host</span>:<span class="string">&#x27;127.0.0.1&#x27;</span>,
+    <span class="attr">user</span>:<span class="string">&#x27;root&#x27;</span>,
+    <span class="attr">password</span>:<span class="string">&#x27;12345678&#x27;</span>,
+    <span class="attr">database</span>:<span class="string">&#x27;test&#x27;</span>
+&#125;)
+
+<span class="variable language_">module</span>.<span class="property">exports</span>=db;</code></pre>
+
+<p>注册用户相关功能的实现</p>
+<pre><code class="highlight javascript"><span class="keyword">const</span> &#123; request &#125; = <span class="built_in">require</span>(<span class="string">&quot;express&quot;</span>);
+
+<span class="comment">/* 导入数据库操作模块 */</span>
+<span class="keyword">const</span> db = <span class="built_in">require</span>(<span class="string">&quot;../dp/index.js&quot;</span>)
+
+
+
+<span class="built_in">exports</span>.<span class="property">reguser</span>=<span class="function">(<span class="params">req,res</span>)=&gt;</span>&#123;
+    <span class="keyword">const</span> mes = req.<span class="property">body</span>;
+    <span class="keyword">if</span> (!mes.<span class="property">username</span> || !mes.<span class="property">password</span>)&#123;
+        res.<span class="title function_">end</span>(<span class="string">&quot;error&quot;</span>);
+    &#125;
+    <span class="keyword">const</span> sqlstr = <span class="string">&quot;select * from ev_users where username=?&quot;</span>
+    db.<span class="title function_">query</span>(sqlstr,mes.<span class="property">username</span>,<span class="function">(<span class="params">err,results</span>)=&gt;</span>&#123;
+        <span class="keyword">if</span> (err)&#123;
+            <span class="keyword">return</span> res.<span class="title function_">send</span>(&#123;
+                <span class="attr">status</span>:<span class="number">200</span>,
+                <span class="title class_">Message</span>:err.<span class="property">message</span>
+            &#125;)
+        &#125;
+        <span class="keyword">if</span> (results.<span class="property">length</span> &gt; <span class="number">0</span>)&#123;
+            <span class="keyword">return</span> res.<span class="title function_">send</span>(&#123;
+                <span class="attr">status</span>:<span class="number">200</span>,
+                <span class="title class_">Message</span>:<span class="string">&quot;用户名被占用&quot;</span>
+            &#125;)
+        &#125;<span class="keyword">else</span>&#123;
+            res.<span class="title function_">send</span>(<span class="string">&quot;reg ok&quot;</span>);
+        &#125;
+    &#125;)
+    <span class="comment">//res.send(&quot;reg ok&quot;);</span>
+&#125;
+
+<span class="built_in">exports</span>.<span class="property">loguser</span>=<span class="function">(<span class="params">req,res</span>)=&gt;</span>&#123;
+    res.<span class="title function_">send</span>(<span class="string">&quot;log ok&quot;</span>);
+&#125;</code></pre>
+
+<p>对密码进行加密</p>
+<p>bcryptjs</p>
+<blockquote>
+<p>npm i <a href="mailto:&#x62;&#99;&#x72;&#121;&#x70;&#x74;&#x6a;&#x73;&#64;&#x32;&#x2e;&#52;&#x2e;&#51;">&#x62;&#99;&#x72;&#121;&#x70;&#x74;&#x6a;&#x73;&#64;&#x32;&#x2e;&#52;&#x2e;&#51;</a></p>
+</blockquote>
+<pre><code class="highlight javascript"><span class="keyword">const</span> bcrypt=<span class="built_in">require</span>(<span class="string">&quot;bcryptjs&quot;</span>);
+mes.<span class="property">password</span> = bcrypt.<span class="title function_">hashSync</span>(mes.<span class="property">password</span>,<span class="number">10</span>);</code></pre>
+
+<p>生成jwt的Token字符串</p>
+<blockquote>
+<p>npm i jsonwebtoken</p>
+</blockquote>
+<pre><code class="highlight javascript"><span class="keyword">const</span> user = &#123;...results[<span class="number">0</span>],<span class="attr">password</span>:<span class="string">&#x27;&#x27;</span>,<span class="attr">user_pic</span>:<span class="string">&#x27;&#x27;</span>&#125;;
+<span class="keyword">const</span> tokenstr = jwt.<span class="title function_">sign</span>(user,config.<span class="property">jwtSecretKey</span>,&#123;<span class="attr">expiresIn</span>: config.<span class="property">experiments</span>&#125;)
+res.<span class="title function_">send</span>(&#123;
+    <span class="attr">status</span>:<span class="number">200</span>,
+    <span class="attr">message</span>:<span class="string">&quot;登录成功&quot;</span>,
+    <span class="attr">token</span>:<span class="string">&#x27;Bearer &#x27;</span>+tokenstr
+&#125;);</code></pre>
+
+<p>解析token的中间件</p>
+<blockquote>
+<p>npm i <a href="mailto:&#x65;&#x78;&#x70;&#x72;&#101;&#x73;&#x73;&#x2d;&#106;&#x77;&#x74;&#x40;&#x35;&#46;&#x33;&#x2e;&#x33;">&#x65;&#x78;&#x70;&#x72;&#101;&#x73;&#x73;&#x2d;&#106;&#x77;&#x74;&#x40;&#x35;&#46;&#x33;&#x2e;&#x33;</a></p>
+</blockquote>
+<pre><code class="highlight javascript">app.<span class="title function_">use</span>(<span class="title function_">expressJWT</span>(&#123;<span class="attr">secret</span>:config.<span class="property">jwtSecretKey</span>&#125;).<span class="title function_">unless</span>(&#123;<span class="attr">path</span>:<span class="regexp">/^\/login/</span>&#125;));</code></pre>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </article>
+        <section class="post-near">
+            <ul>
+                
+                    <li>上一篇: 看完啦 (つд⊂)</li>
+                
+                
+                    <li>下一篇: <a href="/2024/11/05/Docker%E5%92%8Cmysql%E7%9A%84%E6%90%AD%E5%BB%BA/">Docker&amp;mysql&amp;nacos</a></li>
+                
+            </ul>
+        </section>
+        
+            <section class="post-tags">
+            <a class="-none-link" href="/tags/NodeJs/" rel="tag">NodeJs</a><a class="-none-link" href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag">前端</a>
+            </section>
+        
+    
+        <section class="post-author">
+        
+            <figure class="author-avatar">
+                <img src="https://p1.meituan.net/csc/949ad40707d4b4bab7e2ebafbd649aa8211830.jpg" alt="日初" />
+            </figure>
+        
+            <div class="author-info">
+                <h4>日初</h4>
+                <p>一个什么都学的建模动画编程爱好者</p>
+            </div>
+        </section>
+    
+    </div>
+</main>
+
+    <footer>
+    <div class="buttons">
+        <a class="to-top" href="#"></a>
+    </div>
+    <div class="wrap min">
+        <section class="widget">
+            <div class="row">
+                <div class="col-m-4">
+                    <h3 class="title-recent">最新文章：</h3>
+                    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2024/11/09/Node.js/">NodeJs</a></li><li class="post-list-item"><a class="post-list-link" href="/2024/11/05/Docker%E5%92%8Cmysql%E7%9A%84%E6%90%AD%E5%BB%BA/">Docker&mysql&nacos</a></li><li class="post-list-item"><a class="post-list-link" href="/2024/11/02/Unity3D/">Unity</a></li><li class="post-list-item"><a class="post-list-link" href="/2024/10/31/Uni-App/">Uni-App</a></li><li class="post-list-item"><a class="post-list-link" href="/2024/10/30/Flutter/">Flutter</a></li><li class="post-list-item"><a class="post-list-link" href="/2024/10/25/Gorm/">Gorm</a></li></ul>
+                </div>
+                <div class="col-m-4">
+                    <h3 class="title-date">时光机：</h3>
+                    <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/11/">十一月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/10/">十月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/09/">九月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/08/">八月 2024</a></li></ul>
+                </div>
+                <div class="col-m-4">
+                    <h3 class="title-tags">标签云：</h3>
+                    <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/CSS/" style="font-size: 20px;">CSS</a> <a href="/tags/Docker/" style="font-size: 20px;">Docker</a> <a href="/tags/Flutter/" style="font-size: 20px;">Flutter</a> <a href="/tags/Game/" style="font-size: 20px;">Game</a> <a href="/tags/Go/" style="font-size: 20px;">Go</a> <a href="/tags/Go-Web/" style="font-size: 20px;">Go Web</a> <a href="/tags/JS/" style="font-size: 20px;">JS</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/Java-Web/" style="font-size: 20px;">Java Web</a> <a href="/tags/Linux/" style="font-size: 20px;">Linux</a> <a href="/tags/MySql/" style="font-size: 20px;">MySql</a> <a href="/tags/MybatisPlus/" style="font-size: 20px;">MybatisPlus</a> <a href="/tags/Nginx/" style="font-size: 20px;">Nginx</a> <a href="/tags/NodeJs/" style="font-size: 20px;">NodeJs</a> <a href="/tags/React/" style="font-size: 20px;">React</a> <a href="/tags/Spring-Cloud/" style="font-size: 20px;">Spring Cloud</a> <a href="/tags/UniApp/" style="font-size: 20px;">UniApp</a> <a href="/tags/Unity/" style="font-size: 20px;">Unity</a> <a href="/tags/Vue/" style="font-size: 20px;">Vue</a> <a href="/tags/%E5%89%8D%E7%AB%AF/" style="font-size: 20px;">前端</a> <a href="/tags/%E8%BF%90%E7%BB%B4/" style="font-size: 20px;">运维</a>
+                </div>
+            </div>
+        </section>
+        <section class="sub-footer">
+            <p>© 2024 <a href="/">Richu</a>. All Rights Reserved. Theme By <a href="https://github.com/Dreamer-Paul/Hingle" target="_blank" rel="nofollow">Hingle</a>.</p>
+        </section>
+    </div>
+</footer>
+
+
+<script src="/static/kico.js"></script>
+<script src="/static/hingle.js"></script>
+
+
+<script>var hingle = new Paul_Hingle({"copyright":true,"night":false});</script>
+
+  </body>
+</html>

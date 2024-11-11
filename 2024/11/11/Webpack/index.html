@@ -1,0 +1,995 @@
+<!DOCTYPE html>
+<html>
+  <head>
+     
+    <meta charset="UTF-8">
+    <title>Webpack - Richu</title>
+    <link rel="shortcut icon" href="/static/img/icon.png">
+    <link rel="icon" href="/static/img/icon.png" sizes="192x192"/>
+    
+<link rel="stylesheet" href="/static/kico.css">
+<link rel="stylesheet" href="/static/hingle.css">
+
+    
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <meta name="viewport" content="width=device-width, maximum-scale=1, initial-scale=1"/>
+    <meta property="og:site_name" content="Richu">
+    <meta property="og:title" content="Webpack"/>
+    
+    <style>body:before{ content: ''; background-image: url(https://img.meituan.net/csc/d05518606ba7064dd445508e3cf3d4c42860983.png) }</style>
+    
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+  <body>
+    <header>
+    <div class="head-title">
+        <h4>Richu</h4>
+    </div>
+    <div class="head-action">
+        <div class="toggle-btn"></div>
+        <div class="light-btn"></div>
+        <div class="search-btn"></div>
+    </div>
+    <form class="head-search" method="post">
+        <input type="text" name="s" placeholder="搜索什么？">
+    </form>
+    <nav class="head-menu">
+        <a href="/">首页</a>
+        <div class="has-child">
+            <a>分类</a>
+            <div class="sub-menu">
+                <a class="category-link" href="/categories/Android/">Android</a><a class="category-link" href="/categories/Go/">Go</a><a class="category-link" href="/categories/Java/">Java</a><a class="category-link" href="/categories/Unity/">Unity</a><a class="category-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a><a class="category-link" href="/categories/%E8%BF%90%E7%BB%B4/">运维</a>
+            </div>
+        </div>
+        
+            <a href="/about">关于我</a>
+        
+    </nav>
+</header>
+
+    <main>
+    <div class="wrap min">
+        <section class="post-title">
+            <h2>Webpack</h2>
+            <div class="post-meta">
+                <time class="date">2024.11.11</time>
+            
+                <span class="category"><a class="category-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a></span>
+            
+            </div>
+        </section>
+        <article class="post-content">
+        
+            <p>webpack 是一个用于现代 JavaScript 应用程序的 静态模块打包工具。当 webpack 处理应用程序时，它会在内部从一个或多个入口点构建一个 依赖图(dependency graph)，然后将你项目中所需的每一个模块组合成一个或多个 bundles，它们均为静态资源，用于展示你的内容。</p>
+<h2 id="1-入门"><a href="#1-入门" class="headerlink" title="1.入门"></a>1.入门</h2><blockquote>
+<p>npm i webpack</p>
+<p>npm i webpack-cli</p>
+</blockquote>
+<blockquote>
+<p>npx webpack “.&#x2F;src&#x2F;main.js” –mode development</p>
+</blockquote>
+<blockquote>
+<p>基本的webpack.config.js文件</p>
+</blockquote>
+<pre><code class="highlight javascript"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">&#x27;path&#x27;</span>);
+
+<span class="variable language_">module</span>.<span class="property">exports</span> = &#123;
+    <span class="comment">//入口</span>
+  <span class="attr">entry</span>: <span class="string">&quot;./src/index.js&quot;</span>,
+    <span class="comment">//打包的输出</span>
+  <span class="attr">output</span>: &#123;
+    <span class="attr">path</span>: path.<span class="title function_">resolve</span>(__dirname, <span class="string">&quot;dist&quot;</span>),
+    <span class="attr">filename</span>: <span class="string">&quot;bundle.js&quot;</span>,
+  &#125;,
+    <span class="comment">//插件</span>
+  <span class="attr">plugins</span>:[
+
+  ],
+    <span class="comment">//开发模式 和 生产模式</span>
+  <span class="attr">mode</span>: <span class="string">&quot;development&quot;</span>,
+    <span class="comment">//模块</span>
+  <span class="attr">module</span>: &#123;
+    <span class="attr">rules</span>: [
+    ]
+  &#125;,
+&#125;;</code></pre>
+
+<pre><code class="highlight javascript">&#123;
+  <span class="string">&quot;name&quot;</span>: <span class="string">&quot;shopping&quot;</span>,
+  <span class="string">&quot;version&quot;</span>: <span class="string">&quot;1.0.0&quot;</span>,
+  <span class="string">&quot;description&quot;</span>: <span class="string">&quot;shopping&quot;</span>,
+  <span class="string">&quot;main&quot;</span>: <span class="string">&quot;./src/index.js&quot;</span>,
+  <span class="string">&quot;scripts&quot;</span>: &#123;
+    <span class="string">&quot;package&quot;</span>: <span class="string">&quot;webpack&quot;</span>,
+    <span class="string">&quot;dev&quot;</span>: <span class="string">&quot;webpack server&quot;</span>,
+    <span class="string">&quot;built&quot;</span>: <span class="string">&quot;webpack&quot;</span>
+  &#125;,
+  <span class="string">&quot;author&quot;</span>: <span class="string">&quot;richu&quot;</span>,
+  <span class="string">&quot;license&quot;</span>: <span class="string">&quot;ISC&quot;</span>,
+  <span class="string">&quot;devDependencies&quot;</span>: &#123;
+    <span class="string">&quot;@babel/core&quot;</span>: <span class="string">&quot;^7.26.0&quot;</span>,
+    <span class="string">&quot;@babel/preset-env&quot;</span>: <span class="string">&quot;^7.26.0&quot;</span>,
+    <span class="string">&quot;babel-loader&quot;</span>: <span class="string">&quot;^9.2.1&quot;</span>,
+    <span class="string">&quot;copy-webpack-plugin&quot;</span>: <span class="string">&quot;^12.0.2&quot;</span>,
+    <span class="string">&quot;css-loader&quot;</span>: <span class="string">&quot;^7.1.2&quot;</span>,
+    <span class="string">&quot;file-loader&quot;</span>: <span class="string">&quot;^6.2.0&quot;</span>,
+    <span class="string">&quot;html-webpack-plugin&quot;</span>: <span class="string">&quot;^5.6.3&quot;</span>,
+    <span class="string">&quot;style-loader&quot;</span>: <span class="string">&quot;^4.0.0&quot;</span>,
+    <span class="string">&quot;url-loader&quot;</span>: <span class="string">&quot;^4.1.1&quot;</span>,
+    <span class="string">&quot;webpack&quot;</span>: <span class="string">&quot;^5.96.1&quot;</span>,
+    <span class="string">&quot;webpack-cli&quot;</span>: <span class="string">&quot;^5.1.4&quot;</span>,
+    <span class="string">&quot;webpack-dev-server&quot;</span>: <span class="string">&quot;^5.1.0&quot;</span>
+  &#125;
+&#125;
+</code></pre>
+
+<h2 id="2-资源的处理"><a href="#2-资源的处理" class="headerlink" title="2.资源的处理"></a>2.资源的处理</h2><h3 id="1-处理css资源"><a href="#1-处理css资源" class="headerlink" title="1.处理css资源"></a>1.处理css资源</h3><blockquote>
+<p>npm i css-loader style-loader -D</p>
+</blockquote>
+<pre><code class="highlight javascript"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">&#x27;path&#x27;</span>);
+
+<span class="variable language_">module</span>.<span class="property">exports</span> = &#123;
+  <span class="attr">entry</span>: <span class="string">&quot;./src/index.js&quot;</span>,
+  <span class="attr">output</span>: &#123;
+    <span class="attr">path</span>: path.<span class="title function_">resolve</span>(__dirname, <span class="string">&quot;dist&quot;</span>),
+    <span class="attr">filename</span>: <span class="string">&quot;bundle.js&quot;</span>,
+  &#125;,
+  <span class="attr">plugins</span>:[
+	  &#123;  
+        <span class="attr">test</span>: <span class="regexp">/\.css$/</span>, <span class="comment">//处理css资源</span>
+        <span class="attr">use</span>: [
+              <span class="string">&#x27;style-loader&#x27;</span>, <span class="comment">//将js中css通过创建style标签添加html文件中生效</span>
+              <span class="string">&#x27;css-loader&#x27;</span>   <span class="comment">//将css资源编译成commonJS的模块到JS中</span>
+             ], 
+      &#125;,
+  ],
+  <span class="attr">mode</span>: <span class="string">&quot;development&quot;</span>,
+  <span class="attr">module</span>: &#123;
+    <span class="attr">rules</span>: [
+    ]
+  &#125;,
+&#125;;</code></pre>
+
+<h3 id="2-处理less资源"><a href="#2-处理less资源" class="headerlink" title="2.处理less资源"></a>2.处理less资源</h3><blockquote>
+<p>npm i less less-loader –save-dev</p>
+</blockquote>
+<pre><code class="highlight javascript"><span class="attr">module</span>: &#123;
+    <span class="attr">rules</span>: [
+        &#123;
+            &#123;
+            <span class="attr">test</span>: <span class="regexp">/\.less$/</span>,
+            <span class="attr">use</span>: [<span class="string">&#x27;style-loader&#x27;</span>, <span class="string">&#x27;css-loader&#x27;</span>,<span class="string">&#x27;less-loader&#x27;</span>], 
+		&#125;
+	]
+&#125;,</code></pre>
+
+<h3 id="3-处理sass资源"><a href="#3-处理sass资源" class="headerlink" title="3.处理sass资源"></a>3.处理sass资源</h3><blockquote>
+<p>npm i sass sass-loader -D</p>
+</blockquote>
+<pre><code class="highlight javascript">&#123;
+    <span class="attr">test</span>: <span class="regexp">/\.s[ac]ss$/</span>,
+        <span class="attr">use</span>: [<span class="string">&#x27;style-loader&#x27;</span>, <span class="string">&#x27;css-loader&#x27;</span>,<span class="string">&#x27;sass-loader&#x27;</span>], 
+&#125;</code></pre>
+
+<h3 id="4-处理图片资源"><a href="#4-处理图片资源" class="headerlink" title="4.处理图片资源"></a>4.处理图片资源</h3><blockquote>
+<p>将图片资源转为base64</p>
+</blockquote>
+<pre><code class="highlight javascript">&#123;
+    <span class="attr">test</span>: <span class="regexp">/\.(png|jpg|jpe?g|gif|webp|svg)$/</span>,
+    <span class="attr">type</span>:<span class="string">&quot;asset&quot;</span>,
+    <span class="attr">parser</span>:&#123;
+    <span class="attr">dataUrlCondition</span>:&#123;
+    	<span class="attr">maxSize</span>:<span class="number">10</span>*<span class="number">1024</span>
+        &#125;
+   &#125;
+&#125;</code></pre>
+
+<h3 id="5-修改打包输出的文件目录"><a href="#5-修改打包输出的文件目录" class="headerlink" title="5.修改打包输出的文件目录"></a>5.修改打包输出的文件目录</h3><h4 id="1-修改js的输出目录"><a href="#1-修改js的输出目录" class="headerlink" title="1.修改js的输出目录"></a>1.修改js的输出目录</h4><pre><code class="highlight javascript"><span class="attr">output</span>: &#123;
+  <span class="attr">path</span>: path.<span class="title function_">resolve</span>(__dirname, <span class="string">&quot;dist&quot;</span>),
+  <span class="attr">filename</span>: <span class="string">&quot;js/bundle.js&quot;</span>,
+&#125;,</code></pre>
+
+<h4 id="2-修改图片的输出目录"><a href="#2-修改图片的输出目录" class="headerlink" title="2.修改图片的输出目录"></a>2.修改图片的输出目录</h4><pre><code class="highlight javascript">&#123;
+    <span class="attr">test</span>: <span class="regexp">/\.(png|jpg|jpe?g|gif|webp|svg)$/</span>,
+    <span class="attr">type</span>:<span class="string">&quot;asset&quot;</span>,
+     <span class="attr">parser</span>:&#123;
+          <span class="attr">dataUrlCondition</span>:&#123;
+               <span class="attr">maxSize</span>:<span class="number">10</span>*<span class="number">1024</span>
+             &#125;
+        &#125;,
+        <span class="attr">generator</span>:&#123;
+          <span class="comment">//输出图片名字</span>
+        <span class="attr">filename</span>:<span class="string">&quot;images/[hash][ext]&quot;</span>
+    &#125;
+&#125;</code></pre>
+
+<h3 id="6-自动清空上次打包的内容"><a href="#6-自动清空上次打包的内容" class="headerlink" title="6.自动清空上次打包的内容"></a>6.自动清空上次打包的内容</h3><pre><code class="highlight javascript"><span class="attr">output</span>: &#123;
+    <span class="attr">path</span>: path.<span class="title function_">resolve</span>(__dirname, <span class="string">&quot;dist&quot;</span>),
+    <span class="attr">filename</span>: <span class="string">&quot;js/bundle.js&quot;</span>,
+    <span class="comment">//将path对应的目录整个清空</span>
+    <span class="attr">clean</span>:<span class="literal">true</span>
+&#125;,</code></pre>
+
+<h3 id="7-处理Html资源"><a href="#7-处理Html资源" class="headerlink" title="7.处理Html资源"></a>7.处理Html资源</h3><blockquote>
+<p>npm i –save-dev html-webpack-plugin</p>
+</blockquote>
+<pre><code class="highlight javascript"><span class="keyword">new</span> <span class="title class_">HtmlWebpackPlugin</span>(&#123;
+    <span class="attr">filename</span>:<span class="string">&#x27;index.html&#x27;</span>,
+    <span class="attr">template</span>:<span class="string">&#x27;./src/index.html&#x27;</span>
+&#125;),</code></pre>
+
+<h3 id="8-搭建开发服务器"><a href="#8-搭建开发服务器" class="headerlink" title="8.搭建开发服务器"></a>8.搭建开发服务器</h3><blockquote>
+<p>npm i webpack-dev-server -D</p>
+</blockquote>
+<pre><code class="highlight javascript"><span class="attr">devServer</span>: &#123;
+  <span class="attr">static</span>: &#123;
+      <span class="attr">directory</span>: path.<span class="title function_">join</span>(__dirname, <span class="string">&#x27;src&#x27;</span>), <span class="comment">//静态文件目录</span>
+    &#125;,
+  <span class="attr">compress</span>: <span class="literal">true</span>, <span class="comment">//压缩</span>
+  <span class="attr">port</span>: <span class="number">9000</span>, <span class="comment">//端口</span>
+&#125;,</code></pre>
+
+<h2 id="3-eslint"><a href="#3-eslint" class="headerlink" title="3.eslint"></a>3.eslint</h2><h3 id="1-基本配置"><a href="#1-基本配置" class="headerlink" title="1.基本配置"></a>1.基本配置</h3><p>1.parserOptions 解析选项</p>
+<p>2.rules 具体规则</p>
+<ul>
+<li>off 或0 关闭规则</li>
+<li>warn 或 1 使用警告级别的错误</li>
+<li>error 或 2 使用错误级别的错误</li>
+</ul>
+<p>3.extends继承</p>
+<h3 id="2-入门"><a href="#2-入门" class="headerlink" title="2.入门"></a>2.入门</h3><blockquote>
+<p>npm i eslint-webpack-plugin –save-dev</p>
+<p>npm i eslint –save-dev </p>
+</blockquote>
+<ul>
+<li>创建<code>.eslintrc.js</code>文件</li>
+</ul>
+<pre><code class="highlight javascript"><span class="variable language_">module</span>.<span class="property">exports</span> = &#123;
+    <span class="attr">extends</span>: [
+        <span class="string">&quot;eslint:recommended&quot;</span>,  <span class="comment">//继承eslint</span>
+    ],
+    <span class="attr">env</span>:&#123;
+        <span class="attr">node</span>:<span class="literal">true</span>,  <span class="comment">//启用全局node</span>
+        <span class="attr">browser</span>:<span class="literal">true</span>, <span class="comment">//启用浏览器全局变量</span>
+    &#125;,
+    <span class="attr">parserOptions</span>: &#123;
+        <span class="attr">ecmaVersion</span>:<span class="number">6</span>, <span class="comment">//es6</span>
+        <span class="attr">sourceType</span>:<span class="string">&quot;module&quot;</span>, <span class="comment">//es module</span>
+    &#125;,
+    <span class="attr">plugins</span>: [
+    ],
+    <span class="attr">rules</span>: &#123;
+        <span class="string">&quot;no-var&quot;</span>:<span class="number">2</span>,  <span class="comment">//使用var的错误级别为2</span>
+    &#125;,
+&#125;</code></pre>
+
+<ul>
+<li>创建<code>.eslintignore</code>文件</li>
+</ul>
+<pre><code class="highlight plaintext">dist  //忽略dist文件夹</code></pre>
+
+<h2 id="4-babel"><a href="#4-babel" class="headerlink" title="4.babel"></a>4.babel</h2><blockquote>
+<p>将es6转为向后兼容的js代码</p>
+</blockquote>
+<pre><code class="highlight plaintext">npm i -D babel-loader @babel/core @babel/preset-env</code></pre>
+
+<pre><code class="highlight javascript">&#123;
+    <span class="attr">test</span>: <span class="regexp">/\.js$/</span>, 
+    <span class="attr">exclude</span>: <span class="regexp">/node_modules/</span>,  <span class="comment">//不需要加载node_modules文件内的文件</span>
+    <span class="attr">use</span>: [&#123;
+    	<span class="attr">loader</span>: <span class="string">&#x27;babel-loader&#x27;</span>,
+    	<span class="attr">options</span>:&#123;
+    		<span class="attr">presets</span>:[<span class="string">&quot;@babel/preset-env&quot;</span>]
+    	&#125;
+    &#125;],
+&#125;,</code></pre>
+
+<blockquote>
+<p>或者将OPtions写到babel.config.js</p>
+</blockquote>
+<ul>
+<li>创建<code>babel.config.js</code>文件</li>
+</ul>
+<pre><code class="highlight javascript"><span class="variable language_">module</span>.<span class="property">exports</span> = <span class="function">() =&gt;</span> (&#123;
+    <span class="attr">presets</span>: [<span class="built_in">require</span>(<span class="string">&quot;@babel/preset-env&quot;</span>)],  <span class="comment">//只能预设</span>
+  &#125;);</code></pre>
+
+<p><code>生产模式的配置</code></p>
+<blockquote>
+<p>优化代码的性能</p>
+<p>优化代码的打包速度</p>
+</blockquote>
+<blockquote>
+<p>mode: “production”,</p>
+</blockquote>
+<h2 id="5-优化"><a href="#5-优化" class="headerlink" title="5.优化"></a>5.优化</h2><h4 id="1-将css打包成单独文件"><a href="#1-将css打包成单独文件" class="headerlink" title="1.将css打包成单独文件"></a>1.将css打包成单独文件</h4><blockquote>
+<p>npm i –save-dev mini-css-extract-plugin</p>
+</blockquote>
+<pre><code class="highlight javascript">&#123;
+	<span class="attr">test</span>: <span class="regexp">/\.css$/</span>,
+	<span class="attr">use</span>: [<span class="title class_">MiniCssExtractPlugin</span>.<span class="property">loader</span>, <span class="string">&#x27;css-loader&#x27;</span>], 
+&#125;,
+&#123;
+	<span class="attr">test</span>: <span class="regexp">/\.less$/</span>,
+	<span class="attr">use</span>: [<span class="title class_">MiniCssExtractPlugin</span>.<span class="property">loader</span>, <span class="string">&#x27;css-loader&#x27;</span>,<span class="string">&#x27;less-loader&#x27;</span>], 
+&#125;,
+&#123;
+	<span class="attr">test</span>: <span class="regexp">/\.s[ac]ss$/</span>,
+	<span class="attr">use</span>: [<span class="title class_">MiniCssExtractPlugin</span>.<span class="property">loader</span>, <span class="string">&#x27;css-loader&#x27;</span>,<span class="string">&#x27;sass-loader&#x27;</span>], 
+&#125;,
+    
+    <span class="keyword">new</span> <span class="title class_">MiniCssExtractPlugin</span>()</code></pre>
+
+<blockquote>
+<p>指定输出文件目录</p>
+</blockquote>
+<pre><code class="highlight javascript"><span class="keyword">new</span> <span class="title class_">MiniCssExtractPlugin</span>(&#123;
+    <span class="attr">filename</span>:<span class="string">&quot;css/main.css&quot;</span>
+&#125;)</code></pre>
+
+<h3 id="2-css兼容性处理"><a href="#2-css兼容性处理" class="headerlink" title="2.css兼容性处理"></a>2.css兼容性处理</h3><blockquote>
+<p>npm i postcss-loader postcss postcss-preset-env -D</p>
+</blockquote>
+<pre><code class="highlight javascript">&#123;
+  <span class="attr">test</span>: <span class="regexp">/\.css$/</span>,
+  <span class="attr">use</span>: [<span class="title class_">MiniCssExtractPlugin</span>.<span class="property">loader</span>, <span class="string">&#x27;css-loader&#x27;</span>,&#123;
+    <span class="attr">loader</span>:<span class="string">&quot;postcss-loader&quot;</span>,
+    <span class="attr">options</span>:&#123;
+      <span class="attr">postcssOptions</span>:&#123;
+        <span class="attr">plugins</span>:[
+          <span class="string">&quot;postcss-preset-env&quot;</span>
+        ]
+      &#125;
+    &#125;
+  &#125;], 
+&#125;,</code></pre>
+
+<blockquote>
+<p>在package.json中加入</p>
+</blockquote>
+<pre><code class="highlight javascript"><span class="string">&quot;browserslist&quot;</span>:[
+  <span class="string">&quot;ie &gt;= 8&quot;</span>
+]</code></pre>
+
+<h3 id="3-封装样式Loader函数"><a href="#3-封装样式Loader函数" class="headerlink" title="3.封装样式Loader函数"></a>3.封装样式Loader函数</h3><pre><code class="highlight javascript"><span class="keyword">function</span> <span class="title function_">GetStyleLoader</span>(<span class="params">pre</span>) &#123;
+  <span class="keyword">return</span> [
+    <span class="title class_">MiniCssExtractPlugin</span>.<span class="property">loader</span>, <span class="string">&#x27;css-loader&#x27;</span>, &#123;
+      <span class="attr">loader</span>: <span class="string">&quot;postcss-loader&quot;</span>,
+      <span class="attr">options</span>: &#123;
+        <span class="attr">postcssOptions</span>: &#123;
+          <span class="attr">plugins</span>: [
+            <span class="string">&quot;postcss-preset-env&quot;</span>
+          ]
+        &#125;
+      &#125;
+    &#125;,
+    pre
+  ].<span class="title function_">filter</span>(<span class="title class_">Boolean</span>)
+&#125;</code></pre>
+
+<pre><code class="highlight javascript">&#123;
+  <span class="attr">test</span>: <span class="regexp">/\.css$/</span>,
+  <span class="attr">use</span>: <span class="title class_">GetStyleLoader</span>(),
+&#125;,
+&#123;
+  <span class="attr">test</span>: <span class="regexp">/\.less$/</span>,
+  <span class="attr">use</span>: <span class="title class_">GetStyleLoader</span>(<span class="string">&#x27;less-loader&#x27;</span>),
+&#125;,
+&#123;
+  <span class="attr">test</span>: <span class="regexp">/\.s[ac]ss$/</span>,
+  <span class="attr">use</span>: <span class="title class_">GetStyleLoader</span>(<span class="string">&#x27;sass-loader&#x27;</span>)
+&#125;,</code></pre>
+
+<h3 id="4-css压缩"><a href="#4-css压缩" class="headerlink" title="4.css压缩"></a>4.css压缩</h3><blockquote>
+<p>npm i css-minimizer-webpack-plugin –save-dev</p>
+</blockquote>
+<pre><code class="highlight javascript"><span class="keyword">new</span> <span class="title class_">CssMinimizerPlugin</span>()</code></pre>
+
+<h3 id="5-sourceMap源代码映射"><a href="#5-sourceMap源代码映射" class="headerlink" title="5.sourceMap源代码映射"></a>5.sourceMap源代码映射</h3><blockquote>
+<p>当我们在开发过程中，可能会出现错误，但是当我们在浏览器调试时会发现，报错的位置是打包后的位置，因此我们需要sourceMap定位源代码错误的位置，更方便开发</p>
+</blockquote>
+<pre><code class="highlight javascript"><span class="attr">devtool</span>: <span class="string">&quot;eval-cheap-module-source-map&quot;</span>   <span class="comment">///开发环境使用</span>
+<span class="attr">devtool</span>: <span class="string">&quot;source-map&quot;</span>                     <span class="comment">///生成环境使用</span></code></pre>
+
+<h3 id="6-提升打包速度"><a href="#6-提升打包速度" class="headerlink" title="6.提升打包速度"></a>6.提升打包速度</h3><pre><code class="highlight javascript"><span class="attr">devServer</span>: &#123;
+  <span class="attr">static</span>: &#123;
+    <span class="attr">directory</span>: path.<span class="title function_">join</span>(__dirname, <span class="string">&#x27;src&#x27;</span>),
+  &#125;,
+  <span class="attr">compress</span>: <span class="literal">true</span>,
+  <span class="attr">port</span>: <span class="number">9000</span>,
+  <span class="attr">hot</span>:<span class="literal">true</span>
+&#125;,</code></pre>
+
+<h3 id="7-OneOf"><a href="#7-OneOf" class="headerlink" title="7.OneOf"></a>7.OneOf</h3><blockquote>
+<p>每个文件只能被其中一个Loader(配置)处理</p>
+</blockquote>
+<pre><code class="highlight javascript"><span class="attr">module</span>: &#123;
+  <span class="attr">rules</span>: [
+    &#123;
+      <span class="attr">oneOf</span>:[
+        &#123;
+          <span class="attr">test</span>: <span class="regexp">/\.js$/</span>,
+          <span class="attr">exclude</span>: <span class="regexp">/node_modules/</span>,
+          <span class="attr">use</span>: [
+            &#123;
+              <span class="attr">loader</span>: <span class="string">&#x27;babel-loader&#x27;</span>,
+              <span class="attr">options</span>: &#123;
+                <span class="attr">presets</span>: [<span class="string">&quot;@babel/preset-env&quot;</span>]
+              &#125;
+            &#125;
+          ],
+        &#125;,
+        &#123;
+          <span class="attr">test</span>: <span class="regexp">/\.css$/</span>,
+          <span class="attr">use</span>: <span class="title class_">GetStyleLoader</span>(),
+        &#125;,
+        &#123;
+          <span class="attr">test</span>: <span class="regexp">/\.less$/</span>,
+          <span class="attr">use</span>: <span class="title class_">GetStyleLoader</span>(<span class="string">&#x27;less-loader&#x27;</span>),
+        &#125;,
+        &#123;
+          <span class="attr">test</span>: <span class="regexp">/\.s[ac]ss$/</span>,
+          <span class="attr">use</span>: <span class="title class_">GetStyleLoader</span>(<span class="string">&#x27;sass-loader&#x27;</span>)
+        &#125;,
+        &#123;
+          <span class="attr">test</span>: <span class="regexp">/\.(png|jpg|jpe?g|gif|webp|svg)$/</span>,
+          <span class="attr">type</span>: <span class="string">&quot;asset&quot;</span>,
+          <span class="attr">parser</span>: &#123;
+            <span class="attr">dataUrlCondition</span>: &#123;
+              <span class="attr">maxSize</span>: <span class="number">10</span> * <span class="number">1024</span>
+            &#125;
+          &#125;,
+          <span class="attr">generator</span>: &#123;
+            <span class="comment">//输出图片名字</span>
+            <span class="attr">filename</span>: <span class="string">&quot;images/[hash][ext]&quot;</span>
+          &#125;
+        &#125;
+      ]
+    &#125;
+  ]
+&#125;,</code></pre>
+
+<h3 id="8-Include-Exclude"><a href="#8-Include-Exclude" class="headerlink" title="8.Include&#x2F;Exclude"></a>8.Include&#x2F;Exclude</h3><blockquote>
+<p>Exclude 排除，除了指定的都处理</p>
+<p>Include 制定 处理制定的</p>
+</blockquote>
+<pre><code class="highlight javascript">&#123;
+  <span class="attr">test</span>: <span class="regexp">/\.js$/</span>,
+  <span class="attr">exclude</span>: <span class="regexp">/node_modules/</span>,
+  <span class="attr">use</span>: [
+    &#123;
+      <span class="attr">loader</span>: <span class="string">&#x27;babel-loader&#x27;</span>,
+      <span class="attr">options</span>: &#123;
+        <span class="attr">presets</span>: [<span class="string">&quot;@babel/preset-env&quot;</span>]
+      &#125;
+    &#125;
+  ],
+&#125;,</code></pre>
+
+<h3 id="9-Bable和Eslint的缓存"><a href="#9-Bable和Eslint的缓存" class="headerlink" title="9.Bable和Eslint的缓存"></a>9.Bable和Eslint的缓存</h3><blockquote>
+<p>Bable</p>
+</blockquote>
+<pre><code class="highlight javascript">&#123;
+  <span class="attr">test</span>: <span class="regexp">/\.js$/</span>,
+  <span class="attr">exclude</span>: <span class="regexp">/node_modules/</span>,
+  <span class="attr">use</span>: [
+    &#123;
+      <span class="attr">loader</span>: <span class="string">&#x27;babel-loader&#x27;</span>,
+      <span class="attr">options</span>: &#123;
+        <span class="attr">cacheDirectory</span>: <span class="literal">true</span>, <span class="comment">//开启缓存</span>
+        <span class="attr">cacheCompression</span>: <span class="literal">false</span> <span class="comment">//关闭缓存文件压缩</span>
+        <span class="comment">/* presets: [&quot;@babel/preset-env&quot;] */</span>
+      &#125;
+    &#125;
+  ],
+&#125;,</code></pre>
+
+<blockquote>
+<p>Eslint</p>
+</blockquote>
+<pre><code class="highlight plaintext">new ESLintWebpackPlugin(
+  &#123;
+    context: path.resolve(__dirname, &quot;src&quot;),
+    exclude:/node_modules/,
+    cache:true,
+    cacheLocation:path.join(__dirname,&#x27;../node_modules/.cache/eslintcache&#x27;)
+  &#125;
+),</code></pre>
+
+<h3 id="10-多进程打包"><a href="#10-多进程打包" class="headerlink" title="10.多进程打包"></a>10.多进程打包</h3><blockquote>
+<p>npm i thread-loader -D</p>
+</blockquote>
+<pre><code class="highlight javascript"><span class="keyword">const</span> os = <span class="built_in">require</span>(<span class="string">&#x27;os&#x27;</span>)
+<span class="keyword">const</span> threads = os.<span class="title function_">cpus</span>().<span class="property">length</span></code></pre>
+
+<pre><code class="highlight javascript"><span class="attr">test</span>: <span class="regexp">/\.js$/</span>,
+            <span class="attr">exclude</span>: <span class="regexp">/node_modules/</span>,
+            <span class="attr">use</span>: [
+              &#123;
+                <span class="attr">loader</span>:<span class="string">&#x27;thread-loader&#x27;</span>,
+                <span class="attr">options</span>: &#123;
+                  <span class="attr">works</span>: threads,
+                &#125;
+              &#125;,
+              &#123;
+                <span class="attr">loader</span>: <span class="string">&#x27;babel-loader&#x27;</span>,
+                <span class="attr">options</span>: &#123;
+                  <span class="attr">cacheDirectory</span>: <span class="literal">true</span>, <span class="comment">//开启缓存</span>
+                  <span class="attr">cacheCompression</span>: <span class="literal">false</span> <span class="comment">//关闭缓存文件压缩</span>
+                  <span class="comment">/* presets: [&quot;@babel/preset-env&quot;] */</span>
+                &#125;
+              &#125;
+            ],
+&#125;,</code></pre>
+
+<pre><code class="highlight javascript"><span class="keyword">new</span> <span class="title class_">ESLintWebpackPlugin</span>(
+    &#123;
+        <span class="attr">context</span>: path.<span class="title function_">resolve</span>(__dirname, <span class="string">&quot;src&quot;</span>),
+        <span class="attr">exclude</span>:<span class="string">&quot;node_modules&quot;</span>,
+        <span class="attr">cache</span>:<span class="literal">true</span>,
+        <span class="attr">cacheLocation</span>:path.<span class="title function_">join</span>(__dirname,<span class="string">&#x27;../node_modules/.cache/eslintcache&#x27;</span>),
+        threads,
+    &#125;
+),</code></pre>
+
+<blockquote>
+<p>压缩js</p>
+</blockquote>
+<pre><code class="highlight javascript"><span class="keyword">const</span> <span class="title class_">TerserWebpackPlugin</span> = <span class="built_in">require</span>(<span class="string">&#x27;terser-webpack-plugin&#x27;</span>)
+<span class="keyword">new</span> <span class="title class_">TerserWebpackPlugin</span>(&#123;
+	<span class="attr">parallel</span>:threads
+&#125;)</code></pre>
+
+<blockquote>
+<p>更改压缩插件的位置</p>
+</blockquote>
+<pre><code class="highlight javascript"><span class="attr">optimization</span>:&#123;
+  <span class="comment">//压缩的操作</span>
+  <span class="attr">minimizer</span>:[
+    <span class="keyword">new</span> <span class="title class_">CssMinimizerPlugin</span>(),  <span class="comment">//压缩css</span>
+    <span class="keyword">new</span> <span class="title class_">TerserWebpackPlugin</span>(&#123; <span class="comment">//压缩js</span>
+      <span class="attr">parallel</span>:threads 
+    &#125;)
+  ]
+&#125;,
+<span class="attr">mode</span>: <span class="string">&quot;development&quot;</span>,</code></pre>
+
+<h3 id="11-减少图片体积"><a href="#11-减少图片体积" class="headerlink" title="11.减少图片体积"></a>11.减少图片体积</h3><blockquote>
+<p>npm i image-minimizer-webpack-plugin imagemin -D</p>
+<p>无损压缩</p>
+<p>npm install imagemin-gifsicle imagemin-jpegtran imagemin-optipng imagemin-svgo –save-dev</p>
+</blockquote>
+<pre><code class="highlight javascript"><span class="keyword">const</span> <span class="title class_">ImageMinimizerPlugin</span> = <span class="built_in">require</span>(<span class="string">&quot;image-minimizer-webpack-plugin&quot;</span>);
+
+<span class="variable language_">module</span>.<span class="property">exports</span> = &#123;
+  <span class="attr">optimization</span>: &#123;
+    <span class="attr">minimizer</span>: [
+      <span class="keyword">new</span> <span class="title class_">ImageMinimizerPlugin</span>(&#123;
+        <span class="attr">minimizer</span>: &#123;
+          <span class="attr">implementation</span>: <span class="title class_">ImageMinimizerPlugin</span>.<span class="property">imageminGenerate</span>,
+          <span class="attr">options</span>: &#123;
+            <span class="attr">plugins</span>: [
+              [<span class="string">&quot;gifsicle&quot;</span>, &#123; <span class="attr">interlaced</span>: <span class="literal">true</span> &#125;],
+              [<span class="string">&quot;jpegtran&quot;</span>, &#123; <span class="attr">progressive</span>: <span class="literal">true</span> &#125;],
+              [<span class="string">&quot;optipng&quot;</span>, &#123; <span class="attr">optimizationLevel</span>: <span class="number">5</span> &#125;],
+              [
+                <span class="string">&quot;svgo&quot;</span>,
+                &#123;
+                  <span class="attr">plugins</span>: [
+                    <span class="string">&quot;preset-default&quot;</span>,
+                    <span class="string">&quot;prefixIds&quot;</span>,
+                    &#123;
+                      <span class="attr">name</span>: <span class="string">&quot;sortAttrs&quot;</span>,
+                      <span class="attr">params</span>: &#123;
+                        <span class="attr">xmlnsOrder</span>: <span class="string">&quot;alphabetical&quot;</span>,
+                      &#125;,
+                    &#125;,
+                  ],
+                &#125;,
+              ],
+            ],
+          &#125;,
+        &#125;,
+      &#125;),
+    ],
+  &#125;,
+&#125;;</code></pre>
+
+<h3 id="12-进一步解决兼容性问题"><a href="#12-进一步解决兼容性问题" class="headerlink" title="12.进一步解决兼容性问题"></a>12.进一步解决兼容性问题</h3><blockquote>
+<p>coreJs       npm i core.js</p>
+</blockquote>
+<blockquote>
+<p>babel.config.js</p>
+</blockquote>
+<pre><code class="highlight javascript"><span class="variable language_">module</span>.<span class="property">exports</span> = <span class="keyword">function</span>(<span class="params">api</span>) &#123;
+  api.<span class="title function_">cache</span>(<span class="literal">true</span>);
+  <span class="keyword">return</span> &#123;
+    <span class="attr">presets</span>: [
+      [
+        <span class="string">&quot;@babel/preset-env&quot;</span>, <span class="comment">// 预设名称</span>
+        &#123;
+          <span class="attr">useBuiltIns</span>: <span class="string">&#x27;usage&#x27;</span>, <span class="comment">// 选项</span>
+          <span class="attr">corejs</span>: <span class="number">3</span> <span class="comment">// 选项</span>
+        &#125;
+      ]
+    ]
+  &#125;;
+&#125;;</code></pre>
+
+<p>13.PWD</p>
+<blockquote>
+<p>npm install workbox-webpack-plugin –save-dev</p>
+</blockquote>
+<pre><code class="highlight javascript"><span class="keyword">const</span> <span class="title class_">WorkboxPlugin</span> = <span class="built_in">require</span>(<span class="string">&#x27;workbox-webpack-plugin&#x27;</span>);
+<span class="keyword">new</span> <span class="title class_">WorkboxPlugin</span>.<span class="title class_">GenerateSW</span>(&#123;
+    <span class="comment">// 这些选项帮助快速启用 ServiceWorkers</span>
+    <span class="comment">// 不允许遗留任何“旧的” ServiceWorkers</span>
+    <span class="attr">clientsClaim</span>: <span class="literal">true</span>,
+    <span class="attr">skipWaiting</span>: <span class="literal">true</span>,
+&#125;),</code></pre>
+
+<blockquote>
+<p>注册 Service Worker</p>
+</blockquote>
+<blockquote>
+<p>npx SW registered</p>
+<p>启动服务</p>
+</blockquote>
+<pre><code class="highlight plaintext">npm i server -g
+npx server dist</code></pre>
+
+<h2 id="6-CodeSplit"><a href="#6-CodeSplit" class="headerlink" title="6.CodeSplit"></a>6.CodeSplit</h2><h3 id="1-CodeSplit"><a href="#1-CodeSplit" class="headerlink" title="1.CodeSplit"></a>1.CodeSplit</h3><blockquote>
+<p>添加多入口</p>
+</blockquote>
+<pre><code class="highlight javascript"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">&#x27;path&#x27;</span>);
+<span class="variable language_">module</span>.<span class="property">exports</span> = &#123;
+  <span class="attr">mode</span>: <span class="string">&#x27;development&#x27;</span>,
+  <span class="attr">entry</span>: &#123;
+    <span class="attr">index</span>: <span class="string">&#x27;./src/index.js&#x27;</span>,
+    <span class="attr">another</span>: <span class="string">&#x27;./src/another-module.js&#x27;</span>,
+  &#125;,
+  <span class="attr">output</span>: &#123;
+    <span class="attr">filename</span>: <span class="string">&#x27;[name].bundle.js&#x27;</span>,
+    <span class="attr">path</span>: path.<span class="title function_">resolve</span>(__dirname, <span class="string">&#x27;dist&#x27;</span>),
+  &#125;,
+&#125;;</code></pre>
+
+<pre><code class="highlight javascript"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">&#x27;path&#x27;</span>);
+
+<span class="variable language_">module</span>.<span class="property">exports</span> = &#123;
+    <span class="attr">entry</span>: <span class="string">&#x27;./src/index.js&#x27;</span>,
+    <span class="attr">mode</span>: <span class="string">&#x27;development&#x27;</span>,
+    <span class="attr">entry</span>: &#123;
+        <span class="attr">index</span>: <span class="string">&#x27;./src/index.js&#x27;</span>, <span class="comment">//主入口</span>
+        <span class="attr">another</span>: <span class="string">&#x27;./src/another-module.js&#x27;</span>, <span class="comment">//其他js文件</span>
+    &#125;,
+    <span class="attr">output</span>: &#123;
+        <span class="attr">filename</span>: <span class="string">&#x27;main.js&#x27;</span>,  <span class="comment">//主入口打包的输出目录</span>
+        <span class="attr">filename</span>: <span class="string">&#x27;[name].bundle.js&#x27;</span>, <span class="comment">//其他js文件打包的输出目录</span>
+        <span class="attr">path</span>: path.<span class="title function_">resolve</span>(__dirname, <span class="string">&#x27;dist&#x27;</span>),
+    &#125;,
+&#125;;</code></pre>
+
+<blockquote>
+<p>动态导入（Dynamic Imports）</p>
+</blockquote>
+<p>通过模块的内联函数调用来分离代码。例如，使用<code>import()</code>函数：</p>
+<pre><code class="highlight javascript"><span class="keyword">import</span>(<span class="comment">/* webpackChunkName: &#x27;subPageA&#x27; */</span><span class="string">&#x27;./subPageA&#x27;</span>).<span class="title function_">then</span>(<span class="keyword">function</span>(<span class="params">res</span>)&#123;
+  <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;import()&#x27;</span>, res)
+&#125;);</code></pre>
+
+<blockquote>
+<p>防止依赖重复</p>
+</blockquote>
+<pre><code class="highlight javascript"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">&#x27;path&#x27;</span>);
+
+<span class="variable language_">module</span>.<span class="property">exports</span> = &#123;
+  <span class="attr">mode</span>: <span class="string">&#x27;development&#x27;</span>,
+  <span class="attr">entry</span>: &#123;
+    <span class="attr">index</span>: &#123;
+      <span class="attr">import</span>: <span class="string">&#x27;./src/index.js&#x27;</span>,
+      <span class="attr">dependOn</span>: <span class="string">&#x27;shared&#x27;</span>,
+    &#125;,
+    <span class="attr">another</span>: &#123;
+      <span class="attr">import</span>: <span class="string">&#x27;./src/another-module.js&#x27;</span>,
+      <span class="attr">dependOn</span>: <span class="string">&#x27;shared&#x27;</span>,
+    &#125;,
+    <span class="attr">shared</span>: <span class="string">&#x27;lodash&#x27;</span>,
+  &#125;,
+  <span class="attr">output</span>: &#123;
+    <span class="attr">filename</span>: <span class="string">&#x27;[name].bundle.js&#x27;</span>,
+    <span class="attr">path</span>: path.<span class="title function_">resolve</span>(__dirname, <span class="string">&#x27;dist&#x27;</span>),
+  &#125;,
+ <span class="attr">optimization</span>: &#123;
+   <span class="attr">runtimeChunk</span>: <span class="string">&#x27;single&#x27;</span>,
+ &#125;,
+&#125;;</code></pre>
+
+<h3 id="2-SplitChunksPlugin"><a href="#2-SplitChunksPlugin" class="headerlink" title="2.SplitChunksPlugin"></a>2.SplitChunksPlugin</h3><pre><code class="highlight javascript"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">&#x27;path&#x27;</span>);
+
+<span class="variable language_">module</span>.<span class="property">exports</span> = &#123;
+    <span class="attr">mode</span>: <span class="string">&#x27;development&#x27;</span>,
+    <span class="attr">entry</span>: &#123;
+        <span class="attr">index</span>: <span class="string">&#x27;./src/index.js&#x27;</span>,
+        <span class="attr">another</span>: <span class="string">&#x27;./src/another-module.js&#x27;</span>,
+    &#125;,
+    <span class="attr">output</span>: &#123;
+        <span class="attr">filename</span>: <span class="string">&#x27;[name].bundle.js&#x27;</span>,
+        <span class="attr">path</span>: path.<span class="title function_">resolve</span>(__dirname, <span class="string">&#x27;dist&#x27;</span>),
+    &#125;,
+    <span class="attr">optimization</span>: &#123;
+        <span class="attr">splitChunks</span>: &#123;
+            <span class="attr">chunks</span>: <span class="string">&#x27;all&#x27;</span>,
+        &#125;,
+    &#125;,
+&#125;;</code></pre>
+
+<h3 id="3-preload、prefetch"><a href="#3-preload、prefetch" class="headerlink" title="3.preload、prefetch"></a>3.preload、prefetch</h3><blockquote>
+<p>npm i –save-dev @vue&#x2F;preload-webpack-plugin</p>
+</blockquote>
+<pre><code class="highlight javascript"><span class="keyword">const</span> <span class="title class_">PreLoadWebpackPlugin</span> = <span class="built_in">require</span>(<span class="string">&#x27;@vue/preload-webpack-plugin&#x27;</span>);
+
+<span class="keyword">new</span> <span class="title class_">PreLoadWebpackPlugin</span>(&#123;
+    <span class="attr">rel</span>:<span class="string">&quot;preload&quot;</span>,
+    <span class="attr">as</span>:<span class="string">&quot;script&quot;</span>,
+&#125;),
+<span class="comment">/*new PreLoadWebpackPlugin(&#123;</span>
+<span class="comment">    rel:&quot;prefetch&quot;,</span>
+<span class="comment">    as:&quot;script&quot;,</span>
+<span class="comment">&#125;),*/</span></code></pre>
+
+<h2 id="7-typeScript"><a href="#7-typeScript" class="headerlink" title="7.typeScript"></a>7.typeScript</h2><blockquote>
+<p>npm install –save-dev typescript ts-loader</p>
+</blockquote>
+<blockquote>
+<p>tsconfig.js</p>
+</blockquote>
+<pre><code class="highlight json"><span class="punctuation">&#123;</span>
+  <span class="attr">&quot;compilerOptions&quot;</span><span class="punctuation">:</span> <span class="punctuation">&#123;</span>
+    <span class="attr">&quot;outDir&quot;</span><span class="punctuation">:</span> <span class="string">&quot;./dist/&quot;</span><span class="punctuation">,</span>
+   <span class="attr">&quot;sourceMap&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span>
+    <span class="attr">&quot;noImplicitAny&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span>
+    <span class="attr">&quot;module&quot;</span><span class="punctuation">:</span> <span class="string">&quot;commonjs&quot;</span><span class="punctuation">,</span>
+    <span class="attr">&quot;target&quot;</span><span class="punctuation">:</span> <span class="string">&quot;es5&quot;</span><span class="punctuation">,</span>
+    <span class="attr">&quot;jsx&quot;</span><span class="punctuation">:</span> <span class="string">&quot;react&quot;</span><span class="punctuation">,</span>
+    <span class="attr">&quot;allowJs&quot;</span><span class="punctuation">:</span> <span class="literal"><span class="keyword">true</span></span><span class="punctuation">,</span>
+    <span class="attr">&quot;moduleResolution&quot;</span><span class="punctuation">:</span> <span class="string">&quot;node&quot;</span><span class="punctuation">,</span>
+  <span class="punctuation">&#125;</span>
+<span class="punctuation">&#125;</span></code></pre>
+
+<blockquote>
+<p>webpack.config.js</p>
+</blockquote>
+<pre><code class="highlight javascript"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">&#x27;path&#x27;</span>);
+
+<span class="variable language_">module</span>.<span class="property">exports</span> = &#123;
+  <span class="attr">entry</span>: <span class="string">&#x27;./src/index.ts&#x27;</span>,
+  <span class="attr">module</span>: &#123;
+    <span class="attr">rules</span>: [
+      &#123;
+        <span class="attr">test</span>: <span class="regexp">/\.tsx?$/</span>,
+        <span class="attr">use</span>: <span class="string">&#x27;ts-loader&#x27;</span>,
+        <span class="attr">exclude</span>: <span class="regexp">/node_modules/</span>,
+      &#125;,
+    ],
+  &#125;,
+  <span class="attr">resolve</span>: &#123;
+    <span class="attr">extensions</span>: [<span class="string">&#x27;.tsx&#x27;</span>, <span class="string">&#x27;.ts&#x27;</span>, <span class="string">&#x27;.js&#x27;</span>],
+  &#125;,
+  <span class="attr">output</span>: &#123;
+    <span class="attr">filename</span>: <span class="string">&#x27;bundle.js&#x27;</span>,
+    <span class="attr">path</span>: path.<span class="title function_">resolve</span>(__dirname, <span class="string">&#x27;dist&#x27;</span>),
+  &#125;,
+&#125;;</code></pre>
+
+<h2 id="8-react-cli"><a href="#8-react-cli" class="headerlink" title="8.react-cli"></a>8.react-cli</h2><h3 id="1-webpack-dev-js"><a href="#1-webpack-dev-js" class="headerlink" title="1.webpack.dev.js"></a>1.webpack.dev.js</h3><blockquote>
+<p>基本配置</p>
+</blockquote>
+<pre><code class="highlight javascript"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">&quot;path&quot;</span>)
+<span class="keyword">const</span> <span class="title class_">ESLintWebpackPlugin</span> = <span class="built_in">require</span>(<span class="string">&#x27;eslint-webpack-plugin&#x27;</span>);
+<span class="keyword">const</span> <span class="title class_">HtmlWebpackPlugin</span> = <span class="built_in">require</span>(<span class="string">&#x27;html-webpack-plugin&#x27;</span>)
+
+<span class="keyword">function</span> <span class="title function_">GetStyleLoader</span>(<span class="params">pre</span>) &#123;
+    <span class="keyword">return</span> [
+        <span class="title class_">MiniCssExtractPlugin</span>.<span class="property">loader</span>, <span class="string">&#x27;css-loader&#x27;</span>, &#123;
+            <span class="attr">loader</span>: <span class="string">&quot;postcss-loader&quot;</span>,
+            <span class="attr">options</span>: &#123;
+                <span class="attr">postcssOptions</span>: &#123;
+                    <span class="attr">plugins</span>: [
+                        <span class="string">&quot;postcss-preset-env&quot;</span>
+                    ]
+                &#125;
+            &#125;
+        &#125;,
+        pre
+    ].<span class="title function_">filter</span>(<span class="title class_">Boolean</span>)
+&#125;
+
+<span class="variable language_">module</span>.<span class="property">exports</span> = &#123;
+    <span class="attr">entry</span>: <span class="string">&quot;./src/main.js&quot;</span>,
+    <span class="attr">output</span>: &#123;
+        <span class="attr">path</span>: <span class="literal">undefined</span>,
+        <span class="attr">filename</span>: <span class="string">&quot;js/[name].bundle.js&quot;</span>,
+        <span class="attr">chunkFilename</span>: <span class="string">&quot;static/js/[name].chunk.js&quot;</span>,
+        <span class="attr">assetModuleFilename</span>: <span class="string">&quot;static/media/[hash:10][ext][query]&quot;</span>
+    &#125;,
+    <span class="attr">module</span>: &#123;
+        <span class="attr">rules</span>: [
+            &#123;
+                <span class="attr">test</span>: <span class="regexp">/\.js$/</span>,
+                <span class="attr">include</span>: path.<span class="title function_">resolve</span>(__dirname, <span class="string">&quot;../src&quot;</span>),
+                <span class="attr">loader</span>: <span class="string">&#x27;babel-loader&#x27;</span>,
+                <span class="attr">options</span>: &#123;
+                    <span class="attr">presets</span>: [<span class="string">&quot;@babel/preset-env&quot;</span>],
+                    <span class="attr">cacheDirectory</span>: <span class="literal">true</span>,
+                    <span class="attr">cacheCompression</span>: <span class="literal">false</span>
+                &#125;
+            &#125;,
+            &#123;
+                <span class="attr">test</span>: <span class="regexp">/\.css$/</span>,
+                <span class="attr">use</span>: <span class="title class_">GetStyleLoader</span>(),
+            &#125;,
+            &#123;
+                <span class="attr">test</span>: <span class="regexp">/\.less$/</span>,
+                <span class="attr">use</span>: <span class="title class_">GetStyleLoader</span>(<span class="string">&#x27;less-loader&#x27;</span>),
+            &#125;,
+            &#123;
+                <span class="attr">test</span>: <span class="regexp">/\.s[ac]ss$/</span>,
+                <span class="attr">use</span>: <span class="title class_">GetStyleLoader</span>(<span class="string">&#x27;sass-loader&#x27;</span>)
+            &#125;,
+            &#123;
+                <span class="attr">test</span>: <span class="regexp">/\.(png|jpg|jpe?g|gif|webp|svg)$/</span>,
+                <span class="attr">type</span>: <span class="string">&quot;asset&quot;</span>,
+                <span class="attr">parser</span>: &#123;
+                    <span class="attr">dataUrlCondition</span>: &#123;
+                        <span class="attr">maxSize</span>: <span class="number">10</span> * <span class="number">1024</span>
+                    &#125;
+                &#125;
+            &#125;,
+            &#123;
+                <span class="attr">test</span>: <span class="regexp">/\.(woff2|ttf)/</span>,
+                <span class="attr">type</span>: <span class="string">&quot;asset/resource&quot;</span>,
+
+            &#125;
+        ]
+    &#125;,
+    <span class="attr">plugins</span>: [
+        <span class="keyword">new</span> <span class="title class_">ESLintWebpackPlugin</span>(
+            &#123;
+                <span class="attr">context</span>: path.<span class="title function_">resolve</span>(__dirname, <span class="string">&quot;../src&quot;</span>),
+                <span class="attr">exclude</span>: <span class="string">&quot;node_modules&quot;</span>,
+                <span class="attr">cache</span>: <span class="literal">true</span>,
+                <span class="attr">cacheLocation</span>: path.<span class="title function_">join</span>(__dirname, <span class="string">&#x27;../node_modules/.cache/eslintcache&#x27;</span>),
+            &#125;
+        ),
+        <span class="keyword">new</span> <span class="title class_">HtmlWebpackPlugin</span>(&#123;
+            <span class="attr">template</span>: path.<span class="title function_">resolve</span>(__dirname, <span class="string">&quot;../public/index.html&quot;</span>)
+        &#125;),
+    ],
+    <span class="attr">mode</span>: <span class="string">&quot;development&quot;</span>,
+    <span class="attr">devtool</span>: <span class="string">&quot;cheap-module-source-map&quot;</span>,
+    <span class="attr">optimization</span>: &#123;
+        <span class="attr">splitChunks</span>: &#123;
+            <span class="attr">chunks</span>: <span class="string">&quot;all&quot;</span>,
+        &#125;,
+        <span class="attr">runtimeChunk</span>:&#123;
+            <span class="attr">name</span>: <span class="function"><span class="params">entrypoint</span> =&gt;</span> <span class="string">`runtime~<span class="subst">$&#123;entrypoint.name&#125;</span>.js`</span>,
+        &#125;
+    &#125;,
+    <span class="attr">devServer</span>:&#123;
+        <span class="attr">host</span>:<span class="string">&quot;localhost&quot;</span>,
+        <span class="attr">port</span>:<span class="number">3000</span>,
+        <span class="attr">open</span>:<span class="literal">true</span>,
+        <span class="attr">hot</span>:<span class="literal">true</span>,
+    &#125;
+&#125;</code></pre>
+
+<blockquote>
+<p>npm i eslint-webpack-plugin html-webpack-plugin css-loader postcss-loader style-loader less-loader sass stylus-loader sass-loader -D</p>
+</blockquote>
+<blockquote>
+<p>npm i -D babel-loader @babel&#x2F;core babel-preset-react-app eslint-config-react-app -D</p>
+</blockquote>
+<blockquote>
+<p>npm i webpack-dev-server webpack webpack-cli -D</p>
+</blockquote>
+<blockquote>
+<p>npm i react react-dom</p>
+</blockquote>
+<h3 id="2-解决启动后报错的问题"><a href="#2-解决启动后报错的问题" class="headerlink" title="2.解决启动后报错的问题"></a>2.解决启动后报错的问题</h3><pre><code class="highlight plaintext">Error: [BABEL] D:\MyTest\cli\src\index.js: Using `babel-preset-react-app` requires that you specify `NODE_ENV` or `BABEL_ENV` environment variables. Valid values are &quot;development&quot;, &quot;test&quot;, and &quot;production&quot;. Instead, received: undefined. (While processing: &quot;D:\\MyTest\\cli\\node_modules\\babel-preset-react-app\\index.js&quot;)</code></pre>
+
+<blockquote>
+<p>npm i –save-dev cross-env</p>
+<p>设置启动脚本为  “serve”: “cross-env NODE_ENV&#x3D;production webpack serve –config .&#x2F;config&#x2F;webpack.dev.js”,</p>
+</blockquote>
+<pre><code class="highlight javascript"><span class="comment">//在webpack.config.js中配置</span>
+<span class="attr">resolve</span>: &#123;
+	<span class="attr">extensions</span>: [<span class="string">&#x27;.js&#x27;</span>,<span class="string">&#x27;.jsx&#x27;</span>,<span class="string">&#x27;.json&#x27;</span>],
+&#125;,</code></pre>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        </article>
+        <section class="post-near">
+            <ul>
+                
+                    <li>上一篇: 看完啦 (つд⊂)</li>
+                
+                
+                    <li>下一篇: <a href="/2024/11/09/Node.js/">NodeJs</a></li>
+                
+            </ul>
+        </section>
+        
+            <section class="post-tags">
+            <a class="-none-link" href="/tags/Webpack/" rel="tag">Webpack</a><a class="-none-link" href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag">前端</a>
+            </section>
+        
+    
+        <section class="post-author">
+        
+            <figure class="author-avatar">
+                <img src="https://p1.meituan.net/csc/949ad40707d4b4bab7e2ebafbd649aa8211830.jpg" alt="日初" />
+            </figure>
+        
+            <div class="author-info">
+                <h4>日初</h4>
+                <p>一个什么都学的建模动画编程爱好者</p>
+            </div>
+        </section>
+    
+    </div>
+</main>
+
+    <footer>
+    <div class="buttons">
+        <a class="to-top" href="#"></a>
+    </div>
+    <div class="wrap min">
+        <section class="widget">
+            <div class="row">
+                <div class="col-m-4">
+                    <h3 class="title-recent">最新文章：</h3>
+                    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2024/11/11/Webpack/">Webpack</a></li><li class="post-list-item"><a class="post-list-link" href="/2024/11/09/Node.js/">NodeJs</a></li><li class="post-list-item"><a class="post-list-link" href="/2024/11/05/Docker%E5%92%8Cmysql%E7%9A%84%E6%90%AD%E5%BB%BA/">Docker&mysql&nacos</a></li><li class="post-list-item"><a class="post-list-link" href="/2024/11/02/Unity3D/">Unity</a></li><li class="post-list-item"><a class="post-list-link" href="/2024/10/31/Uni-App/">Uni-App</a></li><li class="post-list-item"><a class="post-list-link" href="/2024/10/30/Flutter/">Flutter</a></li></ul>
+                </div>
+                <div class="col-m-4">
+                    <h3 class="title-date">时光机：</h3>
+                    <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/11/">十一月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/10/">十月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/09/">九月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/08/">八月 2024</a></li></ul>
+                </div>
+                <div class="col-m-4">
+                    <h3 class="title-tags">标签云：</h3>
+                    <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/CSS/" style="font-size: 20px;">CSS</a> <a href="/tags/Docker/" style="font-size: 20px;">Docker</a> <a href="/tags/Flutter/" style="font-size: 20px;">Flutter</a> <a href="/tags/Game/" style="font-size: 20px;">Game</a> <a href="/tags/Go/" style="font-size: 20px;">Go</a> <a href="/tags/Go-Web/" style="font-size: 20px;">Go Web</a> <a href="/tags/JS/" style="font-size: 20px;">JS</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/Java-Web/" style="font-size: 20px;">Java Web</a> <a href="/tags/Linux/" style="font-size: 20px;">Linux</a> <a href="/tags/MySql/" style="font-size: 20px;">MySql</a> <a href="/tags/MybatisPlus/" style="font-size: 20px;">MybatisPlus</a> <a href="/tags/Nginx/" style="font-size: 20px;">Nginx</a> <a href="/tags/NodeJs/" style="font-size: 20px;">NodeJs</a> <a href="/tags/React/" style="font-size: 20px;">React</a> <a href="/tags/Spring-Cloud/" style="font-size: 20px;">Spring Cloud</a> <a href="/tags/UniApp/" style="font-size: 20px;">UniApp</a> <a href="/tags/Unity/" style="font-size: 20px;">Unity</a> <a href="/tags/Vue/" style="font-size: 20px;">Vue</a> <a href="/tags/Webpack/" style="font-size: 20px;">Webpack</a> <a href="/tags/%E5%89%8D%E7%AB%AF/" style="font-size: 20px;">前端</a> <a href="/tags/%E8%BF%90%E7%BB%B4/" style="font-size: 20px;">运维</a>
+                </div>
+            </div>
+        </section>
+        <section class="sub-footer">
+            <p>© 2024 <a href="/">Richu</a>. All Rights Reserved. Theme By <a href="https://github.com/Dreamer-Paul/Hingle" target="_blank" rel="nofollow">Hingle</a>.</p>
+        </section>
+    </div>
+</footer>
+
+
+<script src="/static/kico.js"></script>
+<script src="/static/hingle.js"></script>
+
+
+<script>var hingle = new Paul_Hingle({"copyright":true,"night":false});</script>
+
+  </body>
+</html>

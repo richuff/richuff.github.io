@@ -908,6 +908,297 @@ npx server dist</code></pre>
 	<span class="attr">extensions</span>: [<span class="string">&#x27;.js&#x27;</span>,<span class="string">&#x27;.jsx&#x27;</span>,<span class="string">&#x27;.json&#x27;</span>],
 &#125;,</code></pre>
 
+<h3 id="3-更新局部代码"><a href="#3-更新局部代码" class="headerlink" title="3.更新局部代码"></a>3.更新局部代码</h3><blockquote>
+<p>npm i -D @pmmmwh&#x2F;react-refresh-webpack-plugin react-refresh</p>
+</blockquote>
+<pre><code class="highlight javascript"><span class="keyword">const</span> <span class="title class_">ReactRefreshPlugin</span> = <span class="title function_">require</span>(<span class="params"><span class="string">&#x27;@pmmmwh/react-refresh-webpack-plugin&#x27;</span></span>)
+&#123;
+                <span class="attr">test</span>: <span class="regexp">/\.jsx?$/</span>,
+                <span class="attr">include</span>: path.<span class="title function_">resolve</span>(__dirname, <span class="string">&quot;../src&quot;</span>),
+                <span class="attr">loader</span>: <span class="string">&#x27;babel-loader&#x27;</span>,
+                <span class="attr">options</span>: &#123;
+                    <span class="attr">cacheDirectory</span>: <span class="literal">true</span>,
+                    <span class="attr">cacheCompression</span>: <span class="literal">false</span>,
+                    <span class="attr">plugins</span>:[
+			<span class="string">&#x27;react-refresh/babel&#x27;</span>
+		]
+	&#125;
+&#125;,
+                
+                
+<span class="keyword">new</span> <span class="title class_">ReactRefreshPlugin</span>()</code></pre>
+
+<h3 id="4-解决路由报错问题"><a href="#4-解决路由报错问题" class="headerlink" title="4.解决路由报错问题"></a>4.解决路由报错问题</h3><blockquote>
+<p>在我们使用react-router-dom的时候会出现这样的问题</p>
+<p>Cannot GET &#x2F;about</p>
+</blockquote>
+<pre><code class="highlight javascript"><span class="attr">devServer</span>:&#123;
+    <span class="attr">host</span>:<span class="string">&quot;localhost&quot;</span>,
+    <span class="attr">port</span>:<span class="number">3000</span>,
+    <span class="attr">open</span>:<span class="literal">true</span>,
+    <span class="attr">hot</span>:<span class="literal">true</span>,
+    <span class="attr">historyApiFallback</span>:<span class="literal">true</span> <span class="comment">//解决前端路由刷新404的问题</span>
+&#125;,</code></pre>
+
+<h3 id="5-生产模式"><a href="#5-生产模式" class="headerlink" title="5.生产模式"></a>5.生产模式</h3><pre><code class="highlight javascript"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">&quot;path&quot;</span>)
+<span class="keyword">const</span> <span class="title class_">ESLintWebpackPlugin</span> = <span class="built_in">require</span>(<span class="string">&#x27;eslint-webpack-plugin&#x27;</span>);
+<span class="keyword">const</span> <span class="title class_">HtmlWebpackPlugin</span> = <span class="built_in">require</span>(<span class="string">&#x27;html-webpack-plugin&#x27;</span>)
+<span class="keyword">const</span> <span class="title class_">CssMinimizerPlugin</span> = <span class="built_in">require</span>(<span class="string">&#x27;css-minimizer-webpack-plugin&#x27;</span>);
+<span class="keyword">const</span> <span class="title class_">MiniCssExtractPlugin</span> = <span class="built_in">require</span>(<span class="string">&#x27;mini-css-extract-plugin&#x27;</span>);
+<span class="keyword">const</span> <span class="title class_">TerserWebpackPlugin</span> = <span class="built_in">require</span>(<span class="string">&#x27;terser-webpack-plugin&#x27;</span>);
+
+<span class="keyword">function</span> <span class="title function_">GetStyleLoader</span>(<span class="params">pre</span>) &#123;
+    <span class="keyword">return</span> [
+         <span class="title class_">MiniCssExtractPlugin</span>.<span class="property">loader</span>, <span class="string">&#x27;css-loader&#x27;</span>, &#123;
+            <span class="attr">loader</span>: <span class="string">&quot;postcss-loader&quot;</span>,
+            <span class="attr">options</span>: &#123;
+                <span class="attr">postcssOptions</span>: &#123;
+                    <span class="attr">plugins</span>: [
+                        <span class="string">&quot;postcss-preset-env&quot;</span>
+                    ]
+                &#125;
+            &#125;
+        &#125;,
+        pre
+    ].<span class="title function_">filter</span>(<span class="title class_">Boolean</span>)
+&#125;
+
+<span class="variable language_">module</span>.<span class="property">exports</span> = &#123;
+    <span class="attr">entry</span>: <span class="string">&quot;./src/index.js&quot;</span>,
+    <span class="attr">output</span>: &#123;
+        <span class="attr">path</span>: path.<span class="title function_">resolve</span>(__dirname,<span class="string">&quot;../dist&quot;</span>),
+        <span class="attr">filename</span>: <span class="string">&quot;js/[name].[contenthash:10].js&quot;</span>,
+        <span class="attr">chunkFilename</span>: <span class="string">&quot;static/js/[name].chunk.js&quot;</span>,
+        assetModuleFilename : <span class="string">&quot;static/media/[hash:10][ext][query]&quot;</span>,
+        <span class="attr">clean</span>:<span class="literal">true</span>,
+    &#125;,
+    <span class="attr">module</span>: &#123;
+        <span class="attr">rules</span>: [
+            &#123;
+                <span class="attr">test</span>: <span class="regexp">/\.jsx?$/</span>,
+                <span class="attr">include</span>: path.<span class="title function_">resolve</span>(__dirname, <span class="string">&quot;../src&quot;</span>),
+                <span class="attr">loader</span>: <span class="string">&#x27;babel-loader&#x27;</span>,
+                <span class="attr">options</span>: &#123;
+                    <span class="attr">cacheDirectory</span>: <span class="literal">true</span>,
+                    <span class="attr">cacheCompression</span>: <span class="literal">false</span>,
+                &#125;
+            &#125;,
+            &#123;
+                <span class="attr">test</span>: <span class="regexp">/\.css$/</span>,
+                <span class="attr">use</span>: <span class="title class_">GetStyleLoader</span>(),
+            &#125;,
+            &#123;
+                <span class="attr">test</span>: <span class="regexp">/\.less$/</span>,
+                <span class="attr">use</span>: <span class="title class_">GetStyleLoader</span>(<span class="string">&#x27;less-loader&#x27;</span>),
+            &#125;,
+            &#123;
+                <span class="attr">test</span>: <span class="regexp">/\.s[ac]ss$/</span>,
+                <span class="attr">use</span>: <span class="title class_">GetStyleLoader</span>(<span class="string">&#x27;sass-loader&#x27;</span>)
+            &#125;,
+            &#123;
+                <span class="attr">test</span>: <span class="regexp">/\.(png|jpg|jpe?g|gif|webp|svg)$/</span>,
+                <span class="attr">type</span>: <span class="string">&quot;asset&quot;</span>,
+                <span class="attr">parser</span>: &#123;
+                    <span class="attr">dataUrlCondition</span>: &#123;
+                        <span class="attr">maxSize</span>: <span class="number">10</span> * <span class="number">1024</span>
+                    &#125;
+                &#125;
+            &#125;,
+            &#123;
+                <span class="attr">test</span>: <span class="regexp">/\.(woff2|ttf)/</span>,
+                <span class="attr">type</span>: <span class="string">&quot;asset/resource&quot;</span>,
+
+            &#125;
+        ]
+    &#125;,
+    <span class="attr">plugins</span>: [
+        <span class="keyword">new</span> <span class="title class_">ESLintWebpackPlugin</span>(
+            &#123;
+                <span class="attr">context</span>: path.<span class="title function_">resolve</span>(__dirname, <span class="string">&quot;../src&quot;</span>),
+                <span class="attr">exclude</span>: <span class="string">&quot;node_modules&quot;</span>,
+                <span class="attr">cache</span>: <span class="literal">true</span>,
+                <span class="attr">cacheLocation</span>: path.<span class="title function_">join</span>(__dirname, <span class="string">&#x27;../node_modules/.cache/eslintcache&#x27;</span>),
+            &#125;
+        ),
+        <span class="keyword">new</span> <span class="title class_">HtmlWebpackPlugin</span>(&#123;
+            <span class="attr">template</span>: path.<span class="title function_">resolve</span>(__dirname, <span class="string">&quot;../public/index.html&quot;</span>)
+        &#125;),
+        <span class="keyword">new</span> <span class="title class_">MiniCssExtractPlugin</span>(&#123;
+            <span class="attr">filename</span>: <span class="string">&quot;static/css/[name].[contenthash:10].css&quot;</span>,
+            <span class="attr">chunkFilename</span>: <span class="string">&quot;static/css/[name].[contenthash:10].chunk.css&quot;</span>,
+        &#125;),
+    ],
+    <span class="attr">mode</span>: <span class="string">&quot;production&quot;</span>,
+    <span class="attr">devtool</span>: <span class="string">&quot;source-map&quot;</span>,
+    <span class="attr">optimization</span>: &#123;
+        <span class="attr">splitChunks</span>: &#123;
+            <span class="attr">chunks</span>: <span class="string">&quot;all&quot;</span>,
+        &#125;,
+        <span class="attr">runtimeChunk</span>:&#123;
+            <span class="attr">name</span>: <span class="function"><span class="params">entrypoint</span> =&gt;</span> <span class="string">`runtime~<span class="subst">$&#123;entrypoint.name&#125;</span>.js`</span>,
+        &#125;,
+        <span class="attr">minimizer</span>:[<span class="keyword">new</span> <span class="title class_">CssMinimizerPlugin</span>(),<span class="keyword">new</span> <span class="title class_">TerserWebpackPlugin</span>(&#123;
+            <span class="attr">test</span>: <span class="regexp">/\.js(\?.*)?$/i</span>,
+        &#125;)]
+    &#125;,
+    <span class="attr">resolve</span>: &#123;
+        <span class="attr">extensions</span>: [<span class="string">&#x27;.js&#x27;</span>,<span class="string">&#x27;.jsx&#x27;</span>,<span class="string">&#x27;.json&#x27;</span>],
+    &#125;,
+&#125;</code></pre>
+
+<blockquote>
+<p>npm i css-minimizer-webpack-plugin mini-css-extract-plugin terser-webpack-plugin -D</p>
+</blockquote>
+<h3 id="6-图标的解析"><a href="#6-图标的解析" class="headerlink" title="6.图标的解析"></a>6.图标的解析</h3><blockquote>
+<p>npm i copy-webpack-plugin -D</p>
+</blockquote>
+<pre><code class="highlight javascript"><span class="keyword">const</span> <span class="title class_">CopyWebpackPlugin</span> = <span class="built_in">require</span>(<span class="string">&#x27;copy-webpack-plugin&#x27;</span>);
+<span class="keyword">new</span> <span class="title class_">CopyWebpackPlugin</span>(&#123;
+            <span class="attr">patterns</span>: [
+              &#123;
+                <span class="attr">from</span>: path.<span class="title function_">join</span>(__dirname, <span class="string">&#x27;../public&#x27;</span>),
+                <span class="attr">to</span>: path.<span class="title function_">resolve</span>(__dirname,<span class="string">&#x27;../dist&#x27;</span>),
+                <span class="attr">globOptions</span>:&#123;
+                    <span class="comment">//忽略这个文件</span>
+                    <span class="attr">ignore</span>:[<span class="string">&quot;**/index.html&quot;</span>]
+                &#125;
+              &#125;
+            ]
+        &#125;),</code></pre>
+
+<p>7.合并配置</p>
+<pre><code class="highlight javascript"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">&quot;path&quot;</span>)
+<span class="keyword">const</span> <span class="title class_">ESLintWebpackPlugin</span> = <span class="built_in">require</span>(<span class="string">&#x27;eslint-webpack-plugin&#x27;</span>);
+<span class="keyword">const</span> <span class="title class_">HtmlWebpackPlugin</span> = <span class="built_in">require</span>(<span class="string">&#x27;html-webpack-plugin&#x27;</span>)
+<span class="keyword">const</span> <span class="title class_">ReactRefreshPlugin</span> = <span class="built_in">require</span>(<span class="string">&#x27;@pmmmwh/react-refresh-webpack-plugin&#x27;</span>)
+<span class="keyword">const</span> <span class="title class_">MiniCssExtractPlugin</span> = <span class="built_in">require</span>(<span class="string">&#x27;mini-css-extract-plugin&#x27;</span>);
+<span class="keyword">const</span> <span class="title class_">CopyWebpackPlugin</span> = <span class="built_in">require</span>(<span class="string">&#x27;copy-webpack-plugin&#x27;</span>);
+<span class="keyword">const</span> <span class="title class_">TerserWebpackPlugin</span> = <span class="built_in">require</span>(<span class="string">&#x27;terser-webpack-plugin&#x27;</span>);
+<span class="keyword">const</span> <span class="title class_">CssMinimizerPlugin</span> = <span class="built_in">require</span>(<span class="string">&#x27;css-minimizer-webpack-plugin&#x27;</span>);
+<span class="keyword">const</span> isproduction = process.<span class="property">env</span>.<span class="property">NODE_ENV</span> === <span class="string">&quot;production&quot;</span>
+
+<span class="keyword">function</span> <span class="title function_">GetStyleLoader</span>(<span class="params">pre</span>) &#123;
+    <span class="keyword">return</span> [
+         isproduction?<span class="title class_">MiniCssExtractPlugin</span>.<span class="property">loader</span>:<span class="string">&#x27;style-loader&#x27;</span>, <span class="string">&#x27;css-loader&#x27;</span>, &#123;
+            <span class="attr">loader</span>: <span class="string">&quot;postcss-loader&quot;</span>,
+            <span class="attr">options</span>: &#123;
+                <span class="attr">postcssOptions</span>: &#123;
+                    <span class="attr">plugins</span>: [
+                        <span class="string">&quot;postcss-preset-env&quot;</span>
+                    ]
+                &#125;
+            &#125;
+        &#125;,
+        pre
+    ].<span class="title function_">filter</span>(<span class="title class_">Boolean</span>)
+&#125;
+
+<span class="variable language_">module</span>.<span class="property">exports</span> = &#123;
+    <span class="attr">entry</span>: <span class="string">&quot;./src/index.js&quot;</span>,
+    <span class="attr">output</span>: &#123;
+        <span class="attr">path</span>: isproduction?path.<span class="title function_">resolve</span>(__dirname,<span class="string">&quot;../dist&quot;</span>):<span class="literal">undefined</span>,
+        <span class="attr">filename</span>: isproduction?<span class="string">&quot;js/[name].[contenthash:10].js&quot;</span>:<span class="string">&quot;js/[name].bundle.js&quot;</span>,
+        <span class="attr">chunkFilename</span>: isproduction?<span class="string">&quot;static/js/[name].chunk.js&quot;</span>:<span class="string">&quot;static/js/[name].chunk.js&quot;</span>,
+        assetModuleFilename : <span class="string">&quot;static/media/[hash:10][ext][query]&quot;</span>,
+        <span class="attr">clean</span>:<span class="literal">true</span>
+    &#125;,
+    <span class="attr">module</span>: &#123;
+        <span class="attr">rules</span>: [
+            &#123;
+                <span class="attr">test</span>: <span class="regexp">/\.jsx?$/</span>,
+                <span class="attr">include</span>: path.<span class="title function_">resolve</span>(__dirname, <span class="string">&quot;../src&quot;</span>),
+                <span class="attr">loader</span>: <span class="string">&#x27;babel-loader&#x27;</span>,
+                <span class="attr">options</span>: &#123;
+                    <span class="attr">cacheDirectory</span>: <span class="literal">true</span>,
+                    <span class="attr">cacheCompression</span>: <span class="literal">false</span>,
+                    <span class="attr">plugins</span>:[
+                        !isproduction  &amp;&amp; <span class="string">&#x27;react-refresh/babel&#x27;</span>
+                    ].<span class="title function_">filter</span>(<span class="title class_">Boolean</span>)
+                &#125;
+            &#125;,
+            &#123;
+                <span class="attr">test</span>: <span class="regexp">/\.css$/</span>,
+                <span class="attr">use</span>: <span class="title class_">GetStyleLoader</span>(),
+            &#125;,
+            &#123;
+                <span class="attr">test</span>: <span class="regexp">/\.less$/</span>,
+                <span class="attr">use</span>: <span class="title class_">GetStyleLoader</span>(<span class="string">&#x27;less-loader&#x27;</span>),
+            &#125;,
+            &#123;
+                <span class="attr">test</span>: <span class="regexp">/\.s[ac]ss$/</span>,
+                <span class="attr">use</span>: <span class="title class_">GetStyleLoader</span>(<span class="string">&#x27;sass-loader&#x27;</span>)
+            &#125;,
+            &#123;
+                <span class="attr">test</span>: <span class="regexp">/\.(png|jpg|jpe?g|gif|webp|svg)$/</span>,
+                <span class="attr">type</span>: <span class="string">&quot;asset&quot;</span>,
+                <span class="attr">parser</span>: &#123;
+                    <span class="attr">dataUrlCondition</span>: &#123;
+                        <span class="attr">maxSize</span>: <span class="number">10</span> * <span class="number">1024</span>
+                    &#125;
+                &#125;
+            &#125;,
+            &#123;
+                <span class="attr">test</span>: <span class="regexp">/\.(woff2|ttf)/</span>,
+                <span class="attr">type</span>: <span class="string">&quot;asset/resource&quot;</span>,
+
+            &#125;
+        ]
+    &#125;,
+    <span class="attr">plugins</span>: [
+        <span class="keyword">new</span> <span class="title class_">ESLintWebpackPlugin</span>(
+            &#123;
+                <span class="attr">context</span>: path.<span class="title function_">resolve</span>(__dirname, <span class="string">&quot;../src&quot;</span>),
+                <span class="attr">exclude</span>: <span class="string">&quot;node_modules&quot;</span>,
+                <span class="attr">cache</span>: <span class="literal">true</span>,
+                <span class="attr">cacheLocation</span>: path.<span class="title function_">join</span>(__dirname, <span class="string">&#x27;../node_modules/.cache/eslintcache&#x27;</span>),
+            &#125;
+        ),
+        <span class="keyword">new</span> <span class="title class_">HtmlWebpackPlugin</span>(&#123;
+            <span class="attr">template</span>: path.<span class="title function_">resolve</span>(__dirname, <span class="string">&quot;../public/index.html&quot;</span>)
+        &#125;),
+        !isproduction &amp;&amp; <span class="keyword">new</span> <span class="title class_">ReactRefreshPlugin</span>(),
+        isproduction &amp;&amp; <span class="keyword">new</span> <span class="title class_">MiniCssExtractPlugin</span>(&#123;
+            <span class="attr">filename</span>: <span class="string">&quot;static/css/[name].[contenthash:10].css&quot;</span>,
+            <span class="attr">chunkFilename</span>: <span class="string">&quot;static/css/[name].[contenthash:10].chunk.css&quot;</span>,
+        &#125;),
+        isproduction &amp;&amp; <span class="keyword">new</span> <span class="title class_">CopyWebpackPlugin</span>(&#123;
+            <span class="attr">patterns</span>: [
+              &#123;
+                <span class="attr">from</span>: path.<span class="title function_">join</span>(__dirname, <span class="string">&#x27;../public&#x27;</span>),
+                <span class="attr">to</span>: path.<span class="title function_">resolve</span>(__dirname,<span class="string">&#x27;../dist&#x27;</span>),
+                <span class="attr">globOptions</span>:&#123;
+                    <span class="comment">//忽略这个文件</span>
+                    <span class="attr">ignore</span>:[<span class="string">&quot;**/index.html&quot;</span>]
+                &#125;
+              &#125;
+            ]
+        &#125;),
+    ].<span class="title function_">filter</span>(<span class="title class_">Boolean</span>),
+    <span class="attr">mode</span>: isproduction?<span class="string">&quot;production&quot;</span>: <span class="string">&quot;development&quot;</span>,
+    <span class="attr">devtool</span>: isproduction?<span class="string">&quot;source-map&quot;</span>:<span class="string">&quot;cheap-module-source-map&quot;</span>,
+    <span class="attr">optimization</span>: &#123;
+        <span class="attr">splitChunks</span>: &#123;
+            <span class="attr">chunks</span>: <span class="string">&quot;all&quot;</span>,
+        &#125;,
+        <span class="attr">runtimeChunk</span>:&#123;
+            <span class="attr">name</span>: <span class="function"><span class="params">entrypoint</span> =&gt;</span> <span class="string">`runtime~<span class="subst">$&#123;entrypoint.name&#125;</span>.js`</span>,
+        &#125;,
+        <span class="attr">minimize</span>:isproduction,
+        <span class="attr">minimizer</span>:[<span class="keyword">new</span> <span class="title class_">CssMinimizerPlugin</span>(),<span class="keyword">new</span> <span class="title class_">TerserWebpackPlugin</span>(&#123;
+            <span class="attr">test</span>: <span class="regexp">/\.js(\?.*)?$/i</span>,
+        &#125;)]
+    &#125;,
+    <span class="attr">devServer</span>:&#123;
+        <span class="attr">host</span>:<span class="string">&quot;localhost&quot;</span>,
+        <span class="attr">port</span>:<span class="number">3000</span>,
+        <span class="attr">open</span>:<span class="literal">true</span>,
+        <span class="attr">hot</span>:<span class="literal">true</span>,
+        <span class="attr">historyApiFallback</span>:<span class="literal">true</span> <span class="comment">//解决前端路由刷新404的问题</span>
+    &#125;,
+    <span class="attr">resolve</span>: &#123;
+        <span class="attr">extensions</span>: [<span class="string">&#x27;.js&#x27;</span>,<span class="string">&#x27;.jsx&#x27;</span>,<span class="string">&#x27;.json&#x27;</span>],
+    &#125;,
+&#125;</code></pre>
 
 
 

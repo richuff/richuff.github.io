@@ -817,11 +817,10 @@ npx server dist</code></pre>
     <span class="attr">module</span>: &#123;
         <span class="attr">rules</span>: [
             &#123;
-                <span class="attr">test</span>: <span class="regexp">/\.js$/</span>,
+                <span class="attr">test</span>: <span class="regexp">/\.jsx?$/</span>,
                 <span class="attr">include</span>: path.<span class="title function_">resolve</span>(__dirname, <span class="string">&quot;../src&quot;</span>),
                 <span class="attr">loader</span>: <span class="string">&#x27;babel-loader&#x27;</span>,
                 <span class="attr">options</span>: &#123;
-                    <span class="attr">presets</span>: [<span class="string">&quot;@babel/preset-env&quot;</span>],
                     <span class="attr">cacheDirectory</span>: <span class="literal">true</span>,
                     <span class="attr">cacheCompression</span>: <span class="literal">false</span>
                 &#125;
@@ -886,7 +885,31 @@ npx server dist</code></pre>
 &#125;</code></pre>
 
 <blockquote>
-<p>npm i eslint-webpack-plugin html-webpack-plugin css-loader postcss-loader style-loader less-loader sass stylus-loader sass-loader -D</p>
+<p>.eslintrc.js</p>
+</blockquote>
+<pre><code class="highlight javascript"><span class="variable language_">module</span>.<span class="property">exports</span> = &#123;
+    <span class="attr">extends</span>: [
+        <span class="string">&quot;react-app&quot;</span>,  <span class="comment">//react</span>
+    ],
+    <span class="attr">parserOptions</span>: &#123;
+        <span class="attr">babelOptions</span>:&#123;
+            <span class="attr">presets</span>:[
+                [<span class="string">&quot;react-app&quot;</span>,<span class="literal">false</span>],
+                <span class="string">&quot;babel-preset-react-app/prod&quot;</span>
+            ]
+        &#125;
+    &#125;,
+&#125;</code></pre>
+
+<blockquote>
+<p>babel.config.js</p>
+</blockquote>
+<pre><code class="highlight javascript"><span class="variable language_">module</span>.<span class="property">exports</span> = &#123;
+  <span class="attr">presets</span>: [<span class="string">&#x27;react-app&#x27;</span>],
+&#125;;</code></pre>
+
+<blockquote>
+<p>npm i eslint-webpack-plugin html-webpack-plugin css-loader postcss-loader style-loader less-loader postcss-preset-env sass stylus-loader sass-loader -D</p>
 </blockquote>
 <blockquote>
 <p>npm i -D babel-loader @babel&#x2F;core babel-preset-react-app eslint-config-react-app -D</p>
@@ -1066,7 +1089,9 @@ npx server dist</code></pre>
             ]
         &#125;),</code></pre>
 
-<p>7.合并配置</p>
+<h3 id="7-合并配置"><a href="#7-合并配置" class="headerlink" title="7.合并配置"></a>7.合并配置</h3><blockquote>
+<p>webpack.config.js</p>
+</blockquote>
 <pre><code class="highlight javascript"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">&quot;path&quot;</span>)
 <span class="keyword">const</span> <span class="title class_">ESLintWebpackPlugin</span> = <span class="built_in">require</span>(<span class="string">&#x27;eslint-webpack-plugin&#x27;</span>);
 <span class="keyword">const</span> <span class="title class_">HtmlWebpackPlugin</span> = <span class="built_in">require</span>(<span class="string">&#x27;html-webpack-plugin&#x27;</span>)
@@ -1199,6 +1224,598 @@ npx server dist</code></pre>
         <span class="attr">extensions</span>: [<span class="string">&#x27;.js&#x27;</span>,<span class="string">&#x27;.jsx&#x27;</span>,<span class="string">&#x27;.json&#x27;</span>],
     &#125;,
 &#125;</code></pre>
+
+<h3 id="8-优化"><a href="#8-优化" class="headerlink" title="8.优化"></a>8.优化</h3><blockquote>
+<p>npm i antd</p>
+</blockquote>
+<pre><code class="highlight javascript"><span class="comment">//webpack.config.js</span>
+<span class="keyword">function</span> <span class="title function_">GetStyleLoader</span>(<span class="params">pre</span>) &#123;
+    <span class="keyword">return</span> [
+         isproduction?<span class="title class_">MiniCssExtractPlugin</span>.<span class="property">loader</span>:<span class="string">&#x27;style-loader&#x27;</span>, <span class="string">&#x27;css-loader&#x27;</span>, &#123;
+            <span class="attr">loader</span>: <span class="string">&quot;postcss-loader&quot;</span>,
+            <span class="attr">options</span>: &#123;
+                <span class="attr">postcssOptions</span>: &#123;
+                    <span class="attr">plugins</span>: [
+                        <span class="string">&quot;postcss-preset-env&quot;</span>
+                    ]
+                &#125;
+            &#125;
+        &#125;,
+        pre &amp;&amp; &#123;
+            <span class="attr">loader</span>:pre,
+            <span class="attr">options</span>:pre === <span class="string">&quot;less-loader&quot;</span>?&#123;
+                <span class="comment">//antdesign自定义主题色</span>
+                <span class="attr">lessOptions</span>:&#123;
+                    <span class="attr">modifyVars</span>:&#123;<span class="string">&quot;@primary-color&quot;</span>:<span class="string">&quot;#1DA57A&quot;</span>&#125;,
+                    <span class="attr">javascriptEnabled</span>:<span class="literal">true</span>
+                &#125;
+            &#125;:&#123;&#125;
+        &#125;
+    ].<span class="title function_">filter</span>(<span class="title class_">Boolean</span>)
+&#125;</code></pre>
+
+<blockquote>
+<p>分开打包cacheGroups</p>
+</blockquote>
+<pre><code class="highlight javascript"><span class="attr">optimization</span>: &#123;
+        <span class="attr">splitChunks</span>: &#123;
+            <span class="attr">chunks</span>: <span class="string">&quot;all&quot;</span>,
+            <span class="attr">cacheGroups</span>:&#123;
+                <span class="attr">react</span>:&#123;
+                    <span class="attr">test</span>:<span class="regexp">/[\\/]node_modules[\\/]react(.*)?[\\/]/</span>,
+                    <span class="attr">name</span>:<span class="string">&quot;chunk-react&quot;</span>,
+                    <span class="attr">priority</span>:<span class="number">40</span>,
+                &#125;,
+                <span class="attr">antd</span>:&#123;
+                    <span class="attr">test</span>:<span class="regexp">/[\\/]node_modules[\\/]antd[\\/]/</span>,
+                    <span class="attr">name</span>:<span class="string">&quot;chunk-antd&quot;</span>,
+                    <span class="attr">priority</span>:<span class="number">30</span>,
+                &#125;,
+                <span class="attr">libs</span>:&#123;
+                    <span class="attr">test</span>:<span class="regexp">/[\\/]node_modules[\\/]/</span>,
+                    <span class="attr">name</span>:<span class="string">&quot;chunk-libs&quot;</span>,
+                    <span class="attr">priority</span>:<span class="number">20</span>,
+                &#125;
+            &#125;
+        &#125;,
+        <span class="attr">runtimeChunk</span>:&#123;
+            <span class="attr">name</span>: <span class="function"><span class="params">entrypoint</span> =&gt;</span> <span class="string">`runtime~<span class="subst">$&#123;entrypoint.name&#125;</span>.js`</span>,
+        &#125;,
+        <span class="attr">minimize</span>:isproduction,
+        <span class="attr">minimizer</span>:[<span class="keyword">new</span> <span class="title class_">CssMinimizerPlugin</span>(),<span class="keyword">new</span> <span class="title class_">TerserWebpackPlugin</span>(&#123;
+            <span class="attr">test</span>: <span class="regexp">/\.js(\?.*)?$/i</span>,
+        &#125;)]
+    &#125;,</code></pre>
+
+<pre><code class="highlight javascript"><span class="variable language_">module</span>.<span class="property">exports</span> = &#123;
+	...
+    <span class="attr">performance</span>:<span class="literal">false</span>  <span class="comment">//关闭性能分析，提升打包效率</span>
+&#125;</code></pre>
+
+<h2 id="9-VueCli"><a href="#9-VueCli" class="headerlink" title="9.VueCli"></a>9.VueCli</h2><h3 id="1-vue-loader"><a href="#1-vue-loader" class="headerlink" title="1.vue-loader"></a>1.vue-loader</h3><blockquote>
+<p>npm install -D vue-loader vue-template-compiler</p>
+<p>npm i eslint-webpack-plugin html-webpack-plugin vue-style-loader css-loader postcss-loader sass less-loader sass-loader stylus-loader babel-loader postcss-preset-env webpack webpack-cli webpack-dev-server cross-env -D</p>
+</blockquote>
+<pre><code class="highlight javascript"><span class="comment">// webpack.config.js</span>
+<span class="keyword">const</span> &#123; <span class="title class_">VueLoaderPlugin</span> &#125; = <span class="built_in">require</span>(<span class="string">&#x27;vue-loader&#x27;</span>)
+
+<span class="variable language_">module</span>.<span class="property">exports</span> = &#123;
+  <span class="attr">module</span>: &#123;
+    <span class="attr">rules</span>: [
+      <span class="comment">// ... 其它规则</span>
+      &#123;
+        <span class="attr">test</span>: <span class="regexp">/\.vue$/</span>,
+        <span class="attr">loader</span>: <span class="string">&#x27;vue-loader&#x27;</span>
+      &#125;
+    ]
+  &#125;,
+  <span class="attr">plugins</span>: [
+    <span class="comment">// 请确保引入这个插件！</span>
+    <span class="keyword">new</span> <span class="title class_">VueLoaderPlugin</span>()
+  ]
+&#125;</code></pre>
+
+<blockquote>
+<p>.eslintrc.js</p>
+</blockquote>
+<pre><code class="highlight javascript"><span class="variable language_">module</span>.<span class="property">exports</span> = &#123;
+    <span class="attr">root</span>:<span class="literal">true</span>,
+    <span class="attr">env</span>:&#123;
+        <span class="attr">node</span>:<span class="literal">true</span>
+    &#125;,
+    <span class="attr">extends</span>: [
+      <span class="string">&quot;plugin:vue/vue3-essential&quot;</span>,<span class="string">&quot;eslint:recommended&quot;</span>
+    ],
+    <span class="attr">parserOptions</span>:&#123;
+        <span class="attr">parser</span>:<span class="string">&quot;@babel/eslint-parser&quot;</span>,
+    &#125;
+  &#125;</code></pre>
+
+<blockquote>
+<p>babel.config.js</p>
+</blockquote>
+<pre><code class="highlight javascript"><span class="variable language_">module</span>.<span class="property">exports</span> = &#123;
+    <span class="attr">presets</span>: [<span class="string">&#x27;@vue/cli-plugin-babel/preset&#x27;</span>],
+&#125;;</code></pre>
+
+<blockquote>
+<p> npm i @babel&#x2F;eslint-parser eslint-plugin-vue -D</p>
+</blockquote>
+<h3 id="2-给vue赋值全局变量"><a href="#2-给vue赋值全局变量" class="headerlink" title="2.给vue赋值全局变量"></a>2.给vue赋值全局变量</h3><pre><code class="highlight javascript"><span class="keyword">const</span> &#123;<span class="title class_">DefinePlugin</span>&#125; = <span class="built_in">require</span>(<span class="string">&quot;webpack&quot;</span>)
+
+<span class="attr">plugins</span>: [
+    ...
+    <span class="keyword">new</span> <span class="title class_">DefinePlugin</span>(&#123;
+        <span class="attr">__VUE_OPTIONS_API__</span>:<span class="literal">true</span>,
+        <span class="attr">__VUE_PROD_DEVTOOLS__</span>:<span class="literal">false</span>,
+        <span class="attr">__VUE_PROD_HYDRATION_MISMATCH_DETAILS__</span>:<span class="literal">false</span>
+    &#125;)
+],</code></pre>
+
+<h3 id="3-整体开发模式下vue的配置"><a href="#3-整体开发模式下vue的配置" class="headerlink" title="3.整体开发模式下vue的配置"></a>3.整体开发模式下vue的配置</h3><pre><code class="highlight javascript"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">&quot;path&quot;</span>)
+<span class="keyword">const</span> <span class="title class_">ESLintWebpackPlugin</span> = <span class="built_in">require</span>(<span class="string">&#x27;eslint-webpack-plugin&#x27;</span>);
+<span class="keyword">const</span> <span class="title class_">HtmlWebpackPlugin</span> = <span class="built_in">require</span>(<span class="string">&#x27;html-webpack-plugin&#x27;</span>)
+<span class="keyword">const</span> &#123; <span class="title class_">VueLoaderPlugin</span> &#125; = <span class="built_in">require</span>(<span class="string">&#x27;vue-loader&#x27;</span>)
+<span class="keyword">const</span> &#123;<span class="title class_">DefinePlugin</span>&#125; = <span class="built_in">require</span>(<span class="string">&quot;webpack&quot;</span>)
+
+<span class="keyword">function</span> <span class="title function_">GetStyleLoader</span>(<span class="params">pre</span>) &#123;
+    <span class="keyword">return</span> [
+         <span class="string">&#x27;vue-style-loader&#x27;</span>, <span class="string">&#x27;css-loader&#x27;</span>, &#123;
+            <span class="attr">loader</span>: <span class="string">&quot;postcss-loader&quot;</span>,
+            <span class="attr">options</span>: &#123;
+                <span class="attr">postcssOptions</span>: &#123;
+                    <span class="attr">plugins</span>: [
+                        <span class="string">&quot;postcss-preset-env&quot;</span>
+                    ]
+                &#125;
+            &#125;
+        &#125;,
+        pre
+    ].<span class="title function_">filter</span>(<span class="title class_">Boolean</span>)
+&#125;
+
+<span class="variable language_">module</span>.<span class="property">exports</span> = &#123;
+    <span class="attr">entry</span>: <span class="string">&quot;./src/index.js&quot;</span>,
+    <span class="attr">output</span>: &#123;
+        <span class="attr">path</span>: <span class="literal">undefined</span>,
+        <span class="attr">filename</span>: <span class="string">&quot;static/js/[name].bundle.js&quot;</span>,
+        <span class="attr">chunkFilename</span>: <span class="string">&quot;static/js/[name].chunk.js&quot;</span>,
+        assetModuleFilename : <span class="string">&quot;static/media/[hash:10][ext][query]&quot;</span>
+    &#125;,
+    <span class="attr">module</span>: &#123;
+        <span class="attr">rules</span>: [
+            &#123;
+                <span class="attr">test</span>: <span class="regexp">/\.js?$/</span>,
+                <span class="attr">include</span>: path.<span class="title function_">resolve</span>(__dirname, <span class="string">&quot;../src&quot;</span>),
+                <span class="attr">loader</span>: <span class="string">&#x27;babel-loader&#x27;</span>,
+                <span class="attr">options</span>: &#123;
+                    <span class="attr">cacheDirectory</span>: <span class="literal">true</span>,
+                    <span class="attr">cacheCompression</span>: <span class="literal">false</span>,
+                &#125;
+            &#125;,
+            &#123;
+                <span class="attr">test</span>: <span class="regexp">/\.vue$/</span>,
+                <span class="attr">loader</span>: <span class="string">&#x27;vue-loader&#x27;</span>
+            &#125;,
+            &#123;
+                <span class="attr">test</span>: <span class="regexp">/\.css$/</span>,
+                <span class="attr">use</span>: <span class="title class_">GetStyleLoader</span>(),
+            &#125;,
+            &#123;
+                <span class="attr">test</span>: <span class="regexp">/\.less$/</span>,
+                <span class="attr">use</span>: <span class="title class_">GetStyleLoader</span>(<span class="string">&#x27;less-loader&#x27;</span>),
+            &#125;,
+            &#123;
+                <span class="attr">test</span>: <span class="regexp">/\.s[ac]ss$/</span>,
+                <span class="attr">use</span>: <span class="title class_">GetStyleLoader</span>(<span class="string">&#x27;sass-loader&#x27;</span>)
+            &#125;,
+            &#123;
+                <span class="attr">test</span>: <span class="regexp">/\.(png|jpg|jpe?g|gif|webp|svg)$/</span>,
+                <span class="attr">type</span>: <span class="string">&quot;asset&quot;</span>,
+                <span class="attr">parser</span>: &#123;
+                    <span class="attr">dataUrlCondition</span>: &#123;
+                        <span class="attr">maxSize</span>: <span class="number">10</span> * <span class="number">1024</span>
+                    &#125;
+                &#125;
+            &#125;,
+            &#123;
+                <span class="attr">test</span>: <span class="regexp">/\.(woff2|ttf)/</span>,
+                <span class="attr">type</span>: <span class="string">&quot;asset/resource&quot;</span>,
+
+            &#125;
+        ]
+    &#125;,
+    <span class="attr">plugins</span>: [
+        <span class="keyword">new</span> <span class="title class_">ESLintWebpackPlugin</span>(
+            &#123;
+                <span class="attr">context</span>: path.<span class="title function_">resolve</span>(__dirname, <span class="string">&quot;../src&quot;</span>),
+                <span class="attr">exclude</span>: <span class="string">&quot;node_modules&quot;</span>,
+                <span class="attr">cache</span>: <span class="literal">true</span>,
+                <span class="attr">cacheLocation</span>: path.<span class="title function_">join</span>(__dirname, <span class="string">&#x27;../node_modules/.cache/eslintcache&#x27;</span>),
+            &#125;
+        ),
+        <span class="keyword">new</span> <span class="title class_">HtmlWebpackPlugin</span>(&#123;
+            <span class="attr">template</span>: path.<span class="title function_">resolve</span>(__dirname, <span class="string">&quot;../public/index.html&quot;</span>)
+        &#125;),
+        <span class="keyword">new</span> <span class="title class_">VueLoaderPlugin</span>(),
+        <span class="keyword">new</span> <span class="title class_">DefinePlugin</span>(&#123;
+            <span class="attr">__VUE_OPTIONS_API__</span>:<span class="literal">true</span>,
+            <span class="attr">__VUE_PROD_DEVTOOLS__</span>:<span class="literal">false</span>,
+            <span class="attr">__VUE_PROD_HYDRATION_MISMATCH_DETAILS__</span>:<span class="literal">false</span>
+        &#125;)
+    ],
+    <span class="attr">mode</span>: <span class="string">&quot;development&quot;</span>,
+    <span class="attr">devtool</span>: <span class="string">&quot;cheap-module-source-map&quot;</span>,
+    <span class="attr">optimization</span>: &#123;
+        <span class="attr">splitChunks</span>: &#123;
+            <span class="attr">chunks</span>: <span class="string">&quot;all&quot;</span>,
+        &#125;,
+        <span class="attr">runtimeChunk</span>:&#123;
+            <span class="attr">name</span>: <span class="function"><span class="params">entrypoint</span> =&gt;</span> <span class="string">`runtime~<span class="subst">$&#123;entrypoint.name&#125;</span>.js`</span>,
+        &#125;
+    &#125;,
+    <span class="attr">devServer</span>:&#123;
+        <span class="attr">host</span>:<span class="string">&quot;localhost&quot;</span>,
+        <span class="attr">port</span>:<span class="number">3000</span>,
+        <span class="attr">open</span>:<span class="literal">true</span>,
+        <span class="attr">hot</span>:<span class="literal">true</span>,
+        <span class="attr">historyApiFallback</span>:<span class="literal">true</span> <span class="comment">//解决前端路由刷新404的问题</span>
+    &#125;,
+    <span class="attr">resolve</span>: &#123;
+        <span class="attr">extensions</span>: [<span class="string">&#x27;.js&#x27;</span>,<span class="string">&#x27;.vue&#x27;</span>,<span class="string">&#x27;.json&#x27;</span>],
+    &#125;,
+&#125;</code></pre>
+
+<h3 id="4-生产模式配置"><a href="#4-生产模式配置" class="headerlink" title="4.生产模式配置"></a>4.生产模式配置</h3><pre><code class="highlight javascript"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">&quot;path&quot;</span>)
+<span class="keyword">const</span> &#123;<span class="title class_">DefinePlugin</span>&#125; = <span class="built_in">require</span>(<span class="string">&quot;webpack&quot;</span>)
+<span class="keyword">const</span> <span class="title class_">ESLintWebpackPlugin</span> = <span class="built_in">require</span>(<span class="string">&#x27;eslint-webpack-plugin&#x27;</span>);
+<span class="keyword">const</span> <span class="title class_">HtmlWebpackPlugin</span> = <span class="built_in">require</span>(<span class="string">&#x27;html-webpack-plugin&#x27;</span>)
+<span class="keyword">const</span> <span class="title class_">CssMinimizerPlugin</span> = <span class="built_in">require</span>(<span class="string">&#x27;css-minimizer-webpack-plugin&#x27;</span>);
+<span class="keyword">const</span> <span class="title class_">MiniCssExtractPlugin</span> = <span class="built_in">require</span>(<span class="string">&#x27;mini-css-extract-plugin&#x27;</span>);
+<span class="keyword">const</span> <span class="title class_">TerserWebpackPlugin</span> = <span class="built_in">require</span>(<span class="string">&#x27;terser-webpack-plugin&#x27;</span>);
+<span class="keyword">const</span> <span class="title class_">CopyWebpackPlugin</span> = <span class="built_in">require</span>(<span class="string">&#x27;copy-webpack-plugin&#x27;</span>);
+<span class="keyword">const</span> &#123; <span class="title class_">VueLoaderPlugin</span> &#125; = <span class="built_in">require</span>(<span class="string">&#x27;vue-loader&#x27;</span>)
+<span class="keyword">function</span> <span class="title function_">GetStyleLoader</span>(<span class="params">pre</span>) &#123;
+    <span class="keyword">return</span> [
+         <span class="title class_">MiniCssExtractPlugin</span>.<span class="property">loader</span>, <span class="string">&#x27;css-loader&#x27;</span>, &#123;
+            <span class="attr">loader</span>: <span class="string">&quot;postcss-loader&quot;</span>,
+            <span class="attr">options</span>: &#123;
+                <span class="attr">postcssOptions</span>: &#123;
+                    <span class="attr">plugins</span>: [
+                        <span class="string">&quot;postcss-preset-env&quot;</span>
+                    ]
+                &#125;
+            &#125;
+        &#125;,
+        pre
+    ].<span class="title function_">filter</span>(<span class="title class_">Boolean</span>)
+&#125;
+
+<span class="variable language_">module</span>.<span class="property">exports</span> = &#123;
+    <span class="attr">entry</span>: <span class="string">&quot;./src/index.js&quot;</span>,
+    <span class="attr">output</span>: &#123;
+        <span class="attr">path</span>: path.<span class="title function_">resolve</span>(__dirname,<span class="string">&quot;../dist&quot;</span>),
+        <span class="attr">filename</span>: <span class="string">&quot;static/js/[name].[contenthash:10].js&quot;</span>,
+        <span class="attr">chunkFilename</span>: <span class="string">&quot;static/js/[name].[contenthash:10].chunk.js&quot;</span>,
+        assetModuleFilename : <span class="string">&quot;static/media/[hash:10][ext][query]&quot;</span>,
+        <span class="attr">clean</span>:<span class="literal">true</span>,
+    &#125;,
+    <span class="attr">module</span>: &#123;
+        <span class="attr">rules</span>: [
+            &#123;
+                <span class="attr">test</span>: <span class="regexp">/\.js?$/</span>,
+                <span class="attr">include</span>: path.<span class="title function_">resolve</span>(__dirname, <span class="string">&quot;../src&quot;</span>),
+                <span class="attr">loader</span>: <span class="string">&#x27;babel-loader&#x27;</span>,
+                <span class="attr">options</span>: &#123;
+                    <span class="attr">cacheDirectory</span>: <span class="literal">true</span>,
+                    <span class="attr">cacheCompression</span>: <span class="literal">false</span>,
+                &#125;
+            &#125;,
+            &#123;
+                <span class="attr">test</span>: <span class="regexp">/\.vue$/</span>,
+                <span class="attr">loader</span>: <span class="string">&#x27;vue-loader&#x27;</span>
+            &#125;,
+            &#123;
+                <span class="attr">test</span>: <span class="regexp">/\.css$/</span>,
+                <span class="attr">use</span>: <span class="title class_">GetStyleLoader</span>(),
+            &#125;,
+            &#123;
+                <span class="attr">test</span>: <span class="regexp">/\.less$/</span>,
+                <span class="attr">use</span>: <span class="title class_">GetStyleLoader</span>(<span class="string">&#x27;less-loader&#x27;</span>),
+            &#125;,
+            &#123;
+                <span class="attr">test</span>: <span class="regexp">/\.s[ac]ss$/</span>,
+                <span class="attr">use</span>: <span class="title class_">GetStyleLoader</span>(<span class="string">&#x27;sass-loader&#x27;</span>)
+            &#125;,
+            &#123;
+                <span class="attr">test</span>: <span class="regexp">/\.(png|jpg|jpe?g|gif|webp|svg)$/</span>,
+                <span class="attr">type</span>: <span class="string">&quot;asset&quot;</span>,
+                <span class="attr">parser</span>: &#123;
+                    <span class="attr">dataUrlCondition</span>: &#123;
+                        <span class="attr">maxSize</span>: <span class="number">10</span> * <span class="number">1024</span>
+                    &#125;
+                &#125;
+            &#125;,
+            &#123;
+                <span class="attr">test</span>: <span class="regexp">/\.(woff2|ttf)/</span>,
+                <span class="attr">type</span>: <span class="string">&quot;asset/resource&quot;</span>,
+
+            &#125;
+        ]
+    &#125;,
+    <span class="attr">plugins</span>: [
+        <span class="keyword">new</span> <span class="title class_">ESLintWebpackPlugin</span>(
+            &#123;
+                <span class="attr">context</span>: path.<span class="title function_">resolve</span>(__dirname, <span class="string">&quot;../src&quot;</span>),
+                <span class="attr">exclude</span>: <span class="string">&quot;node_modules&quot;</span>,
+                <span class="attr">cache</span>: <span class="literal">true</span>,
+                <span class="attr">cacheLocation</span>: path.<span class="title function_">join</span>(__dirname, <span class="string">&#x27;../node_modules/.cache/eslintcache&#x27;</span>),
+            &#125;
+        ),
+        <span class="keyword">new</span> <span class="title class_">HtmlWebpackPlugin</span>(&#123;
+            <span class="attr">template</span>: path.<span class="title function_">resolve</span>(__dirname, <span class="string">&quot;../public/index.html&quot;</span>)
+        &#125;),
+        <span class="keyword">new</span> <span class="title class_">MiniCssExtractPlugin</span>(&#123;
+            <span class="attr">filename</span>: <span class="string">&quot;static/css/[name].[contenthash:10].css&quot;</span>,
+            <span class="attr">chunkFilename</span>: <span class="string">&quot;static/css/[name].[contenthash:10].chunk.css&quot;</span>,
+        &#125;),
+        <span class="keyword">new</span> <span class="title class_">CopyWebpackPlugin</span>(&#123;
+            <span class="attr">patterns</span>: [
+              &#123;
+                <span class="attr">from</span>: path.<span class="title function_">join</span>(__dirname, <span class="string">&#x27;../public&#x27;</span>),
+                <span class="attr">to</span>: path.<span class="title function_">resolve</span>(__dirname,<span class="string">&#x27;../dist&#x27;</span>),
+                <span class="attr">globOptions</span>:&#123;
+                    <span class="comment">//忽略这个文件</span>
+                    <span class="attr">ignore</span>:[<span class="string">&quot;**/index.html&quot;</span>]
+                &#125;
+              &#125;
+            ]
+        &#125;),
+        <span class="keyword">new</span> <span class="title class_">VueLoaderPlugin</span>(),
+        <span class="keyword">new</span> <span class="title class_">DefinePlugin</span>(&#123;
+            <span class="attr">__VUE_OPTIONS_API__</span>:<span class="literal">true</span>,
+            <span class="attr">__VUE_PROD_DEVTOOLS__</span>:<span class="literal">false</span>,
+            <span class="attr">__VUE_PROD_HYDRATION_MISMATCH_DETAILS__</span>:<span class="literal">false</span>
+        &#125;)
+    ],
+    <span class="attr">mode</span>: <span class="string">&quot;production&quot;</span>,
+    <span class="attr">devtool</span>: <span class="string">&quot;source-map&quot;</span>,
+    <span class="attr">optimization</span>: &#123;
+        <span class="attr">splitChunks</span>: &#123;
+            <span class="attr">chunks</span>: <span class="string">&quot;all&quot;</span>,
+        &#125;,
+        <span class="attr">runtimeChunk</span>:&#123;
+            <span class="attr">name</span>: <span class="function"><span class="params">entrypoint</span> =&gt;</span> <span class="string">`runtime~<span class="subst">$&#123;entrypoint.name&#125;</span>.js`</span>,
+        &#125;,
+        <span class="attr">minimizer</span>:[<span class="keyword">new</span> <span class="title class_">CssMinimizerPlugin</span>(),<span class="keyword">new</span> <span class="title class_">TerserWebpackPlugin</span>(&#123;
+            <span class="attr">test</span>: <span class="regexp">/\.js(\?.*)?$/i</span>,
+        &#125;)]
+    &#125;,
+    <span class="attr">resolve</span>: &#123;
+        <span class="attr">extensions</span>: [<span class="string">&#x27;.js&#x27;</span>,<span class="string">&#x27;.vue&#x27;</span>,<span class="string">&#x27;.json&#x27;</span>],
+    &#125;,
+&#125;</code></pre>
+
+<blockquote>
+<p>npm i mini-css-extract-plugin css-minimizer-webpack-plugin terser-webpack-plugin copy-webpack-plugin html-webpack-plugin -D</p>
+</blockquote>
+<h3 id="5-合并配置"><a href="#5-合并配置" class="headerlink" title="5.合并配置"></a>5.合并配置</h3><blockquote>
+<p>webpack.config.js</p>
+</blockquote>
+<pre><code class="highlight javascript"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">&quot;path&quot;</span>)
+<span class="keyword">const</span> &#123;<span class="title class_">DefinePlugin</span>&#125; = <span class="built_in">require</span>(<span class="string">&quot;webpack&quot;</span>)
+<span class="keyword">const</span> <span class="title class_">ESLintWebpackPlugin</span> = <span class="built_in">require</span>(<span class="string">&#x27;eslint-webpack-plugin&#x27;</span>);
+<span class="keyword">const</span> <span class="title class_">HtmlWebpackPlugin</span> = <span class="built_in">require</span>(<span class="string">&#x27;html-webpack-plugin&#x27;</span>)
+<span class="keyword">const</span> <span class="title class_">CssMinimizerPlugin</span> = <span class="built_in">require</span>(<span class="string">&#x27;css-minimizer-webpack-plugin&#x27;</span>);
+<span class="keyword">const</span> <span class="title class_">MiniCssExtractPlugin</span> = <span class="built_in">require</span>(<span class="string">&#x27;mini-css-extract-plugin&#x27;</span>);
+<span class="keyword">const</span> <span class="title class_">TerserWebpackPlugin</span> = <span class="built_in">require</span>(<span class="string">&#x27;terser-webpack-plugin&#x27;</span>);
+<span class="keyword">const</span> <span class="title class_">CopyWebpackPlugin</span> = <span class="built_in">require</span>(<span class="string">&#x27;copy-webpack-plugin&#x27;</span>);
+<span class="keyword">const</span> &#123; <span class="title class_">VueLoaderPlugin</span> &#125; = <span class="built_in">require</span>(<span class="string">&#x27;vue-loader&#x27;</span>)
+
+<span class="keyword">const</span> isproduction = process.<span class="property">env</span>.<span class="property">NODE_ENV</span> === <span class="string">&quot;production&quot;</span>
+
+<span class="keyword">function</span> <span class="title function_">GetStyleLoader</span>(<span class="params">pre</span>) &#123;
+    <span class="keyword">return</span> [
+        isproduction ? <span class="title class_">MiniCssExtractPlugin</span>.<span class="property">loader</span>:<span class="string">&quot;vue-style-loader&quot;</span>, <span class="string">&#x27;css-loader&#x27;</span>, &#123;
+            <span class="attr">loader</span>: <span class="string">&quot;postcss-loader&quot;</span>,
+            <span class="attr">options</span>: &#123;
+                <span class="attr">postcssOptions</span>: &#123;
+                    <span class="attr">plugins</span>: [
+                        <span class="string">&quot;postcss-preset-env&quot;</span>
+                    ]
+                &#125;
+            &#125;
+        &#125;,
+        pre
+    ].<span class="title function_">filter</span>(<span class="title class_">Boolean</span>)
+&#125;
+
+<span class="variable language_">module</span>.<span class="property">exports</span> = &#123;
+    <span class="attr">entry</span>: <span class="string">&quot;./src/index.js&quot;</span>,
+    <span class="attr">output</span>: &#123;
+        <span class="attr">path</span>: isproduction?path.<span class="title function_">resolve</span>(__dirname,<span class="string">&quot;../dist&quot;</span>):<span class="literal">undefined</span>,
+        <span class="attr">filename</span>: isproduction?<span class="string">&quot;static/js/[name].[contenthash:10].js&quot;</span>:<span class="string">&quot;static/js/[name].js&quot;</span>,
+        <span class="attr">chunkFilename</span>: isproduction?<span class="string">&quot;static/js/[name].[contenthash:10].chunk.js&quot;</span>:<span class="string">&quot;static/js/[name].chunk.js&quot;</span>,
+        assetModuleFilename : <span class="string">&quot;static/media/[hash:10][ext][query]&quot;</span>,
+        <span class="attr">clean</span>:<span class="literal">true</span>,
+    &#125;,
+    <span class="attr">module</span>: &#123;
+        <span class="attr">rules</span>: [
+            &#123;
+                <span class="attr">test</span>: <span class="regexp">/\.js?$/</span>,
+                <span class="attr">include</span>: path.<span class="title function_">resolve</span>(__dirname, <span class="string">&quot;../src&quot;</span>),
+                <span class="attr">loader</span>: <span class="string">&#x27;babel-loader&#x27;</span>,
+                <span class="attr">options</span>: &#123;
+                    <span class="attr">cacheDirectory</span>: <span class="literal">true</span>,
+                    <span class="attr">cacheCompression</span>: <span class="literal">false</span>,
+                &#125;
+            &#125;,
+            &#123;
+                <span class="attr">test</span>: <span class="regexp">/\.vue$/</span>,
+                <span class="attr">loader</span>: <span class="string">&#x27;vue-loader&#x27;</span>
+            &#125;,
+            &#123;
+                <span class="attr">test</span>: <span class="regexp">/\.css$/</span>,
+                <span class="attr">use</span>: <span class="title class_">GetStyleLoader</span>(),
+            &#125;,
+            &#123;
+                <span class="attr">test</span>: <span class="regexp">/\.less$/</span>,
+                <span class="attr">use</span>: <span class="title class_">GetStyleLoader</span>(<span class="string">&#x27;less-loader&#x27;</span>),
+            &#125;,
+            &#123;
+                <span class="attr">test</span>: <span class="regexp">/\.s[ac]ss$/</span>,
+                <span class="attr">use</span>: <span class="title class_">GetStyleLoader</span>(<span class="string">&#x27;sass-loader&#x27;</span>)
+            &#125;,
+            &#123;
+                <span class="attr">test</span>: <span class="regexp">/\.(png|jpg|jpe?g|gif|webp|svg)$/</span>,
+                <span class="attr">type</span>: <span class="string">&quot;asset&quot;</span>,
+                <span class="attr">parser</span>: &#123;
+                    <span class="attr">dataUrlCondition</span>: &#123;
+                        <span class="attr">maxSize</span>: <span class="number">10</span> * <span class="number">1024</span>
+                    &#125;
+                &#125;
+            &#125;,
+            &#123;
+                <span class="attr">test</span>: <span class="regexp">/\.(woff2|ttf)/</span>,
+                <span class="attr">type</span>: <span class="string">&quot;asset/resource&quot;</span>,
+
+            &#125;
+        ]
+    &#125;,
+    <span class="attr">plugins</span>: [
+        <span class="keyword">new</span> <span class="title class_">ESLintWebpackPlugin</span>(
+            &#123;
+                <span class="attr">context</span>: path.<span class="title function_">resolve</span>(__dirname, <span class="string">&quot;../src&quot;</span>),
+                <span class="attr">exclude</span>: <span class="string">&quot;node_modules&quot;</span>,
+                <span class="attr">cache</span>: <span class="literal">true</span>,
+                <span class="attr">cacheLocation</span>: path.<span class="title function_">join</span>(__dirname, <span class="string">&#x27;../node_modules/.cache/eslintcache&#x27;</span>),
+            &#125;
+        ),
+        <span class="keyword">new</span> <span class="title class_">HtmlWebpackPlugin</span>(&#123;
+            <span class="attr">template</span>: path.<span class="title function_">resolve</span>(__dirname, <span class="string">&quot;../public/index.html&quot;</span>)
+        &#125;),
+        isproduction &amp;&amp; <span class="keyword">new</span> <span class="title class_">MiniCssExtractPlugin</span>(&#123;
+            <span class="attr">filename</span>: <span class="string">&quot;static/css/[name].[contenthash:10].css&quot;</span>,
+            <span class="attr">chunkFilename</span>: <span class="string">&quot;static/css/[name].[contenthash:10].chunk.css&quot;</span>,
+        &#125;),
+        isproduction &amp;&amp; <span class="keyword">new</span> <span class="title class_">CopyWebpackPlugin</span>(&#123;
+            <span class="attr">patterns</span>: [
+              &#123;
+                <span class="attr">from</span>: path.<span class="title function_">join</span>(__dirname, <span class="string">&#x27;../public&#x27;</span>),
+                <span class="attr">to</span>: path.<span class="title function_">resolve</span>(__dirname,<span class="string">&#x27;../dist&#x27;</span>),
+                <span class="attr">globOptions</span>:&#123;
+                    <span class="comment">//忽略这个文件</span>
+                    <span class="attr">ignore</span>:[<span class="string">&quot;**/index.html&quot;</span>]
+                &#125;
+              &#125;
+            ].<span class="title function_">filter</span>(<span class="title class_">Boolean</span>)
+        &#125;),
+        <span class="keyword">new</span> <span class="title class_">VueLoaderPlugin</span>(),
+        <span class="keyword">new</span> <span class="title class_">DefinePlugin</span>(&#123;
+            <span class="attr">__VUE_OPTIONS_API__</span>:<span class="literal">true</span>,
+            <span class="attr">__VUE_PROD_DEVTOOLS__</span>:<span class="literal">false</span>,
+            <span class="attr">__VUE_PROD_HYDRATION_MISMATCH_DETAILS__</span>:<span class="literal">false</span>
+        &#125;)
+    ],
+    <span class="attr">mode</span>: isproduction ? <span class="string">&quot;production&quot;</span>:<span class="string">&quot;development&quot;</span>,
+    <span class="attr">devtool</span>: isproduction ?<span class="string">&quot;source-map&quot;</span>:<span class="string">&quot;cheap-module-source-map&quot;</span>,
+    <span class="attr">optimization</span>: &#123;
+        <span class="attr">splitChunks</span>: &#123;
+            <span class="attr">chunks</span>: <span class="string">&quot;all&quot;</span>,
+        &#125;,
+        <span class="attr">runtimeChunk</span>:&#123;
+            <span class="attr">name</span>: <span class="function"><span class="params">entrypoint</span> =&gt;</span> <span class="string">`runtime~<span class="subst">$&#123;entrypoint.name&#125;</span>.js`</span>,
+        &#125;,
+        <span class="attr">minimize</span>:isproduction,
+        <span class="attr">minimizer</span>:[<span class="keyword">new</span> <span class="title class_">CssMinimizerPlugin</span>(),<span class="keyword">new</span> <span class="title class_">TerserWebpackPlugin</span>(&#123;
+            <span class="attr">test</span>: <span class="regexp">/\.js(\?.*)?$/i</span>,
+        &#125;)]
+    &#125;,
+    <span class="attr">devServer</span>:&#123;
+        <span class="attr">host</span>:<span class="string">&quot;localhost&quot;</span>,
+        <span class="attr">port</span>:<span class="number">3000</span>,
+        <span class="attr">open</span>:<span class="literal">true</span>,
+        <span class="attr">hot</span>:<span class="literal">true</span>,
+        <span class="attr">historyApiFallback</span>:<span class="literal">true</span> <span class="comment">//解决前端路由刷新404的问题</span>
+    &#125;,
+    <span class="attr">resolve</span>: &#123;
+        <span class="attr">extensions</span>: [<span class="string">&#x27;.js&#x27;</span>,<span class="string">&#x27;.vue&#x27;</span>,<span class="string">&#x27;.json&#x27;</span>],
+    &#125;,
+&#125;</code></pre>
+
+<h3 id="6-element-plus的使用"><a href="#6-element-plus的使用" class="headerlink" title="6.element-plus的使用"></a>6.element-plus的使用</h3><blockquote>
+<p>npm i element-plus</p>
+</blockquote>
+<pre><code class="highlight javascript"><span class="comment">//全部引入</span>
+<span class="keyword">import</span> &#123; createApp &#125; <span class="keyword">from</span> <span class="string">&#x27;vue&#x27;</span>
+<span class="keyword">import</span> <span class="title class_">App</span> <span class="keyword">from</span> <span class="string">&#x27;./App&#x27;</span>
+<span class="keyword">import</span> router <span class="keyword">from</span> <span class="string">&#x27;./router&#x27;</span>;
+<span class="keyword">import</span> <span class="title class_">ElementPlus</span> <span class="keyword">from</span> <span class="string">&#x27;element-plus&#x27;</span>
+<span class="keyword">import</span> <span class="string">&#x27;element-plus/dist/index.css&#x27;</span>
+
+<span class="keyword">const</span> <span class="title class_">Vue</span> = <span class="title function_">createApp</span>(<span class="title class_">App</span>)
+<span class="title class_">Vue</span>.<span class="title function_">use</span>(router)
+<span class="title class_">Vue</span>.<span class="title function_">use</span>(<span class="title class_">ElementPlus</span>)
+
+<span class="title class_">Vue</span>.<span class="title function_">mount</span>(<span class="variable language_">document</span>.<span class="title function_">getElementById</span>(<span class="string">&quot;app&quot;</span>));</code></pre>
+
+<blockquote>
+<p>按需导入</p>
+<p>npm install -D unplugin-vue-components unplugin-auto-import</p>
+<p>npm i <a href="mailto:&#117;&#110;&#112;&#x6c;&#x75;&#103;&#x69;&#110;&#45;&#x76;&#x75;&#101;&#x2d;&#x63;&#x6f;&#109;&#x70;&#111;&#110;&#101;&#x6e;&#116;&#x73;&#64;&#48;&#46;&#x32;&#x35;&#46;&#50;">&#117;&#110;&#112;&#x6c;&#x75;&#103;&#x69;&#110;&#45;&#x76;&#x75;&#101;&#x2d;&#x63;&#x6f;&#109;&#x70;&#111;&#110;&#101;&#x6e;&#116;&#x73;&#64;&#48;&#46;&#x32;&#x35;&#46;&#50;</a> -D npm install <a href="mailto:&#x75;&#x6e;&#112;&#x6c;&#117;&#x67;&#x69;&#x6e;&#45;&#97;&#117;&#116;&#x6f;&#x2d;&#105;&#x6d;&#x70;&#111;&#114;&#x74;&#64;&#48;&#46;&#x31;&#x36;&#x2e;&#49;">&#x75;&#x6e;&#112;&#x6c;&#117;&#x67;&#x69;&#x6e;&#45;&#97;&#117;&#116;&#x6f;&#x2d;&#105;&#x6d;&#x70;&#111;&#114;&#x74;&#64;&#48;&#46;&#x31;&#x36;&#x2e;&#49;</a> </p>
+</blockquote>
+<pre><code class="highlight javascript"><span class="comment">// webpack.config.js</span>
+<span class="keyword">const</span> <span class="title class_">AutoImport</span> = <span class="built_in">require</span>(<span class="string">&#x27;unplugin-auto-import/webpack&#x27;</span>)
+<span class="keyword">const</span> <span class="title class_">Components</span> = <span class="built_in">require</span>(<span class="string">&#x27;unplugin-vue-components/webpack&#x27;</span>)
+<span class="keyword">const</span> &#123; <span class="title class_">ElementPlusResolver</span> &#125; = <span class="built_in">require</span>(<span class="string">&#x27;unplugin-vue-components/resolvers&#x27;</span>)
+
+<span class="variable language_">module</span>.<span class="property">exports</span> = &#123;
+  <span class="comment">// ...</span>
+  <span class="attr">plugins</span>: [
+    <span class="title class_">AutoImport</span>(&#123;
+      <span class="attr">resolvers</span>: [<span class="title class_">ElementPlusResolver</span>()],
+    &#125;),
+    <span class="title class_">Components</span>(&#123;
+      <span class="attr">resolvers</span>: [<span class="title class_">ElementPlusResolver</span>()],
+    &#125;),
+  ],
+&#125;</code></pre>
+
+<blockquote>
+<p>按需导入的使用</p>
+</blockquote>
+<pre><code class="highlight javascript">&lt;template&gt;
+    <span class="language-xml"><span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;about&quot;</span>&gt;</span>AboutTitle</span>
+<span class="language-xml">        <span class="tag">&lt;<span class="name">el-button</span> <span class="attr">type</span>=<span class="string">&quot;primary&quot;</span>&gt;</span>click me<span class="tag">&lt;/<span class="name">el-button</span>&gt;</span></span>
+<span class="language-xml">    <span class="tag">&lt;/<span class="name">div</span>&gt;</span></span>
+&lt;/template&gt;
+
+<span class="language-xml"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript"></span></span>
+<span class="language-javascript"><span class="language-xml"><span class="keyword">import</span> &#123;<span class="title class_">ElButton</span>&#125; <span class="keyword">from</span> <span class="string">&#x27;element-plus&#x27;</span></span></span>
+<span class="language-javascript"><span class="language-xml"><span class="keyword">export</span> <span class="keyword">default</span>&#123;</span></span>
+<span class="language-javascript"><span class="language-xml">    <span class="attr">name</span>:<span class="string">&quot;About&quot;</span>,</span></span>
+<span class="language-javascript"><span class="language-xml">    <span class="attr">componenets</span>:&#123;</span></span>
+<span class="language-javascript"><span class="language-xml">        <span class="title class_">ElButton</span></span></span>
+<span class="language-javascript"><span class="language-xml">    &#125;</span></span>
+<span class="language-javascript"><span class="language-xml">&#125;</span></span>
+<span class="language-javascript"><span class="language-xml"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span>
+
+<span class="language-xml"><span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="language-css"></span></span>
+<span class="language-css"><span class="language-xml">    <span class="selector-class">.about</span>&#123;</span></span>
+<span class="language-css"><span class="language-xml">        <span class="attribute">color</span>: <span class="built_in">rgb</span>(<span class="number">188</span>, <span class="number">14</span>, <span class="number">72</span>);</span></span>
+<span class="language-css"><span class="language-xml">    &#125;</span></span>
+<span class="language-css"><span class="language-xml"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span></code></pre>
+
+
+
+
+
+
+
+
+
+
+
 
 
 

@@ -1115,12 +1115,12 @@ getter，返回已注册的过滤器
 <blockquote>
 <p>接收数据：</p>
 </blockquote>
-<p>第一种方式（只接收）：</p>
+<p><code>第一种方式（只接收）：</code></p>
 <p>props:[‘name’]</p>
-<p>第二种方式（限制类型）：</p>
+<p><code>第二种方式（限制类型）：</code></p>
 <p>props:{</p>
 <p>name:Number</p>
-<p>第三种方式（限制类型、限制必要性、指定默认值）：</p>
+<p><code>第三种方式（限制类型、限制必要性、指定默认值）：</code></p>
 <p>props:{</p>
 <p>name:{</p>
 <p>type:String,&#x2F;&#x2F;类型</p>
@@ -1644,7 +1644,7 @@ export default &#123;
         &#125;
 &#125;)</code></pre>
 
-<h4 id="6-模块化加命名空间"><a href="#6-模块化加命名空间" class="headerlink" title="6.模块化加命名空间"></a>6.模块化加命名空间</h4><h2 id="9-路由"><a href="#9-路由" class="headerlink" title="9.路由"></a>9.路由</h2><h3 id="1-路由的基本使用"><a href="#1-路由的基本使用" class="headerlink" title="1.路由的基本使用"></a>1.路由的基本使用</h3><p>1.开启命名空间后，组件中读取state数据:</p>
+<h4 id="6-模块化加命名空间"><a href="#6-模块化加命名空间" class="headerlink" title="6.模块化加命名空间"></a>6.模块化加命名空间</h4><p>1.开启命名空间后，组件中读取state数据:</p>
 <pre><code class="highlight javascript"><span class="comment">//方式一：自己直接读取</span>
 <span class="variable language_">this</span>.<span class="property">$store</span>.<span class="property">state</span>.<span class="property">personAbout</span>.<span class="property">list</span>
 
@@ -1668,25 +1668,33 @@ export default &#123;
 <span class="variable language_">this</span>.<span class="property">$store</span>.<span class="title function_">commit</span>(<span class="string">&#x27;personAbout/ADD_PERSON&#x27;</span>,person)
 <span class="comment">//方式二：借助mapMutations:</span>
 ...<span class="title function_">mapMutations</span>(<span class="string">&#x27;countAbout&#x27;</span>,&#123;<span class="attr">increment</span>:<span class="string">&#x27;JIA&#x27;</span>,<span class="attr">decrement</span>:<span class="string">&#x27;JIAN&#x27;</span>&#125;),</code></pre>
-
-<h3 id="2-路由的使用"><a href="#2-路由的使用" class="headerlink" title="2.路由的使用"></a>2.路由的使用</h3><pre><code class="highlight javascript"><span class="keyword">import</span> <span class="title class_">VueRouter</span> <span class="keyword">from</span> <span class="string">&#x27;vue-router&#x27;</span>
+<h2 id="9-路由"><a href="#9-路由" class="headerlink" title="9.路由"></a>9.路由</h2><h3 id="1-路由的基本使用"><a href="#1-路由的基本使用" class="headerlink" title="1.路由的基本使用"></a>1.路由的基本使用</h3><blockquote>
+<p>npm i vue-router<br>使用createRouter和createWebHistory</p>
+</blockquote>
+<pre><code class="highlight javascript"><span class="keyword">import</span> &#123;createRouter,createWebHistory&#125; <span class="keyword">from</span> <span class="string">&#x27;vue-router&#x27;</span>
 <span class="comment">//引入Luyou 组件</span>
-<span class="keyword">import</span> <span class="title class_">About</span> <span class="keyword">from</span> <span class="string">&#x27;../components/About&#x27;</span>
-<span class="keyword">import</span> <span class="title class_">Home</span> <span class="keyword">from</span> <span class="string">&#x27;../components/Home&#x27;</span>
+<span class="keyword">import</span> <span class="title class_">About</span> <span class="keyword">from</span> <span class="string">&#x27;../views/About&#x27;</span>
+<span class="keyword">import</span> <span class="title class_">Home</span> <span class="keyword">from</span> <span class="string">&#x27;../views/Home&#x27;</span>
 <span class="comment">//创建router实例对象，去管理一组一组的路由规则</span>
-<span class="keyword">const</span> router = <span class="keyword">new</span> <span class="title class_">VueRouter</span>(&#123;
-    <span class="attr">routes</span>:[
-        <span class="attr">path</span>:<span class="string">&#x27;/about&#x27;</span>,
-        <span class="attr">component</span>:<span class="title class_">About</span>
-        <span class="attr">path</span>:<span class="string">&#x27;/home&#x27;</span>,
-        <span class="attr">component</span>:<span class="title class_">Home</span>
+<span class="keyword">const</span> router = <span class="keyword">new</span> <span class="title function_">createRouter</span>(&#123;
+    <span class="attr">history</span>:<span class="title function_">createWebHistory</span>(),
+    <span class="attr">routes</span>: [
+        &#123;
+            <span class="attr">path</span>: <span class="string">&#x27;/about&#x27;</span>,
+            <span class="attr">component</span>: <span class="title class_">About</span>,
+        &#125;,
+        &#123;
+            <span class="attr">path</span>: <span class="string">&#x27;/home&#x27;</span>,
+            <span class="attr">component</span>: <span class="title class_">Home</span>
+        &#125;
+    ]
 &#125;)
 <span class="comment">//暴露router</span>
 <span class="keyword">export</span> <span class="keyword">default</span> router</code></pre>
 
-<p>4.实现切换（active-class可配置高亮样式）</p>
+<h3 id="2-路由的使用"><a href="#2-路由的使用" class="headerlink" title="2.路由的使用"></a>2.路由的使用</h3><p>1.实现切换（active-class可配置高亮样式）</p>
 <p>&lt;router-link active-class&#x3D;”active” to&#x3D;”&#x2F;about”&gt;About&lt;&#x2F;router-link&gt;</p>
-<p>5.指定展示位置</p>
+<p>2.指定展示位置</p>
 <p>&lt;router-diew&gt;&lt;&#x2F;router-view&gt;</p>
 <blockquote>
 <p>几个注意点</p>
@@ -1784,23 +1792,15 @@ export default &#123;
 </code></pre>
 
 <blockquote>
-<pre><code>               使用
-
-               :to=&quot;&#123;
-
-               ​					name:&#39;&#39;
-
-               ​                      path:&#39;/home/message/mes&#39;,
-
-               ​                      query:&#123;
-
-               ​                          id:item.id,
-
-               ​                          title:item.mes
-
-               ​                      &#125;
-
-               ​          &#125;&quot;
+<p>使用</p>
+<pre><code>               :to=&quot;&#123;
+                     name:&#39;&#39;
+                     path:&#39;/home/message/mes&#39;,
+                     query:&#123;
+                            id:item.id,
+                            title:item.mes
+                        &#125;
+                     &#125;&quot;
 </code></pre>
 </blockquote>
 <h3 id="5-params参数的使用"><a href="#5-params参数的使用" class="headerlink" title="5.params参数的使用"></a>5.params参数的使用</h3><p>1.声明接收</p>

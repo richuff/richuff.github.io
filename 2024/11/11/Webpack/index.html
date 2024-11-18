@@ -1762,7 +1762,7 @@ npx server dist</code></pre>
 <blockquote>
 <p>按需导入</p>
 <p>npm install -D unplugin-vue-components unplugin-auto-import</p>
-<p>npm i <a href="mailto:&#117;&#110;&#112;&#x6c;&#x75;&#103;&#x69;&#110;&#45;&#x76;&#x75;&#101;&#x2d;&#x63;&#x6f;&#109;&#x70;&#111;&#110;&#101;&#x6e;&#116;&#x73;&#64;&#48;&#46;&#x32;&#x35;&#46;&#50;">&#117;&#110;&#112;&#x6c;&#x75;&#103;&#x69;&#110;&#45;&#x76;&#x75;&#101;&#x2d;&#x63;&#x6f;&#109;&#x70;&#111;&#110;&#101;&#x6e;&#116;&#x73;&#64;&#48;&#46;&#x32;&#x35;&#46;&#50;</a> -D npm install <a href="mailto:&#x75;&#x6e;&#112;&#x6c;&#117;&#x67;&#x69;&#x6e;&#45;&#97;&#117;&#116;&#x6f;&#x2d;&#105;&#x6d;&#x70;&#111;&#114;&#x74;&#64;&#48;&#46;&#x31;&#x36;&#x2e;&#49;">&#x75;&#x6e;&#112;&#x6c;&#117;&#x67;&#x69;&#x6e;&#45;&#97;&#117;&#116;&#x6f;&#x2d;&#105;&#x6d;&#x70;&#111;&#114;&#x74;&#64;&#48;&#46;&#x31;&#x36;&#x2e;&#49;</a> </p>
+<p>npm i <a href="mailto:&#x75;&#110;&#112;&#108;&#117;&#103;&#105;&#110;&#45;&#118;&#x75;&#x65;&#45;&#99;&#111;&#x6d;&#112;&#111;&#110;&#101;&#x6e;&#x74;&#x73;&#64;&#x30;&#46;&#50;&#x35;&#46;&#50;">&#x75;&#110;&#112;&#108;&#117;&#103;&#105;&#110;&#45;&#118;&#x75;&#x65;&#45;&#99;&#111;&#x6d;&#112;&#111;&#110;&#101;&#x6e;&#x74;&#x73;&#64;&#x30;&#46;&#50;&#x35;&#46;&#50;</a> -D npm install <a href="mailto:&#x75;&#110;&#x70;&#x6c;&#117;&#x67;&#x69;&#x6e;&#45;&#97;&#117;&#116;&#x6f;&#45;&#x69;&#109;&#112;&#111;&#x72;&#x74;&#x40;&#x30;&#46;&#49;&#x36;&#x2e;&#49;">&#x75;&#110;&#x70;&#x6c;&#117;&#x67;&#x69;&#x6e;&#45;&#97;&#117;&#116;&#x6f;&#45;&#x69;&#109;&#112;&#111;&#x72;&#x74;&#x40;&#x30;&#46;&#49;&#x36;&#x2e;&#49;</a> </p>
 </blockquote>
 <pre><code class="highlight javascript"><span class="comment">// webpack.config.js</span>
 <span class="keyword">const</span> <span class="title class_">AutoImport</span> = <span class="built_in">require</span>(<span class="string">&#x27;unplugin-auto-import/webpack&#x27;</span>)
@@ -1806,25 +1806,500 @@ npx server dist</code></pre>
 <span class="language-css"><span class="language-xml">    &#125;</span></span>
 <span class="language-css"><span class="language-xml"></span><span class="tag">&lt;/<span class="name">style</span>&gt;</span></span></code></pre>
 
+<h3 id="7-使用路径别名"><a href="#7-使用路径别名" class="headerlink" title="7.使用路径别名"></a>7.使用路径别名</h3><pre><code class="highlight javascript"><span class="attr">resolve</span>: &#123;
+    <span class="attr">extensions</span>: [<span class="string">&#x27;.js&#x27;</span>,<span class="string">&#x27;.vue&#x27;</span>,<span class="string">&#x27;.json&#x27;</span>],
+        <span class="attr">alias</span>:&#123;
+            <span class="string">&quot;@&quot;</span>:path.<span class="title function_">resolve</span>(__dirname,<span class="string">&quot;../src&quot;</span>)
+        &#125;
+&#125;,</code></pre>
 
+<h3 id="8-优化-1"><a href="#8-优化-1" class="headerlink" title="8.优化"></a>8.优化</h3><pre><code class="highlight javascript"><span class="attr">splitChunks</span>: &#123;
+    <span class="attr">chunks</span>: <span class="string">&quot;all&quot;</span>,
+        <span class="attr">cacheGroups</span>:&#123;
+            <span class="attr">vue</span>:&#123;
+                <span class="attr">test</span>:<span class="regexp">/[\\/]node_modules[\\/]vue(.*)?[\\/]/</span>,
+                <span class="attr">name</span>:<span class="string">&quot;chunk-vue&quot;</span>,
+                <span class="attr">priority</span>:<span class="number">40</span>,
+            &#125;,
+            <span class="attr">elementPlus</span>:&#123;
+               <span class="attr">test</span>:<span class="regexp">/[\\/]node_modules[\\/]element-plus[\\/]/</span>,
+               <span class="attr">name</span>:<span class="string">&quot;chunk-elementPlus&quot;</span>,
+               <span class="attr">priority</span>:<span class="number">30</span>,
+            &#125;,
+            <span class="attr">libs</span>:&#123;
+                <span class="attr">test</span>:<span class="regexp">/[\\/]node_modules[\\/]/</span>,
+                <span class="attr">name</span>:<span class="string">&quot;chunk-libs&quot;</span>,
+                <span class="attr">priority</span>:<span class="number">20</span>,
+            &#125;
+       &#125;
+&#125;,</code></pre>
 
+<pre><code class="highlight javascript"><span class="variable language_">module</span>.<span class="property">exports</span> = &#123;
+	...
+    <span class="attr">performance</span>:<span class="literal">false</span>  <span class="comment">//关闭性能分析，提升打包效率</span>
+&#125;</code></pre>
 
+<blockquote>
+<p>最后的完整配置</p>
+</blockquote>
+<pre><code class="highlight javascript"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">&quot;path&quot;</span>)
+<span class="keyword">const</span> &#123;<span class="title class_">DefinePlugin</span>&#125; = <span class="built_in">require</span>(<span class="string">&quot;webpack&quot;</span>)
+<span class="keyword">const</span> <span class="title class_">ESLintWebpackPlugin</span> = <span class="built_in">require</span>(<span class="string">&#x27;eslint-webpack-plugin&#x27;</span>);
+<span class="keyword">const</span> <span class="title class_">HtmlWebpackPlugin</span> = <span class="built_in">require</span>(<span class="string">&#x27;html-webpack-plugin&#x27;</span>)
+<span class="keyword">const</span> <span class="title class_">CssMinimizerPlugin</span> = <span class="built_in">require</span>(<span class="string">&#x27;css-minimizer-webpack-plugin&#x27;</span>);
+<span class="keyword">const</span> <span class="title class_">MiniCssExtractPlugin</span> = <span class="built_in">require</span>(<span class="string">&#x27;mini-css-extract-plugin&#x27;</span>);
+<span class="keyword">const</span> <span class="title class_">TerserWebpackPlugin</span> = <span class="built_in">require</span>(<span class="string">&#x27;terser-webpack-plugin&#x27;</span>);
+<span class="keyword">const</span> <span class="title class_">CopyWebpackPlugin</span> = <span class="built_in">require</span>(<span class="string">&#x27;copy-webpack-plugin&#x27;</span>);
+<span class="keyword">const</span> &#123; <span class="title class_">VueLoaderPlugin</span> &#125; = <span class="built_in">require</span>(<span class="string">&#x27;vue-loader&#x27;</span>)
+<span class="keyword">const</span> <span class="title class_">AutoImport</span> = <span class="built_in">require</span>(<span class="string">&#x27;unplugin-auto-import/webpack&#x27;</span>)
+<span class="keyword">const</span> <span class="title class_">Components</span> = <span class="built_in">require</span>(<span class="string">&#x27;unplugin-vue-components/webpack&#x27;</span>)
+<span class="keyword">const</span> &#123; <span class="title class_">ElementPlusResolver</span> &#125; = <span class="built_in">require</span>(<span class="string">&#x27;unplugin-vue-components/resolvers&#x27;</span>)
 
+<span class="keyword">const</span> isproduction = process.<span class="property">env</span>.<span class="property">NODE_ENV</span> === <span class="string">&quot;production&quot;</span>
 
+<span class="keyword">function</span> <span class="title function_">GetStyleLoader</span>(<span class="params">pre</span>) &#123;
+    <span class="keyword">return</span> [
+        isproduction ? <span class="title class_">MiniCssExtractPlugin</span>.<span class="property">loader</span>:<span class="string">&quot;vue-style-loader&quot;</span>, <span class="string">&#x27;css-loader&#x27;</span>, &#123;
+            <span class="attr">loader</span>: <span class="string">&quot;postcss-loader&quot;</span>,
+            <span class="attr">options</span>: &#123;
+                <span class="attr">postcssOptions</span>: &#123;
+                    <span class="attr">plugins</span>: [
+                        <span class="string">&quot;postcss-preset-env&quot;</span>
+                    ]
+                &#125;
+            &#125;
+        &#125;,
+        pre
+    ].<span class="title function_">filter</span>(<span class="title class_">Boolean</span>)
+&#125;
 
+<span class="variable language_">module</span>.<span class="property">exports</span> = &#123;
+    <span class="attr">entry</span>: <span class="string">&quot;./src/main.js&quot;</span>,
+    <span class="attr">output</span>: &#123;
+        <span class="attr">path</span>: isproduction?path.<span class="title function_">resolve</span>(__dirname,<span class="string">&quot;../dist&quot;</span>):<span class="literal">undefined</span>,
+        <span class="attr">filename</span>: isproduction?<span class="string">&quot;static/js/[name].[contenthash:10].js&quot;</span>:<span class="string">&quot;static/js/[name].js&quot;</span>,
+        <span class="attr">chunkFilename</span>: isproduction?<span class="string">&quot;static/js/[name].[contenthash:10].chunk.js&quot;</span>:<span class="string">&quot;static/js/[name].chunk.js&quot;</span>,
+        assetModuleFilename : <span class="string">&quot;static/media/[hash:10][ext][query]&quot;</span>,
+        <span class="attr">clean</span>:<span class="literal">true</span>,
+    &#125;,
+    <span class="attr">module</span>: &#123;
+        <span class="attr">rules</span>: [
+            &#123;
+                <span class="attr">test</span>: <span class="regexp">/\.js?$/</span>,
+                <span class="attr">include</span>: path.<span class="title function_">resolve</span>(__dirname, <span class="string">&quot;../src&quot;</span>),
+                <span class="attr">loader</span>: <span class="string">&#x27;babel-loader&#x27;</span>,
+                <span class="attr">options</span>: &#123;
+                    <span class="attr">cacheDirectory</span>: <span class="literal">true</span>,
+                    <span class="attr">cacheCompression</span>: <span class="literal">false</span>,
+                &#125;
+            &#125;,
+            &#123;
+                <span class="attr">test</span>: <span class="regexp">/\.vue$/</span>,
+                <span class="attr">loader</span>: <span class="string">&#x27;vue-loader&#x27;</span>
+            &#125;,
+            &#123;
+                <span class="attr">test</span>: <span class="regexp">/\.css$/</span>,
+                <span class="attr">use</span>: <span class="title class_">GetStyleLoader</span>(),
+            &#125;,
+            &#123;
+                <span class="attr">test</span>: <span class="regexp">/\.less$/</span>,
+                <span class="attr">use</span>: <span class="title class_">GetStyleLoader</span>(<span class="string">&#x27;less-loader&#x27;</span>),
+            &#125;,
+            &#123;
+                <span class="attr">test</span>: <span class="regexp">/\.s[ac]ss$/</span>,
+                <span class="attr">use</span>: <span class="title class_">GetStyleLoader</span>(<span class="string">&#x27;sass-loader&#x27;</span>)
+            &#125;,
+            &#123;
+                <span class="attr">test</span>: <span class="regexp">/\.(png|jpg|jpe?g|gif|webp|svg)$/</span>,
+                <span class="attr">type</span>: <span class="string">&quot;asset&quot;</span>,
+                <span class="attr">parser</span>: &#123;
+                    <span class="attr">dataUrlCondition</span>: &#123;
+                        <span class="attr">maxSize</span>: <span class="number">10</span> * <span class="number">1024</span>
+                    &#125;
+                &#125;
+            &#125;,
+            &#123;
+                <span class="attr">test</span>: <span class="regexp">/\.(woff2|ttf)/</span>,
+                <span class="attr">type</span>: <span class="string">&quot;asset/resource&quot;</span>,
 
+            &#125;
+        ]
+    &#125;,
+    <span class="attr">plugins</span>: [
+        <span class="keyword">new</span> <span class="title class_">ESLintWebpackPlugin</span>(
+            &#123;
+                <span class="attr">context</span>: path.<span class="title function_">resolve</span>(__dirname, <span class="string">&quot;../src&quot;</span>),
+                <span class="attr">exclude</span>: <span class="string">&quot;node_modules&quot;</span>,
+                <span class="attr">cache</span>: <span class="literal">true</span>,
+                <span class="attr">cacheLocation</span>: path.<span class="title function_">join</span>(__dirname, <span class="string">&#x27;../node_modules/.cache/eslintcache&#x27;</span>),
+            &#125;
+        ),
+        <span class="keyword">new</span> <span class="title class_">HtmlWebpackPlugin</span>(&#123;
+            <span class="attr">template</span>: path.<span class="title function_">resolve</span>(__dirname, <span class="string">&quot;../public/index.html&quot;</span>)
+        &#125;),
+        isproduction &amp;&amp; <span class="keyword">new</span> <span class="title class_">MiniCssExtractPlugin</span>(&#123;
+            <span class="attr">filename</span>: <span class="string">&quot;static/css/[name].[contenthash:10].css&quot;</span>,
+            <span class="attr">chunkFilename</span>: <span class="string">&quot;static/css/[name].[contenthash:10].chunk.css&quot;</span>,
+        &#125;),
+        isproduction &amp;&amp; <span class="keyword">new</span> <span class="title class_">CopyWebpackPlugin</span>(&#123;
+            <span class="attr">patterns</span>: [
+              &#123;
+                <span class="attr">from</span>: path.<span class="title function_">join</span>(__dirname, <span class="string">&#x27;../public&#x27;</span>),
+                <span class="attr">to</span>: path.<span class="title function_">resolve</span>(__dirname,<span class="string">&#x27;../dist&#x27;</span>),
+                <span class="attr">globOptions</span>:&#123;
+                    <span class="comment">//忽略这个文件</span>
+                    <span class="attr">ignore</span>:[<span class="string">&quot;**/index.html&quot;</span>]
+                &#125;
+              &#125;
+            ].<span class="title function_">filter</span>(<span class="title class_">Boolean</span>)
+        &#125;),
+        <span class="keyword">new</span> <span class="title class_">VueLoaderPlugin</span>(),
+        <span class="keyword">new</span> <span class="title class_">DefinePlugin</span>(&#123;
+            <span class="attr">__VUE_OPTIONS_API__</span>:<span class="literal">true</span>,
+            <span class="attr">__VUE_PROD_DEVTOOLS__</span>:<span class="literal">false</span>,
+            <span class="attr">__VUE_PROD_HYDRATION_MISMATCH_DETAILS__</span>:<span class="literal">false</span>
+        &#125;),
+        <span class="title class_">AutoImport</span>(&#123;
+            <span class="attr">resolvers</span>: [<span class="title class_">ElementPlusResolver</span>()],
+          &#125;),
+        <span class="title class_">Components</span>(&#123;
+            <span class="attr">resolvers</span>: [<span class="title class_">ElementPlusResolver</span>()],
+        &#125;),
+    ],
+    <span class="attr">mode</span>: isproduction ? <span class="string">&quot;production&quot;</span>:<span class="string">&quot;development&quot;</span>,
+    <span class="attr">devtool</span>: isproduction ?<span class="string">&quot;source-map&quot;</span>:<span class="string">&quot;cheap-module-source-map&quot;</span>,
+    <span class="attr">optimization</span>: &#123;
+        <span class="attr">splitChunks</span>: &#123;
+            <span class="attr">chunks</span>: <span class="string">&quot;all&quot;</span>,
+            <span class="attr">cacheGroups</span>:&#123;
+                <span class="attr">vue</span>:&#123;
+                    <span class="attr">test</span>:<span class="regexp">/[\\/]node_modules[\\/]vue(.*)?[\\/]/</span>,
+                    <span class="attr">name</span>:<span class="string">&quot;chunk-vue&quot;</span>,
+                    <span class="attr">priority</span>:<span class="number">40</span>,
+                &#125;,
+                <span class="attr">elementPlus</span>:&#123;
+                    <span class="attr">test</span>:<span class="regexp">/[\\/]node_modules[\\/]element-plus[\\/]/</span>,
+                    <span class="attr">name</span>:<span class="string">&quot;chunk-elementPlus&quot;</span>,
+                    <span class="attr">priority</span>:<span class="number">30</span>,
+                &#125;,
+                <span class="attr">libs</span>:&#123;
+                    <span class="attr">test</span>:<span class="regexp">/[\\/]node_modules[\\/]/</span>,
+                    <span class="attr">name</span>:<span class="string">&quot;chunk-libs&quot;</span>,
+                    <span class="attr">priority</span>:<span class="number">20</span>,
+                &#125;
+            &#125;
+        &#125;,
+        <span class="attr">runtimeChunk</span>:&#123;
+            <span class="attr">name</span>: <span class="function"><span class="params">entrypoint</span> =&gt;</span> <span class="string">`runtime~<span class="subst">$&#123;entrypoint.name&#125;</span>.js`</span>,
+        &#125;,
+        <span class="attr">minimize</span>:isproduction,
+        <span class="attr">minimizer</span>:[<span class="keyword">new</span> <span class="title class_">CssMinimizerPlugin</span>(),<span class="keyword">new</span> <span class="title class_">TerserWebpackPlugin</span>(&#123;
+            <span class="attr">test</span>: <span class="regexp">/\.js(\?.*)?$/i</span>,
+        &#125;)]
+    &#125;,
+    <span class="attr">devServer</span>:&#123;
+        <span class="attr">host</span>:<span class="string">&quot;localhost&quot;</span>,
+        <span class="attr">port</span>:<span class="number">3000</span>,
+        <span class="attr">open</span>:<span class="literal">true</span>,
+        <span class="attr">hot</span>:<span class="literal">true</span>,
+        <span class="attr">historyApiFallback</span>:<span class="literal">true</span> <span class="comment">//解决前端路由刷新404的问题</span>
+    &#125;,
+    <span class="attr">resolve</span>: &#123;
+        <span class="attr">extensions</span>: [<span class="string">&#x27;.js&#x27;</span>,<span class="string">&#x27;.vue&#x27;</span>,<span class="string">&#x27;.json&#x27;</span>],
+        <span class="attr">alias</span>:&#123;
+            <span class="string">&quot;@&quot;</span>:path.<span class="title function_">resolve</span>(__dirname,<span class="string">&quot;../src&quot;</span>)
+        &#125;
+    &#125;,
+    <span class="attr">performance</span>:<span class="literal">false</span>
+&#125;</code></pre>
 
+<h2 id="10-原理分析"><a href="#10-原理分析" class="headerlink" title="10.原理分析"></a>10.原理分析</h2><h3 id="1-构建Loader"><a href="#1-构建Loader" class="headerlink" title="1.构建Loader"></a>1.构建Loader</h3><blockquote>
+<p>npm i html-webpack-plugin webpack webpack-cli -D</p>
+</blockquote>
+<pre><code class="highlight javascript"><span class="keyword">const</span> path = <span class="built_in">require</span>(<span class="string">&quot;path&quot;</span>)
+<span class="keyword">const</span> <span class="title class_">HtmlWebpackPlugin</span> = <span class="built_in">require</span>(<span class="string">&#x27;html-webpack-plugin&#x27;</span>)
 
+<span class="variable language_">module</span>.<span class="property">exports</span> = &#123;
+    <span class="attr">entry</span>:<span class="string">&quot;./src/main.js&quot;</span>,
+    <span class="attr">output</span>:&#123;
+        <span class="attr">path</span>:path.<span class="title function_">resolve</span>(__dirname,<span class="string">&quot;./src&quot;</span>),
+        <span class="attr">filename</span>:<span class="string">&quot;js/[name].js&quot;</span>,
+        <span class="attr">clean</span>:<span class="literal">true</span>
+    &#125;,
+    <span class="attr">module</span>:&#123;
+        <span class="attr">rules</span>:[
 
+        ]
+    &#125;,
+    <span class="attr">plugins</span>:[
+        <span class="keyword">new</span> <span class="title class_">HtmlWebpackPlugin</span>(&#123;
+            <span class="attr">template</span>: path.<span class="title function_">resolve</span>(__dirname, <span class="string">&quot;./public/index.html&quot;</span>)
+        &#125;),
+    ],
+    <span class="attr">mode</span>:<span class="string">&quot;development&quot;</span>
+&#125;</code></pre>
 
+<blockquote>
+<p>定义loader文件</p>
+</blockquote>
+<pre><code class="highlight javascript"><span class="comment">//loaders/test-loaders.js</span>
+<span class="variable language_">module</span>.<span class="property">exports</span> = <span class="keyword">function</span> (<span class="params">content</span>)&#123;
+    <span class="variable language_">console</span>.<span class="title function_">log</span>(content)
+    <span class="keyword">return</span> content
+&#125;</code></pre>
 
+<blockquote>
+<p>在rules中配置</p>
+</blockquote>
+<pre><code class="highlight javascript"><span class="comment">//webpack.config.js</span>
+<span class="attr">module</span>:&#123;
+    <span class="attr">rules</span>:[
+        &#123;
+            <span class="attr">test</span>: <span class="regexp">/\.js$/</span>,
+            <span class="attr">loader</span>:<span class="string">&#x27;./loaders/test-loader.js&#x27;</span>
+        &#125;
+    ]
+&#125;,</code></pre>
 
+<blockquote>
+<p>输出结果</p>
+<p>let arr &#x3D; [1,2,3,4]   &#x3D;&#x3D;&#x3D;&gt;该文件为mian.js中的文件</p>
+</blockquote>
+<pre><code class="highlight javascript"><span class="comment">/*</span>
+<span class="comment">// content 文件管理的内容</span>
+<span class="comment">// map sourceMap</span>
+<span class="comment">// meta 别的loader传递的数据</span>
+<span class="comment">*/</span>
+<span class="variable language_">module</span>.<span class="property">exports</span> = <span class="keyword">function</span> (<span class="params">content,map,meta</span>)&#123;
+    <span class="variable language_">console</span>.<span class="title function_">log</span>(content,map,meta) 
+    <span class="keyword">return</span> content
+&#125;</code></pre>
 
+<h3 id="2-同步loader"><a href="#2-同步loader" class="headerlink" title="2.同步loader"></a>2.同步loader</h3><pre><code class="highlight javascript"><span class="variable language_">module</span>.<span class="property">exports</span> = <span class="keyword">function</span>(<span class="params">content,map,meta</span>)&#123;
+    <span class="comment">/*</span>
+<span class="comment">    1    代表是否有错误</span>
+<span class="comment">    2    content 处理的内容</span>
+<span class="comment">    3    map 继续传递sourcemap</span>
+<span class="comment">    4    meta 给下一个loader传递参数</span>
+<span class="comment">    */</span>
+    <span class="variable language_">this</span>.<span class="title function_">callback</span>(<span class="literal">null</span>,content,map,meta)
+&#125;</code></pre>
 
+<h3 id="3-异步loader"><a href="#3-异步loader" class="headerlink" title="3.异步loader"></a>3.异步loader</h3><pre><code class="highlight javascript"><span class="variable language_">module</span>.<span class="property">exports</span> = <span class="keyword">function</span>(<span class="params">content,map,meta</span>)&#123;
+    <span class="keyword">const</span> callback = <span class="variable language_">this</span>.<span class="title function_">async</span>();
 
+    <span class="built_in">setTimeout</span>(<span class="function">()=&gt;</span>&#123;
+        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;test2&quot;</span>)
+        <span class="title function_">callback</span>(<span class="literal">null</span>,content,map,meta)
+    &#125;,<span class="number">1000</span>)
+&#125;</code></pre>
 
+<h3 id="4-raw-loader"><a href="#4-raw-loader" class="headerlink" title="4.raw loader"></a>4.raw loader</h3><pre><code class="highlight javascript"><span class="comment">//&lt;Buffer 6c 65 74 20 61 72 72 20 3d 20 5b 31 2c 32 2c 33 2c 34 5d 0d 0a&gt;&#x27;</span>
+<span class="comment">//接收到的是Buffer数据内容</span>
 
+<span class="variable language_">module</span>.<span class="property">exports</span> = <span class="keyword">function</span>(<span class="params">content</span>)&#123;
+    <span class="variable language_">console</span>.<span class="title function_">log</span>(content)
+    <span class="keyword">return</span> content
+&#125;
 
+<span class="variable language_">module</span>.<span class="property">exports</span>.<span class="property">raw</span> = <span class="literal">true</span>;</code></pre>
+
+<h3 id="5-pitch-loader"><a href="#5-pitch-loader" class="headerlink" title="5.pitch loader"></a>5.pitch loader</h3><blockquote>
+<p>优先执行pitch内的方法</p>
+</blockquote>
+<pre><code class="highlight javascript"><span class="variable language_">module</span>.<span class="property">exports</span> = <span class="keyword">function</span>(<span class="params">content</span>)&#123;
+    <span class="keyword">return</span> content
+&#125;
+
+<span class="variable language_">module</span>.<span class="property">exports</span>.<span class="property">pitch</span> = <span class="keyword">function</span>(<span class="params"></span>)&#123;
+    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;pitch&quot;</span>)
+&#125;</code></pre>
+
+<h3 id="6-自定义loader"><a href="#6-自定义loader" class="headerlink" title="6.自定义loader"></a>6.自定义loader</h3><blockquote>
+<p>清除所有的console.log()语句</p>
+</blockquote>
+<pre><code class="highlight javascript"><span class="variable language_">module</span>.<span class="property">exports</span> = <span class="keyword">function</span>(<span class="params">content</span>)&#123;
+    <span class="keyword">return</span> content.<span class="title function_">replace</span>(<span class="regexp">/console\.log\(.*\);?/g</span>,<span class="string">&quot;&quot;</span>)
+&#125;</code></pre>
+
+<blockquote>
+<p>schema.json</p>
+</blockquote>
+<pre><code class="highlight json"><span class="punctuation">&#123;</span>
+    <span class="attr">&quot;type&quot;</span><span class="punctuation">:</span><span class="string">&quot;object&quot;</span><span class="punctuation">,</span>
+    <span class="attr">&quot;properties&quot;</span><span class="punctuation">:</span><span class="punctuation">&#123;</span>
+        <span class="attr">&quot;author&quot;</span><span class="punctuation">:</span><span class="punctuation">&#123;</span>
+            <span class="attr">&quot;type&quot;</span><span class="punctuation">:</span><span class="string">&quot;string&quot;</span>
+        <span class="punctuation">&#125;</span>
+    <span class="punctuation">&#125;</span><span class="punctuation">,</span>
+    <span class="attr">&quot;additionalProperties&quot;</span><span class="punctuation">:</span><span class="literal"><span class="keyword">false</span></span>  <span class="comment">//不能新增字段</span>
+<span class="punctuation">&#125;</span></code></pre>
+
+<blockquote>
+<p>banner-loader.js</p>
+</blockquote>
+<pre><code class="highlight javascript"><span class="keyword">const</span> schema = <span class="built_in">require</span>(<span class="string">&quot;./schema.json&quot;</span>)
+<span class="variable language_">module</span>.<span class="property">exports</span> = <span class="keyword">function</span>(<span class="params">conten</span>)&#123;
+    <span class="keyword">const</span> options = <span class="variable language_">this</span>.<span class="title function_">getOptions</span>(schema)
+    <span class="keyword">const</span> prefix = <span class="string">`</span>
+<span class="string">        /*</span>
+<span class="string">            Author:<span class="subst">$&#123;options.author&#125;</span></span>
+<span class="string">        */</span>
+<span class="string">    `</span>
+    <span class="keyword">return</span> prefix + conten
+&#125;</code></pre>
+
+<blockquote>
+<p>webpack.config.js</p>
+</blockquote>
+<pre><code class="highlight javascript">&#123;
+    <span class="attr">test</span>: <span class="regexp">/\.js$/</span>,
+    <span class="attr">loader</span>:<span class="string">&quot;./loaders/banner-loader.js&quot;</span>,
+    <span class="attr">options</span>:&#123;
+       <span class="string">&quot;author&quot;</span>:<span class="string">&quot;RC&quot;</span>
+    &#125;
+&#125;,</code></pre>
+
+<h3 id="7-file-loader"><a href="#7-file-loader" class="headerlink" title="7.file-loader"></a>7.file-loader</h3><blockquote>
+<p>file-loader.js</p>
+</blockquote>
+<pre><code class="highlight javascript"><span class="keyword">const</span> loaderUtils = <span class="built_in">require</span>(<span class="string">&quot;loader-utils&quot;</span>)
+
+<span class="variable language_">module</span>.<span class="property">exports</span> = <span class="keyword">function</span>(<span class="params">content</span>)&#123;
+    <span class="keyword">let</span> interpolateName = loaderUtils.<span class="title function_">interpolateName</span>(<span class="variable language_">this</span>,<span class="string">&quot;[hash].[ext][query]&quot;</span>,&#123;
+        <span class="attr">content</span>:content
+    &#125;)
+    interpolateName =<span class="string">`images/<span class="subst">$&#123;interpolateName&#125;</span>`</span>
+    <span class="variable language_">this</span>.<span class="title function_">emitFile</span>(interpolateName,content)
+
+    <span class="keyword">return</span> <span class="string">`module.exports = &quot;<span class="subst">$&#123;interpolateName&#125;</span>&quot;`</span>
+&#125;
+
+<span class="variable language_">module</span>.<span class="property">exports</span>.<span class="property">raw</span> = <span class="literal">true</span></code></pre>
+
+<blockquote>
+<p>webpack.config.js</p>
+</blockquote>
+<pre><code class="highlight javascript">&#123;
+    <span class="attr">test</span>: <span class="regexp">/\.(png|jpe?g|gif)$/</span>,
+    <span class="attr">loader</span>: <span class="string">&quot;./loaders/file-loader.js&quot;</span>,
+    <span class="attr">type</span>:<span class="string">&quot;javascript/auto&quot;</span>
+&#125;,</code></pre>
+
+<h3 id="8-style-lodaer"><a href="#8-style-lodaer" class="headerlink" title="8.style.lodaer"></a>8.style.lodaer</h3><pre><code class="highlight javascript"><span class="variable language_">module</span>.<span class="property">exports</span>.<span class="property">pitch</span> = <span class="keyword">function</span>(<span class="params">remainingRequest</span>)&#123;
+    <span class="keyword">const</span> path = remainingRequest.<span class="title function_">split</span>(<span class="string">&#x27;!&#x27;</span>).<span class="title function_">map</span>(<span class="function"><span class="params">absolutePath</span> =&gt;</span> &#123;
+        <span class="keyword">return</span> <span class="variable language_">this</span>.<span class="property">utils</span>.<span class="title function_">contextify</span>(<span class="variable language_">this</span>.<span class="property">context</span>,absolutePath)
+    &#125;).<span class="title function_">join</span>(<span class="string">&#x27;!&#x27;</span>)
+
+    <span class="keyword">const</span> script =<span class="string">`</span>
+<span class="string">        import style from &quot;!!<span class="subst">$&#123;path&#125;</span>&quot;</span>
+<span class="string">        const style1 = document.createElement(&#x27;style&#x27;)</span>
+<span class="string">        style1.innerHTML = style</span>
+<span class="string">        document.head.appendChild(style1)</span>
+<span class="string">        `</span>
+    <span class="comment">//终止后面loader的执行</span>
+    <span class="keyword">return</span> script
+&#125;</code></pre>
+
+<h2 id="11-plugin"><a href="#11-plugin" class="headerlink" title="11.plugin"></a>11.plugin</h2><h3 id="1-自定义plugin"><a href="#1-自定义plugin" class="headerlink" title="1.自定义plugin"></a>1.自定义plugin</h3><pre><code class="highlight javascript"><span class="keyword">class</span> <span class="title class_">TestPlugin</span>&#123;
+    <span class="title function_">constructor</span>(<span class="params"></span>)&#123;
+        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;this is constructor&quot;</span>)
+    &#125;
+    <span class="title function_">apply</span>(<span class="params">compile</span>)&#123;
+        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;compile&quot;</span>)
+    &#125;
+&#125;
+<span class="variable language_">module</span>.<span class="property">exports</span> = <span class="title class_">TestPlugin</span></code></pre>
+
+<h3 id="2-hooks的创建"><a href="#2-hooks的创建" class="headerlink" title="2.hooks的创建"></a>2.hooks的创建</h3><pre><code class="highlight javascript"><span class="title function_">apply</span>(<span class="params">compile</span>)&#123;
+    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;compile&quot;</span>)
+
+    compile.<span class="property">hooks</span>.<span class="property">environment</span>.<span class="title function_">tap</span>(<span class="string">&quot;TestPlugin&quot;</span>,<span class="function">()=&gt;</span>&#123;
+        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="number">1</span>)
+    &#125;)
+    compile.<span class="property">hooks</span>.<span class="property">emit</span>.<span class="title function_">tap</span>(<span class="string">&quot;TestPlugin&quot;</span>,<span class="function">()=&gt;</span>&#123;
+        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="number">2</span>)
+    &#125;)
+    compile.<span class="property">hooks</span>.<span class="property">emit</span>.<span class="title function_">tapAsync</span>(<span class="string">&quot;TestPlugin&quot;</span>,<span class="function">()=&gt;</span>&#123;
+        <span class="built_in">setTimeout</span>(<span class="function">()=&gt;</span>&#123;
+            <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="number">3</span>)
+        &#125;,<span class="number">1000</span>)
+    &#125;)
+&#125;</code></pre>
+
+<pre><code class="highlight javascript"><span class="keyword">class</span> <span class="title class_">TestPlugin</span> &#123;
+    <span class="title function_">constructor</span>(<span class="params"></span>) &#123;
+        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;this is constructor&quot;</span>)
+    &#125;
+    <span class="title function_">apply</span>(<span class="params">compiler</span>) &#123;
+        <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;compile&quot;</span>)
+
+        compiler.<span class="property">hooks</span>.<span class="property">environment</span>.<span class="title function_">tap</span>(<span class="string">&quot;TestPlugin&quot;</span>, <span class="function">() =&gt;</span> &#123;
+            <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="number">1</span>)
+        &#125;)
+        compiler.<span class="property">hooks</span>.<span class="property">emit</span>.<span class="title function_">tap</span>(<span class="string">&quot;TestPlugin&quot;</span>, <span class="function">(<span class="params">compilation</span>) =&gt;</span> &#123;
+            <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="number">2</span>)
+
+        &#125;)
+        compiler.<span class="property">hooks</span>.<span class="property">emit</span>.<span class="title function_">tapAsync</span>(<span class="string">&quot;TestPlugin&quot;</span>, <span class="function">(<span class="params">compilation,callback</span>) =&gt;</span> &#123;
+            compilation.<span class="property">hooks</span>.<span class="property">seal</span>.<span class="title function_">tap</span>(<span class="string">&quot;TestPlugin&quot;</span>, <span class="function">() =&gt;</span> &#123;
+                <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;Test&quot;</span>)
+            &#125;)
+            <span class="built_in">setTimeout</span>(<span class="function">() =&gt;</span> &#123;
+                <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="number">3</span>)
+                <span class="title function_">callback</span>()
+            &#125;, <span class="number">1000</span>)
+        &#125;)
+    &#125;
+&#125;</code></pre>
+
+<h3 id="3-在文件前添加注释的plugin"><a href="#3-在文件前添加注释的plugin" class="headerlink" title="3.在文件前添加注释的plugin"></a>3.在文件前添加注释的plugin</h3><pre><code class="highlight javascript"><span class="keyword">class</span> <span class="title class_">BannerPlugin</span>&#123;
+    <span class="title function_">apply</span>(<span class="params">compiler</span>)&#123;
+        compiler.<span class="property">hooks</span>.<span class="property">emit</span>.<span class="title function_">tap</span>(<span class="string">&quot;BannerPlugin&quot;</span>,<span class="function">(<span class="params">compilation</span>)=&gt;</span>&#123;
+            <span class="comment">//过滤图片资源，只保留js和css资源</span>
+            <span class="keyword">const</span> extension = [<span class="string">&#x27;js&#x27;</span>,<span class="string">&#x27;css&#x27;</span>]
+            <span class="comment">//过滤资源</span>
+            <span class="keyword">const</span> assets = <span class="title class_">Object</span>.<span class="title function_">keys</span>(compilation.<span class="property">assets</span>).<span class="title function_">filter</span>(<span class="function">(<span class="params">path</span>)=&gt;</span>&#123;
+                <span class="keyword">let</span> splitted = path.<span class="title function_">split</span>(<span class="string">&#x27;.&#x27;</span>)
+                <span class="keyword">const</span> ext = splitted[splitted.<span class="property">length</span>-<span class="number">1</span>]
+                <span class="keyword">return</span> extension.<span class="title function_">includes</span>(ext)
+            &#125;)
+            <span class="comment">//需要添加的注释前缀</span>
+            <span class="keyword">let</span> prefix = <span class="string">`/*</span>
+<span class="string">    Author:&quot;RC&quot;</span>
+<span class="string">*/`</span>
+            assets.<span class="title function_">forEach</span>(<span class="function"><span class="params">asset</span>=&gt;</span>&#123;
+                <span class="comment">//获取原来的内容</span>
+                <span class="keyword">let</span> source = compilation.<span class="property">assets</span>[asset].<span class="title function_">source</span>()
+                <span class="comment">//更改文件内容</span>
+                <span class="keyword">let</span> content = prefix+=source
+                compilation.<span class="property">assets</span>[asset] = &#123;
+                    <span class="comment">//source就是文件的具体内容</span>
+                    <span class="title function_">source</span>(<span class="params"></span>)&#123;
+                        <span class="keyword">return</span> content
+                    &#125;,
+                    <span class="comment">//资源大小</span>
+                    <span class="title function_">size</span>(<span class="params"></span>)&#123;
+                        <span class="keyword">return</span> content.<span class="property">length</span>
+                    &#125;
+                &#125;
+
+            &#125;)
+        &#125;)
+    &#125;
+&#125;
+
+<span class="variable language_">module</span>.<span class="property">exports</span> = <span class="title class_">BannerPlugin</span></code></pre>
+
+<blockquote>
+<p>传递参数</p>
+</blockquote>
+<pre><code class="highlight javascript"><span class="keyword">new</span> <span class="title class_">BannerPlugin</span>(&#123;
+    <span class="string">&quot;name&quot;</span>:<span class="string">&quot;wsRC&quot;</span>
+&#125;)
+<span class="title function_">constructor</span>(<span class="params">options = &#123;&#125;</span>)&#123;
+    <span class="variable language_">this</span>.<span class="property">options</span> = options
+&#125;</code></pre>
 
 
 

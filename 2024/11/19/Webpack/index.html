@@ -53,7 +53,7 @@
         <section class="post-title">
             <h2>Webpack</h2>
             <div class="post-meta">
-                <time class="date">2024.11.11</time>
+                <time class="date">2024.11.19</time>
             
                 <span class="category"><a class="category-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a></span>
             
@@ -1762,7 +1762,7 @@ npx server dist</code></pre>
 <blockquote>
 <p>按需导入</p>
 <p>npm install -D unplugin-vue-components unplugin-auto-import</p>
-<p>npm i <a href="mailto:&#x75;&#110;&#112;&#108;&#117;&#103;&#105;&#110;&#45;&#118;&#x75;&#x65;&#45;&#99;&#111;&#x6d;&#112;&#111;&#110;&#101;&#x6e;&#x74;&#x73;&#64;&#x30;&#46;&#50;&#x35;&#46;&#50;">&#x75;&#110;&#112;&#108;&#117;&#103;&#105;&#110;&#45;&#118;&#x75;&#x65;&#45;&#99;&#111;&#x6d;&#112;&#111;&#110;&#101;&#x6e;&#x74;&#x73;&#64;&#x30;&#46;&#50;&#x35;&#46;&#50;</a> -D npm install <a href="mailto:&#x75;&#110;&#x70;&#x6c;&#117;&#x67;&#x69;&#x6e;&#45;&#97;&#117;&#116;&#x6f;&#45;&#x69;&#109;&#112;&#111;&#x72;&#x74;&#x40;&#x30;&#46;&#49;&#x36;&#x2e;&#49;">&#x75;&#110;&#x70;&#x6c;&#117;&#x67;&#x69;&#x6e;&#45;&#97;&#117;&#116;&#x6f;&#45;&#x69;&#109;&#112;&#111;&#x72;&#x74;&#x40;&#x30;&#46;&#49;&#x36;&#x2e;&#49;</a> </p>
+<p>npm i <a href="mailto:&#x75;&#x6e;&#x70;&#108;&#117;&#x67;&#105;&#110;&#45;&#118;&#117;&#x65;&#45;&#x63;&#x6f;&#x6d;&#112;&#111;&#x6e;&#x65;&#110;&#116;&#115;&#64;&#x30;&#x2e;&#50;&#x35;&#x2e;&#x32;">&#x75;&#x6e;&#x70;&#108;&#117;&#x67;&#105;&#110;&#45;&#118;&#117;&#x65;&#45;&#x63;&#x6f;&#x6d;&#112;&#111;&#x6e;&#x65;&#110;&#116;&#115;&#64;&#x30;&#x2e;&#50;&#x35;&#x2e;&#x32;</a> -D npm install <a href="mailto:&#x75;&#x6e;&#112;&#x6c;&#x75;&#103;&#105;&#110;&#x2d;&#97;&#117;&#x74;&#x6f;&#45;&#105;&#109;&#112;&#x6f;&#x72;&#116;&#64;&#48;&#46;&#49;&#x36;&#46;&#49;">&#x75;&#x6e;&#112;&#x6c;&#x75;&#103;&#105;&#110;&#x2d;&#97;&#117;&#x74;&#x6f;&#45;&#105;&#109;&#112;&#x6f;&#x72;&#116;&#64;&#48;&#46;&#49;&#x36;&#46;&#49;</a> </p>
 </blockquote>
 <pre><code class="highlight javascript"><span class="comment">// webpack.config.js</span>
 <span class="keyword">const</span> <span class="title class_">AutoImport</span> = <span class="built_in">require</span>(<span class="string">&#x27;unplugin-auto-import/webpack&#x27;</span>)
@@ -2301,6 +2301,139 @@ npx server dist</code></pre>
     <span class="variable language_">this</span>.<span class="property">options</span> = options
 &#125;</code></pre>
 
+<h3 id="4-clean-plugins"><a href="#4-clean-plugins" class="headerlink" title="4.clean-plugins"></a>4.clean-plugins</h3><blockquote>
+<p>清空输出目录的资源</p>
+</blockquote>
+<pre><code class="highlight javascript"><span class="keyword">class</span> <span class="title class_">CleanPlugin</span>&#123;
+    
+    <span class="title function_">apply</span>(<span class="params">compiler</span>)&#123;
+        <span class="keyword">const</span> outputPath = compiler.<span class="property">options</span>.<span class="property">output</span>.<span class="property">path</span>
+        <span class="keyword">const</span> fs = compiler.<span class="property">outputFileSystem</span>
+        compiler.<span class="property">hooks</span>.<span class="property">emit</span>.<span class="title function_">tap</span>(<span class="string">&quot;CleanPlugin&quot;</span>,<span class="function">(<span class="params">compilation</span>)=&gt;</span>&#123;
+            <span class="variable language_">this</span>.<span class="title function_">removeFiles</span>(fs,outputPath)
+        &#125;)
+    &#125;
+    <span class="comment">//删除文件</span>
+    <span class="title function_">removeFiles</span>(<span class="params">fs,output</span>)&#123;
+        <span class="keyword">const</span> files = fs.<span class="title function_">readdirSync</span>(output)
+        files.<span class="title function_">forEach</span>(<span class="function"><span class="params">file</span> =&gt;</span> &#123;
+            <span class="keyword">let</span> filepath = <span class="string">`<span class="subst">$&#123;output&#125;</span>/<span class="subst">$&#123;file&#125;</span>`</span>
+            <span class="keyword">const</span> fileStat = fs.<span class="title function_">statSync</span>(filepath)
+            <span class="keyword">if</span> (fileStat.<span class="title function_">isDirectory</span>())&#123;
+                <span class="comment">//是文件夹</span>
+                <span class="variable language_">this</span>.<span class="title function_">removeFiles</span>(fs,filepath)
+            &#125;<span class="keyword">else</span>&#123;
+                <span class="comment">//是文件</span>
+                fs.<span class="title function_">unlinkSync</span>(filepath)
+            &#125;
+        &#125;);
+        
+    &#125;
+&#125;
+
+<span class="variable language_">module</span>.<span class="property">exports</span> = <span class="title class_">CleanPlugin</span></code></pre>
+
+<h3 id="5-AnalyzeWebpackPlugin"><a href="#5-AnalyzeWebpackPlugin" class="headerlink" title="5.AnalyzeWebpackPlugin"></a>5.AnalyzeWebpackPlugin</h3><blockquote>
+<p>分析包的大小</p>
+</blockquote>
+<pre><code class="highlight javascript"><span class="keyword">class</span> <span class="title class_">AnalyzePlugin</span>&#123;
+    <span class="title function_">apply</span>(<span class="params">compiler</span>)&#123;
+        compiler.<span class="property">hooks</span>.<span class="property">emit</span>.<span class="title function_">tap</span>(<span class="string">&quot;AnalyzePlugin&quot;</span>,<span class="function">(<span class="params">compilation</span>)=&gt;</span>&#123;
+            <span class="keyword">const</span> assets = <span class="title class_">Object</span>.<span class="title function_">entries</span>(compilation.<span class="property">assets</span>)
+<span class="keyword">let</span> content = <span class="string">`| 名称 | 大小 |</span>
+<span class="string">| --- | --- |`</span>   
+            assets.<span class="title function_">forEach</span>(<span class="function">(<span class="params">[filename,file]</span>)=&gt;</span>&#123;
+                content+=<span class="string">`\n| <span class="subst">$&#123;filename&#125;</span> | <span class="subst">$&#123;<span class="built_in">Math</span>.ceil(file.size() / <span class="number">1024</span>)&#125;</span>kb |`</span>
+            &#125;)
+
+            compilation.<span class="property">assets</span>[<span class="string">&quot;analyze.md&quot;</span>] = &#123;
+                <span class="title function_">source</span>(<span class="params"></span>)&#123;
+                    <span class="keyword">return</span> content
+                &#125;,
+                <span class="title function_">size</span>(<span class="params"></span>)&#123;
+                    <span class="keyword">return</span> content.<span class="property">length</span>
+                &#125;
+            &#125;
+        &#125;)
+    &#125;
+&#125;
+
+<span class="variable language_">module</span>.<span class="property">exports</span> = <span class="title class_">AnalyzePlugin</span></code></pre>
+
+<p>6.inlinePlugin</p>
+<blockquote>
+<p>将runtime文件内联到html文件</p>
+</blockquote>
+<pre><code class="highlight javascript"><span class="keyword">const</span> <span class="title class_">HtmlWebpackPlugin</span> = <span class="built_in">require</span>(<span class="string">&quot;safe-require&quot;</span>)(<span class="string">&quot;html-webpack-plugin&quot;</span>)
+
+<span class="keyword">class</span> <span class="title class_">InlinePlugin</span>&#123;
+    <span class="title function_">apply</span>(<span class="params">compiler</span>)&#123;
+        compiler.<span class="property">hooks</span>.<span class="property">compilation</span>.<span class="title function_">tap</span>(<span class="string">&quot;InlinePlugin&quot;</span>,<span class="function">(<span class="params">compilation</span>)=&gt;</span>&#123;
+            <span class="keyword">const</span> hooks = <span class="title class_">HtmlWebpackPlugin</span>.<span class="title function_">getHooks</span>(compilation)
+
+            <span class="comment">/* </span>
+<span class="comment">            &#123;</span>
+<span class="comment">                tagName: &#x27;script&#x27;,</span>
+<span class="comment">                voidTag: false,</span>
+<span class="comment">                meta: &#123; plugin: &#x27;html-webpack-plugin&#x27; &#125;,</span>
+<span class="comment">                attributes: &#123; defer: true, src: &#x27;js/main.js&#x27; &#125;</span>
+<span class="comment">            &#125;</span>
+<span class="comment">            */</span>
+            hooks.<span class="property">alterAssetTagGroups</span>.<span class="title function_">tap</span>(
+                <span class="string">&quot;InlinePlugin&quot;</span>,<span class="function">(<span class="params">assets</span>)=&gt;</span>&#123;
+                    assets.<span class="property">headTags</span> = <span class="variable language_">this</span>.<span class="title function_">getInlineChunk</span>(assets.<span class="property">headTags</span>,compilation.<span class="property">assets</span>)
+                    assets.<span class="property">bodyTags</span> = <span class="variable language_">this</span>.<span class="title function_">getInlineChunk</span>(assets.<span class="property">bodyTags</span>,compilation.<span class="property">assets</span>)
+                &#125;
+            )
+        &#125;)
+        
+    &#125;
+    <span class="title function_">getInlineChunk</span>(<span class="params">tags,assets</span>)&#123;
+        <span class="keyword">return</span> tags.<span class="title function_">map</span>(<span class="function">(<span class="params">tag</span>)=&gt;</span>&#123;
+            <span class="keyword">if</span> (tag.<span class="property">tagName</span> != <span class="string">&quot;script&quot;</span>) <span class="keyword">return</span> tag
+            <span class="keyword">const</span> filepath = tag.<span class="property">attributes</span>.<span class="property">src</span>
+            <span class="keyword">if</span> (!filepath) <span class="keyword">return</span> tag
+            <span class="keyword">if</span> (!<span class="regexp">/runtime(.*)\.js$/g</span>.<span class="title function_">test</span>(filepath)) <span class="keyword">return</span> tag
+
+            <span class="keyword">return</span>   &#123;
+                <span class="attr">tagName</span>: <span class="string">&#x27;script&#x27;</span>,
+                <span class="attr">innerHTML</span>: assets[filepath].<span class="title function_">source</span>(),
+                <span class="attr">closeTag</span>:<span class="literal">true</span>
+            &#125;
+        &#125;)
+    &#125;
+&#125;
+
+<span class="variable language_">module</span>.<span class="property">exports</span> = <span class="title class_">InlinePlugin</span></code></pre>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -2349,7 +2482,7 @@ npx server dist</code></pre>
             <div class="row">
                 <div class="col-m-4">
                     <h3 class="title-recent">最新文章：</h3>
-                    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2024/11/11/Webpack/">Webpack</a></li><li class="post-list-item"><a class="post-list-link" href="/2024/11/09/Node.js/">NodeJs</a></li><li class="post-list-item"><a class="post-list-link" href="/2024/11/05/Docker%E5%92%8Cmysql%E7%9A%84%E6%90%AD%E5%BB%BA/">Docker&mysql&nacos</a></li><li class="post-list-item"><a class="post-list-link" href="/2024/11/02/Unity3D/">Unity</a></li><li class="post-list-item"><a class="post-list-link" href="/2024/10/31/Uni-App/">Uni-App</a></li><li class="post-list-item"><a class="post-list-link" href="/2024/10/30/Flutter/">Flutter</a></li></ul>
+                    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2024/11/19/Webpack/">Webpack</a></li><li class="post-list-item"><a class="post-list-link" href="/2024/11/09/Node.js/">NodeJs</a></li><li class="post-list-item"><a class="post-list-link" href="/2024/11/05/Docker%E5%92%8Cmysql%E7%9A%84%E6%90%AD%E5%BB%BA/">Docker&mysql&nacos</a></li><li class="post-list-item"><a class="post-list-link" href="/2024/11/02/Unity3D/">Unity</a></li><li class="post-list-item"><a class="post-list-link" href="/2024/10/31/Uni-App/">Uni-App</a></li><li class="post-list-item"><a class="post-list-link" href="/2024/10/30/Flutter/">Flutter</a></li></ul>
                 </div>
                 <div class="col-m-4">
                     <h3 class="title-date">时光机：</h3>

@@ -2571,18 +2571,19 @@ testImplementation (&quot;androidx.room:room-testing:2.2.6&quot;)</code></pre>
 
 <blockquote>
 <p>uri  通用资源标识符   代表数据操作的地址  每一个ContentProvider都有一个唯一的值。ContentProvider使用的Uri的语法结构如下</p>
+<p>在 Android 中，<code>ContentProvider</code>使用的<code>Uri</code>（统一资源标识符）有一个标准的语法结构。一般形式为<code>content://authority/path</code>。</p>
+<p>conten:&#x2F;&#x2F;是一个固定的前缀，用于表明这是一个内容提供者（<code>ContentProvider</code>）相关的<code>Uri</code>，所有通过<code>ContentResolver</code>访问<code>ContentProvider</code>的<code>Uri</code>都以这个前缀开头。</p>
+<p>关键部分之一，它用于唯一标识一个ContentProvider。通常，authority是一个字符串，格式类似于一个包名或者反向域名（例如com.example.app.provider）。在AndroidManifest.xml文件中，当注册ContentProvider时，android:authorities属性的值就是这个authority。</p>
+<pre><code class="highlight xml"><span class="tag">&lt;<span class="name">provider</span></span>
+<span class="tag">    <span class="attr">android:name</span>=<span class="string">&quot;.MyContentProvider&quot;</span></span>
+<span class="tag">    <span class="attr">android:authorities</span>=<span class="string">&quot;com.example.myapp.provider&quot;</span></span>
+<span class="tag">    <span class="attr">android:exported</span>=<span class="string">&quot;true&quot;</span>/&gt;</span></code></pre>
+
+<p>应用通过这个<code>authority</code>来定位要访问的<code>ContentProvider</code>。不同的<code>ContentProvider</code>应该有不同的<code>authority</code>，以避免冲突。</p>
+<p>path<code>是可选的，它用于在一个</code>ContentProvider<code>内部进一步划分资源或者数据集合。例如，一个</code>ContentProvider<code>可能管理用户信息和订单信息，那么可以通过不同的</code>path<code>来区分访问用户信息（如</code>content:&#x2F;&#x2F;com.example.myapp.provider&#x2F;users<code>）和访问订单信息（如</code>content:&#x2F;&#x2F;com.example.myapp.provider&#x2F;orders<code>）。</code></p>
+<p><code>path</code>可以包含多层路径，例如<code>content://com.example.myapp.provider/users/profile</code>，可以用于更精细地划分数据访问路径，这里可能表示访问用户信息中的用户资料部分。</p>
 </blockquote>
-<pre><code class="highlight java"><span class="keyword">package</span> com.richuff.server.provider;
-
-<span class="keyword">import</span> android.content.ContentProvider;
-<span class="keyword">import</span> android.content.ContentValues;
-<span class="keyword">import</span> android.database.Cursor;
-<span class="keyword">import</span> android.database.sqlite.SQLiteDatabase;
-<span class="keyword">import</span> android.net.Uri;
-
-<span class="keyword">import</span> com.richuff.server.database.UserinfoDatabase;
-
-<span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">UserinfoProvider</span> <span class="keyword">extends</span> <span class="title class_">ContentProvider</span> &#123;
+<pre><code class="highlight java"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">UserinfoProvider</span> <span class="keyword">extends</span> <span class="title class_">ContentProvider</span> &#123;
     <span class="keyword">private</span> UserinfoDatabase userinfoDatabase;
     <span class="keyword">public</span> <span class="title function_">UserinfoProvider</span><span class="params">()</span> &#123;
 
@@ -2590,22 +2591,22 @@ testImplementation (&quot;androidx.room:room-testing:2.2.6&quot;)</code></pre>
 
     <span class="meta">@Override</span>
     <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">delete</span><span class="params">(Uri uri, String selection, String[] selectionArgs)</span> &#123;
-        <span class="comment">// Implement this to handle requests to delete one or more rows.</span>
         <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">UnsupportedOperationException</span>(<span class="string">&quot;Not yet implemented&quot;</span>);
     &#125;
 
     <span class="meta">@Override</span>
     <span class="keyword">public</span> String <span class="title function_">getType</span><span class="params">(Uri uri)</span> &#123;
-        <span class="comment">// <span class="doctag">TODO:</span> Implement this to handle requests for the MIME type of the data</span>
-        <span class="comment">// at the given URI.</span>
         <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">UnsupportedOperationException</span>(<span class="string">&quot;Not yet implemented&quot;</span>);
     &#125;
 
+    <span class="comment">//添加</span>
     <span class="meta">@Override</span>
     <span class="keyword">public</span> Uri <span class="title function_">insert</span><span class="params">(Uri uri, ContentValues values)</span> &#123;
-        <span class="type">SQLiteDatabase</span> <span class="variable">db</span> <span class="operator">=</span> userinfoDatabase.getWritableDatabase();
-        db.insert(UserinfoDatabase.TABLE_NAME,<span class="literal">null</span>,values);
-        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">UnsupportedOperationException</span>(<span class="string">&quot;Not yet implemented&quot;</span>);
+        <span class="keyword">if</span> (<span class="string">&quot;/user&quot;</span>.equals(uri.getPath())) &#123;
+            <span class="type">SQLiteDatabase</span> <span class="variable">db</span> <span class="operator">=</span> userinfoDatabase.getWritableDatabase();
+            db.insert(UserinfoDatabase.TABLE_NAME, <span class="literal">null</span>, values);
+        &#125;
+        <span class="keyword">return</span> uri;
     &#125;
 
     <span class="meta">@Override</span>
@@ -2614,23 +2615,23 @@ testImplementation (&quot;androidx.room:room-testing:2.2.6&quot;)</code></pre>
         <span class="keyword">return</span> <span class="literal">true</span>;
     &#125;
 
+    <span class="comment">//查询</span>
     <span class="meta">@Override</span>
     <span class="keyword">public</span> Cursor <span class="title function_">query</span><span class="params">(Uri uri, String[] projection, String selection,</span>
 <span class="params">                        String[] selectionArgs, String sortOrder)</span> &#123;
         <span class="type">SQLiteDatabase</span> <span class="variable">db</span> <span class="operator">=</span> userinfoDatabase.getReadableDatabase();
-        <span class="keyword">return</span> db.query(UserinfoDatabase.TABLE_NAME, projection, selection, selectionArgs, <span class="literal">null</span>, <span class="literal">null</span>, <span class="literal">null</span>);    
+        <span class="keyword">return</span> db.query(UserinfoDatabase.TABLE_NAME, projection, selection, selectionArgs, <span class="literal">null</span>, <span class="literal">null</span>, <span class="literal">null</span>);
     &#125;
 
     <span class="meta">@Override</span>
     <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">update</span><span class="params">(Uri uri, ContentValues values, String selection,</span>
 <span class="params">                      String[] selectionArgs)</span> &#123;
-        <span class="comment">// <span class="doctag">TODO:</span> Implement this to handle requests to update one or more rows.</span>
         <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">UnsupportedOperationException</span>(<span class="string">&quot;Not yet implemented&quot;</span>);
     &#125;
 &#125;</code></pre>
 
-<h3 id="2-service端代码"><a href="#2-service端代码" class="headerlink" title="2.service端代码"></a>2.service端代码</h3><blockquote>
-<p>通过ContentResolver访问数据</p>
+<h3 id="2-client端代码"><a href="#2-client端代码" class="headerlink" title="2.client端代码"></a>2.client端代码</h3><blockquote>
+<p>通过<code>ContentResolver</code>访问数据</p>
 </blockquote>
 <pre><code class="highlight java"><span class="type">ContentValues</span> <span class="variable">values</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ContentValues</span>();
 values.put(UserinfoContent.PASSWORD,<span class="string">&quot;test&quot;</span>);
@@ -2639,24 +2640,100 @@ values.put(UserinfoContent.ISCHECKED,<span class="number">1</span>);
 getContentResolver().insert(UserinfoContent.CONTENT_URI,values);</code></pre>
 
 <blockquote>
-<p>使用getContentResolver()获取数据</p>
+<p>使用<code>getContentResolver()</code>获取数据</p>
 </blockquote>
-<pre><code class="highlight java"><span class="type">Cursor</span> <span class="variable">query</span> <span class="operator">=</span> getContentResolver().query(UserinfoContent.CONTENT_URI, <span class="literal">null</span>, <span class="literal">null</span>, <span class="literal">null</span>, <span class="literal">null</span>, <span class="literal">null</span>);
-<span class="keyword">if</span> (query != <span class="literal">null</span>)&#123;
-    <span class="keyword">while</span> (query != <span class="literal">null</span>)&#123;
-        <span class="type">String</span> <span class="variable">password</span> <span class="operator">=</span> query.getString(query.getColumnIndex(UserinfoContent.PASSWORD));
-        <span class="type">String</span> <span class="variable">phone</span> <span class="operator">=</span> query.getString(query.getColumnIndex(UserinfoContent.PHONE));
-        <span class="type">int</span> <span class="variable">ischecked</span> <span class="operator">=</span> query.getInt(query.getColumnIndex(UserinfoContent.ISCHECKED));
-    &#125;
-    query.close();
-&#125;</code></pre>
+<pre><code class="highlight java"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">onClick</span><span class="params">(View v)</span> &#123;
+        <span class="keyword">if</span> (v.getId() == R.id.read)&#123;
+            <span class="comment">//查询</span>
+            <span class="type">Cursor</span> <span class="variable">cursor</span> <span class="operator">=</span> getContentResolver().query(UserinfoContent.CONTENT_URI,<span class="literal">null</span>,<span class="literal">null</span>,<span class="literal">null</span>,<span class="literal">null</span>,<span class="literal">null</span>);
+            <span class="keyword">if</span> (cursor != <span class="literal">null</span>)&#123;
+                <span class="keyword">while</span> (cursor.moveToNext())&#123;
+                    <span class="comment">//接收数据</span>
+                    <span class="type">User</span> <span class="variable">info</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">User</span>();
+                    info.id = cursor.getInt(cursor.getColumnIndex(UserinfoContent._ID));
+                    info.name = cursor.getString(cursor.getColumnIndex(UserinfoContent.NAME));
+
+                    info.height = cursor.getLong(cursor.getColumnIndex(UserinfoContent.HEIGHT));
+                    info.age = cursor.getInt(cursor.getColumnIndex(UserinfoContent.AGE));
+                    info.weight = cursor.getFloat(cursor.getColumnIndex(UserinfoContent.WEIGHT));
+				
+                    Log.d(<span class="string">&quot;mytag&quot;</span>, info.toString());
+                &#125;
+                <span class="comment">//关闭cursor</span>
+                cursor.close();
+            &#125;
+
+        &#125;<span class="keyword">else</span> <span class="keyword">if</span> (v.getId() == R.id.write)&#123;
+            <span class="comment">//保存</span>
+            <span class="type">ContentValues</span> <span class="variable">values</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ContentValues</span>();
+            values.put(UserinfoContent.NAME,name.getText().toString());
+            values.put(UserinfoContent.AGE,age.getText().toString());
+            values.put(UserinfoContent.HEIGHT,height.getText().toString());
+            values.put(UserinfoContent.WEIGHT,weight.getText().toString());
+            <span class="comment">//插入数据</span>
+            getContentResolver().insert(UserinfoContent.CONTENT_URI,values);
+            <span class="comment">//弹窗提示</span>
+            Toastshow.show(<span class="built_in">this</span>,<span class="string">&quot;保存成功&quot;</span>);
+        &#125;
+    &#125;</code></pre>
 
 <blockquote>
-<p>在android11之后要提前声明</p>
+<p>在android11之后要提前声明<br>在<code>AndroidManifest.xml</code>文件中声明需要访问的其他软件包</p>
 </blockquote>
 <pre><code class="highlight xml"><span class="tag">&lt;<span class="name">queries</span>&gt;</span>
     <span class="tag">&lt;<span class="name">provider</span> <span class="attr">android:authorities</span>=<span class="string">&quot;com.richuff.server.provider.UserinfoProvider&quot;</span>/&gt;</span>
 <span class="tag">&lt;/<span class="name">queries</span>&gt;</span></code></pre>
+
+<blockquote>
+<p>提供contentprovider的uri</p>
+</blockquote>
+<pre><code class="highlight java"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">UserinfoContent</span> &#123;
+    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">String</span> <span class="variable">AUTHORITIES</span> <span class="operator">=</span> <span class="string">&quot;com.richuff.server.provider.UserinfoProvider&quot;</span>; <span class="comment">//服务端的具体类名</span>
+    <span class="comment">//访问内容器的URI</span>
+    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">Uri</span> <span class="variable">CONTENT_URI</span> <span class="operator">=</span> Uri.parse(<span class="string">&quot;content://&quot;</span>+AUTHORITIES+<span class="string">&quot;/user&quot;</span>);
+
+    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">String</span> <span class="variable">HEIGHT</span> <span class="operator">=</span> <span class="string">&quot;height&quot;</span>;
+    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">String</span> <span class="variable">NAME</span> <span class="operator">=</span> <span class="string">&quot;name&quot;</span>;
+
+    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">String</span> <span class="variable">WEIGHT</span> <span class="operator">=</span> <span class="string">&quot;weight&quot;</span>;
+    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">String</span> <span class="variable">AGE</span> <span class="operator">=</span> <span class="string">&quot;age&quot;</span>;
+&#125;</code></pre>
+
+<h3 id="3-进行数据的删除"><a href="#3-进行数据的删除" class="headerlink" title="3.进行数据的删除"></a>3.进行数据的删除</h3><blockquote>
+<p>在provider中修改delete函数</p>
+</blockquote>
+<pre><code class="highlight java"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">delete</span><span class="params">(Uri uri, String selection, String[] selectionArgs)</span> &#123;
+    <span class="type">SQLiteDatabase</span> <span class="variable">db</span> <span class="operator">=</span> UserinfoDatabase.mhelper.getWritableDatabase();
+    <span class="type">int</span> <span class="variable">count</span> <span class="operator">=</span> db.delete(UserinfoDatabase.TABLE_NAME,selection,selectionArgs);
+    db.close();
+    <span class="comment">//删除的个数</span>
+    <span class="keyword">return</span> count;
+&#125;</code></pre>
+
+<blockquote>
+<p>使用provider</p>
+</blockquote>
+<pre><code class="highlight java"><span class="type">int</span> <span class="variable">count</span> <span class="operator">=</span> getContentResolver().delete(UserinfoContent.CONTENT_URI, <span class="string">&quot;name=?&quot;</span>, <span class="keyword">new</span> <span class="title class_">String</span>[]&#123;<span class="string">&quot;rc&quot;</span>&#125;);
+<span class="keyword">if</span> (count &gt; <span class="number">0</span>)&#123;
+    Toastshow.show(<span class="built_in">this</span>,<span class="string">&quot;删除成功&quot;</span>);
+&#125;</code></pre>
+
+<blockquote>
+<p>在provider中选择路径匹配</p>
+</blockquote>
+<pre><code class="highlight java"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> UriMatcher URI_MATCHER= <span class="keyword">new</span> <span class="title class_">UriMatcher</span>(UriMatcher.NO_MATCH);
+
+<span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">int</span> <span class="variable">USERS</span> <span class="operator">=</span> <span class="number">1</span>;
+<span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">int</span> <span class="variable">USER</span> <span class="operator">=</span> <span class="number">2</span>;
+
+<span class="keyword">static</span> &#123;
+    URI_MATCHER.addURI(UserinfoContent.AUTHORITIES,<span class="string">&quot;/user&quot;</span>,USERS);
+    URI_MATCHER.addURI(UserinfoContent.AUTHORITIES,<span class="string">&quot;/user/#&quot;</span>,USER);
+&#125;</code></pre>
+
+
+
+
 
 
 

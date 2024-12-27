@@ -2703,17 +2703,34 @@ getContentResolver().insert(UserinfoContent.CONTENT_URI,values);</code></pre>
 <p>在provider中修改delete函数</p>
 </blockquote>
 <pre><code class="highlight java"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">delete</span><span class="params">(Uri uri, String selection, String[] selectionArgs)</span> &#123;
-    <span class="type">SQLiteDatabase</span> <span class="variable">db</span> <span class="operator">=</span> UserinfoDatabase.mhelper.getWritableDatabase();
-    <span class="type">int</span> <span class="variable">count</span> <span class="operator">=</span> db.delete(UserinfoDatabase.TABLE_NAME,selection,selectionArgs);
-    db.close();
-    <span class="comment">//删除的个数</span>
+    <span class="type">int</span> <span class="variable">count</span> <span class="operator">=</span> <span class="number">0</span>;
+    <span class="comment">//删除多行</span>
+    <span class="keyword">if</span> (URI_MATCHER.match(uri) == USERS)&#123;
+        <span class="type">SQLiteDatabase</span> <span class="variable">db</span> <span class="operator">=</span> UserinfoDatabase.mhelper.getWritableDatabase();
+        count = db.delete(UserinfoDatabase.TABLE_NAME,selection,selectionArgs);
+        db.close();
+    &#125; 
+    <span class="comment">//删除单行</span>
+    <span class="keyword">else</span> <span class="keyword">if</span> (URI_MATCHER.match(uri) == USER) &#123;
+        <span class="type">String</span> <span class="variable">id</span> <span class="operator">=</span> uri.getLastPathSegment();
+        <span class="type">SQLiteDatabase</span> <span class="variable">db</span> <span class="operator">=</span> UserinfoDatabase.mhelper.getWritableDatabase();
+        count = db.delete(UserinfoDatabase.TABLE_NAME,<span class="string">&quot;_id=?&quot;</span>,<span class="keyword">new</span> <span class="title class_">String</span>[]&#123;id&#125;);
+        db.close();
+    &#125;
     <span class="keyword">return</span> count;
 &#125;</code></pre>
 
 <blockquote>
 <p>使用provider</p>
 </blockquote>
-<pre><code class="highlight java"><span class="type">int</span> <span class="variable">count</span> <span class="operator">=</span> getContentResolver().delete(UserinfoContent.CONTENT_URI, <span class="string">&quot;name=?&quot;</span>, <span class="keyword">new</span> <span class="title class_">String</span>[]&#123;<span class="string">&quot;rc&quot;</span>&#125;);
+<pre><code class="highlight java"><span class="comment">//删除多行</span>
+<span class="type">int</span> <span class="variable">count</span> <span class="operator">=</span> getContentResolver().delete(UserinfoContent.CONTENT_URI, <span class="string">&quot;name=?&quot;</span>, <span class="keyword">new</span> <span class="title class_">String</span>[]&#123;<span class="string">&quot;rc&quot;</span>&#125;);
+<span class="keyword">if</span> (count &gt; <span class="number">0</span>)&#123;
+    Toastshow.show(<span class="built_in">this</span>,<span class="string">&quot;删除成功&quot;</span>);
+&#125;
+<span class="comment">//删除单行</span>
+<span class="type">Uri</span> <span class="variable">uri</span> <span class="operator">=</span> ContentUris.withAppendedId(UserinfoContent.CONTENT_URI,<span class="number">2</span>); <span class="comment">//在uri后面附加一个/2</span>
+<span class="type">int</span> <span class="variable">count</span> <span class="operator">=</span> getContentResolver().delete(uri, <span class="string">&quot;name=?&quot;</span>, <span class="keyword">new</span> <span class="title class_">String</span>[]&#123;<span class="string">&quot;rc&quot;</span>&#125;);
 <span class="keyword">if</span> (count &gt; <span class="number">0</span>)&#123;
     Toastshow.show(<span class="built_in">this</span>,<span class="string">&quot;删除成功&quot;</span>);
 &#125;</code></pre>
@@ -2730,6 +2747,84 @@ getContentResolver().insert(UserinfoContent.CONTENT_URI,values);</code></pre>
     URI_MATCHER.addURI(UserinfoContent.AUTHORITIES,<span class="string">&quot;/user&quot;</span>,USERS);
     URI_MATCHER.addURI(UserinfoContent.AUTHORITIES,<span class="string">&quot;/user/#&quot;</span>,USER);
 &#125;</code></pre>
+
+<h2 id="14-运行时动态申请权限"><a href="#14-运行时动态申请权限" class="headerlink" title="14.运行时动态申请权限"></a>14.运行时动态申请权限</h2><p>1.检查App是否开启了某个权限</p>
+<pre><code class="highlight java"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String[] PERMISSION_CONTACTS = <span class="keyword">new</span> <span class="title class_">String</span>[]&#123;
+    Manifest.permission.READ_CONTACTS,
+    Manifest.permission.WRITE_CONTACTS
+&#125;;
+
+<span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String[] PERMISSION_SMS = <span class="keyword">new</span> <span class="title class_">String</span>[]&#123;
+    Manifest.permission.READ_SMS,
+    Manifest.permission.SEND_SMS
+&#125;;
+<span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">int</span> <span class="variable">REQUEST_CODE_CONTACTS</span> <span class="operator">=</span> <span class="number">1</span>;
+<span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">int</span> <span class="variable">REQUEST_CODE_SMS</span> <span class="operator">=</span> <span class="number">2</span>;
+
+</code></pre>
+
+<p>2.请求系统弹窗，以便用户选择是否开启权限</p>
+<pre><code class="highlight java"><span class="keyword">public</span> <span class="keyword">static</span> <span class="type">boolean</span> <span class="title function_">checkPermission</span><span class="params">(Activity act,String[] permissions,<span class="type">int</span> requestCode)</span>&#123;
+    <span class="type">int</span> <span class="variable">check</span> <span class="operator">=</span> PackageManager.PERMISSION_GRANTED;
+    <span class="keyword">for</span> (String permission:permissions)&#123;
+        check = ContextCompat.checkSelfPermission(act,permission);
+        <span class="keyword">if</span> (check != PackageManager.PERMISSION_GRANTED)&#123;
+            <span class="keyword">break</span>;
+        &#125;
+    &#125;
+    <span class="keyword">if</span> (check != PackageManager.PERMISSION_GRANTED)&#123;
+        ActivityCompat.requestPermissions(act, permissions, requestCode);
+        <span class="keyword">return</span> <span class="literal">false</span>;
+    &#125;
+
+    <span class="keyword">return</span> <span class="literal">true</span>;
+&#125;</code></pre>
+
+<p>3.判断用户的权限选择结果</p>
+<pre><code class="highlight java"><span class="keyword">public</span> <span class="keyword">static</span> <span class="type">boolean</span> <span class="title function_">checkGrant</span><span class="params">(<span class="type">int</span>[] grantResults)</span> &#123;
+    <span class="keyword">if</span> (grantResults != <span class="literal">null</span>) &#123;
+        <span class="keyword">for</span> (<span class="type">int</span> grantResult : grantResults) &#123;
+            <span class="keyword">if</span> (grantResult != PackageManager.PERMISSION_GRANTED) &#123;
+                <span class="keyword">return</span> <span class="literal">false</span>;
+            &#125;
+        &#125;
+        <span class="keyword">return</span> <span class="literal">true</span>;
+    &#125;
+    <span class="keyword">return</span> <span class="literal">false</span>;
+&#125;</code></pre>
+
+<blockquote>
+<p>跳转到setting页面</p>
+</blockquote>
+<pre><code class="highlight java"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">goToSetting</span><span class="params">()</span>&#123;
+    <span class="type">Intent</span> <span class="variable">intent</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Intent</span>();
+    intent.setAction(Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+    intent.setData(Uri.fromParts(<span class="string">&quot;package&quot;</span>,getPackageName(),<span class="literal">null</span>));
+    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+    startActivity(intent);
+&#125;</code></pre>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 

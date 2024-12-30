@@ -2748,7 +2748,15 @@ getContentResolver().insert(UserinfoContent.CONTENT_URI,values);</code></pre>
     URI_MATCHER.addURI(UserinfoContent.AUTHORITIES,<span class="string">&quot;/user/#&quot;</span>,USER);
 &#125;</code></pre>
 
-<h2 id="14-运行时动态申请权限"><a href="#14-运行时动态申请权限" class="headerlink" title="14.运行时动态申请权限"></a>14.运行时动态申请权限</h2><p>1.检查App是否开启了某个权限</p>
+<h2 id="14-运行时动态申请权限"><a href="#14-运行时动态申请权限" class="headerlink" title="14.运行时动态申请权限"></a>14.运行时动态申请权限</h2><blockquote>
+<p>提前声明需要的权限</p>
+</blockquote>
+<pre><code class="highlight xml"><span class="tag">&lt;<span class="name">uses-permission</span> <span class="attr">android:name</span>=<span class="string">&quot;android.permission.READ_CONTACTS&quot;</span>/&gt;</span>
+<span class="tag">&lt;<span class="name">uses-permission</span> <span class="attr">android:name</span>=<span class="string">&quot;android.permission.WRITE_CONTACTS&quot;</span>/&gt;</span>
+<span class="tag">&lt;<span class="name">uses-permission</span> <span class="attr">android:name</span>=<span class="string">&quot;android.permission.READ_SMS&quot;</span>/&gt;</span>
+<span class="tag">&lt;<span class="name">uses-permission</span> <span class="attr">android:name</span>=<span class="string">&quot;android.permission.SEND_SMS&quot;</span>/&gt;</span></code></pre>
+
+<p>1.检查App是否开启了某个权限</p>
 <pre><code class="highlight java"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String[] PERMISSION_CONTACTS = <span class="keyword">new</span> <span class="title class_">String</span>[]&#123;
     Manifest.permission.READ_CONTACTS,
     Manifest.permission.WRITE_CONTACTS
@@ -2804,19 +2812,168 @@ getContentResolver().insert(UserinfoContent.CONTENT_URI,values);</code></pre>
     startActivity(intent);
 &#125;</code></pre>
 
+<h2 id="15-通讯录"><a href="#15-通讯录" class="headerlink" title="15.通讯录"></a>15.通讯录</h2><h3 id="1-添加联系人"><a href="#1-添加联系人" class="headerlink" title="1.添加联系人"></a>1.添加联系人</h3><pre><code class="highlight java"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">addContact</span><span class="params">(ContentResolver contentResolver, Contact contact)</span> &#123;
+    <span class="type">ContentValues</span> <span class="variable">values</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ContentValues</span>();
 
+    <span class="type">Uri</span> <span class="variable">uri</span> <span class="operator">=</span> contentResolver.insert(ContactsContract.RawContacts.CONTENT_URI, values);
+    <span class="type">long</span> <span class="variable">rawContentID</span> <span class="operator">=</span> ContentUris.parseId(uri);
+    <span class="type">ContentValues</span> <span class="variable">name</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ContentValues</span>();
+    <span class="comment">//关联联系人编号</span>
+    name.put(ContactsContract.Data.RAW_CONTACT_ID,rawContentID);
+    <span class="comment">//姓名的数据类型</span>
+    name.put(ContactsContract.Data.MIMETYPE, ContactsContract.CommonDataKinds.StructuredName.CONTENT_ITEM_TYPE);
+    <span class="comment">//添加的类型 1表示家庭 2表示工作</span>
+    name.put(ContactsContract.Data.DATA2,contact.name);
+    <span class="comment">//联系人的姓名</span>
+    contentResolver.insert(ContactsContract.Data.CONTENT_URI,name);
 
+    <span class="type">ContentValues</span> <span class="variable">phone</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ContentValues</span>();
+    <span class="comment">//关联联系人编号</span>
+    phone.put(ContactsContract.Data.RAW_CONTACT_ID,rawContentID);
+    <span class="comment">//姓名的数据类型</span>
+    phone.put(ContactsContract.Data.MIMETYPE, ContactsContract.CommonDataKinds.Phone.CONTENT_ITEM_TYPE);
+    <span class="comment">//添加的类型 1表示家庭 2表示工作</span>
+    phone.put(ContactsContract.Data.DATA1,contact.phone);
+    phone.put(ContactsContract.Data.DATA2,ContactsContract.CommonDataKinds.Phone.TYPE_MOBILE);
+    <span class="comment">//联系人的手机号</span>
+    contentResolver.insert(ContactsContract.Data.CONTENT_URI,phone);
 
+    <span class="type">ContentValues</span> <span class="variable">email</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ContentValues</span>();
+    <span class="comment">//关联联系人编号</span>
+    email.put(ContactsContract.Data.RAW_CONTACT_ID,rawContentID);
+    <span class="comment">//姓名的数据类型</span>
+    email.put(ContactsContract.Data.MIMETYPE, ContactsContract.CommonDataKinds.Email.CONTENT_ITEM_TYPE);
+    <span class="comment">//添加的类型 1表示家庭 2表示工作</span>
+    email.put(ContactsContract.Data.DATA1,contact.email);
+    email.put(ContactsContract.Data.DATA2,ContactsContract.CommonDataKinds.Email.TYPE_WORK);
+    <span class="comment">//联系人的手机号</span>
+    contentResolver.insert(ContactsContract.Data.CONTENT_URI,email);
+&#125;</code></pre>
 
+<h3 id="2-批量添加联系人"><a href="#2-批量添加联系人" class="headerlink" title="2.批量添加联系人"></a>2.批量添加联系人</h3><pre><code class="highlight java"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">addFullContacts</span><span class="params">(ContentResolver contentResolver, Contact contact)</span>&#123;
+    <span class="type">ContentProviderOperation</span> <span class="variable">op_main</span> <span class="operator">=</span> ContentProviderOperation.
+        newInsert(ContactsContract.Data.CONTENT_URI).withValue(ContactsContract.RawContacts.ACCOUNT_NAME,<span class="literal">null</span>).
+        build();
 
+    <span class="type">ContentProviderOperation</span> <span class="variable">op_name</span> <span class="operator">=</span> ContentProviderOperation.newInsert(ContactsContract.Data.CONTENT_URI).
+        <span class="comment">//将第0个操作的id，即raw_contracts的id作为data表中的raw_contract_id</span>
+        withValueBackReference(ContactsContract.Data.RAW_CONTACT_ID,<span class="number">0</span>).
+        withValue(ContactsContract.Data.MIMETYPE, ContactsContract.CommonDataKinds.StructuredName.CONTENT_ITEM_TYPE)
+        .withValue(ContactsContract.Data.DATA2,contact.name)
+        .build();
 
+    <span class="type">ContentProviderOperation</span> <span class="variable">op_phone</span> <span class="operator">=</span> ContentProviderOperation.newInsert(ContactsContract.Data.CONTENT_URI).
+        <span class="comment">//将第0个操作的id，即raw_contracts的id作为data表中的raw_contract_id</span>
+        withValueBackReference(ContactsContract.Data.RAW_CONTACT_ID,<span class="number">0</span>).
+        withValue(ContactsContract.Data.MIMETYPE, ContactsContract.CommonDataKinds.Phone.CONTENT_ITEM_TYPE)
+        .withValue(ContactsContract.Data.DATA1,contact.phone)
+        .withValue(ContactsContract.Data.DATA2,ContactsContract.CommonDataKinds.Phone.TYPE_MOBILE)
+        .build();
 
+    <span class="type">ContentProviderOperation</span> <span class="variable">op_email</span> <span class="operator">=</span> ContentProviderOperation.newInsert(ContactsContract.Data.CONTENT_URI).
+        <span class="comment">//将第0个操作的id，即raw_contracts的id作为data表中的raw_contract_id</span>
+        withValueBackReference(ContactsContract.Data.RAW_CONTACT_ID,<span class="number">0</span>).
+        withValue(ContactsContract.Data.MIMETYPE, ContactsContract.CommonDataKinds.Email.CONTENT_ITEM_TYPE)
+        .withValue(ContactsContract.Data.DATA1,contact.email)
+        .withValue(ContactsContract.Data.DATA2,ContactsContract.CommonDataKinds.Email.TYPE_WORK)
+        .build();
 
+    ArrayList&lt;ContentProviderOperation&gt; operations = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();
+    operations.add(op_main);
+    operations.add(op_name);
+    operations.add(op_phone);
+    operations.add(op_email);
 
+    <span class="keyword">try</span> &#123;
+        contentResolver.applyBatch(ContactsContract.AUTHORITY,operations);
+    &#125; <span class="keyword">catch</span> (OperationApplicationException e) &#123;
+        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">RuntimeException</span>(e);
+    &#125; <span class="keyword">catch</span> (RemoteException e) &#123;
+        <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">RuntimeException</span>(e);
+    &#125;
+&#125;</code></pre>
 
+<h3 id="3-查询联系人"><a href="#3-查询联系人" class="headerlink" title="3.查询联系人"></a>3.查询联系人</h3><pre><code class="highlight java"><span class="meta">@SuppressLint(&quot;Range&quot;)</span>
+<span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">readPhoneContacts</span><span class="params">(ContentResolver resolver)</span>&#123;
+    <span class="type">Cursor</span> <span class="variable">cursor</span> <span class="operator">=</span> resolver.query(ContactsContract.RawContacts.CONTENT_URI, <span class="keyword">new</span> <span class="title class_">String</span>[]&#123;ContactsContract.RawContacts._ID&#125;, <span class="literal">null</span>, <span class="literal">null</span>,<span class="literal">null</span>);
+    <span class="keyword">while</span> (cursor.moveToNext())&#123;
+        <span class="type">int</span> <span class="variable">rawContactId</span> <span class="operator">=</span> cursor.getInt(<span class="number">0</span>);
+        <span class="type">Uri</span> <span class="variable">uri</span> <span class="operator">=</span> Uri.parse(<span class="string">&quot;content://com.android.contacts/contacts/&quot;</span> + rawContactId + <span class="string">&quot;/dataa&quot;</span>);
+        <span class="type">Cursor</span> <span class="variable">query</span> <span class="operator">=</span> resolver.query(uri, <span class="keyword">new</span> <span class="title class_">String</span>[]&#123;ContactsContract.Data.MIMETYPE, ContactsContract.Data.DATA1, ContactsContract.Data.DATA2&#125;, <span class="literal">null</span>, <span class="literal">null</span>, <span class="literal">null</span>);
 
+        <span class="type">Contact</span> <span class="variable">contact</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Contact</span>();
+        <span class="keyword">while</span> (query.moveToNext())&#123;
+            <span class="type">String</span> <span class="variable">data1</span> <span class="operator">=</span> query.getString(query.getColumnIndex(ContactsContract.Data.DATA1));
+            <span class="type">String</span> <span class="variable">mimeType</span> <span class="operator">=</span> query.getString(query.getColumnIndex(ContactsContract.Data.MIMETYPE));
+            <span class="comment">//查询姓名</span>
+            <span class="keyword">if</span> (mimeType.equals(ContactsContract.CommonDataKinds.StructuredName.CONTENT_ITEM_TYPE))&#123;
+                contact.name = data1;
+            &#125;<span class="comment">//查询电话号</span>
+            <span class="keyword">else</span> <span class="keyword">if</span> (mimeType.equals(ContactsContract.CommonDataKinds.Phone.CONTENT_ITEM_TYPE))&#123;
+                contact.phone = data1;
+            &#125;<span class="comment">//查询邮箱</span>
+            <span class="keyword">else</span> <span class="keyword">if</span> (mimeType.equals(ContactsContract.CommonDataKinds.Email.CONTENT_ITEM_TYPE))&#123;
+                contact.email = data1;
+            &#125;
+        &#125;
+        query.close();
+    &#125;
+    cursor.close();
+&#125;</code></pre>
 
+<h2 id="16-短信"><a href="#16-短信" class="headerlink" title="16.短信"></a>16.短信</h2><pre><code class="highlight java"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MainActivity4</span> <span class="keyword">extends</span> <span class="title class_">AppCompatActivity</span> &#123;
 
+    <span class="keyword">public</span> SmsGetObserver mObserver;
+
+    <span class="meta">@Override</span>
+    <span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">onCreate</span><span class="params">(Bundle savedInstanceState)</span> &#123;
+        <span class="built_in">super</span>.onCreate(savedInstanceState);
+        EdgeToEdge.enable(<span class="built_in">this</span>);
+        setContentView(R.layout.activity_main4);
+
+        <span class="comment">//给指定的uri注册内容监听器，一旦发生数据变化，就触发观察器的onChange方法</span>
+        <span class="type">Uri</span> <span class="variable">uri</span> <span class="operator">=</span> Uri.parse(<span class="string">&quot;content://sms&quot;</span>);
+        mObserver = <span class="keyword">new</span> <span class="title class_">SmsGetObserver</span>(<span class="built_in">this</span>);
+        <span class="comment">//notifyForDescendants为false表示uri的精确匹配，为true表示可以匹配其派生路径</span>
+        getContentResolver().registerContentObserver(uri,<span class="literal">true</span>,mObserver);
+    &#125;
+
+    <span class="meta">@Override</span>
+    <span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">onDestroy</span><span class="params">()</span> &#123;
+        <span class="built_in">super</span>.onDestroy();
+        getContentResolver().unregisterContentObserver(mObserver);
+    &#125;
+
+    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">class</span> <span class="title class_">SmsGetObserver</span> <span class="keyword">extends</span> <span class="title class_">ContentObserver</span> &#123;
+
+        <span class="keyword">private</span> <span class="keyword">final</span> Context mContext;
+        <span class="keyword">public</span> <span class="title function_">SmsGetObserver</span><span class="params">(Context context)</span> &#123;
+            <span class="built_in">super</span>(<span class="keyword">new</span> <span class="title class_">Handler</span>(Looper.getMainLooper()));
+            <span class="built_in">this</span>.mContext = context;
+        &#125;
+
+        <span class="meta">@SuppressLint(&quot;Range&quot;)</span>
+        <span class="meta">@Override</span>
+        <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">onChange</span><span class="params">(<span class="type">boolean</span> selfChange, <span class="meta">@Nullable</span> Uri uri)</span> &#123;
+            <span class="built_in">super</span>.onChange(selfChange, uri);
+
+            <span class="keyword">if</span> (uri == <span class="literal">null</span>) &#123;
+                <span class="keyword">return</span>;
+            &#125;
+            <span class="keyword">if</span> (uri.toString().contains(<span class="string">&quot;content://sms/raw&quot;</span>) || uri.toString().equals(<span class="string">&quot;content://sms&quot;</span>))&#123;
+                <span class="keyword">return</span>;
+            &#125;
+            <span class="type">Cursor</span> <span class="variable">cursor</span> <span class="operator">=</span> mContext.getContentResolver().query(uri, <span class="keyword">new</span> <span class="title class_">String</span>[]&#123;<span class="string">&quot;address&quot;</span>, <span class="string">&quot;body&quot;</span>, <span class="string">&quot;date&quot;</span>&#125;, <span class="literal">null</span>, <span class="literal">null</span>, <span class="string">&quot;date DESC&quot;</span>);
+            <span class="keyword">if</span> (cursor.moveToNext())&#123;
+                 <span class="type">String</span> <span class="variable">sender</span> <span class="operator">=</span> cursor.getString(cursor.getColumnIndex(<span class="string">&quot;address&quot;</span>));
+                <span class="type">String</span> <span class="variable">content</span> <span class="operator">=</span> cursor.getString(cursor.getColumnIndex(<span class="string">&quot;body&quot;</span>));
+
+                Log.d(<span class="string">&quot;mytag&quot;</span>, String.format(<span class="string">&quot;sender:%s,content:%s&quot;</span>,sender,content));
+            &#125;
+            cursor.close();
+        &#125;
+    &#125;
+&#125;</code></pre>
 
 
 

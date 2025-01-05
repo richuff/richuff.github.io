@@ -155,7 +155,7 @@ var Paul_Hingle = function (config) {
         form.onsubmit = function (ev) {
             ev.preventDefault();
 
-            window.open("https://www.baidu.com/s?wd=site:" + location.host + " " + input.value.trim());
+            window.open("https://cn.bing.com/search?q=" +input.value.trim());
         }        
     }
 

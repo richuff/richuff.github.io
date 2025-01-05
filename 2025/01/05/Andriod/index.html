@@ -53,7 +53,7 @@
         <section class="post-title">
             <h2>Android</h2>
             <div class="post-meta">
-                <time class="date">2024.10.21</time>
+                <time class="date">2025.01.05</time>
             
                 <span class="category"><a class="category-link" href="/categories/Android/">Android</a></span>
             
@@ -2975,6 +2975,411 @@ getContentResolver().insert(UserinfoContent.CONTENT_URI,values);</code></pre>
     &#125;
 &#125;</code></pre>
 
+<p>选择图片并且显示</p>
+<pre><code class="highlight java"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MainActivity5</span> <span class="keyword">extends</span> <span class="title class_">AppCompatActivity</span> <span class="keyword">implements</span> <span class="title class_">View</span>.OnClickListener &#123;
+    <span class="keyword">private</span> ImageView view;
+    <span class="keyword">private</span>  ActivityResultLauncher&lt;Intent&gt; register;
+    <span class="meta">@Override</span>
+    <span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">onCreate</span><span class="params">(Bundle savedInstanceState)</span> &#123;
+        <span class="built_in">super</span>.onCreate(savedInstanceState);
+        EdgeToEdge.enable(<span class="built_in">this</span>);
+        setContentView(R.layout.activity_main5);
+
+        view = findViewById(R.id.e_image);
+        view.setOnClickListener(<span class="built_in">this</span>);
+
+        <span class="comment">//跳转到系统相册，并且返回</span>
+        register = registerForActivityResult(<span class="keyword">new</span> <span class="title class_">StartActivityForResult</span>(), <span class="keyword">new</span> <span class="title class_">ActivityResultCallback</span>&lt;ActivityResult&gt;() &#123;
+            <span class="meta">@Override</span>
+            <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">onActivityResult</span><span class="params">(ActivityResult o)</span> &#123;
+                <span class="keyword">if</span> (o.getResultCode() == RESULT_OK)&#123;
+                    <span class="type">Intent</span> <span class="variable">intent</span> <span class="operator">=</span> o.getData();
+                    <span class="comment">//选择图片的路径</span>
+                    <span class="type">Uri</span> <span class="variable">uri</span> <span class="operator">=</span> intent.getData();
+                    <span class="keyword">if</span> (uri != <span class="literal">null</span>)&#123;
+                        view.setImageURI(uri);
+                        Log.d(<span class="string">&quot;mytag&quot;</span>, uri.toString());
+                    &#125;
+                &#125;
+            &#125;
+        &#125;);
+    &#125;
+
+    <span class="meta">@Override</span>
+    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">onClick</span><span class="params">(View v)</span> &#123;
+        <span class="keyword">if</span> (v.getId() == R.id.e_image)&#123;
+            <span class="type">Intent</span> <span class="variable">intent</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Intent</span>(Intent.ACTION_GET_CONTENT);
+
+            intent.setType(<span class="string">&quot;image/*&quot;</span>);
+            register.launch(intent);
+        &#125;
+    &#125;
+&#125;</code></pre>
+
+<blockquote>
+<p>跳转到短信，并且发送短信</p>
+</blockquote>
+<pre><code class="highlight plaintext">public class MainActivity5 extends AppCompatActivity implements View.OnClickListener &#123;
+    private EditText title;
+    private EditText phone;
+    private ImageView view;
+    private EditText content;
+    private  ActivityResultLauncher&lt;Intent&gt; register;
+
+    private Uri uri;
+    
+    @Override
+    protected void onCreate(Bundle savedInstanceState) &#123;
+        view = findViewById(R.id.e_image);
+        view.setOnClickListener(this);
+        findViewById(R.id.e_send).setOnClickListener(this);
+
+        phone = findViewById(R.id.e_phone);
+        title = findViewById(R.id.e_title);
+        content = findViewById(R.id.e_content);
+
+    @Override
+    public void onClick(View v) &#123;
+		if (v.getId() == R.id.e_send) &#123;
+            sendMsm(phone.getText().toString(),
+                    title.getText().toString(),
+                    content.getText().toString());
+        &#125;
+    &#125;
+
+    private void sendMsm(String phone, String title, String message) &#123;
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+
+        //intent的接收者将被准许读取携带的uri数据
+        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        intent.putExtra(&quot;address&quot;,phone);
+        intent.putExtra(&quot;title&quot;,title);
+        intent.putExtra(&quot;sms_body&quot;,message);
+        //图片 文件流
+        intent.putExtra(Intent.EXTRA_STREAM,uri);
+        //附件的类型
+        intent.setType(&quot;image/*&quot;);
+        //系统会弹出窗口让你选择
+        startActivity(intent);
+    &#125;
+&#125;</code></pre>
+
+<blockquote>
+<p>通过MediaStore查询图片</p>
+</blockquote>
+<blockquote>
+<p>PermissionUtil</p>
+</blockquote>
+<pre><code class="highlight java"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">PermissionUtil</span> &#123;
+    <span class="keyword">public</span> <span class="keyword">static</span> <span class="type">boolean</span> <span class="title function_">checkPermission</span><span class="params">(Activity act,String[] permissions,<span class="type">int</span> requestCode)</span>&#123;
+        <span class="type">int</span> <span class="variable">check</span> <span class="operator">=</span> PackageManager.PERMISSION_GRANTED;
+        <span class="keyword">for</span> (String permission:permissions)&#123;
+            check = ContextCompat.checkSelfPermission(act,permission);
+            <span class="keyword">if</span> (check != PackageManager.PERMISSION_GRANTED)&#123;
+                <span class="keyword">break</span>;
+            &#125;
+        &#125;
+        <span class="keyword">if</span> (check != PackageManager.PERMISSION_GRANTED)&#123;
+            ActivityCompat.requestPermissions(act, permissions, requestCode);
+            <span class="keyword">return</span> <span class="literal">false</span>;
+        &#125;
+
+        <span class="keyword">return</span> <span class="literal">true</span>;
+    &#125;
+
+    <span class="keyword">public</span> <span class="keyword">static</span> <span class="type">boolean</span> <span class="title function_">checkGrant</span><span class="params">(<span class="type">int</span>[] grantResults)</span> &#123;
+        <span class="keyword">if</span> (grantResults != <span class="literal">null</span>) &#123;
+            <span class="keyword">for</span> (<span class="type">int</span> grantResult : grantResults) &#123;
+                <span class="keyword">if</span> (grantResult != PackageManager.PERMISSION_GRANTED) &#123;
+                    <span class="keyword">return</span> <span class="literal">false</span>;
+                &#125;
+            &#125;
+            <span class="keyword">return</span> <span class="literal">true</span>;
+        &#125;
+        <span class="keyword">return</span> <span class="literal">false</span>;
+    &#125;
+&#125;</code></pre>
+
+<blockquote>
+<p>Activity</p>
+</blockquote>
+<p><code>权限</code></p>
+<pre><code class="highlight xml"><span class="tag">&lt;<span class="name">uses-permission</span> <span class="attr">android:name</span>=<span class="string">&quot;android.permission.READ_MEDIA_IMAGES&quot;</span> /&gt;</span></code></pre>
+
+<pre><code class="highlight plaintext">public class MainActivity6 extends AppCompatActivity &#123;
+
+    private static final String[] PERMISSION = new String[]&#123;
+            Manifest.permission.READ_MEDIA_IMAGES
+    &#125;;
+
+    private static final int REQUEST_CODE_ALL = 1;
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) &#123;
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        if (requestCode == REQUEST_CODE_ALL &amp;&amp; PermissionUtil.checkGrant(grantResults))&#123;
+            LoadImageList();
+            ShowImageGrid();
+        &#125;
+    &#125;
+
+    private ArrayList&lt;ImageInfo&gt; mImageInfoList = new ArrayList&lt;&gt;();
+    private GridLayout gl;
+    
+    @Override
+    protected void onCreate(Bundle savedInstanceState) &#123;
+        gl = findViewById(R.id.e_grid);
+        //手动让MediaStore扫描入库
+        MediaScannerConnection.scanFile(this,new String[]&#123;
+                Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).toString()
+        &#125;,null,null);
+
+        //引发系统弹窗
+        if (PermissionUtil.checkPermission(this,PERMISSION,REQUEST_CODE_ALL))&#123;
+            LoadImageList();
+            ShowImageGrid();
+        &#125;
+    &#125;
+
+    private void ShowImageGrid()&#123;
+        gl.removeAllViews();
+
+        for (ImageInfo imageInfo:mImageInfoList)&#123;
+            ImageView iv = new ImageView(this);
+            Bitmap bitmap = BitmapFactory.decodeFile(imageInfo.getPath());
+            iv.setImageBitmap(bitmap);
+            iv.setScaleType(ImageView.ScaleType.FIT_CENTER);
+            int px = diptopx.dip(this,110);
+            ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(px,px);
+            iv.setLayoutParams(layoutParams);
+            int padding = diptopx.dip(this,5);
+            iv.setPadding(padding,padding,padding,padding);
+            iv.setOnClickListener(v-&gt;&#123;
+
+            &#125;);
+
+            gl.addView(iv);
+        &#125;
+    &#125;
+
+    @SuppressLint(&quot;Range&quot;)
+    private void LoadImageList() &#123;
+        String[] column = new String[]&#123;
+                MediaStore.Images.Media._ID,
+                MediaStore.Images.Media.TITLE,
+                MediaStore.Images.Media.SIZE,
+                MediaStore.Images.Media.DATA,
+        &#125;;
+
+        Cursor cursor = getContentResolver().query(
+                MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+                column,
+                &quot;_size &lt; 307200&quot;, null, &quot;_size DESC&quot;
+        );
+        int count = 0;
+        while (cursor.moveToNext() &amp;&amp; count &lt; 6)&#123;
+            long id = cursor.getLong(cursor.getColumnIndex(MediaStore.Images.Media._ID));
+            String title = cursor.getString(cursor.getColumnIndex(MediaStore.Images.Media.TITLE));
+            long size = cursor.getLong(cursor.getColumnIndex(MediaStore.Images.Media.SIZE));
+            String path = cursor.getString(cursor.getColumnIndex(MediaStore.Images.Media.DATA));
+
+            ImageInfo imageInfo = new ImageInfo(id, title, size, path);
+            count++;
+            mImageInfoList.add(imageInfo);
+        &#125;
+    &#125;
+&#125;</code></pre>
+
+<h2 id="17FileProvider"><a href="#17FileProvider" class="headerlink" title="17FileProvider"></a>17FileProvider</h2><blockquote>
+<p>权限</p>
+</blockquote>
+<pre><code class="highlight xml"><span class="tag">&lt;<span class="name">provider</span></span>
+<span class="tag">          <span class="attr">android:authorities</span>=<span class="string">&quot;@string/file_provider&quot;</span></span>
+<span class="tag">          <span class="attr">android:name</span>=<span class="string">&quot;androidx.core.content.FileProvider&quot;</span></span>
+<span class="tag">          <span class="attr">android:exported</span>=<span class="string">&quot;false&quot;</span></span>
+<span class="tag">          <span class="attr">android:grantUriPermissions</span>=<span class="string">&quot;true&quot;</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">meta-data</span> <span class="attr">android:name</span>=<span class="string">&quot;android.support.FILE_PROVIDER_PATHS&quot;</span> <span class="attr">android:resource</span>=<span class="string">&quot;@xml/file_paths&quot;</span>/&gt;</span>
+<span class="tag">&lt;/<span class="name">provider</span>&gt;</span></code></pre>
+
+<blockquote>
+<p>xml&#x2F;file_paths.xml</p>
+</blockquote>
+<pre><code class="highlight xml"><span class="meta">&lt;?xml version=<span class="string">&quot;1.0&quot;</span> encoding=<span class="string">&quot;utf-8&quot;</span>?&gt;</span>
+<span class="tag">&lt;<span class="name">paths</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">external-path</span></span>
+<span class="tag">        <span class="attr">name</span>=<span class="string">&quot;external_storage_pictures&quot;</span></span>
+<span class="tag">        <span class="attr">path</span>=<span class="string">&quot;DCIM/Camera&quot;</span> /&gt;</span>
+    <span class="tag">&lt;<span class="name">external-path</span></span>
+<span class="tag">        <span class="attr">name</span>=<span class="string">&quot;external_storage_pictures&quot;</span></span>
+<span class="tag">        <span class="attr">path</span>=<span class="string">&quot;Pictures&quot;</span> /&gt;</span>
+<span class="tag">&lt;/<span class="name">paths</span>&gt;</span></code></pre>
+
+<blockquote>
+<p>检测文件是否是指定fileProvider路径下的</p>
+</blockquote>
+<pre><code class="highlight java"><span class="keyword">public</span> <span class="keyword">static</span> <span class="type">boolean</span> <span class="title function_">CheckFileUri</span><span class="params">(Context ctx,String path)</span>&#123;
+    <span class="type">File</span> <span class="variable">file</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">File</span>(path);
+    <span class="keyword">if</span> (!file.exists() || !file.isFile() || file.length() &lt;= <span class="number">0</span>)&#123;
+        <span class="keyword">return</span> <span class="literal">false</span>;
+    &#125;
+    <span class="keyword">try</span> &#123;
+        <span class="keyword">if</span> (Build.VERSION.SDK_INT &gt;= Build.VERSION_CODES.N)&#123;
+            <span class="comment">//通过FileProvider获得文件路径</span>
+            FileProvider.getUriForFile(ctx,ctx.getString(R.string.file_provider),file);
+        &#125;
+    &#125;<span class="keyword">catch</span> (Exception e)&#123;
+        e.printStackTrace();
+        <span class="keyword">return</span> <span class="literal">false</span>;
+    &#125;
+    <span class="keyword">return</span> <span class="literal">true</span>;
+&#125;</code></pre>
+
+<p>18.安装应用</p>
+<pre><code class="highlight java"><span class="keyword">package</span> com.richuff.client;
+
+<span class="keyword">import</span> android.Manifest;
+<span class="keyword">import</span> android.content.Intent;
+<span class="keyword">import</span> android.content.pm.PackageInfo;
+<span class="keyword">import</span> android.content.pm.PackageManager;
+<span class="keyword">import</span> android.net.Uri;
+<span class="keyword">import</span> android.os.Build;
+<span class="keyword">import</span> android.os.Bundle;
+<span class="keyword">import</span> android.os.Environment;
+<span class="keyword">import</span> android.provider.Settings;
+<span class="keyword">import</span> android.util.Log;
+<span class="keyword">import</span> android.view.View;
+
+<span class="keyword">import</span> androidx.activity.EdgeToEdge;
+<span class="keyword">import</span> androidx.annotation.NonNull;
+<span class="keyword">import</span> androidx.appcompat.app.AppCompatActivity;
+<span class="keyword">import</span> androidx.core.content.FileProvider;
+<span class="keyword">import</span> androidx.core.graphics.Insets;
+<span class="keyword">import</span> androidx.core.view.ViewCompat;
+<span class="keyword">import</span> androidx.core.view.WindowInsetsCompat;
+
+<span class="keyword">import</span> com.richuff.client.utils.PermissionUtil;
+
+<span class="keyword">import</span> java.io.File;
+
+<span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MainActivity7</span> <span class="keyword">extends</span> <span class="title class_">AppCompatActivity</span> <span class="keyword">implements</span> <span class="title class_">View</span>.OnClickListener &#123;
+
+    <span class="comment">//兼容安卓11之前的版本</span>
+    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String[] PERMISSION = <span class="keyword">new</span> <span class="title class_">String</span>[]&#123;
+            Manifest.permission.READ_MEDIA_IMAGES
+    &#125;;
+
+    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">int</span> <span class="variable">REQUEST_CODE_ALL</span> <span class="operator">=</span> <span class="number">1</span>;
+
+    <span class="meta">@Override</span>
+    <span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">onCreate</span><span class="params">(Bundle savedInstanceState)</span> &#123;
+        findViewById(R.id.down).setOnClickListener(<span class="built_in">this</span>);
+    &#125;
+
+    <span class="meta">@Override</span>
+    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">onClick</span><span class="params">(View v)</span> &#123;
+        <span class="keyword">if</span>(v.getId() == R.id.down)&#123;
+            <span class="comment">//版本兼容</span>
+            <span class="keyword">if</span> (Build.VERSION.SDK_INT &gt;= Build.VERSION_CODES.R) &#123;
+                CheckAndinstallApk();
+            &#125;<span class="keyword">else</span>&#123;
+                <span class="keyword">if</span> (PermissionUtil.checkPermission(<span class="built_in">this</span>,PERMISSION,REQUEST_CODE_ALL))&#123;
+                    installApk();
+                &#125;
+            &#125;
+        &#125;
+    &#125;
+
+    <span class="meta">@Override</span>
+    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">onRequestPermissionsResult</span><span class="params">(<span class="type">int</span> requestCode, <span class="meta">@NonNull</span> String[] permissions, <span class="meta">@NonNull</span> <span class="type">int</span>[] grantResults)</span> &#123;
+        <span class="built_in">super</span>.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        <span class="keyword">if</span> (requestCode == REQUEST_CODE_ALL &amp;&amp; PermissionUtil.checkGrant(grantResults))&#123;
+            installApk();
+        &#125;
+    &#125;
+
+    <span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">CheckAndinstallApk</span><span class="params">()</span> &#123;
+        <span class="comment">//检查是否有MANAGE_EXTERNAL_STORAGE权限，没有则跳转到设置页面</span>
+        <span class="keyword">if</span> (!Environment.isExternalStorageEmulated())&#123;
+            <span class="type">Intent</span> <span class="variable">intent</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Intent</span>(Settings.ACTION_MANAGE_ALL_FILES_ACCESS_PERMISSION);
+            intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            intent.setData(Uri.fromParts(<span class="string">&quot;package&quot;</span>,getPackageName(),<span class="literal">null</span>));
+        &#125;<span class="keyword">else</span> &#123;
+            installApk();
+        &#125;
+    &#125;
+
+    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">installApk</span><span class="params">()</span>&#123;
+        <span class="type">String</span> <span class="variable">apkPath</span> <span class="operator">=</span> Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOWNLOADS).toString() + <span class="string">&quot;/.apk&quot;</span>;
+        Log.d(<span class="string">&quot;mytag&quot;</span>, <span class="string">&quot;apkPath&quot;</span>+apkPath);
+        <span class="type">PackageManager</span> <span class="variable">pm</span> <span class="operator">=</span> getPackageManager();
+        PackageInfo pi;
+        <span class="keyword">try</span> &#123;
+            pi = pm.getPackageInfo(apkPath, PackageManager.GET_ACTIVITIES);
+        &#125; <span class="keyword">catch</span> (PackageManager.NameNotFoundException e) &#123;
+            <span class="keyword">throw</span> <span class="keyword">new</span> <span class="title class_">RuntimeException</span>(e);
+        &#125;
+        <span class="keyword">if</span> (pi == <span class="literal">null</span>)&#123;
+            Toastshow.show(<span class="built_in">this</span>,<span class="string">&quot;文件已损坏&quot;</span>);
+        &#125;
+        <span class="type">Uri</span> <span class="variable">uri</span> <span class="operator">=</span> Uri.parse(apkPath);
+
+        uri = FileProvider.getUriForFile(<span class="built_in">this</span>,getString(R.string.file_provider),<span class="keyword">new</span> <span class="title class_">File</span>(apkPath));
+        <span class="type">Intent</span> <span class="variable">intent</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Intent</span>(Intent.ACTION_VIEW);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
+        <span class="comment">//设置uri的类型为apk文件</span>
+        intent.setDataAndType(uri,<span class="string">&quot;application/vnd.android.package-archive&quot;</span>);
+        <span class="comment">//启动</span>
+        startActivity(intent);
+    &#125;
+&#125;</code></pre>
+
+<blockquote>
+<p>需要的权限</p>
+</blockquote>
+<pre><code class="highlight xml"><span class="tag">&lt;<span class="name">uses-permission</span> <span class="attr">android:name</span>=<span class="string">&quot;android.permission.MANAGE_EXTERNAL_STORAGE&quot;</span>/&gt;</span>
+<span class="tag">&lt;<span class="name">uses-permission</span> <span class="attr">android:name</span>=<span class="string">&quot;android.permission.REQUEST_INSTALL_PACKAGES&quot;</span>/&gt;</span></code></pre>
+
+<h2 id="18-高级控件"><a href="#18-高级控件" class="headerlink" title="18.高级控件"></a>18.高级控件</h2><h3 id="1-Spinner"><a href="#1-Spinner" class="headerlink" title="1.Spinner"></a>1.Spinner</h3><pre><code class="highlight xml"><span class="tag">&lt;<span class="name">Spinner</span></span>
+<span class="tag">         <span class="attr">android:id</span>=<span class="string">&quot;@+id/drop_down&quot;</span></span>
+<span class="tag">         <span class="attr">android:layout_width</span>=<span class="string">&quot;wrap_content&quot;</span></span>
+<span class="tag">         <span class="attr">android:layout_height</span>=<span class="string">&quot;wrap_content&quot;</span></span>
+<span class="tag">         <span class="attr">android:spinnerMode</span>=<span class="string">&quot;dropdown&quot;</span>/&gt;</span></code></pre>
+
+<pre><code class="highlight java"><span class="keyword">private</span> Spinner sp;
+
+<span class="keyword">private</span> <span class="keyword">final</span> <span class="keyword">static</span> String[] startArray = &#123;<span class="string">&quot;水星&quot;</span>,<span class="string">&quot;火星&quot;</span>,<span class="string">&quot;金星&quot;</span>,<span class="string">&quot;木星&quot;</span>,<span class="string">&quot;木星&quot;</span>&#125;;
+
+<span class="meta">@SuppressLint(&quot;ResourceType&quot;)</span>
+<span class="meta">@Override</span>
+<span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">onCreate</span><span class="params">(Bundle savedInstanceState)</span> &#123;
+    <span class="built_in">super</span>.onCreate(savedInstanceState);
+    EdgeToEdge.enable(<span class="built_in">this</span>);
+    setContentView(R.layout.activity_test);
+
+    sp = findViewById(R.id.drop_down);
+    sp.setAdapter(<span class="keyword">new</span> <span class="title class_">ArrayAdapter</span>&lt;String&gt;(<span class="built_in">this</span>,R.id.drop_down,startArray));
+    <span class="comment">//默认选择第一项</span>
+    sp.setSelection(<span class="number">0</span>);
+    sp.setOnItemClickListener(<span class="built_in">this</span>);
+&#125;
+
+<span class="meta">@Override</span>
+<span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">onItemClick</span><span class="params">(AdapterView&lt;?&gt; parent, View view, <span class="type">int</span> position, <span class="type">long</span> id)</span> &#123;
+    Toastshow.show(<span class="built_in">this</span>,<span class="string">&quot;选择&quot;</span>+startArray[position]);
+&#125;</code></pre>
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -2998,10 +3403,10 @@ getContentResolver().insert(UserinfoContent.CONTENT_URI,values);</code></pre>
         <section class="post-near">
             <ul>
                 
-                    <li>上一篇: <a href="/2024/10/23/Gin/">Gin</a></li>
+                    <li>上一篇: 看完啦 (つд⊂)</li>
                 
                 
-                    <li>下一篇: <a href="/2024/10/19/Go/">Go</a></li>
+                    <li>下一篇: <a href="/2024/12/02/Kotlin/">Kotlin</a></li>
                 
             </ul>
         </section>
@@ -3035,11 +3440,11 @@ getContentResolver().insert(UserinfoContent.CONTENT_URI,values);</code></pre>
             <div class="row">
                 <div class="col-m-4">
                     <h3 class="title-recent">最新文章：</h3>
-                    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2024/12/02/Kotlin/">Kotlin</a></li><li class="post-list-item"><a class="post-list-link" href="/2024/11/19/Webpack/">Webpack</a></li><li class="post-list-item"><a class="post-list-link" href="/2024/11/09/Node.js/">NodeJs</a></li><li class="post-list-item"><a class="post-list-link" href="/2024/11/05/Docker%E5%92%8Cmysql%E7%9A%84%E6%90%AD%E5%BB%BA/">Docker&mysql&nacos</a></li><li class="post-list-item"><a class="post-list-link" href="/2024/11/02/Unity3D/">Unity</a></li><li class="post-list-item"><a class="post-list-link" href="/2024/10/31/Uni-App/">Uni-App</a></li></ul>
+                    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2025/01/05/Andriod/">Android</a></li><li class="post-list-item"><a class="post-list-link" href="/2024/12/02/Kotlin/">Kotlin</a></li><li class="post-list-item"><a class="post-list-link" href="/2024/11/19/Webpack/">Webpack</a></li><li class="post-list-item"><a class="post-list-link" href="/2024/11/09/Node.js/">NodeJs</a></li><li class="post-list-item"><a class="post-list-link" href="/2024/11/05/Docker%E5%92%8Cmysql%E7%9A%84%E6%90%AD%E5%BB%BA/">Docker&mysql&nacos</a></li><li class="post-list-item"><a class="post-list-link" href="/2024/11/02/Unity3D/">Unity</a></li></ul>
                 </div>
                 <div class="col-m-4">
                     <h3 class="title-date">时光机：</h3>
-                    <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/12/">十二月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/11/">十一月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/10/">十月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/09/">九月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/08/">八月 2024</a></li></ul>
+                    <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/01/">一月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/12/">十二月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/11/">十一月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/10/">十月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/09/">九月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/08/">八月 2024</a></li></ul>
                 </div>
                 <div class="col-m-4">
                     <h3 class="title-tags">标签云：</h3>
@@ -3048,7 +3453,7 @@ getContentResolver().insert(UserinfoContent.CONTENT_URI,values);</code></pre>
             </div>
         </section>
         <section class="sub-footer">
-            <p>© 2024 <a href="/">Richu</a>. All Rights Reserved. Theme By <a href="https://github.com/Dreamer-Paul/Hingle" target="_blank" rel="nofollow">Hingle</a>.</p>
+            <p>© 2025 <a href="/">Richu</a>. All Rights Reserved. Theme By <a href="https://github.com/Dreamer-Paul/Hingle" target="_blank" rel="nofollow">Hingle</a>.</p>
         </section>
     </div>
 </footer>

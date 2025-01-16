@@ -2972,7 +2972,7 @@ Timer timer = Timer.periodic(<span class="keyword">const</span> <span class="bui
   &#125;
 &#125;</code></pre>
 
-<h3 id="2-显示动画"><a href="#2-显示动画" class="headerlink" title="2.显示动画"></a>2.显示动画</h3><blockquote>
+<h3 id="2-显式动画"><a href="#2-显式动画" class="headerlink" title="2.显式动画"></a>2.显式动画</h3><blockquote>
 <p>使用显示动画,定义AnimationController,在组件上with  SingleTickerProviderStateMixin</p>
 </blockquote>
 <h4 id="RotationTransition"><a href="#RotationTransition" class="headerlink" title="RotationTransition"></a>RotationTransition</h4><blockquote>
@@ -3849,24 +3849,26 @@ ElevatedButton(onPressed: () &#123;&#125;, child: <span class="keyword">const</s
     translations: Message(),
     locale: <span class="keyword">const</span> Locale(<span class="string">&#x27;zh&#x27;</span>,<span class="string">&#x27;CN&#x27;</span>), <span class="comment">//指定默认的语言</span>
     fallbackLocale: <span class="keyword">const</span> Locale(<span class="string">&#x27;en&#x27;</span>,<span class="string">&#x27;US&#x27;</span>), <span class="comment">//添加一个回调语言选项</span>
-    defaultTransition: Transition.rightToLeft,
-    &#125;</code></pre>
+    defaultTransition: Transition.rightToLeft,)</code></pre>
 
 <blockquote>
 <p>切换语言</p>
 </blockquote>
 <pre><code class="highlight dart">ElevatedButton(onPressed: () &#123;
-          <span class="keyword">var</span> locale = <span class="keyword">const</span> Locale(<span class="string">&quot;zh&quot;</span>,<span class="string">&#x27;CN&#x27;</span>);
-          Get.updateLocale(locale);
-        &#125;, child: <span class="keyword">const</span> Text(<span class="string">&quot;切换到中文&quot;</span>)),
-        <span class="keyword">const</span> SizedBox(
-          height: <span class="number">20</span>,
-        ),
-        ElevatedButton(onPressed: () &#123;
-          <span class="keyword">var</span> locale = <span class="keyword">const</span> Locale(<span class="string">&quot;en&quot;</span>,<span class="string">&#x27;US&#x27;</span>);
-          Get.updateLocale(locale);
-        &#125;, child: <span class="keyword">const</span> Text(<span class="string">&quot;切换到英文&quot;</span>)),</code></pre>
-
+  <span class="keyword">var</span> locale = <span class="keyword">const</span> Locale(<span class="string">&quot;zh&quot;</span>,<span class="string">&#x27;CN&#x27;</span>);
+  Get.updateLocale(locale);
+&#125;, child: <span class="keyword">const</span> Text(<span class="string">&quot;切换到中文&quot;</span>)),
+<span class="keyword">const</span> SizedBox(
+  height: <span class="number">20</span>,
+),
+ElevatedButton(onPressed: () &#123;
+  <span class="keyword">var</span> locale = <span class="keyword">const</span> Locale(<span class="string">&quot;en&quot;</span>,<span class="string">&#x27;US&#x27;</span>);
+  Get.updateLocale(locale);
+&#125;, child: <span class="keyword">const</span> Text(<span class="string">&quot;切换到英文&quot;</span>)),</code></pre>
+<blockquote>
+<p>使用多语言</p>
+</blockquote>
+<pre><code class="highlight dart">Text(<span class="string">&quot;hello&quot;</span>.tr);</code></pre>
 <h3 id="7-GetUtils工具库"><a href="#7-GetUtils工具库" class="headerlink" title="7.GetUtils工具库"></a>7.GetUtils工具库</h3><blockquote>
 <p><code>GetUtils</code>是<code>getx</code>为我们提供一些常用的工具类库，包括<strong>值是否为空</strong>、<strong>是否是数字</strong>、<strong>是否是视频、图片、音频、PPT、Word、APK</strong>、<strong>邮箱、手机号码、日期、MD5、SHA1</strong>等等。</p>
 </blockquote>

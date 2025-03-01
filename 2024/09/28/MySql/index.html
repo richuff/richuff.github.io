@@ -160,14 +160,28 @@
 <p>5.年龄（无负数）</p>
 <p>6.身份证 （字符）</p>
 <p>7.入职时间（年月日）</p>
-<h3 id="8-修改表"><a href="#8-修改表" class="headerlink" title="8.修改表"></a>8.修改表</h3><h4 id="1-添加字段"><a href="#1-添加字段" class="headerlink" title="1.添加字段"></a>1.添加字段</h4><p><code>alter table 表名 add 新增内容;</code></p>
+<h3 id="8-修改表"><a href="#8-修改表" class="headerlink" title="8.修改表"></a>8.修改表</h3><h4 id="1-添加字段"><a href="#1-添加字段" class="headerlink" title="1.添加字段"></a>1.添加字段</h4><p>ALTER TABLE 表名 ADD 新属性名 数据类型 [约束条件] [FIRST|AFTER] 已存在属性名; 。</p>
 <blockquote>
-<p>alter table richu add new_id int comment ‘new id’;</p>
+<p>MySQL 中常用的约束:<br>NOT NULL 约束：确保某列不能有 NULL 值。<br>DEFAULT 约束：当某列没有指定值时，为该列提供默认值。<br>UNIQUE 约束：确保某列中的所有值是不同的。<br>PRIMARY Key 约束：唯一标识数据库表中的各行&#x2F;记录。<br>CHECK 约束：CHECK 约束确保某列中的所有值满足一定条件。<br><code>不做[FIRST|AFTER]的位置说明，在添加属性时MySQL会默认把新属性加入到表的最后一列。</code><br><code>如果我们想在第一列添加新的属性，只需做FIRST的位置说明。如果我们想在某一列后面添加新的属性，只需做AFTER的位置说明，然后注明你想让它添加在哪个属性的后面即可。</code></p>
 </blockquote>
-<h4 id="2-修改字段"><a href="#2-修改字段" class="headerlink" title="2.修改字段"></a>2.修改字段</h4><p><code>alter table 表名 modify 字段名 新数据类型（长度）;</code></p>
-<p><code>alter table 表名 change 旧字段名 新字段名 类型;</code></p>
+<p><code>alter table 表名 add 新增内容;</code></p>
+<blockquote>
+<p>alter table richu add new_id int comment ‘new id’;<br>alter table richu add new_id int comment ‘new id’ default ‘001’ after _id;</p>
+</blockquote>
+<h4 id="2-修改字段"><a href="#2-修改字段" class="headerlink" title="2.修改字段"></a>2.修改字段</h4><blockquote>
+<p><code>alter table 表名 modify 字段名 新数据类型（长度）;</code><br>alter table richu modify _id int(11);</p>
+</blockquote>
+<blockquote>
+<p><code>alter table 表名 change 旧字段名 新字段名 类型;</code><br>alter table richu change Name rcName varchar(30);</p>
+</blockquote>
 <h4 id="3-删除字段"><a href="#3-删除字段" class="headerlink" title="3.删除字段"></a>3.删除字段</h4><p>alter table 表名 drop 字段名</p>
-<h4 id="4-修改表名"><a href="#4-修改表名" class="headerlink" title="4.修改表名"></a>4.修改表名</h4><p><code>alter table 表名 rename to 新表名;</code></p>
+<blockquote>
+<p>alter table richu drop Name;</p>
+</blockquote>
+<h4 id="4-修改表名"><a href="#4-修改表名" class="headerlink" title="4.修改表名"></a>4.修改表名</h4><p><code>alter table 表名 rename [to] 新表名;</code></p>
+<blockquote>
+<p>alter table richu rename rc;</p>
+</blockquote>
 <h4 id="5-删除表"><a href="#5-删除表" class="headerlink" title="5.删除表"></a>5.删除表</h4><p><code>drop table [if exists] 表名;</code></p>
 <h4 id="6-清空表"><a href="#6-清空表" class="headerlink" title="6.清空表"></a>6.清空表</h4><p><code>truncate table 表名;</code></p>
 <h2 id="3-DML-数据操作语言"><a href="#3-DML-数据操作语言" class="headerlink" title="3.DML(数据操作语言)"></a>3.DML(数据操作语言)</h2><h3 id="1-添加数据-insert"><a href="#1-添加数据-insert" class="headerlink" title="1.添加数据(insert)"></a>1.添加数据(insert)</h3><h4 id="1-给指定字段添加数据"><a href="#1-给指定字段添加数据" class="headerlink" title="1.给指定字段添加数据"></a>1.给指定字段添加数据</h4><p><code>insert into 表名(字段1，字段2) values(值1，值2);</code></p>

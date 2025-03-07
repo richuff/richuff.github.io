@@ -68,7 +68,10 @@
 <li>DQL 数据查询语言(查询)</li>
 <li>DCL 数据控制语言（创建数据库用户）</li>
 </ul>
-<h2 id="2-数据库创建基本操作"><a href="#2-数据库创建基本操作" class="headerlink" title="2.数据库创建基本操作"></a>2.数据库创建基本操作</h2><h2 id="2-DDL-数据定义语言"><a href="#2-DDL-数据定义语言" class="headerlink" title="2.DDL(数据定义语言)"></a>2.DDL(数据定义语言)</h2><h3 id="1-查询"><a href="#1-查询" class="headerlink" title="1.查询"></a>1.查询</h3><p><code>show databases;</code></p>
+<blockquote>
+<p>在操作数据库之前，需要连接它，输入命令：<code>mysql -u用户名 -p密码</code> 连接数据库</p>
+</blockquote>
+<h2 id="2-DDL-数据定义语言"><a href="#2-DDL-数据定义语言" class="headerlink" title="2.DDL(数据定义语言)"></a>2.DDL(数据定义语言)</h2><h3 id="1-查询"><a href="#1-查询" class="headerlink" title="1.查询"></a>1.查询</h3><p><code>show databases;</code></p>
 <h3 id="2-创建"><a href="#2-创建" class="headerlink" title="2.创建"></a>2.创建</h3><blockquote>
 <p>如果不存在则会创建，如果存在则不会创建</p>
 </blockquote>
@@ -426,7 +429,19 @@ select  ifnull(null,&#x27;default&#x27;); -&gt;default```</code></pre>
   <span class="keyword">foreign</span> key [外字段名] 
   <span class="keyword">references</span> 主表 [主表列表]
  );</code></pre>
+<p>例子:</p>
+<pre><code class="highlight sql"># 主表
+<span class="keyword">create</span> <span class="keyword">table</span> t_depart(
+  dptno <span class="type">int</span> <span class="keyword">primary</span> key,
+  dptname <span class="type">varchar</span>(<span class="number">22</span>)
+);
 
+#添加外键
+<span class="keyword">create</span> <span class="keyword">table</span> t_student(
+  stid <span class="type">varchar</span>(<span class="number">12</span>) <span class="keyword">primary</span> key,name <span class="type">varchar</span>(<span class="number">22</span>),
+  dptno <span class="type">int</span>, 
+  <span class="keyword">constraint</span> test 
+  <span class="keyword">foreign</span> key(dptno) <span class="keyword">references</span> t_depart(dptno));</code></pre>
 <h5 id="2-建立外键关联"><a href="#2-建立外键关联" class="headerlink" title="2.建立外键关联"></a>2.建立外键关联</h5><p><code>alter table 表名 add constraint 外键名称 foreign key(外键字段名) references 主表(主列表名); </code></p>
 <h5 id="3-删除外键"><a href="#3-删除外键" class="headerlink" title="3.删除外键"></a>3.删除外键</h5><p><code>alter table 表名 drop foreign key 外键名称;</code></p>
 <h5 id="4-目的"><a href="#4-目的" class="headerlink" title="4.目的"></a>4.目的</h5><blockquote>

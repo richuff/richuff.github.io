@@ -68,7 +68,7 @@
 <li>DQL 数据查询语言(查询)</li>
 <li>DCL 数据控制语言（创建数据库用户）</li>
 </ul>
-<h2 id="2-DDL-数据定义语言"><a href="#2-DDL-数据定义语言" class="headerlink" title="2.DDL(数据定义语言)"></a>2.DDL(数据定义语言)</h2><h3 id="1-查询"><a href="#1-查询" class="headerlink" title="1.查询"></a>1.查询</h3><p><code>show databases;</code></p>
+<h2 id="2-数据库创建基本操作"><a href="#2-数据库创建基本操作" class="headerlink" title="2.数据库创建基本操作"></a>2.数据库创建基本操作</h2><h2 id="2-DDL-数据定义语言"><a href="#2-DDL-数据定义语言" class="headerlink" title="2.DDL(数据定义语言)"></a>2.DDL(数据定义语言)</h2><h3 id="1-查询"><a href="#1-查询" class="headerlink" title="1.查询"></a>1.查询</h3><p><code>show databases;</code></p>
 <h3 id="2-创建"><a href="#2-创建" class="headerlink" title="2.创建"></a>2.创建</h3><blockquote>
 <p>如果不存在则会创建，如果存在则不会创建</p>
 </blockquote>
@@ -421,11 +421,10 @@ select  ifnull(null,&#x27;default&#x27;); -&gt;default```</code></pre>
 <p>让两张表的数据之间建立联系，保证数据的一致性和完整性</p>
 </blockquote>
 <h5 id="1-创建外键"><a href="#1-创建外键" class="headerlink" title="1.创建外键"></a>1.创建外键</h5><pre><code class="highlight sql"><span class="keyword">create</span> <span class="keyword">table</span> 表名(
-
- 				...
-
-				[<span class="keyword">constraint</span>] [外键名称] <span class="keyword">foreign</span> key [外字段名] <span class="keyword">references</span> 主表 [主表列表]
-
+  ...
+  [<span class="keyword">constraint</span>] [外键名称] 
+  <span class="keyword">foreign</span> key [外字段名] 
+  <span class="keyword">references</span> 主表 [主表列表]
  );</code></pre>
 
 <h5 id="2-建立外键关联"><a href="#2-建立外键关联" class="headerlink" title="2.建立外键关联"></a>2.建立外键关联</h5><p><code>alter table 表名 add constraint 外键名称 foreign key(外键字段名) references 主表(主列表名); </code></p>

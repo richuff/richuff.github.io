@@ -62,13 +62,13 @@
         <article class="post-content">
         
             <p>安卓（Android）是一种基于Linux内核（不包含GNU组件）的自由及开放源代码的移动操作系统。主要应用于移动设备，如智能手机和平板电脑，由美国Google公司和开放手机联盟领导及开发。Android操作系统最初由安迪·鲁宾开发，主要支持手机。2005年8月由Google收购注资。2007年11月，Google与84家硬件制造商、软件开发商及电信营运商组建开放手机联盟共同研发改良Android系统。随后Google以Apache开源许可证的授权方式，发布了Android的源代码。</p>
-<h2 id="1-下载Android-Studio和SDK"><a href="#1-下载Android-Studio和SDK" class="headerlink" title="1.下载Android Studio和SDK"></a>1.下载Android Studio和SDK</h2><p><a target="_blank" rel="noopener" href="https://developer.android.google.cn/studio/install">Install Android Studio  | Android Developers (google.cn)</a></p>
-<h2 id="2-观察APP运行日志"><a href="#2-观察APP运行日志" class="headerlink" title="2.观察APP运行日志"></a>2.观察APP运行日志</h2><p>Log.e表示错误信息</p>
+<h2 id="1-Android基本"><a href="#1-Android基本" class="headerlink" title="1.Android基本"></a>1.Android基本</h2><h3 id="1-1-下载Android-Studio和SDK"><a href="#1-1-下载Android-Studio和SDK" class="headerlink" title="1.1.下载Android Studio和SDK"></a>1.1.下载Android Studio和SDK</h3><p><a target="_blank" rel="noopener" href="https://developer.android.google.cn/studio/install">Install Android Studio  | Android Developers (google.cn)</a></p>
+<h3 id="1-2-观察APP运行日志"><a href="#1-2-观察APP运行日志" class="headerlink" title="1.2.观察APP运行日志"></a>1.2.观察APP运行日志</h3><p>Log.e表示错误信息</p>
 <p>Log.w表示警告信息</p>
 <p>Log.i表示一般消息</p>
 <p>Log.d表示调试信息</p>
 <p>Log.v表示冗余信息</p>
-<h2 id="3-工程目录结构"><a href="#3-工程目录结构" class="headerlink" title="3.工程目录结构"></a>3.工程目录结构</h2><h3 id="3-1-gradle"><a href="#3-1-gradle" class="headerlink" title="3.1.gradle"></a>3.1.gradle</h3><p>.gradle和.idea	Android Studio自动生成的文件，不用了解，一般不要改动。</p>
+<h3 id="1-3-工程目录结构"><a href="#1-3-工程目录结构" class="headerlink" title="1.3.工程目录结构"></a>1.3.工程目录结构</h3><h4 id="1-3-1-gradle"><a href="#1-3-1-gradle" class="headerlink" title="1.3.1.gradle"></a>1.3.1.gradle</h4><p>.gradle和.idea	Android Studio自动生成的文件，不用了解，一般不要改动。</p>
 <p>app	代码、资源等内容（常用）</p>
 <p>build	编译文件夹，一般不用</p>
 <p>gradle	gradle wrapper的配置文件，Android Studio默认没有启动gradle wrapper的方式，如果需要打开，可以点击Android Studio导航栏 –&gt; File –&gt; Settings –&gt; Build，Execution，Deployment –&gt; Gradle，进行配置更改。</p>
@@ -79,7 +79,7 @@
 <p>HelloWorld.iml	iml文件是所有IntelliJ IDEA项目都会自动生成的一个文件(Android Studio是基于IntelliJ IDEA开发的)，用于标识这是一个IntelliJ IDEA项目，我们不需要修改这个文件中的任何内容</p>
 <p>local.properties	指定本机中的Android SDK路径，通常内容都是自动生成的，我们并不需要修改。除非你本机中的Android SDK位置发生了变化，那么就将这个文件中的路径改成新的位置即可。</p>
 <p>settings.gradle	用于指定项目中所有引入的模块。需要我们手动去修改这个文件的场景可能比较少</p>
-<h3 id="3-2-app"><a href="#3-2-app" class="headerlink" title="3.2.app"></a>3.2.app</h3><p>build	编译时自动生成的文件，一般不用</p>
+<h4 id="1-3-2-app"><a href="#1-3-2-app" class="headerlink" title="1.3.2.app"></a>1.3.2.app</h4><p>build	编译时自动生成的文件，一般不用</p>
 <p>libs	第三方jar包，jar包都放在libs目录下</p>
 <p>AndroidTest	用来编写Android Test测试用例的，可以对项目进行一些自动化测试</p>
 <p>java	java目录是放置我们所有java代码的地方，展开该目录，你将看到我们刚才创建的HelloWorldActivity文件就在里面</p>
@@ -90,7 +90,10 @@
 <p>app.iml	IntelliJ IDEA项目自动生成的文件，我们不需要关心或修改这个文件中的内容。</p>
 <p>build.gradle	这是app模块的gradle构建脚本，这个文件中会指定很多项目构建相关的配置。</p>
 <p>proguard-rules.pro	这个文件用于指定项目代码的混淆规则，当代码开发完成后打成安装包文件，如果不希望代码被别人破解</p>
-<h2 id="4-创建新的App页面"><a href="#4-创建新的App页面" class="headerlink" title="4.创建新的App页面"></a>4.创建新的App页面</h2><p>1.创建一个layout布局文件</p>
+<h3 id="1-4-创建新的App页面"><a href="#1-4-创建新的App页面" class="headerlink" title="1.4.创建新的App页面"></a>1.4.创建新的App页面</h3><p>1.创建一个layout布局文件</p>
+<blockquote>
+<p><code>xxx.xml</code></p>
+</blockquote>
 <p>2.创建一个Activity Java类</p>
 <blockquote>
 <p>使用startActivity切换页面</p>
@@ -116,7 +119,7 @@
     &#125;
 &#125;</code></pre>
 
-<h2 id="5-Andriod控件"><a href="#5-Andriod控件" class="headerlink" title="5.Andriod控件"></a>5.Andriod控件</h2><h3 id="5-1-设置文本的内容"><a href="#5-1-设置文本的内容" class="headerlink" title="5.1.设置文本的内容"></a>5.1.设置文本的内容</h3><p>1.在XML文件中通过属性andriod:text</p>
+<h2 id="2-Andriod控件"><a href="#2-Andriod控件" class="headerlink" title="2.Andriod控件"></a>2.Andriod控件</h2><h3 id="2-1-设置文本的内容"><a href="#2-1-设置文本的内容" class="headerlink" title="2.1.设置文本的内容"></a>2.1.设置文本的内容</h3><p>1.在XML文件中通过属性andriod:text</p>
 <pre><code class="highlight xml"><span class="comment">&lt;!--res/values--&gt;</span>
 <span class="tag">&lt;<span class="name">resources</span>&gt;</span>
     <span class="tag">&lt;<span class="name">string</span> <span class="attr">name</span>=<span class="string">&quot;mytext&quot;</span> <span class="attr">translatable</span>=<span class="string">&quot;false&quot;</span>&gt;</span>HAHAHA<span class="tag">&lt;/<span class="name">string</span>&gt;</span>
@@ -158,7 +161,7 @@
     &#125;
 &#125;</code></pre>
 
-<h3 id="5-2-设置文本的大小"><a href="#5-2-设置文本的大小" class="headerlink" title="5.2.设置文本的大小"></a>5.2.设置文本的大小</h3><blockquote>
+<h3 id="2-2-设置文本的大小"><a href="#2-2-设置文本的大小" class="headerlink" title="2.2.设置文本的大小"></a>2.2.设置文本的大小</h3><blockquote>
 <p>px 像素</p>
 <p>dpi  指屏幕每英寸有多少个像素点</p>
 <p>dip 长度单位，同一个单位在不同设备上有不同的显示效果，简称dp,与设备无关只与屏幕的尺寸有关</p>
@@ -173,7 +176,7 @@
 <pre><code class="highlight java"><span class="comment">//默认使用sp</span>
 tv.setTextSize(<span class="number">30</span>);</code></pre>
 
-<h3 id="5-3-设置文本颜色"><a href="#5-3-设置文本颜色" class="headerlink" title="5.3.设置文本颜色"></a>5.3.设置文本颜色</h3><blockquote>
+<h3 id="2-3-设置文本颜色"><a href="#2-3-设置文本颜色" class="headerlink" title="2.3.设置文本颜色"></a>2.3.设置文本颜色</h3><blockquote>
 <p>使用自带的颜色，在Color类里面选择</p>
 <p>tv.setTextColor(Color.BLACK);</p>
 <p>使用自定义的颜色类似于argb() 前两位是透明度 ff为不透明,不设置透明度就直接透明了</p>
@@ -192,7 +195,7 @@ tv.setTextSize(<span class="number">30</span>);</code></pre>
 <span class="tag">          <span class="attr">android:textColor</span>=<span class="string">&quot;#8ec5fc&quot;</span></span>
 <span class="tag">          <span class="attr">tools:ignore</span>=<span class="string">&quot;MissingConstraints&quot;</span> /&gt;</span></code></pre>
 
-<h3 id="5-4-设置视图的宽高"><a href="#5-4-设置视图的宽高" class="headerlink" title="5.4.设置视图的宽高"></a>5.4.设置视图的宽高</h3><blockquote>
+<h3 id="2-4-设置视图的宽高"><a href="#2-4-设置视图的宽高" class="headerlink" title="2.4.设置视图的宽高"></a>2.4.设置视图的宽高</h3><blockquote>
 <p>视图宽高通过属性Android：layout_width表达，视图高度通过属性android:layout_height表达 </p>
 <p>match_parent	表示与上级视图保持一致</p>
 <p>wrap_content	表示与内容自适应</p>
@@ -232,18 +235,18 @@ tv.setTextSize(<span class="number">30</span>);</code></pre>
     &#125;
 &#125;</code></pre>
 
-<h3 id="5-5-设置视图的间距"><a href="#5-5-设置视图的间距" class="headerlink" title="5.5.设置视图的间距"></a>5.5.设置视图的间距</h3><p>margin  当前视图和周围平级视图之间的距离</p>
+<h3 id="2-5-设置视图的间距"><a href="#2-5-设置视图的间距" class="headerlink" title="2.5.设置视图的间距"></a>2.5.设置视图的间距</h3><p>margin  当前视图和周围平级视图之间的距离</p>
 <p>padding 当前视图与内部下级视图之间的距离</p>
 <blockquote>
 <p>与前端的margin和padding类似有四个方向,layout_marginTop….</p>
 </blockquote>
-<h3 id="5-6-设置视图的对齐方式"><a href="#5-6-设置视图的对齐方式" class="headerlink" title="5.6.设置视图的对齐方式"></a>5.6.设置视图的对齐方式</h3><blockquote>
+<h3 id="2-6-设置视图的对齐方式"><a href="#2-6-设置视图的对齐方式" class="headerlink" title="2.6.设置视图的对齐方式"></a>2.6.设置视图的对齐方式</h3><blockquote>
 <p>layout_gravity 当前视图相对于上级视图的对齐方式</p>
 <p>gravity下级视图相对于当前视图的对齐方式</p>
 <p>left right top bottom </p>
 <p>用|连接表示合并方向left|top 为左上方</p>
 </blockquote>
-<h2 id="6-布局"><a href="#6-布局" class="headerlink" title="6.布局"></a>6.布局</h2><h3 id="6-1LinearLayout线性布局"><a href="#6-1LinearLayout线性布局" class="headerlink" title="6.1LinearLayout线性布局"></a>6.1LinearLayout线性布局</h3><blockquote>
+<h2 id="3-布局"><a href="#3-布局" class="headerlink" title="3.布局"></a>3.布局</h2><h3 id="3-1LinearLayout线性布局"><a href="#3-1LinearLayout线性布局" class="headerlink" title="3.1LinearLayout线性布局"></a>3.1LinearLayout线性布局</h3><blockquote>
 <p>orientation</p>
 <ul>
 <li>horizontal 内部视图在水平方向从左到右排列</li>
@@ -278,7 +281,7 @@ tv.setTextSize(<span class="number">30</span>);</code></pre>
 <span class="tag">        <span class="attr">android:textColor</span>=<span class="string">&quot;#000000&quot;</span>/&gt;</span>
 <span class="tag">&lt;/<span class="name">LinearLayout</span>&gt;</span></code></pre>
 
-<h3 id="6-2RelativeLayout相对布局"><a href="#6-2RelativeLayout相对布局" class="headerlink" title="6.2RelativeLayout相对布局"></a>6.2RelativeLayout相对布局</h3><p>相对布局的下级视图位置由其他视图决定。用于确定下级视图位置的参照物分两种：</p>
+<h3 id="3-2RelativeLayout相对布局"><a href="#3-2RelativeLayout相对布局" class="headerlink" title="3.2RelativeLayout相对布局"></a>3.2RelativeLayout相对布局</h3><p>相对布局的下级视图位置由其他视图决定。用于确定下级视图位置的参照物分两种：</p>
 <ul>
 <li>与该视图自身平级的视图</li>
 <li>该视图的上级视图</li>
@@ -374,7 +377,7 @@ tv.setTextSize(<span class="number">30</span>);</code></pre>
 <td>控件的基线与指定控件的基线对齐。</td>
 </tr>
 </tbody></table>
-<h3 id="6-3GridLayout网格布局"><a href="#6-3GridLayout网格布局" class="headerlink" title="6.3GridLayout网格布局"></a>6.3GridLayout网格布局</h3><blockquote>
+<h3 id="3-3GridLayout网格布局"><a href="#3-3GridLayout网格布局" class="headerlink" title="3.3GridLayout网格布局"></a>3.3GridLayout网格布局</h3><blockquote>
 <p>支持多行多列的布局</p>
 <p>默认从左往右从上到下</p>
 <ul>
@@ -403,11 +406,11 @@ tv.setTextSize(<span class="number">30</span>);</code></pre>
 <blockquote>
 <p>设置权重layout_columnWeight,layout_rowWeight</p>
 </blockquote>
-<h3 id="6-4滚动视图ScrollView"><a href="#6-4滚动视图ScrollView" class="headerlink" title="6.4滚动视图ScrollView"></a>6.4滚动视图ScrollView</h3><blockquote>
+<h3 id="3-4滚动视图ScrollView"><a href="#3-4滚动视图ScrollView" class="headerlink" title="3.4滚动视图ScrollView"></a>3.4滚动视图ScrollView</h3><blockquote>
 <p>ScrollView,它是垂直方向的滚动视图；垂直方向滚动时，layout_width属性值设置为match_parent,layout_height属性值设置为wrap_content</p>
 <p>HorizontalScrollViewScrollView,它是水平方向的滚动视图水平方向滚动时，layout_width属性值设置为wrap_content,layout_height属性设置为match_parent</p>
 </blockquote>
-<h3 id="6-5-Button"><a href="#6-5-Button" class="headerlink" title="6.5.Button"></a>6.5.Button</h3><blockquote>
+<h3 id="3-5-Button"><a href="#3-5-Button" class="headerlink" title="3.5.Button"></a>3.5.Button</h3><blockquote>
 <p>由TextView派生</p>
 <ul>
 <li>有默认背景</li>
@@ -424,7 +427,7 @@ tv.setTextSize(<span class="number">30</span>);</code></pre>
 <p>android:onClick&#x3D;”doclick”</p>
 <p>绑定事件（不常用）</p>
 </blockquote>
-<h3 id="6-6点击事件"><a href="#6-6点击事件" class="headerlink" title="6.6点击事件"></a>6.6点击事件</h3><blockquote>
+<h3 id="3-6点击事件"><a href="#3-6点击事件" class="headerlink" title="3.6点击事件"></a>3.6点击事件</h3><blockquote>
 <p>setOnClickListener</p>
 </blockquote>
 <pre><code class="highlight java"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MainActivity_2</span> <span class="keyword">extends</span> <span class="title class_">AppCompatActivity</span> &#123;
@@ -462,7 +465,7 @@ tv.setTextSize(<span class="number">30</span>);</code></pre>
     &#125;
 &#125;</code></pre>
 
-<h3 id="6-7长按点击事件"><a href="#6-7长按点击事件" class="headerlink" title="6.7长按点击事件"></a>6.7长按点击事件</h3><blockquote>
+<h3 id="3-7长按点击事件"><a href="#3-7长按点击事件" class="headerlink" title="3.7长按点击事件"></a>3.7长按点击事件</h3><blockquote>
 <p>true则为开启事件冒泡，false则不开启</p>
 </blockquote>
 <pre><code class="highlight java">bt.setOnLongClickListener(v-&gt;&#123;
@@ -471,7 +474,7 @@ tv.setTextSize(<span class="number">30</span>);</code></pre>
     <span class="keyword">return</span> <span class="literal">true</span>;
 &#125;);</code></pre>
 
-<h3 id="6-8禁用恢复按钮"><a href="#6-8禁用恢复按钮" class="headerlink" title="6.8禁用恢复按钮"></a>6.8禁用恢复按钮</h3><blockquote>
+<h3 id="3-8禁用恢复按钮"><a href="#3-8禁用恢复按钮" class="headerlink" title="3.8禁用恢复按钮"></a>3.8禁用恢复按钮</h3><blockquote>
 <p>是否允许点击enable</p>
 </blockquote>
 <pre><code class="highlight java">bt1.setEnabled(<span class="literal">true</span>);
@@ -480,7 +483,7 @@ bt1.setEnabled(<span class="literal">false</span>);</code></pre>
 <blockquote>
 <p>true启用，false禁用</p>
 </blockquote>
-<h3 id="6-9ImageView"><a href="#6-9ImageView" class="headerlink" title="6.9ImageView"></a>6.9ImageView</h3><blockquote>
+<h3 id="3-9ImageView"><a href="#3-9ImageView" class="headerlink" title="3.9ImageView"></a>3.9ImageView</h3><blockquote>
 <p>图像视图ImageView</p>
 <p>图像视图展示的图片通常位于res&#x2F;drawable***目录，设置图像视图的显示图片有两种方式:</p>
 <p>在XML文件中，通过属性android：src设置图片资源，属性值格式形如“@drawable&#x2F;不含扩展名的图片名称”。</p>
@@ -509,7 +512,7 @@ imageView.setImageResource(R.drawable.test);
 <span class="comment">//设置缩放对齐方式</span>
 imageView.setScaleType(ImageView.ScaleType.FIT_XY);</code></pre>
 
-<h3 id="6-10ImageButton"><a href="#6-10ImageButton" class="headerlink" title="6.10ImageButton"></a>6.10ImageButton</h3><blockquote>
+<h3 id="3-10ImageButton"><a href="#3-10ImageButton" class="headerlink" title="3.10ImageButton"></a>3.10ImageButton</h3><blockquote>
 <p>同时显示文本和图像</p>
 <p>通过Button上的drawable属性设置周围文本的图标</p>
 </blockquote>
@@ -520,21 +523,7 @@ imageView.setScaleType(ImageView.ScaleType.FIT_XY);</code></pre>
 <p>drawableRight:指定文字右方的图片</p>
 <p>drawablePadding:指定图片与文字的间距</p>
 </blockquote>
-<h3 id="6-11计算器项目"><a href="#6-11计算器项目" class="headerlink" title="6.11计算器项目"></a>6.11计算器项目</h3><pre><code class="highlight java"><span class="keyword">package</span> com.example.application1;
-
-<span class="keyword">import</span> android.os.Bundle;
-<span class="keyword">import</span> android.util.Log;
-<span class="keyword">import</span> android.view.View;
-<span class="keyword">import</span> android.widget.Button;
-<span class="keyword">import</span> android.widget.TextView;
-
-<span class="keyword">import</span> androidx.activity.EdgeToEdge;
-<span class="keyword">import</span> androidx.appcompat.app.AppCompatActivity;
-<span class="keyword">import</span> androidx.core.graphics.Insets;
-<span class="keyword">import</span> androidx.core.view.ViewCompat;
-<span class="keyword">import</span> androidx.core.view.WindowInsetsCompat;
-
-<span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">CaculateActivity</span> <span class="keyword">extends</span> <span class="title class_">AppCompatActivity</span> <span class="keyword">implements</span> <span class="title class_">View</span>.OnClickListener &#123;
+<h3 id="3-11计算器项目"><a href="#3-11计算器项目" class="headerlink" title="3.11计算器项目"></a>3.11计算器项目</h3><pre><code class="highlight java"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">CaculateActivity</span> <span class="keyword">extends</span> <span class="title class_">AppCompatActivity</span> <span class="keyword">implements</span> <span class="title class_">View</span>.OnClickListener &#123;
 
     <span class="keyword">private</span> TextView tv_result;
     <span class="keyword">private</span> <span class="type">String</span> <span class="variable">firstNum</span> <span class="operator">=</span> <span class="string">&quot;&quot;</span>;
@@ -662,7 +651,7 @@ imageView.setScaleType(ImageView.ScaleType.FIT_XY);</code></pre>
     &#125;
 &#125;</code></pre>
 
-<h2 id="7-Activity"><a href="#7-Activity" class="headerlink" title="7.Activity"></a>7.Activity</h2><h3 id="7-1启停activity"><a href="#7-1启停activity" class="headerlink" title="7.1启停activity"></a>7.1启停activity</h3><blockquote>
+<h2 id="4-Activity"><a href="#4-Activity" class="headerlink" title="4.Activity"></a>4.Activity</h2><h3 id="4-1启停activity"><a href="#4-1启停activity" class="headerlink" title="4.1启停activity"></a>4.1启停activity</h3><blockquote>
 <p>启动新Activity</p>
 <p>startActivity(new Intent(原页面.this,目标页面.class))</p>
 <p>返回</p>
@@ -702,7 +691,7 @@ imageView.setScaleType(ImageView.ScaleType.FIT_XY);</code></pre>
     &#125;
 &#125;</code></pre>
 
-<h3 id="7-2Activity生命周期"><a href="#7-2Activity生命周期" class="headerlink" title="7.2Activity生命周期"></a>7.2Activity生命周期</h3><p>onCreate：表示Activity正在被创建。生命周期的第一个方法，当打开一个activity时首先回调这个方法。在这个方法中一般做一些初始化工作，例如加载界面布局资源（setContentView）、数据初始化（findviewbyid）</p>
+<h3 id="4-2Activity生命周期"><a href="#4-2Activity生命周期" class="headerlink" title="4.2Activity生命周期"></a>4.2Activity生命周期</h3><p>onCreate：表示Activity正在被创建。生命周期的第一个方法，当打开一个activity时首先回调这个方法。在这个方法中一般做一些初始化工作，例如加载界面布局资源（setContentView）、数据初始化（findviewbyid）</p>
 <p>onRestart ： 表示Activity正在被重新启动。当前activity从不可见变为可见状态时这个方法就会回调。一般是用户行为导致，比如用户摁home键回到桌面，当用户再次回到本activity时，当前activity 走 onRestart-&gt;onStart-&gt;onResume</p>
 <p>onStart :表示activity正在被启动。activity可见，未出现在前台。可以理解为activity已经显示出来了，但是我们看不到，不能与之交互。</p>
 <p>onResume ：表示activity已经可见，并且出现在前台，可以与用户进行交互。例如activity上有Button，此时我们就可以进行点击了。</p>
@@ -711,7 +700,7 @@ imageView.setScaleType(ImageView.ScaleType.FIT_XY);</code></pre>
 <p>onDestroy ：activity即将被销毁 ，activity生命周期最后一个回调，这里可以做一些回收工作，资源释放。</p>
 <p>onNewIntent:重用已有的活动实例</p>
 <p><img src="http://kycloud3.koyoo.cn/202410236eeb0202410231827142116.png" alt="activity.png"></p>
-<h3 id="7-3Activity启动模式"><a href="#7-3Activity启动模式" class="headerlink" title="7.3Activity启动模式"></a>7.3Activity启动模式</h3><h4 id="1-在配置文件中设置启动模式"><a href="#1-在配置文件中设置启动模式" class="headerlink" title="1.在配置文件中设置启动模式"></a>1.在配置文件中设置启动模式</h4><pre><code class="highlight xml"><span class="tag">&lt;<span class="name">activity</span></span>
+<h3 id="4-3Activity启动模式"><a href="#4-3Activity启动模式" class="headerlink" title="4.3Activity启动模式"></a>4.3Activity启动模式</h3><h4 id="1-在配置文件中设置启动模式"><a href="#1-在配置文件中设置启动模式" class="headerlink" title="1.在配置文件中设置启动模式"></a>1.在配置文件中设置启动模式</h4><pre><code class="highlight xml"><span class="tag">&lt;<span class="name">activity</span></span>
 <span class="tag">          <span class="attr">android:name</span>=<span class="string">&quot;.MainActivity&quot;</span></span>
 <span class="tag">          <span class="attr">android:exported</span>=<span class="string">&quot;true&quot;</span></span>
 <span class="tag">          <span class="attr">android:launchMode</span>=<span class="string">&quot;standard&quot;</span>&gt;</span></code></pre>
@@ -752,7 +741,7 @@ imageView.setScaleType(ImageView.ScaleType.FIT_XY);</code></pre>
 intent.setFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
 startActivity(intent);</code></pre>
 
-<h3 id="7-4传递数据"><a href="#7-4传递数据" class="headerlink" title="7.4传递数据"></a>7.4传递数据</h3><h4 id="7-4-1显示Intent和隐式Intent"><a href="#7-4-1显示Intent和隐式Intent" class="headerlink" title="7.4.1显示Intent和隐式Intent"></a>7.4.1显示Intent和隐式Intent</h4><blockquote>
+<h3 id="4-4传递数据"><a href="#4-4传递数据" class="headerlink" title="4.4传递数据"></a>4.4传递数据</h3><h4 id="4-4-1显示Intent和隐式Intent"><a href="#4-4-1显示Intent和隐式Intent" class="headerlink" title="4.4.1显示Intent和隐式Intent"></a>4.4.1显示Intent和隐式Intent</h4><blockquote>
 <p>Intent是各个组件之间信息沟通的桥梁，用于各组件的通信</p>
 </blockquote>
 <blockquote>
@@ -845,7 +834,7 @@ startActivity(intent);</code></pre>
 <td>接听电话</td>
 </tr>
 </tbody></table>
-<h4 id="7-4-2向下一个Activity发送数据"><a href="#7-4-2向下一个Activity发送数据" class="headerlink" title="7.4.2向下一个Activity发送数据"></a>7.4.2向下一个Activity发送数据</h4><blockquote>
+<h4 id="4-4-2向下一个Activity发送数据"><a href="#4-4-2向下一个Activity发送数据" class="headerlink" title="4.4.2向下一个Activity发送数据"></a>4.4.2向下一个Activity发送数据</h4><blockquote>
 <p>使用Bundle对象存储待传递的数据信息</p>
 </blockquote>
 <blockquote>
@@ -870,35 +859,13 @@ startActivity(intent);</code></pre>
 <span class="type">String</span> <span class="variable">test</span> <span class="operator">=</span> String.format(<span class="string">&quot;hahah\nha%s\n%s&quot;</span>,request_time,request_content);
 show.setText(test);</code></pre>
 
-<h4 id="7-4-3向上一个Activity返回数据"><a href="#7-4-3向上一个Activity返回数据" class="headerlink" title="7.4.3向上一个Activity返回数据"></a>7.4.3向上一个Activity返回数据</h4><blockquote>
+<h4 id="4-4-3向上一个Activity返回数据"><a href="#4-4-3向上一个Activity返回数据" class="headerlink" title="4.4.3向上一个Activity返回数据"></a>4.4.3向上一个Activity返回数据</h4><blockquote>
 <p>1.上一个页面打包好请求数据后，调用StartActivityForResult方法执行跳转动作</p>
 <p>2.下一个页面接收并解析请求数据，进行相应处理</p>
 <p>3.下一个页面返回上一个页面时，打包应答数据并调用SetResult方法返回数据包裹</p>
 <p>4.上一个页面重写方法OnActivityResult，解析获得下一个页面的返回数据</p>
 </blockquote>
-<pre><code class="highlight java"><span class="keyword">package</span> com.example.application2;
-
-<span class="keyword">import</span> android.annotation.SuppressLint;
-<span class="keyword">import</span> android.app.Activity;
-<span class="keyword">import</span> android.content.Intent;
-<span class="keyword">import</span> android.os.Bundle;
-<span class="keyword">import</span> android.view.View;
-<span class="keyword">import</span> android.widget.Button;
-<span class="keyword">import</span> android.widget.TextView;
-
-<span class="keyword">import</span> androidx.activity.EdgeToEdge;
-<span class="keyword">import</span> androidx.activity.result.ActivityResult;
-<span class="keyword">import</span> androidx.activity.result.ActivityResultCallback;
-<span class="keyword">import</span> androidx.activity.result.ActivityResultLauncher;
-<span class="keyword">import</span> androidx.activity.result.contract.ActivityResultContracts;
-<span class="keyword">import</span> androidx.appcompat.app.AppCompatActivity;
-<span class="keyword">import</span> androidx.core.graphics.Insets;
-<span class="keyword">import</span> androidx.core.view.ViewCompat;
-<span class="keyword">import</span> androidx.core.view.WindowInsetsCompat;
-
-<span class="keyword">import</span> com.example.application2.Dateutil.MyDate;
-
-<span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MainActivity3</span> <span class="keyword">extends</span> <span class="title class_">AppCompatActivity</span> <span class="keyword">implements</span> <span class="title class_">View</span>.OnClickListener &#123;
+<pre><code class="highlight java"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MainActivity3</span> <span class="keyword">extends</span> <span class="title class_">AppCompatActivity</span> <span class="keyword">implements</span> <span class="title class_">View</span>.OnClickListener &#123;
 
     <span class="keyword">private</span> <span class="type">String</span> <span class="variable">myrequest</span> <span class="operator">=</span> <span class="string">&quot;this is a test&quot;</span>;
     <span class="keyword">private</span> String getrequest;
@@ -942,26 +909,7 @@ show.setText(test);</code></pre>
     &#125;
 &#125;</code></pre>
 
-<pre><code class="highlight java"><span class="keyword">package</span> com.example.application2;
-
-<span class="keyword">import</span> android.annotation.SuppressLint;
-<span class="keyword">import</span> android.app.Activity;
-<span class="keyword">import</span> android.content.Intent;
-<span class="keyword">import</span> android.icu.util.BuddhistCalendar;
-<span class="keyword">import</span> android.os.Bundle;
-<span class="keyword">import</span> android.view.View;
-<span class="keyword">import</span> android.widget.Button;
-<span class="keyword">import</span> android.widget.TextView;
-
-<span class="keyword">import</span> androidx.activity.EdgeToEdge;
-<span class="keyword">import</span> androidx.appcompat.app.AppCompatActivity;
-<span class="keyword">import</span> androidx.core.graphics.Insets;
-<span class="keyword">import</span> androidx.core.view.ViewCompat;
-<span class="keyword">import</span> androidx.core.view.WindowInsetsCompat;
-
-<span class="keyword">import</span> com.example.application2.Dateutil.MyDate;
-
-<span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MainActivity4</span> <span class="keyword">extends</span> <span class="title class_">AppCompatActivity</span> <span class="keyword">implements</span> <span class="title class_">View</span>.OnClickListener &#123;
+<pre><code class="highlight java"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MainActivity4</span> <span class="keyword">extends</span> <span class="title class_">AppCompatActivity</span> <span class="keyword">implements</span> <span class="title class_">View</span>.OnClickListener &#123;
 
     <span class="meta">@SuppressLint(&quot;MissingInflatedId&quot;)</span>
     <span class="meta">@Override</span>
@@ -991,11 +939,11 @@ show.setText(test);</code></pre>
     &#125;
 &#125;</code></pre>
 
-<h4 id="7-4-4利用资源配置文件配置字符串"><a href="#7-4-4利用资源配置文件配置字符串" class="headerlink" title="7.4.4利用资源配置文件配置字符串"></a>7.4.4利用资源配置文件配置字符串</h4><pre><code class="highlight java"><span class="type">String</span> <span class="variable">test</span> <span class="operator">=</span> getString(R.string.test);</code></pre>
+<h4 id="4-4-4利用资源配置文件配置字符串"><a href="#4-4-4利用资源配置文件配置字符串" class="headerlink" title="4.4.4利用资源配置文件配置字符串"></a>4.4.4利用资源配置文件配置字符串</h4><pre><code class="highlight java"><span class="type">String</span> <span class="variable">test</span> <span class="operator">=</span> getString(R.string.test);</code></pre>
 
-<h4 id="7-4-5利用元数据传递配置信息"><a href="#7-4-5利用元数据传递配置信息" class="headerlink" title="7.4.5利用元数据传递配置信息"></a>7.4.5利用元数据传递配置信息</h4><pre><code class="highlight xml"><span class="tag">&lt;<span class="name">meta-data</span> <span class="attr">android:name</span>=<span class="string">&quot;test&quot;</span> <span class="attr">android:value</span>=<span class="string">&quot;test&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">meta-data</span>&gt;</span></code></pre>
+<h4 id="4-4-5利用元数据传递配置信息"><a href="#4-4-5利用元数据传递配置信息" class="headerlink" title="4.4.5利用元数据传递配置信息"></a>4.4.5利用元数据传递配置信息</h4><pre><code class="highlight xml"><span class="tag">&lt;<span class="name">meta-data</span> <span class="attr">android:name</span>=<span class="string">&quot;test&quot;</span> <span class="attr">android:value</span>=<span class="string">&quot;test&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">meta-data</span>&gt;</span></code></pre>
 
-<h2 id="8-Drawable"><a href="#8-Drawable" class="headerlink" title="8.Drawable"></a>8.Drawable</h2><blockquote>
+<h2 id="5-Drawable"><a href="#5-Drawable" class="headerlink" title="5.Drawable"></a>5.Drawable</h2><blockquote>
 <p>drawable-ldpi存放低分辨率的图片，基本没有这样的手机了</p>
 <p>drawable-mdpi存放中等分辨率的图片，使用较少</p>
 <p>drawable-hdpi存放高分辨率的图片 4-5英寸</p>
@@ -1003,7 +951,7 @@ show.setText(test);</code></pre>
 <p>drawable-xxhdpi存放高分辨率的图片 6-6.5英寸</p>
 <p>drawable-xxxhdpi存放高分辨率的图片   &gt;7英寸</p>
 </blockquote>
-<h3 id="8-1形状图形"><a href="#8-1形状图形" class="headerlink" title="8.1形状图形"></a>8.1形状图形</h3><blockquote>
+<h3 id="5-1形状图形"><a href="#5-1形状图形" class="headerlink" title="5.1形状图形"></a>5.1形状图形</h3><blockquote>
 <p>Shape图形又称形状图形，它用来描述常见的几何形状，包括矩形，圆角矩形，圆形，椭圆等等</p>
 </blockquote>
 <blockquote>
@@ -1019,18 +967,7 @@ show.setText(test);</code></pre>
 
 <span class="tag">&lt;/<span class="name">shape</span>&gt;</span></code></pre>
 
-<pre><code class="highlight java"><span class="keyword">package</span> com.example.application2;
-
-<span class="keyword">import</span> android.os.Bundle;
-<span class="keyword">import</span> android.view.View;
-
-<span class="keyword">import</span> androidx.activity.EdgeToEdge;
-<span class="keyword">import</span> androidx.appcompat.app.AppCompatActivity;
-<span class="keyword">import</span> androidx.core.graphics.Insets;
-<span class="keyword">import</span> androidx.core.view.ViewCompat;
-<span class="keyword">import</span> androidx.core.view.WindowInsetsCompat;
-
-<span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MainActivity6</span> <span class="keyword">extends</span> <span class="title class_">AppCompatActivity</span> <span class="keyword">implements</span> <span class="title class_">View</span>.OnClickListener &#123;
+<pre><code class="highlight java"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MainActivity6</span> <span class="keyword">extends</span> <span class="title class_">AppCompatActivity</span> <span class="keyword">implements</span> <span class="title class_">View</span>.OnClickListener &#123;
 
     <span class="keyword">private</span> View v_content;
     <span class="meta">@Override</span>
@@ -1106,7 +1043,7 @@ show.setText(test);</code></pre>
 <td>滚动渐变</td>
 </tr>
 </tbody></table>
-<h3 id="8-2九宫格图片"><a href="#8-2九宫格图片" class="headerlink" title="8.2九宫格图片"></a>8.2九宫格图片</h3><blockquote>
+<h3 id="5-2九宫格图片"><a href="#5-2九宫格图片" class="headerlink" title="5.2九宫格图片"></a>5.2九宫格图片</h3><blockquote>
 <p>test.9.png</p>
 </blockquote>
 <blockquote>
@@ -1114,7 +1051,7 @@ show.setText(test);</code></pre>
 <p>黑线区域以内的图像会拉伸，黑线以外的图像保持原状</p>
 <p>内部文字只能放在黑线区域内</p>
 </blockquote>
-<h3 id="8-3状态列表图形"><a href="#8-3状态列表图形" class="headerlink" title="8.3状态列表图形"></a>8.3状态列表图形</h3><pre><code class="highlight xml"><span class="meta">&lt;?xml version=<span class="string">&quot;1.0&quot;</span> encoding=<span class="string">&quot;utf-8&quot;</span>?&gt;</span>
+<h3 id="5-3状态列表图形"><a href="#5-3状态列表图形" class="headerlink" title="5.3状态列表图形"></a>5.3状态列表图形</h3><pre><code class="highlight xml"><span class="meta">&lt;?xml version=<span class="string">&quot;1.0&quot;</span> encoding=<span class="string">&quot;utf-8&quot;</span>?&gt;</span>
 <span class="tag">&lt;<span class="name">selector</span> <span class="attr">xmlns:android</span>=<span class="string">&quot;http://schemas.android.com/apk/res/android&quot;</span>&gt;</span>
  <span class="tag">&lt;<span class="name">item</span> <span class="attr">android:drawable</span>=<span class="string">&quot;@drawable/test&quot;</span> <span class="attr">android:state_pressed</span>=<span class="string">&quot;true&quot;</span>/&gt;</span>
  <span class="tag">&lt;<span class="name">item</span> <span class="attr">android:drawable</span>=<span class="string">&quot;@drawable/tests&quot;</span>/&gt;</span>
@@ -1152,7 +1089,7 @@ show.setText(test);</code></pre>
 <td>各组件通用</td>
 </tr>
 </tbody></table>
-<h3 id="8-4复选框CheckBOx"><a href="#8-4复选框CheckBOx" class="headerlink" title="8.4复选框CheckBOx"></a>8.4复选框CheckBOx</h3><pre><code class="highlight xml"><span class="tag">&lt;<span class="name">CheckBox</span></span>
+<h3 id="5-4复选框CheckBOx"><a href="#5-4复选框CheckBOx" class="headerlink" title="5.4复选框CheckBOx"></a>5.4复选框CheckBOx</h3><pre><code class="highlight xml"><span class="tag">&lt;<span class="name">CheckBox</span></span>
 <span class="tag">    <span class="attr">android:layout_width</span>=<span class="string">&quot;match_parent&quot;</span></span>
 <span class="tag">    <span class="attr">android:layout_height</span>=<span class="string">&quot;wrap_content&quot;</span></span>
 <span class="tag">    <span class="attr">android:text</span>=<span class="string">&quot;系统checkbox&quot;</span>/&gt;</span></code></pre>
@@ -1196,7 +1133,7 @@ show.setText(test);</code></pre>
 <li>isChecked判断按钮是否勾选</li>
 </ul>
 </blockquote>
-<h3 id="8-5Switch"><a href="#8-5Switch" class="headerlink" title="8.5Switch"></a>8.5Switch</h3><p>Switch是开关按钮，它在选中和取消选中时可展现的界面元素比复选框丰富</p>
+<h3 id="5-5Switch"><a href="#5-5Switch" class="headerlink" title="5.5Switch"></a>5.5Switch</h3><p>Switch是开关按钮，它在选中和取消选中时可展现的界面元素比复选框丰富</p>
 <blockquote>
 <p>textOn:打开时的文本</p>
 <p>textOff:设置左侧关闭的文本</p>
@@ -1204,51 +1141,51 @@ show.setText(test);</code></pre>
 <p>thumb：设置开关表示的图标</p>
 </blockquote>
 <pre><code class="highlight xml"><span class="tag">&lt;<span class="name">Switch</span></span>
-<span class="tag">    <span class="attr">android:id</span>=<span class="string">&quot;@+id/select&quot;</span></span>
-<span class="tag">    <span class="attr">android:layout_width</span>=<span class="string">&quot;match_parent&quot;</span></span>
-<span class="tag">    <span class="attr">android:layout_height</span>=<span class="string">&quot;wrap_content&quot;</span></span>
-<span class="tag">    <span class="attr">android:layout_gravity</span>=<span class="string">&quot;start|center&quot;</span></span>
-<span class="tag">    <span class="attr">android:text</span>=<span class="string">&quot;switch&quot;</span></span>
-<span class="tag">    /&gt;</span></code></pre>
-
-<pre><code class="highlight xml">//使用checkBox实现Switch开关按钮    
-<span class="tag">&lt;<span class="name">CheckBox</span></span>
 <span class="tag">        <span class="attr">android:id</span>=<span class="string">&quot;@+id/select&quot;</span></span>
 <span class="tag">        <span class="attr">android:layout_width</span>=<span class="string">&quot;match_parent&quot;</span></span>
 <span class="tag">        <span class="attr">android:layout_height</span>=<span class="string">&quot;wrap_content&quot;</span></span>
 <span class="tag">        <span class="attr">android:layout_gravity</span>=<span class="string">&quot;start|center&quot;</span></span>
 <span class="tag">        <span class="attr">android:text</span>=<span class="string">&quot;switch&quot;</span></span>
-<span class="tag">        //<span class="attr">设置按钮为空</span></span>
-<span class="tag">        <span class="attr">android:button</span>=<span class="string">&quot;@null&quot;</span></span>
-<span class="tag">        <span class="attr">android:background</span>=<span class="string">&quot;@drawable/ic_launcher_background&quot;</span></span>
 <span class="tag">        /&gt;</span></code></pre>
 
-<h3 id="8-6单选按钮"><a href="#8-6单选按钮" class="headerlink" title="8.6单选按钮"></a>8.6单选按钮</h3><blockquote>
+<pre><code class="highlight xml"><span class="comment">&lt;!-- 使用checkBox实现Switch开关按钮 --&gt;</span>   
+<span class="tag">&lt;<span class="name">CheckBox</span></span>
+<span class="tag">          <span class="attr">android:id</span>=<span class="string">&quot;@+id/select&quot;</span></span>
+<span class="tag">          <span class="attr">android:layout_width</span>=<span class="string">&quot;match_parent&quot;</span></span>
+<span class="tag">          <span class="attr">android:layout_height</span>=<span class="string">&quot;wrap_content&quot;</span></span>
+<span class="tag">          <span class="attr">android:layout_gravity</span>=<span class="string">&quot;start|center&quot;</span></span>
+<span class="tag">          <span class="attr">android:text</span>=<span class="string">&quot;switch&quot;</span></span>
+<span class="tag">          //<span class="attr">设置按钮为空</span></span>
+<span class="tag">          <span class="attr">android:button</span>=<span class="string">&quot;@null&quot;</span></span>
+<span class="tag">          <span class="attr">android:background</span>=<span class="string">&quot;@drawable/ic_launcher_background&quot;</span></span>
+<span class="tag">          /&gt;</span></code></pre>
+
+<h3 id="5-6单选按钮"><a href="#5-6单选按钮" class="headerlink" title="5.6单选按钮"></a>5.6单选按钮</h3><blockquote>
 <p>一组中只能选择一个</p>
 <p>RadioButton,放入一个RadioGroup组内部</p>
 </blockquote>
-<pre><code class="highlight xml">    <span class="tag">&lt;<span class="name">TextView</span></span>
-<span class="tag">        <span class="attr">android:layout_width</span>=<span class="string">&quot;match_parent&quot;</span></span>
-<span class="tag">        <span class="attr">android:layout_height</span>=<span class="string">&quot;wrap_content&quot;</span></span>
-<span class="tag">        <span class="attr">android:text</span>=<span class="string">&quot;提示信息&quot;</span></span>
-<span class="tag">        <span class="attr">android:layout_gravity</span>=<span class="string">&quot;center&quot;</span>/&gt;</span>
+<pre><code class="highlight xml"><span class="tag">&lt;<span class="name">TextView</span></span>
+<span class="tag">          <span class="attr">android:layout_width</span>=<span class="string">&quot;match_parent&quot;</span></span>
+<span class="tag">          <span class="attr">android:layout_height</span>=<span class="string">&quot;wrap_content&quot;</span></span>
+<span class="tag">          <span class="attr">android:text</span>=<span class="string">&quot;提示信息&quot;</span></span>
+<span class="tag">          <span class="attr">android:layout_gravity</span>=<span class="string">&quot;center&quot;</span>/&gt;</span>
 <span class="tag">&lt;<span class="name">RadioGroup</span></span>
-<span class="tag">    <span class="attr">android:layout_width</span>=<span class="string">&quot;match_parent&quot;</span></span>
-<span class="tag">    <span class="attr">android:layout_height</span>=<span class="string">&quot;wrap_content&quot;</span></span>
-<span class="tag">    <span class="attr">android:orientation</span>=<span class="string">&quot;horizontal&quot;</span>&gt;</span>
+<span class="tag">            <span class="attr">android:layout_width</span>=<span class="string">&quot;match_parent&quot;</span></span>
+<span class="tag">            <span class="attr">android:layout_height</span>=<span class="string">&quot;wrap_content&quot;</span></span>
+<span class="tag">            <span class="attr">android:orientation</span>=<span class="string">&quot;horizontal&quot;</span>&gt;</span>
     <span class="tag">&lt;<span class="name">RadioButton</span></span>
-<span class="tag">        <span class="attr">android:id</span>=<span class="string">&quot;@+id/male&quot;</span></span>
-<span class="tag">        <span class="attr">android:layout_width</span>=<span class="string">&quot;0dp&quot;</span></span>
-<span class="tag">        <span class="attr">android:layout_height</span>=<span class="string">&quot;wrap_content&quot;</span></span>
-<span class="tag">        <span class="attr">android:layout_weight</span>=<span class="string">&quot;1&quot;</span></span>
-<span class="tag">        <span class="attr">android:text</span>=<span class="string">&quot;man&quot;</span>/&gt;</span>
+<span class="tag">                 <span class="attr">android:id</span>=<span class="string">&quot;@+id/male&quot;</span></span>
+<span class="tag">                 <span class="attr">android:layout_width</span>=<span class="string">&quot;0dp&quot;</span></span>
+<span class="tag">                 <span class="attr">android:layout_height</span>=<span class="string">&quot;wrap_content&quot;</span></span>
+<span class="tag">                 <span class="attr">android:layout_weight</span>=<span class="string">&quot;1&quot;</span></span>
+<span class="tag">                 <span class="attr">android:text</span>=<span class="string">&quot;man&quot;</span>/&gt;</span>
 
     <span class="tag">&lt;<span class="name">RadioButton</span></span>
-<span class="tag">        <span class="attr">android:id</span>=<span class="string">&quot;@+id/female&quot;</span></span>
-<span class="tag">        <span class="attr">android:layout_width</span>=<span class="string">&quot;0dp&quot;</span></span>
-<span class="tag">        <span class="attr">android:layout_height</span>=<span class="string">&quot;wrap_content&quot;</span></span>
-<span class="tag">        <span class="attr">android:layout_weight</span>=<span class="string">&quot;1&quot;</span></span>
-<span class="tag">        <span class="attr">android:text</span>=<span class="string">&quot;woman&quot;</span>/&gt;</span>
+<span class="tag">                 <span class="attr">android:id</span>=<span class="string">&quot;@+id/female&quot;</span></span>
+<span class="tag">                 <span class="attr">android:layout_width</span>=<span class="string">&quot;0dp&quot;</span></span>
+<span class="tag">                 <span class="attr">android:layout_height</span>=<span class="string">&quot;wrap_content&quot;</span></span>
+<span class="tag">                 <span class="attr">android:layout_weight</span>=<span class="string">&quot;1&quot;</span></span>
+<span class="tag">                 <span class="attr">android:text</span>=<span class="string">&quot;woman&quot;</span>/&gt;</span>
 <span class="tag">&lt;/<span class="name">RadioGroup</span>&gt;</span></code></pre>
 
 <blockquote>
@@ -1276,21 +1213,21 @@ show.setText(test);</code></pre>
     &#125;
 &#125;</code></pre>
 
-<h3 id="8-7文本输入框"><a href="#8-7文本输入框" class="headerlink" title="8.7文本输入框"></a>8.7文本输入框</h3><pre><code class="highlight xml"><span class="tag">&lt;<span class="name">EditText</span></span>
-<span class="tag">    <span class="attr">android:layout_width</span>=<span class="string">&quot;match_parent&quot;</span></span>
-<span class="tag">    <span class="attr">android:layout_height</span>=<span class="string">&quot;wrap_content&quot;</span></span>
-<span class="tag">    <span class="attr">android:text</span>=<span class="string">&quot;输入登录信息&quot;</span>/&gt;</span></code></pre>
+<h3 id="5-7文本输入框"><a href="#5-7文本输入框" class="headerlink" title="5.7文本输入框"></a>5.7文本输入框</h3><pre><code class="highlight xml"><span class="tag">&lt;<span class="name">EditText</span></span>
+<span class="tag">          <span class="attr">android:layout_width</span>=<span class="string">&quot;match_parent&quot;</span></span>
+<span class="tag">          <span class="attr">android:layout_height</span>=<span class="string">&quot;wrap_content&quot;</span></span>
+<span class="tag">          <span class="attr">android:text</span>=<span class="string">&quot;输入登录信息&quot;</span>/&gt;</span></code></pre>
 
 <blockquote>
 <p>去掉默认边框</p>
 </blockquote>
-<pre><code class="highlight plaintext">&lt;EditText
-    android:layout_width=&quot;match_parent&quot;
-    android:layout_height=&quot;100dp&quot;
-    android:text=&quot;输入密码信息&quot;
-    android:background=&quot;@null&quot;
-    android:hint=&quot;自定义&quot;
-    android:inputType=&quot;text&quot;/&gt;</code></pre>
+<pre><code class="highlight xml"><span class="tag">&lt;<span class="name">EditText</span></span>
+<span class="tag">          <span class="attr">android:layout_width</span>=<span class="string">&quot;match_parent&quot;</span></span>
+<span class="tag">          <span class="attr">android:layout_height</span>=<span class="string">&quot;100dp&quot;</span></span>
+<span class="tag">          <span class="attr">android:text</span>=<span class="string">&quot;输入密码信息&quot;</span></span>
+<span class="tag">          <span class="attr">android:background</span>=<span class="string">&quot;@null&quot;</span></span>
+<span class="tag">          <span class="attr">android:hint</span>=<span class="string">&quot;自定义&quot;</span></span>
+<span class="tag">          <span class="attr">android:inputType</span>=<span class="string">&quot;text&quot;</span>/&gt;</span></code></pre>
 
 <blockquote>
 <p>inputType:指定输入的文本类型</p>
@@ -1342,7 +1279,7 @@ show.setText(test);</code></pre>
 <td>事件格式</td>
 </tr>
 </tbody></table>
-<h3 id="8-8焦点变更监听器"><a href="#8-8焦点变更监听器" class="headerlink" title="8.8焦点变更监听器"></a>8.8焦点变更监听器</h3><blockquote>
+<h3 id="5-8焦点变更监听器"><a href="#5-8焦点变更监听器" class="headerlink" title="5.8焦点变更监听器"></a>5.8焦点变更监听器</h3><blockquote>
 <p>Toast.makeText(this,”请输入8位密码”,Toast.LENGTH_SHORT).show();</p>
 <p>&#x2F;&#x2F;弹出提示</p>
 <p>LENGTH_SHORT</p>
@@ -1371,7 +1308,7 @@ show.setText(test);</code></pre>
     &#125;
 &#125;</code></pre>
 
-<h3 id="8-9文本变化监听器"><a href="#8-9文本变化监听器" class="headerlink" title="8.9文本变化监听器"></a>8.9文本变化监听器</h3><blockquote>
+<h3 id="5-9文本变化监听器"><a href="#5-9文本变化监听器" class="headerlink" title="5.9文本变化监听器"></a>5.9文本变化监听器</h3><blockquote>
 <p>调用编辑框对象的addTextChangelistener方法即可注册文本监听器</p>
 <p>文本监听器的接口名位TextWatcher，该接口提供了3个监控方法</p>
 <ul>
@@ -1392,26 +1329,7 @@ show.setText(test);</code></pre>
     &#125;
 &#125;</code></pre>
 
-<pre><code class="highlight java"><span class="keyword">package</span> com.example.application3;
-
-<span class="keyword">import</span> android.os.Bundle;
-<span class="keyword">import</span> android.text.Editable;
-<span class="keyword">import</span> android.text.TextUtils;
-<span class="keyword">import</span> android.text.TextWatcher;
-<span class="keyword">import</span> android.view.View;
-<span class="keyword">import</span> android.view.inputmethod.EditorBoundsInfo;
-<span class="keyword">import</span> android.widget.EditText;
-<span class="keyword">import</span> android.widget.Toast;
-
-<span class="keyword">import</span> androidx.activity.EdgeToEdge;
-<span class="keyword">import</span> androidx.appcompat.app.AppCompatActivity;
-<span class="keyword">import</span> androidx.core.graphics.Insets;
-<span class="keyword">import</span> androidx.core.view.ViewCompat;
-<span class="keyword">import</span> androidx.core.view.WindowInsetsCompat;
-
-<span class="keyword">import</span> com.example.application3.utils.hidenView;
-
-<span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MainActivity2</span> <span class="keyword">extends</span> <span class="title class_">AppCompatActivity</span>&#123;
+<pre><code class="highlight java"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MainActivity2</span> <span class="keyword">extends</span> <span class="title class_">AppCompatActivity</span>&#123;
     <span class="keyword">private</span> EditText et_password;
     <span class="meta">@Override</span>
     <span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">onCreate</span><span class="params">(Bundle savedInstanceState)</span> &#123;
@@ -1451,7 +1369,7 @@ show.setText(test);</code></pre>
     &#125;
 &#125;</code></pre>
 
-<h3 id="8-10提醒对话框"><a href="#8-10提醒对话框" class="headerlink" title="8.10提醒对话框"></a>8.10提醒对话框</h3><blockquote>
+<h3 id="5-10提醒对话框"><a href="#5-10提醒对话框" class="headerlink" title="5.10提醒对话框"></a>5.10提醒对话框</h3><blockquote>
 <p>AlertDialog</p>
 <p>借助建造器AlertDialog.Builder才能完成设置</p>
 <p>调用建造器的create方法生产对话框实例，再调用对话框实例的show方法，在页面提示对话框</p>
@@ -1492,7 +1410,7 @@ show.setText(test);</code></pre>
 <p>setNegativeButton 设置否定按钮</p>
 <p>setNeutralButton设置中性按钮</p>
 </blockquote>
-<h3 id="8-11日期选择器"><a href="#8-11日期选择器" class="headerlink" title="8.11日期选择器"></a>8.11日期选择器</h3><pre><code class="highlight xml"><span class="tag">&lt;<span class="name">DatePicker</span></span>
+<h3 id="5-11日期选择器"><a href="#5-11日期选择器" class="headerlink" title="5.11日期选择器"></a>5.11日期选择器</h3><pre><code class="highlight xml"><span class="tag">&lt;<span class="name">DatePicker</span></span>
 <span class="tag">    <span class="attr">android:id</span>=<span class="string">&quot;@+id/dp_date&quot;</span></span>
 <span class="tag">    <span class="attr">android:layout_width</span>=<span class="string">&quot;match_parent&quot;</span></span>
 <span class="tag">    <span class="attr">android:layout_height</span>=<span class="string">&quot;wrap_content&quot;</span></span>
@@ -1547,7 +1465,7 @@ calendar.get(Calendar.DAY_OF_MONTH);</code></pre>
         dp_show.setText(format);
     &#125;</code></pre>
 
-<h3 id="8-12时间选择器"><a href="#8-12时间选择器" class="headerlink" title="8.12时间选择器"></a>8.12时间选择器</h3><blockquote>
+<h3 id="5-12时间选择器"><a href="#5-12时间选择器" class="headerlink" title="5.12时间选择器"></a>5.12时间选择器</h3><blockquote>
 <p>TimePickDialog</p>
 <p>TimePicker类似DatePicker,可以选择具体的小时</p>
 <p>TimePickDiolog的用法类似DatePickDiolog</p>
@@ -1556,7 +1474,7 @@ calendar.get(Calendar.DAY_OF_MONTH);</code></pre>
     <span class="comment">//android.R.style.Theme.Holo_Light_dialog 设置为横向选择样式</span>
     <span class="comment">//true 为是否开启24小时制</span></code></pre>
 
-<h3 id="8-13小案例"><a href="#8-13小案例" class="headerlink" title="8.13小案例"></a>8.13小案例</h3><blockquote>
+<h3 id="5-13小案例"><a href="#5-13小案例" class="headerlink" title="5.13小案例"></a>5.13小案例</h3><blockquote>
 <p>页面布局</p>
 </blockquote>
 <pre><code class="highlight xml"><span class="meta">&lt;?xml version=<span class="string">&quot;1.0&quot;</span> encoding=<span class="string">&quot;utf-8&quot;</span>?&gt;</span>
@@ -1688,43 +1606,7 @@ calendar.get(Calendar.DAY_OF_MONTH);</code></pre>
 <blockquote>
 <p>代码逻辑</p>
 </blockquote>
-<pre><code class="highlight java"><span class="keyword">package</span> com.example.application3;
-
-<span class="keyword">import</span> android.annotation.SuppressLint;
-<span class="keyword">import</span> android.app.Activity;
-<span class="keyword">import</span> android.app.Dialog;
-<span class="keyword">import</span> android.content.Intent;
-<span class="keyword">import</span> android.os.Build;
-<span class="keyword">import</span> android.os.Bundle;
-<span class="keyword">import</span> android.text.Editable;
-<span class="keyword">import</span> android.text.TextWatcher;
-<span class="keyword">import</span> android.util.Log;
-<span class="keyword">import</span> android.view.View;
-<span class="keyword">import</span> android.widget.Button;
-<span class="keyword">import</span> android.widget.CheckBox;
-<span class="keyword">import</span> android.widget.EditText;
-<span class="keyword">import</span> android.widget.RadioButton;
-<span class="keyword">import</span> android.widget.RadioGroup;
-<span class="keyword">import</span> android.widget.TextView;
-<span class="keyword">import</span> android.widget.Toast;
-
-<span class="keyword">import</span> androidx.activity.EdgeToEdge;
-<span class="keyword">import</span> androidx.activity.result.ActivityResult;
-<span class="keyword">import</span> androidx.activity.result.ActivityResultCallback;
-<span class="keyword">import</span> androidx.activity.result.ActivityResultLauncher;
-<span class="keyword">import</span> androidx.activity.result.contract.ActivityResultContracts;
-<span class="keyword">import</span> androidx.appcompat.app.AlertDialog;
-<span class="keyword">import</span> androidx.appcompat.app.AppCompatActivity;
-<span class="keyword">import</span> androidx.appcompat.widget.ViewUtils;
-<span class="keyword">import</span> androidx.core.graphics.Insets;
-<span class="keyword">import</span> androidx.core.view.ViewCompat;
-<span class="keyword">import</span> androidx.core.view.WindowInsetsCompat;
-
-<span class="keyword">import</span> com.example.application3.utils.hidenView;
-
-<span class="keyword">import</span> java.util.Random;
-
-<span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MainActivity5</span> <span class="keyword">extends</span> <span class="title class_">AppCompatActivity</span> <span class="keyword">implements</span> <span class="title class_">RadioGroup</span>.OnCheckedChangeListener, View.OnClickListener &#123;
+<pre><code class="highlight java"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MainActivity5</span> <span class="keyword">extends</span> <span class="title class_">AppCompatActivity</span> <span class="keyword">implements</span> <span class="title class_">RadioGroup</span>.OnCheckedChangeListener, View.OnClickListener &#123;
 
     <span class="keyword">private</span> TextView tv_password;
     <span class="keyword">private</span> EditText et_password;
@@ -1997,27 +1879,7 @@ calendar.get(Calendar.DAY_OF_MONTH);</code></pre>
 <blockquote>
 <p>找回密码逻辑</p>
 </blockquote>
-<pre><code class="highlight java"><span class="keyword">package</span> com.example.application3;
-
-<span class="keyword">import</span> android.annotation.SuppressLint;
-<span class="keyword">import</span> android.app.Activity;
-<span class="keyword">import</span> android.content.Intent;
-<span class="keyword">import</span> android.os.Bundle;
-<span class="keyword">import</span> android.view.View;
-<span class="keyword">import</span> android.widget.EditText;
-<span class="keyword">import</span> android.widget.TextView;
-<span class="keyword">import</span> android.widget.Toast;
-
-<span class="keyword">import</span> androidx.activity.EdgeToEdge;
-<span class="keyword">import</span> androidx.appcompat.app.AlertDialog;
-<span class="keyword">import</span> androidx.appcompat.app.AppCompatActivity;
-<span class="keyword">import</span> androidx.core.graphics.Insets;
-<span class="keyword">import</span> androidx.core.view.ViewCompat;
-<span class="keyword">import</span> androidx.core.view.WindowInsetsCompat;
-
-<span class="keyword">import</span> java.util.Random;
-
-<span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MainActivity7</span> <span class="keyword">extends</span> <span class="title class_">AppCompatActivity</span> <span class="keyword">implements</span> <span class="title class_">View</span>.OnClickListener &#123;
+<pre><code class="highlight java"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MainActivity7</span> <span class="keyword">extends</span> <span class="title class_">AppCompatActivity</span> <span class="keyword">implements</span> <span class="title class_">View</span>.OnClickListener &#123;
 
     <span class="keyword">private</span> String phone;
     <span class="keyword">private</span> String verifycode;
@@ -2072,29 +1934,14 @@ calendar.get(Calendar.DAY_OF_MONTH);</code></pre>
     &#125;
 &#125;</code></pre>
 
-<h2 id="9-SharePreferences"><a href="#9-SharePreferences" class="headerlink" title="9.SharePreferences"></a>9.SharePreferences</h2><blockquote>
+<h2 id="6-SharePreferences"><a href="#6-SharePreferences" class="headerlink" title="6.SharePreferences"></a>6.SharePreferences</h2><blockquote>
 <p>SharePreferences是Android的一个轻量级存储工具，采用键值对的方式</p>
 <p>&#x2F;data&#x2F;data&#x2F;应用包名&#x2F;shared_prefs&#x2F;文件名.xml</p>
 </blockquote>
 <blockquote>
 <p>App个性化配置信息，用户使用App的行为信息、临时需要保存的片段信息</p>
 </blockquote>
-<pre><code class="highlight java"><span class="keyword">package</span> com.richuff.application4;
-
-<span class="keyword">import</span> android.content.Context;
-<span class="keyword">import</span> android.content.SharedPreferences;
-<span class="keyword">import</span> android.os.Bundle;
-<span class="keyword">import</span> android.view.View;
-<span class="keyword">import</span> android.widget.EditText;
-<span class="keyword">import</span> android.widget.TextView;
-
-<span class="keyword">import</span> androidx.activity.EdgeToEdge;
-<span class="keyword">import</span> androidx.appcompat.app.AppCompatActivity;
-<span class="keyword">import</span> androidx.core.graphics.Insets;
-<span class="keyword">import</span> androidx.core.view.ViewCompat;
-<span class="keyword">import</span> androidx.core.view.WindowInsetsCompat;
-
-<span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MainActivity</span> <span class="keyword">extends</span> <span class="title class_">AppCompatActivity</span> <span class="keyword">implements</span> <span class="title class_">View</span>.OnClickListener &#123;
+<pre><code class="highlight java"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MainActivity</span> <span class="keyword">extends</span> <span class="title class_">AppCompatActivity</span> <span class="keyword">implements</span> <span class="title class_">View</span>.OnClickListener &#123;
 
     <span class="keyword">private</span> EditText et_name;
     <span class="keyword">private</span> EditText et_age;
@@ -2154,26 +2001,12 @@ calendar.get(Calendar.DAY_OF_MONTH);</code></pre>
     &#125;
 &#125;</code></pre>
 
-<h2 id="10-SQLLite"><a href="#10-SQLLite" class="headerlink" title="10.SQLLite"></a>10.SQLLite</h2><h3 id="1-管理类"><a href="#1-管理类" class="headerlink" title="1.管理类"></a>1.管理类</h3><p>openDatabase:打开指定路径的数据库</p>
+<h2 id="7-SQLLite"><a href="#7-SQLLite" class="headerlink" title="7.SQLLite"></a>7.SQLLite</h2><h3 id="7-1-管理类"><a href="#7-1-管理类" class="headerlink" title="7.1.管理类"></a>7.1.管理类</h3><p>openDatabase:打开指定路径的数据库</p>
 <p>isopen：判断数据库是否打开</p>
 <p>close：关闭数据库</p>
 <p>getVersion：获取数据库的般般号</p>
 <p>setVersion：设置数据库的版本号</p>
-<pre><code class="highlight java"><span class="keyword">package</span> com.example.application3;
-
-<span class="keyword">import</span> android.content.Context;
-<span class="keyword">import</span> android.database.sqlite.SQLiteDatabase;
-<span class="keyword">import</span> android.os.Bundle;
-<span class="keyword">import</span> android.view.View;
-<span class="keyword">import</span> android.widget.TextView;
-
-<span class="keyword">import</span> androidx.activity.EdgeToEdge;
-<span class="keyword">import</span> androidx.appcompat.app.AppCompatActivity;
-<span class="keyword">import</span> androidx.core.graphics.Insets;
-<span class="keyword">import</span> androidx.core.view.ViewCompat;
-<span class="keyword">import</span> androidx.core.view.WindowInsetsCompat;
-
-<span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MainActivity8</span> <span class="keyword">extends</span> <span class="title class_">AppCompatActivity</span> <span class="keyword">implements</span> <span class="title class_">View</span>.OnClickListener &#123;
+<pre><code class="highlight java"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MainActivity8</span> <span class="keyword">extends</span> <span class="title class_">AppCompatActivity</span> <span class="keyword">implements</span> <span class="title class_">View</span>.OnClickListener &#123;
 
     <span class="keyword">private</span> String mDatabase;
     <span class="keyword">private</span> TextView tv_database;
@@ -2204,16 +2037,7 @@ calendar.get(Calendar.DAY_OF_MONTH);</code></pre>
 &#125;</code></pre>
 
 <p>SQLiteOPenHeaper</p>
-<pre><code class="highlight java"><span class="keyword">package</span> com.example.application3.datebase;
-
-<span class="keyword">import</span> android.content.ContentValues;
-<span class="keyword">import</span> android.content.Context;
-<span class="keyword">import</span> android.database.sqlite.SQLiteDatabase;
-<span class="keyword">import</span> android.database.sqlite.SQLiteOpenHelper;
-
-<span class="keyword">import</span> com.example.application3.enity.user;
-
-<span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">UserDBHelper</span> <span class="keyword">extends</span> <span class="title class_">SQLiteOpenHelper</span> &#123;
+<pre><code class="highlight java"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">UserDBHelper</span> <span class="keyword">extends</span> <span class="title class_">SQLiteOpenHelper</span> &#123;
     
     <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">String</span> <span class="variable">DB_NAME</span> <span class="operator">=</span> <span class="string">&quot;user.db&quot;</span>;
     <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">int</span> <span class="variable">DB_VSERSION</span> <span class="operator">=</span> <span class="number">1</span>;
@@ -2294,58 +2118,49 @@ calendar.get(Calendar.DAY_OF_MONTH);</code></pre>
     <span class="keyword">return</span> mWdb.update(TABLE_NAME,contentValues,<span class="string">&quot;name=?&quot;</span>,<span class="keyword">new</span> <span class="title class_">String</span>[]&#123;user.name&#125;);
 &#125;</code></pre>
 
-<h3 id="2-事务类"><a href="#2-事务类" class="headerlink" title="2.事务类"></a>2.事务类</h3><blockquote>
+<h3 id="7-2-事务类"><a href="#7-2-事务类" class="headerlink" title="7.2.事务类"></a>7.2.事务类</h3><blockquote>
 <p>beginTransaction:开始事务</p>
 <p>setTransactionSuccessful:设置事务成功的标志</p>
 <p>endTransaction:结束事务</p>
 </blockquote>
-<h3 id="3-数据库版本更新"><a href="#3-数据库版本更新" class="headerlink" title="3.数据库版本更新"></a>3.数据库版本更新</h3><pre><code class="highlight java"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">onUpgrade</span><span class="params">(SQLiteDatabase db, <span class="type">int</span> oldVersion, <span class="type">int</span> newVersion)</span> &#123;
+<h3 id="7-3-数据库版本更新"><a href="#7-3-数据库版本更新" class="headerlink" title="7.3.数据库版本更新"></a>7.3.数据库版本更新</h3><pre><code class="highlight java"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">onUpgrade</span><span class="params">(SQLiteDatabase db, <span class="type">int</span> oldVersion, <span class="type">int</span> newVersion)</span> &#123;
 
 &#125;</code></pre>
 
-<h3 id="4-外部存储和内部存储，外部SD卡"><a href="#4-外部存储和内部存储，外部SD卡" class="headerlink" title="4.外部存储和内部存储，外部SD卡"></a>4.外部存储和内部存储，外部SD卡</h3><blockquote>
+<h3 id="7-4-外部存储和内部存储，外部SD卡"><a href="#7-4-外部存储和内部存储，外部SD卡" class="headerlink" title="7.4.外部存储和内部存储，外部SD卡"></a>7.4.外部存储和内部存储，外部SD卡</h3><blockquote>
 <p>读写文件操作类</p>
 </blockquote>
-<pre><code class="highlight plaintext">package com.richuff.application4.enity;
-
-import java.io.BufferedReader;
-import java.io.BufferedWriter;
-import java.io.FileNotFoundException;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
-
-public class FileUtil &#123;
-    public static void saveText(String path,String txt) throws IOException &#123;
-        BufferedWriter os = null;
-        try&#123;
-            os = new BufferedWriter(new FileWriter(path));
-        &#125; catch (IOException e) &#123;
+<pre><code class="highlight java"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">FileUtil</span> &#123;
+    <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">void</span> <span class="title function_">saveText</span><span class="params">(String path,String txt)</span> <span class="keyword">throws</span> IOException &#123;
+        <span class="type">BufferedWriter</span> <span class="variable">os</span> <span class="operator">=</span> <span class="literal">null</span>;
+        <span class="keyword">try</span>&#123;
+            os = <span class="keyword">new</span> <span class="title class_">BufferedWriter</span>(<span class="keyword">new</span> <span class="title class_">FileWriter</span>(path));
+        &#125; <span class="keyword">catch</span> (IOException e) &#123;
             e.printStackTrace();
-        &#125;finally &#123;
-            if (os!=null)&#123;
+        &#125;<span class="keyword">finally</span> &#123;
+            <span class="keyword">if</span> (os!=<span class="literal">null</span>)&#123;
                 os.close();
             &#125;
         &#125;
     &#125;
     
-    public static String openText(String path) throws IOException &#123;
-        BufferedReader rs = null;
-        StringBuffer sb = new StringBuffer();
-        try&#123;
-            rs = new BufferedReader(new FileReader(path));
-            String line = null;
-            while((line=rs.readLine())!=null)&#123;
+    <span class="keyword">public</span> <span class="keyword">static</span> String <span class="title function_">openText</span><span class="params">(String path)</span> <span class="keyword">throws</span> IOException &#123;
+        <span class="type">BufferedReader</span> <span class="variable">rs</span> <span class="operator">=</span> <span class="literal">null</span>;
+        <span class="type">StringBuffer</span> <span class="variable">sb</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">StringBuffer</span>();
+        <span class="keyword">try</span>&#123;
+            rs = <span class="keyword">new</span> <span class="title class_">BufferedReader</span>(<span class="keyword">new</span> <span class="title class_">FileReader</span>(path));
+            <span class="type">String</span> <span class="variable">line</span> <span class="operator">=</span> <span class="literal">null</span>;
+            <span class="keyword">while</span>((line=rs.readLine())!=<span class="literal">null</span>)&#123;
                 sb.append(line);
             &#125;
-        &#125;catch (FileNotFoundException e) &#123;
+        &#125;<span class="keyword">catch</span> (FileNotFoundException e) &#123;
             e.printStackTrace();
-        &#125;finally &#123;
-            if (rs != null) &#123;
+        &#125;<span class="keyword">finally</span> &#123;
+            <span class="keyword">if</span> (rs != <span class="literal">null</span>) &#123;
                 rs.close();
             &#125;
         &#125;
-        return rs.toString();
+        <span class="keyword">return</span> rs.toString();
     &#125;
 &#125;
 </code></pre>
@@ -2367,7 +2182,7 @@ directory=Environment.getExternalStorageState();</code></pre>
 <pre><code class="highlight java"><span class="comment">//内部存储私有空间</span>
 directory = getFilesDir().toString();</code></pre>
 
-<h3 id="5-在存储卡读写图片文件"><a href="#5-在存储卡读写图片文件" class="headerlink" title="5.在存储卡读写图片文件"></a>5.在存储卡读写图片文件</h3><p>Bitmap</p>
+<h3 id="7-5-在存储卡读写图片文件"><a href="#7-5-在存储卡读写图片文件" class="headerlink" title="7.5.在存储卡读写图片文件"></a>7.5.在存储卡读写图片文件</h3><p>Bitmap</p>
 <blockquote>
 <p>BitmaoFactory读写各种来源的图片</p>
 <p>decodeResource 从资源文件中读取图片信息</p>
@@ -2428,17 +2243,10 @@ directory = getFilesDir().toString();</code></pre>
     <span class="keyword">return</span> bitmap;
 &#125;</code></pre>
 
-<h2 id="11-Application"><a href="#11-Application" class="headerlink" title="11.Application"></a>11.Application</h2><h3 id="11-1Application"><a href="#11-1Application" class="headerlink" title="11.1Application"></a>11.1Application</h3><blockquote>
+<h2 id="8-Application"><a href="#8-Application" class="headerlink" title="8.Application"></a>8.Application</h2><h3 id="8-1Application"><a href="#8-1Application" class="headerlink" title="8.1Application"></a>8.1Application</h3><blockquote>
 <p>Application是Android的一大组件，在App运行过程中有且仅有一个Application对象贯穿整个生命周期</p>
 </blockquote>
-<pre><code class="highlight java"><span class="keyword">package</span> com.richuff.application4;
-
-<span class="keyword">import</span> android.content.res.Configuration;
-<span class="keyword">import</span> android.util.Log;
-
-<span class="keyword">import</span> androidx.annotation.NonNull;
-
-<span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Application</span> <span class="keyword">extends</span> <span class="title class_">android</span>.app.Application &#123;
+<pre><code class="highlight java"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Application</span> <span class="keyword">extends</span> <span class="title class_">android</span>.app.Application &#123;
     <span class="meta">@Override</span>
     <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">onCreate</span><span class="params">()</span> &#123;
         <span class="built_in">super</span>.onCreate();
@@ -2461,19 +2269,10 @@ directory = getFilesDir().toString();</code></pre>
 &#125;
 </code></pre>
 
-<h3 id="11-2全局变量"><a href="#11-2全局变量" class="headerlink" title="11.2全局变量"></a>11.2全局变量</h3><blockquote>
+<h3 id="8-2全局变量"><a href="#8-2全局变量" class="headerlink" title="8.2全局变量"></a>8.2全局变量</h3><blockquote>
 <p>适用：会频繁读取的信息，用户名</p>
 </blockquote>
-<pre><code class="highlight java"><span class="keyword">package</span> com.richuff.application4;
-
-<span class="keyword">import</span> android.content.res.Configuration;
-<span class="keyword">import</span> android.util.Log;
-
-<span class="keyword">import</span> androidx.annotation.NonNull;
-
-<span class="keyword">import</span> java.util.HashMap;
-
-<span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Application</span> <span class="keyword">extends</span> <span class="title class_">android</span>.app.Application &#123;
+<pre><code class="highlight java"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">Application</span> <span class="keyword">extends</span> <span class="title class_">android</span>.app.Application &#123;
     <span class="keyword">private</span> <span class="keyword">static</span> Application application;
 
     <span class="meta">@Override</span>
@@ -2507,26 +2306,14 @@ directory = getFilesDir().toString();</code></pre>
 <pre><code class="highlight java">application.infoMap.put(<span class="string">&quot;name&quot;</span>,<span class="string">&quot;richu&quot;</span>);
 name = application.infoMap.get(<span class="string">&quot;name&quot;</span>);</code></pre>
 
-<h2 id="12-Room"><a href="#12-Room" class="headerlink" title="12.Room"></a>12.Room</h2><pre><code class="highlight plaintext">implementation (&quot;androidx.room:room-runtime:2.2.6&quot;)
+<h2 id="9-Room"><a href="#9-Room" class="headerlink" title="9.Room"></a>9.Room</h2><pre><code class="highlight plaintext">implementation (&quot;androidx.room:room-runtime:2.2.6&quot;)
 implementation (&quot;androidx.room:room-ktx:2.2.6&quot;)
 testImplementation (&quot;androidx.room:room-testing:2.2.6&quot;)</code></pre>
 
 <p>数据实体 Entry 表示应用的数据库中的表。数据实体用于更新表中的行所存储的数据以及创建新行供插入。</p>
 <p>数据访问对象 (DAO) 提供应用在数据库中检索、更新、插入和删除数据所用的方法。</p>
 <p>数据库类持有数据库，并且是应用数据库底层连接的主要访问点。数据库类为应用提供与该数据库关联的 DAO 的实例。</p>
-<pre><code class="highlight java"><span class="keyword">package</span> com.richuff.application4.dao;
-
-<span class="keyword">import</span> androidx.room.Dao;
-<span class="keyword">import</span> androidx.room.Delete;
-<span class="keyword">import</span> androidx.room.Insert;
-<span class="keyword">import</span> androidx.room.Query;
-<span class="keyword">import</span> androidx.room.Update;
-
-<span class="keyword">import</span> com.richuff.application4.enity.Books;
-
-<span class="keyword">import</span> java.util.List;
-
-<span class="meta">@Dao</span>
+<pre><code class="highlight java"><span class="meta">@Dao</span>
 <span class="keyword">public</span> <span class="keyword">interface</span> <span class="title class_">BookDao</span> &#123;
     <span class="meta">@Insert()</span>
     <span class="keyword">void</span> <span class="title function_">insert</span><span class="params">(Books... books)</span>;
@@ -2560,7 +2347,7 @@ testImplementation (&quot;androidx.room:room-testing:2.2.6&quot;)</code></pre>
     <span class="comment">//允许主线程中操作数据库</span>
     allowMainThreadQueries().build();</code></pre>
 
-<h2 id="13-ContentProvider"><a href="#13-ContentProvider" class="headerlink" title="13.ContentProvider"></a>13.ContentProvider</h2><h3 id="1-service端代码-编写"><a href="#1-service端代码-编写" class="headerlink" title="1.service端代码 编写"></a>1.service端代码 编写</h3><blockquote>
+<h2 id="10-ContentProvider"><a href="#10-ContentProvider" class="headerlink" title="10.ContentProvider"></a>10.ContentProvider</h2><h3 id="10-1-service端代码-编写"><a href="#10-1-service端代码-编写" class="headerlink" title="10.1.service端代码 编写"></a>10.1.service端代码 编写</h3><blockquote>
 <p>为App存储内部数据提供统一的外部接口，让不同的外部应用之间得以共享数据</p>
 </blockquote>
 <pre><code class="highlight xml"><span class="tag">&lt;<span class="name">provider</span></span>
@@ -2630,7 +2417,7 @@ testImplementation (&quot;androidx.room:room-testing:2.2.6&quot;)</code></pre>
     &#125;
 &#125;</code></pre>
 
-<h3 id="2-client端代码"><a href="#2-client端代码" class="headerlink" title="2.client端代码"></a>2.client端代码</h3><blockquote>
+<h3 id="10-2-client端代码"><a href="#10-2-client端代码" class="headerlink" title="10.2.client端代码"></a>10.2.client端代码</h3><blockquote>
 <p>通过<code>ContentResolver</code>访问数据</p>
 </blockquote>
 <pre><code class="highlight java"><span class="type">ContentValues</span> <span class="variable">values</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ContentValues</span>();
@@ -2699,7 +2486,7 @@ getContentResolver().insert(UserinfoContent.CONTENT_URI,values);</code></pre>
     <span class="keyword">public</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">String</span> <span class="variable">AGE</span> <span class="operator">=</span> <span class="string">&quot;age&quot;</span>;
 &#125;</code></pre>
 
-<h3 id="3-进行数据的删除"><a href="#3-进行数据的删除" class="headerlink" title="3.进行数据的删除"></a>3.进行数据的删除</h3><blockquote>
+<h3 id="10-3-进行数据的删除"><a href="#10-3-进行数据的删除" class="headerlink" title="10.3.进行数据的删除"></a>10.3.进行数据的删除</h3><blockquote>
 <p>在provider中修改delete函数</p>
 </blockquote>
 <pre><code class="highlight java"><span class="keyword">public</span> <span class="type">int</span> <span class="title function_">delete</span><span class="params">(Uri uri, String selection, String[] selectionArgs)</span> &#123;
@@ -2748,7 +2535,7 @@ getContentResolver().insert(UserinfoContent.CONTENT_URI,values);</code></pre>
     URI_MATCHER.addURI(UserinfoContent.AUTHORITIES,<span class="string">&quot;/user/#&quot;</span>,USER);
 &#125;</code></pre>
 
-<h2 id="14-运行时动态申请权限"><a href="#14-运行时动态申请权限" class="headerlink" title="14.运行时动态申请权限"></a>14.运行时动态申请权限</h2><blockquote>
+<h2 id="11-运行时动态申请权限"><a href="#11-运行时动态申请权限" class="headerlink" title="11.运行时动态申请权限"></a>11.运行时动态申请权限</h2><blockquote>
 <p>提前声明需要的权限</p>
 </blockquote>
 <pre><code class="highlight xml"><span class="tag">&lt;<span class="name">uses-permission</span> <span class="attr">android:name</span>=<span class="string">&quot;android.permission.READ_CONTACTS&quot;</span>/&gt;</span>
@@ -2812,7 +2599,7 @@ getContentResolver().insert(UserinfoContent.CONTENT_URI,values);</code></pre>
     startActivity(intent);
 &#125;</code></pre>
 
-<h2 id="15-通讯录"><a href="#15-通讯录" class="headerlink" title="15.通讯录"></a>15.通讯录</h2><h3 id="1-添加联系人"><a href="#1-添加联系人" class="headerlink" title="1.添加联系人"></a>1.添加联系人</h3><pre><code class="highlight java"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">addContact</span><span class="params">(ContentResolver contentResolver, Contact contact)</span> &#123;
+<h2 id="12-通讯录"><a href="#12-通讯录" class="headerlink" title="12.通讯录"></a>12.通讯录</h2><h3 id="12-1-添加联系人"><a href="#12-1-添加联系人" class="headerlink" title="12.1.添加联系人"></a>12.1.添加联系人</h3><pre><code class="highlight java"><span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">addContact</span><span class="params">(ContentResolver contentResolver, Contact contact)</span> &#123;
     <span class="type">ContentValues</span> <span class="variable">values</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ContentValues</span>();
 
     <span class="type">Uri</span> <span class="variable">uri</span> <span class="operator">=</span> contentResolver.insert(ContactsContract.RawContacts.CONTENT_URI, values);
@@ -2850,7 +2637,7 @@ getContentResolver().insert(UserinfoContent.CONTENT_URI,values);</code></pre>
     contentResolver.insert(ContactsContract.Data.CONTENT_URI,email);
 &#125;</code></pre>
 
-<h3 id="2-批量添加联系人"><a href="#2-批量添加联系人" class="headerlink" title="2.批量添加联系人"></a>2.批量添加联系人</h3><pre><code class="highlight java"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">addFullContacts</span><span class="params">(ContentResolver contentResolver, Contact contact)</span>&#123;
+<h3 id="12-2-批量添加联系人"><a href="#12-2-批量添加联系人" class="headerlink" title="12.2.批量添加联系人"></a>12.2.批量添加联系人</h3><pre><code class="highlight java"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">addFullContacts</span><span class="params">(ContentResolver contentResolver, Contact contact)</span>&#123;
     <span class="type">ContentProviderOperation</span> <span class="variable">op_main</span> <span class="operator">=</span> ContentProviderOperation.
         newInsert(ContactsContract.Data.CONTENT_URI).withValue(ContactsContract.RawContacts.ACCOUNT_NAME,<span class="literal">null</span>).
         build();
@@ -2893,7 +2680,7 @@ getContentResolver().insert(UserinfoContent.CONTENT_URI,values);</code></pre>
     &#125;
 &#125;</code></pre>
 
-<h3 id="3-查询联系人"><a href="#3-查询联系人" class="headerlink" title="3.查询联系人"></a>3.查询联系人</h3><pre><code class="highlight java"><span class="meta">@SuppressLint(&quot;Range&quot;)</span>
+<h3 id="12-3-查询联系人"><a href="#12-3-查询联系人" class="headerlink" title="12.3.查询联系人"></a>12.3.查询联系人</h3><pre><code class="highlight java"><span class="meta">@SuppressLint(&quot;Range&quot;)</span>
 <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">readPhoneContacts</span><span class="params">(ContentResolver resolver)</span>&#123;
     <span class="type">Cursor</span> <span class="variable">cursor</span> <span class="operator">=</span> resolver.query(ContactsContract.RawContacts.CONTENT_URI, <span class="keyword">new</span> <span class="title class_">String</span>[]&#123;ContactsContract.RawContacts._ID&#125;, <span class="literal">null</span>, <span class="literal">null</span>,<span class="literal">null</span>);
     <span class="keyword">while</span> (cursor.moveToNext())&#123;
@@ -2921,7 +2708,7 @@ getContentResolver().insert(UserinfoContent.CONTENT_URI,values);</code></pre>
     cursor.close();
 &#125;</code></pre>
 
-<h2 id="16-短信"><a href="#16-短信" class="headerlink" title="16.短信"></a>16.短信</h2><pre><code class="highlight java"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MainActivity4</span> <span class="keyword">extends</span> <span class="title class_">AppCompatActivity</span> &#123;
+<h2 id="13-短信"><a href="#13-短信" class="headerlink" title="13.短信"></a>13.短信</h2><pre><code class="highlight java"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MainActivity4</span> <span class="keyword">extends</span> <span class="title class_">AppCompatActivity</span> &#123;
 
     <span class="keyword">public</span> SmsGetObserver mObserver;
 
@@ -3019,48 +2806,48 @@ getContentResolver().insert(UserinfoContent.CONTENT_URI,values);</code></pre>
 <blockquote>
 <p>跳转到短信，并且发送短信</p>
 </blockquote>
-<pre><code class="highlight plaintext">public class MainActivity5 extends AppCompatActivity implements View.OnClickListener &#123;
-    private EditText title;
-    private EditText phone;
-    private ImageView view;
-    private EditText content;
-    private  ActivityResultLauncher&lt;Intent&gt; register;
+<pre><code class="highlight java"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MainActivity5</span> <span class="keyword">extends</span> <span class="title class_">AppCompatActivity</span> <span class="keyword">implements</span> <span class="title class_">View</span>.OnClickListener &#123;
+    <span class="keyword">private</span> EditText title;
+    <span class="keyword">private</span> EditText phone;
+    <span class="keyword">private</span> ImageView view;
+    <span class="keyword">private</span> EditText content;
+    <span class="keyword">private</span>  ActivityResultLauncher&lt;Intent&gt; register;
 
-    private Uri uri;
+    <span class="keyword">private</span> Uri uri;
     
-    @Override
-    protected void onCreate(Bundle savedInstanceState) &#123;
+    <span class="meta">@Override</span>
+    <span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">onCreate</span><span class="params">(Bundle savedInstanceState)</span> &#123;
         view = findViewById(R.id.e_image);
-        view.setOnClickListener(this);
-        findViewById(R.id.e_send).setOnClickListener(this);
+        view.setOnClickListener(<span class="built_in">this</span>);
+        findViewById(R.id.e_send).setOnClickListener(<span class="built_in">this</span>);
 
         phone = findViewById(R.id.e_phone);
         title = findViewById(R.id.e_title);
         content = findViewById(R.id.e_content);
 
-    @Override
-    public void onClick(View v) &#123;
-		if (v.getId() == R.id.e_send) &#123;
+    <span class="meta">@Override</span>
+    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">onClick</span><span class="params">(View v)</span> &#123;
+		<span class="keyword">if</span> (v.getId() == R.id.e_send) &#123;
             sendMsm(phone.getText().toString(),
                     title.getText().toString(),
                     content.getText().toString());
         &#125;
     &#125;
 
-    private void sendMsm(String phone, String title, String message) &#123;
-        Intent intent = new Intent(Intent.ACTION_SEND);
+    <span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">sendMsm</span><span class="params">(String phone, String title, String message)</span> &#123;
+        <span class="type">Intent</span> <span class="variable">intent</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Intent</span>(Intent.ACTION_SEND);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
-        //intent的接收者将被准许读取携带的uri数据
+        <span class="comment">//intent的接收者将被准许读取携带的uri数据</span>
         intent.addFlags(Intent.FLAG_GRANT_READ_URI_PERMISSION);
-        intent.putExtra(&quot;address&quot;,phone);
-        intent.putExtra(&quot;title&quot;,title);
-        intent.putExtra(&quot;sms_body&quot;,message);
-        //图片 文件流
+        intent.putExtra(<span class="string">&quot;address&quot;</span>,phone);
+        intent.putExtra(<span class="string">&quot;title&quot;</span>,title);
+        intent.putExtra(<span class="string">&quot;sms_body&quot;</span>,message);
+        <span class="comment">//图片 文件流</span>
         intent.putExtra(Intent.EXTRA_STREAM,uri);
-        //附件的类型
-        intent.setType(&quot;image/*&quot;);
-        //系统会弹出窗口让你选择
+        <span class="comment">//附件的类型</span>
+        intent.setType(<span class="string">&quot;image/*&quot;</span>);
+        <span class="comment">//系统会弹出窗口让你选择</span>
         startActivity(intent);
     &#125;
 &#125;</code></pre>
@@ -3107,53 +2894,53 @@ getContentResolver().insert(UserinfoContent.CONTENT_URI,values);</code></pre>
 <p><code>权限</code></p>
 <pre><code class="highlight xml"><span class="tag">&lt;<span class="name">uses-permission</span> <span class="attr">android:name</span>=<span class="string">&quot;android.permission.READ_MEDIA_IMAGES&quot;</span> /&gt;</span></code></pre>
 
-<pre><code class="highlight plaintext">public class MainActivity6 extends AppCompatActivity &#123;
+<pre><code class="highlight java"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MainActivity6</span> <span class="keyword">extends</span> <span class="title class_">AppCompatActivity</span> &#123;
 
-    private static final String[] PERMISSION = new String[]&#123;
+    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String[] PERMISSION = <span class="keyword">new</span> <span class="title class_">String</span>[]&#123;
             Manifest.permission.READ_MEDIA_IMAGES
     &#125;;
 
-    private static final int REQUEST_CODE_ALL = 1;
+    <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> <span class="type">int</span> <span class="variable">REQUEST_CODE_ALL</span> <span class="operator">=</span> <span class="number">1</span>;
 
-    @Override
-    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) &#123;
-        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
-        if (requestCode == REQUEST_CODE_ALL &amp;&amp; PermissionUtil.checkGrant(grantResults))&#123;
+    <span class="meta">@Override</span>
+    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">onRequestPermissionsResult</span><span class="params">(<span class="type">int</span> requestCode, <span class="meta">@NonNull</span> String[] permissions, <span class="meta">@NonNull</span> <span class="type">int</span>[] grantResults)</span> &#123;
+        <span class="built_in">super</span>.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        <span class="keyword">if</span> (requestCode == REQUEST_CODE_ALL &amp;&amp; PermissionUtil.checkGrant(grantResults))&#123;
             LoadImageList();
             ShowImageGrid();
         &#125;
     &#125;
 
-    private ArrayList&lt;ImageInfo&gt; mImageInfoList = new ArrayList&lt;&gt;();
-    private GridLayout gl;
+    <span class="keyword">private</span> ArrayList&lt;ImageInfo&gt; mImageInfoList = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();
+    <span class="keyword">private</span> GridLayout gl;
     
-    @Override
-    protected void onCreate(Bundle savedInstanceState) &#123;
+    <span class="meta">@Override</span>
+    <span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">onCreate</span><span class="params">(Bundle savedInstanceState)</span> &#123;
         gl = findViewById(R.id.e_grid);
-        //手动让MediaStore扫描入库
-        MediaScannerConnection.scanFile(this,new String[]&#123;
+        <span class="comment">//手动让MediaStore扫描入库</span>
+        MediaScannerConnection.scanFile(<span class="built_in">this</span>,<span class="keyword">new</span> <span class="title class_">String</span>[]&#123;
                 Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DCIM).toString()
-        &#125;,null,null);
+        &#125;,<span class="literal">null</span>,<span class="literal">null</span>);
 
-        //引发系统弹窗
-        if (PermissionUtil.checkPermission(this,PERMISSION,REQUEST_CODE_ALL))&#123;
+        <span class="comment">//引发系统弹窗</span>
+        <span class="keyword">if</span> (PermissionUtil.checkPermission(<span class="built_in">this</span>,PERMISSION,REQUEST_CODE_ALL))&#123;
             LoadImageList();
             ShowImageGrid();
         &#125;
     &#125;
 
-    private void ShowImageGrid()&#123;
+    <span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">ShowImageGrid</span><span class="params">()</span>&#123;
         gl.removeAllViews();
 
-        for (ImageInfo imageInfo:mImageInfoList)&#123;
-            ImageView iv = new ImageView(this);
-            Bitmap bitmap = BitmapFactory.decodeFile(imageInfo.getPath());
+        <span class="keyword">for</span> (ImageInfo imageInfo:mImageInfoList)&#123;
+            <span class="type">ImageView</span> <span class="variable">iv</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ImageView</span>(<span class="built_in">this</span>);
+            <span class="type">Bitmap</span> <span class="variable">bitmap</span> <span class="operator">=</span> BitmapFactory.decodeFile(imageInfo.getPath());
             iv.setImageBitmap(bitmap);
             iv.setScaleType(ImageView.ScaleType.FIT_CENTER);
-            int px = diptopx.dip(this,110);
-            ViewGroup.LayoutParams layoutParams = new ViewGroup.LayoutParams(px,px);
+            <span class="type">int</span> <span class="variable">px</span> <span class="operator">=</span> diptopx.dip(<span class="built_in">this</span>,<span class="number">110</span>);
+            ViewGroup.<span class="type">LayoutParams</span> <span class="variable">layoutParams</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ViewGroup</span>.LayoutParams(px,px);
             iv.setLayoutParams(layoutParams);
-            int padding = diptopx.dip(this,5);
+            <span class="type">int</span> <span class="variable">padding</span> <span class="operator">=</span> diptopx.dip(<span class="built_in">this</span>,<span class="number">5</span>);
             iv.setPadding(padding,padding,padding,padding);
             iv.setOnClickListener(v-&gt;&#123;
 
@@ -3163,35 +2950,35 @@ getContentResolver().insert(UserinfoContent.CONTENT_URI,values);</code></pre>
         &#125;
     &#125;
 
-    @SuppressLint(&quot;Range&quot;)
-    private void LoadImageList() &#123;
-        String[] column = new String[]&#123;
+    <span class="meta">@SuppressLint(&quot;Range&quot;)</span>
+    <span class="keyword">private</span> <span class="keyword">void</span> <span class="title function_">LoadImageList</span><span class="params">()</span> &#123;
+        String[] column = <span class="keyword">new</span> <span class="title class_">String</span>[]&#123;
                 MediaStore.Images.Media._ID,
                 MediaStore.Images.Media.TITLE,
                 MediaStore.Images.Media.SIZE,
                 MediaStore.Images.Media.DATA,
         &#125;;
 
-        Cursor cursor = getContentResolver().query(
+        <span class="type">Cursor</span> <span class="variable">cursor</span> <span class="operator">=</span> getContentResolver().query(
                 MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
                 column,
-                &quot;_size &lt; 307200&quot;, null, &quot;_size DESC&quot;
+                <span class="string">&quot;_size &lt; 307200&quot;</span>, <span class="literal">null</span>, <span class="string">&quot;_size DESC&quot;</span>
         );
-        int count = 0;
-        while (cursor.moveToNext() &amp;&amp; count &lt; 6)&#123;
-            long id = cursor.getLong(cursor.getColumnIndex(MediaStore.Images.Media._ID));
-            String title = cursor.getString(cursor.getColumnIndex(MediaStore.Images.Media.TITLE));
-            long size = cursor.getLong(cursor.getColumnIndex(MediaStore.Images.Media.SIZE));
-            String path = cursor.getString(cursor.getColumnIndex(MediaStore.Images.Media.DATA));
+        <span class="type">int</span> <span class="variable">count</span> <span class="operator">=</span> <span class="number">0</span>;
+        <span class="keyword">while</span> (cursor.moveToNext() &amp;&amp; count &lt; <span class="number">6</span>)&#123;
+            <span class="type">long</span> <span class="variable">id</span> <span class="operator">=</span> cursor.getLong(cursor.getColumnIndex(MediaStore.Images.Media._ID));
+            <span class="type">String</span> <span class="variable">title</span> <span class="operator">=</span> cursor.getString(cursor.getColumnIndex(MediaStore.Images.Media.TITLE));
+            <span class="type">long</span> <span class="variable">size</span> <span class="operator">=</span> cursor.getLong(cursor.getColumnIndex(MediaStore.Images.Media.SIZE));
+            <span class="type">String</span> <span class="variable">path</span> <span class="operator">=</span> cursor.getString(cursor.getColumnIndex(MediaStore.Images.Media.DATA));
 
-            ImageInfo imageInfo = new ImageInfo(id, title, size, path);
+            <span class="type">ImageInfo</span> <span class="variable">imageInfo</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ImageInfo</span>(id, title, size, path);
             count++;
             mImageInfoList.add(imageInfo);
         &#125;
     &#125;
 &#125;</code></pre>
 
-<h2 id="17FileProvider"><a href="#17FileProvider" class="headerlink" title="17FileProvider"></a>17FileProvider</h2><blockquote>
+<h2 id="14FileProvider"><a href="#14FileProvider" class="headerlink" title="14FileProvider"></a>14FileProvider</h2><blockquote>
 <p>权限</p>
 </blockquote>
 <pre><code class="highlight xml"><span class="tag">&lt;<span class="name">provider</span></span>
@@ -3235,34 +3022,7 @@ getContentResolver().insert(UserinfoContent.CONTENT_URI,values);</code></pre>
     <span class="keyword">return</span> <span class="literal">true</span>;
 &#125;</code></pre>
 
-<p>18.安装应用</p>
-<pre><code class="highlight java"><span class="keyword">package</span> com.richuff.client;
-
-<span class="keyword">import</span> android.Manifest;
-<span class="keyword">import</span> android.content.Intent;
-<span class="keyword">import</span> android.content.pm.PackageInfo;
-<span class="keyword">import</span> android.content.pm.PackageManager;
-<span class="keyword">import</span> android.net.Uri;
-<span class="keyword">import</span> android.os.Build;
-<span class="keyword">import</span> android.os.Bundle;
-<span class="keyword">import</span> android.os.Environment;
-<span class="keyword">import</span> android.provider.Settings;
-<span class="keyword">import</span> android.util.Log;
-<span class="keyword">import</span> android.view.View;
-
-<span class="keyword">import</span> androidx.activity.EdgeToEdge;
-<span class="keyword">import</span> androidx.annotation.NonNull;
-<span class="keyword">import</span> androidx.appcompat.app.AppCompatActivity;
-<span class="keyword">import</span> androidx.core.content.FileProvider;
-<span class="keyword">import</span> androidx.core.graphics.Insets;
-<span class="keyword">import</span> androidx.core.view.ViewCompat;
-<span class="keyword">import</span> androidx.core.view.WindowInsetsCompat;
-
-<span class="keyword">import</span> com.richuff.client.utils.PermissionUtil;
-
-<span class="keyword">import</span> java.io.File;
-
-<span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MainActivity7</span> <span class="keyword">extends</span> <span class="title class_">AppCompatActivity</span> <span class="keyword">implements</span> <span class="title class_">View</span>.OnClickListener &#123;
+<h2 id="15-安装应用"><a href="#15-安装应用" class="headerlink" title="15.安装应用"></a>15.安装应用</h2><pre><code class="highlight java"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MainActivity7</span> <span class="keyword">extends</span> <span class="title class_">AppCompatActivity</span> <span class="keyword">implements</span> <span class="title class_">View</span>.OnClickListener &#123;
 
     <span class="comment">//兼容安卓11之前的版本</span>
     <span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> String[] PERMISSION = <span class="keyword">new</span> <span class="title class_">String</span>[]&#123;
@@ -3341,7 +3101,7 @@ getContentResolver().insert(UserinfoContent.CONTENT_URI,values);</code></pre>
 <pre><code class="highlight xml"><span class="tag">&lt;<span class="name">uses-permission</span> <span class="attr">android:name</span>=<span class="string">&quot;android.permission.MANAGE_EXTERNAL_STORAGE&quot;</span>/&gt;</span>
 <span class="tag">&lt;<span class="name">uses-permission</span> <span class="attr">android:name</span>=<span class="string">&quot;android.permission.REQUEST_INSTALL_PACKAGES&quot;</span>/&gt;</span></code></pre>
 
-<h2 id="18-高级控件"><a href="#18-高级控件" class="headerlink" title="18.高级控件"></a>18.高级控件</h2><h3 id="1-Spinner"><a href="#1-Spinner" class="headerlink" title="1.Spinner"></a>1.Spinner</h3><pre><code class="highlight xml"><span class="tag">&lt;<span class="name">Spinner</span></span>
+<h2 id="16-高级控件"><a href="#16-高级控件" class="headerlink" title="16.高级控件"></a>16.高级控件</h2><h3 id="16-1-Spinner"><a href="#16-1-Spinner" class="headerlink" title="16.1.Spinner"></a>16.1.Spinner</h3><pre><code class="highlight xml"><span class="tag">&lt;<span class="name">Spinner</span></span>
 <span class="tag">         <span class="attr">android:id</span>=<span class="string">&quot;@+id/drop_down&quot;</span></span>
 <span class="tag">         <span class="attr">android:layout_width</span>=<span class="string">&quot;wrap_content&quot;</span></span>
 <span class="tag">         <span class="attr">android:layout_height</span>=<span class="string">&quot;wrap_content&quot;</span></span>
@@ -3370,15 +3130,405 @@ getContentResolver().insert(UserinfoContent.CONTENT_URI,values);</code></pre>
     Toastshow.show(<span class="built_in">this</span>,<span class="string">&quot;选择&quot;</span>+startArray[position]);
 &#125;</code></pre>
 
+<h3 id="16-2-SimpleAdapter"><a href="#16-2-SimpleAdapter" class="headerlink" title="16.2.SimpleAdapter"></a>16.2.SimpleAdapter</h3><blockquote>
+<p>构建每一个条目的基本构造</p>
+</blockquote>
+<pre><code class="highlight xml"><span class="meta">&lt;?xml version=<span class="string">&quot;1.0&quot;</span> encoding=<span class="string">&quot;utf-8&quot;</span>?&gt;</span>
+<span class="tag">&lt;<span class="name">LinearLayout</span> <span class="attr">xmlns:android</span>=<span class="string">&quot;http://schemas.android.com/apk/res/android&quot;</span></span>
+<span class="tag">    <span class="attr">android:layout_width</span>=<span class="string">&quot;match_parent&quot;</span></span>
+<span class="tag">    <span class="attr">android:layout_height</span>=<span class="string">&quot;wrap_content&quot;</span></span>
+<span class="tag">    <span class="attr">android:orientation</span>=<span class="string">&quot;horizontal&quot;</span>&gt;</span>
+
+    <span class="tag">&lt;<span class="name">ImageView</span></span>
+<span class="tag">        <span class="attr">android:src</span>=<span class="string">&quot;@drawable/na&quot;</span></span>
+<span class="tag">        <span class="attr">android:id</span>=<span class="string">&quot;@+id/tv_im&quot;</span></span>
+<span class="tag">        <span class="attr">android:layout_width</span>=<span class="string">&quot;0dp&quot;</span></span>
+<span class="tag">        <span class="attr">android:layout_height</span>=<span class="string">&quot;50dp&quot;</span></span>
+<span class="tag">        <span class="attr">android:scaleType</span>=<span class="string">&quot;centerCrop&quot;</span></span>
+<span class="tag">        <span class="attr">android:layout_weight</span>=<span class="string">&quot;1&quot;</span>/&gt;</span>
+
+    <span class="tag">&lt;<span class="name">TextView</span></span>
+<span class="tag">        <span class="attr">android:id</span>=<span class="string">&quot;@+id/tv_name&quot;</span></span>
+<span class="tag">        <span class="attr">android:layout_width</span>=<span class="string">&quot;0dp&quot;</span></span>
+<span class="tag">        <span class="attr">android:layout_height</span>=<span class="string">&quot;match_parent&quot;</span></span>
+<span class="tag">        <span class="attr">android:text</span>=<span class="string">&quot;图1&quot;</span></span>
+<span class="tag">        <span class="attr">android:textSize</span>=<span class="string">&quot;10sp&quot;</span></span>
+<span class="tag">        <span class="attr">android:layout_weight</span>=<span class="string">&quot;3&quot;</span></span>
+<span class="tag">        <span class="attr">android:gravity</span>=<span class="string">&quot;center&quot;</span></span>
+<span class="tag">        <span class="attr">android:textColor</span>=<span class="string">&quot;#ff0000&quot;</span>/&gt;</span>
+
+<span class="tag">&lt;/<span class="name">LinearLayout</span>&gt;</span></code></pre>
+
+<blockquote>
+<p>基本代码逻辑</p>
+</blockquote>
+<pre><code class="highlight java"><span class="keyword">private</span> <span class="type">int</span>[] iconArray = &#123;R.drawable.na,R.drawable.na,R.drawable.na,R.drawable.na,R.drawable.na&#125;;
+<span class="keyword">private</span> String[] nameArray = &#123;<span class="string">&quot;图一&quot;</span>,<span class="string">&quot;图二&quot;</span>,<span class="string">&quot;图三&quot;</span>,<span class="string">&quot;图四&quot;</span>,<span class="string">&quot;图五&quot;</span>&#125;;
+
+<span class="meta">@Override</span>
+<span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">onCreate</span><span class="params">(Bundle savedInstanceState)</span> &#123;
+    <span class="built_in">super</span>.onCreate(savedInstanceState);
+    EdgeToEdge.enable(<span class="built_in">this</span>);
+    setContentView(R.layout.activity_main2);
+
+    List&lt;Map&lt;String, Object&gt;&gt; list = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();
+    <span class="keyword">for</span> (<span class="type">int</span> i=<span class="number">0</span>;i&lt;iconArray.length;i++)&#123;
+        Map&lt;String,Object&gt; item = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;();
+
+        item.put(<span class="string">&quot;name&quot;</span>,nameArray[i]);
+        item.put(<span class="string">&quot;icon&quot;</span>,iconArray[i]);
+        list.add(item);
+    &#125;
+    <span class="type">SimpleAdapter</span> <span class="variable">startAdapter</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">SimpleAdapter</span>(<span class="built_in">this</span>,list,R.layout.item_simple,
+                                                   <span class="keyword">new</span> <span class="title class_">String</span>[]&#123;<span class="string">&quot;name&quot;</span>,<span class="string">&quot;icon&quot;</span>&#125;,<span class="keyword">new</span> <span class="title class_">int</span>[]&#123;R.id.tv_name,R.id.tv_im&#125;);
+    <span class="type">Spinner</span> <span class="variable">sp_icon</span> <span class="operator">=</span> findViewById(R.id.tv_sp);
+    sp_icon.setAdapter(startAdapter);
+    sp_icon.setSelection(<span class="number">0</span>);
+    sp_icon.setOnItemSelectedListener(<span class="built_in">this</span>);
+&#125;</code></pre>
+
+<h3 id="16-3BaseAdapter"><a href="#16-3BaseAdapter" class="headerlink" title="16.3BaseAdapter"></a>16.3BaseAdapter</h3><pre><code class="highlight java"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MyAdapter</span> <span class="keyword">extends</span> <span class="title class_">BaseAdapter</span> &#123;
+    <span class="keyword">private</span> <span class="type">int</span>[] imageArr;
+
+    <span class="keyword">private</span> String[] nameArr;
+    
+    <span class="keyword">private</span> Context mContext;
+    
+    <span class="keyword">public</span> <span class="title function_">MyAdapter</span><span class="params">(Context context,<span class="type">int</span>[] imageArr,String[] nameArr)</span>&#123;
+        <span class="built_in">this</span>.mContext = context;
+        <span class="built_in">this</span>.imageArr = imageArr;
+        <span class="built_in">this</span>.nameArr = nameArr;
+    &#125;
+
+    <span class="meta">@Override</span>
+    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">getCount</span><span class="params">()</span> &#123;
+        <span class="keyword">return</span> imageArr.length;
+    &#125;
+
+    <span class="meta">@Override</span>
+    <span class="keyword">public</span> Object <span class="title function_">getItem</span><span class="params">(<span class="type">int</span> position)</span> &#123;
+        <span class="keyword">return</span> imageArr[position];
+    &#125;
+
+    <span class="meta">@Override</span>
+    <span class="keyword">public</span> <span class="type">long</span> <span class="title function_">getItemId</span><span class="params">(<span class="type">int</span> position)</span> &#123;
+        <span class="keyword">return</span> position;
+    &#125;
+
+    <span class="meta">@Override</span>
+    <span class="keyword">public</span> View <span class="title function_">getView</span><span class="params">(<span class="type">int</span> position, View convertView, ViewGroup parent)</span> &#123;
+        <span class="type">View</span> <span class="variable">view</span> <span class="operator">=</span> LayoutInflater.from(mContext).inflate(R.layout.item_list, <span class="literal">null</span>);
+        <span class="type">ImageView</span> <span class="variable">image</span> <span class="operator">=</span> view.findViewById(R.id.ts_im);
+        <span class="type">TextView</span> <span class="variable">maintext</span> <span class="operator">=</span> view.findViewById(R.id.ts_name);
+        <span class="type">TextView</span> <span class="variable">childtext</span> <span class="operator">=</span> view.findViewById(R.id.ts_chd);
+
+        <span class="type">String</span> <span class="variable">name</span> <span class="operator">=</span> nameArr[position];
+        <span class="type">int</span> <span class="variable">imgsrc</span> <span class="operator">=</span> imageArr[position];
+
+        image.setImageResource(imgsrc);
+        maintext.setText(name);
+        childtext.setText(name+<span class="string">&quot;id&quot;</span>);
+
+        <span class="keyword">return</span> view;
+    &#125;
+&#125;</code></pre>
+
+<blockquote>
+<p><code>使用</code></p>
+</blockquote>
+<pre><code class="highlight java">lv =  findViewById(R.id.ts_lv);
+
+<span class="type">MyAdapter</span> <span class="variable">startAdapter</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">MyAdapter</span>(<span class="built_in">this</span>,iconArray,nameArray);
+
+lv.setAdapter(startAdapter);
+lv.setSelection(<span class="number">0</span>);</code></pre>
+
+<blockquote>
+<p>进行优化</p>
+</blockquote>
+<pre><code class="highlight java"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MyAdapter</span> <span class="keyword">extends</span> <span class="title class_">BaseAdapter</span> &#123;
+    <span class="keyword">private</span> <span class="type">int</span>[] imageArr;
+
+    <span class="keyword">private</span> String[] nameArr;
+    <span class="keyword">private</span> Context mContext;
+    <span class="keyword">public</span> <span class="title function_">MyAdapter</span><span class="params">(Context context,<span class="type">int</span>[] imageArr,String[] nameArr)</span>&#123;
+        <span class="built_in">this</span>.mContext = context;
+        <span class="built_in">this</span>.imageArr = imageArr;
+        <span class="built_in">this</span>.nameArr = nameArr;
+    &#125;
+
+    <span class="meta">@Override</span>
+    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">getCount</span><span class="params">()</span> &#123;
+        <span class="keyword">return</span> imageArr.length;
+    &#125;
+
+    <span class="meta">@Override</span>
+    <span class="keyword">public</span> Object <span class="title function_">getItem</span><span class="params">(<span class="type">int</span> position)</span> &#123;
+        <span class="keyword">return</span> imageArr[position];
+    &#125;
+
+    <span class="meta">@Override</span>
+    <span class="keyword">public</span> <span class="type">long</span> <span class="title function_">getItemId</span><span class="params">(<span class="type">int</span> position)</span> &#123;
+        <span class="keyword">return</span> position;
+    &#125;
+
+    <span class="meta">@Override</span>
+    <span class="keyword">public</span> View <span class="title function_">getView</span><span class="params">(<span class="type">int</span> position, View convertView, ViewGroup parent)</span> &#123;
+        <span class="type">ViewHolder</span> <span class="variable">holder</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ViewHolder</span>();
+        <span class="keyword">if</span> (convertView == <span class="literal">null</span>) &#123;
+            convertView = LayoutInflater.from(mContext).inflate(R.layout.item_list, <span class="literal">null</span>);
+            holder.iv_icon = convertView.findViewById(R.id.ts_im);
+            holder.tv_name = convertView.findViewById(R.id.ts_name);
+            holder.tv_child  = convertView.findViewById(R.id.ts_chd);
+            <span class="comment">//将视图持有者保存到转换视图中</span>
+            convertView.setTag(holder);
+        &#125;<span class="keyword">else</span>&#123;
+            holder = (ViewHolder)convertView.getTag();
+        &#125;
+
+        <span class="type">String</span> <span class="variable">name</span> <span class="operator">=</span> nameArr[position];
+        <span class="type">int</span> <span class="variable">imgsrc</span> <span class="operator">=</span> imageArr[position];
+
+        holder.iv_icon.setImageResource(imgsrc);
+        holder.tv_name.setText(name);
+        holder.tv_child.setText(name+<span class="string">&quot;id&quot;</span>);
+
+        <span class="keyword">return</span> convertView;
+    &#125;
+
+    <span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">class</span> <span class="title class_">ViewHolder</span>&#123;
+        <span class="keyword">public</span> ImageView iv_icon;
+        <span class="keyword">public</span> TextView tv_name;
+        <span class="keyword">public</span> TextView tv_child;
+    &#125;
+&#125;
+</code></pre>
+
+<h3 id="16-4-ListView"><a href="#16-4-ListView" class="headerlink" title="16.4.ListView"></a>16.4.ListView</h3><blockquote>
+<p>基本使用</p>
+</blockquote>
+<pre><code class="highlight java"><span class="keyword">private</span> <span class="type">int</span>[] iconArray = &#123;R.drawable.na,R.drawable.na,R.drawable.na,R.drawable.na,R.drawable.na&#125;;
+<span class="keyword">private</span> String[] nameArray = &#123;<span class="string">&quot;图一&quot;</span>,<span class="string">&quot;图二&quot;</span>,<span class="string">&quot;图三&quot;</span>,<span class="string">&quot;图四&quot;</span>,<span class="string">&quot;图五&quot;</span>&#125;;
+
+<span class="meta">@Override</span>
+<span class="keyword">protected</span> <span class="keyword">void</span> <span class="title function_">onCreate</span><span class="params">(Bundle savedInstanceState)</span> &#123;
+    <span class="type">ListView</span> <span class="variable">listView</span> <span class="operator">=</span>  findViewById(R.id.tv_lv);
+    List&lt;Map&lt;String, Object&gt;&gt; list = <span class="keyword">new</span> <span class="title class_">ArrayList</span>&lt;&gt;();
+    <span class="keyword">for</span> (<span class="type">int</span> i=<span class="number">0</span>;i&lt;iconArray.length;i++)&#123;
+        Map&lt;String,Object&gt; item = <span class="keyword">new</span> <span class="title class_">HashMap</span>&lt;&gt;();
+
+        item.put(<span class="string">&quot;name&quot;</span>,nameArray[i]);
+        item.put(<span class="string">&quot;icon&quot;</span>,iconArray[i]);
+        list.add(item);
+    &#125;
+    <span class="type">SimpleAdapter</span> <span class="variable">startAdapter</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">SimpleAdapter</span>(<span class="built_in">this</span>,list,R.layout.item_simple,
+                                                   <span class="keyword">new</span> <span class="title class_">String</span>[]&#123;<span class="string">&quot;name&quot;</span>,<span class="string">&quot;icon&quot;</span>&#125;,<span class="keyword">new</span> <span class="title class_">int</span>[]&#123;R.id.tv_name,R.id.tv_im&#125;);
+
+    listView.setAdapter(startAdapter);
+    listView.setOnItemClickListener(<span class="built_in">this</span>);
+&#125;
+
+<span class="meta">@Override</span>
+<span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">onItemClick</span><span class="params">(AdapterView&lt;?&gt; parent, View view, <span class="type">int</span> position, <span class="type">long</span> id)</span> &#123;
+    Toastshow.show(<span class="built_in">this</span>,<span class="string">&quot;点击了&quot;</span>+nameArray[position]);
+&#125;</code></pre>
+
+<blockquote>
+<p>更改样式</p>
+</blockquote>
+<pre><code class="highlight xml"><span class="tag">&lt;<span class="name">ListView</span></span>
+<span class="tag">          <span class="attr">android:id</span>=<span class="string">&quot;@+id/tv_lv&quot;</span></span>
+<span class="tag">          <span class="attr">android:layout_height</span>=<span class="string">&quot;wrap_content&quot;</span></span>
+<span class="tag">          <span class="attr">android:layout_width</span>=<span class="string">&quot;match_parent&quot;</span></span>
+<span class="tag">          <span class="attr">android:divider</span>=<span class="string">&quot;@null&quot;</span>   </span>
+<span class="tag">          <span class="attr">android:dividerHeight</span>=<span class="string">&quot;0dp&quot;</span>  </span>
+<span class="tag">          <span class="attr">android:listSelector</span>=<span class="string">&quot;@color/transparent&quot;</span> </span>
+<span class="tag">          /&gt;</span> <span class="comment">&lt;!-- //dividerHeight=&quot;0dp&quot;:分割线高度为0 listSelector=&quot;@color/transparent&quot;:分割线颜色为透明--&gt;</span></code></pre>
+
+<pre><code class="highlight java"><span class="meta">@Override</span>
+<span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">onClick</span><span class="params">(View v)</span> &#123;
+    <span class="keyword">if</span> (v.getId() == R.id.cb_bg)&#123;
+        <span class="keyword">if</span> (ck_bg.isChecked())&#123;
+            listView.setSelector(R.drawable.listselector);
+        &#125;<span class="keyword">else</span>&#123;
+            listView.setSelector(R.drawable.ic_launcher_foreground);
+        &#125;
+    &#125;<span class="keyword">else</span> <span class="keyword">if</span> (v.getId() == R.id.cb_fg)&#123;
+        <span class="keyword">if</span> (ck_fg.isChecked())&#123;
+            <span class="type">Drawable</span> <span class="variable">drawable</span> <span class="operator">=</span> getResources().getDrawable(R.color.black,getTheme());
+            listView.setDivider(drawable);
+            listView.setDividerHeight(diptopx.dip(<span class="built_in">this</span>,<span class="number">1</span>));
+        &#125;<span class="keyword">else</span>&#123;
+            listView.setDivider(<span class="literal">null</span>);
+            listView.setDividerHeight(<span class="number">0</span>);
+        &#125;
+    &#125;
+&#125;</code></pre>
+
+<blockquote>
+<p>解决条目时间冲突问题</p>
+</blockquote>
+<pre><code class="highlight xml"><span class="tag">&lt;<span class="name">LinearLayout</span> <span class="attr">xmlns:android</span>=<span class="string">&quot;http://schemas.android.com/apk/res/android&quot;</span></span>
+<span class="tag">    <span class="attr">android:layout_width</span>=<span class="string">&quot;match_parent&quot;</span></span>
+<span class="tag">    <span class="attr">android:layout_height</span>=<span class="string">&quot;wrap_content&quot;</span></span>
+<span class="tag">    <span class="attr">android:orientation</span>=<span class="string">&quot;horizontal&quot;</span></span>
+<span class="tag">    <span class="attr">android:descendantFocusability</span>=<span class="string">&quot;blocksDescendants&quot;</span>&gt;</span>
+    <span class="comment">&lt;!--阻止下级控件获取焦点，避免堵塞--&gt;</span></code></pre>
+
+<blockquote>
+<p>使用代码控制</p>
+</blockquote>
+<pre><code class="highlight java"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MyAdapter</span> <span class="keyword">extends</span> <span class="title class_">BaseAdapter</span> &#123;
+    <span class="keyword">private</span> <span class="type">int</span>[] imageArr;
+
+    <span class="keyword">private</span> String[] nameArr;
+    <span class="keyword">private</span> Context mContext;
+    <span class="keyword">public</span> <span class="title function_">MyAdapter</span><span class="params">(Context context, <span class="type">int</span>[] imageArr, String[] nameArr)</span>&#123;
+        <span class="built_in">this</span>.mContext = context;
+        <span class="built_in">this</span>.imageArr = imageArr;
+        <span class="built_in">this</span>.nameArr = nameArr;
+    &#125;
+
+    <span class="meta">@Override</span>
+    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">getCount</span><span class="params">()</span> &#123;
+        <span class="keyword">return</span> imageArr.length;
+    &#125;
+
+    <span class="meta">@Override</span>
+    <span class="keyword">public</span> Object <span class="title function_">getItem</span><span class="params">(<span class="type">int</span> position)</span> &#123;
+        <span class="keyword">return</span> imageArr[position];
+    &#125;
+
+    <span class="meta">@Override</span>
+    <span class="keyword">public</span> <span class="type">long</span> <span class="title function_">getItemId</span><span class="params">(<span class="type">int</span> position)</span> &#123;
+        <span class="keyword">return</span> position;
+    &#125;
+
+    <span class="meta">@Override</span>
+    <span class="keyword">public</span> View <span class="title function_">getView</span><span class="params">(<span class="type">int</span> position, View convertView, ViewGroup parent)</span> &#123;
+        <span class="type">ViewHolder</span> <span class="variable">holder</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ViewHolder</span>();
+        <span class="keyword">if</span> (convertView == <span class="literal">null</span>) &#123;
+            convertView = LayoutInflater.from(mContext).inflate(R.layout.item_list_withbutton, <span class="literal">null</span>);
+            holder.tv_ll = convertView.findViewById(R.id.ll_ts);
+            holder.iv_icon = convertView.findViewById(R.id.ts_im);
+            holder.tv_name = convertView.findViewById(R.id.ts_name);
+            holder.tv_child  = convertView.findViewById(R.id.ts_chd);
+            holder.ts_bt = convertView.findViewById(R.id.ts_bt);
+            <span class="comment">//将视图持有者保存到转换视图中</span>
+            convertView.setTag(holder);
+        &#125;<span class="keyword">else</span>&#123;
+            holder = (ViewHolder)convertView.getTag();
+        &#125;
+
+        <span class="type">String</span> <span class="variable">name</span> <span class="operator">=</span> nameArr[position];
+        <span class="type">int</span> <span class="variable">imgsrc</span> <span class="operator">=</span> imageArr[position];
+
+        holder.iv_icon.setImageResource(imgsrc);
+        
+        
+        holder.tv_ll.setDescendantFocusability(ViewGroup.FOCUS_BLOCK_DESCENDANTS); <span class="comment">//重点</span>
+        
+        
+        holder.tv_name.setText(name);
+        holder.tv_child.setText(name+<span class="string">&quot;id&quot;</span>);
+        holder.ts_bt.setOnClickListener((v)-&gt;&#123;
+            Toast.makeText(mContext,name,Toast.LENGTH_SHORT).show();
+        &#125;);
+
+        <span class="keyword">return</span> convertView;
+    &#125;
+
+    <span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">class</span> <span class="title class_">ViewHolder</span>&#123;
+        <span class="keyword">public</span> LinearLayout tv_ll;
+        <span class="keyword">public</span> ImageView iv_icon;
+        <span class="keyword">public</span> TextView tv_name;
+        <span class="keyword">public</span> TextView tv_child;
+        <span class="keyword">public</span> Button ts_bt;
+    &#125;
+&#125;
+</code></pre>
+
+<h3 id="16-5GridView"><a href="#16-5GridView" class="headerlink" title="16.5GridView"></a>16.5GridView</h3><blockquote>
+<p>更改样式</p>
+</blockquote>
+<pre><code class="highlight xml"><span class="tag">&lt;<span class="name">GridView</span></span>
+<span class="tag">          <span class="attr">android:id</span>=<span class="string">&quot;@+id/gv&quot;</span></span>
+<span class="tag">          <span class="attr">android:layout_width</span>=<span class="string">&quot;wrap_content&quot;</span></span>
+<span class="tag">          <span class="attr">android:layout_height</span>=<span class="string">&quot;wrap_content&quot;</span></span>
+<span class="tag">          <span class="attr">android:numColumns</span>=<span class="string">&quot;2&quot;</span>/&gt;</span>
 
 
+<span class="tag">&lt;<span class="name">GridView</span></span>
+<span class="tag">          <span class="attr">android:id</span>=<span class="string">&quot;@+id/gv&quot;</span></span>
+<span class="tag">          <span class="attr">android:layout_width</span>=<span class="string">&quot;wrap_content&quot;</span></span>
+<span class="tag">          <span class="attr">android:layout_height</span>=<span class="string">&quot;wrap_content&quot;</span></span>
+<span class="tag">          <span class="attr">android:numColumns</span>=<span class="string">&quot;2&quot;</span>     </span>
+<span class="tag">          <span class="attr">android:verticalSpacing</span>=<span class="string">&quot;3dp&quot;</span>     //<span class="attr">垂直间距为3dp</span></span>
+<span class="tag">          <span class="attr">android:background</span>=<span class="string">&quot;#ff00ff&quot;</span>   </span>
+<span class="tag">          <span class="attr">android:columnWidth</span>=<span class="string">&quot;100dp&quot;</span>       //<span class="attr">列宽为100dp</span></span>
+<span class="tag">          <span class="attr">android:stretchMode</span>=<span class="string">&quot;none&quot;</span>        //<span class="attr">拉伸模式</span></span>
+<span class="tag">          /&gt;</span></code></pre>
 
+<blockquote>
+<p>使用代码控制</p>
+</blockquote>
+<pre><code class="highlight java"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">MyPAdapter</span> <span class="keyword">extends</span> <span class="title class_">BaseAdapter</span> &#123;
+    <span class="keyword">private</span> <span class="type">int</span>[] imageArr;
 
+    <span class="keyword">private</span> String[] nameArr;
+    <span class="keyword">private</span> Context mContext;
+    <span class="keyword">public</span> <span class="title function_">MyPAdapter</span><span class="params">(Context context, <span class="type">int</span>[] imageArr, String[] nameArr)</span>&#123;
+        <span class="built_in">this</span>.mContext = context;
+        <span class="built_in">this</span>.imageArr = imageArr;
+        <span class="built_in">this</span>.nameArr = nameArr;
+    &#125;
 
+    <span class="meta">@Override</span>
+    <span class="keyword">public</span> <span class="type">int</span> <span class="title function_">getCount</span><span class="params">()</span> &#123;
+        <span class="keyword">return</span> imageArr.length;
+    &#125;
 
+    <span class="meta">@Override</span>
+    <span class="keyword">public</span> Object <span class="title function_">getItem</span><span class="params">(<span class="type">int</span> position)</span> &#123;
+        <span class="keyword">return</span> imageArr[position];
+    &#125;
 
+    <span class="meta">@Override</span>
+    <span class="keyword">public</span> <span class="type">long</span> <span class="title function_">getItemId</span><span class="params">(<span class="type">int</span> position)</span> &#123;
+        <span class="keyword">return</span> position;
+    &#125;
 
+    <span class="meta">@Override</span>
+    <span class="keyword">public</span> View <span class="title function_">getView</span><span class="params">(<span class="type">int</span> position, View convertView, ViewGroup parent)</span> &#123;
+        <span class="type">ViewHolder</span> <span class="variable">holder</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ViewHolder</span>();
+        <span class="keyword">if</span> (convertView == <span class="literal">null</span>) &#123;
+            convertView = LayoutInflater.from(mContext).inflate(R.layout.grid_list, <span class="literal">null</span>);
+            holder.iv_icon = convertView.findViewById(R.id.ts_im);
+            holder.tv_name = convertView.findViewById(R.id.ts_name);
+            holder.tv_child  = convertView.findViewById(R.id.ts_chd);
+            <span class="comment">//将视图持有者保存到转换视图中</span>
+            convertView.setTag(holder);
+        &#125;<span class="keyword">else</span>&#123;
+            holder = (ViewHolder)convertView.getTag();
+        &#125;
 
+        <span class="type">String</span> <span class="variable">name</span> <span class="operator">=</span> nameArr[position];
+        <span class="type">int</span> <span class="variable">imgsrc</span> <span class="operator">=</span> imageArr[position];
+
+        holder.iv_icon.setImageResource(imgsrc);
+        holder.tv_name.setText(name);
+        holder.tv_child.setText(name+<span class="string">&quot;id&quot;</span>);
+
+        <span class="keyword">return</span> convertView;
+    &#125;
+
+    <span class="keyword">public</span> <span class="keyword">final</span> <span class="keyword">class</span> <span class="title class_">ViewHolder</span>&#123;
+        <span class="keyword">public</span> ImageView iv_icon;
+        <span class="keyword">public</span> TextView tv_name;
+        <span class="keyword">public</span> TextView tv_child;
+    &#125;
+&#125;
+</code></pre>
 
 
 

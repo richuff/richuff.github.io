@@ -373,9 +373,9 @@
 select ifnull(&#x27;&#x27;,&#x27;default&#x27;); -&gt;&#x27;&#x27;
 select  ifnull(null,&#x27;default&#x27;); -&gt;default```</code></pre>
 
-<p>3.case when [val] the [res]… else[default] end;</p>
+<p>3.case when [val] then [res]… else[default] end;</p>
 <blockquote>
-<p>如果value为true，返回res1，…否则返回default默认值</p>
+<p>如果val为true，返回res，…否则返回default默认值</p>
 </blockquote>
 <pre><code class="highlight sql"><span class="keyword">select</span> name,(<span class="keyword">case</span> richu_user.gender <span class="keyword">when</span> <span class="string">&#x27;男&#x27;</span> <span class="keyword">then</span> <span class="string">&#x27;0&#x27;</span> <span class="keyword">when</span> <span class="string">&#x27;女&#x27;</span> <span class="keyword">then</span> <span class="string">&#x27;1&#x27;</span> <span class="keyword">else</span> <span class="string">&#x27;default&#x27;</span> <span class="keyword">end</span>) <span class="keyword">as</span> <span class="string">&#x27;性别编号&#x27;</span> <span class="keyword">from</span> richu_user;</code></pre>
 

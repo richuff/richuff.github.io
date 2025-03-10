@@ -3911,15 +3911,81 @@ ElevatedButton(onPressed: ()&#123;
     &#125;
 &#125;, child: <span class="keyword">const</span> Text(<span class="string">&quot;验证手机号&quot;</span>)),</code></pre>
 
+<h2 id="14-sqllite"><a href="#14-sqllite" class="headerlink" title="14.sqllite"></a>14.sqllite</h2><h3 id="1-添加依赖"><a href="#1-添加依赖" class="headerlink" title="1. 添加依赖"></a>1. 添加依赖</h3><p>为了使用 SQLite 数据库，首先需要导入 sqflite 和 path package。</p>
+<p>sqflite 提供了丰富的类和方法，以便你能便捷实用 SQLite 数据库。</p>
+<p>path 提供了大量方法，以便你能正确的定义数据库在磁盘上的存储位置。</p>
+<p>运行 flutter pub add 将其添加为依赖：</p>
+<pre><code class="highlight plaintext">flutter pub add sqflite path</code></pre>
 
+<h3 id="2-打开数据库"><a href="#2-打开数据库" class="headerlink" title="2. 打开数据库"></a>2. 打开数据库</h3><p>在你准备读写数据库的数据之前，你要先打开这个数据库。打开一个数据库有以下两个步骤：</p>
+<p>使用 sqflite package 里的 getDatabasesPath 方法并配合 path package里的 join 方法定义数据库的路径。</p>
+<p>使用 sqflite package 里的 openDatabase 方法打开数据库。</p>
+<p>提示</p>
+<pre><code class="highlight dart"><span class="comment">//导入 &#x27;package:flutter/widgets.dart&#x27;</span>
+WidgetsFlutterBinding.ensureInitialized();
 
+<span class="comment">//打开数据库并保存其引用</span>
+<span class="keyword">final</span> database = openDatabase(
+  join(<span class="keyword">await</span> getDatabasesPath(), <span class="string">&#x27;dog.db&#x27;</span>),
+);</code></pre>
 
+<h3 id="3-创建-dogs-表"><a href="#3-创建-dogs-表" class="headerlink" title="3. 创建 dogs 表"></a>3. 创建 dogs 表</h3><p>接下来，你需要创建一个表用以存储各种狗狗的信息。在这个示例中，创建一个名为 dogs 数据库表，它定义了可以被存储的数据。这样，每条 Dog 数据就包含了一个 id， name 和 age。因此，在 dogs 数据库表中将有三列，分别是 id， name 和 age。</p>
+<p>id 是 Dart 的 int 类型，在数据表中是 SQLite 的 INTEGER 数据类型。最佳实践是将 id 作为数据库表的主键，用以改善查询和修改的时间。</p>
+<p>name 是Dart的 String类型，在数据表中是SQLite的 TEXT 数据类型。</p>
+<p>age 也是Dart的 int 类型，在数据表中是SQLite的 INTEGER 数据类型。</p>
+<p>关于 SQLite 数据库能够存储的更多的数据类型信息请查阅官方的 SQLite Datatypes 文档。</p>
+<pre><code class="highlight dart"><span class="keyword">final</span> database = openDatabase(
+  join(<span class="keyword">await</span> getDatabasesPath(), <span class="string">&#x27;dog.db&#x27;</span>),
 
+  <span class="comment">// 当数据库被第一次创建, 会创建这个表用来存储狗狗的数据</span>
+  onCreate: (db, version) &#123;
+    <span class="keyword">return</span> db.execute(
+      <span class="string">&#x27;CREATE TABLE dogs(id INTEGER PRIMARY KEY, name TEXT, age INTEGER)&#x27;</span>,
+    );
+  &#125;,
+  <span class="comment">//版本</span>
+  version: <span class="number">1</span>,
+);</code></pre>
 
+<h3 id="4-插入一条狗狗的数据"><a href="#4-插入一条狗狗的数据" class="headerlink" title="4. 插入一条狗狗的数据"></a>4. 插入一条狗狗的数据</h3><p>现在你已经准备好了一个数据库用于存储各种狗狗的信息数据，现在开始读写数据咯。</p>
+<p>首先，在 dogs 数据表中插入一条 Dog 数据。分以下两步：</p>
+<p>把 Dog 转换成一个 Map 数据类型；</p>
+<p>使用 insert() 方法把 Map 保存到 dogs 数据表中。</p>
+<pre><code class="highlight dart"><span class="class"><span class="keyword">class</span> <span class="title">Dog</span> </span>&#123;
+  <span class="keyword">final</span> <span class="built_in">int</span> id;
+  <span class="keyword">final</span> <span class="built_in">String</span> name;
+  <span class="keyword">final</span> <span class="built_in">int</span> age;
 
+  Dog(&#123;<span class="keyword">required</span> <span class="keyword">this</span>.id, <span class="keyword">required</span> <span class="keyword">this</span>.name, <span class="keyword">required</span> <span class="keyword">this</span>.age&#125;);
 
+  <span class="comment">// 将狗狗数据转为map ，key的值要与数据库的列名相同</span>
+  <span class="built_in">Map</span>&lt;<span class="built_in">String</span>, <span class="built_in">Object?</span>&gt; toMap() &#123;
+    <span class="keyword">return</span> &#123;<span class="string">&#x27;id&#x27;</span>: id, <span class="string">&#x27;name&#x27;</span>: name, <span class="string">&#x27;age&#x27;</span>: age&#125;;
+  &#125;
 
+  <span class="meta">@override</span>
+  <span class="built_in">String</span> toString() &#123;
+    <span class="keyword">return</span> <span class="string">&#x27;Dog&#123;id: <span class="subst">$id</span>, name: <span class="subst">$name</span>, age: <span class="subst">$age</span>&#125;&#x27;</span>;
+  &#125;
+&#125;</code></pre>
 
+<pre><code class="highlight dart">Future&lt;<span class="keyword">void</span>&gt; insertDog(Dog dog) <span class="keyword">async</span> &#123;
+  <span class="comment">// 获取数据库的引用</span>
+  <span class="keyword">final</span> db = <span class="keyword">await</span> database;
+
+  <span class="keyword">await</span> db.insert(
+    <span class="string">&#x27;dogs&#x27;</span>,
+    dog.toMap(),
+    conflictAlgorithm: ConflictAlgorithm.replace,
+  );
+&#125;</code></pre>
+
+<blockquote>
+<p>插入一条数据</p>
+</blockquote>
+<pre><code class="highlight dart"><span class="keyword">var</span> fido = Dog(id: <span class="number">0</span>, name: <span class="string">&#x27;Fido&#x27;</span>, age: <span class="number">35</span>);
+
+<span class="keyword">await</span> insertDog(fido);</code></pre>
         </article>
         <section class="post-near">
             <ul>

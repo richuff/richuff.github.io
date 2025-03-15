@@ -3986,6 +3986,127 @@ WidgetsFlutterBinding.ensureInitialized();
 <pre><code class="highlight dart"><span class="keyword">var</span> fido = Dog(id: <span class="number">0</span>, name: <span class="string">&#x27;Fido&#x27;</span>, age: <span class="number">35</span>);
 
 <span class="keyword">await</span> insertDog(fido);</code></pre>
+<h3 id="5-查询狗狗列表"><a href="#5-查询狗狗列表" class="headerlink" title="5. 查询狗狗列表"></a>5. 查询狗狗列表</h3><p>现在已经有了一条 Dog 存储在数据库里。你可以通过查询数据库，检索到一只狗狗的数据或者所有狗狗的数据。分为以下两步:</p>
+<p>调用 dogs 表对像的 query 方法。这将返回一个List <Map>。</p>
+<p>将 List<Map> 转换成 List<Dog> 数据类型。</p>
+<blockquote>
+<p>query函数的参数</p>
+</blockquote>
+<pre><code class="highlight dart"><span class="keyword">void</span> query(<span class="built_in">String</span> table, <span class="comment">//指定要查询的表名。</span>
+    &#123;<span class="built_in">bool?</span> distinct,  <span class="comment">//是否去重</span>
+    <span class="built_in">List</span>&lt;<span class="built_in">String</span>&gt;? <span class="comment">//指定要查询的列名。如果为 null，则查询所有列。</span>
+    <span class="built_in">String?</span> where, <span class="comment">//where条件指定 WHERE 条件，用于过滤查询结果。</span>
+    <span class="built_in">List</span>&lt;<span class="built_in">Object?</span>&gt;? whereArgs, <span class="comment">//WHERE 条件的参数，用于防止 SQL 注入。</span>
+    <span class="built_in">String?</span> groupBy, <span class="comment">//指定 GROUP BY 子句，用于对结果进行分组。</span>
+    <span class="built_in">String?</span> having,<span class="comment">//指定 HAVING 条件，用于过滤分组后的结果。</span>
+    <span class="built_in">String?</span> orderBy,<span class="comment">//指定 ORDER BY 子句，用于对结果进行排序。</span>
+    <span class="built_in">int?</span> limit, <span class="comment">//指定查询结果的最大行数。</span>
+    <span class="built_in">int?</span> offset&#125;);<span class="comment">//指定查询结果的起始位置。</span></code></pre>
+
+<pre><code class="highlight dart"><span class="keyword">import</span> <span class="string">&#x27;package:sqflite/sqflite.dart&#x27;</span>;
+
+<span class="comment">// 假设已经有一个打开的数据库连接</span>
+Database database;
+
+<span class="comment">// 示例 1：查询所有列</span>
+<span class="built_in">List</span>&lt;<span class="built_in">Map</span>&lt;<span class="built_in">String</span>, <span class="built_in">dynamic</span>&gt;&gt; results = <span class="keyword">await</span> database.query(<span class="string">&#x27;users&#x27;</span>);
+
+<span class="comment">// 示例 2：查询特定列</span>
+results = <span class="keyword">await</span> database.query(<span class="string">&#x27;users&#x27;</span>, columns: [<span class="string">&#x27;id&#x27;</span>, <span class="string">&#x27;name&#x27;</span>]);
+
+<span class="comment">// 示例 3：带条件查询</span>
+results = <span class="keyword">await</span> database.query(
+  <span class="string">&#x27;users&#x27;</span>,
+  where: <span class="string">&#x27;age &gt; ?&#x27;</span>,
+  whereArgs: [<span class="number">18</span>],
+);
+
+<span class="comment">// 示例 4：带分组和排序</span>
+results = <span class="keyword">await</span> database.query(
+  <span class="string">&#x27;users&#x27;</span>,
+  columns: [<span class="string">&#x27;age&#x27;</span>],
+  groupBy: <span class="string">&#x27;age&#x27;</span>,
+  having: <span class="string">&#x27;COUNT(*) &gt; 1&#x27;</span>,
+  orderBy: <span class="string">&#x27;age DESC&#x27;</span>,
+);
+
+<span class="comment">// 示例 5：带限制和偏移</span>
+results = <span class="keyword">await</span> database.query(
+  <span class="string">&#x27;users&#x27;</span>,
+  limit: <span class="number">10</span>,
+  offset: <span class="number">20</span>,
+);
+
+<span class="comment">// 示例 6：去重查询</span>
+results = <span class="keyword">await</span> database.query(
+  <span class="string">&#x27;users&#x27;</span>,
+  distinct: <span class="keyword">true</span>,
+  columns: [<span class="string">&#x27;email&#x27;</span>],
+);
+</code></pre>
+<blockquote>
+<p>综合示例</p>
+</blockquote>
+<pre><code class="highlight dart">results = <span class="keyword">await</span> database.query(
+  <span class="string">&#x27;users&#x27;</span>,
+  distinct: <span class="keyword">true</span>,
+  columns: [<span class="string">&#x27;id&#x27;</span>, <span class="string">&#x27;name&#x27;</span>, <span class="string">&#x27;email&#x27;</span>],
+  where: <span class="string">&#x27;age &gt;= ? AND active = ?&#x27;</span>,
+  whereArgs: [<span class="number">20</span>, <span class="number">1</span>],
+  groupBy: <span class="string">&#x27;department&#x27;</span>,
+  having: <span class="string">&#x27;COUNT(*) &gt; 5&#x27;</span>,
+  orderBy: <span class="string">&#x27;name ASC&#x27;</span>,
+  limit: <span class="number">50</span>,
+  offset: <span class="number">0</span>,
+);</code></pre>
+
+<pre><code class="highlight dart">Future&lt;<span class="built_in">List</span>&lt;Dog&gt;&gt; dogs() <span class="keyword">async</span> &#123;
+  <span class="keyword">final</span> db = <span class="keyword">await</span> database;
+
+  <span class="keyword">final</span> <span class="built_in">List</span>&lt;<span class="built_in">Map</span>&lt;<span class="built_in">String</span>, <span class="built_in">Object?</span>&gt;&gt; dogMaps = <span class="keyword">await</span> db.query(<span class="string">&#x27;dogs&#x27;</span>);
+
+  <span class="keyword">return</span> [
+    <span class="keyword">for</span> (<span class="keyword">final</span> &#123;<span class="string">&#x27;id&#x27;</span>: id <span class="keyword">as</span> <span class="built_in">int</span>, <span class="string">&#x27;name&#x27;</span>: name <span class="keyword">as</span> <span class="built_in">String</span>, <span class="string">&#x27;age&#x27;</span>: age <span class="keyword">as</span> <span class="built_in">int</span>&#125;
+        <span class="keyword">in</span> dogMaps)
+      Dog(id: id, name: name, age: age),
+  ];
+&#125;</code></pre>
+
+<pre><code class="highlight dart"><span class="built_in">print</span>(<span class="keyword">await</span> dogs());</code></pre>
+
+<h3 id="7-修改一条-Dog-数据"><a href="#7-修改一条-Dog-数据" class="headerlink" title="7. 修改一条 Dog 数据"></a>7. 修改一条 Dog 数据</h3><p>使用 sqflite package 中的 update()方法，可以对已经插入到数据库中的数据进行修改（更新）。</p>
+<p>修改数据操作包含以下两步：</p>
+<p>将一条狗狗的数据转换成 Map 数据类型；</p>
+<p>使用 where 语句定位到具体将要被修改的数据。</p>
+<pre><code class="highlight dart">Future&lt;<span class="keyword">void</span>&gt; updateDog(Dog dog) <span class="keyword">async</span> &#123;
+  <span class="keyword">final</span> db = <span class="keyword">await</span> database;
+  <span class="keyword">await</span> db.update(
+    <span class="string">&#x27;dogs&#x27;</span>,
+    dog.toMap(),
+    where: <span class="string">&#x27;id = ?&#x27;</span>,
+    whereArgs: [dog.id],
+  );
+&#125;</code></pre>
+<pre><code class="highlight dart">fido = Dog(id: fido.id, name: fido.name, age: fido.age + <span class="number">7</span>);
+
+<span class="keyword">await</span> updateDog(fido);
+<span class="built_in">print</span>(<span class="keyword">await</span> dogs());</code></pre>
+
+<p>请注意<br>使用 whereArgs 将参数传递给 where 语句。有助于防止 SQL 注入攻击。</p>
+<p>这里不要使用字符串模板，比如： where: “id &#x3D; ${dog.id}”！</p>
+<h3 id="8-删除一条-Dog-的数据"><a href="#8-删除一条-Dog-的数据" class="headerlink" title="8. 删除一条 Dog 的数据"></a>8. 删除一条 Dog 的数据</h3><p>除了插入和修改狗狗们的数据，你还可以从数据库中删除狗狗的数据。删除数据用到了 sqflite package 中的 delete() 方法。</p>
+<p>在这一小节，新建一个方法用来接收一个 id 并且删除数据库中与这个 id 匹配的那一条数据。为了达到这个目的，你必须使用 where 语句限定哪一条才是被删除的数据。</p>
+<pre><code class="highlight dart">Future&lt;<span class="keyword">void</span>&gt; deleteDog(<span class="built_in">int</span> id)
+  <span class="keyword">final</span> db = <span class="keyword">await</span> database;
+
+  <span class="keyword">await</span> db.delete(
+    <span class="string">&#x27;dogs&#x27;</span>,
+    where: <span class="string">&#x27;id = ?&#x27;</span>,
+    whereArgs: [id],
+  );
+&#125;</code></pre>
+
+
         </article>
         <section class="post-near">
             <ul>
@@ -4027,11 +4148,11 @@ WidgetsFlutterBinding.ensureInitialized();
             <div class="row">
                 <div class="col-m-4">
                     <h3 class="title-recent">最新文章：</h3>
-                    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2025/02/23/QT/">QT</a></li><li class="post-list-item"><a class="post-list-link" href="/2025/02/22/%E8%A7%A3%E5%86%B3Nginx%E7%AB%AF%E5%8F%A3%E6%97%A0%E6%B3%95%E8%AE%BF%E9%97%AE%E9%97%AE%E9%A2%98/">解决Nginx端口无法访问问题</a></li><li class="post-list-item"><a class="post-list-link" href="/2025/01/05/Andriod/">Android</a></li><li class="post-list-item"><a class="post-list-link" href="/2024/12/02/Kotlin/">Kotlin</a></li><li class="post-list-item"><a class="post-list-link" href="/2024/11/19/Webpack/">Webpack</a></li><li class="post-list-item"><a class="post-list-link" href="/2024/11/09/Node.js/">NodeJs</a></li></ul>
+                    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2025/03/15/AJAX/">AJAX</a></li><li class="post-list-item"><a class="post-list-link" href="/2025/02/23/QT/">QT</a></li><li class="post-list-item"><a class="post-list-link" href="/2025/02/22/%E8%A7%A3%E5%86%B3Nginx%E7%AB%AF%E5%8F%A3%E6%97%A0%E6%B3%95%E8%AE%BF%E9%97%AE%E9%97%AE%E9%A2%98/">解决Nginx端口无法访问问题</a></li><li class="post-list-item"><a class="post-list-link" href="/2025/01/05/Andriod/">Android</a></li><li class="post-list-item"><a class="post-list-link" href="/2024/12/02/Kotlin/">Kotlin</a></li><li class="post-list-item"><a class="post-list-link" href="/2024/11/19/Webpack/">Webpack</a></li></ul>
                 </div>
                 <div class="col-m-4">
                     <h3 class="title-date">时光机：</h3>
-                    <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/02/">二月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/01/">一月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/12/">十二月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/11/">十一月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/10/">十月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/09/">九月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/08/">八月 2024</a></li></ul>
+                    <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/03/">三月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/02/">二月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/01/">一月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/12/">十二月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/11/">十一月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/10/">十月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/09/">九月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/08/">八月 2024</a></li></ul>
                 </div>
                 <div class="col-m-4">
                     <h3 class="title-tags">标签云：</h3>

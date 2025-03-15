@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html>
+  <head>
+     
+    <meta charset="UTF-8">
+    <title>AJAX - Richu</title>
+    <link rel="shortcut icon" href="/static/img/icon.png">
+    <link rel="icon" href="/static/img/icon.png" sizes="192x192"/>
+    
+<link rel="stylesheet" href="/static/kico.css">
+<link rel="stylesheet" href="/static/hingle.css">
+
+    
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <meta name="viewport" content="width=device-width, maximum-scale=1, initial-scale=1"/>
+    <meta property="og:site_name" content="Richu">
+    <meta property="og:title" content="AJAX"/>
+    
+    <style>body:before{ content: ''; background-image: url(https://img.meituan.net/csc/d05518606ba7064dd445508e3cf3d4c42860983.png) }</style>
+    
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+  <body>
+    <header>
+    <div class="head-title">
+        <h4>Richu</h4>
+    </div>
+    <div class="head-action">
+        <div class="toggle-btn"></div>
+        <div class="light-btn"></div>
+        <div class="search-btn"></div>
+    </div>
+    <form class="head-search" method="post">
+        <input type="text" name="s" placeholder="搜索什么？">
+    </form>
+    <nav class="head-menu">
+        <a href="/">首页</a>
+        <div class="has-child">
+            <a>分类</a>
+            <div class="sub-menu">
+                <a class="category-link" href="/categories/Android/">Android</a><a class="category-link" href="/categories/Go/">Go</a><a class="category-link" href="/categories/Java/">Java</a><a class="category-link" href="/categories/QT/">QT</a><a class="category-link" href="/categories/Unity/">Unity</a><a class="category-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a><a class="category-link" href="/categories/%E8%BF%90%E7%BB%B4/">运维</a>
+            </div>
+        </div>
+        
+            <a href="/about">关于我</a>
+        
+    </nav>
+</header>
+
+    <main>
+    <div class="wrap min">
+        <section class="post-title">
+            <h2>AJAX</h2>
+            <div class="post-meta">
+                <time class="date">2025.03.15</time>
+            
+                <span class="category"><a class="category-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a></span>
+            
+            </div>
+        </section>
+        <article class="post-content">
+        
+            <p>Ajax（Asynchronous Javascript And XML），即是异步的JavaScript和XML，Ajax其实就是浏览器与服务器之间的一种异步通信方式</p>
+<p>异步的JavaScript,它可以异步地向服务器发送请求，在等待响应的过程中，不会阻塞当前页面，在这种情况下，浏览器可以做自己的事情。直到成功获取响应后，浏览器才开始处理响应数据。</p>
+<p>所以简单来说，Ajax就是在浏览器不重新加载网页的情况下，对页面的某部分进行更新。</p>
+<h2 id="1-介绍"><a href="#1-介绍" class="headerlink" title="1.介绍"></a>1.介绍</h2><h3 id="1-AJAX-的使用"><a href="#1-AJAX-的使用" class="headerlink" title="1.AJAX 的使用"></a>1.AJAX 的使用</h3><p>在 js 中有内置的构造函数来创建 ajax 对象</p>
+<p>创建 ajax 对象以后，我们就使⽤ ajax 对象的⽅法去发送请求和接受响应</p>
+<p>Ajax的一个最大的特点是无需刷新页面便可向服务器传输或读写数据(又称无刷新更新页面),这一特点主要得益于XMLHTTP组件</p>
+<p>XMLHTTPRequest对象</p>
+<h3 id="2-express"><a href="#2-express" class="headerlink" title="2.express"></a>2.express</h3><blockquote>
+<p>在学习Ajax中我们用到express框架，我们先引入express</p>
+</blockquote>
+<pre><code class="highlight plaintext">npm init --yes</code></pre>
+
+<pre><code class="highlight plaintext">npm -i express</code></pre>
+
+<blockquote>
+<p>设置完成后我们引入express，并且创建express对象</p>
+</blockquote>
+<pre><code class="highlight javascript"><span class="comment">/* 引入express */</span>
+<span class="keyword">const</span> express = <span class="built_in">require</span>(<span class="string">&#x27;express&#x27;</span>);
+<span class="comment">/* 创建对象 */</span>
+<span class="keyword">const</span> app = <span class="title function_">express</span>();
+
+<span class="comment">/* 创建路由规则 */</span>
+<span class="comment">/* 对请求报文的封装</span>
+<span class="comment">对响应报文的封装 */</span>
+app.<span class="title function_">get</span>(<span class="string">&quot;/serve&quot;</span>,<span class="function">(<span class="params">request,response</span>)=&gt;</span>&#123;
+    <span class="comment">/* 设置响应头 设置允许跨域访问 */</span>
+    response.<span class="title function_">setHeader</span>(<span class="string">&#x27;Access-Control-Allow-Origin&#x27;</span>,<span class="string">&#x27;*&#x27;</span>);
+    <span class="comment">/* 设置响应体 */</span>
+    response.<span class="title function_">send</span>(<span class="string">&quot;Hello&quot;</span>);
+&#125;)
+
+<span class="comment">/* 监听端口启动服务 */</span>
+app.<span class="title function_">listen</span>(<span class="number">8030</span>,<span class="function">()=&gt;</span>&#123;
+    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;服务启动&quot;</span>);
+&#125;)</code></pre>
+
+<h3 id="3-Ajax"><a href="#3-Ajax" class="headerlink" title="3.Ajax"></a>3.Ajax</h3><pre><code class="highlight javascript"><span class="keyword">const</span> btn = <span class="variable language_">document</span>.<span class="title function_">querySelector</span>(<span class="string">&quot;button&quot;</span>);
+<span class="keyword">const</span> result = <span class="variable language_">document</span>.<span class="title function_">querySelector</span>(<span class="string">&quot;.box&quot;</span>);
+btn.<span class="title function_">addEventListener</span>(<span class="string">&quot;click&quot;</span>,<span class="keyword">function</span>(<span class="params"></span>)&#123;
+    <span class="comment">/* 创建对象 */</span>
+    <span class="keyword">const</span> xhr = <span class="keyword">new</span> <span class="title class_">XMLHttpRequest</span>()
+    <span class="comment">/* 初始化 设置请求方法和url */</span>
+    xhr.<span class="title function_">open</span>(<span class="string">&#x27;GET&#x27;</span>,<span class="string">&quot;http://localhost:8030/serve&quot;</span>);
+    <span class="comment">/* 发送  */</span>
+    xhr.<span class="title function_">send</span>();
+    <span class="comment">/* 事件绑定 */</span>
+    xhr.<span class="title function_">addEventListener</span>(<span class="string">&quot;readystatechange&quot;</span>,<span class="keyword">function</span>(<span class="params"></span>)&#123;
+        <span class="keyword">if</span> (xhr.<span class="property">readyState</span> === <span class="number">4</span>)
+        &#123;
+            <span class="keyword">if</span> (xhr.<span class="property">status</span> &gt;= <span class="number">200</span> &amp;&amp; xhr.<span class="property">status</span> &lt; <span class="number">300</span>)&#123;
+                <span class="comment">/*                     console.log(xhr.status);</span>
+<span class="comment">                    console.log(xhr.statusText); */</span>
+                result.<span class="property">innerHTML</span>=xhr.<span class="property">response</span>;
+            &#125;<span class="keyword">else</span> &#123;
+
+            &#125;
+        &#125;
+    &#125;)</code></pre>
+
+<h3 id="4-ajax-状态码-xhr-readyState"><a href="#4-ajax-状态码-xhr-readyState" class="headerlink" title="4.ajax 状态码 - xhr.readyState"></a>4.ajax 状态码 - xhr.readyState</h3><blockquote>
+<p>ajax 状态码 - xhr.readyState</p>
+<p>readyState &#x3D;&#x3D;&#x3D; 0 : 表示未初始化完成，也就是 open 方法还没有执行 </p>
+<p> readyState &#x3D;&#x3D;&#x3D; 1 : 表示配置信息已经完成，也就是执行完 open 之后 </p>
+<p> readyState &#x3D;&#x3D;&#x3D; 2 : 表示 send 方法已经执行完成</p>
+<p> readyState &#x3D;&#x3D;&#x3D; 3 : 表示正在解析响应内容</p>
+<p> readyState &#x3D;&#x3D;&#x3D; 4 : 表示响应内容已经解析完毕，可以在客户端使用</p>
+</blockquote>
+<blockquote>
+<p>在当&#x3D;&#x3D;&#x3D;4时我们使用服务端给我们的数据</p>
+</blockquote>
+<h3 id="5-readyStateChange事件"><a href="#5-readyStateChange事件" class="headerlink" title="5.readyStateChange事件"></a>5.readyStateChange事件</h3><p>这个事件是专⻔用来监听 ajax 对象的 readyState 值改变的的行为</p>
+<p>也就是说只要 readyState 的值发生变化了，那么就会触发该事件</p>
+<p>所以我们就在这个事件中来监听 ajax 的 readyState 是不是 4 </p>
+<h3 id="6-GET设置请求参数"><a href="#6-GET设置请求参数" class="headerlink" title="6.GET设置请求参数"></a>6.GET设置请求参数</h3><pre><code class="highlight javascript">xhr.<span class="title function_">open</span>(<span class="string">&#x27;GET&#x27;</span>,<span class="string">&quot;http://localhost:8030/serve?a=100&amp;b=200&quot;</span>);</code></pre>
+
+<h3 id="7-AJAXPost请求"><a href="#7-AJAXPost请求" class="headerlink" title="7.AJAXPost请求"></a>7.AJAXPost请求</h3><pre><code class="highlight javascript"><span class="keyword">const</span> div =<span class="variable language_">document</span>.<span class="title function_">querySelector</span>(<span class="string">&quot;div&quot;</span>);
+
+div.<span class="title function_">addEventListener</span>(<span class="string">&quot;mousemove&quot;</span>,<span class="keyword">function</span>(<span class="params"></span>)&#123;
+    <span class="keyword">const</span> xhr = <span class="keyword">new</span> <span class="title class_">XMLHttpRequest</span>();
+    xhr.<span class="title function_">open</span>(<span class="string">&#x27;POST&#x27;</span>,<span class="string">&quot;http://localhost:8030/serve&quot;</span>);
+    xhr.<span class="title function_">send</span>();
+
+    xhr.<span class="title function_">addEventListener</span>(<span class="string">&quot;readystatechange&quot;</span>,<span class="keyword">function</span>(<span class="params"></span>)&#123;
+        <span class="keyword">if</span> (xhr.<span class="property">readyState</span> === <span class="number">4</span>)&#123;
+            <span class="keyword">if</span> (xhr.<span class="property">status</span> &gt;= <span class="number">200</span> &amp;&amp; xhr.<span class="property">status</span> &lt;<span class="number">300</span>)&#123;
+                div.<span class="property">innerHTML</span>=xhr.<span class="property">responseText</span>;
+            &#125;<span class="keyword">else</span>&#123;
+
+            &#125;
+        &#125;
+    &#125;)
+&#125;)</code></pre>
+
+<blockquote>
+<p>在serve.js中给post</p>
+</blockquote>
+<pre><code class="highlight javascript">app.<span class="title function_">post</span>(<span class="string">&quot;/serve&quot;</span>,<span class="function">(<span class="params">request,response</span>)=&gt;</span>&#123;
+    <span class="comment">/* 设置响应头 设置允许跨域访问 */</span>
+    response.<span class="title function_">setHeader</span>(<span class="string">&#x27;Access-Control-Allow-Origin&#x27;</span>,<span class="string">&#x27;*&#x27;</span>);
+    <span class="comment">/* 设置响应体 */</span>
+    response.<span class="title function_">send</span>(<span class="string">&quot;Hello AJAX POST&quot;</span>);
+&#125;)</code></pre>
+
+<h3 id="7-POST设置请求参数"><a href="#7-POST设置请求参数" class="headerlink" title="7.POST设置请求参数"></a>7.POST设置请求参数</h3><pre><code class="highlight javascript">xhr.<span class="title function_">send</span>(<span class="string">&quot;a=100&amp;b=200&amp;c=300&quot;</span>);
+
+xhr.<span class="title function_">send</span>(<span class="string">&#x27;a:100&amp;b:200&amp;c:300&#x27;</span>);</code></pre>
+
+<h3 id="8-设置请求头信息"><a href="#8-设置请求头信息" class="headerlink" title="8.设置请求头信息"></a>8.设置请求头信息</h3><pre><code class="highlight javascript">xhr.<span class="title function_">setRequestHeader</span>(<span class="string">&#x27;Content-Type&#x27;</span>,<span class="string">&#x27;application/x-www-form-urlencoded&#x27;</span>)</code></pre>
+
+<pre><code class="highlight javascript">response.<span class="title function_">setHeader</span>(<span class="string">&#x27;Access-Control-Allow-Headers&#x27;</span>,<span class="string">&#x27;*&#x27;</span>)</code></pre>
+
+<h3 id="9-接收JSON"><a href="#9-接收JSON" class="headerlink" title="9.接收JSON"></a>9.接收JSON</h3><pre><code class="highlight javascript">&lt;div <span class="keyword">class</span>=<span class="string">&quot;box&quot;</span>&gt;&lt;/div&gt;
+&lt;script&gt;
+    <span class="keyword">const</span> div = <span class="variable language_">document</span>.<span class="title function_">querySelector</span>(<span class="string">&quot;.box&quot;</span>);
+<span class="variable language_">window</span>.<span class="title function_">addEventListener</span>(<span class="string">&quot;keydown&quot;</span>,<span class="keyword">function</span>(<span class="params"></span>)&#123;
+    <span class="keyword">const</span> xhr = <span class="keyword">new</span> <span class="title class_">XMLHttpRequest</span>();
+
+    xhr.<span class="title function_">open</span>(<span class="string">&quot;POST&quot;</span>,<span class="string">&quot;http://localhost:8030/serve&quot;</span>);
+    xhr.<span class="title function_">send</span>();
+    xhr.<span class="title function_">addEventListener</span>(<span class="string">&quot;readystatechange&quot;</span>,<span class="keyword">function</span>(<span class="params"></span>)&#123;
+        <span class="keyword">if</span> (xhr.<span class="property">readyState</span>===<span class="number">4</span>)&#123;
+            <span class="keyword">if</span> (xhr.<span class="property">status</span> &gt;=<span class="number">200</span> &amp;&amp; xhr.<span class="property">status</span> &lt;<span class="number">300</span>)&#123;
+                <span class="comment">/* 手动转换 */</span>
+                <span class="keyword">const</span> data = <span class="title class_">JSON</span>.<span class="title function_">parse</span>(xhr.<span class="property">responseText</span>);
+                div.<span class="property">innerHTML</span>=data.<span class="property">name</span>;
+                <span class="comment">/* 自动转换 */</span>
+                <span class="variable language_">console</span>.<span class="title function_">log</span>(xhr.<span class="property">response</span>);
+                div.<span class="property">innerHTML</span>=xhr.<span class="property">response</span>
+            &#125;<span class="keyword">else</span>&#123;
+
+            &#125;
+        &#125;
+    &#125;)
+&#125;)</code></pre>
+
+<pre><code class="highlight javascript">app.<span class="title function_">all</span>(<span class="string">&quot;/serve&quot;</span>,<span class="function">(<span class="params">request,response</span>)=&gt;</span>&#123;
+    <span class="comment">/* 设置响应头 设置允许跨域访问 */</span>
+    response.<span class="title function_">setHeader</span>(<span class="string">&#x27;Access-Control-Allow-Origin&#x27;</span>,<span class="string">&#x27;*&#x27;</span>);
+    <span class="comment">//响应头</span>
+    response.<span class="title function_">setHeader</span>(<span class="string">&#x27;Access-Control-Allow-Headers&#x27;</span>,<span class="string">&#x27;*&#x27;</span>)
+    <span class="comment">/* 设置响应体 */</span>
+    <span class="keyword">const</span> data = &#123;
+        <span class="attr">name</span>:<span class="string">&quot;ikun&quot;</span>
+    &#125;
+    <span class="keyword">let</span> str = <span class="title class_">JSON</span>.<span class="title function_">stringify</span>(data);
+    response.<span class="title function_">send</span>(str);
+&#125;)</code></pre>
+
+<h3 id="10-nodemon自动重启"><a href="#10-nodemon自动重启" class="headerlink" title="10.nodemon自动重启"></a>10.nodemon自动重启</h3><blockquote>
+<p>由于之前每次修改serve.js都要重新启动，所以我们使用nodemon</p>
+</blockquote>
+<pre><code class="highlight plaintext">npm install -g nodemon</code></pre>
+
+<pre><code class="highlight plaintext">nodemon serve.js
+//如果报错
+npx nodemon serve.js</code></pre>
+
+<h3 id="11-解决IE缓存问题"><a href="#11-解决IE缓存问题" class="headerlink" title="11.解决IE缓存问题"></a>11.解决IE缓存问题</h3><pre><code class="highlight javascript">xhr.<span class="title function_">open</span>(<span class="string">&quot;POST&quot;</span>,<span class="string">&quot;http://localhost:8030/serve?t=&quot;</span>+<span class="title class_">Date</span>.<span class="title function_">now</span>());</code></pre>
+
+<h2 id="2-AJAX请求"><a href="#2-AJAX请求" class="headerlink" title="2.AJAX请求"></a>2.AJAX请求</h2><h3 id="1-请求超时和网络异常处理"><a href="#1-请求超时和网络异常处理" class="headerlink" title="1.请求超时和网络异常处理"></a>1.请求超时和网络异常处理</h3><pre><code class="highlight javascript"><span class="keyword">const</span> div = <span class="variable language_">document</span>.<span class="title function_">querySelector</span>(<span class="string">&quot;.box&quot;</span>);
+<span class="variable language_">window</span>.<span class="title function_">addEventListener</span>(<span class="string">&quot;keydown&quot;</span>,<span class="keyword">function</span>(<span class="params"></span>)&#123;
+    <span class="keyword">const</span> xhr = <span class="keyword">new</span> <span class="title class_">XMLHttpRequest</span>();
+
+    xhr.<span class="title function_">open</span>(<span class="string">&quot;POST&quot;</span>,<span class="string">&quot;http://localhost:8030/delay&quot;</span>);
+    xhr.<span class="title function_">send</span>();
+    
+    
+    xhr.<span class="property">timeout</span>=<span class="number">2000</span>;
+
+    xhr.<span class="title function_">addEventListener</span>(<span class="string">&quot;timeout&quot;</span>,<span class="keyword">function</span>(<span class="params"></span>)&#123;
+        <span class="title function_">alert</span>(<span class="string">&quot;网络异常&quot;</span>);
+    &#125;)
+    xhr.<span class="title function_">addEventListener</span>(<span class="string">&quot;error&quot;</span>,<span class="keyword">function</span>(<span class="params"></span>)&#123;
+        <span class="title function_">alert</span>(<span class="string">&quot;网络断开连接&quot;</span>);
+    &#125;)
+    
+    
+    xhr.<span class="title function_">addEventListener</span>(<span class="string">&quot;readystatechange&quot;</span>,<span class="keyword">function</span>(<span class="params"></span>)&#123;
+        <span class="keyword">if</span> (xhr.<span class="property">readyState</span>===<span class="number">4</span>)&#123;
+            <span class="keyword">if</span> (xhr.<span class="property">status</span> &gt;=<span class="number">200</span> &amp;&amp; xhr.<span class="property">status</span> &lt;<span class="number">300</span>)&#123;
+                div.<span class="property">innerHTML</span>=xhr.<span class="property">response</span>;
+            &#125;<span class="keyword">else</span>&#123;
+
+            &#125;
+        &#125;
+    &#125;)
+&#125;)</code></pre>
+
+<h3 id="2-取消请求"><a href="#2-取消请求" class="headerlink" title="2.取消请求"></a>2.取消请求</h3><pre><code class="highlight javascript">xhr.<span class="title function_">abort</span>();</code></pre>
+
+<h3 id="3-解决重复请求"><a href="#3-解决重复请求" class="headerlink" title="3.解决重复请求"></a>3.解决重复请求</h3><pre><code class="highlight javascript"><span class="keyword">const</span> btn1 = <span class="variable language_">document</span>.<span class="title function_">querySelector</span>(<span class="string">&quot;.send&quot;</span>);
+<span class="keyword">const</span> btn2 = <span class="variable language_">document</span>.<span class="title function_">querySelector</span>(<span class="string">&quot;.done&quot;</span>);
+<span class="keyword">let</span> x=<span class="literal">null</span>;
+<span class="keyword">let</span> isSending=<span class="literal">false</span>;
+btn1.<span class="title function_">addEventListener</span>(<span class="string">&quot;click&quot;</span>,<span class="keyword">function</span>(<span class="params"></span>)&#123;
+    <span class="keyword">if</span> (isSending) x.<span class="title function_">abort</span>();
+    x= <span class="keyword">new</span> <span class="title class_">XMLHttpRequest</span>();    
+    x.<span class="title function_">open</span>(<span class="string">&quot;GET&quot;</span>,<span class="string">&quot;http://177.0.0.1:8000/delay&quot;</span>);
+    x.<span class="title function_">send</span>();
+    isSending=<span class="literal">true</span>;
+    x.<span class="title function_">addEventListener</span>(<span class="string">&quot;readystatechange&quot;</span>,<span class="keyword">function</span>(<span class="params"></span>)&#123;
+        <span class="keyword">if</span> (x.<span class="property">readyState</span>==<span class="number">4</span>)&#123;
+            isSending=<span class="number">4</span>;
+        &#125;
+    &#125;)
+&#125;)
+btn2.<span class="title function_">addEventListener</span>(<span class="string">&#x27;click&#x27;</span>,<span class="keyword">function</span>(<span class="params"></span>)&#123;
+    x.<span class="title function_">abort</span>();
+&#125;)</code></pre>
+
+<h2 id="3-Axios"><a href="#3-Axios" class="headerlink" title="3.Axios"></a>3.Axios</h2><h3 id="1-json-serve"><a href="#1-json-serve" class="headerlink" title="1.json-serve"></a>1.json-serve</h3><blockquote>
+<p>npm i -g json-serve</p>
+</blockquote>
+<blockquote>
+<p>&lt;script src&#x3D;”<a target="_blank" rel="noopener" href="https://unpkg.com/axios/dist/axios.min.js%22%3E/">https://unpkg.com/axios/dist/axios.min.js&quot;&gt;\</a></script></p>
+</blockquote>
+<pre><code class="highlight html"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span>
+<span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span>&gt;</span>
+<span class="tag">&lt;<span class="name">head</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;viewport&quot;</span> <span class="attr">content</span>=<span class="string">&quot;width=device-width, initial-scale=1.0&quot;</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Document<span class="tag">&lt;/<span class="name">title</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="language-css"></span>
+<span class="language-css">        <span class="selector-class">.btns</span> <span class="selector-class">.btn1</span>&#123;</span>
+<span class="language-css">            <span class="attribute">height</span>: <span class="number">20px</span>;</span>
+<span class="language-css">            <span class="attribute">line-height</span>: <span class="number">20px</span>;</span>
+<span class="language-css">            <span class="attribute">background-color</span>: red;</span>
+<span class="language-css">            <span class="attribute">width</span>: <span class="number">150px</span>;</span>
+<span class="language-css">            <span class="attribute">text-align</span>: center;</span>
+<span class="language-css">        &#125;</span>
+<span class="language-css">        <span class="selector-class">.btns</span> <span class="selector-class">.btn2</span>&#123;</span>
+<span class="language-css">            <span class="attribute">height</span>: <span class="number">20px</span>;</span>
+<span class="language-css">            <span class="attribute">line-height</span>: <span class="number">20px</span>;</span>
+<span class="language-css">            <span class="attribute">background-color</span>: blue;</span>
+<span class="language-css">            <span class="attribute">width</span>: <span class="number">150px</span>;</span>
+<span class="language-css">            <span class="attribute">text-align</span>: center;</span>
+<span class="language-css">        &#125;</span>
+<span class="language-css">        <span class="selector-class">.btns</span> <span class="selector-class">.btn3</span>&#123;</span>
+<span class="language-css">            <span class="attribute">height</span>: <span class="number">20px</span>;</span>
+<span class="language-css">            <span class="attribute">line-height</span>: <span class="number">20px</span>;</span>
+<span class="language-css">            <span class="attribute">background-color</span>: green;</span>
+<span class="language-css">            <span class="attribute">width</span>: <span class="number">150px</span>;</span>
+<span class="language-css">            <span class="attribute">text-align</span>: center;</span>
+<span class="language-css">        &#125;</span>
+<span class="language-css"></span>
+<span class="language-css">        <span class="selector-class">.btns</span> <span class="selector-class">.btn4</span>&#123;</span>
+<span class="language-css">            <span class="attribute">height</span>: <span class="number">20px</span>;</span>
+<span class="language-css">            <span class="attribute">line-height</span>: <span class="number">20px</span>;</span>
+<span class="language-css">            <span class="attribute">background-color</span>: yellow;</span>
+<span class="language-css">            <span class="attribute">width</span>: <span class="number">150px</span>;</span>
+<span class="language-css">            <span class="attribute">text-align</span>: center;</span>
+<span class="language-css">        &#125;</span>
+<span class="language-css">    </span><span class="tag">&lt;/<span class="name">style</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">head</span>&gt;</span>
+<span class="tag">&lt;<span class="name">body</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">h1</span>&gt;</span>axios的基本使用<span class="tag">&lt;/<span class="name">h1</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;btns&quot;</span>&gt;</span>
+        <span class="tag">&lt;<span class="name">button</span> <span class="attr">class</span>=<span class="string">&quot;btn btn1&quot;</span>&gt;</span>Get<span class="tag">&lt;/<span class="name">button</span>&gt;</span>
+        <span class="tag">&lt;<span class="name">button</span> <span class="attr">class</span>=<span class="string">&quot;btn btn2&quot;</span>&gt;</span>Post<span class="tag">&lt;/<span class="name">button</span>&gt;</span>
+        <span class="tag">&lt;<span class="name">button</span> <span class="attr">class</span>=<span class="string">&quot;btn btn3&quot;</span>&gt;</span>Put<span class="tag">&lt;/<span class="name">button</span>&gt;</span>
+        <span class="tag">&lt;<span class="name">button</span> <span class="attr">class</span>=<span class="string">&quot;btn btn4&quot;</span>&gt;</span>Delete<span class="tag">&lt;/<span class="name">button</span>&gt;</span>
+    <span class="tag">&lt;/<span class="name">div</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;https://unpkg.com/axios/dist/axios.min.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript"></span>
+<span class="language-javascript">        <span class="comment">//console.log(axios);</span></span>
+<span class="language-javascript">        <span class="keyword">const</span> btns = <span class="variable language_">document</span>.<span class="title function_">querySelectorAll</span>(<span class="string">&quot;.btn&quot;</span>);</span>
+<span class="language-javascript"></span>
+<span class="language-javascript">        btns[<span class="number">0</span>].<span class="title function_">addEventListener</span>(<span class="string">&#x27;click&#x27;</span>,<span class="keyword">function</span>(<span class="params"></span>)&#123;</span>
+<span class="language-javascript">            <span class="title function_">axios</span>(&#123;</span>
+<span class="language-javascript">                <span class="attr">method</span>: <span class="string">&#x27;GET&#x27;</span>,</span>
+<span class="language-javascript">                <span class="attr">url</span>:<span class="string">&quot;http://localhost:3000/posts/2&quot;</span></span>
+<span class="language-javascript">            &#125;).<span class="title function_">then</span>(<span class="function"><span class="params">response</span>=&gt;</span>&#123;</span>
+<span class="language-javascript">                <span class="variable language_">console</span>.<span class="title function_">log</span>(response);</span>
+<span class="language-javascript">            &#125;)</span>
+<span class="language-javascript">        &#125;)</span>
+<span class="language-javascript"></span>
+<span class="language-javascript">        btns[<span class="number">1</span>].<span class="title function_">addEventListener</span>(<span class="string">&#x27;click&#x27;</span>,<span class="keyword">function</span>(<span class="params"></span>)&#123;</span>
+<span class="language-javascript">            <span class="title function_">axios</span>(&#123;</span>
+<span class="language-javascript">                <span class="attr">method</span>: <span class="string">&#x27;POST&#x27;</span>,</span>
+<span class="language-javascript">                <span class="attr">url</span>:<span class="string">&quot;http://localhost:3000/posts&quot;</span>,</span>
+<span class="language-javascript">                <span class="attr">data</span>:&#123;</span>
+<span class="language-javascript">                    <span class="attr">id</span>:<span class="string">&#x27;3&#x27;</span>,</span>
+<span class="language-javascript">                    <span class="attr">title</span>:<span class="string">&quot;The weather is so nice&quot;</span>,</span>
+<span class="language-javascript">                    <span class="attr">author</span>:<span class="string">&#x27;rc&#x27;</span></span>
+<span class="language-javascript">                &#125;</span>
+<span class="language-javascript">            &#125;).<span class="title function_">then</span>(<span class="function"><span class="params">response</span>=&gt;</span>&#123;</span>
+<span class="language-javascript">                <span class="variable language_">console</span>.<span class="title function_">log</span>(response);</span>
+<span class="language-javascript">            &#125;)</span>
+<span class="language-javascript">        &#125;)</span>
+<span class="language-javascript"></span>
+<span class="language-javascript">        btns[<span class="number">2</span>].<span class="title function_">addEventListener</span>(<span class="string">&#x27;click&#x27;</span>,<span class="keyword">function</span>(<span class="params"></span>)&#123;</span>
+<span class="language-javascript">            <span class="title function_">axios</span>(&#123;</span>
+<span class="language-javascript">                <span class="attr">method</span>: <span class="string">&#x27;PUT&#x27;</span>,</span>
+<span class="language-javascript">                <span class="attr">url</span>:<span class="string">&quot;http://localhost:3000/posts/3&quot;</span>,</span>
+<span class="language-javascript">                <span class="attr">data</span>:&#123;</span>
+<span class="language-javascript">                    <span class="attr">title</span>:<span class="string">&quot;The weather is so nice&quot;</span>,</span>
+<span class="language-javascript">                    <span class="attr">author</span>:<span class="string">&#x27;richu&#x27;</span></span>
+<span class="language-javascript">                &#125;</span>
+<span class="language-javascript">            &#125;).<span class="title function_">then</span>(<span class="function"><span class="params">response</span>=&gt;</span>&#123;</span>
+<span class="language-javascript">                <span class="variable language_">console</span>.<span class="title function_">log</span>(response);</span>
+<span class="language-javascript">            &#125;)</span>
+<span class="language-javascript">        &#125;)</span>
+<span class="language-javascript"></span>
+<span class="language-javascript">        btns[<span class="number">3</span>].<span class="title function_">addEventListener</span>(<span class="string">&#x27;click&#x27;</span>,<span class="keyword">function</span>(<span class="params"></span>)&#123;</span>
+<span class="language-javascript">            <span class="title function_">axios</span>(&#123;</span>
+<span class="language-javascript">                <span class="attr">method</span>: <span class="string">&#x27;DELETE&#x27;</span>,</span>
+<span class="language-javascript">                <span class="attr">url</span>:<span class="string">&quot;http://localhost:3000/posts/3&quot;</span>,</span>
+<span class="language-javascript">            &#125;).<span class="title function_">then</span>(<span class="function"><span class="params">response</span>=&gt;</span>&#123;</span>
+<span class="language-javascript">                <span class="variable language_">console</span>.<span class="title function_">log</span>(response);</span>
+<span class="language-javascript">            &#125;)</span>
+<span class="language-javascript">        &#125;)</span>
+<span class="language-javascript">    </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">body</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">html</span>&gt;</span></code></pre>
+
+<h3 id="2-axios-post等方法"><a href="#2-axios-post等方法" class="headerlink" title="2.axios.post等方法"></a>2.axios.post等方法</h3><pre><code class="highlight html"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span>
+<span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span>&gt;</span>
+<span class="tag">&lt;<span class="name">head</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;viewport&quot;</span> <span class="attr">content</span>=<span class="string">&quot;width=device-width, initial-scale=1.0&quot;</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Document<span class="tag">&lt;/<span class="name">title</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">style</span>&gt;</span><span class="language-css"></span>
+<span class="language-css">        <span class="selector-class">.btns</span> <span class="selector-class">.btn1</span>&#123;</span>
+<span class="language-css">            <span class="attribute">height</span>: <span class="number">20px</span>;</span>
+<span class="language-css">            <span class="attribute">line-height</span>: <span class="number">20px</span>;</span>
+<span class="language-css">            <span class="attribute">background-color</span>: red;</span>
+<span class="language-css">            <span class="attribute">width</span>: <span class="number">150px</span>;</span>
+<span class="language-css">            <span class="attribute">text-align</span>: center;</span>
+<span class="language-css">        &#125;</span>
+<span class="language-css">        <span class="selector-class">.btns</span> <span class="selector-class">.btn2</span>&#123;</span>
+<span class="language-css">            <span class="attribute">height</span>: <span class="number">20px</span>;</span>
+<span class="language-css">            <span class="attribute">line-height</span>: <span class="number">20px</span>;</span>
+<span class="language-css">            <span class="attribute">background-color</span>: blue;</span>
+<span class="language-css">            <span class="attribute">width</span>: <span class="number">150px</span>;</span>
+<span class="language-css">            <span class="attribute">text-align</span>: center;</span>
+<span class="language-css">        &#125;</span>
+<span class="language-css">        <span class="selector-class">.btns</span> <span class="selector-class">.btn3</span>&#123;</span>
+<span class="language-css">            <span class="attribute">height</span>: <span class="number">20px</span>;</span>
+<span class="language-css">            <span class="attribute">line-height</span>: <span class="number">20px</span>;</span>
+<span class="language-css">            <span class="attribute">background-color</span>: green;</span>
+<span class="language-css">            <span class="attribute">width</span>: <span class="number">150px</span>;</span>
+<span class="language-css">            <span class="attribute">text-align</span>: center;</span>
+<span class="language-css">        &#125;</span>
+<span class="language-css"></span>
+<span class="language-css">        <span class="selector-class">.btns</span> <span class="selector-class">.btn4</span>&#123;</span>
+<span class="language-css">            <span class="attribute">height</span>: <span class="number">20px</span>;</span>
+<span class="language-css">            <span class="attribute">line-height</span>: <span class="number">20px</span>;</span>
+<span class="language-css">            <span class="attribute">background-color</span>: yellow;</span>
+<span class="language-css">            <span class="attribute">width</span>: <span class="number">150px</span>;</span>
+<span class="language-css">            <span class="attribute">text-align</span>: center;</span>
+<span class="language-css">        &#125;</span>
+<span class="language-css">    </span><span class="tag">&lt;/<span class="name">style</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">head</span>&gt;</span>
+<span class="tag">&lt;<span class="name">body</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">h1</span>&gt;</span>axios的基本使用<span class="tag">&lt;/<span class="name">h1</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;btns&quot;</span>&gt;</span>
+        <span class="tag">&lt;<span class="name">button</span> <span class="attr">class</span>=<span class="string">&quot;btn btn1&quot;</span>&gt;</span>Get<span class="tag">&lt;/<span class="name">button</span>&gt;</span>
+        <span class="tag">&lt;<span class="name">button</span> <span class="attr">class</span>=<span class="string">&quot;btn btn2&quot;</span>&gt;</span>Post<span class="tag">&lt;/<span class="name">button</span>&gt;</span>
+        <span class="tag">&lt;<span class="name">button</span> <span class="attr">class</span>=<span class="string">&quot;btn btn3&quot;</span>&gt;</span>Put<span class="tag">&lt;/<span class="name">button</span>&gt;</span>
+        <span class="tag">&lt;<span class="name">button</span> <span class="attr">class</span>=<span class="string">&quot;btn btn4&quot;</span>&gt;</span>Delete<span class="tag">&lt;/<span class="name">button</span>&gt;</span>
+    <span class="tag">&lt;/<span class="name">div</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;https://unpkg.com/axios/dist/axios.min.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript"></span>
+<span class="language-javascript">        <span class="keyword">const</span> btns = <span class="variable language_">document</span>.<span class="title function_">querySelectorAll</span>(<span class="string">&quot;.btn&quot;</span>);</span>
+<span class="language-javascript"></span>
+<span class="language-javascript">        btns[<span class="number">0</span>].<span class="title function_">addEventListener</span>(<span class="string">&#x27;click&#x27;</span>,<span class="keyword">function</span>(<span class="params"></span>)&#123;</span>
+<span class="language-javascript">            axios.<span class="title function_">request</span>(&#123;</span>
+<span class="language-javascript">                <span class="attr">method</span>:<span class="string">&#x27;GET&#x27;</span>,</span>
+<span class="language-javascript">                <span class="attr">url</span>:<span class="string">&quot;http://localhost:3000/posts/2&quot;</span></span>
+<span class="language-javascript">            &#125;).<span class="title function_">then</span>(<span class="function">(<span class="params">resonse</span>)=&gt;</span>&#123;</span>
+<span class="language-javascript">                <span class="variable language_">console</span>.<span class="title function_">log</span>(resonse);</span>
+<span class="language-javascript">            &#125;)</span>
+<span class="language-javascript">        &#125;)</span>
+<span class="language-javascript"></span>
+<span class="language-javascript">        btns[<span class="number">1</span>].<span class="title function_">addEventListener</span>(<span class="string">&#x27;click&#x27;</span>,<span class="keyword">function</span>(<span class="params"></span>)&#123;</span>
+<span class="language-javascript">            axios.<span class="title function_">post</span>(</span>
+<span class="language-javascript">                <span class="string">&#x27;http://localhost:3000/posts&#x27;</span>,</span>
+<span class="language-javascript">                &#123;</span>
+<span class="language-javascript">                    <span class="attr">id</span>:<span class="string">&#x27;3&#x27;</span>,</span>
+<span class="language-javascript">                    <span class="attr">title</span>:<span class="string">&quot;The weather is so nice&quot;</span>,</span>
+<span class="language-javascript">                    <span class="attr">author</span>:<span class="string">&#x27;rc&#x27;</span></span>
+<span class="language-javascript">                &#125;</span>
+<span class="language-javascript">            ).<span class="title function_">then</span>(<span class="function"><span class="params">response</span>=&gt;</span>&#123;</span>
+<span class="language-javascript">                <span class="variable language_">console</span>.<span class="title function_">log</span>(response);</span>
+<span class="language-javascript">            &#125;)</span>
+<span class="language-javascript">        &#125;)</span>
+<span class="language-javascript">    </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">body</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">html</span>&gt;</span></code></pre>
+
+<h3 id="3-默认配置"><a href="#3-默认配置" class="headerlink" title="3.默认配置"></a>3.默认配置</h3><pre><code class="highlight javascript"><span class="comment">/* 做默认配置 */</span>
+axios.<span class="property">defaults</span>.<span class="property">method</span> = <span class="string">&#x27;GET&#x27;</span>;
+axios.<span class="property">defaults</span>.<span class="property">baseURL</span> = <span class="string">&#x27;http://localhost:3000/posts&#x27;</span>;</code></pre>
+
+<h3 id="4-axios创建实例对象发送请求"><a href="#4-axios创建实例对象发送请求" class="headerlink" title="4.axios创建实例对象发送请求"></a>4.axios创建实例对象发送请求</h3><pre><code class="highlight html"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span>
+<span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span>&gt;</span>
+<span class="tag">&lt;<span class="name">head</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;viewport&quot;</span> <span class="attr">content</span>=<span class="string">&quot;width=device-width, initial-scale=1.0&quot;</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Document<span class="tag">&lt;/<span class="name">title</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">head</span>&gt;</span>
+<span class="tag">&lt;<span class="name">body</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">div</span> <span class="attr">class</span>=<span class="string">&quot;btns&quot;</span>&gt;</span>
+        <span class="tag">&lt;<span class="name">button</span> <span class="attr">class</span>=<span class="string">&quot;btn btn1&quot;</span>&gt;</span>Get<span class="tag">&lt;/<span class="name">button</span>&gt;</span>
+        <span class="tag">&lt;<span class="name">button</span> <span class="attr">class</span>=<span class="string">&quot;btn btn2&quot;</span>&gt;</span>Post<span class="tag">&lt;/<span class="name">button</span>&gt;</span>
+    <span class="tag">&lt;/<span class="name">div</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;https://unpkg.com/axios/dist/axios.min.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript"></span>
+<span class="language-javascript">        <span class="keyword">const</span> btns = <span class="variable language_">document</span>.<span class="title function_">querySelector</span>(<span class="string">&quot;.btn&quot;</span>);</span>
+<span class="language-javascript"></span>
+<span class="language-javascript">        <span class="keyword">const</span> ax = axios.<span class="title function_">create</span>(&#123;</span>
+<span class="language-javascript">            <span class="attr">baseURL</span>:<span class="string">&#x27;http://localhost:3000/posts&#x27;</span>,</span>
+<span class="language-javascript">            <span class="attr">timeout</span>:<span class="number">2000</span></span>
+<span class="language-javascript">        &#125;);</span>
+<span class="language-javascript">            </span>
+<span class="language-javascript">        <span class="title function_">ax</span>(&#123;</span>
+<span class="language-javascript">            <span class="attr">url</span>:<span class="string">&#x27;/1&#x27;</span></span>
+<span class="language-javascript">        &#125;).<span class="title function_">then</span>(<span class="function">(<span class="params">resonse</span>)=&gt;</span>&#123;</span>
+<span class="language-javascript">            <span class="variable language_">console</span>.<span class="title function_">log</span>(resonse);</span>
+<span class="language-javascript">        &#125;)</span>
+<span class="language-javascript">    </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">body</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">html</span>&gt;</span></code></pre>
+
+<h3 id="5-axios拦截器"><a href="#5-axios拦截器" class="headerlink" title="5.axios拦截器"></a>5.axios拦截器</h3><pre><code class="highlight html"><span class="meta">&lt;!DOCTYPE <span class="keyword">html</span>&gt;</span>
+<span class="tag">&lt;<span class="name">html</span> <span class="attr">lang</span>=<span class="string">&quot;en&quot;</span>&gt;</span>
+<span class="tag">&lt;<span class="name">head</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">charset</span>=<span class="string">&quot;UTF-8&quot;</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">meta</span> <span class="attr">name</span>=<span class="string">&quot;viewport&quot;</span> <span class="attr">content</span>=<span class="string">&quot;width=device-width, initial-scale=1.0&quot;</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">title</span>&gt;</span>Document<span class="tag">&lt;/<span class="name">title</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">head</span>&gt;</span>
+<span class="tag">&lt;<span class="name">body</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">script</span> <span class="attr">src</span>=<span class="string">&quot;https://unpkg.com/axios/dist/axios.min.js&quot;</span>&gt;</span><span class="tag">&lt;/<span class="name">script</span>&gt;</span>
+    <span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript"></span>
+<span class="language-javascript">        axios.<span class="property">interceptors</span>.<span class="property">request</span>.<span class="title function_">use</span>(<span class="function"><span class="params">config</span> =&gt;</span> &#123;</span>
+<span class="language-javascript">            <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;成功&quot;</span>);</span>
+<span class="language-javascript">            <span class="comment">//return Promise.resolve(config);</span></span>
+<span class="language-javascript">            <span class="keyword">return</span> config;</span>
+<span class="language-javascript">        &#125;,<span class="function"><span class="params">error</span> =&gt;</span> &#123;</span>
+<span class="language-javascript">            <span class="variable language_">console</span>.<span class="title function_">log</span>(error);</span>
+<span class="language-javascript">            <span class="keyword">return</span> <span class="title class_">Promise</span>.<span class="title function_">reject</span>(error);</span>
+<span class="language-javascript">        &#125;);</span>
+<span class="language-javascript"></span>
+<span class="language-javascript">        axios.<span class="property">interceptors</span>.<span class="property">response</span>.<span class="title function_">use</span>(<span class="function"><span class="params">response</span> =&gt;</span> &#123;</span>
+<span class="language-javascript">            <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&quot;成功&quot;</span>);</span>
+<span class="language-javascript">            <span class="keyword">return</span> response;</span>
+<span class="language-javascript">        &#125;,<span class="function"><span class="params">error</span> =&gt;</span> &#123;</span>
+<span class="language-javascript">            <span class="variable language_">console</span>.<span class="title function_">log</span>(error);</span>
+<span class="language-javascript">            <span class="keyword">return</span> <span class="title class_">Promise</span>.<span class="title function_">reject</span>(error);</span>
+<span class="language-javascript">        &#125;);</span>
+<span class="language-javascript"></span>
+<span class="language-javascript">        <span class="title function_">axios</span>(&#123;</span>
+<span class="language-javascript">            <span class="attr">method</span>:<span class="string">&#x27;GET&#x27;</span>,</span>
+<span class="language-javascript">            <span class="attr">url</span>:<span class="string">&#x27;http://localhost:3000/posts&#x27;</span></span>
+<span class="language-javascript">        &#125;).<span class="title function_">then</span>(<span class="function"><span class="params">response</span>=&gt;</span>&#123;</span>
+<span class="language-javascript">            <span class="variable language_">console</span>.<span class="title function_">log</span>(response);</span>
+<span class="language-javascript">        &#125;).<span class="title function_">catch</span>(<span class="function"><span class="params">reason</span>=&gt;</span>&#123;</span>
+<span class="language-javascript">            <span class="variable language_">console</span>.<span class="title function_">log</span>(reason);</span>
+<span class="language-javascript">        &#125;)</span>
+<span class="language-javascript">    </span><span class="tag">&lt;/<span class="name">script</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">body</span>&gt;</span>
+<span class="tag">&lt;/<span class="name">html</span>&gt;</span></code></pre>
+        </article>
+        <section class="post-near">
+            <ul>
+                
+                    <li>上一篇: 看完啦 (つд⊂)</li>
+                
+                
+                    <li>下一篇: <a href="/2025/02/23/QT/">QT</a></li>
+                
+            </ul>
+        </section>
+        
+            <section class="post-tags">
+            <a class="-none-link" href="/tags/JS/" rel="tag">JS</a><a class="-none-link" href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag">前端</a>
+            </section>
+        
+    
+        <section class="post-author">
+        
+            <figure class="author-avatar">
+                <img src="https://p1.meituan.net/csc/949ad40707d4b4bab7e2ebafbd649aa8211830.jpg" alt="日初" />
+            </figure>
+        
+            <div class="author-info">
+                <h4>日初</h4>
+                <p>一个什么都学的建模动画编程爱好者</p>
+            </div>
+        </section>
+    
+    </div>
+</main>
+
+    <footer>
+    <div class="buttons">
+        <a class="to-top" href="#"></a>
+    </div>
+    <div class="wrap min">
+        <section class="widget">
+            <div class="row">
+                <div class="col-m-4">
+                    <h3 class="title-recent">最新文章：</h3>
+                    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2025/03/15/AJAX/">AJAX</a></li><li class="post-list-item"><a class="post-list-link" href="/2025/02/23/QT/">QT</a></li><li class="post-list-item"><a class="post-list-link" href="/2025/02/22/%E8%A7%A3%E5%86%B3Nginx%E7%AB%AF%E5%8F%A3%E6%97%A0%E6%B3%95%E8%AE%BF%E9%97%AE%E9%97%AE%E9%A2%98/">解决Nginx端口无法访问问题</a></li><li class="post-list-item"><a class="post-list-link" href="/2025/01/05/Andriod/">Android</a></li><li class="post-list-item"><a class="post-list-link" href="/2024/12/02/Kotlin/">Kotlin</a></li><li class="post-list-item"><a class="post-list-link" href="/2024/11/19/Webpack/">Webpack</a></li></ul>
+                </div>
+                <div class="col-m-4">
+                    <h3 class="title-date">时光机：</h3>
+                    <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/03/">三月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/02/">二月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/01/">一月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/12/">十二月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/11/">十一月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/10/">十月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/09/">九月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/08/">八月 2024</a></li></ul>
+                </div>
+                <div class="col-m-4">
+                    <h3 class="title-tags">标签云：</h3>
+                    <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/CSS/" style="font-size: 20px;">CSS</a> <a href="/tags/Docker/" style="font-size: 20px;">Docker</a> <a href="/tags/Flutter/" style="font-size: 20px;">Flutter</a> <a href="/tags/Game/" style="font-size: 20px;">Game</a> <a href="/tags/Go/" style="font-size: 20px;">Go</a> <a href="/tags/Go-Web/" style="font-size: 20px;">Go Web</a> <a href="/tags/JS/" style="font-size: 20px;">JS</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/Java-Web/" style="font-size: 20px;">Java Web</a> <a href="/tags/Kotlin/" style="font-size: 20px;">Kotlin</a> <a href="/tags/Linux/" style="font-size: 20px;">Linux</a> <a href="/tags/MySql/" style="font-size: 20px;">MySql</a> <a href="/tags/MybatisPlus/" style="font-size: 20px;">MybatisPlus</a> <a href="/tags/Nginx/" style="font-size: 20px;">Nginx</a> <a href="/tags/NodeJs/" style="font-size: 20px;">NodeJs</a> <a href="/tags/QT/" style="font-size: 20px;">QT</a> <a href="/tags/React/" style="font-size: 20px;">React</a> <a href="/tags/Spring-Cloud/" style="font-size: 20px;">Spring Cloud</a> <a href="/tags/UniApp/" style="font-size: 20px;">UniApp</a> <a href="/tags/Unity/" style="font-size: 20px;">Unity</a> <a href="/tags/Vue/" style="font-size: 20px;">Vue</a> <a href="/tags/Webpack/" style="font-size: 20px;">Webpack</a> <a href="/tags/%E5%89%8D%E7%AB%AF/" style="font-size: 20px;">前端</a> <a href="/tags/%E8%BF%90%E7%BB%B4/" style="font-size: 20px;">运维</a>
+                </div>
+            </div>
+        </section>
+        <section class="sub-footer">
+            <p>© 2025 <a href="/">Richu</a>. All Rights Reserved. Theme By <a href="https://github.com/Dreamer-Paul/Hingle" target="_blank" rel="nofollow">Hingle</a>.</p>
+        </section>
+    </div>
+</footer>
+
+
+<script src="/static/kico.js"></script>
+<script src="/static/hingle.js"></script>
+
+
+<script>var hingle = new Paul_Hingle({"copyright":true,"night":false});</script>
+
+  </body>
+</html>

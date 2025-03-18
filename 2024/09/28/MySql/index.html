@@ -88,33 +88,14 @@
 </blockquote>
 <p><code>select database();</code></p>
 <h3 id="5-查询所有表"><a href="#5-查询所有表" class="headerlink" title="5.查询所有表"></a>5.查询所有表</h3><p><code>show tables</code></p>
-<h3 id="6-创建表"><a href="#6-创建表" class="headerlink" title="6.创建表"></a>6.创建表</h3><h4 id="1-创建"><a href="#1-创建" class="headerlink" title="1.创建"></a>1.创建</h4><pre><code class="highlight sql"><span class="keyword">create</span> <span class="keyword">table</span> 表名(
-    字段<span class="number">1</span> 字段<span class="number">1</span>类型[],
-    #id <span class="type">int</span> comment <span class="string">&#x27;编号&#x27;</span>
-    #comment &quot;1&quot; <span class="operator">&lt;</span><span class="operator">-</span>芝士注释
-    ...
-)[表注释];</code></pre>
+<h3 id="6-创建表"><a href="#6-创建表" class="headerlink" title="6.创建表"></a>6.创建表</h3><h4 id="1-创建"><a href="#1-创建" class="headerlink" title="1.创建"></a>1.创建</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create table</span> 表名(</span><br><span class="line">    字段<span class="number">1</span> 字段<span class="number">1</span>类型[],</span><br><span class="line">    #id <span class="type">int</span> comment <span class="string">&#x27;编号&#x27;</span></span><br><span class="line">    #comment &quot;1&quot; <span class="operator">&lt;</span><span class="operator">-</span>芝士注释</span><br><span class="line">    ...</span><br><span class="line">)[表注释];</span><br></pre></td></tr></table></figure>
 
-<pre><code class="highlight sql"><span class="operator">+</span><span class="comment">--------+-------------+------+-----+---------+-------+</span>
-<span class="operator">|</span> Field  <span class="operator">|</span> Type        <span class="operator">|</span> <span class="keyword">Null</span> <span class="operator">|</span> Key <span class="operator">|</span> <span class="keyword">Default</span> <span class="operator">|</span> Extra <span class="operator">|</span>
-<span class="operator">+</span><span class="comment">--------+-------------+------+-----+---------+-------+</span>
-<span class="operator">|</span> id     <span class="operator">|</span> <span class="type">int</span>         <span class="operator">|</span> YES  <span class="operator">|</span>     <span class="operator">|</span> <span class="keyword">NULL</span>    <span class="operator">|</span>       <span class="operator">|</span>
-<span class="operator">|</span> name   <span class="operator">|</span> <span class="type">varchar</span>(<span class="number">20</span>) <span class="operator">|</span> YES  <span class="operator">|</span>     <span class="operator">|</span> <span class="keyword">NULL</span>    <span class="operator">|</span>       <span class="operator">|</span>
-<span class="operator">|</span> age    <span class="operator">|</span> <span class="type">int</span>         <span class="operator">|</span> YES  <span class="operator">|</span>     <span class="operator">|</span> <span class="keyword">NULL</span>    <span class="operator">|</span>       <span class="operator">|</span>
-<span class="operator">|</span> gender <span class="operator">|</span> <span class="type">varchar</span>(<span class="number">10</span>) <span class="operator">|</span> YES  <span class="operator">|</span>     <span class="operator">|</span> <span class="keyword">NULL</span>    <span class="operator">|</span>       <span class="operator">|</span>
-<span class="operator">|</span> idcard <span class="operator">|</span> text        <span class="operator">|</span> YES  <span class="operator">|</span>     <span class="operator">|</span> <span class="keyword">NULL</span>    <span class="operator">|</span>       <span class="operator">|</span>
-<span class="operator">+</span><span class="comment">--------+-------------+------+-----+---------+-------+</span></code></pre>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="operator">+</span><span class="comment">--------+-------------+------+-----+---------+-------+</span></span><br><span class="line"><span class="operator">|</span> Field  <span class="operator">|</span> Type        <span class="operator">|</span> <span class="keyword">Null</span> <span class="operator">|</span> Key <span class="operator">|</span> <span class="keyword">Default</span> <span class="operator">|</span> Extra <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">--------+-------------+------+-----+---------+-------+</span></span><br><span class="line"><span class="operator">|</span> id     <span class="operator">|</span> <span class="type">int</span>         <span class="operator">|</span> YES  <span class="operator">|</span>     <span class="operator">|</span> <span class="keyword">NULL</span>    <span class="operator">|</span>       <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> name   <span class="operator">|</span> <span class="type">varchar</span>(<span class="number">20</span>) <span class="operator">|</span> YES  <span class="operator">|</span>     <span class="operator">|</span> <span class="keyword">NULL</span>    <span class="operator">|</span>       <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> age    <span class="operator">|</span> <span class="type">int</span>         <span class="operator">|</span> YES  <span class="operator">|</span>     <span class="operator">|</span> <span class="keyword">NULL</span>    <span class="operator">|</span>       <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> gender <span class="operator">|</span> <span class="type">varchar</span>(<span class="number">10</span>) <span class="operator">|</span> YES  <span class="operator">|</span>     <span class="operator">|</span> <span class="keyword">NULL</span>    <span class="operator">|</span>       <span class="operator">|</span></span><br><span class="line"><span class="operator">|</span> idcard <span class="operator">|</span> text        <span class="operator">|</span> YES  <span class="operator">|</span>     <span class="operator">|</span> <span class="keyword">NULL</span>    <span class="operator">|</span>       <span class="operator">|</span></span><br><span class="line"><span class="operator">+</span><span class="comment">--------+-------------+------+-----+---------+-------+</span></span><br></pre></td></tr></table></figure>
 
 <blockquote>
 <p>如果有上图的表，则可以创建字段如下图所示</p>
 </blockquote>
-<pre><code class="highlight sql"><span class="keyword">create</span> <span class="keyword">table</span> id(
-    id <span class="type">int</span> comment <span class="string">&#x27;id&#x27;</span>,
-    name <span class="type">varchar</span>(<span class="number">20</span>) comment <span class="string">&#x27;name&#x27;</span>,
-    age <span class="type">int</span> comment <span class="string">&#x27;age&#x27;</span>,
-    gender <span class="type">varchar</span>(<span class="number">10</span>) comment <span class="string">&#x27;gender&#x27;</span>,
-    idcard text comment <span class="string">&#x27;idcard&#x27;</span>
-);</code></pre>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create table</span> id(</span><br><span class="line">    id <span class="type">int</span> comment <span class="string">&#x27;id&#x27;</span>,</span><br><span class="line">    name <span class="type">varchar</span>(<span class="number">20</span>) comment <span class="string">&#x27;name&#x27;</span>,</span><br><span class="line">    age <span class="type">int</span> comment <span class="string">&#x27;age&#x27;</span>,</span><br><span class="line">    gender <span class="type">varchar</span>(<span class="number">10</span>) comment <span class="string">&#x27;gender&#x27;</span>,</span><br><span class="line">    idcard text comment <span class="string">&#x27;idcard&#x27;</span></span><br><span class="line">);</span><br></pre></td></tr></table></figure>
 
 <blockquote>
 <p>用int表示整数</p>
@@ -122,13 +103,7 @@
 </blockquote>
 <h4 id="2-显示表"><a href="#2-显示表" class="headerlink" title="2.显示表"></a>2.显示表</h4><p><code>desc 表名</code></p>
 <p><code>show create table 表名;</code></p>
-<pre><code class="highlight sql">  richu_user <span class="operator">|</span> <span class="keyword">CREATE</span> <span class="keyword">TABLE</span> `richu_user`(
-  idint <span class="keyword">DEFAULT</span> <span class="keyword">NULL</span> COMMENT <span class="string">&#x27;id&#x27;</span>,
-  name <span class="type">varchar</span>(<span class="number">20</span>) <span class="keyword">DEFAULT</span> <span class="keyword">NULL</span> COMMENT <span class="string">&#x27;name&#x27;</span>,
-  age <span class="type">int</span> <span class="keyword">DEFAULT</span> <span class="keyword">NULL</span> COMMENT <span class="string">&#x27;age&#x27;</span>,
-  gender <span class="type">varchar</span>(<span class="number">10</span>) <span class="keyword">DEFAULT</span> <span class="keyword">NULL</span> COMMENT <span class="string">&#x27;gender&#x27;</span>,
-  idcardtext COMMENT <span class="string">&#x27;idcard&#x27;</span>
-) ENGINE<span class="operator">=</span>InnoDB <span class="keyword">DEFAULT</span> CHARSET<span class="operator">=</span>utf8mb4 <span class="keyword">COLLATE</span><span class="operator">=</span>utf8mb4_0900_ai_ci <span class="operator">|</span></code></pre>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">  richu_user <span class="operator">|</span> <span class="keyword">CREATE TABLE</span> `richu_user`(</span><br><span class="line">  idint <span class="keyword">DEFAULT</span> <span class="keyword">NULL</span> COMMENT <span class="string">&#x27;id&#x27;</span>,</span><br><span class="line">  name <span class="type">varchar</span>(<span class="number">20</span>) <span class="keyword">DEFAULT</span> <span class="keyword">NULL</span> COMMENT <span class="string">&#x27;name&#x27;</span>,</span><br><span class="line">  age <span class="type">int</span> <span class="keyword">DEFAULT</span> <span class="keyword">NULL</span> COMMENT <span class="string">&#x27;age&#x27;</span>,</span><br><span class="line">  gender <span class="type">varchar</span>(<span class="number">10</span>) <span class="keyword">DEFAULT</span> <span class="keyword">NULL</span> COMMENT <span class="string">&#x27;gender&#x27;</span>,</span><br><span class="line">  idcardtext COMMENT <span class="string">&#x27;idcard&#x27;</span></span><br><span class="line">) ENGINE<span class="operator">=</span>InnoDB <span class="keyword">DEFAULT</span> CHARSET<span class="operator">=</span>utf8mb4 <span class="keyword">COLLATE</span><span class="operator">=</span>utf8mb4_0900_ai_ci <span class="operator">|</span></span><br></pre></td></tr></table></figure>
 
 <h3 id="7-数据类型"><a href="#7-数据类型" class="headerlink" title="7.数据类型"></a>7.数据类型</h3><h4 id="1-数值类型"><a href="#1-数值类型" class="headerlink" title="1.数值类型"></a>1.数值类型</h4><p>1.tinyint 1byte (小整数) （unsigned）(无符号)</p>
 <p>2.smallint   2byte</p>
@@ -337,53 +312,50 @@
 <h4 id="4-rand（随机数）"><a href="#4-rand（随机数）" class="headerlink" title="4.rand（随机数）"></a>4.rand（随机数）</h4><p><code>select rand();</code></p>
 <h4 id="5-round（四舍五入，保留y位小数）"><a href="#5-round（四舍五入，保留y位小数）" class="headerlink" title="5.round（四舍五入，保留y位小数）"></a>5.round（四舍五入，保留y位小数）</h4><p><code>select round(2.5);</code></p>
 <p><code>select round(2.5,0);</code> (&#x3D;3)</p>
-<h3 id="3-日期函数"><a href="#3-日期函数" class="headerlink" title="3.日期函数"></a>3.日期函数</h3><h4 id="1-curdate-年月日"><a href="#1-curdate-年月日" class="headerlink" title="1.curdate (年月日)"></a>1.curdate (年月日)</h4><pre><code class="highlight sql"><span class="keyword">select</span> curdate();</code></pre>
+<h3 id="3-日期函数"><a href="#3-日期函数" class="headerlink" title="3.日期函数"></a>3.日期函数</h3><h4 id="1-curdate-年月日"><a href="#1-curdate-年月日" class="headerlink" title="1.curdate (年月日)"></a>1.curdate (年月日)</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> curdate();</span><br></pre></td></tr></table></figure>
 
-<h4 id="2-curtime-时分秒"><a href="#2-curtime-时分秒" class="headerlink" title="2.curtime (时分秒)"></a>2.curtime (时分秒)</h4><pre><code class="highlight sql"><span class="keyword">select</span> curtime();</code></pre>
+<h4 id="2-curtime-时分秒"><a href="#2-curtime-时分秒" class="headerlink" title="2.curtime (时分秒)"></a>2.curtime (时分秒)</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> curtime();</span><br></pre></td></tr></table></figure>
 
-<h4 id="3-now-年月日时分秒"><a href="#3-now-年月日时分秒" class="headerlink" title="3.now (年月日时分秒)"></a>3.now (年月日时分秒)</h4><pre><code class="highlight sql"><span class="keyword">select</span> now();</code></pre>
+<h4 id="3-now-年月日时分秒"><a href="#3-now-年月日时分秒" class="headerlink" title="3.now (年月日时分秒)"></a>3.now (年月日时分秒)</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> now();</span><br></pre></td></tr></table></figure>
 
-<h4 id="4-year-当前年份"><a href="#4-year-当前年份" class="headerlink" title="4.year (当前年份)"></a>4.year (当前年份)</h4><pre><code class="highlight sql"><span class="keyword">select</span> <span class="keyword">year</span>(now());</code></pre>
+<h4 id="4-year-当前年份"><a href="#4-year-当前年份" class="headerlink" title="4.year (当前年份)"></a>4.year (当前年份)</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="keyword">year</span>(now());</span><br></pre></td></tr></table></figure>
 
-<h4 id="5-month-当前月份"><a href="#5-month-当前月份" class="headerlink" title="5.month (当前月份)"></a>5.month (当前月份)</h4><pre><code class="highlight sql"><span class="keyword">select</span> <span class="keyword">month</span>(now());</code></pre>
+<h4 id="5-month-当前月份"><a href="#5-month-当前月份" class="headerlink" title="5.month (当前月份)"></a>5.month (当前月份)</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="keyword">month</span>(now());</span><br></pre></td></tr></table></figure>
 
-<h4 id="6-day-当前日期"><a href="#6-day-当前日期" class="headerlink" title="6.day (当前日期)"></a>6.day (当前日期)</h4><pre><code class="highlight sql"><span class="keyword">select</span> <span class="keyword">day</span>(now());</code></pre>
+<h4 id="6-day-当前日期"><a href="#6-day-当前日期" class="headerlink" title="6.day (当前日期)"></a>6.day (当前日期)</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="keyword">day</span>(now());</span><br></pre></td></tr></table></figure>
 
 <h4 id="7-date-add-增加时间"><a href="#7-date-add-增加时间" class="headerlink" title="7.date_add (增加时间)"></a>7.date_add (增加时间)</h4><blockquote>
 <p>interval(间隔)a</p>
 <p>70(间隔时间)</p>
 <p>day、month、year</p>
 </blockquote>
-<pre><code class="highlight sql"><span class="keyword">select</span> date_add(now(),<span class="type">interval</span> <span class="number">70</span> <span class="keyword">day</span> );</code></pre>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> date_add(now(),<span class="type">interval</span> <span class="number">70</span> <span class="keyword">day</span> );</span><br></pre></td></tr></table></figure>
 
-<h4 id="8-datediff-第一个时间减去第二个时间"><a href="#8-datediff-第一个时间减去第二个时间" class="headerlink" title="8.datediff(第一个时间减去第二个时间)"></a>8.datediff(第一个时间减去第二个时间)</h4><pre><code class="highlight sql"><span class="keyword">select</span> datediff(<span class="string">&#x27;2025-3-26&#x27;</span>,<span class="string">&#x27;2024-3-26&#x27;</span>);</code></pre>
+<h4 id="8-datediff-第一个时间减去第二个时间"><a href="#8-datediff-第一个时间减去第二个时间" class="headerlink" title="8.datediff(第一个时间减去第二个时间)"></a>8.datediff(第一个时间减去第二个时间)</h4><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> datediff(<span class="string">&#x27;2025-3-26&#x27;</span>,<span class="string">&#x27;2024-3-26&#x27;</span>);</span><br></pre></td></tr></table></figure>
 
 <h3 id="4-流程函数"><a href="#4-流程函数" class="headerlink" title="4.流程函数"></a>4.流程函数</h3><p>1.if(value,t,f)   </p>
 <blockquote>
 <p>如果value为true返回t否则返回f</p>
 </blockquote>
-<pre><code class="highlight sql"><span class="keyword">select</span> if(<span class="literal">true</span>,<span class="number">9</span>,<span class="number">0</span>); <span class="operator">-</span><span class="operator">&gt;</span><span class="number">9</span>
-<span class="keyword">select</span> if(<span class="literal">false</span>,<span class="number">9</span>,<span class="number">0</span>); <span class="operator">-</span><span class="operator">&gt;</span><span class="number">0</span></code></pre>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> if(<span class="literal">true</span>,<span class="number">9</span>,<span class="number">0</span>); <span class="operator">-</span><span class="operator">&gt;</span><span class="number">9</span></span><br><span class="line"><span class="keyword">select</span> if(<span class="literal">false</span>,<span class="number">9</span>,<span class="number">0</span>); <span class="operator">-</span><span class="operator">&gt;</span><span class="number">0</span></span><br></pre></td></tr></table></figure>
 
 <p>2.ifnull(value1,value2) </p>
 <blockquote>
 <p>如果value1不为null则返回value1，否则返回value2</p>
 </blockquote>
-<pre><code class="highlight plaintext">select ifnull(&#x27;ok&#x27;,&#x27;default&#x27;); -&gt;ok
-select ifnull(&#x27;&#x27;,&#x27;default&#x27;); -&gt;&#x27;&#x27;
-select  ifnull(null,&#x27;default&#x27;); -&gt;default```</code></pre>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">select ifnull(&#x27;ok&#x27;,&#x27;default&#x27;); -&gt;ok</span><br><span class="line">select ifnull(&#x27;&#x27;,&#x27;default&#x27;); -&gt;&#x27;&#x27;</span><br><span class="line">select  ifnull(null,&#x27;default&#x27;); -&gt;default```</span><br></pre></td></tr></table></figure>
 
 <p>3.case when [val] then [res]… else[default] end;</p>
 <blockquote>
 <p>如果val为true，返回res，…否则返回default默认值</p>
 </blockquote>
-<pre><code class="highlight sql"><span class="keyword">select</span> name,(<span class="keyword">case</span> richu_user.gender <span class="keyword">when</span> <span class="string">&#x27;男&#x27;</span> <span class="keyword">then</span> <span class="string">&#x27;0&#x27;</span> <span class="keyword">when</span> <span class="string">&#x27;女&#x27;</span> <span class="keyword">then</span> <span class="string">&#x27;1&#x27;</span> <span class="keyword">else</span> <span class="string">&#x27;default&#x27;</span> <span class="keyword">end</span>) <span class="keyword">as</span> <span class="string">&#x27;性别编号&#x27;</span> <span class="keyword">from</span> richu_user;</code></pre>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> name,(<span class="keyword">case</span> richu_user.gender <span class="keyword">when</span> <span class="string">&#x27;男&#x27;</span> <span class="keyword">then</span> <span class="string">&#x27;0&#x27;</span> <span class="keyword">when</span> <span class="string">&#x27;女&#x27;</span> <span class="keyword">then</span> <span class="string">&#x27;1&#x27;</span> <span class="keyword">else</span> <span class="string">&#x27;default&#x27;</span> <span class="keyword">end</span>) <span class="keyword">as</span> <span class="string">&#x27;性别编号&#x27;</span> <span class="keyword">from</span> richu_user;</span><br></pre></td></tr></table></figure>
 
 <p>4.case[expr] when [val] then [res1].. res[default] end;</p>
 <blockquote>
 <p>如果expr的值等于val，返回res1，…否则返回default默认值</p>
 </blockquote>
-<pre><code class="highlight sql"><span class="keyword">select</span> name,(<span class="keyword">case</span>  <span class="keyword">when</span> <span class="type">date</span><span class="operator">&lt;=</span><span class="number">200</span> <span class="keyword">then</span> <span class="string">&#x27;短&#x27;</span> <span class="keyword">when</span> <span class="type">date</span><span class="operator">&lt;=</span> <span class="number">500</span> <span class="keyword">then</span> <span class="string">&#x27;中&#x27;</span> <span class="keyword">else</span> <span class="string">&#x27;长&#x27;</span> <span class="keyword">end</span>) <span class="string">&#x27;时间&#x27;</span> <span class="keyword">from</span> richu_user;</code></pre>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> name,(<span class="keyword">case</span>  <span class="keyword">when</span> <span class="type">date</span><span class="operator">&lt;=</span><span class="number">200</span> <span class="keyword">then</span> <span class="string">&#x27;短&#x27;</span> <span class="keyword">when</span> <span class="type">date</span><span class="operator">&lt;=</span> <span class="number">500</span> <span class="keyword">then</span> <span class="string">&#x27;中&#x27;</span> <span class="keyword">else</span> <span class="string">&#x27;长&#x27;</span> <span class="keyword">end</span>) <span class="string">&#x27;时间&#x27;</span> <span class="keyword">from</span> richu_user;</span><br></pre></td></tr></table></figure>
 
 <h2 id="6-约束"><a href="#6-约束" class="headerlink" title="6.约束"></a>6.约束</h2><h3 id="1概念"><a href="#1概念" class="headerlink" title="1概念"></a>1概念</h3><blockquote>
 <p>作用于表中字段上的规则，用于限制存储在表中的数据</p>
@@ -394,54 +366,34 @@ select  ifnull(null,&#x27;default&#x27;); -&gt;default```</code></pre>
 <h3 id="3-分类"><a href="#3-分类" class="headerlink" title="3.分类"></a>3.分类</h3><h4 id="1-非空约束-not-null"><a href="#1-非空约束-not-null" class="headerlink" title="1.非空约束(not null)"></a>1.非空约束(not null)</h4><blockquote>
 <p>限制该字段数据不能为null</p>
 </blockquote>
-<pre><code class="highlight sql">name <span class="type">varchar</span>(<span class="number">10</span>) <span class="keyword">not</span> <span class="keyword">null</span> <span class="keyword">unique</span> comment <span class="string">&#x27;姓名&#x27;</span></code></pre>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">name <span class="type">varchar</span>(<span class="number">10</span>) <span class="keyword">not null</span> <span class="keyword">unique</span> comment <span class="string">&#x27;姓名&#x27;</span></span><br></pre></td></tr></table></figure>
 
 <h4 id="2-唯一约束-unique"><a href="#2-唯一约束-unique" class="headerlink" title="2.唯一约束(unique)"></a>2.唯一约束(unique)</h4><blockquote>
 <p>保证该字段的数据是唯一、不重复的</p>
 </blockquote>
-<pre><code class="highlight sql">name <span class="type">varchar</span>(<span class="number">10</span>) <span class="keyword">not</span> <span class="keyword">null</span> <span class="keyword">unique</span> comment <span class="string">&#x27;姓名&#x27;</span></code></pre>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">name <span class="type">varchar</span>(<span class="number">10</span>) <span class="keyword">not null</span> <span class="keyword">unique</span> comment <span class="string">&#x27;姓名&#x27;</span></span><br></pre></td></tr></table></figure>
 
 <h4 id="3-主键约束-primary-key"><a href="#3-主键约束-primary-key" class="headerlink" title="3.主键约束(primary key)"></a>3.主键约束(primary key)</h4><blockquote>
 <p>主键是一行的标识，要求非空且唯一</p>
 </blockquote>
-<pre><code class="highlight sql">id <span class="type">int</span> <span class="keyword">primary</span> key auto_increment comment <span class="string">&#x27;主键&#x27;</span>
-
-<span class="operator">/</span><span class="operator">/</span>auto_increment (自增)</code></pre>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">id <span class="type">int</span> <span class="keyword">primary key</span> auto_increment comment <span class="string">&#x27;主键&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="operator">/</span><span class="operator">/</span>auto_increment (自增)</span><br></pre></td></tr></table></figure>
 
 <h4 id="4-默认约束-default"><a href="#4-默认约束-default" class="headerlink" title="4.默认约束(default)"></a>4.默认约束(default)</h4><blockquote>
 <p>保存该数据时，如果未指定值则采用默认值</p>
 </blockquote>
-<pre><code class="highlight sql">status <span class="type">varchar</span>(<span class="number">10</span>) <span class="keyword">default</span> <span class="string">&#x27;1&#x27;</span> comment <span class="string">&#x27;状态&#x27;</span>
-<span class="operator">/</span><span class="operator">/</span>插入
-<span class="keyword">insert</span> <span class="keyword">into</span> richu_user2(id,name,age) <span class="keyword">values</span> (<span class="number">4</span>,<span class="string">&#x27;d&#x27;</span>,<span class="number">40</span>);</code></pre>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">status <span class="type">varchar</span>(<span class="number">10</span>) <span class="keyword">default</span> <span class="string">&#x27;1&#x27;</span> comment <span class="string">&#x27;状态&#x27;</span></span><br><span class="line"><span class="operator">/</span><span class="operator">/</span>插入</span><br><span class="line"><span class="keyword">insert into</span> richu_user2(id,name,age) <span class="keyword">values</span> (<span class="number">4</span>,<span class="string">&#x27;d&#x27;</span>,<span class="number">40</span>);</span><br></pre></td></tr></table></figure>
 
 <h4 id="5-检查约束-check"><a href="#5-检查约束-check" class="headerlink" title="5.检查约束(check)"></a>5.检查约束(check)</h4><blockquote>
 <p>保证字段满足一条件</p>
 </blockquote>
-<pre><code class="highlight sql">age <span class="type">int</span> <span class="keyword">check</span>(age <span class="operator">&gt;=</span><span class="number">0</span> <span class="keyword">and</span> age <span class="operator">&lt;=</span><span class="number">100</span>) comment <span class="string">&#x27;年龄&#x27;</span></code></pre>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">age <span class="type">int</span> <span class="keyword">check</span>(age <span class="operator">&gt;=</span><span class="number">0</span> <span class="keyword">and</span> age <span class="operator">&lt;=</span><span class="number">100</span>) comment <span class="string">&#x27;年龄&#x27;</span></span><br></pre></td></tr></table></figure>
 
 <h4 id="6-外键约束（两张表）-foreing-key"><a href="#6-外键约束（两张表）-foreing-key" class="headerlink" title="6.外键约束（两张表）(foreing key)"></a>6.外键约束（两张表）(foreing key)</h4><blockquote>
 <p>让两张表的数据之间建立联系，保证数据的一致性和完整性</p>
 </blockquote>
-<h5 id="1-创建外键"><a href="#1-创建外键" class="headerlink" title="1.创建外键"></a>1.创建外键</h5><pre><code class="highlight sql"><span class="keyword">create</span> <span class="keyword">table</span> 表名(
-  ...
-  [<span class="keyword">constraint</span>] [外键名称] 
-  <span class="keyword">foreign</span> key [外字段名] 
-  <span class="keyword">references</span> 主表 [主表列表]
- );</code></pre>
+<h5 id="1-创建外键"><a href="#1-创建外键" class="headerlink" title="1.创建外键"></a>1.创建外键</h5><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create table</span> 表名(</span><br><span class="line">  ...</span><br><span class="line">  [<span class="keyword">constraint</span>] [外键名称] </span><br><span class="line">  <span class="keyword">foreign key</span> [外字段名] </span><br><span class="line">  <span class="keyword">references</span> 主表 [主表列表]</span><br><span class="line"> ); </span><br></pre></td></tr></table></figure>
 <p>例子:</p>
-<pre><code class="highlight sql"># 主表
-<span class="keyword">create</span> <span class="keyword">table</span> t_depart(
-  dptno <span class="type">int</span> <span class="keyword">primary</span> key,
-  dptname <span class="type">varchar</span>(<span class="number">22</span>)
-);
-
-#添加外键
-<span class="keyword">create</span> <span class="keyword">table</span> t_student(
-  stid <span class="type">varchar</span>(<span class="number">12</span>) <span class="keyword">primary</span> key,name <span class="type">varchar</span>(<span class="number">22</span>),
-  dptno <span class="type">int</span>, 
-  <span class="keyword">constraint</span> test 
-  <span class="keyword">foreign</span> key(dptno) <span class="keyword">references</span> t_depart(dptno));</code></pre>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"># 主表</span><br><span class="line"><span class="keyword">create table</span> t_depart(</span><br><span class="line">  dptno <span class="type">int</span> <span class="keyword">primary key</span>,</span><br><span class="line">  dptname <span class="type">varchar</span>(<span class="number">22</span>)</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line">#添加外键</span><br><span class="line"><span class="keyword">create table</span> t_student(</span><br><span class="line">  stid <span class="type">varchar</span>(<span class="number">12</span>) <span class="keyword">primary key</span>,name <span class="type">varchar</span>(<span class="number">22</span>),</span><br><span class="line">  dptno <span class="type">int</span>, </span><br><span class="line">  <span class="keyword">constraint</span> test </span><br><span class="line">  <span class="keyword">foreign key</span>(dptno) <span class="keyword">references</span> t_depart(dptno));</span><br></pre></td></tr></table></figure>
 <h5 id="2-建立外键关联"><a href="#2-建立外键关联" class="headerlink" title="2.建立外键关联"></a>2.建立外键关联</h5><p><code>alter table 表名 add constraint 外键名称 foreign key(外键字段名) references 主表(主列表名); </code></p>
 <h5 id="3-删除外键"><a href="#3-删除外键" class="headerlink" title="3.删除外键"></a>3.删除外键</h5><p><code>alter table 表名 drop foreign key 外键名称;</code></p>
 <h5 id="4-目的"><a href="#4-目的" class="headerlink" title="4.目的"></a>4.目的</h5><blockquote>
@@ -501,15 +453,11 @@ select  ifnull(null,&#x27;default&#x27;); -&gt;default```</code></pre>
 <blockquote>
 <p>union all 会将所有的数据都合并</p>
 </blockquote>
-<pre><code class="highlight sql"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> richu_user <span class="keyword">where</span> age <span class="operator">&lt;</span><span class="number">20</span>
-<span class="keyword">union</span> <span class="keyword">all</span>
-<span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> richu_user <span class="keyword">where</span> id <span class="operator">&lt;</span><span class="number">2</span>; <span class="operator">-</span><span class="operator">&gt;</span>会有重复</code></pre>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> richu_user <span class="keyword">where</span> age <span class="operator">&lt;</span><span class="number">20</span></span><br><span class="line"><span class="keyword">union</span> <span class="keyword">all</span></span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> richu_user <span class="keyword">where</span> id <span class="operator">&lt;</span><span class="number">2</span>; <span class="operator">-</span><span class="operator">&gt;</span>会有重复</span><br></pre></td></tr></table></figure>
 <blockquote>
 <p>union 会对合并之后的数据进行去重处理</p>
 </blockquote>
-<pre><code class="highlight sql"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> richu_user <span class="keyword">where</span> age <span class="operator">&lt;</span><span class="number">20</span>
-<span class="keyword">union</span>
-<span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> richu_user <span class="keyword">where</span> id <span class="operator">&lt;</span><span class="number">2</span>;<span class="operator">-</span><span class="operator">&gt;</span>去重</code></pre>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> richu_user <span class="keyword">where</span> age <span class="operator">&lt;</span><span class="number">20</span></span><br><span class="line"><span class="keyword">union</span></span><br><span class="line"><span class="keyword">select</span> <span class="operator">*</span> <span class="keyword">from</span> richu_user <span class="keyword">where</span> id <span class="operator">&lt;</span><span class="number">2</span>;<span class="operator">-</span><span class="operator">&gt;</span>去重</span><br></pre></td></tr></table></figure>
 
 
 
@@ -556,10 +504,7 @@ select  ifnull(null,&#x27;default&#x27;); -&gt;default```</code></pre>
 <p> 0 -&gt; 手动          1-&gt;自动</p>
 <p>set @@autocommit &#x3D;0 ; (设置当前事务提交方式)</p>
 </blockquote>
-<pre><code class="highlight sql"><span class="keyword">select</span> @<span class="variable">@autocommit</span>; <span class="comment">--注释</span>
-
-<span class="keyword">set</span> @<span class="variable">@autocommit</span> <span class="operator">=</span> <span class="number">0</span>;
-<span class="keyword">select</span> @<span class="variable">@autocommit</span>;</code></pre>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> @<span class="variable">@autocommit</span>; <span class="comment">--注释</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">set</span> @<span class="variable">@autocommit</span> <span class="operator">=</span> <span class="number">0</span>;</span><br><span class="line"><span class="keyword">select</span> @<span class="variable">@autocommit</span>;</span><br></pre></td></tr></table></figure>
 
 <ul>
 <li>开启事务</li>
@@ -591,12 +536,12 @@ select  ifnull(null,&#x27;default&#x27;); -&gt;default```</code></pre>
 <blockquote>
 <p>查看事务隔离级别</p>
 </blockquote>
-<pre><code class="highlight sql"><span class="keyword">select</span> @<span class="variable">@transaction_isolation</span>;</code></pre>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">select</span> @<span class="variable">@transaction_isolation</span>;</span><br></pre></td></tr></table></figure>
 
 <blockquote>
 <p>更改事务隔离级别</p>
 </blockquote>
-<pre><code class="highlight sql"><span class="keyword">set</span> session transaction isolation level [read committed];</code></pre>
+<figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">set</span> session transaction isolation level [read committed];</span><br></pre></td></tr></table></figure>
 
 <blockquote>
 <p>安全级别越高，性能越低</p>
@@ -1088,7 +1033,7 @@ select  ifnull(null,&#x27;default&#x27;); -&gt;default```</code></pre>
             <div class="row">
                 <div class="col-m-4">
                     <h3 class="title-recent">最新文章：</h3>
-                    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2025/03/15/AJAX/">AJAX</a></li><li class="post-list-item"><a class="post-list-link" href="/2025/02/23/QT/">QT</a></li><li class="post-list-item"><a class="post-list-link" href="/2025/02/22/%E8%A7%A3%E5%86%B3Nginx%E7%AB%AF%E5%8F%A3%E6%97%A0%E6%B3%95%E8%AE%BF%E9%97%AE%E9%97%AE%E9%A2%98/">解决Nginx端口无法访问问题</a></li><li class="post-list-item"><a class="post-list-link" href="/2025/01/05/Andriod/">Android</a></li><li class="post-list-item"><a class="post-list-link" href="/2024/12/02/Kotlin/">Kotlin</a></li><li class="post-list-item"><a class="post-list-link" href="/2024/11/19/Webpack/">Webpack</a></li></ul>
+                    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2025/03/18/Compose%20Jetpack/">Jetpack Compose</a></li><li class="post-list-item"><a class="post-list-link" href="/2025/03/15/AJAX/">AJAX</a></li><li class="post-list-item"><a class="post-list-link" href="/2025/02/23/QT/">QT</a></li><li class="post-list-item"><a class="post-list-link" href="/2025/02/22/%E8%A7%A3%E5%86%B3Nginx%E7%AB%AF%E5%8F%A3%E6%97%A0%E6%B3%95%E8%AE%BF%E9%97%AE%E9%97%AE%E9%A2%98/">解决Nginx端口无法访问问题</a></li><li class="post-list-item"><a class="post-list-link" href="/2025/01/05/Andriod/">Android</a></li><li class="post-list-item"><a class="post-list-link" href="/2024/12/02/Kotlin/">Kotlin</a></li></ul>
                 </div>
                 <div class="col-m-4">
                     <h3 class="title-date">时光机：</h3>

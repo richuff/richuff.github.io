@@ -61,7 +61,7 @@
         </section>
         <article class="post-content">
         
-            <blockquote>这篇文章上次修改于 196 天前，可能其部分内容已经发生变化，如有疑问可询问作者。</blockquote>
+            <blockquote>这篇文章上次修改于 200 天前，可能其部分内容已经发生变化，如有疑问可询问作者。</blockquote>
         
             <p>nginx is an HTTP and reverse proxy server, a mail proxy server, and a generic<br>TCP/UDP proxy server, originally written by Igor Sysoev.</p>
 <h1 id="Nginx"><a href="#Nginx" class="headerlink" title="Nginx"></a>Nginx</h1><h2 id="1-Nginx功能特性"><a href="#1-Nginx功能特性" class="headerlink" title="1.Nginx功能特性"></a>1.Nginx功能特性</h2><h3 id="1-1-Nginx常用的功能模块"><a href="#1-1-Nginx常用的功能模块" class="headerlink" title="1.1.Nginx常用的功能模块"></a>1.1.Nginx常用的功能模块</h3><blockquote>
@@ -90,7 +90,7 @@
 <blockquote>
 <p>使用sestatus查看，将sestatus关闭</p>
 </blockquote>
-<pre><code class="highlight plaintext">vim /etc/selinux/config</code></pre>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">vim /etc/selinux/config</span><br></pre></td></tr></table></figure>
 
 <blockquote>
 <p>修改SELINUX&#x3D;disabled</p>
@@ -112,13 +112,10 @@
 <p>yum install -y openssl openssl-devel</p>
 </blockquote>
 <p>5.使用wget安装</p>
-<pre><code class="highlight plaintext">wget https://nginx.org/download/nginx-1.26.1.tar.gz
-//创建文件，便于管理
-mkdir -p nginx/core
-mv nginx-1.26.1.tar.gz nginx/core</code></pre>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">wget https://nginx.org/download/nginx-1.26.1.tar.gz</span><br><span class="line">//创建文件，便于管理</span><br><span class="line">mkdir -p nginx/core</span><br><span class="line">mv nginx-1.26.1.tar.gz nginx/core</span><br></pre></td></tr></table></figure>
 
 <p>6.解压缩</p>
-<pre><code class="highlight plaintext">tar -xzf nginx-1.26.1.tar.gz</code></pre>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">tar -xzf nginx-1.26.1.tar.gz</span><br></pre></td></tr></table></figure>
 
 <p>7.进入</p>
 <p><code>./configure</code></p>
@@ -160,12 +157,7 @@ mv nginx-1.26.1.tar.gz nginx/core</code></pre>
 <p>rm -rf  &#x2F;usr&#x2F;local&#x2F;nginx</p>
 <p>make clean</p>
 </blockquote>
-<pre><code class="highlight plaintext">./configure --prefix=/usr/local/
-nginx --sbin-path=/usr/local/nginx/sbin/nginx --modules-path=/usr/
-local/nginx/modules --conf-path=/usr/local/nginx/conf/nginx.conf 
---error-log-path=/usr/local/nginx/logs/error.log --http-log-path=/
-usr/local/nginx/logs/access.log --pid-path=/usr/local/nginx/logs/
-nginx.pid --lock-path=/usr/local/nginx/logs/nginx.lock</code></pre>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">./configure --prefix=/usr/local/</span><br><span class="line">nginx --sbin-path=/usr/local/nginx/sbin/nginx --modules-path=/usr/</span><br><span class="line">local/nginx/modules --conf-path=/usr/local/nginx/conf/nginx.conf </span><br><span class="line">--error-log-path=/usr/local/nginx/logs/error.log --http-log-path=/</span><br><span class="line">usr/local/nginx/logs/access.log --pid-path=/usr/local/nginx/logs/</span><br><span class="line">nginx.pid --lock-path=/usr/local/nginx/logs/nginx.lock</span><br></pre></td></tr></table></figure>
 
 <p>5.Nginx目录结构</p>
 <blockquote>
@@ -185,14 +177,7 @@ nginx.pid --lock-path=/usr/local/nginx/logs/nginx.lock</code></pre>
 <p>nginx默认采用多进程的方式来工作</p>
 <p>ps -ef | grep nginx</p>
 </blockquote>
-<pre><code class="highlight plaintext">root       31002       1  0 09:36 ?        
-00:00:00 nginx: master process ./nginx
-
-nobody     31003   31002  0 09:36 ?        
-00:00:00 nginx: worker process
-
-root       87869    2359  0 10:00 pts/0    
-00:00:00 grep --color=auto nginx</code></pre>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">root       31002       1  0 09:36 ?        </span><br><span class="line">00:00:00 nginx: master process ./nginx</span><br><span class="line"></span><br><span class="line">nobody     31003   31002  0 09:36 ?        </span><br><span class="line">00:00:00 nginx: worker process</span><br><span class="line"></span><br><span class="line">root       87869    2359  0 10:00 pts/0    </span><br><span class="line">00:00:00 grep --color=auto nginx</span><br></pre></td></tr></table></figure>
 
 <blockquote>
 <p>发送信号给master进程来控制worker进程等</p>
@@ -316,32 +301,7 @@ root       87869    2359  0 10:00 pts/0
 <li>全局块，events块，http块</li>
 <li>http块中可以配置多个serve块，每个serve块又可以配置多个location块</li>
 </ul>
-<pre><code class="highlight plaintext">#user  nobody;
-worker_processes  1;
-
-events &#123;
-    worker_connections  1024;
-&#125;
-
-http &#123;
-    include       mime.types;
-    default_type  application/octet-stream;
-    sendfile        on;
-    keepalive_timeout  65;
-
-    server &#123;
-        listen       80;
-        server_name  localhost;
-        location / &#123;
-            root   html;
-            index  index.html index.htm;
-        &#125;
-        error_page   500 502 503 504  /50x.html;
-        location = /50x.html &#123;
-            root   html;
-        &#125;
-    &#125;
-&#125;</code></pre>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line">#user  nobody;</span><br><span class="line">worker_processes  1;</span><br><span class="line"></span><br><span class="line">events &#123;</span><br><span class="line">    worker_connections  1024;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">http &#123;</span><br><span class="line">    include       mime.types;</span><br><span class="line">    default_type  application/octet-stream;</span><br><span class="line">    sendfile        on;</span><br><span class="line">    keepalive_timeout  65;</span><br><span class="line"></span><br><span class="line">    server &#123;</span><br><span class="line">        listen       80;</span><br><span class="line">        server_name  localhost;</span><br><span class="line">        location / &#123;</span><br><span class="line">            root   html;</span><br><span class="line">            index  index.html index.htm;</span><br><span class="line">        &#125;</span><br><span class="line">        error_page   500 502 503 504  /50x.html;</span><br><span class="line">        location = /50x.html &#123;</span><br><span class="line">            root   html;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h3 id="4-1全局块"><a href="#4-1全局块" class="headerlink" title="4.1全局块"></a>4.1全局块</h3><h4 id="4-1-1user指令"><a href="#4-1-1user指令" class="headerlink" title="4.1.1user指令"></a>4.1.1user指令</h4><p>(1)user用于配置运行nginx服务器的worker进程的用户和用户组</p>
 <table>
@@ -366,12 +326,7 @@ http &#123;
 <p>1.设置一个用户信息www,在nginx.conf设置，但是会报一个没有该用户的错误，此时需要useradd www</p>
 <p>user www    测试.&#x2F;nginx -t</p>
 </blockquote>
-<pre><code class="highlight plaintext">[root@localhost sbin]# ./nginx -t
-nginx: [emerg] getpwnam(&quot;www&quot;) 
-failed in /usr/local/nginx/conf/nginx.conf:2
-
-nginx: configuration file /usr/
-local/nginx/conf/nginx.conf test failed</code></pre>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">[root@localhost sbin]# ./nginx -t</span><br><span class="line">nginx: [emerg] getpwnam(&quot;www&quot;) </span><br><span class="line">failed in /usr/local/nginx/conf/nginx.conf:2</span><br><span class="line"></span><br><span class="line">nginx: configuration file /usr/</span><br><span class="line">local/nginx/conf/nginx.conf test failed</span><br></pre></td></tr></table></figure>
 
 <blockquote>
 <p>2.此时如果将html查询的目录改为 &#x2F;root&#x2F;html   –&gt;此时会403，权限不足</p>
@@ -573,16 +528,9 @@ local/nginx/conf/nginx.conf test failed</code></pre>
 <p>method –&gt; select&#x2F;poll&#x2F;epoll&#x2F;kqueue</p>
 <p>建议设置epoll</p>
 </blockquote>
-<h4 id="4-2-1指令配置实例"><a href="#4-2-1指令配置实例" class="headerlink" title="4.2.1指令配置实例"></a>4.2.1指令配置实例</h4><pre><code class="highlight plaintext">events&#123;
-	accept_muyex on;
-	multi_accpet on;
-	worker_commections 1024;
-	use epoll;
-&#125;</code></pre>
+<h4 id="4-2-1指令配置实例"><a href="#4-2-1指令配置实例" class="headerlink" title="4.2.1指令配置实例"></a>4.2.1指令配置实例</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">events&#123;</span><br><span class="line">	accept_muyex on;</span><br><span class="line">	multi_accpet on;</span><br><span class="line">	worker_commections 1024;</span><br><span class="line">	use epoll;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<pre><code class="highlight plaintext">启动测试
-./nginx -t
-./nginx -s reload</code></pre>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">启动测试</span><br><span class="line">./nginx -t</span><br><span class="line">./nginx -s reload</span><br></pre></td></tr></table></figure>
 
 <h3 id="4-3http块"><a href="#4-3http块" class="headerlink" title="4.3http块"></a>4.3http块</h3><p>(1)default_type:用来配置nginx响应前端请求默认的MIME类型</p>
 <table>
@@ -694,73 +642,14 @@ local/nginx/conf/nginx.conf test failed</code></pre>
 <td>http、server、location</td>
 </tr>
 </tbody></table>
-<h3 id="4-4server和location块"><a href="#4-4server和location块" class="headerlink" title="4.4server和location块"></a>4.4server和location块</h3><pre><code class="highlight plaintext">server &#123;
-    listen       80;
-    server_name  localhost;
-    location / &#123;
-        root   html;
-        index  index.html index.htm;
-    &#125;
-    error_page   500 502 503 504  /50x.html;
-    location = /50x.html &#123;
-        root   html;
-    &#125;
-&#125;</code></pre>
+<h3 id="4-4server和location块"><a href="#4-4server和location块" class="headerlink" title="4.4server和location块"></a>4.4server和location块</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">    listen       80;</span><br><span class="line">    server_name  localhost;</span><br><span class="line">    location / &#123;</span><br><span class="line">        root   html;</span><br><span class="line">        index  index.html index.htm;</span><br><span class="line">    &#125;</span><br><span class="line">    error_page   500 502 503 504  /50x.html;</span><br><span class="line">    location = /50x.html &#123;</span><br><span class="line">        root   html;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h3 id="4-5基础配置实例"><a href="#4-5基础配置实例" class="headerlink" title="4.5基础配置实例"></a>4.5基础配置实例</h3><pre><code class="highlight plaintext">user  www;
-worker_processes 2;
-err_log logs/error.log;
-pid logs/nginx.pid;
-
-events &#123;
-    accept_mutex on;
-    multi_accept on;
-    use epool;
-    worker_connections  1024;
-&#125;
-
-http &#123;
-    include       mime.types;
-    default_type  application/octet-stream;
-    log_format serve1 &#x27;======&gt;server1&#x27;;
-    log_format serve2 &#x27;======&gt;server2&#x27;
-    include /home/www/conf.d/*.conf;
- 	sendfile        on;
-    keepalive_timeout  65;
-
-    server &#123;
-        listen       80;
-        server_name  localhost;
-        location / &#123;
-            root   html;
-            index  index.html index.htm;
-        &#125;
-        error_page   500 502 503 504  /50x.html;
-        location = /50x.html &#123;
-            root   html;
-        &#125;
-&#125;</code></pre>
+<h3 id="4-5基础配置实例"><a href="#4-5基础配置实例" class="headerlink" title="4.5基础配置实例"></a>4.5基础配置实例</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br></pre></td><td class="code"><pre><span class="line">user  www;</span><br><span class="line">worker_processes 2;</span><br><span class="line">err_log logs/error.log;</span><br><span class="line">pid logs/nginx.pid;</span><br><span class="line"></span><br><span class="line">events &#123;</span><br><span class="line">    accept_mutex on;</span><br><span class="line">    multi_accept on;</span><br><span class="line">    use epool;</span><br><span class="line">    worker_connections  1024;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">http &#123;</span><br><span class="line">    include       mime.types;</span><br><span class="line">    default_type  application/octet-stream;</span><br><span class="line">    log_format serve1 &#x27;======&gt;server1&#x27;;</span><br><span class="line">    log_format serve2 &#x27;======&gt;server2&#x27;</span><br><span class="line">    include /home/www/conf.d/*.conf;</span><br><span class="line"> 	sendfile        on;</span><br><span class="line">    keepalive_timeout  65;</span><br><span class="line"></span><br><span class="line">    server &#123;</span><br><span class="line">        listen       80;</span><br><span class="line">        server_name  localhost;</span><br><span class="line">        location / &#123;</span><br><span class="line">            root   html;</span><br><span class="line">            index  index.html index.htm;</span><br><span class="line">        &#125;</span><br><span class="line">        error_page   500 502 503 504  /50x.html;</span><br><span class="line">        location = /50x.html &#123;</span><br><span class="line">            root   html;</span><br><span class="line">        &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h3 id="4-6nginx配置成系统服务"><a href="#4-6nginx配置成系统服务" class="headerlink" title="4.6nginx配置成系统服务"></a>4.6nginx配置成系统服务</h3><blockquote>
 <p>(1)vim &#x2F;usr&#x2F;lib&#x2F;systemd&#x2F;system&#x2F;nginx.service</p>
 </blockquote>
-<pre><code class="highlight plaintext">[Unit]
-Description=nginx web service
-Documentation=http://nginx.org/en/docs
-After=network.target
-
-[Service]
-Type=forking
-PIDFile=/usr/local/nginx/logs/nginx.pid
-ExecStartPre=/usr/local/nginx/sbin/nginx -t -c
-/usr/local/nginx/conf/nginx.conf
-ExecStart=/usr/local/nginx/sbin/nginx
-ExexReload=/usr/local/nginx/sbin/nginx -s reload
-ExecStop=/usr/local/nginx/sbin/nginx -s stop
-PrivateTmp=true
-
-[Install]
-wantedBy=defauly.target</code></pre>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">[Unit]</span><br><span class="line">Description=nginx web service</span><br><span class="line">Documentation=http://nginx.org/en/docs</span><br><span class="line">After=network.target</span><br><span class="line"></span><br><span class="line">[Service]</span><br><span class="line">Type=forking</span><br><span class="line">PIDFile=/usr/local/nginx/logs/nginx.pid</span><br><span class="line">ExecStartPre=/usr/local/nginx/sbin/nginx -t -c</span><br><span class="line">/usr/local/nginx/conf/nginx.conf</span><br><span class="line">ExecStart=/usr/local/nginx/sbin/nginx</span><br><span class="line">ExexReload=/usr/local/nginx/sbin/nginx -s reload</span><br><span class="line">ExecStop=/usr/local/nginx/sbin/nginx -s stop</span><br><span class="line">PrivateTmp=true</span><br><span class="line"></span><br><span class="line">[Install]</span><br><span class="line">wantedBy=defauly.target</span><br></pre></td></tr></table></figure>
 
 <blockquote>
 <p>（2）chmod 755 &#x2F;usr&#x2F;lib&#x2F;systemd&#x2F;system&#x2F;nginx.service</p>
@@ -796,9 +685,7 @@ wantedBy=defauly.target</code></pre>
 </tr>
 </tbody></table>
 <p>default_server属性时标识符号，用来设置默认主机</p>
-<pre><code class="highlight plaintext">server&#123;
-	listen 8080 default_server
-&#125;</code></pre>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">server&#123;</span><br><span class="line">	listen 8080 default_server</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h3 id="5-22-server-name"><a href="#5-22-server-name" class="headerlink" title="5.22.server_name"></a>5.22.server_name</h3><blockquote>
 <p>设置虚拟主机服务名称</p>
@@ -825,9 +712,7 @@ wantedBy=defauly.target</code></pre>
 <p>通配符匹配</p>
 <p>正则表达式匹配</p>
 </blockquote>
-<h4 id="5-2-1精确匹配"><a href="#5-2-1精确匹配" class="headerlink" title="5.2.1精确匹配"></a>5.2.1精确匹配</h4><pre><code class="highlight plaintext">server&#123;
-	server_name www.nginx.org;
-&#125;</code></pre>
+<h4 id="5-2-1精确匹配"><a href="#5-2-1精确匹配" class="headerlink" title="5.2.1精确匹配"></a>5.2.1精确匹配</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">server&#123;</span><br><span class="line">	server_name www.nginx.org;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <blockquote>
 <p>hosts是一个没有扩展名的系统文件</p>
@@ -837,9 +722,7 @@ wantedBy=defauly.target</code></pre>
 <h4 id="5-2-2通配符匹配"><a href="#5-2-2通配符匹配" class="headerlink" title="5.2.2通配符匹配"></a>5.2.2通配符匹配</h4><blockquote>
 <p>通配符可以出现在开头或结尾，但不能用在域名的中部</p>
 </blockquote>
-<pre><code class="highlight plaintext">server&#123;
-	server_name *.richu.cn 
-&#125;</code></pre>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">server&#123;</span><br><span class="line">	server_name *.richu.cn </span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h4 id="5-2-3正则表达式匹配"><a href="#5-2-3正则表达式匹配" class="headerlink" title="5.2.3正则表达式匹配"></a>5.2.3正则表达式匹配</h4><p>1.正则表达式和分组</p>
 <blockquote>
@@ -905,9 +788,7 @@ wantedBy=defauly.target</code></pre>
 <blockquote>
 <p>&#x3D;用在不包含正则表达式的uri前面，必须与指定的内容精确匹配</p>
 </blockquote>
-<pre><code class="highlight plaintext">location =/abc &#123;
-	
-&#125;</code></pre>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">location =/abc &#123;</span><br><span class="line">	</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <blockquote>
 <p>~ 正则匹配，区分大小写</p>
@@ -1009,13 +890,7 @@ wantedBy=defauly.target</code></pre>
 <p>error _page 404 &#x2F;50x.html</p>
 </blockquote>
 <p>(3)使用location的@符号完成错误信息的匹配</p>
-<pre><code class="highlight plaintext">server&#123;
-	error_page 404 @jump_to_error;
-	location @jump_to_error &#123;
-		default_type text/plain;
-		return 404 &#x27;Not Found Html&#x27;
-	&#125;
-&#125;</code></pre>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">server&#123;</span><br><span class="line">	error_page 404 @jump_to_error;</span><br><span class="line">	location @jump_to_error &#123;</span><br><span class="line">		default_type text/plain;</span><br><span class="line">		return 404 &#x27;Not Found Html&#x27;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>(4)可选项&#x3D;[response]的作用是将相应的代码更改为另一个</p>
 <blockquote>
@@ -1270,15 +1145,7 @@ wantedBy=defauly.target</code></pre>
 <td>http、server、location</td>
 </tr>
 </tbody></table>
-<pre><code class="highlight plaintext">gzip on; 
-gzip_types *;
-gzip_comp_level 6;
-gzip_min_length 1024;
-gzip_buffers 4 1024;
-gzip_http_version 1.1;
-gzip_vary on;
-gzip_disable &quot;MISE [1-6]\.&quot;;
-gzip_proxied off;</code></pre>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">gzip on; </span><br><span class="line">gzip_types *;</span><br><span class="line">gzip_comp_level 6;</span><br><span class="line">gzip_min_length 1024;</span><br><span class="line">gzip_buffers 4 1024;</span><br><span class="line">gzip_http_version 1.1;</span><br><span class="line">gzip_vary on;</span><br><span class="line">gzip_disable &quot;MISE [1-6]\.&quot;;</span><br><span class="line">gzip_proxied off;   </span><br></pre></td></tr></table></figure>
 
 <blockquote>
 <p>vim nginx_gzip.conf</p>
@@ -1315,12 +1182,7 @@ gzip_proxied off;</code></pre>
 <blockquote>
 <p>nginx -V</p>
 </blockquote>
-<pre><code class="highlight plaintext">--prefix=/usr/local/nginx --sbin-path=/usr/local/nginx/sbin/
-nginx --modules-path=/usr/local/nginx/modules --conf-path=/usr/
-local/nginx/conf/nginx.conf --error-log-path=/usr/local/nginx/
-logs/error.log --http-log-path=/usr/local/nginx/logs/access.log 
---pid-path=/usr/local/nginx/logs/nginx.pid --lock-path=/usr/local/
-nginx/logs/nginx.lock</code></pre>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">--prefix=/usr/local/nginx --sbin-path=/usr/local/nginx/sbin/</span><br><span class="line">nginx --modules-path=/usr/local/nginx/modules --conf-path=/usr/</span><br><span class="line">local/nginx/conf/nginx.conf --error-log-path=/usr/local/nginx/</span><br><span class="line">logs/error.log --http-log-path=/usr/local/nginx/logs/access.log </span><br><span class="line">--pid-path=/usr/local/nginx/logs/nginx.pid --lock-path=/usr/local/</span><br><span class="line">nginx/logs/nginx.lock</span><br></pre></td></tr></table></figure>
 
 <p>(2)将nginx二进制目录改名</p>
 <blockquote>
@@ -1328,12 +1190,7 @@ nginx/logs/nginx.lock</code></pre>
 </blockquote>
 <p>(3)make clean</p>
 <p>(4)使用.&#x2F;configure 配置参数</p>
-<pre><code class="highlight plaintext">./configure --prefix=/usr/local/nginx --sbin-path=/usr/local/nginx/
-sbin/nginx --modules-path=/usr/local/nginx/modules --conf-path=/
-usr/local/nginx/conf/nginx.conf --error-log-path=/usr/local/nginx/
-logs/error.log --http-log-path=/usr/local/nginx/logs/access.log 
---pid-path=/usr/local/nginx/logs/nginx.pid --lock-path=/usr/local/
-nginx/logs/nginx.lock --with-http_gzip_static_module</code></pre>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">./configure --prefix=/usr/local/nginx --sbin-path=/usr/local/nginx/</span><br><span class="line">sbin/nginx --modules-path=/usr/local/nginx/modules --conf-path=/</span><br><span class="line">usr/local/nginx/conf/nginx.conf --error-log-path=/usr/local/nginx/</span><br><span class="line">logs/error.log --http-log-path=/usr/local/nginx/logs/access.log </span><br><span class="line">--pid-path=/usr/local/nginx/logs/nginx.pid --lock-path=/usr/local/</span><br><span class="line">nginx/logs/nginx.lock --with-http_gzip_static_module</span><br></pre></td></tr></table></figure>
 
 <p>(5)make</p>
 <p>(6)</p>
@@ -1346,17 +1203,7 @@ nginx/logs/nginx.lock --with-http_gzip_static_module</code></pre>
 <p>使用测试</p>
 <p>gzip promise.js</p>
 </blockquote>
-<pre><code class="highlight plaintext">#响应标头
-accept-ranges:bytes
-connection:keep-alive
-content-encoding:gzip
-content-length:1065
-content-type:application/javascript
-date:Sat, 10 Aug 2024 08:03:15 GMT
-etag:&quot;66b71e2a-429&quot;
-last-modified:Sat, 10 Aug 2024 08:00:42 GMT
-server:nginx/1.26.1
-vary:Accept-Encoding</code></pre>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">#响应标头</span><br><span class="line">accept-ranges:bytes</span><br><span class="line">connection:keep-alive</span><br><span class="line">content-encoding:gzip</span><br><span class="line">content-length:1065</span><br><span class="line">content-type:application/javascript</span><br><span class="line">date:Sat, 10 Aug 2024 08:03:15 GMT</span><br><span class="line">etag:&quot;66b71e2a-429&quot;</span><br><span class="line">last-modified:Sat, 10 Aug 2024 08:00:42 GMT</span><br><span class="line">server:nginx/1.26.1</span><br><span class="line">vary:Accept-Encoding</span><br></pre></td></tr></table></figure>
 
 <h2 id="7-静态资源的缓存处理"><a href="#7-静态资源的缓存处理" class="headerlink" title="7.静态资源的缓存处理"></a>7.静态资源的缓存处理</h2><blockquote>
 <p>用来减少等待数据的时间</p>
@@ -1418,9 +1265,7 @@ vary:Accept-Encoding</code></pre>
 <p>epoch：指定为1970年，Cache-control的值为no-cache</p>
 <p>max：指定2037年，Cache-control的值为10年</p>
 <p>off：默认不缓存</p>
-<pre><code class="highlight plaintext">location ~ .*\.(html|js|css|png)$&#123;
-	expires 1000;     //1000秒
-&#125;</code></pre>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">location ~ .*\.(html|js|css|png)$&#123;</span><br><span class="line">	expires 1000;     //1000秒</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h3 id="7-3add-header指令"><a href="#7-3add-header指令" class="headerlink" title="7.3add_header指令"></a>7.3add_header指令</h3><blockquote>
 <p>添加指定的响应头和响应值</p>
@@ -1441,23 +1286,7 @@ vary:Accept-Encoding</code></pre>
 <td>http、server、location</td>
 </tr>
 </tbody></table>
-<pre><code class="highlight plaintext">Cache-control: must-revalidate 可缓存但必须再向源服务器进行确认
-Cache-control: no-cache     缓存前必须确认其有效性
-Cache-control: no-store		不缓存请求或响应的任何内容
-Cache-control: no-transform		代理不可更改媒体类型
-Cache-control: public	可向任意方提供响应的缓存
-Cache-control: private	仅向特定用户返回响应
-
-#要求中间缓存服务器对缓存的响应有效性再次确认
-Cache-control: proxy-revalidate		
-
-Cache-Control: max-age=&lt;seconds&gt;
-
-响应最大Age值
-Cache-control: 
-
-s-maxage=&lt;seconds&gt;	
-公共缓存服务器响应的最大Age值</code></pre>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br></pre></td><td class="code"><pre><span class="line">Cache-control: must-revalidate 可缓存但必须再向源服务器进行确认</span><br><span class="line">Cache-control: no-cache     缓存前必须确认其有效性</span><br><span class="line">Cache-control: no-store		不缓存请求或响应的任何内容</span><br><span class="line">Cache-control: no-transform		代理不可更改媒体类型</span><br><span class="line">Cache-control: public	可向任意方提供响应的缓存</span><br><span class="line">Cache-control: private	仅向特定用户返回响应</span><br><span class="line"></span><br><span class="line">#要求中间缓存服务器对缓存的响应有效性再次确认</span><br><span class="line">Cache-control: proxy-revalidate		</span><br><span class="line"></span><br><span class="line">Cache-Control: max-age=&lt;seconds&gt;</span><br><span class="line"></span><br><span class="line">响应最大Age值</span><br><span class="line">Cache-control: </span><br><span class="line"></span><br><span class="line">s-maxage=&lt;seconds&gt;	</span><br><span class="line">公共缓存服务器响应的最大Age值</span><br></pre></td></tr></table></figure>
 
 <h2 id="8-Nginx的跨域问题解决"><a href="#8-Nginx的跨域问题解决" class="headerlink" title="8.Nginx的跨域问题解决"></a>8.Nginx的跨域问题解决</h2><h3 id="8-1跨域问题"><a href="#8-1跨域问题" class="headerlink" title="8.1跨域问题"></a>8.1跨域问题</h3><blockquote>
 <p>服务器的同源策略：浏览器最基本最核心的安全功能，如果浏览器少了同源协议，则浏览器的正常功能会收到影响</p>
@@ -1483,10 +1312,7 @@ s-maxage=&lt;seconds&gt;
 <p>Access-Control-Allow-origin   允许跨域访问的源地址信息 *</p>
 <p>Access-Control-Allow-Methods	允许跨域请求的请求方式 GET POST</p>
 </blockquote>
-<pre><code class="highlight plaintext">location /get&#123;
-	add_header Access-Control-Allow-Origin http:192.168.200.133;
-	add_header Access-Control-Allow-Methods GET,POST,DELETE,PUT
-&#125;</code></pre>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">location /get&#123;</span><br><span class="line">	add_header Access-Control-Allow-Origin http:192.168.200.133;</span><br><span class="line">	add_header Access-Control-Allow-Methods GET,POST,DELETE,PUT</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h3 id="8-2静态资源防盗链"><a href="#8-2静态资源防盗链" class="headerlink" title="8.2静态资源防盗链"></a>8.2静态资源防盗链</h3><blockquote>
 <p>HTTP头信息Referer,当浏览器向Web服务器发送请求的时候，一般都会带上Referer，来告诉浏览器是从哪个页面链接过来的</p>
@@ -1534,131 +1360,11 @@ s-maxage=&lt;seconds&gt;
 <td>server、location、if</td>
 </tr>
 </tbody></table>
-<pre><code class="highlight plaintext">server &#123;
-    listen 8080;
-    server_name localhost;
-    location /server&#123;
-        //定义
-        set $name &quot;test&quot;;
-        set $age 18;
-        default_type text/plain;
-        //使用
-        return 200 $name=$age;
-    &#125;
-&#125;</code></pre>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">    listen 8080;</span><br><span class="line">    server_name localhost;</span><br><span class="line">    location /server&#123;</span><br><span class="line">        //定义</span><br><span class="line">        set $name &quot;test&quot;;</span><br><span class="line">        set $age 18;</span><br><span class="line">        default_type text/plain;</span><br><span class="line">        //使用</span><br><span class="line">        return 200 $name=$age;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<pre><code class="highlight plaintext">$args
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br></pre></td><td class="code"><pre><span class="line">$args</span><br><span class="line"></span><br><span class="line">变量中存放了请求URL中的请求参数。</span><br><span class="line">比如http://192.168.200.133/server?arg1=value1&amp;args2=value2中 </span><br><span class="line">的&quot;arg1=value1&amp;arg2=value2&quot;，功能和$query_string一样。</span><br><span class="line"></span><br><span class="line">$http_user_agent</span><br><span class="line"></span><br><span class="line">变量存储的是用户访问服务的代理信息</span><br><span class="line">(如果通过浏览器访问，记录的是浏览器的相关版本信息)</span><br><span class="line"></span><br><span class="line">$host</span><br><span class="line"></span><br><span class="line">变量存储的是访问服务器的server_name值</span><br><span class="line"></span><br><span class="line">$document_uri</span><br><span class="line"></span><br><span class="line">变量存储的是当前访问地址的URI。</span><br><span class="line">比如http://192.168.200.133/server?i</span><br><span class="line">d=10&amp;name=zhangsan中的&quot;/server&quot;，功能和$uri一样</span><br><span class="line"></span><br><span class="line">$document_root</span><br><span class="line"></span><br><span class="line">变量存储的是当前请求对应location的root值，</span><br><span class="line">如果未设置，默认指向Nginx自带html目录所在位置</span><br><span class="line"></span><br><span class="line">$content_length</span><br><span class="line"></span><br><span class="line">变量存储的是请求头中的Content-Length的值</span><br><span class="line"></span><br><span class="line">$content_type</span><br><span class="line"></span><br><span class="line">变量存储的是请求头中的Content-Type的值</span><br><span class="line"></span><br><span class="line">$http_cookie</span><br><span class="line"></span><br><span class="line">变量存储的是客户端的cookie信息，</span><br><span class="line">可以通过add_header Set-Cookie&#x27;cookieName=cookieValue&#x27;来添加cookie数据</span><br><span class="line"></span><br><span class="line">$limit_rate</span><br><span class="line"></span><br><span class="line">变量中存储的是Nginx服务器对网络连接速率的限制，</span><br><span class="line">也就是Nginx配置中对limit_rate指令设置的值，默认是0，不限制。</span><br><span class="line"></span><br><span class="line">$remote_addr</span><br><span class="line"></span><br><span class="line">变量中存储的是客户端的IP地址</span><br><span class="line"></span><br><span class="line">$remote_port</span><br><span class="line"></span><br><span class="line">变量中存储了客户端与服务端建立连接的端口号</span><br><span class="line"></span><br><span class="line">$remote_user</span><br><span class="line"></span><br><span class="line">变量中存储了客户端的用户名，需要有认证模块才能获取</span><br><span class="line"></span><br><span class="line">$scheme</span><br><span class="line"></span><br><span class="line">变量中存储了访问协议</span><br><span class="line"></span><br><span class="line">$server_addr</span><br><span class="line"></span><br><span class="line">变量中存储了服务端的地址</span><br><span class="line"></span><br><span class="line">$server_name</span><br><span class="line"></span><br><span class="line">变量中存储了客户端请求到达的服务器的名称</span><br><span class="line"></span><br><span class="line">$server_port</span><br><span class="line"></span><br><span class="line">变量中存储了客户端请求到达服务器的端口号</span><br><span class="line"></span><br><span class="line">$server_protocol</span><br><span class="line"></span><br><span class="line">变量中存储了客户端请求协议的版本，比如&quot;HTTP/1.1&quot;</span><br><span class="line"></span><br><span class="line">$request_body_file</span><br><span class="line"></span><br><span class="line">变量中存储了发给后端服务器的本地文件资源的名称</span><br><span class="line"></span><br><span class="line">$request_method</span><br><span class="line"></span><br><span class="line">变量中存储了客户端的请求方式，比如&quot;GET&quot;,&quot;POST&quot;等</span><br><span class="line"></span><br><span class="line">$request_filename</span><br><span class="line"></span><br><span class="line">变量中存储了当前请求的资源文件的路径名</span><br><span class="line"></span><br><span class="line">$request_uri</span><br><span class="line"></span><br><span class="line">变量中存储了当前请求的URI，并且携带请求参数，</span><br><span class="line">比如http://192.168.200.133/server?id=10&amp;name=zhangsan中的&quot;/server?</span><br></pre></td></tr></table></figure>
 
-变量中存放了请求URL中的请求参数。
-比如http://192.168.200.133/server?arg1=value1&amp;args2=value2中 
-的&quot;arg1=value1&amp;arg2=value2&quot;，功能和$query_string一样。
-
-$http_user_agent
-
-变量存储的是用户访问服务的代理信息
-(如果通过浏览器访问，记录的是浏览器的相关版本信息)
-
-$host
-
-变量存储的是访问服务器的server_name值
-
-$document_uri
-
-变量存储的是当前访问地址的URI。
-比如http://192.168.200.133/server?i
-d=10&amp;name=zhangsan中的&quot;/server&quot;，功能和$uri一样
-
-$document_root
-
-变量存储的是当前请求对应location的root值，
-如果未设置，默认指向Nginx自带html目录所在位置
-
-$content_length
-
-变量存储的是请求头中的Content-Length的值
-
-$content_type
-
-变量存储的是请求头中的Content-Type的值
-
-$http_cookie
-
-变量存储的是客户端的cookie信息，
-可以通过add_header Set-Cookie&#x27;cookieName=cookieValue&#x27;来添加cookie数据
-
-$limit_rate
-
-变量中存储的是Nginx服务器对网络连接速率的限制，
-也就是Nginx配置中对limit_rate指令设置的值，默认是0，不限制。
-
-$remote_addr
-
-变量中存储的是客户端的IP地址
-
-$remote_port
-
-变量中存储了客户端与服务端建立连接的端口号
-
-$remote_user
-
-变量中存储了客户端的用户名，需要有认证模块才能获取
-
-$scheme
-
-变量中存储了访问协议
-
-$server_addr
-
-变量中存储了服务端的地址
-
-$server_name
-
-变量中存储了客户端请求到达的服务器的名称
-
-$server_port
-
-变量中存储了客户端请求到达服务器的端口号
-
-$server_protocol
-
-变量中存储了客户端请求协议的版本，比如&quot;HTTP/1.1&quot;
-
-$request_body_file
-
-变量中存储了发给后端服务器的本地文件资源的名称
-
-$request_method
-
-变量中存储了客户端的请求方式，比如&quot;GET&quot;,&quot;POST&quot;等
-
-$request_filename
-
-变量中存储了当前请求的资源文件的路径名
-
-$request_uri
-
-变量中存储了当前请求的URI，并且携带请求参数，
-比如http://192.168.200.133/server?id=10&amp;name=zhangsan中的&quot;/server?</code></pre>
-
-<pre><code class="highlight plaintext"> log_format main 
- &#x27;$remote_addr-$request - $status 
- - $request_uri - $http_user_agent&#x27;;
-
-    server &#123;
-        listen 8080;
-        server_name localhost;
-        location /server&#123;
-            set $name &quot;test&quot;;
-            set $age 18;
-            default_type text/plain;
-            return 200 $name=$age;
-        &#125;
-
-
-192.168.3.1 - - [11/Aug/2024:02:53:25 -0400] &quot;GET /server 
-HTTP/1.1&quot; 200 7 &quot;-&quot; &quot;Mozilla/5.0 (Windows NT 10.0; Win64; x64) 
-AppleWebKit/537.36 (KHTML, like 
-Gecko) Chrome/127.0.0.0 Safari/537.36&quot;</code></pre>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"> log_format main </span><br><span class="line"> &#x27;$remote_addr-$request - $status </span><br><span class="line"> - $request_uri - $http_user_agent&#x27;;</span><br><span class="line"></span><br><span class="line">    server &#123;</span><br><span class="line">        listen 8080;</span><br><span class="line">        server_name localhost;</span><br><span class="line">        location /server&#123;</span><br><span class="line">            set $name &quot;test&quot;;</span><br><span class="line">            set $age 18;</span><br><span class="line">            default_type text/plain;</span><br><span class="line">            return 200 $name=$age;</span><br><span class="line">        &#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">192.168.3.1 - - [11/Aug/2024:02:53:25 -0400] &quot;GET /server </span><br><span class="line">HTTP/1.1&quot; 200 7 &quot;-&quot; &quot;Mozilla/5.0 (Windows NT 10.0; Win64; x64) </span><br><span class="line">AppleWebKit/537.36 (KHTML, like </span><br><span class="line">Gecko) Chrome/127.0.0.0 Safari/537.36&quot;</span><br></pre></td></tr></table></figure>
 
 <h3 id="9-2if指令"><a href="#9-2if指令" class="headerlink" title="9.2if指令"></a>9.2if指令</h3><blockquote>
 <p>条件判断</p>
@@ -1687,14 +1393,7 @@ Gecko) Chrome/127.0.0.0 Safari/537.36&quot;</code></pre>
 <p>字符串不需要添加引号</p>
 <p>~正则匹配   ~*不区分大小写</p>
 </blockquote>
-<pre><code class="highlight plaintext">if ($http_user_agent ~ MSIE)&#123;
-		#$http_user_agent是否包含MISE，如果包含返回true
-&#125;
-
--f指定文件是否存在
-if (!-f $request_file)&#123;
-
-&#125;</code></pre>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">if ($http_user_agent ~ MSIE)&#123;</span><br><span class="line">		#$http_user_agent是否包含MISE，如果包含返回true</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">-f指定文件是否存在</span><br><span class="line">if (!-f $request_file)&#123;</span><br><span class="line"></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <blockquote>
 <p>目录-d</p>
@@ -1759,40 +1458,28 @@ if (!-f $request_file)&#123;
 <p>regex:用来匹配URI的正则表达式</p>
 <p>匹配成功后，用于替换URI的内容，如果是http或https开头则不会继续向下匹配</p>
 </blockquote>
-<pre><code class="highlight plaintext">location /rewrite&#123;
-	rewrite ^/rewrite/(test)\w*$ /$1;
-&#125;
-
-//访问http://ip/rewrite/testabc         -------&gt;    /test</code></pre>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">location /rewrite&#123;</span><br><span class="line">	rewrite ^/rewrite/(test)\w*$ /$1;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//访问http://ip/rewrite/testabc         -------&gt;    /test</span><br></pre></td></tr></table></figure>
 
 <p>flag:用来设置rewrite对uri的处理行为，可选值如下</p>
 <ul>
 <li>last:作为一个新的uri，可以使用其他的location块进行处理</li>
 </ul>
-<pre><code class="highlight plaintext">location /rewrite&#123;
-	rewrite ^/rewrite/(test)\w*$ /$1 last;
-&#125;</code></pre>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">location /rewrite&#123;</span><br><span class="line">	rewrite ^/rewrite/(test)\w*$ /$1 last;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <ul>
 <li>break:作为一个新的uri，将重写的uri在本location中继续处理，不会将新的uri转向其他的location块</li>
 </ul>
-<pre><code class="highlight plaintext">location /rewrite&#123;
-	rewrite ^/rewrite/(test)\w*$ /$1 break;
-&#125;</code></pre>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">location /rewrite&#123;</span><br><span class="line">	rewrite ^/rewrite/(test)\w*$ /$1 break;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <ul>
 <li>redirect:指明为重定向，状态码为302</li>
 </ul>
-<pre><code class="highlight plaintext">location /rewrite&#123;
-	rewrite ^/rewrite/(test)\w*$ /$1 redirect;
-&#125;</code></pre>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">location /rewrite&#123;</span><br><span class="line">	rewrite ^/rewrite/(test)\w*$ /$1 redirect;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <ul>
 <li>permanent:状态码为301，指明为永久重定向</li>
 </ul>
-<pre><code class="highlight plaintext">location /rewrite&#123;
-	rewrite ^/rewrite/(test)\w*$ /$1 permanent;
-&#125;</code></pre>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">location /rewrite&#123;</span><br><span class="line">	rewrite ^/rewrite/(test)\w*$ /$1 permanent;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h3 id="9-6rewrite-log"><a href="#9-6rewrite-log" class="headerlink" title="9.6rewrite_log"></a>9.6rewrite_log</h3><p>该指令配置是否开启URL重写日志的输出功能</p>
 <table>
@@ -1811,8 +1498,7 @@ if (!-f $request_file)&#123;
 <td>http、server、locatio、if</td>
 </tr>
 </tbody></table>
-<pre><code class="highlight plaintext">rewrite_log on;
-err_log logs_error.log notice;</code></pre>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">rewrite_log on;</span><br><span class="line">err_log logs_error.log notice;</span><br></pre></td></tr></table></figure>
 
 <h3 id="9-7域名镜像"><a href="#9-7域名镜像" class="headerlink" title="9.7域名镜像"></a>9.7域名镜像</h3><blockquote>
 <p>指将相同的网站分别放置在不同的服务器上，并分别使用单独的URL进行访问，其中一台为主站，其余为镜像网站</p>
@@ -1827,18 +1513,9 @@ err_log logs_error.log notice;</code></pre>
 <p>如果目录层级有5层</p>
 <p><a target="_blank" rel="noopener" href="http://www.web.name/server/11/22/33/44/20.html">http://www.web.name/server/11/22/33/44/20.html</a></p>
 </blockquote>
-<pre><code class="highlight plaintext">location &#123;
-	rewrite ^/server-([0-9]+)-([0-9]+)-([0-9]+)-([0-9]+)/
-        ([0-9])\.html$ /server/$1/$2/$3/$4/$5.html
-&#125;</code></pre>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">location &#123;</span><br><span class="line">	rewrite ^/server-([0-9]+)-([0-9]+)-([0-9]+)-([0-9]+)/</span><br><span class="line">        ([0-9])\.html$ /server/$1/$2/$3/$4/$5.html</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h2 id="10-Nginx代理"><a href="#10-Nginx代理" class="headerlink" title="10.Nginx代理"></a>10.Nginx代理</h2><h3 id="10-1-正向代理"><a href="#10-1-正向代理" class="headerlink" title="10.1.正向代理"></a>10.1.正向代理</h3><pre><code class="highlight plaintext">location&#123;
-	listen 82;
-	location / &#123;
-		resolver #设置DNS的IP 用来解析proxy_pass中的域名
-		proxy_pass http://$host$request_uri;
-	&#125;
-&#125;</code></pre>
+<h2 id="10-Nginx代理"><a href="#10-Nginx代理" class="headerlink" title="10.Nginx代理"></a>10.Nginx代理</h2><h3 id="10-1-正向代理"><a href="#10-1-正向代理" class="headerlink" title="10.1.正向代理"></a>10.1.正向代理</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">location&#123;</span><br><span class="line">	listen 82;</span><br><span class="line">	location / &#123;</span><br><span class="line">		resolver #设置DNS的IP 用来解析proxy_pass中的域名</span><br><span class="line">		proxy_pass http://$host$request_uri;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <blockquote>
 <p>在客户端配置代理服务器</p>
@@ -1864,10 +1541,7 @@ err_log logs_error.log notice;</code></pre>
 <blockquote>
 <p> proxy_pass <a target="_blank" rel="noopener" href="http://192.168.133.3/getid">http://192.168.133.3/getid</a></p>
 </blockquote>
-<pre><code class="highlight plaintext">proxy_pass http://192.168.200.146/
-proxy_pass http://192.168.200.146
-
-# 当后面没有加上/则会吧location的请求路径拼上去，加上则不会</code></pre>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">proxy_pass http://192.168.200.146/</span><br><span class="line">proxy_pass http://192.168.200.146</span><br><span class="line"></span><br><span class="line"># 当后面没有加上/则会吧location的请求路径拼上去，加上则不会</span><br></pre></td></tr></table></figure>
 
 <h4 id="10-2-2peoxy-set-header"><a href="#10-2-2peoxy-set-header" class="headerlink" title="10.2.2peoxy_set_header"></a>10.2.2peoxy_set_header</h4><blockquote>
 <p>更改请求头信息，然后将新的请求头信息发送到代理服务器</p>
@@ -1888,10 +1562,7 @@ proxy_pass http://192.168.200.146
 <td>http、server、locatio</td>
 </tr>
 </tbody></table>
-<pre><code class="highlight plaintext">location / &#123;
-	proxy_pass http://192.168.200.146:8080/;
-	proxy_set_header username TOM;    #使用  $http_username
-&#125;</code></pre>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">location / &#123;</span><br><span class="line">	proxy_pass http://192.168.200.146:8080/;</span><br><span class="line">	proxy_set_header username TOM;    #使用  $http_username</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h4 id="10-2-3proxy-redirect"><a href="#10-2-3proxy-redirect" class="headerlink" title="10.2.3proxy_redirect"></a>10.2.3proxy_redirect</h4><blockquote>
 <p>重置Location和Refresh的值</p>
@@ -1943,13 +1614,7 @@ proxy_pass http://192.168.200.146
 <h4 id="10-3-2添加SSL支持"><a href="#10-3-2添加SSL支持" class="headerlink" title="10.3.2添加SSL支持"></a>10.3.2添加SSL支持</h4><blockquote>
 <p>复制nginx二进制文件</p>
 </blockquote>
-<pre><code class="highlight plaintext">参数
---prefix=/usr/local/nginx --sbin-path=/usr/local/nginx/sbin/
-nginx --modules-path=/usr/local/nginx/modules --conf-path=/usr/
-local/nginx/conf/nginx.conf --error-log-path=/usr/local/nginx/
-logs/error.log --http-log-path=/usr/local/nginx/logs/access.log 
---pid-path=/usr/local/nginx/logs/nginx.pid --lock-path=/usr/local/
-nginx/logs/nginx.lock --with-http_gzip_static_module</code></pre>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">参数</span><br><span class="line">--prefix=/usr/local/nginx --sbin-path=/usr/local/nginx/sbin/</span><br><span class="line">nginx --modules-path=/usr/local/nginx/modules --conf-path=/usr/</span><br><span class="line">local/nginx/conf/nginx.conf --error-log-path=/usr/local/nginx/</span><br><span class="line">logs/error.log --http-log-path=/usr/local/nginx/logs/access.log </span><br><span class="line">--pid-path=/usr/local/nginx/logs/nginx.pid --lock-path=/usr/local/</span><br><span class="line">nginx/logs/nginx.lock --with-http_gzip_static_module</span><br></pre></td></tr></table></figure>
 
 <blockquote>
 <p>.&#x2F;configure –with-http_ssl_modules</p>
@@ -1973,9 +1638,7 @@ nginx/logs/nginx.lock --with-http_gzip_static_module</code></pre>
 <td>http、server</td>
 </tr>
 </tbody></table>
-<pre><code class="highlight plaintext">server&#123;
-	listen 443 ssl
-&#125;</code></pre>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">server&#123;</span><br><span class="line">	listen 443 ssl</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h4 id="10-3-4ssl-certificate"><a href="#10-3-4ssl-certificate" class="headerlink" title="10.3.4ssl_certificate"></a>10.3.4ssl_certificate</h4><blockquote>
 <p>指定PEM格式的证书</p>
@@ -2044,24 +1707,7 @@ nginx/logs/nginx.lock --with-http_gzip_static_module</code></pre>
 <p>指出允许的密码，为openSSL支持的格式</p>
 <p>openssl ciphers</p>
 </blockquote>
-<pre><code class="highlight plaintext">TLS_AES_256_GCM_SHA384:TLS_CHACHA20_POLY1305_SHA256:TLS_AES_128_GCM_SH
-A256:TLS_AES_128_CCM_SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AE
-S256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1
-305:ECDHE-ECDSA-AES256-CCM:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES
-128-GCM-SHA256:ECDHE-ECDSA-AES128-CCM:ECDHE-ECDSA-AES128-SHA256:ECDHE-
-RSA-AES128-SHA256:ECDHE-ECDSA-AES256-SHA:ECDHE-RSA-AES256-SHA:ECDHE-EC
-DSA-AES128-SHA:ECDHE-RSA-AES128-SHA:AES256-GCM-SHA384:AES256-CCM:AES12
-8-GCM-SHA256:AES128-CCM:AES256-SHA256:AES128-SHA256:AES256-SHA:AES128-
-SHA:DHE-RSA-AES256-GCM-SHA384:DHE-RSA-CHACHA20-POLY1305:DHE-RSA-AES256
--CCM:DHE-RSA-AES128-GCM-SHA256:DHE-RSA-AES128-CCM:DHE-RSA-AES256-SHA25
-6:DHE-RSA-AES128-SHA256:DHE-RSA-AES256-SHA:DHE-RSA-AES128-SHA:PSK-AES2
-56-GCM-SHA384:PSK-CHACHA20-POLY1305:PSK-AES256-CCM:PSK-AES128-GCM-SHA2
-56:PSK-AES128-CCM:PSK-AES256-CBC-SHA:PSK-AES128-CBC-SHA256:PSK-AES128-
-CBC-SHA:DHE-PSK-AES256-GCM-SHA384:DHE-PSK-CHACHA20-POLY1305:DHE-PSK-AE
-S256-CCM:DHE-PSK-AES128-GCM-SHA256:DHE-PSK-AES128-CCM:DHE-PSK-AES256-C
-BC-SHA:DHE-PSK-AES128-CBC-SHA256:DHE-PSK-AES128-CBC-SHA:ECDHE-PSK-CHAC
-HA20-POLY1305:ECDHE-PSK-AES256-CBC-SHA:ECDHE-PSK-AES128-CBC-SHA256:ECD
-HE-PSK-AES128-CBC-SHA</code></pre>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">TLS_AES_256_GCM_SHA384:TLS_CHACHA20_POLY1305_SHA256:TLS_AES_128_GCM_SH</span><br><span class="line">A256:TLS_AES_128_CCM_SHA256:ECDHE-ECDSA-AES256-GCM-SHA384:ECDHE-RSA-AE</span><br><span class="line">S256-GCM-SHA384:ECDHE-ECDSA-CHACHA20-POLY1305:ECDHE-RSA-CHACHA20-POLY1</span><br><span class="line">305:ECDHE-ECDSA-AES256-CCM:ECDHE-ECDSA-AES128-GCM-SHA256:ECDHE-RSA-AES</span><br><span class="line">128-GCM-SHA256:ECDHE-ECDSA-AES128-CCM:ECDHE-ECDSA-AES128-SHA256:ECDHE-</span><br><span class="line">RSA-AES128-SHA256:ECDHE-ECDSA-AES256-SHA:ECDHE-RSA-AES256-SHA:ECDHE-EC</span><br><span class="line">DSA-AES128-SHA:ECDHE-RSA-AES128-SHA:AES256-GCM-SHA384:AES256-CCM:AES12</span><br><span class="line">8-GCM-SHA256:AES128-CCM:AES256-SHA256:AES128-SHA256:AES256-SHA:AES128-</span><br><span class="line">SHA:DHE-RSA-AES256-GCM-SHA384:DHE-RSA-CHACHA20-POLY1305:DHE-RSA-AES256</span><br><span class="line">-CCM:DHE-RSA-AES128-GCM-SHA256:DHE-RSA-AES128-CCM:DHE-RSA-AES256-SHA25</span><br><span class="line">6:DHE-RSA-AES128-SHA256:DHE-RSA-AES256-SHA:DHE-RSA-AES128-SHA:PSK-AES2</span><br><span class="line">56-GCM-SHA384:PSK-CHACHA20-POLY1305:PSK-AES256-CCM:PSK-AES128-GCM-SHA2</span><br><span class="line">56:PSK-AES128-CCM:PSK-AES256-CBC-SHA:PSK-AES128-CBC-SHA256:PSK-AES128-</span><br><span class="line">CBC-SHA:DHE-PSK-AES256-GCM-SHA384:DHE-PSK-CHACHA20-POLY1305:DHE-PSK-AE</span><br><span class="line">S256-CCM:DHE-PSK-AES128-GCM-SHA256:DHE-PSK-AES128-CCM:DHE-PSK-AES256-C</span><br><span class="line">BC-SHA:DHE-PSK-AES128-CBC-SHA256:DHE-PSK-AES128-CBC-SHA:ECDHE-PSK-CHAC</span><br><span class="line">HA20-POLY1305:ECDHE-PSK-AES256-CBC-SHA:ECDHE-PSK-AES128-CBC-SHA256:ECD</span><br><span class="line">HE-PSK-AES128-CBC-SHA</span><br></pre></td></tr></table></figure>
 
 <table>
 <thead>
@@ -2106,63 +1752,16 @@ HE-PSK-AES128-CBC-SHA</code></pre>
 <blockquote>
 <p>使用命令安装</p>
 </blockquote>
-<pre><code class="highlight plaintext">mkdir /root/cert
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">mkdir /root/cert</span><br><span class="line"></span><br><span class="line">openssl genrsa -des3 -out server.key 1024</span><br><span class="line"></span><br><span class="line">openssl req -new -key server.key -out server.csr</span><br><span class="line"></span><br><span class="line">cp server.key server.key.org</span><br><span class="line"></span><br><span class="line">openssl rsa -in server.key.org -out server.key</span><br><span class="line"></span><br><span class="line">openssl x509 -req -days 365 -in server.csr -signkey server.key </span><br><span class="line">-out server.crt</span><br></pre></td></tr></table></figure>
 
-openssl genrsa -des3 -out server.key 1024
+<h3 id="10-5配置"><a href="#10-5配置" class="headerlink" title="10.5配置"></a>10.5配置</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">server &#123;</span><br><span class="line">        listen       443 ssl;</span><br><span class="line">        server_name  localhost;</span><br><span class="line"></span><br><span class="line">        ssl_certificate      cert.pem;</span><br><span class="line">        ssl_certificate_key  cert.key;</span><br><span class="line"></span><br><span class="line">        ssl_session_cache    shared:SSL:1m;</span><br><span class="line">        ssl_session_timeout  5m;</span><br><span class="line"></span><br><span class="line">        ssl_ciphers  HIGH:!aNULL:!MD5;</span><br><span class="line">        ssl_prefer_server_ciphers  on;</span><br><span class="line"></span><br><span class="line">        location / &#123;</span><br><span class="line">            root   html;</span><br><span class="line">            index  index.html index.htm;</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br></pre></td></tr></table></figure>
 
-openssl req -new -key server.key -out server.csr
-
-cp server.key server.key.org
-
-openssl rsa -in server.key.org -out server.key
-
-openssl x509 -req -days 365 -in server.csr -signkey server.key 
--out server.crt</code></pre>
-
-<h3 id="10-5配置"><a href="#10-5配置" class="headerlink" title="10.5配置"></a>10.5配置</h3><pre><code class="highlight plaintext">server &#123;
-        listen       443 ssl;
-        server_name  localhost;
-
-        ssl_certificate      cert.pem;
-        ssl_certificate_key  cert.key;
-
-        ssl_session_cache    shared:SSL:1m;
-        ssl_session_timeout  5m;
-
-        ssl_ciphers  HIGH:!aNULL:!MD5;
-        ssl_prefer_server_ciphers  on;
-
-        location / &#123;
-            root   html;
-            index  index.html index.htm;
-        &#125;
-    &#125;</code></pre>
-
-<pre><code class="highlight plaintext"> #报错
- SSL_CTX_use_certificate(&quot;/root/
- cert/server.crt&quot;) failed (SSL: 
- error:140AB18F:SSL 
- routines:SSL_CTX_use_certificate:e
- e key too small)
-
-nginx: configuration file /usr/
-local/nginx/conf/nginx.conf test failed</code></pre>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"> #报错</span><br><span class="line"> SSL_CTX_use_certificate(&quot;/root/</span><br><span class="line"> cert/server.crt&quot;) failed (SSL: </span><br><span class="line"> error:140AB18F:SSL </span><br><span class="line"> routines:SSL_CTX_use_certificate:e</span><br><span class="line"> e key too small)</span><br><span class="line"></span><br><span class="line">nginx: configuration file /usr/</span><br><span class="line">local/nginx/conf/nginx.conf test failed</span><br></pre></td></tr></table></figure>
 
 <blockquote>
 <p>将大小改为2048</p>
 </blockquote>
-<pre><code class="highlight plaintext">mkdir /root/cert
-
-openssl genrsa -des3 -out server.key 2048
-
-openssl req -new -key server.key -out server.csr
-
-cp server.key server.key.org
-
-openssl rsa -in server.key.org -out server.key
-
-openssl x509 -req -days 365 -in server.csr -signkey server.key 
--out server.crt</code></pre>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">mkdir /root/cert</span><br><span class="line"></span><br><span class="line">openssl genrsa -des3 -out server.key 2048</span><br><span class="line"></span><br><span class="line">openssl req -new -key server.key -out server.csr</span><br><span class="line"></span><br><span class="line">cp server.key server.key.org</span><br><span class="line"></span><br><span class="line">openssl rsa -in server.key.org -out server.key</span><br><span class="line"></span><br><span class="line">openssl x509 -req -days 365 -in server.csr -signkey server.key </span><br><span class="line">-out server.crt</span><br></pre></td></tr></table></figure>
 <p><img src="https://p1.meituan.net/csc/74f5448d9700c555edca4fe39e40684284784.png" alt="125312.png"></p>
 <h3 id="10-6方向代理的优化"><a href="#10-6方向代理的优化" class="headerlink" title="10.6方向代理的优化"></a>10.6方向代理的优化</h3><h4 id="10-6-1proxy-buffering"><a href="#10-6-1proxy-buffering" class="headerlink" title="10.6.1proxy_buffering"></a>10.6.1proxy_buffering</h4><blockquote>
 <p>开启关闭代理服务器的缓冲区</p>
@@ -2318,12 +1917,7 @@ openssl x509 -req -days 365 -in server.csr -signkey server.key
 <td>upstream</td>
 </tr>
 </tbody></table>
-<pre><code class="highlight plaintext">upstream 服务名&#123;
-	server http://192.168.3.133:8080;
-	server http://192.168.3.133:8081;
-&#125;
-
-http://服务名   //访问</code></pre>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">upstream 服务名&#123;</span><br><span class="line">	server http://192.168.3.133:8080;</span><br><span class="line">	server http://192.168.3.133:8081;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">http://服务名   //访问</span><br></pre></td></tr></table></figure>
 
 <table>
 <thead>
@@ -2353,10 +1947,7 @@ http://服务名   //访问</code></pre>
 <td>max_fails后，服务暂停的时间，默认10s</td>
 </tr>
 </tbody></table>
-<h4 id="11-3-3down"><a href="#11-3-3down" class="headerlink" title="11.3.3down"></a>11.3.3down</h4><pre><code class="highlight plaintext">upstream 服务名&#123;
-	server http://192.168.3.133:8080 down;
-	server http://192.168.3.133:8081;
-&#125;</code></pre>
+<h4 id="11-3-3down"><a href="#11-3-3down" class="headerlink" title="11.3.3down"></a>11.3.3down</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">upstream 服务名&#123;</span><br><span class="line">	server http://192.168.3.133:8080 down;</span><br><span class="line">	server http://192.168.3.133:8081;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h3 id="11-4负载均衡策略"><a href="#11-4负载均衡策略" class="headerlink" title="11.4负载均衡策略"></a>11.4负载均衡策略</h3><table>
 <thead>
@@ -2397,10 +1988,7 @@ http://服务名   //访问</code></pre>
 <h4 id="11-4-2加权轮询"><a href="#11-4-2加权轮询" class="headerlink" title="11.4.2加权轮询"></a>11.4.2加权轮询</h4><blockquote>
 <p>weight&#x3D;number 默认为1，权重越大，被分配请求的概率越大</p>
 </blockquote>
-<pre><code class="highlight plaintext">upstream webservers&#123;
-    server 192.168.100.128:8080 weight=90 ;
-    server 192.168.100.129:8080 weight=10 ;
-&#125;</code></pre>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">upstream webservers&#123;</span><br><span class="line">    server 192.168.100.128:8080 weight=90 ;</span><br><span class="line">    server 192.168.100.129:8080 weight=10 ;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h4 id="11-4-3ip-hash"><a href="#11-4-3ip-hash" class="headerlink" title="11.4.3ip_hash"></a>11.4.3ip_hash</h4><table>
 <thead>
@@ -2418,109 +2006,43 @@ http://服务名   //访问</code></pre>
 <td>upstream</td>
 </tr>
 </tbody></table>
-<pre><code class="highlight plaintext">upstream webservers&#123;
-	ip_hash;
-    server 192.168.100.128:8080;
-    server 192.168.100.129:8080;
-&#125;</code></pre>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">upstream webservers&#123;</span><br><span class="line">	ip_hash;</span><br><span class="line">    server 192.168.100.128:8080;</span><br><span class="line">    server 192.168.100.129:8080;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h4 id="11-4-4least-conn"><a href="#11-4-4least-conn" class="headerlink" title="11.4.4least_conn"></a>11.4.4least_conn</h4><pre><code class="highlight plaintext">upstream webservers&#123;
-	least_conn;
-    server 192.168.100.128:8080;
-    server 192.168.100.129:8080;
-&#125;</code></pre>
+<h4 id="11-4-4least-conn"><a href="#11-4-4least-conn" class="headerlink" title="11.4.4least_conn"></a>11.4.4least_conn</h4><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">upstream webservers&#123;</span><br><span class="line">	least_conn;</span><br><span class="line">    server 192.168.100.128:8080;</span><br><span class="line">    server 192.168.100.129:8080;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h4 id="11-4-5url-hash"><a href="#11-4-5url-hash" class="headerlink" title="11.4.5url_hash"></a>11.4.5url_hash</h4><blockquote>
 <p>同一个url会到达同一个服务器</p>
 </blockquote>
-<pre><code class="highlight plaintext">upstream webservers&#123;
-	hash $request_uri
-    server 192.168.100.128:8080;
-    server 192.168.100.129:8080;
-&#125;</code></pre>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">upstream webservers&#123;</span><br><span class="line">	hash $request_uri</span><br><span class="line">    server 192.168.100.128:8080;</span><br><span class="line">    server 192.168.100.129:8080;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h4 id="11-4-6fair"><a href="#11-4-6fair" class="headerlink" title="11.4.6fair"></a>11.4.6fair</h4><blockquote>
 <p>下载nginx-upstream-fair</p>
 <p><a target="_blank" rel="noopener" href="https://github.com/gnosek/nginx-upstream-fair">gnosek&#x2F;nginx-upstream-fair: The fair load balancer module for nginx (github.com)</a></p>
 <p>&#x2F;root&#x2F;nginx&#x2F;module&#x2F;fair    解压并放入</p>
 </blockquote>
-<pre><code class="highlight plaintext">./configure --prefix=/usr/local/nginx --sbin-path=/usr/local/nginx/
-sbin/nginx --modules-path=/usr/local/nginx/modules --conf-path=/
-usr/local/nginx/conf/nginx.conf --error-log-path=/usr/local/nginx/
-logs/error.log --http-log-path=/usr/local/nginx/logs/access.log 
---pid-path=/usr/local/nginx/logs/nginx.pid --lock-path=/usr/local/
-nginx/logs/nginx.lock --with-http_gzip_static_module 
---with-http_ssl_module --add-module=/root/nginx/module/fair</code></pre>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">./configure --prefix=/usr/local/nginx --sbin-path=/usr/local/nginx/</span><br><span class="line">sbin/nginx --modules-path=/usr/local/nginx/modules --conf-path=/</span><br><span class="line">usr/local/nginx/conf/nginx.conf --error-log-path=/usr/local/nginx/</span><br><span class="line">logs/error.log --http-log-path=/usr/local/nginx/logs/access.log </span><br><span class="line">--pid-path=/usr/local/nginx/logs/nginx.pid --lock-path=/usr/local/</span><br><span class="line">nginx/logs/nginx.lock --with-http_gzip_static_module </span><br><span class="line">--with-http_ssl_module --add-module=/root/nginx/module/fair</span><br></pre></td></tr></table></figure>
 
 <blockquote>
 <p>make</p>
 </blockquote>
-<pre><code class="highlight plaintext">/root/nginx/module/fair/ngx_http_upstream_fair_module.c: 
-在函数‘ngx_http_upstream_init_fair_rr’中:
-/root/nginx/module/fair/ngx_http_upstream_fair_module.c:543:28: 
-错误：‘ngx_http_upstream_srv_conf_t’ &#123;
-    或称 ‘struct ngx_http_upstream_srv_conf_s’&#125;
-    没有名为‘default_port’的成员
-     if (us-&gt;port == 0 &amp;&amp; us-&gt;default_port == 0) &#123;
-                            ^~
-/root/nginx/module/fair/ngx_http_upstream_fair_module.c:553:51: 
-错误：‘ngx_http_upstream_srv_conf_t’ &#123;
-    或称 ‘struct ngx_http_upstream_srv_conf_s’&#125;
-    没有名为‘default_port’的成员
-     u.port = (in_port_t) (us-&gt;port ? us-&gt;port : us-&gt;default_port);
-                                                   ^~
-make[1]: *** 
-[objs/Makefile:1254：objs/addon/fair/ngx_http_upstream_fair_module.o] 错误 1
-make[1]: 离开目录“/root/nginx/core/nginx-1.26.1”
-
-make: *** [Makefile:10：build] 错误 2
-</code></pre>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br></pre></td><td class="code"><pre><span class="line">/root/nginx/module/fair/ngx_http_upstream_fair_module.c: </span><br><span class="line">在函数‘ngx_http_upstream_init_fair_rr’中:</span><br><span class="line">/root/nginx/module/fair/ngx_http_upstream_fair_module.c:543:28: </span><br><span class="line">错误：‘ngx_http_upstream_srv_conf_t’ &#123;</span><br><span class="line">    或称 ‘struct ngx_http_upstream_srv_conf_s’&#125;</span><br><span class="line">    没有名为‘default_port’的成员</span><br><span class="line">     if (us-&gt;port == 0 &amp;&amp; us-&gt;default_port == 0) &#123;</span><br><span class="line">                            ^~</span><br><span class="line">/root/nginx/module/fair/ngx_http_upstream_fair_module.c:553:51: </span><br><span class="line">错误：‘ngx_http_upstream_srv_conf_t’ &#123;</span><br><span class="line">    或称 ‘struct ngx_http_upstream_srv_conf_s’&#125;</span><br><span class="line">    没有名为‘default_port’的成员</span><br><span class="line">     u.port = (in_port_t) (us-&gt;port ? us-&gt;port : us-&gt;default_port);</span><br><span class="line">                                                   ^~</span><br><span class="line">make[1]: *** </span><br><span class="line">[objs/Makefile:1254：objs/addon/fair/ngx_http_upstream_fair_module.o] 错误 1</span><br><span class="line">make[1]: 离开目录“/root/nginx/core/nginx-1.26.1”</span><br><span class="line"></span><br><span class="line">make: *** [Makefile:10：build] 错误 2</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 <blockquote>
 <p>报错解决方案</p>
 <p>cd nginx目录&#x2F;src&#x2F;http</p>
 <p>vim ngx_http_upstream.h</p>
 </blockquote>
-<pre><code class="highlight plaintext">struct ngx_http_upstream_srv_conf_s &#123;
-    ngx_http_upstream_peer_t         peer;
-    void                           **srv_conf;
-
-    ngx_array_t                     
-    *servers;  /* ngx_http_upstream_server_t */
-
-    ngx_uint_t                       flags;
-    ngx_str_t                        host;
-    u_char                          *file_name;
-    ngx_uint_t                       line;
-    in_port_t                        port;
-    in_port_t                        default_port;
-    ngx_uint_t     no_port;  /* unsigned no_port:1 */
-
-#if (NGX_HTTP_UPSTREAM_ZONE)
-    ngx_shm_zone_t                  *shm_zone;
-#endif
-&#125;;</code></pre>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line">struct ngx_http_upstream_srv_conf_s &#123;</span><br><span class="line">    ngx_http_upstream_peer_t         peer;</span><br><span class="line">    void                           **srv_conf;</span><br><span class="line"></span><br><span class="line">    ngx_array_t                     </span><br><span class="line">    *servers;  /* ngx_http_upstream_server_t */</span><br><span class="line"></span><br><span class="line">    ngx_uint_t                       flags;</span><br><span class="line">    ngx_str_t                        host;</span><br><span class="line">    u_char                          *file_name;</span><br><span class="line">    ngx_uint_t                       line;</span><br><span class="line">    in_port_t                        port;</span><br><span class="line">    in_port_t                        default_port;</span><br><span class="line">    ngx_uint_t     no_port;  /* unsigned no_port:1 */</span><br><span class="line"></span><br><span class="line">#if (NGX_HTTP_UPSTREAM_ZONE)</span><br><span class="line">    ngx_shm_zone_t                  *shm_zone;</span><br><span class="line">#endif</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
 <blockquote>
 <p>make</p>
 </blockquote>
-<pre><code class="highlight plaintext">upstream webservers&#123;
-	fair;
-    server 192.168.100.128:8080;
-    server 192.168.100.129:8080;
-&#125;</code></pre>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">upstream webservers&#123;</span><br><span class="line">	fair;</span><br><span class="line">    server 192.168.100.128:8080;</span><br><span class="line">    server 192.168.100.129:8080;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h3 id="11-5四层负载均衡"><a href="#11-5四层负载均衡" class="headerlink" title="11.5四层负载均衡"></a>11.5四层负载均衡</h3><blockquote>
 <p>添加模块</p>
 </blockquote>
-<pre><code class="highlight plaintext">--prefix=/usr/local/nginx --sbin-path=/usr/local/nginx/sbin/
-nginx --modules-path=/usr/local/nginx/modules --conf-path=/usr/
-local/nginx/conf/nginx.conf --error-log-path=/usr/local/nginx/
-logs/error.log --http-log-path=/usr/local/nginx/logs/access.log 
---pid-path=/usr/local/nginx/logs/nginx.pid --lock-path=/usr/local/
-nginx/logs/nginx.lock --with-http_gzip_static_module 
---with-http_ssl_module --add-module=/root/nginx/module/
-fair --with-stream</code></pre>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">--prefix=/usr/local/nginx --sbin-path=/usr/local/nginx/sbin/</span><br><span class="line">nginx --modules-path=/usr/local/nginx/modules --conf-path=/usr/</span><br><span class="line">local/nginx/conf/nginx.conf --error-log-path=/usr/local/nginx/</span><br><span class="line">logs/error.log --http-log-path=/usr/local/nginx/logs/access.log </span><br><span class="line">--pid-path=/usr/local/nginx/logs/nginx.pid --lock-path=/usr/local/</span><br><span class="line">nginx/logs/nginx.lock --with-http_gzip_static_module </span><br><span class="line">--with-http_ssl_module --add-module=/root/nginx/module/</span><br><span class="line">fair --with-stream</span><br></pre></td></tr></table></figure>
 
 <h4 id="11-5-1stream指令"><a href="#11-5-1stream指令" class="headerlink" title="11.5.1stream指令"></a>11.5.1stream指令</h4><blockquote>
 <p>和http同级，指定服务器指令的配置文件上下文</p>
@@ -2558,16 +2080,7 @@ fair --with-stream</code></pre>
 <p>bind 0.0.0.0  允许其他主机访问</p>
 <p>redis-cli -h 192.168.3.133 -p 6379</p>
 </blockquote>
-<pre><code class="highlight plaintext">stream&#123;
-	upstream redisbackend&#123;
-		server 192.168.3.133:6379;
-		server 192.168.3.133:6378;
-	&#125;
-	server&#123;
-		listen 81;
-		proxy_pass redisbackend;
-	&#125;
-&#125;</code></pre>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">stream&#123;</span><br><span class="line">	upstream redisbackend&#123;</span><br><span class="line">		server 192.168.3.133:6379;</span><br><span class="line">		server 192.168.3.133:6378;</span><br><span class="line">	&#125;</span><br><span class="line">	server&#123;</span><br><span class="line">		listen 81;</span><br><span class="line">		proxy_pass redisbackend;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h3 id="11-7tomcat"><a href="#11-7tomcat" class="headerlink" title="11.7tomcat"></a>11.7tomcat</h3><blockquote>
 <p>tar -zxf tomcat.tar.gz</p>
@@ -2710,23 +2223,9 @@ fair --with-stream</code></pre>
 <p>tar -zxf ngx_cache_purge-2.3.tar.gz</p>
 <p>mv ngx_cache_purge-2.3 purge</p>
 </blockquote>
-<pre><code class="highlight plaintext">--prefix=/usr/local/nginx --sbin-path=/usr/local/nginx/sbin/
-nginx --modules-path=/usr/local/nginx/modules --conf-path=/usr/
-local/nginx/conf/nginx.conf --error-log-path=/usr/local/nginx/
-logs/error.log --http-log-path=/usr/local/nginx/logs/access.log 
---pid-path=/usr/local/nginx/logs/nginx.pid --lock-path=/usr/local/
-nginx/logs/nginx.lock --with-http_gzip_static_module 
---with-http_ssl_module --add-module=/root/nginx/module/
-fair --with-stream</code></pre>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">--prefix=/usr/local/nginx --sbin-path=/usr/local/nginx/sbin/</span><br><span class="line">nginx --modules-path=/usr/local/nginx/modules --conf-path=/usr/</span><br><span class="line">local/nginx/conf/nginx.conf --error-log-path=/usr/local/nginx/</span><br><span class="line">logs/error.log --http-log-path=/usr/local/nginx/logs/access.log </span><br><span class="line">--pid-path=/usr/local/nginx/logs/nginx.pid --lock-path=/usr/local/</span><br><span class="line">nginx/logs/nginx.lock --with-http_gzip_static_module </span><br><span class="line">--with-http_ssl_module --add-module=/root/nginx/module/</span><br><span class="line">fair --with-stream</span><br></pre></td></tr></table></figure>
 
-<pre><code class="highlight plaintext">./configure --prefix=/usr/local/nginx --sbin-path=/usr/local/nginx/
-sbin/nginx --modules-path=/usr/local/nginx/modules --conf-path=/
-usr/local/nginx/conf/nginx.conf --error-log-path=/usr/local/nginx/
-logs/error.log --http-log-path=/usr/local/nginx/logs/access.log 
---pid-path=/usr/local/nginx/logs/nginx.pid --lock-path=/usr/local/
-nginx/logs/nginx.lock --with-http_gzip_static_module 
---with-http_ssl_module --add-module=/root/nginx/module/
-fair --with-stream --add-module=/root/nginx/module/purge</code></pre>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">./configure --prefix=/usr/local/nginx --sbin-path=/usr/local/nginx/</span><br><span class="line">sbin/nginx --modules-path=/usr/local/nginx/modules --conf-path=/</span><br><span class="line">usr/local/nginx/conf/nginx.conf --error-log-path=/usr/local/nginx/</span><br><span class="line">logs/error.log --http-log-path=/usr/local/nginx/logs/access.log </span><br><span class="line">--pid-path=/usr/local/nginx/logs/nginx.pid --lock-path=/usr/local/</span><br><span class="line">nginx/logs/nginx.lock --with-http_gzip_static_module </span><br><span class="line">--with-http_ssl_module --add-module=/root/nginx/module/</span><br><span class="line">fair --with-stream --add-module=/root/nginx/module/purge </span><br></pre></td></tr></table></figure>
 
 <blockquote>
 <p>make</p>
@@ -2734,11 +2233,7 @@ fair --with-stream --add-module=/root/nginx/module/purge</code></pre>
 <p>cp nginx &#x2F;usr&#x2F;local&#x2F;nginx&#x2F;sbin</p>
 <p>make upgrade</p>
 </blockquote>
-<h3 id="12-9使用Nginx缓存的清除"><a href="#12-9使用Nginx缓存的清除" class="headerlink" title="12.9使用Nginx缓存的清除"></a>12.9使用Nginx缓存的清除</h3><pre><code class="highlight plaintext">location ~ /purge(/.*) &#123;
-	proxy_cache_purge richu
-    (proxy_cache指定的名称) richu
-    (proxy_cache_key指定的名称)
-&#125;</code></pre>
+<h3 id="12-9使用Nginx缓存的清除"><a href="#12-9使用Nginx缓存的清除" class="headerlink" title="12.9使用Nginx缓存的清除"></a>12.9使用Nginx缓存的清除</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">location ~ /purge(/.*) &#123;</span><br><span class="line">	proxy_cache_purge richu</span><br><span class="line">    (proxy_cache指定的名称) richu</span><br><span class="line">    (proxy_cache_key指定的名称)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h2 id="13-设置资源不缓存"><a href="#13-设置资源不缓存" class="headerlink" title="13.设置资源不缓存"></a>13.设置资源不缓存</h2><h3 id="13-1proxy-no-cache"><a href="#13-1proxy-no-cache" class="headerlink" title="13.1proxy_no_cache"></a>13.1proxy_no_cache</h3><blockquote>
 <p>指定不缓存的条件</p>
@@ -2811,64 +2306,15 @@ fair --with-stream --add-module=/root/nginx/module/purge</code></pre>
 <p>&#x2F;usr&#x2F;local&#x2F;sbin   二进制启动文件</p>
 </blockquote>
 <p>2.配置文件</p>
-<pre><code class="highlight plaintext">global_defs &#123;
-   notification_email &#123;       #出问题会给下面的邮件发送消息
-     acassen@firewall.loc
-     failover@firewall.loc
-     sysadmin@firewall.loc
-   &#125;
-   
-   #从哪个邮件发送消息
-   notification_email_from Alexandre.Cassen@firewall.loc  
-   
-   
-   smtp_server 192.168.200.1
-   smtp_connect_timeout 30
-   router_id LVS_DEVEL       #唯一标识
-   vrrp_skip_check_adv_addr
-   vrrp_strict
-   vrrp_garp_interval 0
-   vrrp_gna_interval 0
-&#125;
-
-
-vrrp_instance VI_1 &#123;
-    state MASTER	#主
-    interface eth0   #网卡名称
-    virtual_router_id 51    
-    priority 100   #指定优先级
-    advert_int 1    #发送健康状况的时间间隔
-    authentication &#123;
-        auth_type PASS
-        auth_pass 1111
-    &#125;
-    virtual_ipaddress &#123;
-        192.168.200.16
-        192.168.200.17
-        192.168.200.18
-    &#125;
-</code></pre>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">global_defs &#123;</span><br><span class="line">   notification_email &#123;       #出问题会给下面的邮件发送消息</span><br><span class="line">     acassen@firewall.loc</span><br><span class="line">     failover@firewall.loc</span><br><span class="line">     sysadmin@firewall.loc</span><br><span class="line">   &#125;</span><br><span class="line">   </span><br><span class="line">   #从哪个邮件发送消息</span><br><span class="line">   notification_email_from Alexandre.Cassen@firewall.loc  </span><br><span class="line">   </span><br><span class="line">   </span><br><span class="line">   smtp_server 192.168.200.1</span><br><span class="line">   smtp_connect_timeout 30</span><br><span class="line">   router_id LVS_DEVEL       #唯一标识</span><br><span class="line">   vrrp_skip_check_adv_addr</span><br><span class="line">   vrrp_strict</span><br><span class="line">   vrrp_garp_interval 0</span><br><span class="line">   vrrp_gna_interval 0</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">vrrp_instance VI_1 &#123;</span><br><span class="line">    state MASTER	#主</span><br><span class="line">    interface eth0   #网卡名称</span><br><span class="line">    virtual_router_id 51    </span><br><span class="line">    priority 100   #指定优先级</span><br><span class="line">    advert_int 1    #发送健康状况的时间间隔</span><br><span class="line">    authentication &#123;</span><br><span class="line">        auth_type PASS</span><br><span class="line">        auth_pass 1111</span><br><span class="line">    &#125;</span><br><span class="line">    virtual_ipaddress &#123;</span><br><span class="line">        192.168.200.16</span><br><span class="line">        192.168.200.17</span><br><span class="line">        192.168.200.18</span><br><span class="line">    &#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 <h3 id="14-2vrrp-script"><a href="#14-2vrrp-script" class="headerlink" title="14.2vrrp_script"></a>14.2vrrp_script</h3><blockquote>
 <p>自动判断nginx服务的状况</p>
 </blockquote>
 <p>1.keepalived配置文件</p>
-<pre><code class="highlight plaintext">vrrp_scipt 脚本名称
-&#123;
-	script &quot;脚本位置&quot;
-	interval 3 #执行时间间隔
-	weight -20 #动态调整vrrp_instance的优先级
-&#125;</code></pre>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">vrrp_scipt 脚本名称</span><br><span class="line">&#123;</span><br><span class="line">	script &quot;脚本位置&quot;</span><br><span class="line">	interval 3 #执行时间间隔</span><br><span class="line">	weight -20 #动态调整vrrp_instance的优先级</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<pre><code class="highlight bash"><span class="meta">#!/bin/bash</span>
-num=`ps -C nginx --no-header | <span class="built_in">wc</span> -l`
-<span class="keyword">if</span> [<span class="variable">$num</span> -eq 0];<span class="keyword">then</span>
-/usr/local/nginx/sbin/nginx
-<span class="built_in">sleep</span> 2
-<span class="keyword">if</span> [`ps -C nginx --no-header | <span class="built_in">wc</span> -l ` -eq 0];<span class="keyword">then</span>
- 	<span class="built_in">kill</span> keepalived
-  <span class="keyword">fi</span>
-<span class="keyword">fi</span></code></pre>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#!/bin/bash</span></span><br><span class="line">num=`ps -C nginx --no-header | <span class="built_in">wc</span> -l`</span><br><span class="line"><span class="keyword">if</span> [<span class="variable">$num</span> -eq 0];<span class="keyword">then</span></span><br><span class="line">/usr/local/nginx/sbin/nginx</span><br><span class="line"><span class="built_in">sleep</span> 2</span><br><span class="line"><span class="keyword">if</span> [`ps -C nginx --no-header | <span class="built_in">wc</span> -l ` -eq 0];<span class="keyword">then</span></span><br><span class="line"> 	<span class="built_in">kill</span> keepalived</span><br><span class="line">  <span class="keyword">fi</span></span><br><span class="line"><span class="keyword">fi</span></span><br></pre></td></tr></table></figure>
 
 <h2 id="15-使用Nginx制作下载站点"><a href="#15-使用Nginx制作下载站点" class="headerlink" title="15.使用Nginx制作下载站点"></a>15.使用Nginx制作下载站点</h2><p>ngx_http_autoindex_module模块</p>
 <p>(1)autoindex:启用或禁用目录列表输出</p>
@@ -2939,13 +2385,7 @@ num=`ps -C nginx --no-header | <span class="built_in">wc</span> -l`
 <td>http、server、location</td>
 </tr>
 </tbody></table>
-<pre><code class="highlight plaintext">location /download&#123;
-	root /usr/local/download;
-	autoindex on;
-	autoindex_exact_size on;
-	autoindex_format html;
-	autoindex_location on;
-&#125;</code></pre>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">location /download&#123;</span><br><span class="line">	root /usr/local/download;</span><br><span class="line">	autoindex on;</span><br><span class="line">	autoindex_exact_size on;</span><br><span class="line">	autoindex_format html;</span><br><span class="line">	autoindex_location on;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h2 id="16Nginx用户认证"><a href="#16Nginx用户认证" class="headerlink" title="16Nginx用户认证"></a>16Nginx用户认证</h2><p>ngx_http_auth_basic_module模块</p>
 <p>(1)auth_basic:使用”HTTP基本认证”协议启用用户名和密码的验证</p>
@@ -2982,18 +2422,14 @@ num=`ps -C nginx --no-header | <span class="built_in">wc</span> -l`
 <td>http、server、location、limit_except</td>
 </tr>
 </tbody></table>
-<pre><code class="highlight plaintext">auth_basic &#x27;please input your password&#x27;
-auth_basic_user_file htpassword</code></pre>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">auth_basic &#x27;please input your password&#x27;</span><br><span class="line">auth_basic_user_file htpassword</span><br></pre></td></tr></table></figure>
 
 <blockquote>
 <p>使用一个工具生成密码</p>
 </blockquote>
-<pre><code class="highlight plaintext">yum install -y httpd-tools</code></pre>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum install -y httpd-tools</span><br></pre></td></tr></table></figure>
 
-<pre><code class="highlight plaintext">htpasswd -c /usr/local/nginx/conf/htpasswd name  //生成新文件和密码
-htpasswd -b /usr/local/nginx/conf/htpasswd name password  //追加密码
-htpasswd -D /usr/local/nginx/conf/htpasswd name   //删除指定用户名
-htpasswd -v /usr/local/nginx/conf/htpasswd name   //验证密码</code></pre>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">htpasswd -c /usr/local/nginx/conf/htpasswd name  //生成新文件和密码</span><br><span class="line">htpasswd -b /usr/local/nginx/conf/htpasswd name password  //追加密码</span><br><span class="line">htpasswd -D /usr/local/nginx/conf/htpasswd name   //删除指定用户名</span><br><span class="line">htpasswd -v /usr/local/nginx/conf/htpasswd name   //验证密码</span><br></pre></td></tr></table></figure>
         </article>
         <section class="post-near">
             <ul>
@@ -3035,7 +2471,7 @@ htpasswd -v /usr/local/nginx/conf/htpasswd name   //验证密码</code></pre>
             <div class="row">
                 <div class="col-m-4">
                     <h3 class="title-recent">最新文章：</h3>
-                    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2025/03/15/AJAX/">AJAX</a></li><li class="post-list-item"><a class="post-list-link" href="/2025/02/23/QT/">QT</a></li><li class="post-list-item"><a class="post-list-link" href="/2025/02/22/%E8%A7%A3%E5%86%B3Nginx%E7%AB%AF%E5%8F%A3%E6%97%A0%E6%B3%95%E8%AE%BF%E9%97%AE%E9%97%AE%E9%A2%98/">解决Nginx端口无法访问问题</a></li><li class="post-list-item"><a class="post-list-link" href="/2025/01/05/Andriod/">Android</a></li><li class="post-list-item"><a class="post-list-link" href="/2024/12/02/Kotlin/">Kotlin</a></li><li class="post-list-item"><a class="post-list-link" href="/2024/11/19/Webpack/">Webpack</a></li></ul>
+                    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2025/03/18/Compose%20Jetpack/">Jetpack Compose</a></li><li class="post-list-item"><a class="post-list-link" href="/2025/03/15/AJAX/">AJAX</a></li><li class="post-list-item"><a class="post-list-link" href="/2025/02/23/QT/">QT</a></li><li class="post-list-item"><a class="post-list-link" href="/2025/02/22/%E8%A7%A3%E5%86%B3Nginx%E7%AB%AF%E5%8F%A3%E6%97%A0%E6%B3%95%E8%AE%BF%E9%97%AE%E9%97%AE%E9%A2%98/">解决Nginx端口无法访问问题</a></li><li class="post-list-item"><a class="post-list-link" href="/2025/01/05/Andriod/">Android</a></li><li class="post-list-item"><a class="post-list-link" href="/2024/12/02/Kotlin/">Kotlin</a></li></ul>
                 </div>
                 <div class="col-m-4">
                     <h3 class="title-date">时光机：</h3>

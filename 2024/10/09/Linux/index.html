@@ -913,13 +913,13 @@
 <ul>
 <li>选项：-d，指定要解压去的位置，跟 tar 命令的 -C 选项类似、<br>unzip test.zip -d &#x2F;home&#x2F;handsome，将 test.zip 解压到指定文件夹内（ &#x2F;home&#x2F;handsome）</li>
 </ul>
-<h2 id="4-各类软件部署"><a href="#4-各类软件部署" class="headerlink" title="4.各类软件部署"></a>4.各类软件部署</h2><h3 id="1-mysql"><a href="#1-mysql" class="headerlink" title="1.mysql"></a>1.mysql</h3><h4 id="1-下载mysql"><a href="#1-下载mysql" class="headerlink" title="1.下载mysql"></a>1.下载mysql</h4><h5 id="1-查看是否已经安装了MySQL"><a href="#1-查看是否已经安装了MySQL" class="headerlink" title="1.查看是否已经安装了MySQL"></a>1.查看是否已经安装了MySQL</h5><pre><code class="highlight plaintext">rpm -qa | grep mysql</code></pre>
+<h2 id="4-各类软件部署"><a href="#4-各类软件部署" class="headerlink" title="4.各类软件部署"></a>4.各类软件部署</h2><h3 id="1-mysql"><a href="#1-mysql" class="headerlink" title="1.mysql"></a>1.mysql</h3><h4 id="1-下载mysql"><a href="#1-下载mysql" class="headerlink" title="1.下载mysql"></a>1.下载mysql</h4><h5 id="1-查看是否已经安装了MySQL"><a href="#1-查看是否已经安装了MySQL" class="headerlink" title="1.查看是否已经安装了MySQL"></a>1.查看是否已经安装了MySQL</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">rpm -qa | grep mysql</span><br></pre></td></tr></table></figure>
 
-<h5 id="2-下载MySQL安装包"><a href="#2-下载MySQL安装包" class="headerlink" title="2.下载MySQL安装包"></a>2.下载MySQL安装包</h5><pre><code class="highlight plaintext">wget -i -c http://dev.mysql.com/get/mysql57-community-release-el7-10.noarch.rpm</code></pre>
+<h5 id="2-下载MySQL安装包"><a href="#2-下载MySQL安装包" class="headerlink" title="2.下载MySQL安装包"></a>2.下载MySQL安装包</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">wget -i -c http://dev.mysql.com/get/mysql57-community-release-el7-10.noarch.rpm</span><br></pre></td></tr></table></figure>
 
-<h5 id="3-安装MySQL包"><a href="#3-安装MySQL包" class="headerlink" title="3.安装MySQL包"></a>3.安装MySQL包</h5><pre><code class="highlight plaintext">yum -y install mysql57-community-release-el7-10.noarch.rpm</code></pre>
+<h5 id="3-安装MySQL包"><a href="#3-安装MySQL包" class="headerlink" title="3.安装MySQL包"></a>3.安装MySQL包</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum -y install mysql57-community-release-el7-10.noarch.rpm</span><br></pre></td></tr></table></figure>
 
-<h5 id="4-安装MySQL"><a href="#4-安装MySQL" class="headerlink" title="4.安装MySQL"></a>4.安装MySQL</h5><pre><code class="highlight plaintext">yum -y install mysql-community-server</code></pre>
+<h5 id="4-安装MySQL"><a href="#4-安装MySQL" class="headerlink" title="4.安装MySQL"></a>4.安装MySQL</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">yum -y install mysql-community-server</span><br></pre></td></tr></table></figure>
 
 <blockquote>
 <p>如果出现fail报错，执行下面命令</p>
@@ -932,9 +932,9 @@
 <h5 id="3-更改密码（满足安全要求长度大于8，含有大小写字母及数字以及特殊符号）"><a href="#3-更改密码（满足安全要求长度大于8，含有大小写字母及数字以及特殊符号）" class="headerlink" title="3.更改密码（满足安全要求长度大于8，含有大小写字母及数字以及特殊符号）"></a>3.更改密码（满足安全要求长度大于8，含有大小写字母及数字以及特殊符号）</h5><p><code>alter user 用户名@主机名 identified with by &#39;新密码&#39;;</code></p>
 <h5 id="4-关闭和重启Mysql服务"><a href="#4-关闭和重启Mysql服务" class="headerlink" title="4.关闭和重启Mysql服务"></a>4.关闭和重启Mysql服务</h5><p><code>service mysqld stop</code>-&gt;停止服务</p>
 <p><code>service mysqld start</code>-&gt;重启服务</p>
-<h4 id="4-允许远程连接访问"><a href="#4-允许远程连接访问" class="headerlink" title="4.允许远程连接访问"></a>4.允许远程连接访问</h4><h5 id="1-创建一个root用户，允许所有主机都能访问"><a href="#1-创建一个root用户，允许所有主机都能访问" class="headerlink" title="1.创建一个root用户，允许所有主机都能访问"></a>1.创建一个root用户，允许所有主机都能访问</h5><pre><code class="highlight sql"><span class="keyword">create</span> <span class="keyword">user</span> <span class="string">&#x27;root&#x27;</span>@<span class="string">&#x27;%&#x27;</span> identified <span class="keyword">with</span> mysql_native_password <span class="keyword">by</span> <span class="string">&#x27;密码&#x27;</span>;</code></pre>
+<h4 id="4-允许远程连接访问"><a href="#4-允许远程连接访问" class="headerlink" title="4.允许远程连接访问"></a>4.允许远程连接访问</h4><h5 id="1-创建一个root用户，允许所有主机都能访问"><a href="#1-创建一个root用户，允许所有主机都能访问" class="headerlink" title="1.创建一个root用户，允许所有主机都能访问"></a>1.创建一个root用户，允许所有主机都能访问</h5><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">create</span> <span class="keyword">user</span> <span class="string">&#x27;root&#x27;</span>@<span class="string">&#x27;%&#x27;</span> identified <span class="keyword">with</span> mysql_native_password <span class="keyword">by</span> <span class="string">&#x27;密码&#x27;</span>;</span><br></pre></td></tr></table></figure>
 
-<h5 id="2-给root用户分配所有权限"><a href="#2-给root用户分配所有权限" class="headerlink" title="2.给root用户分配所有权限"></a>2.给root用户分配所有权限</h5><pre><code class="highlight sql"><span class="keyword">grant</span> <span class="keyword">all</span> <span class="keyword">on</span> <span class="operator">*</span>.<span class="operator">*</span> <span class="keyword">to</span> <span class="string">&#x27;root&#x27;</span>@<span class="string">&#x27;%&#x27;</span>;</code></pre>
+<h5 id="2-给root用户分配所有权限"><a href="#2-给root用户分配所有权限" class="headerlink" title="2.给root用户分配所有权限"></a>2.给root用户分配所有权限</h5><figure class="highlight sql"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">grant</span> <span class="keyword">all</span> <span class="keyword">on</span> <span class="operator">*</span>.<span class="operator">*</span> <span class="keyword">to</span> <span class="string">&#x27;root&#x27;</span>@<span class="string">&#x27;%&#x27;</span>;</span><br></pre></td></tr></table></figure>
 
 <h5 id="3-用DataGrip连接"><a href="#3-用DataGrip连接" class="headerlink" title="3.用DataGrip连接"></a>3.用DataGrip连接</h5><blockquote>
 <p>输入端口号和密码 -&gt;连接</p>
@@ -954,8 +954,7 @@
 <h4 id="2-登录root用户"><a href="#2-登录root用户" class="headerlink" title="2.登录root用户"></a>2.登录root用户</h4><h4 id="3-通过findshell传输文件"><a href="#3-通过findshell传输文件" class="headerlink" title="3.通过findshell传输文件"></a>3.通过findshell传输文件</h4><h4 id="5-解压缩"><a href="#5-解压缩" class="headerlink" title="5.解压缩"></a>5.解压缩</h4><p><code>tar -zxvf /root/serve/jdk-17_linux-aarch64_bin.tar.gz -C /root/server</code></p>
 <h4 id="6-建立软连接"><a href="#6-建立软连接" class="headerlink" title="6.建立软连接"></a>6.建立软连接</h4><p><code>ln -s /root/server/jdk-17.0.10 /root/jdk</code></p>
 <h4 id="7-构建全局的环境变量"><a href="#7-构建全局的环境变量" class="headerlink" title="7.构建全局的环境变量"></a>7.构建全局的环境变量</h4><p><code>vim /etc/profile</code></p>
-<pre><code class="highlight plaintext">export JAVA_HOME=/root/jdk
-export PATH=$PATH:$JAVA_HOME/bin</code></pre>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">export JAVA_HOME=/root/jdk</span><br><span class="line">export PATH=$PATH:$JAVA_HOME/bin</span><br></pre></td></tr></table></figure>
 
 <p><code>source /etc/profile</code></p>
 <h4 id="8-更改系统的java"><a href="#8-更改系统的java" class="headerlink" title="8.更改系统的java"></a>8.更改系统的java</h4><ul>
@@ -1008,7 +1007,7 @@ export PATH=$PATH:$JAVA_HOME/bin</code></pre>
             <div class="row">
                 <div class="col-m-4">
                     <h3 class="title-recent">最新文章：</h3>
-                    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2025/03/15/AJAX/">AJAX</a></li><li class="post-list-item"><a class="post-list-link" href="/2025/02/23/QT/">QT</a></li><li class="post-list-item"><a class="post-list-link" href="/2025/02/22/%E8%A7%A3%E5%86%B3Nginx%E7%AB%AF%E5%8F%A3%E6%97%A0%E6%B3%95%E8%AE%BF%E9%97%AE%E9%97%AE%E9%A2%98/">解决Nginx端口无法访问问题</a></li><li class="post-list-item"><a class="post-list-link" href="/2025/01/05/Andriod/">Android</a></li><li class="post-list-item"><a class="post-list-link" href="/2024/12/02/Kotlin/">Kotlin</a></li><li class="post-list-item"><a class="post-list-link" href="/2024/11/19/Webpack/">Webpack</a></li></ul>
+                    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2025/03/18/Compose%20Jetpack/">Jetpack Compose</a></li><li class="post-list-item"><a class="post-list-link" href="/2025/03/15/AJAX/">AJAX</a></li><li class="post-list-item"><a class="post-list-link" href="/2025/02/23/QT/">QT</a></li><li class="post-list-item"><a class="post-list-link" href="/2025/02/22/%E8%A7%A3%E5%86%B3Nginx%E7%AB%AF%E5%8F%A3%E6%97%A0%E6%B3%95%E8%AE%BF%E9%97%AE%E9%97%AE%E9%A2%98/">解决Nginx端口无法访问问题</a></li><li class="post-list-item"><a class="post-list-link" href="/2025/01/05/Andriod/">Android</a></li><li class="post-list-item"><a class="post-list-link" href="/2024/12/02/Kotlin/">Kotlin</a></li></ul>
                 </div>
                 <div class="col-m-4">
                     <h3 class="title-date">时光机：</h3>

@@ -70,396 +70,122 @@
 <h4 id="1-1-2初始化项目"><a href="#1-1-2初始化项目" class="headerlink" title="1.1.2初始化项目"></a>1.1.2初始化项目</h4><p>本项目使用vite进行构建，vite官方中文文档参考：<a target="_blank" rel="noopener" href="https://cn.vitejs.dev/guide/">cn.vitejs.dev&#x2F;guide&#x2F;</a></p>
 <p><strong>pnpm:performant npm ，意味“高性能的 npm”。<a target="_blank" rel="noopener" href="https://so.csdn.net/so/search?q=pnpm&spm=1001.2101.3001.7020">pnpm</a>由npm&#x2F;yarn衍生而来，解决了npm&#x2F;yarn内部潜在的bug，极大的优化了性能，扩展了使用场景。被誉为“最先进的包管理工具”</strong></p>
 <p>pnpm安装指令</p>
-<pre><code class="highlight plaintext">npm i -g pnpm</code></pre>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npm i -g pnpm</span><br></pre></td></tr></table></figure>
 
 <p>项目初始化命令:</p>
-<pre><code class="highlight plaintext">pnpm create vite</code></pre>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pnpm create vite</span><br></pre></td></tr></table></figure>
 
 <p>进入到项目根目录pnpm install安装全部依赖.安装完依赖运行程序:pnpm run dev</p>
 <p>运行完毕项目跑在<a target="_blank" rel="noopener" href="http://127.0.0.1:5173/,%E5%8F%AF%E4%BB%A5%E8%AE%BF%E9%97%AE%E4%BD%A0%E5%BE%97%E9%A1%B9%E7%9B%AE%E5%95%A6">http://127.0.0.1:5173/,可以访问你得项目啦</a></p>
 <h3 id="1-2项目配置"><a href="#1-2项目配置" class="headerlink" title="1.2项目配置"></a>1.2项目配置</h3><h4 id="一、eslint配置"><a href="#一、eslint配置" class="headerlink" title="一、eslint配置"></a>一、eslint配置</h4><p><strong>eslint中文官网:<a target="_blank" rel="noopener" href="http://eslint.cn/">http://eslint.cn/</a></strong></p>
 <p>ESLint最初是由<a target="_blank" rel="noopener" href="http://nczonline.net/">Nicholas C. Zakas</a> 于2013年6月创建的开源项目。它的目标是提供一个插件化的<strong>javascript代码检测工具</strong></p>
 <p>首先安装eslint</p>
-<pre><code class="highlight plaintext">pnpm i eslint -D</code></pre>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pnpm i eslint -D</span><br></pre></td></tr></table></figure>
 
 <p>生成配置文件:.eslint.cjs</p>
-<pre><code class="highlight plaintext">npx eslint --init</code></pre>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npx eslint --init</span><br></pre></td></tr></table></figure>
 
 <p><strong>.eslint.cjs配置文件</strong></p>
-<pre><code class="highlight plaintext">module.exports = &#123;
-   //运行环境
-    &quot;env&quot;: &#123; 
-        &quot;browser&quot;: true,//浏览器端
-        &quot;es2021&quot;: true,//es2021
-    &#125;,
-    //规则继承
-    &quot;extends&quot;: [ 
-       //全部规则默认是关闭的,这个配置项开启推荐规则,推荐规则参照文档
-       //比如:函数不能重名、对象不能出现重复key
-        &quot;eslint:recommended&quot;,
-        //vue3语法规则
-        &quot;plugin:vue/vue3-essential&quot;,
-        //ts语法规则
-        &quot;plugin:@typescript-eslint/recommended&quot;
-    ],
-    //要为特定类型的文件指定处理器
-    &quot;overrides&quot;: [
-    ],
-    //指定解析器:解析器
-    //Esprima 默认解析器
-    //Babel-ESLint babel解析器
-    //@typescript-eslint/parser ts解析器
-    &quot;parser&quot;: &quot;@typescript-eslint/parser&quot;,
-    //指定解析器选项
-    &quot;parserOptions&quot;: &#123;
-        &quot;ecmaVersion&quot;: &quot;latest&quot;,//校验ECMA最新版本
-        &quot;sourceType&quot;: &quot;module&quot;//设置为&quot;script&quot;（默认），或者&quot;module&quot;代码在ECMAScript模块中
-    &#125;,
-    //ESLint支持使用第三方插件。在使用插件之前，您必须使用npm安装它
-    //该eslint-plugin-前缀可以从插件名称被省略
-    &quot;plugins&quot;: [
-        &quot;vue&quot;,
-        &quot;@typescript-eslint&quot;
-    ],
-    //eslint规则
-    &quot;rules&quot;: &#123;
-    &#125;
-&#125;</code></pre>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br></pre></td><td class="code"><pre><span class="line">module.exports = &#123;</span><br><span class="line">   //运行环境</span><br><span class="line">    &quot;env&quot;: &#123; </span><br><span class="line">        &quot;browser&quot;: true,//浏览器端</span><br><span class="line">        &quot;es2021&quot;: true,//es2021</span><br><span class="line">    &#125;,</span><br><span class="line">    //规则继承</span><br><span class="line">    &quot;extends&quot;: [ </span><br><span class="line">       //全部规则默认是关闭的,这个配置项开启推荐规则,推荐规则参照文档</span><br><span class="line">       //比如:函数不能重名、对象不能出现重复key</span><br><span class="line">        &quot;eslint:recommended&quot;,</span><br><span class="line">        //vue3语法规则</span><br><span class="line">        &quot;plugin:vue/vue3-essential&quot;,</span><br><span class="line">        //ts语法规则</span><br><span class="line">        &quot;plugin:@typescript-eslint/recommended&quot;</span><br><span class="line">    ],</span><br><span class="line">    //要为特定类型的文件指定处理器</span><br><span class="line">    &quot;overrides&quot;: [</span><br><span class="line">    ],</span><br><span class="line">    //指定解析器:解析器</span><br><span class="line">    //Esprima 默认解析器</span><br><span class="line">    //Babel-ESLint babel解析器</span><br><span class="line">    //@typescript-eslint/parser ts解析器</span><br><span class="line">    &quot;parser&quot;: &quot;@typescript-eslint/parser&quot;,</span><br><span class="line">    //指定解析器选项</span><br><span class="line">    &quot;parserOptions&quot;: &#123;</span><br><span class="line">        &quot;ecmaVersion&quot;: &quot;latest&quot;,//校验ECMA最新版本</span><br><span class="line">        &quot;sourceType&quot;: &quot;module&quot;//设置为&quot;script&quot;（默认），或者&quot;module&quot;代码在ECMAScript模块中</span><br><span class="line">    &#125;,</span><br><span class="line">    //ESLint支持使用第三方插件。在使用插件之前，您必须使用npm安装它</span><br><span class="line">    //该eslint-plugin-前缀可以从插件名称被省略</span><br><span class="line">    &quot;plugins&quot;: [</span><br><span class="line">        &quot;vue&quot;,</span><br><span class="line">        &quot;@typescript-eslint&quot;</span><br><span class="line">    ],</span><br><span class="line">    //eslint规则</span><br><span class="line">    &quot;rules&quot;: &#123;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h5 id="1-1vue3环境代码校验插件"><a href="#1-1vue3环境代码校验插件" class="headerlink" title="1.1vue3环境代码校验插件"></a>1.1vue3环境代码校验插件</h5><pre><code class="highlight plaintext"># 让所有与prettier规则存在冲突的Eslint rules失效，并使用prettier进行代码检查
-&quot;eslint-config-prettier&quot;: &quot;^8.6.0&quot;,
-&quot;eslint-plugin-import&quot;: &quot;^2.27.5&quot;,
-&quot;eslint-plugin-node&quot;: &quot;^11.1.0&quot;,
-# 运行更漂亮的Eslint，使prettier规则优先级更高，Eslint优先级低
-&quot;eslint-plugin-prettier&quot;: &quot;^4.2.1&quot;,
-# vue.js的Eslint插件（查找vue语法错误，发现错误指令，查找违规风格指南
-&quot;eslint-plugin-vue&quot;: &quot;^9.9.0&quot;,
-# 该解析器允许使用Eslint校验所有babel code
-&quot;@babel/eslint-parser&quot;: &quot;^7.19.1&quot;,</code></pre>
+<h5 id="1-1vue3环境代码校验插件"><a href="#1-1vue3环境代码校验插件" class="headerlink" title="1.1vue3环境代码校验插件"></a>1.1vue3环境代码校验插件</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"># 让所有与prettier规则存在冲突的Eslint rules失效，并使用prettier进行代码检查</span><br><span class="line">&quot;eslint-config-prettier&quot;: &quot;^8.6.0&quot;,</span><br><span class="line">&quot;eslint-plugin-import&quot;: &quot;^2.27.5&quot;,</span><br><span class="line">&quot;eslint-plugin-node&quot;: &quot;^11.1.0&quot;,</span><br><span class="line"># 运行更漂亮的Eslint，使prettier规则优先级更高，Eslint优先级低</span><br><span class="line">&quot;eslint-plugin-prettier&quot;: &quot;^4.2.1&quot;,</span><br><span class="line"># vue.js的Eslint插件（查找vue语法错误，发现错误指令，查找违规风格指南</span><br><span class="line">&quot;eslint-plugin-vue&quot;: &quot;^9.9.0&quot;,</span><br><span class="line"># 该解析器允许使用Eslint校验所有babel code</span><br><span class="line">&quot;@babel/eslint-parser&quot;: &quot;^7.19.1&quot;,</span><br></pre></td></tr></table></figure>
 
 <p>安装指令</p>
-<pre><code class="highlight plaintext">pnpm install -D eslint-plugin-import eslint-plugin-vue eslint-plugin-node eslint-plugin-prettier eslint-config-prettier eslint-plugin-node @babel/eslint-parser</code></pre>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pnpm install -D eslint-plugin-import eslint-plugin-vue eslint-plugin-node eslint-plugin-prettier eslint-config-prettier eslint-plugin-node @babel/eslint-parser</span><br></pre></td></tr></table></figure>
 
-<h5 id="1-2修改-eslintrc-cjs配置文件"><a href="#1-2修改-eslintrc-cjs配置文件" class="headerlink" title="1.2修改.eslintrc.cjs配置文件"></a>1.2修改.eslintrc.cjs配置文件</h5><pre><code class="highlight plaintext">// @see https://eslint.bootcss.com/docs/rules/
+<h5 id="1-2修改-eslintrc-cjs配置文件"><a href="#1-2修改-eslintrc-cjs配置文件" class="headerlink" title="1.2修改.eslintrc.cjs配置文件"></a>1.2修改.eslintrc.cjs配置文件</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br></pre></td><td class="code"><pre><span class="line">// @see https://eslint.bootcss.com/docs/rules/</span><br><span class="line"></span><br><span class="line">module.exports = &#123;</span><br><span class="line">  env: &#123;</span><br><span class="line">    browser: true,</span><br><span class="line">    es2021: true,</span><br><span class="line">    node: true,</span><br><span class="line">    jest: true,</span><br><span class="line">  &#125;,</span><br><span class="line">  /* 指定如何解析语法 */</span><br><span class="line">  parser: &#x27;vue-eslint-parser&#x27;,</span><br><span class="line">  /** 优先级低于 parse 的语法解析配置 */</span><br><span class="line">  parserOptions: &#123;</span><br><span class="line">    ecmaVersion: &#x27;latest&#x27;,</span><br><span class="line">    sourceType: &#x27;module&#x27;,</span><br><span class="line">    parser: &#x27;@typescript-eslint/parser&#x27;,</span><br><span class="line">    jsxPragma: &#x27;React&#x27;,</span><br><span class="line">    ecmaFeatures: &#123;</span><br><span class="line">      jsx: true,</span><br><span class="line">    &#125;,</span><br><span class="line">  &#125;,</span><br><span class="line">  /* 继承已有的规则 */</span><br><span class="line">  extends: [</span><br><span class="line">    &#x27;eslint:recommended&#x27;,</span><br><span class="line">    &#x27;plugin:vue/vue3-essential&#x27;,</span><br><span class="line">    &#x27;plugin:@typescript-eslint/recommended&#x27;,</span><br><span class="line">    &#x27;plugin:prettier/recommended&#x27;,</span><br><span class="line">  ],</span><br><span class="line">  plugins: [&#x27;vue&#x27;, &#x27;@typescript-eslint&#x27;],</span><br><span class="line">  /*</span><br><span class="line">   * &quot;off&quot; 或 0    ==&gt;  关闭规则</span><br><span class="line">   * &quot;warn&quot; 或 1   ==&gt;  打开的规则作为警告（不影响代码执行）</span><br><span class="line">   * &quot;error&quot; 或 2  ==&gt;  规则作为一个错误（代码不能执行，界面报错）</span><br><span class="line">   */</span><br><span class="line">  rules: &#123;</span><br><span class="line">    // eslint（https://eslint.bootcss.com/docs/rules/）</span><br><span class="line">    &#x27;no-var&#x27;: &#x27;error&#x27;, // 要求使用 let 或 const 而不是 var</span><br><span class="line">    &#x27;no-multiple-empty-lines&#x27;: [&#x27;warn&#x27;, &#123; max: 1 &#125;], // 不允许多个空行</span><br><span class="line">    &#x27;no-console&#x27;: process.env.NODE_ENV === &#x27;production&#x27; ? &#x27;error&#x27; : &#x27;off&#x27;,</span><br><span class="line">    &#x27;no-debugger&#x27;: process.env.NODE_ENV === &#x27;production&#x27; ? &#x27;error&#x27; : &#x27;off&#x27;,</span><br><span class="line">    &#x27;no-unexpected-multiline&#x27;: &#x27;error&#x27;, // 禁止空余的多行</span><br><span class="line">    &#x27;no-useless-escape&#x27;: &#x27;off&#x27;, // 禁止不必要的转义字符</span><br><span class="line"></span><br><span class="line">    // typeScript (https://typescript-eslint.io/rules)</span><br><span class="line">    &#x27;@typescript-eslint/no-unused-vars&#x27;: &#x27;error&#x27;, // 禁止定义未使用的变量</span><br><span class="line">    &#x27;@typescript-eslint/prefer-ts-expect-error&#x27;: &#x27;error&#x27;, // 禁止使用 @ts-ignore</span><br><span class="line">    &#x27;@typescript-eslint/no-explicit-any&#x27;: &#x27;off&#x27;, // 禁止使用 any 类型</span><br><span class="line">    &#x27;@typescript-eslint/no-non-null-assertion&#x27;: &#x27;off&#x27;,</span><br><span class="line">    &#x27;@typescript-eslint/no-namespace&#x27;: &#x27;off&#x27;, // 禁止使用自定义 TypeScript 模块和命名空间。</span><br><span class="line">    &#x27;@typescript-eslint/semi&#x27;: &#x27;off&#x27;,</span><br><span class="line"></span><br><span class="line">    // eslint-plugin-vue (https://eslint.vuejs.org/rules/)</span><br><span class="line">    &#x27;vue/multi-word-component-names&#x27;: &#x27;off&#x27;, // 要求组件名称始终为 “-” 链接的单词</span><br><span class="line">    &#x27;vue/script-setup-uses-vars&#x27;: &#x27;error&#x27;, // 防止&lt;script setup&gt;使用的变量&lt;template&gt;被标记为未使用</span><br><span class="line">    &#x27;vue/no-mutating-props&#x27;: &#x27;off&#x27;, // 不允许组件 prop的改变</span><br><span class="line">    &#x27;vue/attribute-hyphenation&#x27;: &#x27;off&#x27;, // 对模板中的自定义组件强制执行属性命名样式</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
-module.exports = &#123;
-  env: &#123;
-    browser: true,
-    es2021: true,
-    node: true,
-    jest: true,
-  &#125;,
-  /* 指定如何解析语法 */
-  parser: &#x27;vue-eslint-parser&#x27;,
-  /** 优先级低于 parse 的语法解析配置 */
-  parserOptions: &#123;
-    ecmaVersion: &#x27;latest&#x27;,
-    sourceType: &#x27;module&#x27;,
-    parser: &#x27;@typescript-eslint/parser&#x27;,
-    jsxPragma: &#x27;React&#x27;,
-    ecmaFeatures: &#123;
-      jsx: true,
-    &#125;,
-  &#125;,
-  /* 继承已有的规则 */
-  extends: [
-    &#x27;eslint:recommended&#x27;,
-    &#x27;plugin:vue/vue3-essential&#x27;,
-    &#x27;plugin:@typescript-eslint/recommended&#x27;,
-    &#x27;plugin:prettier/recommended&#x27;,
-  ],
-  plugins: [&#x27;vue&#x27;, &#x27;@typescript-eslint&#x27;],
-  /*
-   * &quot;off&quot; 或 0    ==&gt;  关闭规则
-   * &quot;warn&quot; 或 1   ==&gt;  打开的规则作为警告（不影响代码执行）
-   * &quot;error&quot; 或 2  ==&gt;  规则作为一个错误（代码不能执行，界面报错）
-   */
-  rules: &#123;
-    // eslint（https://eslint.bootcss.com/docs/rules/）
-    &#x27;no-var&#x27;: &#x27;error&#x27;, // 要求使用 let 或 const 而不是 var
-    &#x27;no-multiple-empty-lines&#x27;: [&#x27;warn&#x27;, &#123; max: 1 &#125;], // 不允许多个空行
-    &#x27;no-console&#x27;: process.env.NODE_ENV === &#x27;production&#x27; ? &#x27;error&#x27; : &#x27;off&#x27;,
-    &#x27;no-debugger&#x27;: process.env.NODE_ENV === &#x27;production&#x27; ? &#x27;error&#x27; : &#x27;off&#x27;,
-    &#x27;no-unexpected-multiline&#x27;: &#x27;error&#x27;, // 禁止空余的多行
-    &#x27;no-useless-escape&#x27;: &#x27;off&#x27;, // 禁止不必要的转义字符
-
-    // typeScript (https://typescript-eslint.io/rules)
-    &#x27;@typescript-eslint/no-unused-vars&#x27;: &#x27;error&#x27;, // 禁止定义未使用的变量
-    &#x27;@typescript-eslint/prefer-ts-expect-error&#x27;: &#x27;error&#x27;, // 禁止使用 @ts-ignore
-    &#x27;@typescript-eslint/no-explicit-any&#x27;: &#x27;off&#x27;, // 禁止使用 any 类型
-    &#x27;@typescript-eslint/no-non-null-assertion&#x27;: &#x27;off&#x27;,
-    &#x27;@typescript-eslint/no-namespace&#x27;: &#x27;off&#x27;, // 禁止使用自定义 TypeScript 模块和命名空间。
-    &#x27;@typescript-eslint/semi&#x27;: &#x27;off&#x27;,
-
-    // eslint-plugin-vue (https://eslint.vuejs.org/rules/)
-    &#x27;vue/multi-word-component-names&#x27;: &#x27;off&#x27;, // 要求组件名称始终为 “-” 链接的单词
-    &#x27;vue/script-setup-uses-vars&#x27;: &#x27;error&#x27;, // 防止&lt;script setup&gt;使用的变量&lt;template&gt;被标记为未使用
-    &#x27;vue/no-mutating-props&#x27;: &#x27;off&#x27;, // 不允许组件 prop的改变
-    &#x27;vue/attribute-hyphenation&#x27;: &#x27;off&#x27;, // 对模板中的自定义组件强制执行属性命名样式
-  &#125;,
-&#125;
-</code></pre>
-
-<h5 id="1-3-eslintignore忽略文件"><a href="#1-3-eslintignore忽略文件" class="headerlink" title="1.3.eslintignore忽略文件"></a>1.3.eslintignore忽略文件</h5><pre><code class="highlight plaintext">dist
-node_modules</code></pre>
+<h5 id="1-3-eslintignore忽略文件"><a href="#1-3-eslintignore忽略文件" class="headerlink" title="1.3.eslintignore忽略文件"></a>1.3.eslintignore忽略文件</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">dist</span><br><span class="line">node_modules</span><br></pre></td></tr></table></figure>
 
 <h5 id="1-4运行脚本"><a href="#1-4运行脚本" class="headerlink" title="1.4运行脚本"></a>1.4运行脚本</h5><p>package.json新增两个运行脚本</p>
-<pre><code class="highlight plaintext">&quot;scripts&quot;: &#123;
-    &quot;lint&quot;: &quot;eslint src&quot;,
-    &quot;fix&quot;: &quot;eslint src --fix&quot;,
-&#125;</code></pre>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&quot;scripts&quot;: &#123;</span><br><span class="line">    &quot;lint&quot;: &quot;eslint src&quot;,</span><br><span class="line">    &quot;fix&quot;: &quot;eslint src --fix&quot;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h4 id="二、配置prettier"><a href="#二、配置prettier" class="headerlink" title="二、配置prettier"></a>二、配置<strong>prettier</strong></h4><p>有了eslint，为什么还要有prettier？eslint针对的是javascript，他是一个检测工具，包含js语法以及少部分格式问题，在eslint看来，语法对了就能保证代码正常运行，格式问题属于其次；</p>
 <p>而prettier属于格式化工具，它看不惯格式不统一，所以它就把eslint没干好的事接着干，另外，prettier支持</p>
 <p>包含js在内的多种语言。</p>
 <p>总结起来，<strong>eslint和prettier这俩兄弟一个保证js代码质量，一个保证代码美观。</strong></p>
-<h5 id="2-1安装依赖包"><a href="#2-1安装依赖包" class="headerlink" title="2.1安装依赖包"></a>2.1安装依赖包</h5><pre><code class="highlight plaintext">pnpm install -D eslint-plugin-prettier prettier eslint-config-prettier</code></pre>
+<h5 id="2-1安装依赖包"><a href="#2-1安装依赖包" class="headerlink" title="2.1安装依赖包"></a>2.1安装依赖包</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pnpm install -D eslint-plugin-prettier prettier eslint-config-prettier</span><br></pre></td></tr></table></figure>
 
-<h5 id="2-2-prettierrc-json添加规则"><a href="#2-2-prettierrc-json添加规则" class="headerlink" title="2.2.prettierrc.json添加规则"></a>2.2.prettierrc.json添加规则</h5><pre><code class="highlight plaintext">&#123;
-  &quot;singleQuote&quot;: true,
-  &quot;semi&quot;: false,
-  &quot;bracketSpacing&quot;: true,
-  &quot;htmlWhitespaceSensitivity&quot;: &quot;ignore&quot;,
-  &quot;endOfLine&quot;: &quot;auto&quot;,
-  &quot;trailingComma&quot;: &quot;all&quot;,
-  &quot;tabWidth&quot;: 2
-&#125;</code></pre>
+<h5 id="2-2-prettierrc-json添加规则"><a href="#2-2-prettierrc-json添加规则" class="headerlink" title="2.2.prettierrc.json添加规则"></a>2.2.prettierrc.json添加规则</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">&#123;</span><br><span class="line">  &quot;singleQuote&quot;: true,</span><br><span class="line">  &quot;semi&quot;: false,</span><br><span class="line">  &quot;bracketSpacing&quot;: true,</span><br><span class="line">  &quot;htmlWhitespaceSensitivity&quot;: &quot;ignore&quot;,</span><br><span class="line">  &quot;endOfLine&quot;: &quot;auto&quot;,</span><br><span class="line">  &quot;trailingComma&quot;: &quot;all&quot;,</span><br><span class="line">  &quot;tabWidth&quot;: 2</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<h5 id="2-3-prettierignore忽略文件"><a href="#2-3-prettierignore忽略文件" class="headerlink" title="2.3.prettierignore忽略文件"></a>2.3.prettierignore忽略文件</h5><pre><code class="highlight plaintext">/dist/*
-/html/*
-.local
-/node_modules/**
-**/*.svg
-**/*.sh
-/public/*</code></pre>
+<h5 id="2-3-prettierignore忽略文件"><a href="#2-3-prettierignore忽略文件" class="headerlink" title="2.3.prettierignore忽略文件"></a>2.3.prettierignore忽略文件</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">/dist/*</span><br><span class="line">/html/*</span><br><span class="line">.local</span><br><span class="line">/node_modules/**</span><br><span class="line">**/*.svg</span><br><span class="line">**/*.sh</span><br><span class="line">/public/*</span><br></pre></td></tr></table></figure>
 
 <p><strong>通过pnpm run lint去检测语法，如果出现不规范格式,通过pnpm run fix 修改</strong></p>
 <h4 id="三、配置stylelint"><a href="#三、配置stylelint" class="headerlink" title="三、配置stylelint"></a>三、配置stylelint</h4><p><a target="_blank" rel="noopener" href="https://stylelint.io/">stylelint</a>为css的lint工具。可格式化css代码，检查css语法错误与不合理的写法，指定css书写顺序等。</p>
 <p>我们的项目中使用scss作为预处理器，安装以下依赖：</p>
-<pre><code class="highlight plaintext">pnpm add sass sass-loader stylelint postcss postcss-scss postcss-html stylelint-config-prettier stylelint-config-recess-order stylelint-config-recommended-scss stylelint-config-standard stylelint-config-standard-vue stylelint-scss stylelint-order stylelint-config-standard-scss -D</code></pre>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pnpm add sass sass-loader stylelint postcss postcss-scss postcss-html stylelint-config-prettier stylelint-config-recess-order stylelint-config-recommended-scss stylelint-config-standard stylelint-config-standard-vue stylelint-scss stylelint-order stylelint-config-standard-scss -D</span><br></pre></td></tr></table></figure>
 
 <h5 id="3-1-stylelintrc-cjs配置文件"><a href="#3-1-stylelintrc-cjs配置文件" class="headerlink" title="3.1.stylelintrc.cjs配置文件"></a>3.1<code>.stylelintrc.cjs</code><strong>配置文件</strong></h5><p><strong>官网:<a target="_blank" rel="noopener" href="https://stylelint.bootcss.com/">https://stylelint.bootcss.com/</a></strong></p>
-<pre><code class="highlight plaintext">// @see https://stylelint.bootcss.com/
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br></pre></td><td class="code"><pre><span class="line">// @see https://stylelint.bootcss.com/</span><br><span class="line"></span><br><span class="line">module.exports = &#123;</span><br><span class="line">  extends: [</span><br><span class="line">    &#x27;stylelint-config-standard&#x27;, // 配置stylelint拓展插件</span><br><span class="line">    &#x27;stylelint-config-html/vue&#x27;, // 配置 vue 中 template 样式格式化</span><br><span class="line">    &#x27;stylelint-config-standard-scss&#x27;, // 配置stylelint scss插件</span><br><span class="line">    &#x27;stylelint-config-recommended-vue/scss&#x27;, // 配置 vue 中 scss 样式格式化</span><br><span class="line">    &#x27;stylelint-config-recess-order&#x27;, // 配置stylelint css属性书写顺序插件,</span><br><span class="line">    &#x27;stylelint-config-prettier&#x27;, // 配置stylelint和prettier兼容</span><br><span class="line">  ],</span><br><span class="line">  overrides: [</span><br><span class="line">    &#123;</span><br><span class="line">      files: [&#x27;**/*.(scss|css|vue|html)&#x27;],</span><br><span class="line">      customSyntax: &#x27;postcss-scss&#x27;,</span><br><span class="line">    &#125;,</span><br><span class="line">    &#123;</span><br><span class="line">      files: [&#x27;**/*.(html|vue)&#x27;],</span><br><span class="line">      customSyntax: &#x27;postcss-html&#x27;,</span><br><span class="line">    &#125;,</span><br><span class="line">  ],</span><br><span class="line">  ignoreFiles: [</span><br><span class="line">    &#x27;**/*.js&#x27;,</span><br><span class="line">    &#x27;**/*.jsx&#x27;,</span><br><span class="line">    &#x27;**/*.tsx&#x27;,</span><br><span class="line">    &#x27;**/*.ts&#x27;,</span><br><span class="line">    &#x27;**/*.json&#x27;,</span><br><span class="line">    &#x27;**/*.md&#x27;,</span><br><span class="line">    &#x27;**/*.yaml&#x27;,</span><br><span class="line">  ],</span><br><span class="line">  /**</span><br><span class="line">   * null  =&gt; 关闭该规则</span><br><span class="line">   * always =&gt; 必须</span><br><span class="line">   */</span><br><span class="line">  rules: &#123;</span><br><span class="line">    &#x27;value-keyword-case&#x27;: null, // 在 css 中使用 v-bind，不报错</span><br><span class="line">    &#x27;no-descending-specificity&#x27;: null, // 禁止在具有较高优先级的选择器后出现被其覆盖的较低优先级的选择器</span><br><span class="line">    &#x27;function-url-quotes&#x27;: &#x27;always&#x27;, // 要求或禁止 URL 的引号 &quot;always(必须加上引号)&quot;|&quot;never(没有引号)&quot;</span><br><span class="line">    &#x27;no-empty-source&#x27;: null, // 关闭禁止空源码</span><br><span class="line">    &#x27;selector-class-pattern&#x27;: null, // 关闭强制选择器类名的格式</span><br><span class="line">    &#x27;property-no-unknown&#x27;: null, // 禁止未知的属性(true 为不允许)</span><br><span class="line">    &#x27;block-opening-brace-space-before&#x27;: &#x27;always&#x27;, //大括号之前必须有一个空格或不能有空白符</span><br><span class="line">    &#x27;value-no-vendor-prefix&#x27;: null, // 关闭 属性值前缀 --webkit-box</span><br><span class="line">    &#x27;property-no-vendor-prefix&#x27;: null, // 关闭 属性前缀 -webkit-mask</span><br><span class="line">    &#x27;selector-pseudo-class-no-unknown&#x27;: [</span><br><span class="line">      // 不允许未知的选择器</span><br><span class="line">      true,</span><br><span class="line">      &#123;</span><br><span class="line">        ignorePseudoClasses: [&#x27;global&#x27;, &#x27;v-deep&#x27;, &#x27;deep&#x27;], // 忽略属性，修改element默认样式的时候能使用到</span><br><span class="line">      &#125;,</span><br><span class="line">    ],</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-module.exports = &#123;
-  extends: [
-    &#x27;stylelint-config-standard&#x27;, // 配置stylelint拓展插件
-    &#x27;stylelint-config-html/vue&#x27;, // 配置 vue 中 template 样式格式化
-    &#x27;stylelint-config-standard-scss&#x27;, // 配置stylelint scss插件
-    &#x27;stylelint-config-recommended-vue/scss&#x27;, // 配置 vue 中 scss 样式格式化
-    &#x27;stylelint-config-recess-order&#x27;, // 配置stylelint css属性书写顺序插件,
-    &#x27;stylelint-config-prettier&#x27;, // 配置stylelint和prettier兼容
-  ],
-  overrides: [
-    &#123;
-      files: [&#x27;**/*.(scss|css|vue|html)&#x27;],
-      customSyntax: &#x27;postcss-scss&#x27;,
-    &#125;,
-    &#123;
-      files: [&#x27;**/*.(html|vue)&#x27;],
-      customSyntax: &#x27;postcss-html&#x27;,
-    &#125;,
-  ],
-  ignoreFiles: [
-    &#x27;**/*.js&#x27;,
-    &#x27;**/*.jsx&#x27;,
-    &#x27;**/*.tsx&#x27;,
-    &#x27;**/*.ts&#x27;,
-    &#x27;**/*.json&#x27;,
-    &#x27;**/*.md&#x27;,
-    &#x27;**/*.yaml&#x27;,
-  ],
-  /**
-   * null  =&gt; 关闭该规则
-   * always =&gt; 必须
-   */
-  rules: &#123;
-    &#x27;value-keyword-case&#x27;: null, // 在 css 中使用 v-bind，不报错
-    &#x27;no-descending-specificity&#x27;: null, // 禁止在具有较高优先级的选择器后出现被其覆盖的较低优先级的选择器
-    &#x27;function-url-quotes&#x27;: &#x27;always&#x27;, // 要求或禁止 URL 的引号 &quot;always(必须加上引号)&quot;|&quot;never(没有引号)&quot;
-    &#x27;no-empty-source&#x27;: null, // 关闭禁止空源码
-    &#x27;selector-class-pattern&#x27;: null, // 关闭强制选择器类名的格式
-    &#x27;property-no-unknown&#x27;: null, // 禁止未知的属性(true 为不允许)
-    &#x27;block-opening-brace-space-before&#x27;: &#x27;always&#x27;, //大括号之前必须有一个空格或不能有空白符
-    &#x27;value-no-vendor-prefix&#x27;: null, // 关闭 属性值前缀 --webkit-box
-    &#x27;property-no-vendor-prefix&#x27;: null, // 关闭 属性前缀 -webkit-mask
-    &#x27;selector-pseudo-class-no-unknown&#x27;: [
-      // 不允许未知的选择器
-      true,
-      &#123;
-        ignorePseudoClasses: [&#x27;global&#x27;, &#x27;v-deep&#x27;, &#x27;deep&#x27;], // 忽略属性，修改element默认样式的时候能使用到
-      &#125;,
-    ],
-  &#125;,
-&#125;</code></pre>
+<h5 id="3-2-stylelintignore忽略文件"><a href="#3-2-stylelintignore忽略文件" class="headerlink" title="3.2.stylelintignore忽略文件"></a>3.2.stylelintignore忽略文件</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">/node_modules/*</span><br><span class="line">/dist/*</span><br><span class="line">/html/*</span><br><span class="line">/public/*</span><br></pre></td></tr></table></figure>
 
-<h5 id="3-2-stylelintignore忽略文件"><a href="#3-2-stylelintignore忽略文件" class="headerlink" title="3.2.stylelintignore忽略文件"></a>3.2.stylelintignore忽略文件</h5><pre><code class="highlight plaintext">/node_modules/*
-/dist/*
-/html/*
-/public/*</code></pre>
-
-<h5 id="3-3运行脚本"><a href="#3-3运行脚本" class="headerlink" title="3.3运行脚本"></a>3.3运行脚本</h5><pre><code class="highlight plaintext">&quot;scripts&quot;: &#123;
-	&quot;lint:style&quot;: &quot;stylelint src/**/*.&#123;css,scss,vue&#125; --cache --fix&quot;
-&#125;</code></pre>
+<h5 id="3-3运行脚本"><a href="#3-3运行脚本" class="headerlink" title="3.3运行脚本"></a>3.3运行脚本</h5><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&quot;scripts&quot;: &#123;</span><br><span class="line">	&quot;lint:style&quot;: &quot;stylelint src/**/*.&#123;css,scss,vue&#125; --cache --fix&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>最后配置统一的prettier来格式化我们的js和css，html代码</p>
-<pre><code class="highlight plaintext">&quot;scripts&quot;: &#123;
-   &quot;dev&quot;: &quot;vite --open&quot;,
-   &quot;build&quot;: &quot;vue-tsc &amp;&amp; vite build&quot;,
-   &quot;preview&quot;: &quot;vite preview&quot;,
-   &quot;lint&quot;: &quot;eslint src&quot;,
-   &quot;fix&quot;: &quot;eslint src --fix&quot;,
-   &quot;format&quot;: &quot;prettier --write \&quot;./**/*.&#123;html,vue,ts,js,json,md&#125;\&quot;&quot;,
-   &quot;lint:eslint&quot;: &quot;eslint src/**/*.&#123;ts,vue&#125; --cache --fix&quot;,
-   &quot;lint:style&quot;: &quot;stylelint src/**/*.&#123;css,scss,vue&#125; --cache --fix&quot;
- &#125;,</code></pre>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&quot;scripts&quot;: &#123;</span><br><span class="line">   &quot;dev&quot;: &quot;vite --open&quot;,</span><br><span class="line">   &quot;build&quot;: &quot;vue-tsc &amp;&amp; vite build&quot;,</span><br><span class="line">   &quot;preview&quot;: &quot;vite preview&quot;,</span><br><span class="line">   &quot;lint&quot;: &quot;eslint src&quot;,</span><br><span class="line">   &quot;fix&quot;: &quot;eslint src --fix&quot;,</span><br><span class="line">   &quot;format&quot;: &quot;prettier --write \&quot;./**/*.&#123;html,vue,ts,js,json,md&#125;\&quot;&quot;,</span><br><span class="line">   &quot;lint:eslint&quot;: &quot;eslint src/**/*.&#123;ts,vue&#125; --cache --fix&quot;,</span><br><span class="line">   &quot;lint:style&quot;: &quot;stylelint src/**/*.&#123;css,scss,vue&#125; --cache --fix&quot;</span><br><span class="line"> &#125;,</span><br></pre></td></tr></table></figure>
 
 <p><strong>当我们运行<code>pnpm run format</code>的时候，会把代码直接格式化</strong></p>
 <h4 id="四、配置husky"><a href="#四、配置husky" class="headerlink" title="四、配置husky"></a>四、配置husky</h4><p>在上面我们已经集成好了我们代码校验工具，但是需要每次手动的去执行命令才会格式化我们的代码。如果有人没有格式化就提交了远程仓库中，那这个规范就没什么用。所以我们需要强制让开发人员按照代码规范来提交。</p>
 <p>要做到这件事情，就需要利用husky在代码提交之前触发git hook(git在客户端的钩子)，然后执行<code>pnpm run format</code>来自动的格式化我们的代码。</p>
 <p>安装<code>husky</code></p>
-<pre><code class="highlight plaintext">pnpm install -D husky</code></pre>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pnpm install -D husky</span><br></pre></td></tr></table></figure>
 
 <p>执行</p>
-<pre><code class="highlight plaintext">npx husky-init</code></pre>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npx husky-init</span><br></pre></td></tr></table></figure>
 
 <p>会在根目录下生成个一个.husky目录，在这个目录下面会有一个pre-commit文件，这个文件里面的命令在我们执行commit的时候就会执行</p>
 <p>在<code>.husky/pre-commit</code>文件添加如下命令：</p>
-<pre><code class="highlight plaintext">#!/usr/bin/env sh
-. &quot;$(dirname -- &quot;$0&quot;)/_/husky.sh&quot;
-pnpm run format</code></pre>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/env sh</span><br><span class="line">. &quot;$(dirname -- &quot;$0&quot;)/_/husky.sh&quot;</span><br><span class="line">pnpm run format</span><br></pre></td></tr></table></figure>
 
 <p>当我们对代码进行commit操作的时候，就会执行命令，对代码进行格式化，然后再提交。</p>
 <h4 id="五、配置commitlint"><a href="#五、配置commitlint" class="headerlink" title="五、配置commitlint"></a>五、配置commitlint</h4><p>对于我们的commit信息，也是有统一规范的，不能随便写,要让每个人都按照统一的标准来执行，我们可以利用<strong>commitlint</strong>来实现。</p>
 <p>安装包</p>
-<pre><code class="highlight plaintext">pnpm add @commitlint/config-conventional @commitlint/cli -D</code></pre>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pnpm add @commitlint/config-conventional @commitlint/cli -D</span><br></pre></td></tr></table></figure>
 
 <p>添加配置文件，新建<code>commitlint.config.cjs</code>(注意是cjs)，然后添加下面的代码：</p>
-<pre><code class="highlight plaintext">module.exports = &#123;
-  extends: [&#x27;@commitlint/config-conventional&#x27;],
-  // 校验规则
-  rules: &#123;
-    &#x27;type-enum&#x27;: [
-      2,
-      &#x27;always&#x27;,
-      [
-        &#x27;feat&#x27;,
-        &#x27;fix&#x27;,
-        &#x27;docs&#x27;,
-        &#x27;style&#x27;,
-        &#x27;refactor&#x27;,
-        &#x27;perf&#x27;,
-        &#x27;test&#x27;,
-        &#x27;chore&#x27;,
-        &#x27;revert&#x27;,
-        &#x27;build&#x27;,
-      ],
-    ],
-    &#x27;type-case&#x27;: [0],
-    &#x27;type-empty&#x27;: [0],
-    &#x27;scope-empty&#x27;: [0],
-    &#x27;scope-case&#x27;: [0],
-    &#x27;subject-full-stop&#x27;: [0, &#x27;never&#x27;],
-    &#x27;subject-case&#x27;: [0, &#x27;never&#x27;],
-    &#x27;header-max-length&#x27;: [0, &#x27;always&#x27;, 72],
-  &#125;,
-&#125;</code></pre>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br></pre></td><td class="code"><pre><span class="line">module.exports = &#123;</span><br><span class="line">  extends: [&#x27;@commitlint/config-conventional&#x27;],</span><br><span class="line">  // 校验规则</span><br><span class="line">  rules: &#123;</span><br><span class="line">    &#x27;type-enum&#x27;: [</span><br><span class="line">      2,</span><br><span class="line">      &#x27;always&#x27;,</span><br><span class="line">      [</span><br><span class="line">        &#x27;feat&#x27;,</span><br><span class="line">        &#x27;fix&#x27;,</span><br><span class="line">        &#x27;docs&#x27;,</span><br><span class="line">        &#x27;style&#x27;,</span><br><span class="line">        &#x27;refactor&#x27;,</span><br><span class="line">        &#x27;perf&#x27;,</span><br><span class="line">        &#x27;test&#x27;,</span><br><span class="line">        &#x27;chore&#x27;,</span><br><span class="line">        &#x27;revert&#x27;,</span><br><span class="line">        &#x27;build&#x27;,</span><br><span class="line">      ],</span><br><span class="line">    ],</span><br><span class="line">    &#x27;type-case&#x27;: [0],</span><br><span class="line">    &#x27;type-empty&#x27;: [0],</span><br><span class="line">    &#x27;scope-empty&#x27;: [0],</span><br><span class="line">    &#x27;scope-case&#x27;: [0],</span><br><span class="line">    &#x27;subject-full-stop&#x27;: [0, &#x27;never&#x27;],</span><br><span class="line">    &#x27;subject-case&#x27;: [0, &#x27;never&#x27;],</span><br><span class="line">    &#x27;header-max-length&#x27;: [0, &#x27;always&#x27;, 72],</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>在<code>package.json</code>中配置scripts命令</p>
-<pre><code class="highlight plaintext"># 在scrips中添加下面的代码
-&#123;
-&quot;scripts&quot;: &#123;
-    &quot;commitlint&quot;: &quot;commitlint --config commitlint.config.cjs -e -V&quot;
-  &#125;,
-&#125;</code></pre>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"># 在scrips中添加下面的代码</span><br><span class="line">&#123;</span><br><span class="line">&quot;scripts&quot;: &#123;</span><br><span class="line">    &quot;commitlint&quot;: &quot;commitlint --config commitlint.config.cjs -e -V&quot;</span><br><span class="line">  &#125;,</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>配置结束，现在当我们填写<code>commit</code>信息的时候，前面就需要带着下面的<code>subject</code></p>
-<pre><code class="highlight plaintext">&#x27;feat&#x27;,//新特性、新功能
-&#x27;fix&#x27;,//修改bug
-&#x27;docs&#x27;,//文档修改
-&#x27;style&#x27;,//代码格式修改, 注意不是 css 修改
-&#x27;refactor&#x27;,//代码重构
-&#x27;perf&#x27;,//优化相关，比如提升性能、体验
-&#x27;test&#x27;,//测试用例修改
-&#x27;chore&#x27;,//其他修改, 比如改变构建流程、或者增加依赖库、工具等
-&#x27;revert&#x27;,//回滚到上一个版本
-&#x27;build&#x27;,//编译相关的修改，例如发布版本、对项目构建或者依赖的改动</code></pre>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">&#x27;feat&#x27;,//新特性、新功能</span><br><span class="line">&#x27;fix&#x27;,//修改bug</span><br><span class="line">&#x27;docs&#x27;,//文档修改</span><br><span class="line">&#x27;style&#x27;,//代码格式修改, 注意不是 css 修改</span><br><span class="line">&#x27;refactor&#x27;,//代码重构</span><br><span class="line">&#x27;perf&#x27;,//优化相关，比如提升性能、体验</span><br><span class="line">&#x27;test&#x27;,//测试用例修改</span><br><span class="line">&#x27;chore&#x27;,//其他修改, 比如改变构建流程、或者增加依赖库、工具等</span><br><span class="line">&#x27;revert&#x27;,//回滚到上一个版本</span><br><span class="line">&#x27;build&#x27;,//编译相关的修改，例如发布版本、对项目构建或者依赖的改动</span><br></pre></td></tr></table></figure>
 
 <p>配置husky</p>
-<pre><code class="highlight plaintext">npx husky add .husky/commit-msg</code></pre>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">npx husky add .husky/commit-msg </span><br></pre></td></tr></table></figure>
 
 <p>在生成的commit-msg文件中添加下面的命令</p>
-<pre><code class="highlight plaintext">#!/usr/bin/env sh
-. &quot;$(dirname -- &quot;$0&quot;)/_/husky.sh&quot;
-pnpm commitlint</code></pre>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">#!/usr/bin/env sh</span><br><span class="line">. &quot;$(dirname -- &quot;$0&quot;)/_/husky.sh&quot;</span><br><span class="line">pnpm commitlint</span><br></pre></td></tr></table></figure>
 
 <p>当我们 commit 提交信息时，就不能再随意写了，必须是 git commit -m ‘fix: xxx’ 符合类型的才可以，<strong>需要注意的是类型的后面需要用英文的 :，并且冒号后面是需要空一格的，这个是不能省略的</strong></p>
 <h4 id="六、强制使用pnpm包管理器工具"><a href="#六、强制使用pnpm包管理器工具" class="headerlink" title="六、强制使用pnpm包管理器工具"></a>六、强制使用pnpm包管理器工具</h4><p>团队开发项目的时候，需要统一包管理器工具,因为不同包管理器工具下载同一个依赖,可能版本不一样,</p>
 <p>导致项目出现bug问题,因此包管理器工具需要统一管理！！！</p>
 <p>在根目录创建<code>scritps/preinstall.js</code>文件，添加下面的内容</p>
-<pre><code class="highlight plaintext">if (!/pnpm/.test(process.env.npm_execpath || &#x27;&#x27;)) &#123;
-  console.warn(
-    `\u001b[33mThis repository must using pnpm as the package manager ` +
-    ` for scripts to work properly.\u001b[39m\n`,
-  )
-  process.exit(1)
-&#125;</code></pre>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">if (!/pnpm/.test(process.env.npm_execpath || &#x27;&#x27;)) &#123;</span><br><span class="line">  console.warn(</span><br><span class="line">    `\u001b[33mThis repository must using pnpm as the package manager ` +</span><br><span class="line">    ` for scripts to work properly.\u001b[39m\n`,</span><br><span class="line">  )</span><br><span class="line">  process.exit(1)</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>配置命令</p>
-<pre><code class="highlight plaintext">&quot;scripts&quot;: &#123;
-	&quot;preinstall&quot;: &quot;node ./scripts/preinstall.js&quot;
-&#125;</code></pre>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">&quot;scripts&quot;: &#123;</span><br><span class="line">	&quot;preinstall&quot;: &quot;node ./scripts/preinstall.js&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p><strong>当我们使用npm或者yarn来安装包的时候，就会报错了。原理就是在install的时候会触发preinstall（npm提供的生命周期钩子）这个文件里面的代码。</strong></p>
 <h2 id="三、项目集成"><a href="#三、项目集成" class="headerlink" title="三、项目集成"></a>三、项目集成</h2><h3 id="3-1集成element-plus"><a href="#3-1集成element-plus" class="headerlink" title="3.1集成element-plus"></a>3.1集成element-plus</h3><p>硅谷甄选运营平台,UI组件库采用的element-plus，因此需要集成element-plus插件！！！</p>
 <p>官网地址:<a target="_blank" rel="noopener" href="https://element-plus.gitee.io/zh-CN/">https://element-plus.gitee.io/zh-CN/</a></p>
-<pre><code class="highlight plaintext">pnpm install element-plus @element-plus/icons-vue</code></pre>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pnpm install element-plus @element-plus/icons-vue</span><br></pre></td></tr></table></figure>
 
 <p><strong>入口文件main.ts全局安装element-plus,element-plus默认支持语言英语设置为中文</strong></p>
-<pre><code class="highlight plaintext">import ElementPlus from &#x27;element-plus&#x27;;
-import &#x27;element-plus/dist/index.css&#x27;
-//@ts-ignore忽略当前文件ts类型的检测否则有红色提示(打包会失败)
-import zhCn from &#x27;element-plus/dist/locale/zh-cn.mjs&#x27;
-app.use(ElementPlus, &#123;
-    locale: zhCn
-&#125;)</code></pre>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">import ElementPlus from &#x27;element-plus&#x27;;</span><br><span class="line">import &#x27;element-plus/dist/index.css&#x27;</span><br><span class="line">//@ts-ignore忽略当前文件ts类型的检测否则有红色提示(打包会失败)</span><br><span class="line">import zhCn from &#x27;element-plus/dist/locale/zh-cn.mjs&#x27;</span><br><span class="line">app.use(ElementPlus, &#123;</span><br><span class="line">    locale: zhCn</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
 
 
 
 <p><strong>Element Plus全局组件类型声明</strong></p>
-<pre><code class="highlight plaintext">// tsconfig.json
-&#123;
-  &quot;compilerOptions&quot;: &#123;
-    // ...
-    &quot;types&quot;: [&quot;element-plus/global&quot;]
-  &#125;
-&#125;</code></pre>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">// tsconfig.json</span><br><span class="line">&#123;</span><br><span class="line">  &quot;compilerOptions&quot;: &#123;</span><br><span class="line">    // ...</span><br><span class="line">    &quot;types&quot;: [&quot;element-plus/global&quot;]</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>配置完毕可以测试element-plus组件与图标的使用.</p>
 <h3 id="3-2src别名的配置"><a href="#3-2src别名的配置" class="headerlink" title="3.2src别名的配置"></a>3.2src别名的配置</h3><p>在开发项目的时候文件与文件关系可能很复杂，因此我们需要给src文件夹配置一个别名！！！</p>
-<pre><code class="highlight plaintext">// vite.config.ts
-import &#123;defineConfig&#125; from &#x27;vite&#x27;
-import vue from &#x27;@vitejs/plugin-vue&#x27;
-import path from &#x27;path&#x27;
-export default defineConfig(&#123;
-    plugins: [vue()],
-    resolve: &#123;
-        alias: &#123;
-            &quot;@&quot;: path.resolve(__dirname,&quot;./src&quot;) // 相对路径别名配置，使用 @ 代替 src
-        &#125;
-    &#125;
-&#125;)</code></pre>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line">// vite.config.ts</span><br><span class="line">import &#123;defineConfig&#125; from &#x27;vite&#x27;</span><br><span class="line">import vue from &#x27;@vitejs/plugin-vue&#x27;</span><br><span class="line">import path from &#x27;path&#x27;</span><br><span class="line">export default defineConfig(&#123;</span><br><span class="line">    plugins: [vue()],</span><br><span class="line">    resolve: &#123;</span><br><span class="line">        alias: &#123;</span><br><span class="line">            &quot;@&quot;: path.resolve(__dirname,&quot;./src&quot;) // 相对路径别名配置，使用 @ 代替 src</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
 
 <p><strong>TypeScript 编译配置</strong></p>
-<pre><code class="highlight plaintext">// tsconfig.json
-&#123;
-  &quot;compilerOptions&quot;: &#123;
-    &quot;baseUrl&quot;: &quot;./&quot;, // 解析非相对模块的基地址，默认是当前目录
-    &quot;paths&quot;: &#123; //路径映射，相对于baseUrl
-      &quot;@/*&quot;: [&quot;src/*&quot;] 
-    &#125;
-  &#125;
-&#125;</code></pre>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">// tsconfig.json</span><br><span class="line">&#123;</span><br><span class="line">  &quot;compilerOptions&quot;: &#123;</span><br><span class="line">    &quot;baseUrl&quot;: &quot;./&quot;, // 解析非相对模块的基地址，默认是当前目录</span><br><span class="line">    &quot;paths&quot;: &#123; //路径映射，相对于baseUrl</span><br><span class="line">      &quot;@/*&quot;: [&quot;src/*&quot;] </span><br><span class="line">    &#125;</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h3 id="3-3环境变量的配置"><a href="#3-3环境变量的配置" class="headerlink" title="3.3环境变量的配置"></a>3.3环境变量的配置</h3><p><strong>项目开发过程中，至少会经历开发环境、测试环境和生产环境(即正式环境)三个阶段。不同阶段请求的状态(如接口地址等)不尽相同，若手动切换接口地址是相当繁琐且易出错的。于是环境变量配置的需求就应运而生，我们只需做简单的配置，把环境状态切换的工作交给代码。</strong></p>
 <p>开发环境（development）<br>顾名思义，开发使用的环境，每位开发人员在自己的dev分支上干活，开发到一定程度，同事会合并代码，进行联调。</p>
@@ -467,232 +193,69 @@ export default defineConfig(&#123;
 <p>生产环境（production）<br>生产环境是指正式提供对外服务的，一般会关掉错误报告，打开错误日志。(正式提供给客户使用的环境。)</p>
 <p>注意:一般情况下，一个环境对应一台服务器,也有的公司开发与测试环境是一台服务器！！！</p>
 <p>项目根目录分别添加 开发、生产和测试环境的文件!</p>
-<pre><code class="highlight plaintext">.env.development
-.env.production
-.env.test</code></pre>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">.env.development</span><br><span class="line">.env.production</span><br><span class="line">.env.test</span><br></pre></td></tr></table></figure>
 
 <p>文件内容</p>
-<pre><code class="highlight plaintext"># 变量必须以 VITE_ 为前缀才能暴露给外部读取
-NODE_ENV = &#x27;development&#x27;
-VITE_APP_TITLE = &#x27;硅谷甄选运营平台&#x27;
-VITE_APP_BASE_API = &#x27;/dev-api&#x27;</code></pre>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># 变量必须以 VITE_ 为前缀才能暴露给外部读取</span><br><span class="line">NODE_ENV = &#x27;development&#x27;</span><br><span class="line">VITE_APP_TITLE = &#x27;硅谷甄选运营平台&#x27;</span><br><span class="line">VITE_APP_BASE_API = &#x27;/dev-api&#x27;</span><br></pre></td></tr></table></figure>
 
-<pre><code class="highlight plaintext">NODE_ENV = &#x27;production&#x27;
-VITE_APP_TITLE = &#x27;硅谷甄选运营平台&#x27;
-VITE_APP_BASE_API = &#x27;/prod-api&#x27;</code></pre>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">NODE_ENV = &#x27;production&#x27;</span><br><span class="line">VITE_APP_TITLE = &#x27;硅谷甄选运营平台&#x27;</span><br><span class="line">VITE_APP_BASE_API = &#x27;/prod-api&#x27;</span><br></pre></td></tr></table></figure>
 
-<pre><code class="highlight plaintext"># 变量必须以 VITE_ 为前缀才能暴露给外部读取
-NODE_ENV = &#x27;test&#x27;
-VITE_APP_TITLE = &#x27;硅谷甄选运营平台&#x27;
-VITE_APP_BASE_API = &#x27;/test-api&#x27;</code></pre>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"># 变量必须以 VITE_ 为前缀才能暴露给外部读取</span><br><span class="line">NODE_ENV = &#x27;test&#x27;</span><br><span class="line">VITE_APP_TITLE = &#x27;硅谷甄选运营平台&#x27;</span><br><span class="line">VITE_APP_BASE_API = &#x27;/test-api&#x27;</span><br></pre></td></tr></table></figure>
 
 <p>配置运行命令：package.json</p>
-<pre><code class="highlight plaintext">&quot;scripts&quot;: &#123;
-   &quot;dev&quot;: &quot;vite --open&quot;,
-   &quot;build:test&quot;: &quot;vue-tsc &amp;&amp; vite build --mode test&quot;,
-   &quot;build:pro&quot;: &quot;vue-tsc &amp;&amp; vite build --mode production&quot;,
-   &quot;preview&quot;: &quot;vite preview&quot;
- &#125;,</code></pre>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">&quot;scripts&quot;: &#123;</span><br><span class="line">   &quot;dev&quot;: &quot;vite --open&quot;,</span><br><span class="line">   &quot;build:test&quot;: &quot;vue-tsc &amp;&amp; vite build --mode test&quot;,</span><br><span class="line">   &quot;build:pro&quot;: &quot;vue-tsc &amp;&amp; vite build --mode production&quot;,</span><br><span class="line">   &quot;preview&quot;: &quot;vite preview&quot;</span><br><span class="line"> &#125;,</span><br></pre></td></tr></table></figure>
 
 <p>通过import.meta.env获取环境变量</p>
 <h3 id="3-4SVG图标配置"><a href="#3-4SVG图标配置" class="headerlink" title="3.4SVG图标配置"></a>3.4SVG图标配置</h3><p>在开发项目的时候经常会用到svg矢量图,而且我们使用SVG以后，页面上加载的不再是图片资源,</p>
 <p>这对页面性能来说是个很大的提升，而且我们SVG文件比img要小的很多，放在项目中几乎不占用资源。</p>
 <p><strong>安装SVG依赖插件</strong></p>
-<pre><code class="highlight plaintext">pnpm install vite-plugin-svg-icons -D</code></pre>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pnpm install vite-plugin-svg-icons -D</span><br></pre></td></tr></table></figure>
 
 <p><strong>在<code>vite.config.ts</code>中配置插件</strong></p>
-<pre><code class="highlight plaintext">import &#123; createSvgIconsPlugin &#125; from &#x27;vite-plugin-svg-icons&#x27;
-import path from &#x27;path&#x27;
-export default () =&gt; &#123;
-  return &#123;
-    plugins: [
-      createSvgIconsPlugin(&#123;
-        // Specify the icon folder to be cached
-        iconDirs: [path.resolve(process.cwd(), &#x27;src/assets/icons&#x27;)],
-        // Specify symbolId format
-        symbolId: &#x27;icon-[dir]-[name]&#x27;,
-      &#125;),
-    ],
-  &#125;
-&#125;</code></pre>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line">import &#123; createSvgIconsPlugin &#125; from &#x27;vite-plugin-svg-icons&#x27;</span><br><span class="line">import path from &#x27;path&#x27;</span><br><span class="line">export default () =&gt; &#123;</span><br><span class="line">  return &#123;</span><br><span class="line">    plugins: [</span><br><span class="line">      createSvgIconsPlugin(&#123;</span><br><span class="line">        // Specify the icon folder to be cached</span><br><span class="line">        iconDirs: [path.resolve(process.cwd(), &#x27;src/assets/icons&#x27;)],</span><br><span class="line">        // Specify symbolId format</span><br><span class="line">        symbolId: &#x27;icon-[dir]-[name]&#x27;,</span><br><span class="line">      &#125;),</span><br><span class="line">    ],</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p><strong>入口文件导入</strong></p>
-<pre><code class="highlight plaintext">import &#x27;virtual:svg-icons-register&#x27;</code></pre>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">import &#x27;virtual:svg-icons-register&#x27;</span><br></pre></td></tr></table></figure>
 
 <h4 id="3-4-1svg封装为全局组件"><a href="#3-4-1svg封装为全局组件" class="headerlink" title="3.4.1svg封装为全局组件"></a>3.4.1svg封装为全局组件</h4><p>因为项目很多模块需要使用图标,因此把它封装为全局组件！！！</p>
 <p><strong>在src&#x2F;components目录下创建一个SvgIcon组件:代表如下</strong></p>
-<pre><code class="highlight plaintext">&lt;template&gt;
-  &lt;div&gt;
-    &lt;svg :style=&quot;&#123; width: width, height: height &#125;&quot;&gt;
-      &lt;use :xlink:href=&quot;prefix + name&quot; :fill=&quot;color&quot;&gt;&lt;/use&gt;
-    &lt;/svg&gt;
-  &lt;/div&gt;
-&lt;/template&gt;
-
-&lt;script setup lang=&quot;ts&quot;&gt;
-defineProps(&#123;
-  //xlink:href属性值的前缀
-  prefix: &#123;
-    type: String,
-    default: &#x27;#icon-&#x27;
-  &#125;,
-  //svg矢量图的名字
-  name: String,
-  //svg图标的颜色
-  color: &#123;
-    type: String,
-    default: &quot;&quot;
-  &#125;,
-  //svg宽度
-  width: &#123;
-    type: String,
-    default: &#x27;16px&#x27;
-  &#125;,
-  //svg高度
-  height: &#123;
-    type: String,
-    default: &#x27;16px&#x27;
-  &#125;
-
-&#125;)
-&lt;/script&gt;
-&lt;style scoped&gt;&lt;/style&gt;</code></pre>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">  &lt;div&gt;</span><br><span class="line">    &lt;svg :style=&quot;&#123; width: width, height: height &#125;&quot;&gt;</span><br><span class="line">      &lt;use :xlink:href=&quot;prefix + name&quot; :fill=&quot;color&quot;&gt;&lt;/use&gt;</span><br><span class="line">    &lt;/svg&gt;</span><br><span class="line">  &lt;/div&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script setup lang=&quot;ts&quot;&gt;</span><br><span class="line">defineProps(&#123;</span><br><span class="line">  //xlink:href属性值的前缀</span><br><span class="line">  prefix: &#123;</span><br><span class="line">    type: String,</span><br><span class="line">    default: &#x27;#icon-&#x27;</span><br><span class="line">  &#125;,</span><br><span class="line">  //svg矢量图的名字</span><br><span class="line">  name: String,</span><br><span class="line">  //svg图标的颜色</span><br><span class="line">  color: &#123;</span><br><span class="line">    type: String,</span><br><span class="line">    default: &quot;&quot;</span><br><span class="line">  &#125;,</span><br><span class="line">  //svg宽度</span><br><span class="line">  width: &#123;</span><br><span class="line">    type: String,</span><br><span class="line">    default: &#x27;16px&#x27;</span><br><span class="line">  &#125;,</span><br><span class="line">  //svg高度</span><br><span class="line">  height: &#123;</span><br><span class="line">    type: String,</span><br><span class="line">    default: &#x27;16px&#x27;</span><br><span class="line">  &#125;</span><br><span class="line"></span><br><span class="line">&#125;)</span><br><span class="line">&lt;/script&gt;</span><br><span class="line">&lt;style scoped&gt;&lt;/style&gt;</span><br></pre></td></tr></table></figure>
 
 <p>在src文件夹目录下创建一个index.ts文件：用于注册components文件夹内部全部全局组件！！！</p>
-<pre><code class="highlight plaintext">import SvgIcon from &#x27;./SvgIcon/index.vue&#x27;;
-import type &#123; App, Component &#125; from &#x27;vue&#x27;;
-const components: &#123; [name: string]: Component &#125; = &#123; SvgIcon &#125;;
-export default &#123;
-    install(app: App) &#123;
-        Object.keys(components).forEach((key: string) =&gt; &#123;
-            app.component(key, components[key]);
-        &#125;)
-    &#125;
-&#125;</code></pre>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line">import SvgIcon from &#x27;./SvgIcon/index.vue&#x27;;</span><br><span class="line">import type &#123; App, Component &#125; from &#x27;vue&#x27;;</span><br><span class="line">const components: &#123; [name: string]: Component &#125; = &#123; SvgIcon &#125;;</span><br><span class="line">export default &#123;</span><br><span class="line">    install(app: App) &#123;</span><br><span class="line">        Object.keys(components).forEach((key: string) =&gt; &#123;</span><br><span class="line">            app.component(key, components[key]);</span><br><span class="line">        &#125;)</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>在入口文件引入src&#x2F;index.ts文件,通过app.use方法安装自定义插件</p>
-<pre><code class="highlight plaintext">import gloablComponent from &#x27;./components/index&#x27;;
-app.use(gloablComponent);</code></pre>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">import gloablComponent from &#x27;./components/index&#x27;;</span><br><span class="line">app.use(gloablComponent);</span><br></pre></td></tr></table></figure>
 
 <h3 id="3-5集成sass"><a href="#3-5集成sass" class="headerlink" title="3.5集成sass"></a>3.5集成sass</h3><p>我们目前在组件内部已经可以使用scss样式,因为在配置styleLint工具的时候，项目当中已经安装过sass sass-loader,因此我们再组件内可以使用scss语法！！！需要加上lang&#x3D;”scss”</p>
-<pre><code class="highlight plaintext">&lt;style scoped lang=&quot;scss&quot;&gt;&lt;/style&gt;</code></pre>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;style scoped lang=&quot;scss&quot;&gt;&lt;/style&gt;</span><br></pre></td></tr></table></figure>
 
 <p>接下来我们为项目添加一些全局的样式</p>
 <p>在src&#x2F;styles目录下创建一个index.scss文件，当然项目中需要用到清除默认样式，因此在index.scss引入reset.scss</p>
-<pre><code class="highlight plaintext">@import reset.scss</code></pre>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">@import reset.scss</span><br></pre></td></tr></table></figure>
 
 <p>在入口文件引入</p>
-<pre><code class="highlight plaintext">import &#x27;@/styles&#x27;</code></pre>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">import &#x27;@/styles&#x27;</span><br></pre></td></tr></table></figure>
 
 <p>但是你会发现在src&#x2F;styles&#x2F;index.scss全局样式文件中没有办法使用$变量.因此需要给项目中引入全局变量$.</p>
 <p>在style&#x2F;variable.scss创建一个variable.scss文件！</p>
 <p>在vite.config.ts文件配置如下:</p>
-<pre><code class="highlight plaintext">export default defineConfig((config) =&gt; &#123;
-	css: &#123;
-      preprocessorOptions: &#123;
-        scss: &#123;
-          javascriptEnabled: true,
-          additionalData: &#x27;@import &quot;./src/styles/variable.scss&quot;;&#x27;,
-        &#125;,
-      &#125;,
-    &#125;,
-	&#125;
-&#125;</code></pre>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">export default defineConfig((config) =&gt; &#123;</span><br><span class="line">	css: &#123;</span><br><span class="line">      preprocessorOptions: &#123;</span><br><span class="line">        scss: &#123;</span><br><span class="line">          javascriptEnabled: true,</span><br><span class="line">          additionalData: &#x27;@import &quot;./src/styles/variable.scss&quot;;&#x27;,</span><br><span class="line">        &#125;,</span><br><span class="line">      &#125;,</span><br><span class="line">    &#125;,</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p><strong><code>@import &quot;./src/styles/variable.less&quot;;</code>后面的<code>;</code>不要忘记，不然会报错</strong>!</p>
 <p>配置完毕你会发现scss提供这些全局变量可以在组件样式中使用了！！！</p>
 <h3 id="3-6mock数据"><a href="#3-6mock数据" class="headerlink" title="3.6mock数据"></a>3.6mock数据</h3><p>安装依赖:<a target="_blank" rel="noopener" href="https://www.npmjs.com/package/vite-plugin-mock">https://www.npmjs.com/package/vite-plugin-mock</a></p>
-<pre><code class="highlight plaintext">pnpm install -D vite-plugin-mock mockjs</code></pre>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pnpm install -D vite-plugin-mock mockjs</span><br></pre></td></tr></table></figure>
 
 <p>在 vite.config.js 配置文件启用插件。</p>
-<pre><code class="highlight plaintext">import &#123; UserConfigExport, ConfigEnv &#125; from &#x27;vite&#x27;
-import &#123; viteMockServe &#125; from &#x27;vite-plugin-mock&#x27;
-import vue from &#x27;@vitejs/plugin-vue&#x27;
-export default (&#123; command &#125;)=&gt; &#123;
-  return &#123;
-    plugins: [
-      vue(),
-      viteMockServe(&#123;
-        localEnabled: command === &#x27;serve&#x27;,
-      &#125;),
-    ],
-  &#125;
-&#125;</code></pre>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line">import &#123; UserConfigExport, ConfigEnv &#125; from &#x27;vite&#x27;</span><br><span class="line">import &#123; viteMockServe &#125; from &#x27;vite-plugin-mock&#x27;</span><br><span class="line">import vue from &#x27;@vitejs/plugin-vue&#x27;</span><br><span class="line">export default (&#123; command &#125;)=&gt; &#123;</span><br><span class="line">  return &#123;</span><br><span class="line">    plugins: [</span><br><span class="line">      vue(),</span><br><span class="line">      viteMockServe(&#123;</span><br><span class="line">        localEnabled: command === &#x27;serve&#x27;,</span><br><span class="line">      &#125;),</span><br><span class="line">    ],</span><br><span class="line">  &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <p>在根目录创建mock文件夹:去创建我们需要mock数据与接口！！！</p>
 <p>在mock文件夹内部创建一个user.ts文件</p>
-<pre><code class="highlight plaintext">//用户信息数据
-function createUserList() &#123;
-    return [
-        &#123;
-            userId: 1,
-            avatar:
-                &#x27;https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif&#x27;,
-            username: &#x27;admin&#x27;,
-            password: &#x27;111111&#x27;,
-            desc: &#x27;平台管理员&#x27;,
-            roles: [&#x27;平台管理员&#x27;],
-            buttons: [&#x27;cuser.detail&#x27;],
-            routes: [&#x27;home&#x27;],
-            token: &#x27;Admin Token&#x27;,
-        &#125;,
-        &#123;
-            userId: 2,
-            avatar:
-                &#x27;https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif&#x27;,
-            username: &#x27;system&#x27;,
-            password: &#x27;111111&#x27;,
-            desc: &#x27;系统管理员&#x27;,
-            roles: [&#x27;系统管理员&#x27;],
-            buttons: [&#x27;cuser.detail&#x27;, &#x27;cuser.user&#x27;],
-            routes: [&#x27;home&#x27;],
-            token: &#x27;System Token&#x27;,
-        &#125;,
-    ]
-&#125;
-
-export default [
-    // 用户登录接口
-    &#123;
-        url: &#x27;/api/user/login&#x27;,//请求地址
-        method: &#x27;post&#x27;,//请求方式
-        response: (&#123; body &#125;) =&gt; &#123;
-            //获取请求体携带过来的用户名与密码
-            const &#123; username, password &#125; = body;
-            //调用获取用户信息函数,用于判断是否有此用户
-            const checkUser = createUserList().find(
-                (item) =&gt; item.username === username &amp;&amp; item.password === password,
-            )
-            //没有用户返回失败信息
-            if (!checkUser) &#123;
-                return &#123; code: 201, data: &#123; message: &#x27;账号或者密码不正确&#x27; &#125; &#125;
-            &#125;
-            //如果有返回成功信息
-            const &#123; token &#125; = checkUser
-            return &#123; code: 200, data: &#123; token &#125; &#125;
-        &#125;,
-    &#125;,
-    // 获取用户信息
-    &#123;
-        url: &#x27;/api/user/info&#x27;,
-        method: &#x27;get&#x27;,
-        response: (request) =&gt; &#123;
-            //获取请求头携带token
-            const token = request.headers.token;
-            //查看用户信息是否包含有次token用户
-            const checkUser = createUserList().find((item) =&gt; item.token === token)
-            //没有返回失败的信息
-            if (!checkUser) &#123;
-                return &#123; code: 201, data: &#123; message: &#x27;获取用户信息失败&#x27; &#125; &#125;
-            &#125;
-            //如果有返回成功信息
-            return &#123; code: 200, data: &#123;checkUser&#125; &#125;
-        &#125;,
-    &#125;,
-]</code></pre>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br></pre></td><td class="code"><pre><span class="line">//用户信息数据</span><br><span class="line">function createUserList() &#123;</span><br><span class="line">    return [</span><br><span class="line">        &#123;</span><br><span class="line">            userId: 1,</span><br><span class="line">            avatar:</span><br><span class="line">                &#x27;https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif&#x27;,</span><br><span class="line">            username: &#x27;admin&#x27;,</span><br><span class="line">            password: &#x27;111111&#x27;,</span><br><span class="line">            desc: &#x27;平台管理员&#x27;,</span><br><span class="line">            roles: [&#x27;平台管理员&#x27;],</span><br><span class="line">            buttons: [&#x27;cuser.detail&#x27;],</span><br><span class="line">            routes: [&#x27;home&#x27;],</span><br><span class="line">            token: &#x27;Admin Token&#x27;,</span><br><span class="line">        &#125;,</span><br><span class="line">        &#123;</span><br><span class="line">            userId: 2,</span><br><span class="line">            avatar:</span><br><span class="line">                &#x27;https://wpimg.wallstcn.com/f778738c-e4f8-4870-b634-56703b4acafe.gif&#x27;,</span><br><span class="line">            username: &#x27;system&#x27;,</span><br><span class="line">            password: &#x27;111111&#x27;,</span><br><span class="line">            desc: &#x27;系统管理员&#x27;,</span><br><span class="line">            roles: [&#x27;系统管理员&#x27;],</span><br><span class="line">            buttons: [&#x27;cuser.detail&#x27;, &#x27;cuser.user&#x27;],</span><br><span class="line">            routes: [&#x27;home&#x27;],</span><br><span class="line">            token: &#x27;System Token&#x27;,</span><br><span class="line">        &#125;,</span><br><span class="line">    ]</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">export default [</span><br><span class="line">    // 用户登录接口</span><br><span class="line">    &#123;</span><br><span class="line">        url: &#x27;/api/user/login&#x27;,//请求地址</span><br><span class="line">        method: &#x27;post&#x27;,//请求方式</span><br><span class="line">        response: (&#123; body &#125;) =&gt; &#123;</span><br><span class="line">            //获取请求体携带过来的用户名与密码</span><br><span class="line">            const &#123; username, password &#125; = body;</span><br><span class="line">            //调用获取用户信息函数,用于判断是否有此用户</span><br><span class="line">            const checkUser = createUserList().find(</span><br><span class="line">                (item) =&gt; item.username === username &amp;&amp; item.password === password,</span><br><span class="line">            )</span><br><span class="line">            //没有用户返回失败信息</span><br><span class="line">            if (!checkUser) &#123;</span><br><span class="line">                return &#123; code: 201, data: &#123; message: &#x27;账号或者密码不正确&#x27; &#125; &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            //如果有返回成功信息</span><br><span class="line">            const &#123; token &#125; = checkUser</span><br><span class="line">            return &#123; code: 200, data: &#123; token &#125; &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">    &#125;,</span><br><span class="line">    // 获取用户信息</span><br><span class="line">    &#123;</span><br><span class="line">        url: &#x27;/api/user/info&#x27;,</span><br><span class="line">        method: &#x27;get&#x27;,</span><br><span class="line">        response: (request) =&gt; &#123;</span><br><span class="line">            //获取请求头携带token</span><br><span class="line">            const token = request.headers.token;</span><br><span class="line">            //查看用户信息是否包含有次token用户</span><br><span class="line">            const checkUser = createUserList().find((item) =&gt; item.token === token)</span><br><span class="line">            //没有返回失败的信息</span><br><span class="line">            if (!checkUser) &#123;</span><br><span class="line">                return &#123; code: 201, data: &#123; message: &#x27;获取用户信息失败&#x27; &#125; &#125;</span><br><span class="line">            &#125;</span><br><span class="line">            //如果有返回成功信息</span><br><span class="line">            return &#123; code: 200, data: &#123;checkUser&#125; &#125;</span><br><span class="line">        &#125;,</span><br><span class="line">    &#125;,</span><br><span class="line">]</span><br></pre></td></tr></table></figure>
 
 <p><strong>安装axios</strong></p>
-<pre><code class="highlight plaintext">pnpm install axios</code></pre>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">pnpm install axios</span><br></pre></td></tr></table></figure>
 
 <p>最后通过axios测试接口！！！</p>
 <h3 id="3-7axios二次封装"><a href="#3-7axios二次封装" class="headerlink" title="3.7axios二次封装"></a>3.7axios二次封装</h3><p>在开发项目的时候避免不了与后端进行交互,因此我们需要使用axios插件实现发送网络请求。在开发项目的时候</p>
@@ -701,88 +264,11 @@ export default [
 <p>1:使用请求拦截器，可以在请求拦截器中处理一些业务(开始进度条、请求头携带公共参数)</p>
 <p>2:使用响应拦截器，可以在响应拦截器中处理一些业务(进度条结束、简化服务器返回的数据、处理http网络错误)</p>
 <p>在根目录下创建utils&#x2F;request.ts</p>
-<pre><code class="highlight plaintext">import axios from &quot;axios&quot;;
-import &#123; ElMessage &#125; from &quot;element-plus&quot;;
-//创建axios实例
-let request = axios.create(&#123;
-    baseURL: import.meta.env.VITE_APP_BASE_API,
-    timeout: 5000
-&#125;)
-//请求拦截器
-request.interceptors.request.use(config =&gt; &#123;
-    return config;
-&#125;);
-//响应拦截器
-request.interceptors.response.use((response) =&gt; &#123;
-    return response.data;
-&#125;, (error) =&gt; &#123;
-    //处理网络错误
-    let msg = &#x27;&#x27;;
-    let status = error.response.status;
-    switch (status) &#123;
-        case 401:
-            msg = &quot;token过期&quot;;
-            break;
-        case 403:
-            msg = &#x27;无权访问&#x27;;
-            break;
-        case 404:
-            msg = &quot;请求地址错误&quot;;
-            break;
-        case 500:
-            msg = &quot;服务器出现问题&quot;;
-            break;
-        default:
-            msg = &quot;无网络&quot;;
-
-    &#125;
-    ElMessage(&#123;
-        type: &#x27;error&#x27;,
-        message: msg
-    &#125;)
-    return Promise.reject(error);
-&#125;);
-export default request;</code></pre>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br></pre></td><td class="code"><pre><span class="line">import axios from &quot;axios&quot;;</span><br><span class="line">import &#123; ElMessage &#125; from &quot;element-plus&quot;;</span><br><span class="line">//创建axios实例</span><br><span class="line">let request = axios.create(&#123;</span><br><span class="line">    baseURL: import.meta.env.VITE_APP_BASE_API,</span><br><span class="line">    timeout: 5000</span><br><span class="line">&#125;)</span><br><span class="line">//请求拦截器</span><br><span class="line">request.interceptors.request.use(config =&gt; &#123;</span><br><span class="line">    return config;</span><br><span class="line">&#125;);</span><br><span class="line">//响应拦截器</span><br><span class="line">request.interceptors.response.use((response) =&gt; &#123;</span><br><span class="line">    return response.data;</span><br><span class="line">&#125;, (error) =&gt; &#123;</span><br><span class="line">    //处理网络错误</span><br><span class="line">    let msg = &#x27;&#x27;;</span><br><span class="line">    let status = error.response.status;</span><br><span class="line">    switch (status) &#123;</span><br><span class="line">        case 401:</span><br><span class="line">            msg = &quot;token过期&quot;;</span><br><span class="line">            break;</span><br><span class="line">        case 403:</span><br><span class="line">            msg = &#x27;无权访问&#x27;;</span><br><span class="line">            break;</span><br><span class="line">        case 404:</span><br><span class="line">            msg = &quot;请求地址错误&quot;;</span><br><span class="line">            break;</span><br><span class="line">        case 500:</span><br><span class="line">            msg = &quot;服务器出现问题&quot;;</span><br><span class="line">            break;</span><br><span class="line">        default:</span><br><span class="line">            msg = &quot;无网络&quot;;</span><br><span class="line"></span><br><span class="line">    &#125;</span><br><span class="line">    ElMessage(&#123;</span><br><span class="line">        type: &#x27;error&#x27;,</span><br><span class="line">        message: msg</span><br><span class="line">    &#125;)</span><br><span class="line">    return Promise.reject(error);</span><br><span class="line">&#125;);</span><br><span class="line">export default request;</span><br></pre></td></tr></table></figure>
 
 <h3 id="3-8API接口统一管理"><a href="#3-8API接口统一管理" class="headerlink" title="3.8API接口统一管理"></a>3.8API接口统一管理</h3><p>在开发项目的时候,接口可能很多需要统一管理。在src目录下去创建api文件夹去统一管理项目的接口；</p>
 <p>比如:下面方式</p>
-<pre><code class="highlight plaintext">//统一管理咱们项目用户相关的接口
-
-import request from &#x27;@/utils/request&#x27;
-
-import type &#123;
-
- loginFormData,
-
- loginResponseData,
-
- userInfoReponseData,
-
-&#125; from &#x27;./type&#x27;
-
-//项目用户相关的请求地址
-
-enum API &#123;
-
- LOGIN_URL = &#x27;/admin/acl/index/login&#x27;,
-
- USERINFO_URL = &#x27;/admin/acl/index/info&#x27;,
-
- LOGOUT_URL = &#x27;/admin/acl/index/logout&#x27;,
-
-&#125;
-//登录接口
-export const reqLogin = (data: loginFormData) =&gt;
- request.post&lt;any, loginResponseData&gt;(API.LOGIN_URL, data)
-//获取用户信息
-
-export const reqUserInfo = () =&gt;
-
- request.get&lt;any, userInfoReponseData&gt;(API.USERINFO_URL)
-
-//退出登录
-
-export const reqLogout = () =&gt; request.post&lt;any, any&gt;(API.LOGOUT_URL)</code></pre>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br></pre></td><td class="code"><pre><span class="line">//统一管理咱们项目用户相关的接口</span><br><span class="line"></span><br><span class="line">import request from &#x27;@/utils/request&#x27;</span><br><span class="line"></span><br><span class="line">import type &#123;</span><br><span class="line"></span><br><span class="line"> loginFormData,</span><br><span class="line"></span><br><span class="line"> loginResponseData,</span><br><span class="line"></span><br><span class="line"> userInfoReponseData,</span><br><span class="line"></span><br><span class="line">&#125; from &#x27;./type&#x27;</span><br><span class="line"></span><br><span class="line">//项目用户相关的请求地址</span><br><span class="line"></span><br><span class="line">enum API &#123;</span><br><span class="line"></span><br><span class="line"> LOGIN_URL = &#x27;/admin/acl/index/login&#x27;,</span><br><span class="line"></span><br><span class="line"> USERINFO_URL = &#x27;/admin/acl/index/info&#x27;,</span><br><span class="line"></span><br><span class="line"> LOGOUT_URL = &#x27;/admin/acl/index/logout&#x27;,</span><br><span class="line"></span><br><span class="line">&#125;</span><br><span class="line">//登录接口</span><br><span class="line">export const reqLogin = (data: loginFormData) =&gt;</span><br><span class="line"> request.post&lt;any, loginResponseData&gt;(API.LOGIN_URL, data)</span><br><span class="line">//获取用户信息</span><br><span class="line"></span><br><span class="line">export const reqUserInfo = () =&gt;</span><br><span class="line"></span><br><span class="line"> request.get&lt;any, userInfoReponseData&gt;(API.USERINFO_URL)</span><br><span class="line"></span><br><span class="line">//退出登录</span><br><span class="line"></span><br><span class="line">export const reqLogout = () =&gt; request.post&lt;any, any&gt;(API.LOGOUT_URL)</span><br></pre></td></tr></table></figure>
 
 
         </article>
@@ -826,7 +312,7 @@ export const reqLogout = () =&gt; request.post&lt;any, any&gt;(API.LOGOUT_URL)</
             <div class="row">
                 <div class="col-m-4">
                     <h3 class="title-recent">最新文章：</h3>
-                    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2025/03/15/AJAX/">AJAX</a></li><li class="post-list-item"><a class="post-list-link" href="/2025/02/23/QT/">QT</a></li><li class="post-list-item"><a class="post-list-link" href="/2025/02/22/%E8%A7%A3%E5%86%B3Nginx%E7%AB%AF%E5%8F%A3%E6%97%A0%E6%B3%95%E8%AE%BF%E9%97%AE%E9%97%AE%E9%A2%98/">解决Nginx端口无法访问问题</a></li><li class="post-list-item"><a class="post-list-link" href="/2025/01/05/Andriod/">Android</a></li><li class="post-list-item"><a class="post-list-link" href="/2024/12/02/Kotlin/">Kotlin</a></li><li class="post-list-item"><a class="post-list-link" href="/2024/11/19/Webpack/">Webpack</a></li></ul>
+                    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2025/03/18/Compose%20Jetpack/">Jetpack Compose</a></li><li class="post-list-item"><a class="post-list-link" href="/2025/03/15/AJAX/">AJAX</a></li><li class="post-list-item"><a class="post-list-link" href="/2025/02/23/QT/">QT</a></li><li class="post-list-item"><a class="post-list-link" href="/2025/02/22/%E8%A7%A3%E5%86%B3Nginx%E7%AB%AF%E5%8F%A3%E6%97%A0%E6%B3%95%E8%AE%BF%E9%97%AE%E9%97%AE%E9%A2%98/">解决Nginx端口无法访问问题</a></li><li class="post-list-item"><a class="post-list-link" href="/2025/01/05/Andriod/">Android</a></li><li class="post-list-item"><a class="post-list-link" href="/2024/12/02/Kotlin/">Kotlin</a></li></ul>
                 </div>
                 <div class="col-m-4">
                     <h3 class="title-date">时光机：</h3>

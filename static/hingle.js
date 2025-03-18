@@ -148,7 +148,7 @@ var Paul_Hingle = function (config) {
         };
     }
 
-    // Hexo 百度搜索
+    // Hexo bing搜索
     this.hexo_search = function () {
         var form = ks.select(".head-search"), input = ks.select(".head-search input");
 
@@ -161,6 +161,8 @@ var Paul_Hingle = function (config) {
 
     this.hexo_search();
 };
+
+
 
 // 图片缩放
 ks.image(".post-content:not(.is-special) img, .page-content:not(.is-special) img");

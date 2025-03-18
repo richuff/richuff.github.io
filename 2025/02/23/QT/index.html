@@ -68,52 +68,26 @@
 <p>4)开发效率高，能够快速的构建应用程序。</p>
 <p>5)有很好的社区氛围，市场份额在缓慢上升。</p>
 <p>6)可以进行嵌入式开发。</p>
-<h2 id="1-入门"><a href="#1-入门" class="headerlink" title="1.入门"></a>1.入门</h2><h3 id="1-1main-cpp文件"><a href="#1-1main-cpp文件" class="headerlink" title="1.1main.cpp文件"></a>1.1main.cpp文件</h3><pre><code class="highlight c++"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;QApplication&gt;</span><span class="comment">//包含应用程序头文件</span></span>
+<h2 id="1-入门"><a href="#1-入门" class="headerlink" title="1.入门"></a>1.入门</h2><h3 id="1-1main-cpp文件"><a href="#1-1main-cpp文件" class="headerlink" title="1.1main.cpp文件"></a>1.1main.cpp文件</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;QApplication&gt;</span><span class="comment">//包含应用程序头文件</span></span></span><br><span class="line"></span><br><span class="line"><span class="comment">//main函数，接收的参数</span></span><br><span class="line"><span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">char</span> *argv[])</span></span></span><br><span class="line"><span class="function"></span>&#123;</span><br><span class="line">    <span class="function">QApplication <span class="title">a</span><span class="params">(argc, argv)</span></span>;</span><br><span class="line"> </span><br><span class="line">    MyWidget w;<span class="comment">//创建应用对象</span></span><br><span class="line">    </span><br><span class="line">    w.<span class="built_in">show</span>();     <span class="comment">//展示对象</span></span><br><span class="line">	<span class="built_in">resize</span>(<span class="number">600</span>,<span class="number">400</span>); <span class="comment">//重置窗口大小</span></span><br><span class="line">    <span class="keyword">return</span> a.<span class="built_in">exec</span>(); <span class="comment">//执行</span></span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
-<span class="comment">//main函数，接收的参数</span>
-<span class="function"><span class="type">int</span> <span class="title">main</span><span class="params">(<span class="type">int</span> argc, <span class="type">char</span> *argv[])</span></span>
-<span class="function"></span>&#123;
-    <span class="function">QApplication <span class="title">a</span><span class="params">(argc, argv)</span></span>;
- 
-    MyWidget w;<span class="comment">//创建应用对象</span>
-    
-    w.<span class="built_in">show</span>();     <span class="comment">//展示对象</span>
-	<span class="built_in">resize</span>(<span class="number">600</span>,<span class="number">400</span>); <span class="comment">//重置窗口大小</span>
-    <span class="keyword">return</span> a.<span class="built_in">exec</span>(); <span class="comment">//执行</span>
-&#125;</code></pre>
-
-<h3 id="1-2QPushButton"><a href="#1-2QPushButton" class="headerlink" title="1.2QPushButton"></a>1.2QPushButton</h3><pre><code class="highlight c++"><span class="comment">//创建一个按钮</span>
-QPushButton* btn = <span class="keyword">new</span> QPushButton;
-<span class="comment">//让按钮依附在窗口中</span>
-btn-&gt;<span class="built_in">setParent</span>(<span class="keyword">this</span>);
-<span class="comment">//设置文字</span>
-btn-&gt;<span class="built_in">setText</span>(<span class="string">&quot;点我&quot;</span>);</code></pre>
+<h3 id="1-2QPushButton"><a href="#1-2QPushButton" class="headerlink" title="1.2QPushButton"></a>1.2QPushButton</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//创建一个按钮</span></span><br><span class="line">QPushButton* btn = <span class="keyword">new</span> QPushButton;</span><br><span class="line"><span class="comment">//让按钮依附在窗口中</span></span><br><span class="line">btn-&gt;<span class="built_in">setParent</span>(<span class="keyword">this</span>);</span><br><span class="line"><span class="comment">//设置文字</span></span><br><span class="line">btn-&gt;<span class="built_in">setText</span>(<span class="string">&quot;点我&quot;</span>);</span><br></pre></td></tr></table></figure>
 
 <blockquote>
 <p>另一种创建方法</p>
 </blockquote>
-<pre><code class="highlight c++">QPushButton* btn = <span class="keyword">new</span> <span class="built_in">QPushButton</span>(<span class="string">&quot;点我&quot;</span>,<span class="keyword">this</span>);
-btn-&gt;<span class="built_in">move</span>(<span class="number">100</span>,<span class="number">100</span>); <span class="comment">//移动按钮到(100,100)</span></code></pre>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">QPushButton* btn = <span class="keyword">new</span> <span class="built_in">QPushButton</span>(<span class="string">&quot;点我&quot;</span>,<span class="keyword">this</span>);</span><br><span class="line">btn-&gt;<span class="built_in">move</span>(<span class="number">100</span>,<span class="number">100</span>); <span class="comment">//移动按钮到(100,100)</span></span><br></pre></td></tr></table></figure>
 
 <blockquote>
 <p>其他窗口方法</p>
 </blockquote>
-<pre><code class="highlight c++"><span class="built_in">setWindowTitle</span>(<span class="string">&quot;我是应用程序名&quot;</span>); <span class="comment">//设置窗口标题</span>
-
-<span class="built_in">setFixedHeight</span>(<span class="number">600</span>);<span class="comment">//设置固定高度</span>
-<span class="built_in">setFixedWidth</span>(<span class="number">400</span>); <span class="comment">//设置固定宽度</span>
-
-<span class="built_in">setFixedSize</span>(<span class="number">500</span>,<span class="number">500</span>); <span class="comment">//宽  高 固定</span></code></pre>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">setWindowTitle</span>(<span class="string">&quot;我是应用程序名&quot;</span>); <span class="comment">//设置窗口标题</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">setFixedHeight</span>(<span class="number">600</span>);<span class="comment">//设置固定高度</span></span><br><span class="line"><span class="built_in">setFixedWidth</span>(<span class="number">400</span>); <span class="comment">//设置固定宽度</span></span><br><span class="line"></span><br><span class="line"><span class="built_in">setFixedSize</span>(<span class="number">500</span>,<span class="number">500</span>); <span class="comment">//宽  高 固定</span></span><br></pre></td></tr></table></figure>
 
 <h3 id="1-3信号和槽"><a href="#1-3信号和槽" class="headerlink" title="1.3信号和槽"></a>1.3信号和槽</h3><pre><code>    信号：各种事件
     槽： 响应信号的动作
   当某个事件发生后，如某个按钮被点击了一下，它就会发出一个被点击的信号（signal）。
   某个对象接收到这个信号之后，就会做一些相关的处理动作（称为槽slot）。但是Qt对象不会无故收到某个信号，要想让一个对象收到另一个对象发出的信号，这时候需要建立连接（connect）
 </code></pre>
-<pre><code class="highlight c++">QPushButton * quitBtn = <span class="keyword">new</span> <span class="built_in">QPushButton</span>(<span class="string">&quot;关闭窗口&quot;</span>,<span class="keyword">this</span>);
-
-<span class="comment">//信号的发送者 发送的信号(函数的地址) 接收者 处理的槽函数(函数的地址)</span>
-<span class="built_in">connect</span>(quitBtn,&amp;QPushButton::clicked,<span class="keyword">this</span>,&amp;MyWidget::close);</code></pre>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">QPushButton * quitBtn = <span class="keyword">new</span> <span class="built_in">QPushButton</span>(<span class="string">&quot;关闭窗口&quot;</span>,<span class="keyword">this</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//信号的发送者 发送的信号(函数的地址) 接收者 处理的槽函数(函数的地址)</span></span><br><span class="line"><span class="built_in">connect</span>(quitBtn,&amp;QPushButton::clicked,<span class="keyword">this</span>,&amp;MyWidget::close);</span><br></pre></td></tr></table></figure>
 
 <blockquote>
 <p>   1)sender：信号发送者</p>
@@ -124,94 +98,45 @@ btn-&gt;<span class="built_in">move</span>(<span class="number">100</span>,<span
 <h3 id="1-4自定义信号和槽"><a href="#1-4自定义信号和槽" class="headerlink" title="1.4自定义信号和槽"></a>1.4自定义信号和槽</h3><blockquote>
 <p>定义信号发送方</p>
 </blockquote>
-<pre><code class="highlight c++"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;QObject&gt;</span></span>
-
-<span class="keyword">class</span> <span class="title class_">Teacher</span> : <span class="keyword">public</span> QObject
-&#123;
-    Q_OBJECT
-<span class="keyword">public</span>:
-    <span class="function"><span class="keyword">explicit</span> <span class="title">Teacher</span><span class="params">(QObject *parent = <span class="number">0</span>)</span></span>;
-
-signals:
-    <span class="function"><span class="type">void</span> <span class="title">hungry</span><span class="params">()</span></span>; <span class="comment">//不需要实现</span>
-&#125;;</code></pre>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;QObject&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Teacher</span> : <span class="keyword">public</span> QObject</span><br><span class="line">&#123;</span><br><span class="line">    Q_OBJECT</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">explicit</span> <span class="title">Teacher</span><span class="params">(QObject *parent = <span class="number">0</span>)</span></span>;</span><br><span class="line"></span><br><span class="line">signals:</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">hungry</span><span class="params">()</span></span>; <span class="comment">//不需要实现</span></span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
 <blockquote>
 <p>定义信号接收方</p>
 </blockquote>
-<pre><code class="highlight c++"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;QObject&gt;</span></span>
-<span class="meta">#<span class="keyword">include</span> <span class="string">&lt;QDebug&gt;</span></span>
-
-<span class="keyword">class</span> <span class="title class_">Student</span> : <span class="keyword">public</span> QObject
-&#123;
-    Q_OBJECT
-<span class="keyword">public</span>:
-    <span class="function"><span class="keyword">explicit</span> <span class="title">Student</span><span class="params">(QObject *parent = <span class="number">0</span>)</span></span>;
-<span class="keyword">public</span> slots:
-    <span class="function"><span class="type">void</span> <span class="title">treat</span><span class="params">()</span></span>&#123; <span class="comment">//需要实现</span>
-        <span class="built_in">qDebug</span>() &lt;&lt; <span class="string">&quot;触发信号&quot;</span>;
-    &#125;
-&#125;;</code></pre>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;QObject&gt;</span></span></span><br><span class="line"><span class="meta">#<span class="keyword">include</span> <span class="string">&lt;QDebug&gt;</span></span></span><br><span class="line"></span><br><span class="line"><span class="keyword">class</span> <span class="title class_">Student</span> : <span class="keyword">public</span> QObject</span><br><span class="line">&#123;</span><br><span class="line">    Q_OBJECT</span><br><span class="line"><span class="keyword">public</span>:</span><br><span class="line">    <span class="function"><span class="keyword">explicit</span> <span class="title">Student</span><span class="params">(QObject *parent = <span class="number">0</span>)</span></span>;</span><br><span class="line"><span class="keyword">public</span> slots:</span><br><span class="line">    <span class="function"><span class="type">void</span> <span class="title">treat</span><span class="params">()</span></span>&#123; <span class="comment">//需要实现</span></span><br><span class="line">        <span class="built_in">qDebug</span>() &lt;&lt; <span class="string">&quot;触发信号&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;;</span><br></pre></td></tr></table></figure>
 
 <blockquote>
 <p>connect(tc,&amp;Teacher::hungry,sd,&amp;Student::treat);</p>
 <p>触发信号</p>
 </blockquote>
-<pre><code class="highlight c++">emit tc-&gt;<span class="built_in">hungry</span>();</code></pre>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">emit tc-&gt;<span class="built_in">hungry</span>();</span><br></pre></td></tr></table></figure>
 
-<h3 id="1-5解决槽的重载"><a href="#1-5解决槽的重载" class="headerlink" title="1.5解决槽的重载"></a>1.5解决槽的重载</h3><pre><code class="highlight c++"><span class="function"><span class="type">void</span> <span class="title">Student::treat</span><span class="params">()</span></span>&#123;
-    <span class="built_in">qDebug</span>() &lt;&lt; <span class="string">&quot;test&quot;</span>;
-&#125;
-
-<span class="function"><span class="type">void</span> <span class="title">Student::treat</span><span class="params">(QString foodName)</span></span>&#123;
-    <span class="built_in">qDebug</span>() &lt;&lt; foodName;
-&#125;</code></pre>
+<h3 id="1-5解决槽的重载"><a href="#1-5解决槽的重载" class="headerlink" title="1.5解决槽的重载"></a>1.5解决槽的重载</h3><figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">Student::treat</span><span class="params">()</span></span>&#123;</span><br><span class="line">    <span class="built_in">qDebug</span>() &lt;&lt; <span class="string">&quot;test&quot;</span>;</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line"><span class="function"><span class="type">void</span> <span class="title">Student::treat</span><span class="params">(QString foodName)</span></span>&#123;</span><br><span class="line">    <span class="built_in">qDebug</span>() &lt;&lt; foodName;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <blockquote>
 <p>解决方式</p>
 </blockquote>
-<pre><code class="highlight c++"><span class="built_in">void</span> (Teacher:: *teacherSinal)(QString) = &amp;Teacher::hungry;
-<span class="built_in">void</span> (Student:: *studentSolt) (QString) = &amp;Student::treat;
-
-<span class="built_in">connect</span>(tc,teacherSinal,sd,studentSolt);</code></pre>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">void</span> (Teacher:: *teacherSinal)(QString) = &amp;Teacher::hungry;</span><br><span class="line"><span class="built_in">void</span> (Student:: *studentSolt) (QString) = &amp;Student::treat;</span><br><span class="line"></span><br><span class="line"><span class="built_in">connect</span>(tc,teacherSinal,sd,studentSolt);</span><br></pre></td></tr></table></figure>
 
 <blockquote>
 <p>QString转char</p>
 </blockquote>
-<pre><code class="highlight c++"><span class="function"><span class="type">void</span> <span class="title">Student::treat</span><span class="params">(QString foodName)</span></span>&#123;
-    <span class="built_in">qDebug</span>() &lt;&lt; foodName.<span class="built_in">toUtf8</span>().<span class="built_in">data</span>();
-&#125;</code></pre>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="function"><span class="type">void</span> <span class="title">Student::treat</span><span class="params">(QString foodName)</span></span>&#123;</span><br><span class="line">    <span class="built_in">qDebug</span>() &lt;&lt; foodName.<span class="built_in">toUtf8</span>().<span class="built_in">data</span>();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h3 id="1-6信号连接信号"><a href="#1-6信号连接信号" class="headerlink" title="1.6信号连接信号"></a>1.6信号连接信号</h3><blockquote>
 <p>点击按钮，触发信号</p>
 </blockquote>
-<pre><code class="highlight c++">QPushButton* btn = <span class="keyword">new</span> <span class="built_in">QPushButton</span>(<span class="string">&quot;click&quot;</span>,<span class="keyword">this</span>);
-<span class="built_in">connect</span>(btn,&amp;QPushButton::clicked,<span class="keyword">this</span>,&amp;MyWidget::ClassOver);
-
-<span class="built_in">void</span> (Teacher:: *teacherSinal)(QString) = &amp;Teacher::hungry;
-<span class="built_in">void</span> (Student:: *studentSolt) (QString) = &amp;Student::treat;
-<span class="built_in">connect</span>(tc,teacherSinal,sd,studentSolt);</code></pre>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line">QPushButton* btn = <span class="keyword">new</span> <span class="built_in">QPushButton</span>(<span class="string">&quot;click&quot;</span>,<span class="keyword">this</span>);</span><br><span class="line"><span class="built_in">connect</span>(btn,&amp;QPushButton::clicked,<span class="keyword">this</span>,&amp;MyWidget::ClassOver);</span><br><span class="line"></span><br><span class="line"><span class="built_in">void</span> (Teacher:: *teacherSinal)(QString) = &amp;Teacher::hungry;</span><br><span class="line"><span class="built_in">void</span> (Student:: *studentSolt) (QString) = &amp;Student::treat;</span><br><span class="line"><span class="built_in">connect</span>(tc,teacherSinal,sd,studentSolt);</span><br></pre></td></tr></table></figure>
 
 <blockquote>
 <p>信号连接信号</p>
 <p>点击按钮的信号触发发送者的信号</p>
 </blockquote>
-<pre><code class="highlight c++"><span class="built_in">void</span> (Teacher:: *teacherSinal)(<span class="type">void</span>) = &amp;Teacher::hungry;
-<span class="built_in">void</span> (Student:: *studentSolt) (<span class="type">void</span>) = &amp;Student::treat;
-<span class="built_in">connect</span>(tc,teacherSinal,sd,studentSolt);
-
-<span class="built_in">connect</span>(btn,&amp;QPushButton::clicked,tc,teacherSinal);</code></pre>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">void</span> (Teacher:: *teacherSinal)(<span class="type">void</span>) = &amp;Teacher::hungry;</span><br><span class="line"><span class="built_in">void</span> (Student:: *studentSolt) (<span class="type">void</span>) = &amp;Student::treat;</span><br><span class="line"><span class="built_in">connect</span>(tc,teacherSinal,sd,studentSolt);</span><br><span class="line"></span><br><span class="line"><span class="built_in">connect</span>(btn,&amp;QPushButton::clicked,tc,teacherSinal);</span><br></pre></td></tr></table></figure>
 
 <h3 id="1-7Lambda-表达式"><a href="#1-7Lambda-表达式" class="headerlink" title="1.7Lambda 表达式"></a>1.7Lambda 表达式</h3><p>​        C++11中的Lambda表达式用于定义匿名的函数对象，以简化编程工作。首先看一下Lambda表达式的基本构成：</p>
 <p>分为四个部分：[局部变量捕获列表]、（函数参数）、函数额外属性设置opt、函数返回值-&gt;retype、{函数主体}</p>
-<pre><code class="highlight c++">[capture](parameters) opt -&gt;retType
-&#123;
-    ……;
-&#125;
-<span class="comment">//调用</span>
-[=]()&#123;
-    
-&#125;();</code></pre>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">[capture](parameters) opt -&gt;retType</span><br><span class="line">&#123;</span><br><span class="line">    ……;</span><br><span class="line">&#125;</span><br><span class="line"><span class="comment">//调用</span></span><br><span class="line">[=]()&#123;</span><br><span class="line">    </span><br><span class="line">&#125;();</span><br></pre></td></tr></table></figure>
 
 <p><code>局部变量引入方式</code></p>
 <blockquote>
@@ -253,28 +178,17 @@ signals:
 <h3 id="1-8opt"><a href="#1-8opt" class="headerlink" title="1.8opt"></a>1.8opt</h3><blockquote>
 <p>最常用的是mutable声明，这部分可以省略。外部函数局部变量通过值传递引进来时，其默认是const，所以不能修改这个局部变量的拷贝，加上mutable就可以</p>
 </blockquote>
-<pre><code class="highlight c++"><span class="type">int</span> c = <span class="number">0</span>;
-[ c ] () <span class="keyword">mutable</span> &#123;
-    cout &lt;&lt; c &lt;&lt; endl;
-    c = <span class="number">10</span>;
-&#125;();</code></pre>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">int</span> c = <span class="number">0</span>;</span><br><span class="line">[ c ] () <span class="keyword">mutable</span> &#123;</span><br><span class="line">    cout &lt;&lt; c &lt;&lt; endl;</span><br><span class="line">    c = <span class="number">10</span>;</span><br><span class="line">&#125;();</span><br></pre></td></tr></table></figure>
 
 <blockquote>
 <p>lamda表达式的返回值</p>
 </blockquote>
-<pre><code class="highlight c++"><span class="comment">// int --&gt; 返回值的类型</span>
-<span class="type">int</span> b = [c] () <span class="keyword">mutable</span> -&gt; <span class="type">int</span> &#123;
-    cout &lt;&lt; c &lt;&lt; endl;
-    c = <span class="number">10</span>;
-    <span class="keyword">return</span> <span class="number">100</span>;
-    &#125;();</code></pre>
+<figure class="highlight c++"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">// int --&gt; 返回值的类型</span></span><br><span class="line"><span class="type">int</span> b = [c] () <span class="keyword">mutable</span> -&gt; <span class="type">int</span> &#123;</span><br><span class="line">    cout &lt;&lt; c &lt;&lt; endl;</span><br><span class="line">    c = <span class="number">10</span>;</span><br><span class="line">    <span class="keyword">return</span> <span class="number">100</span>;</span><br><span class="line">    &#125;();</span><br></pre></td></tr></table></figure>
 
 <h3 id="1-9槽函数使用-Lambda-表达式"><a href="#1-9槽函数使用-Lambda-表达式" class="headerlink" title="1.9槽函数使用 Lambda 表达式"></a>1.9槽函数使用 Lambda 表达式</h3><blockquote>
 <p>以QPushButton点击事件为例：</p>
 </blockquote>
-<pre><code class="highlight cpp"><span class="built_in">connect</span>(btn,&amp;QPushButton::clicked,[=]()&#123;
-        <span class="built_in">qDebug</span>()&lt;&lt;<span class="string">&quot;Clicked&quot;</span>;
-&#125;);</code></pre>
+<figure class="highlight cpp"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="built_in">connect</span>(btn,&amp;QPushButton::clicked,[=]()&#123;</span><br><span class="line">        <span class="built_in">qDebug</span>()&lt;&lt;<span class="string">&quot;Clicked&quot;</span>;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
 
 
 
@@ -322,7 +236,7 @@ signals:
             <div class="row">
                 <div class="col-m-4">
                     <h3 class="title-recent">最新文章：</h3>
-                    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2025/03/15/AJAX/">AJAX</a></li><li class="post-list-item"><a class="post-list-link" href="/2025/02/23/QT/">QT</a></li><li class="post-list-item"><a class="post-list-link" href="/2025/02/22/%E8%A7%A3%E5%86%B3Nginx%E7%AB%AF%E5%8F%A3%E6%97%A0%E6%B3%95%E8%AE%BF%E9%97%AE%E9%97%AE%E9%A2%98/">解决Nginx端口无法访问问题</a></li><li class="post-list-item"><a class="post-list-link" href="/2025/01/05/Andriod/">Android</a></li><li class="post-list-item"><a class="post-list-link" href="/2024/12/02/Kotlin/">Kotlin</a></li><li class="post-list-item"><a class="post-list-link" href="/2024/11/19/Webpack/">Webpack</a></li></ul>
+                    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2025/03/18/Compose%20Jetpack/">Jetpack Compose</a></li><li class="post-list-item"><a class="post-list-link" href="/2025/03/15/AJAX/">AJAX</a></li><li class="post-list-item"><a class="post-list-link" href="/2025/02/23/QT/">QT</a></li><li class="post-list-item"><a class="post-list-link" href="/2025/02/22/%E8%A7%A3%E5%86%B3Nginx%E7%AB%AF%E5%8F%A3%E6%97%A0%E6%B3%95%E8%AE%BF%E9%97%AE%E9%97%AE%E9%A2%98/">解决Nginx端口无法访问问题</a></li><li class="post-list-item"><a class="post-list-link" href="/2025/01/05/Andriod/">Android</a></li><li class="post-list-item"><a class="post-list-link" href="/2024/12/02/Kotlin/">Kotlin</a></li></ul>
                 </div>
                 <div class="col-m-4">
                     <h3 class="title-date">时光机：</h3>

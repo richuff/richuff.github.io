@@ -71,63 +71,40 @@
 <p>安装完之后输入yum update</p>
 <p>如果和我一样出现了下载元数据失败,输入下面两条指令，然后重新开启yum update</p>
 </blockquote>
-<pre><code class="highlight plaintext">sudo sed -i -e “s|mirrorlist=|#mirrorlist=|g” /etc/yum.repos.d/CentOS-*
-sudo sed -i -e “s|#baseurl=http://mirror.centos.org|baseurl=http://vault.centos.org|g” /etc/yum.repos.d/CentOS-*</code></pre>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">sudo sed -i -e “s|mirrorlist=|#mirrorlist=|g” /etc/yum.repos.d/CentOS-*</span><br><span class="line">sudo sed -i -e “s|#baseurl=http://mirror.centos.org|baseurl=http://vault.centos.org|g” /etc/yum.repos.d/CentOS-*</span><br></pre></td></tr></table></figure>
 
-<h2 id="4-安装docker"><a href="#4-安装docker" class="headerlink" title="4.安装docker"></a>4.安装docker</h2><pre><code class="highlight plaintext">yum - y install gcc
-yum -y install gcc-c++
-yum install -y yum-utils
-yum-config-manager --add-repo http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo
-yum install docker-ce docker-ce-cli containerd.io docker-compose-plugin
-systemctl start docker
-systemctl enable docker</code></pre>
+<h2 id="4-安装docker"><a href="#4-安装docker" class="headerlink" title="4.安装docker"></a>4.安装docker</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">yum - y install gcc</span><br><span class="line">yum -y install gcc-c++</span><br><span class="line">yum install -y yum-utils</span><br><span class="line">yum-config-manager --add-repo http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo</span><br><span class="line">yum install docker-ce docker-ce-cli containerd.io docker-compose-plugin</span><br><span class="line">systemctl start docker</span><br><span class="line">systemctl enable docker</span><br></pre></td></tr></table></figure>
 
 <blockquote>
 <p>检测docker安装是否成功</p>
 </blockquote>
-<pre><code class="highlight plaintext">docker version</code></pre>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker version</span><br></pre></td></tr></table></figure>
 
-<h2 id="5-配置docker镜像加速器"><a href="#5-配置docker镜像加速器" class="headerlink" title="5.配置docker镜像加速器"></a>5.配置docker镜像加速器</h2><pre><code class="highlight plaintext">https://cr.console.aliyun.com/cn-hangzhou/instances/mirrors?accounttraceid=54ebb47dd2134ed59f6d5d2b9215f808mvmm</code></pre>
+<h2 id="5-配置docker镜像加速器"><a href="#5-配置docker镜像加速器" class="headerlink" title="5.配置docker镜像加速器"></a>5.配置docker镜像加速器</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">https://cr.console.aliyun.com/cn-hangzhou/instances/mirrors?accounttraceid=54ebb47dd2134ed59f6d5d2b9215f808mvmm</span><br></pre></td></tr></table></figure>
 
-<pre><code class="highlight plaintext">sudo mkdir -p /etc/docker
-sudo tee /etc/docker/daemon.json &lt;&lt;-&#x27;EOF&#x27;
-&#123;
-  &quot;registry-mirrors&quot;:[加速器地址]
-&#125;
-EOF
-sudo systemctl daemon-reload
-sudo systemctl restart docker</code></pre>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">sudo mkdir -p /etc/docker</span><br><span class="line">sudo tee /etc/docker/daemon.json &lt;&lt;-&#x27;EOF&#x27;</span><br><span class="line">&#123;</span><br><span class="line">  &quot;registry-mirrors&quot;:[加速器地址]</span><br><span class="line">&#125;</span><br><span class="line">EOF</span><br><span class="line">sudo systemctl daemon-reload</span><br><span class="line">sudo systemctl restart docker</span><br></pre></td></tr></table></figure>
 
-<h2 id="6-拉取mysql和nginx"><a href="#6-拉取mysql和nginx" class="headerlink" title="6.拉取mysql和nginx"></a>6.拉取mysql和nginx</h2><pre><code class="highlight plaintext">docker pull mysql
-docker pull nginx</code></pre>
+<h2 id="6-拉取mysql和nginx"><a href="#6-拉取mysql和nginx" class="headerlink" title="6.拉取mysql和nginx"></a>6.拉取mysql和nginx</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">docker pull mysql</span><br><span class="line">docker pull nginx</span><br></pre></td></tr></table></figure>
 
 <h2 id="7-配置mysql"><a href="#7-配置mysql" class="headerlink" title="7.配置mysql"></a>7.配置mysql</h2><blockquote>
 <p>创建网络</p>
 </blockquote>
-<pre><code class="highlight plaintext">docker network create richu</code></pre>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker network create richu</span><br></pre></td></tr></table></figure>
 
 <blockquote>
 <p>运行mysql容器</p>
 </blockquote>
-<pre><code class="highlight plaintext">docker run -d --name mysql -p 3306:3306 -e TZ=Asia/Shanghai -e MYSQL_ROOT_PASSWORD=123 -v /root/mysql/data:/var/lib/mysql -v /root/mysql/conf:/etc/mysql/conf.d -v /root/mysql/init:/docker-entrypoint-initdb.d --network richu mysql</code></pre>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -d --name mysql -p 3306:3306 -e TZ=Asia/Shanghai -e MYSQL_ROOT_PASSWORD=123 -v /root/mysql/data:/var/lib/mysql -v /root/mysql/conf:/etc/mysql/conf.d -v /root/mysql/init:/docker-entrypoint-initdb.d --network richu mysql</span><br></pre></td></tr></table></figure>
 
 <h2 id="8-配置nacos"><a href="#8-配置nacos" class="headerlink" title="8.配置nacos"></a>8.配置nacos</h2><p>1.配置mysql表</p>
 <p>2.配置env文件</p>
-<pre><code class="highlight plaintext">PREFER_HOST_MODE=hostname
-MODE=standalone
-SPRING_DATASOURCE_PLATFORM=mysql
-MYSQL_SERVICE_HOST=192.168.3.133
-MYSQL_SERVICE_DB_NAME=nacos
-MYSQL_SERVICE_PORT=3306
-MYSQL_SERVICE_USER=root
-MYSQL_SERVICE_PASSWORD=123
-MYSQL_SERVICE_DB_PARAM=characterEncoding=utf8&amp;connectTimeout=1000&amp;socketTimeout=3000&amp;autoReconnect=true&amp;useSSL=false&amp;allowPublicKeyRetrieval=true&amp;serverTimezone=Asia/Shanghai</code></pre>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">PREFER_HOST_MODE=hostname</span><br><span class="line">MODE=standalone</span><br><span class="line">SPRING_DATASOURCE_PLATFORM=mysql</span><br><span class="line">MYSQL_SERVICE_HOST=192.168.3.133</span><br><span class="line">MYSQL_SERVICE_DB_NAME=nacos</span><br><span class="line">MYSQL_SERVICE_PORT=3306</span><br><span class="line">MYSQL_SERVICE_USER=root</span><br><span class="line">MYSQL_SERVICE_PASSWORD=123</span><br><span class="line">MYSQL_SERVICE_DB_PARAM=characterEncoding=utf8&amp;connectTimeout=1000&amp;socketTimeout=3000&amp;autoReconnect=true&amp;useSSL=false&amp;allowPublicKeyRetrieval=true&amp;serverTimezone=Asia/Shanghai</span><br></pre></td></tr></table></figure>
 
 <p>3.运行开始</p>
 <blockquote>
 <p>如果出现了no DateSource Set 可以添加–network  与mysql相同的同一网络</p>
 </blockquote>
-<pre><code class="highlight plaintext">docker run -d --name nacos --env-file ./nacos/custom.env -p 8848:8848 -p 9848:9848 -p 9849:9849 --restart=always nacos/nacos-server:v2.1.0-slim --network richu</code></pre>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -d --name nacos --env-file ./nacos/custom.env -p 8848:8848 -p 9848:9848 -p 9849:9849 --restart=always nacos/nacos-server:v2.1.0-slim --network richu</span><br></pre></td></tr></table></figure>
 
 <p>4.访问</p>
 <blockquote>
@@ -177,7 +154,7 @@ MYSQL_SERVICE_DB_PARAM=characterEncoding=utf8&amp;connectTimeout=1000&amp;socket
             <div class="row">
                 <div class="col-m-4">
                     <h3 class="title-recent">最新文章：</h3>
-                    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2025/03/15/AJAX/">AJAX</a></li><li class="post-list-item"><a class="post-list-link" href="/2025/02/23/QT/">QT</a></li><li class="post-list-item"><a class="post-list-link" href="/2025/02/22/%E8%A7%A3%E5%86%B3Nginx%E7%AB%AF%E5%8F%A3%E6%97%A0%E6%B3%95%E8%AE%BF%E9%97%AE%E9%97%AE%E9%A2%98/">解决Nginx端口无法访问问题</a></li><li class="post-list-item"><a class="post-list-link" href="/2025/01/05/Andriod/">Android</a></li><li class="post-list-item"><a class="post-list-link" href="/2024/12/02/Kotlin/">Kotlin</a></li><li class="post-list-item"><a class="post-list-link" href="/2024/11/19/Webpack/">Webpack</a></li></ul>
+                    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2025/03/18/Compose%20Jetpack/">Jetpack Compose</a></li><li class="post-list-item"><a class="post-list-link" href="/2025/03/15/AJAX/">AJAX</a></li><li class="post-list-item"><a class="post-list-link" href="/2025/02/23/QT/">QT</a></li><li class="post-list-item"><a class="post-list-link" href="/2025/02/22/%E8%A7%A3%E5%86%B3Nginx%E7%AB%AF%E5%8F%A3%E6%97%A0%E6%B3%95%E8%AE%BF%E9%97%AE%E9%97%AE%E9%A2%98/">解决Nginx端口无法访问问题</a></li><li class="post-list-item"><a class="post-list-link" href="/2025/01/05/Andriod/">Android</a></li><li class="post-list-item"><a class="post-list-link" href="/2024/12/02/Kotlin/">Kotlin</a></li></ul>
                 </div>
                 <div class="col-m-4">
                     <h3 class="title-date">时光机：</h3>

@@ -70,21 +70,7 @@
 <blockquote>
 <p>创建vite.config.js文件</p>
 </blockquote>
-<pre><code class="highlight javascript"><span class="keyword">import</span> uni <span class="keyword">from</span> <span class="string">&#x27;@dcloudio/vite-plugin-uni&#x27;</span>;
-<span class="keyword">import</span> &#123;defineConfig&#125; <span class="keyword">from</span> <span class="string">&#x27;vite&#x27;</span>
-<span class="keyword">import</span> <span class="title class_">AutoImport</span> <span class="keyword">from</span> <span class="string">&#x27;unplugin-auto-import/vite&#x27;</span>
-
-<span class="keyword">export</span> <span class="keyword">default</span> <span class="title function_">defineConfig</span>(&#123;
-	<span class="attr">plugins</span>:[
-		<span class="title function_">uni</span>(),
-		<span class="title class_">AutoImport</span>(&#123;
-			<span class="attr">imports</span>:[
-				<span class="string">&#x27;vue&#x27;</span>,
-				<span class="string">&#x27;uni-app&#x27;</span>
-			] 
-		&#125;)
-	]
-&#125;)</code></pre>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> uni <span class="keyword">from</span> <span class="string">&#x27;@dcloudio/vite-plugin-uni&#x27;</span>;</span><br><span class="line"><span class="keyword">import</span> &#123;defineConfig&#125; <span class="keyword">from</span> <span class="string">&#x27;vite&#x27;</span></span><br><span class="line"><span class="keyword">import</span> <span class="title class_">AutoImport</span> <span class="keyword">from</span> <span class="string">&#x27;unplugin-auto-import/vite&#x27;</span></span><br><span class="line"></span><br><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> <span class="title function_">defineConfig</span>(&#123;</span><br><span class="line">	<span class="attr">plugins</span>:[</span><br><span class="line">		<span class="title function_">uni</span>(),</span><br><span class="line">		<span class="title class_">AutoImport</span>(&#123;</span><br><span class="line">			<span class="attr">imports</span>:[</span><br><span class="line">				<span class="string">&#x27;vue&#x27;</span>,</span><br><span class="line">				<span class="string">&#x27;uni-app&#x27;</span></span><br><span class="line">			] </span><br><span class="line">		&#125;)</span><br><span class="line">	]</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
 
 <h2 id="4-内置组件"><a href="#4-内置组件" class="headerlink" title="4.内置组件"></a>4.内置组件</h2><h3 id="1-view"><a href="#1-view" class="headerlink" title="1.view"></a>1.view</h3><p>视图容器。</p>
 <p>它类似于传统html中的div，用于包裹各种元素内容。</p>
@@ -271,77 +257,7 @@
 <td align="left">H5、app-vue 2.5.12+,微信小程序基础库2.10.1+</td>
 </tr>
 </tbody></table>
-<pre><code class="highlight vue">&lt;!-- 本示例未包含完整css，获取外链css请参考上文，在hello uni-app项目中查看 --&gt;
-&lt;template&gt;
-	&lt;view&gt;
-		&lt;view class=&quot;uni-padding-wrap uni-common-mt&quot;&gt;
-			&lt;view class=&quot;uni-title uni-common-mt&quot;&gt;
-				Vertical Scroll
-				&lt;text&gt;\n纵向滚动&lt;/text&gt;
-			&lt;/view&gt;
-			&lt;view&gt;
-				&lt;scroll-view :scroll-top=&quot;scrollTop&quot; scroll-y=&quot;true&quot; class=&quot;scroll-Y&quot; @scrolltoupper=&quot;upper&quot;
-					@scrolltolower=&quot;lower&quot; @scroll=&quot;scroll&quot;&gt;
-					&lt;view id=&quot;demo1&quot; class=&quot;scroll-view-item uni-bg-red&quot;&gt;A&lt;/view&gt;
-					&lt;view id=&quot;demo2&quot; class=&quot;scroll-view-item uni-bg-green&quot;&gt;B&lt;/view&gt;
-					&lt;view id=&quot;demo3&quot; class=&quot;scroll-view-item uni-bg-blue&quot;&gt;C&lt;/view&gt;
-				&lt;/scroll-view&gt;
-			&lt;/view&gt;
-			&lt;view @tap=&quot;goTop&quot; class=&quot;uni-link uni-center uni-common-mt&quot;&gt;
-				点击这里返回顶部
-			&lt;/view&gt;
-
-			&lt;view class=&quot;uni-title uni-common-mt&quot;&gt;
-				Horizontal Scroll
-				&lt;text&gt;\n横向滚动&lt;/text&gt;
-			&lt;/view&gt;
-			&lt;view&gt;
-				&lt;scroll-view class=&quot;scroll-view_H&quot; scroll-x=&quot;true&quot; @scroll=&quot;scroll&quot; scroll-left=&quot;120&quot;&gt;
-					&lt;view id=&quot;demo1&quot; class=&quot;scroll-view-item_H uni-bg-red&quot;&gt;A&lt;/view&gt;
-					&lt;view id=&quot;demo2&quot; class=&quot;scroll-view-item_H uni-bg-green&quot;&gt;B&lt;/view&gt;
-					&lt;view id=&quot;demo3&quot; class=&quot;scroll-view-item_H uni-bg-blue&quot;&gt;C&lt;/view&gt;
-				&lt;/scroll-view&gt;
-			&lt;/view&gt;
-			&lt;view class=&quot;uni-common-pb&quot;&gt;&lt;/view&gt;
-		&lt;/view&gt;
-	&lt;/view&gt;
-&lt;/template&gt;
-
-&lt;script&gt;
-	export default &#123;
-		data() &#123;
-			return &#123;
-				scrollTop: 0,
-				old: &#123;
-					scrollTop: 0
-				&#125;
-			&#125;
-		&#125;,
-		methods: &#123;
-			upper: function(e) &#123;
-				console.log(e)
-			&#125;,
-			lower: function(e) &#123;
-				console.log(e)
-			&#125;,
-			scroll: function(e) &#123;
-				console.log(e)
-				this.old.scrollTop = e.detail.scrollTop
-			&#125;,
-			goTop: function(e) &#123;
-				// 解决view层不同步的问题
-				this.scrollTop = this.old.scrollTop
-				this.$nextTick(function() &#123;
-					this.scrollTop = 0
-				&#125;);
-				uni.showToast(&#123;
-					icon: &quot;none&quot;,
-					title: &quot;纵向滚动 scrollTop 值已被修改为 0&quot;
-				&#125;)
-			&#125;
-		&#125;
-	&#125;
-&lt;/script&gt;</code></pre>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br></pre></td><td class="code"><pre><span class="line">&lt;!-- 本示例未包含完整css，获取外链css请参考上文，在hello uni-app项目中查看 --&gt;</span><br><span class="line">&lt;template&gt;</span><br><span class="line">	&lt;view&gt;</span><br><span class="line">		&lt;view class=&quot;uni-padding-wrap uni-common-mt&quot;&gt;</span><br><span class="line">			&lt;view class=&quot;uni-title uni-common-mt&quot;&gt;</span><br><span class="line">				Vertical Scroll</span><br><span class="line">				&lt;text&gt;\n纵向滚动&lt;/text&gt;</span><br><span class="line">			&lt;/view&gt;</span><br><span class="line">			&lt;view&gt;</span><br><span class="line">				&lt;scroll-view :scroll-top=&quot;scrollTop&quot; scroll-y=&quot;true&quot; class=&quot;scroll-Y&quot; @scrolltoupper=&quot;upper&quot;</span><br><span class="line">					@scrolltolower=&quot;lower&quot; @scroll=&quot;scroll&quot;&gt;</span><br><span class="line">					&lt;view id=&quot;demo1&quot; class=&quot;scroll-view-item uni-bg-red&quot;&gt;A&lt;/view&gt;</span><br><span class="line">					&lt;view id=&quot;demo2&quot; class=&quot;scroll-view-item uni-bg-green&quot;&gt;B&lt;/view&gt;</span><br><span class="line">					&lt;view id=&quot;demo3&quot; class=&quot;scroll-view-item uni-bg-blue&quot;&gt;C&lt;/view&gt;</span><br><span class="line">				&lt;/scroll-view&gt;</span><br><span class="line">			&lt;/view&gt;</span><br><span class="line">			&lt;view @tap=&quot;goTop&quot; class=&quot;uni-link uni-center uni-common-mt&quot;&gt;</span><br><span class="line">				点击这里返回顶部</span><br><span class="line">			&lt;/view&gt;</span><br><span class="line"></span><br><span class="line">			&lt;view class=&quot;uni-title uni-common-mt&quot;&gt;</span><br><span class="line">				Horizontal Scroll</span><br><span class="line">				&lt;text&gt;\n横向滚动&lt;/text&gt;</span><br><span class="line">			&lt;/view&gt;</span><br><span class="line">			&lt;view&gt;</span><br><span class="line">				&lt;scroll-view class=&quot;scroll-view_H&quot; scroll-x=&quot;true&quot; @scroll=&quot;scroll&quot; scroll-left=&quot;120&quot;&gt;</span><br><span class="line">					&lt;view id=&quot;demo1&quot; class=&quot;scroll-view-item_H uni-bg-red&quot;&gt;A&lt;/view&gt;</span><br><span class="line">					&lt;view id=&quot;demo2&quot; class=&quot;scroll-view-item_H uni-bg-green&quot;&gt;B&lt;/view&gt;</span><br><span class="line">					&lt;view id=&quot;demo3&quot; class=&quot;scroll-view-item_H uni-bg-blue&quot;&gt;C&lt;/view&gt;</span><br><span class="line">				&lt;/scroll-view&gt;</span><br><span class="line">			&lt;/view&gt;</span><br><span class="line">			&lt;view class=&quot;uni-common-pb&quot;&gt;&lt;/view&gt;</span><br><span class="line">		&lt;/view&gt;</span><br><span class="line">	&lt;/view&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script&gt;</span><br><span class="line">	export default &#123;</span><br><span class="line">		data() &#123;</span><br><span class="line">			return &#123;</span><br><span class="line">				scrollTop: 0,</span><br><span class="line">				old: &#123;</span><br><span class="line">					scrollTop: 0</span><br><span class="line">				&#125;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;,</span><br><span class="line">		methods: &#123;</span><br><span class="line">			upper: function(e) &#123;</span><br><span class="line">				console.log(e)</span><br><span class="line">			&#125;,</span><br><span class="line">			lower: function(e) &#123;</span><br><span class="line">				console.log(e)</span><br><span class="line">			&#125;,</span><br><span class="line">			scroll: function(e) &#123;</span><br><span class="line">				console.log(e)</span><br><span class="line">				this.old.scrollTop = e.detail.scrollTop</span><br><span class="line">			&#125;,</span><br><span class="line">			goTop: function(e) &#123;</span><br><span class="line">				// 解决view层不同步的问题</span><br><span class="line">				this.scrollTop = this.old.scrollTop</span><br><span class="line">				this.$nextTick(function() &#123;</span><br><span class="line">					this.scrollTop = 0</span><br><span class="line">				&#125;);</span><br><span class="line">				uni.showToast(&#123;</span><br><span class="line">					icon: &quot;none&quot;,</span><br><span class="line">					title: &quot;纵向滚动 scrollTop 值已被修改为 0&quot;</span><br><span class="line">				&#125;)</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
 
 <h3 id="3-swiper"><a href="#3-swiper" class="headerlink" title="3.swiper"></a>3.swiper</h3><p>滑块视图容器。</p>
 <p>一般用于左右滑动或上下滑动，比如banner轮播图。</p>
@@ -526,10 +442,7 @@
 <td align="left">抖音小程序与飞书小程序不支持</td>
 </tr>
 </tbody></table>
-<h3 id="4-icon"><a href="#4-icon" class="headerlink" title="4.icon"></a>4.icon</h3><pre><code class="highlight html"><span class="tag">&lt;<span class="name">view</span> <span class="attr">class</span>=<span class="string">&quot;item&quot;</span> <span class="attr">v-for</span>=<span class="string">&quot;(value,index) in iconType&quot;</span> <span class="attr">:key</span>=<span class="string">&quot;index&quot;</span>&gt;</span>
-    <span class="tag">&lt;<span class="name">icon</span> <span class="attr">:type</span>=<span class="string">&quot;value&quot;</span> <span class="attr">size</span>=<span class="string">&quot;26&quot;</span>/&gt;</span>
-    <span class="tag">&lt;<span class="name">text</span>&gt;</span>&#123;&#123;value&#125;&#125;<span class="tag">&lt;/<span class="name">text</span>&gt;</span>
-<span class="tag">&lt;/<span class="name">view</span>&gt;</span></code></pre>
+<h3 id="4-icon"><a href="#4-icon" class="headerlink" title="4.icon"></a>4.icon</h3><figure class="highlight html"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">view</span> <span class="attr">class</span>=<span class="string">&quot;item&quot;</span> <span class="attr">v-for</span>=<span class="string">&quot;(value,index) in iconType&quot;</span> <span class="attr">:key</span>=<span class="string">&quot;index&quot;</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">icon</span> <span class="attr">:type</span>=<span class="string">&quot;value&quot;</span> <span class="attr">size</span>=<span class="string">&quot;26&quot;</span>/&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">text</span>&gt;</span>&#123;&#123;value&#125;&#125;<span class="tag">&lt;/<span class="name">text</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">view</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
 <h3 id="5-form"><a href="#5-form" class="headerlink" title="5.form"></a>5.form</h3><p>表单，将组件内的用户输入的<code>&lt;switch&gt;</code> <code>&lt;input&gt;</code> <code>&lt;checkbox&gt;</code> <code>&lt;slider&gt;</code> <code>&lt;radio&gt;</code> <code>&lt;picker&gt;</code> 提交。</p>
 <p>当点击 <code>&lt;form&gt;</code> 表单中 formType 为 submit 的 <code>&lt;button&gt;</code> 组件时，会将表单组件中的 value 值进行提交，需要在表单组件中加上 name 来作为 key。</p>
@@ -1290,27 +1203,10 @@
 <p>button虽然可以内嵌text组件，但不建议通过text组件来修改button样式，因为会导致hover-class不生效。尤其是uvue中样式不继承。建议直接在button组件的style或class属性编写样式。</p>
 <p>style和class的优先级，高于size和type属性。</p>
 <h2 id="5-内置API"><a href="#5-内置API" class="headerlink" title="5.内置API"></a>5.内置API</h2><h3 id="1-showToast"><a href="#1-showToast" class="headerlink" title="1.showToast"></a>1.showToast</h3><p>交换提示</p>
-<pre><code class="highlight javascript">uni.<span class="title function_">showToast</span>(&#123;
-	<span class="attr">title</span>:<span class="string">&quot;操作成功&quot;</span>,
-&#125;)</code></pre>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">uni.<span class="title function_">showToast</span>(&#123;</span><br><span class="line">	<span class="attr">title</span>:<span class="string">&quot;操作成功&quot;</span>,</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
 
 <h3 id="2-showActionSheet"><a href="#2-showActionSheet" class="headerlink" title="2.showActionSheet"></a>2.showActionSheet</h3><p>下拉菜单</p>
-<pre><code class="highlight vue">&lt;template&gt;
-	&lt;view&gt;
-		&lt;h1&gt;用户&lt;/h1&gt;
-		&lt;button @click=&quot;choose&quot;&gt;选择&lt;/button&gt;
-	&lt;/view&gt;
-&lt;/template&gt;
-
-&lt;script setup&gt;
-function choose()&#123;
-	uni.showActionSheet(&#123;
-		title:&quot;请选择&quot;,
-		itemList:[&quot;大一&quot;,&quot;大二&quot;,&quot;大三&quot;,&quot;大四&quot;],
-		itemColor:&quot;#4cd964&quot;
-	&#125;)
-&#125;
-&lt;/script&gt;</code></pre>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">	&lt;view&gt;</span><br><span class="line">		&lt;h1&gt;用户&lt;/h1&gt;</span><br><span class="line">		&lt;button @click=&quot;choose&quot;&gt;选择&lt;/button&gt;</span><br><span class="line">	&lt;/view&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script setup&gt;</span><br><span class="line">function choose()&#123;</span><br><span class="line">	uni.showActionSheet(&#123;</span><br><span class="line">		title:&quot;请选择&quot;,</span><br><span class="line">		itemList:[&quot;大一&quot;,&quot;大二&quot;,&quot;大三&quot;,&quot;大四&quot;],</span><br><span class="line">		itemColor:&quot;#4cd964&quot;</span><br><span class="line">	&#125;)</span><br><span class="line">&#125;</span><br><span class="line">&lt;/script&gt;</span><br></pre></td></tr></table></figure>
 
 <h3 id="3-uni-showLoading-OBJECT"><a href="#3-uni-showLoading-OBJECT" class="headerlink" title="3.uni.showLoading(OBJECT)"></a>3.uni.showLoading(OBJECT)</h3><p>显示 loading 提示框, 需主动调用 <a target="_blank" rel="noopener" href="https://uniapp.dcloud.net.cn/api/ui/prompt.html#hideloading">uni.hideLoading</a> 才能关闭提示框。</p>
 <p><strong>OBJECT参数说明</strong></p>
@@ -1361,19 +1257,11 @@ function choose()&#123;
 </tr>
 </tbody></table>
 <p><strong>示例</strong></p>
-<pre><code class="highlight javascript">uni.<span class="title function_">showLoading</span>(&#123;
-	<span class="attr">title</span>: <span class="string">&#x27;加载中&#x27;</span>
-&#125;);</code></pre>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">uni.<span class="title function_">showLoading</span>(&#123;</span><br><span class="line">	<span class="attr">title</span>: <span class="string">&#x27;加载中&#x27;</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
 
 <h3 id="4-uni-hideLoading"><a href="#4-uni-hideLoading" class="headerlink" title="4.uni.hideLoading()"></a>4.uni.hideLoading()</h3><p>隐藏 loading 提示框。</p>
 <p><strong>示例</strong></p>
-<pre><code class="highlight javascript">uni.<span class="title function_">showLoading</span>(&#123;
-	<span class="attr">title</span>: <span class="string">&#x27;加载中&#x27;</span>
-&#125;);
-
-<span class="built_in">setTimeout</span>(<span class="keyword">function</span> (<span class="params"></span>) &#123;
-	uni.<span class="title function_">hideLoading</span>();
-&#125;, <span class="number">2000</span>);</code></pre>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">uni.<span class="title function_">showLoading</span>(&#123;</span><br><span class="line">	<span class="attr">title</span>: <span class="string">&#x27;加载中&#x27;</span></span><br><span class="line">&#125;);</span><br><span class="line"></span><br><span class="line"><span class="built_in">setTimeout</span>(<span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">	uni.<span class="title function_">hideLoading</span>();</span><br><span class="line">&#125;, <span class="number">2000</span>);</span><br></pre></td></tr></table></figure>
 
 <h3 id="5-uni-showModal-OBJECT"><a href="#5-uni-showModal-OBJECT" class="headerlink" title="5.uni.showModal(OBJECT)"></a>5.uni.showModal(OBJECT)</h3><p>显示模态弹窗，可以只有一个确定按钮，也可以同时有确定和取消按钮。类似于一个API整合了 html 中：alert、confirm。</p>
 <p><strong>OBJECT参数说明</strong></p>
@@ -1502,17 +1390,7 @@ function choose()&#123;
 </tr>
 </tbody></table>
 <p><strong>示例</strong></p>
-<pre><code class="highlight javascript">uni.<span class="title function_">showModal</span>(&#123;
-	<span class="attr">title</span>: <span class="string">&#x27;提示&#x27;</span>,
-	<span class="attr">content</span>: <span class="string">&#x27;这是一个模态弹窗&#x27;</span>,
-	<span class="attr">success</span>: <span class="keyword">function</span> (<span class="params">res</span>) &#123;
-		<span class="keyword">if</span> (res.<span class="property">confirm</span>) &#123;
-			<span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;用户点击确定&#x27;</span>);
-		&#125; <span class="keyword">else</span> <span class="keyword">if</span> (res.<span class="property">cancel</span>) &#123;
-			<span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;用户点击取消&#x27;</span>);
-		&#125;
-	&#125;
-&#125;);</code></pre>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">uni.<span class="title function_">showModal</span>(&#123;</span><br><span class="line">	<span class="attr">title</span>: <span class="string">&#x27;提示&#x27;</span>,</span><br><span class="line">	<span class="attr">content</span>: <span class="string">&#x27;这是一个模态弹窗&#x27;</span>,</span><br><span class="line">	<span class="attr">success</span>: <span class="keyword">function</span> (<span class="params">res</span>) &#123;</span><br><span class="line">		<span class="keyword">if</span> (res.<span class="property">confirm</span>) &#123;</span><br><span class="line">			<span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;用户点击确定&#x27;</span>);</span><br><span class="line">		&#125; <span class="keyword">else</span> <span class="keyword">if</span> (res.<span class="property">cancel</span>) &#123;</span><br><span class="line">			<span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;用户点击取消&#x27;</span>);</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
 
 <h3 id="6-uni-setNavigationBarTitle-OBJECT"><a href="#6-uni-setNavigationBarTitle-OBJECT" class="headerlink" title="6.uni.setNavigationBarTitle(OBJECT)"></a>6.uni.setNavigationBarTitle(OBJECT)</h3><p>动态设置当前页面的标题。</p>
 <blockquote>
@@ -1554,57 +1432,25 @@ function choose()&#123;
 </tr>
 </tbody></table>
 <p><strong>示例</strong></p>
-<pre><code class="highlight javascript">uni.<span class="title function_">setNavigationBarTitle</span>(&#123;
-	<span class="attr">title</span>: <span class="string">&#x27;新的标题&#x27;</span>
-&#125;);</code></pre>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">uni.<span class="title function_">setNavigationBarTitle</span>(&#123;</span><br><span class="line">	<span class="attr">title</span>: <span class="string">&#x27;新的标题&#x27;</span></span><br><span class="line">&#125;);</span><br></pre></td></tr></table></figure>
 
-<h3 id="7-uni-setTabBarBadge"><a href="#7-uni-setTabBarBadge" class="headerlink" title="7.uni.setTabBarBadge"></a>7.uni.setTabBarBadge</h3><pre><code class="highlight javascript"><span class="attr">onLaunch</span>: <span class="keyword">function</span>(<span class="params"></span>) &#123;
-    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;App Launch&#x27;</span>)
-    uni.<span class="title function_">setTabBarBadge</span>(&#123;
-        <span class="attr">index</span>:<span class="number">1</span>,
-        <span class="attr">text</span>:<span class="number">6</span>
-    &#125;)
-&#125;,</code></pre>
+<h3 id="7-uni-setTabBarBadge"><a href="#7-uni-setTabBarBadge" class="headerlink" title="7.uni.setTabBarBadge"></a>7.uni.setTabBarBadge</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">onLaunch</span>: <span class="keyword">function</span>(<span class="params"></span>) &#123;</span><br><span class="line">    <span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;App Launch&#x27;</span>)</span><br><span class="line">    uni.<span class="title function_">setTabBarBadge</span>(&#123;</span><br><span class="line">        <span class="attr">index</span>:<span class="number">1</span>,</span><br><span class="line">        <span class="attr">text</span>:<span class="number">6</span></span><br><span class="line">    &#125;)</span><br><span class="line">&#125;,</span><br></pre></td></tr></table></figure>
 
 <h3 id="8-uni-showTabBarRedDot"><a href="#8-uni-showTabBarRedDot" class="headerlink" title="8.uni.showTabBarRedDot"></a>8.uni.showTabBarRedDot</h3><p>显示 tabBar 某一项的右上角的红点。</p>
-<pre><code class="highlight javascript">uni.<span class="title function_">showTabBarRedDot</span>(&#123;
-    <span class="attr">index</span>:<span class="number">2</span>
-&#125;)</code></pre>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">uni.<span class="title function_">showTabBarRedDot</span>(&#123;</span><br><span class="line">    <span class="attr">index</span>:<span class="number">2</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
 
 <h3 id="9-uni-stopPullDownRefresh"><a href="#9-uni-stopPullDownRefresh" class="headerlink" title="9.uni.stopPullDownRefresh()"></a>9.uni.stopPullDownRefresh()</h3><p>停止当前页面下拉刷新。</p>
-<pre><code class="highlight javascript"><span class="keyword">export</span> <span class="keyword">default</span> &#123;
-	<span class="title function_">data</span>(<span class="params"></span>) &#123;
-		<span class="keyword">return</span> &#123;
-			<span class="attr">text</span>: <span class="string">&#x27;uni-app&#x27;</span>
-		&#125;
-	&#125;,
-	<span class="attr">onLoad</span>: <span class="keyword">function</span> (<span class="params">options</span>) &#123;
-		<span class="built_in">setTimeout</span>(<span class="keyword">function</span> (<span class="params"></span>) &#123;
-			<span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;start pulldown&#x27;</span>);
-		&#125;, <span class="number">1000</span>);
-		uni.<span class="title function_">startPullDownRefresh</span>();
-	&#125;,
-	<span class="title function_">onPullDownRefresh</span>(<span class="params"></span>) &#123;
-		<span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;refresh&#x27;</span>);
-		<span class="built_in">setTimeout</span>(<span class="keyword">function</span> (<span class="params"></span>) &#123;
-			uni.<span class="title function_">stopPullDownRefresh</span>();
-		&#125;, <span class="number">1000</span>);
-	&#125;
-&#125;</code></pre>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">export</span> <span class="keyword">default</span> &#123;</span><br><span class="line">	<span class="title function_">data</span>(<span class="params"></span>) &#123;</span><br><span class="line">		<span class="keyword">return</span> &#123;</span><br><span class="line">			<span class="attr">text</span>: <span class="string">&#x27;uni-app&#x27;</span></span><br><span class="line">		&#125;</span><br><span class="line">	&#125;,</span><br><span class="line">	<span class="attr">onLoad</span>: <span class="keyword">function</span> (<span class="params">options</span>) &#123;</span><br><span class="line">		<span class="built_in">setTimeout</span>(<span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">			<span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;start pulldown&#x27;</span>);</span><br><span class="line">		&#125;, <span class="number">1000</span>);</span><br><span class="line">		uni.<span class="title function_">startPullDownRefresh</span>();</span><br><span class="line">	&#125;,</span><br><span class="line">	<span class="title function_">onPullDownRefresh</span>(<span class="params"></span>) &#123;</span><br><span class="line">		<span class="variable language_">console</span>.<span class="title function_">log</span>(<span class="string">&#x27;refresh&#x27;</span>);</span><br><span class="line">		<span class="built_in">setTimeout</span>(<span class="keyword">function</span> (<span class="params"></span>) &#123;</span><br><span class="line">			uni.<span class="title function_">stopPullDownRefresh</span>();</span><br><span class="line">		&#125;, <span class="number">1000</span>);</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h3 id="10-uni-navigateTo"><a href="#10-uni-navigateTo" class="headerlink" title="10.uni.navigateTo"></a>10.uni.navigateTo</h3><blockquote>
 <p>跳转指定页面，非tabbar</p>
 </blockquote>
-<pre><code class="highlight javascript">uni.<span class="title function_">navigateTo</span>(&#123;
-    <span class="attr">url</span>:<span class="string">&quot;/pages/list/list&quot;</span>
-&#125;)</code></pre>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">uni.<span class="title function_">navigateTo</span>(&#123;</span><br><span class="line">    <span class="attr">url</span>:<span class="string">&quot;/pages/list/list&quot;</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
 
 <h3 id="11-uni-reLaunch"><a href="#11-uni-reLaunch" class="headerlink" title="11.uni.reLaunch"></a>11.uni.reLaunch</h3><blockquote>
 <p>跳转指定页面</p>
 </blockquote>
-<pre><code class="highlight javascript">uni.<span class="title function_">reLaunch</span>(&#123;
-    <span class="attr">url</span>:<span class="string">&quot;/pages/list/list&quot;</span>
-&#125;)</code></pre>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">uni.<span class="title function_">reLaunch</span>(&#123;</span><br><span class="line">    <span class="attr">url</span>:<span class="string">&quot;/pages/list/list&quot;</span></span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
 
 <h3 id="12-uni-navigateBack"><a href="#12-uni-navigateBack" class="headerlink" title="12.uni.navigateBack()"></a>12.uni.navigateBack()</h3><blockquote>
 <p>返回上一页</p>
@@ -1816,149 +1662,9 @@ function choose()&#123;
 <h2 id="6-属性"><a href="#6-属性" class="headerlink" title="6.属性"></a>6.属性</h2><h3 id="1-lazy-load"><a href="#1-lazy-load" class="headerlink" title="1.lazy-load"></a>1.lazy-load</h3><blockquote>
 <p>懒加载</p>
 </blockquote>
-<pre><code class="highlight plaintext">&lt;image lazy-load :src=&quot;item.url&quot; mode=&quot;widthFix&quot; @click=&quot;Onshowimg(index)&quot;&gt;&lt;/image&gt;</code></pre>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">&lt;image lazy-load :src=&quot;item.url&quot; mode=&quot;widthFix&quot; @click=&quot;Onshowimg(index)&quot;&gt;&lt;/image&gt;</span><br></pre></td></tr></table></figure>
 
-<h2 id="7-小项目"><a href="#7-小项目" class="headerlink" title="7.小项目"></a>7.小项目</h2><pre><code class="highlight vue">&lt;template&gt;
-	&lt;view class=&quot;content&quot;&gt;
-	  &lt;view class=&quot;segmented&quot;&gt;
-			&lt;uni-segmented-control 
-			:current=&quot;currents&quot; 
-			:values=&quot;values&quot; 
-			styleType=&quot;button&quot; 
-			activeColor=&quot;#4cd964&quot;
-			 @clickItem=&quot;OnClickItem&quot;
-			&gt;&lt;/uni-segmented-control&gt;
-		&lt;/view&gt;
-		&lt;view class=&quot;main&quot; v-for=&quot;(item,index) of pets&quot; :key=&quot;item._id&quot;&gt;
-			&lt;view class=&quot;pic&quot;&gt;
-				&lt;image lazy-load :src=&quot;item.url&quot; mode=&quot;widthFix&quot; @click=&quot;Onshowimg(index)&quot;&gt;&lt;/image&gt;
-			&lt;/view&gt;
-			&lt;view class=&quot;context&quot;&gt;&#123;&#123;item.content&#125;&#125;&lt;/view&gt;
-		&lt;/view&gt;
-		
-		&lt;view class=&quot;float&quot;&gt;
-			&lt;view class=&quot;item&quot; @click=&quot;refreshing&quot;&gt;
-				&lt;uni-icons type=&quot;refreshempty&quot; size=&quot;26&quot; color=&quot;#888&quot;&gt;&lt;/uni-icons&gt;
-			&lt;/view&gt;
-			&lt;view class=&quot;item&quot; @click=&quot;totop&quot;&gt;
-				&lt;uni-icons type=&quot;arrow-up&quot; size=&quot;26&quot; color=&quot;#888&quot;&gt;&lt;/uni-icons&gt;
-			&lt;/view&gt;
-		&lt;/view&gt;
-		
-		&lt;view class=&quot;loadmore&quot;&gt;
-			&lt;uni-load-more status=&quot;loading&quot;&gt;&lt;/uni-load-more&gt;
-		&lt;/view&gt;
-	&lt;/view&gt;
-&lt;/template&gt;
-
-&lt;script setup&gt;
-import &#123;onReachBottom,onPullDownRefresh&#125; from &#x27;@dcloudio/uni-app&#x27;
-let pets = ref([])
-let classify = [&#123;key:&quot;all&quot;,value:&quot;all&quot;&#125;,&#123;key:&quot;dog&quot;,value:&quot;dog&quot;&#125;,&#123;key:&quot;cat&quot;,value:&quot;cat&quot;&#125;];
-let currents = ref(0);
-
-const values = computed(()=&gt;classify.map(item=&gt;item.value));
-//发送异步请求
-const network = async (type)=&gt;&#123;
-	uni.showNavigationBarLoading();
-	let result = await uni.request(&#123;
-		url:&quot;https://tea.qingnian8.com/tools/petShow&quot;,
-		data:&#123;
-			size:10,
-			type:type?type:&quot;all&quot;
-		&#125;
-	&#125;);
-	if (result.data.errCode === 0)&#123;
-		pets.value = [...pets.value,...result.data.data];
-	&#125;else if (result.data.errCode === 400)&#123;
-		uni.showToast(&#123;
-			icon:&quot;error&quot;,
-			title:&quot;none&quot;
-		&#125;)
-	&#125;
-	uni.hideNavigationBarLoading();
-	uni.hideLoading();
-	uni.stopPullDownRefresh();
-	
-&#125;
-const Onshowimg = (index)=&gt;&#123;
-	let urls = pets.value.map(item=&gt;item.url);
-	uni.previewImage(&#123;
-		current:index,
-		urls:urls
-	&#125;)
-&#125;
-//发送网络请求
-network();
-
-onReachBottom(()=&gt;&#123;
-	network();
-&#125;)
-
-onPullDownRefresh(()=&gt;&#123;
-	pets.value = [];
-	network();
-&#125;)
-
-//刷新
-const refreshing = ()=&gt;&#123;
-	uni.startPullDownRefresh();
-&#125;
-
-//返回顶部
-const totop = ()=&gt;&#123;
-	uni.pageScrollTo(&#123;
-		scrollTop:0
-	&#125;);
-&#125;
-
-const OnClickItem = (e)=&gt;&#123;
-	currents.value = e.currentIndex;
-	pets.value = [];
-	network(classify[currents.value].value);
-&#125;
-&lt;/script&gt;
-
-&lt;style lang=&quot;less&quot;&gt;
-	.content&#123;
-		padding-right:50rpx;
-		padding-left: 50rpx;
-		.main&#123;
-			margin-top: 60rpx;
-			box-shadow: 0 10rpx 30rpx rgba(0,0,0,0.08);
-			border-radius:15rpx;
-			.pic&#123;
-				width: 100%;
-			&#125;
-			.context&#123;
-				padding: 30rpx 30rpx;
-				font-size:20rpx;
-				color: red;
-			&#125;
-		&#125;
-		
-		.float&#123;
-			position: fixed;
-			right: 30rpx;
-			bottom: 80rpx;
-			.item&#123;
-				width: 90rpx;
-				height: 90rpx;
-				border-radius: 50%;
-				background-color: rgba(255,255,255,0.9);
-				margin-bottom: 20rpx;
-				display: flex;
-				align-items: center;
-				justify-content: center;
-			&#125;
-			padding-bottom: 30px;
-		&#125;
-		.loadmore&#123;
-			padding-bottom: 30px;
-		&#125;
-	&#125;
-&lt;/style&gt;
-</code></pre>
+<h2 id="7-小项目"><a href="#7-小项目" class="headerlink" title="7.小项目"></a>7.小项目</h2><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br><span class="line">62</span><br><span class="line">63</span><br><span class="line">64</span><br><span class="line">65</span><br><span class="line">66</span><br><span class="line">67</span><br><span class="line">68</span><br><span class="line">69</span><br><span class="line">70</span><br><span class="line">71</span><br><span class="line">72</span><br><span class="line">73</span><br><span class="line">74</span><br><span class="line">75</span><br><span class="line">76</span><br><span class="line">77</span><br><span class="line">78</span><br><span class="line">79</span><br><span class="line">80</span><br><span class="line">81</span><br><span class="line">82</span><br><span class="line">83</span><br><span class="line">84</span><br><span class="line">85</span><br><span class="line">86</span><br><span class="line">87</span><br><span class="line">88</span><br><span class="line">89</span><br><span class="line">90</span><br><span class="line">91</span><br><span class="line">92</span><br><span class="line">93</span><br><span class="line">94</span><br><span class="line">95</span><br><span class="line">96</span><br><span class="line">97</span><br><span class="line">98</span><br><span class="line">99</span><br><span class="line">100</span><br><span class="line">101</span><br><span class="line">102</span><br><span class="line">103</span><br><span class="line">104</span><br><span class="line">105</span><br><span class="line">106</span><br><span class="line">107</span><br><span class="line">108</span><br><span class="line">109</span><br><span class="line">110</span><br><span class="line">111</span><br><span class="line">112</span><br><span class="line">113</span><br><span class="line">114</span><br><span class="line">115</span><br><span class="line">116</span><br><span class="line">117</span><br><span class="line">118</span><br><span class="line">119</span><br><span class="line">120</span><br><span class="line">121</span><br><span class="line">122</span><br><span class="line">123</span><br><span class="line">124</span><br><span class="line">125</span><br><span class="line">126</span><br><span class="line">127</span><br><span class="line">128</span><br><span class="line">129</span><br><span class="line">130</span><br><span class="line">131</span><br><span class="line">132</span><br><span class="line">133</span><br><span class="line">134</span><br><span class="line">135</span><br><span class="line">136</span><br><span class="line">137</span><br><span class="line">138</span><br><span class="line">139</span><br><span class="line">140</span><br><span class="line">141</span><br></pre></td><td class="code"><pre><span class="line">&lt;template&gt;</span><br><span class="line">	&lt;view class=&quot;content&quot;&gt;</span><br><span class="line">	  &lt;view class=&quot;segmented&quot;&gt;</span><br><span class="line">			&lt;uni-segmented-control </span><br><span class="line">			:current=&quot;currents&quot; </span><br><span class="line">			:values=&quot;values&quot; </span><br><span class="line">			styleType=&quot;button&quot; </span><br><span class="line">			activeColor=&quot;#4cd964&quot;</span><br><span class="line">			 @clickItem=&quot;OnClickItem&quot;</span><br><span class="line">			&gt;&lt;/uni-segmented-control&gt;</span><br><span class="line">		&lt;/view&gt;</span><br><span class="line">		&lt;view class=&quot;main&quot; v-for=&quot;(item,index) of pets&quot; :key=&quot;item._id&quot;&gt;</span><br><span class="line">			&lt;view class=&quot;pic&quot;&gt;</span><br><span class="line">				&lt;image lazy-load :src=&quot;item.url&quot; mode=&quot;widthFix&quot; @click=&quot;Onshowimg(index)&quot;&gt;&lt;/image&gt;</span><br><span class="line">			&lt;/view&gt;</span><br><span class="line">			&lt;view class=&quot;context&quot;&gt;&#123;&#123;item.content&#125;&#125;&lt;/view&gt;</span><br><span class="line">		&lt;/view&gt;</span><br><span class="line">		</span><br><span class="line">		&lt;view class=&quot;float&quot;&gt;</span><br><span class="line">			&lt;view class=&quot;item&quot; @click=&quot;refreshing&quot;&gt;</span><br><span class="line">				&lt;uni-icons type=&quot;refreshempty&quot; size=&quot;26&quot; color=&quot;#888&quot;&gt;&lt;/uni-icons&gt;</span><br><span class="line">			&lt;/view&gt;</span><br><span class="line">			&lt;view class=&quot;item&quot; @click=&quot;totop&quot;&gt;</span><br><span class="line">				&lt;uni-icons type=&quot;arrow-up&quot; size=&quot;26&quot; color=&quot;#888&quot;&gt;&lt;/uni-icons&gt;</span><br><span class="line">			&lt;/view&gt;</span><br><span class="line">		&lt;/view&gt;</span><br><span class="line">		</span><br><span class="line">		&lt;view class=&quot;loadmore&quot;&gt;</span><br><span class="line">			&lt;uni-load-more status=&quot;loading&quot;&gt;&lt;/uni-load-more&gt;</span><br><span class="line">		&lt;/view&gt;</span><br><span class="line">	&lt;/view&gt;</span><br><span class="line">&lt;/template&gt;</span><br><span class="line"></span><br><span class="line">&lt;script setup&gt;</span><br><span class="line">import &#123;onReachBottom,onPullDownRefresh&#125; from &#x27;@dcloudio/uni-app&#x27;</span><br><span class="line">let pets = ref([])</span><br><span class="line">let classify = [&#123;key:&quot;all&quot;,value:&quot;all&quot;&#125;,&#123;key:&quot;dog&quot;,value:&quot;dog&quot;&#125;,&#123;key:&quot;cat&quot;,value:&quot;cat&quot;&#125;];</span><br><span class="line">let currents = ref(0);</span><br><span class="line"></span><br><span class="line">const values = computed(()=&gt;classify.map(item=&gt;item.value));</span><br><span class="line">//发送异步请求</span><br><span class="line">const network = async (type)=&gt;&#123;</span><br><span class="line">	uni.showNavigationBarLoading();</span><br><span class="line">	let result = await uni.request(&#123;</span><br><span class="line">		url:&quot;https://tea.qingnian8.com/tools/petShow&quot;,</span><br><span class="line">		data:&#123;</span><br><span class="line">			size:10,</span><br><span class="line">			type:type?type:&quot;all&quot;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;);</span><br><span class="line">	if (result.data.errCode === 0)&#123;</span><br><span class="line">		pets.value = [...pets.value,...result.data.data];</span><br><span class="line">	&#125;else if (result.data.errCode === 400)&#123;</span><br><span class="line">		uni.showToast(&#123;</span><br><span class="line">			icon:&quot;error&quot;,</span><br><span class="line">			title:&quot;none&quot;</span><br><span class="line">		&#125;)</span><br><span class="line">	&#125;</span><br><span class="line">	uni.hideNavigationBarLoading();</span><br><span class="line">	uni.hideLoading();</span><br><span class="line">	uni.stopPullDownRefresh();</span><br><span class="line">	</span><br><span class="line">&#125;</span><br><span class="line">const Onshowimg = (index)=&gt;&#123;</span><br><span class="line">	let urls = pets.value.map(item=&gt;item.url);</span><br><span class="line">	uni.previewImage(&#123;</span><br><span class="line">		current:index,</span><br><span class="line">		urls:urls</span><br><span class="line">	&#125;)</span><br><span class="line">&#125;</span><br><span class="line">//发送网络请求</span><br><span class="line">network();</span><br><span class="line"></span><br><span class="line">onReachBottom(()=&gt;&#123;</span><br><span class="line">	network();</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">onPullDownRefresh(()=&gt;&#123;</span><br><span class="line">	pets.value = [];</span><br><span class="line">	network();</span><br><span class="line">&#125;)</span><br><span class="line"></span><br><span class="line">//刷新</span><br><span class="line">const refreshing = ()=&gt;&#123;</span><br><span class="line">	uni.startPullDownRefresh();</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">//返回顶部</span><br><span class="line">const totop = ()=&gt;&#123;</span><br><span class="line">	uni.pageScrollTo(&#123;</span><br><span class="line">		scrollTop:0</span><br><span class="line">	&#125;);</span><br><span class="line">&#125;</span><br><span class="line"></span><br><span class="line">const OnClickItem = (e)=&gt;&#123;</span><br><span class="line">	currents.value = e.currentIndex;</span><br><span class="line">	pets.value = [];</span><br><span class="line">	network(classify[currents.value].value);</span><br><span class="line">&#125;</span><br><span class="line">&lt;/script&gt;</span><br><span class="line"></span><br><span class="line">&lt;style lang=&quot;less&quot;&gt;</span><br><span class="line">	.content&#123;</span><br><span class="line">		padding-right:50rpx;</span><br><span class="line">		padding-left: 50rpx;</span><br><span class="line">		.main&#123;</span><br><span class="line">			margin-top: 60rpx;</span><br><span class="line">			box-shadow: 0 10rpx 30rpx rgba(0,0,0,0.08);</span><br><span class="line">			border-radius:15rpx;</span><br><span class="line">			.pic&#123;</span><br><span class="line">				width: 100%;</span><br><span class="line">			&#125;</span><br><span class="line">			.context&#123;</span><br><span class="line">				padding: 30rpx 30rpx;</span><br><span class="line">				font-size:20rpx;</span><br><span class="line">				color: red;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">		</span><br><span class="line">		.float&#123;</span><br><span class="line">			position: fixed;</span><br><span class="line">			right: 30rpx;</span><br><span class="line">			bottom: 80rpx;</span><br><span class="line">			.item&#123;</span><br><span class="line">				width: 90rpx;</span><br><span class="line">				height: 90rpx;</span><br><span class="line">				border-radius: 50%;</span><br><span class="line">				background-color: rgba(255,255,255,0.9);</span><br><span class="line">				margin-bottom: 20rpx;</span><br><span class="line">				display: flex;</span><br><span class="line">				align-items: center;</span><br><span class="line">				justify-content: center;</span><br><span class="line">			&#125;</span><br><span class="line">			padding-bottom: 30px;</span><br><span class="line">		&#125;</span><br><span class="line">		.loadmore&#123;</span><br><span class="line">			padding-bottom: 30px;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&lt;/style&gt;</span><br><span class="line"></span><br></pre></td></tr></table></figure>
 
 
 
@@ -2042,7 +1748,7 @@ const OnClickItem = (e)=&gt;&#123;
             <div class="row">
                 <div class="col-m-4">
                     <h3 class="title-recent">最新文章：</h3>
-                    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2025/03/15/AJAX/">AJAX</a></li><li class="post-list-item"><a class="post-list-link" href="/2025/02/23/QT/">QT</a></li><li class="post-list-item"><a class="post-list-link" href="/2025/02/22/%E8%A7%A3%E5%86%B3Nginx%E7%AB%AF%E5%8F%A3%E6%97%A0%E6%B3%95%E8%AE%BF%E9%97%AE%E9%97%AE%E9%A2%98/">解决Nginx端口无法访问问题</a></li><li class="post-list-item"><a class="post-list-link" href="/2025/01/05/Andriod/">Android</a></li><li class="post-list-item"><a class="post-list-link" href="/2024/12/02/Kotlin/">Kotlin</a></li><li class="post-list-item"><a class="post-list-link" href="/2024/11/19/Webpack/">Webpack</a></li></ul>
+                    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2025/03/18/Compose%20Jetpack/">Jetpack Compose</a></li><li class="post-list-item"><a class="post-list-link" href="/2025/03/15/AJAX/">AJAX</a></li><li class="post-list-item"><a class="post-list-link" href="/2025/02/23/QT/">QT</a></li><li class="post-list-item"><a class="post-list-link" href="/2025/02/22/%E8%A7%A3%E5%86%B3Nginx%E7%AB%AF%E5%8F%A3%E6%97%A0%E6%B3%95%E8%AE%BF%E9%97%AE%E9%97%AE%E9%A2%98/">解决Nginx端口无法访问问题</a></li><li class="post-list-item"><a class="post-list-link" href="/2025/01/05/Andriod/">Android</a></li><li class="post-list-item"><a class="post-list-link" href="/2024/12/02/Kotlin/">Kotlin</a></li></ul>
                 </div>
                 <div class="col-m-4">
                     <h3 class="title-date">时光机：</h3>

@@ -61,7 +61,7 @@
         </section>
         <article class="post-content">
         
-            <blockquote>这篇文章上次修改于 204 天前，可能其部分内容已经发生变化，如有疑问可询问作者。</blockquote>
+            <blockquote>这篇文章上次修改于 207 天前，可能其部分内容已经发生变化，如有疑问可询问作者。</blockquote>
           
             <p>java web 是指有Java语言开发出来可以在万维网上访问浏览的程序。web通过一系列的通信实现与java的交互，java是你的后台，进行逻辑处理，中间层进行数据的交互，web显示给用户来看。</p>
 <h2 id="1-Maven"><a href="#1-Maven" class="headerlink" title="1.Maven"></a>1.Maven</h2><h3 id="1-安装"><a href="#1-安装" class="headerlink" title="1.安装"></a>1.安装</h3><p>1.下载</p>
@@ -70,10 +70,12 @@
 <p>修改conf里的setting.xml文件</p>
 <p><code>&lt;localRepository&gt;D:\Maven\apache-maven-3.9.6\mvn-repo&lt;/localRepository&gt;</code></p>
 <p>3.配置阿里云</p>
-<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">mirrors</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">mirror</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">id</span>&gt;</span>alimaven<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">name</span>&gt;</span>aliyun maven<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">url</span>&gt;</span>http://maven.aliyun.com/nexus/content/groups/public/<span class="tag">&lt;/<span class="name">url</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">mirrorOf</span>&gt;</span>central<span class="tag">&lt;/<span class="name">mirrorOf</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">mirror</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">mirrors</span>&gt;</span></span><br></pre></td></tr></table></figure>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">mirrors</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">mirror</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">id</span>&gt;</span>alimaven<span class="tag">&lt;/<span class="name">id</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">name</span>&gt;</span>aliyun maven<span class="tag">&lt;/<span class="name">name</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">url</span>&gt;</span>http://maven.aliyun.com/nexus/content/groups/public/<span class="tag">&lt;/<span class="name">url</span>&gt;</span></span><br><span class="line">      <span class="tag">&lt;<span class="name">mirrorOf</span>&gt;</span>central<span class="tag">&lt;/<span class="name">mirrorOf</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">mirror</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">mirrors</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
 <p>4.配置环境变量</p>
-<p>bin目录</p>
+<blockquote>
+<p>将bin目录添加到环境变量当中</p>
+</blockquote>
 <blockquote>
 <p>mvn -v 检查是否配置成功</p>
 </blockquote>
@@ -87,9 +89,9 @@
 </blockquote>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>ch.qos.logback<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>logback-classic<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">version</span>&gt;</span>1.4.12<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;<span class="name">exclusions</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;<span class="name">exclusion</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>junit<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">                    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>junit<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">                <span class="tag">&lt;/<span class="name">exclusion</span>&gt;</span></span><br><span class="line">            <span class="tag">&lt;/<span class="name">exclusions</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br></pre></td></tr></table></figure>
 
-<h4 id="4-依赖范围"><a href="#4-依赖范围" class="headerlink" title="4.依赖范围"></a>4.依赖范围</h4><p>主程序范围有效</p>
-<p>测试程序范围有效</p>
-<p>是否参与打包运行</p>
+<h4 id="4-依赖范围"><a href="#4-依赖范围" class="headerlink" title="4.依赖范围"></a>4.依赖范围</h4><p>1.主程序范围有效</p>
+<p>2.测试程序范围有效</p>
+<p>3.是否参与打包运行</p>
 <p><code>&lt;scope&gt;test&lt;/scope&gt;</code></p>
 <table>
 <thead>
@@ -247,7 +249,6 @@
 <td>告诉浏览器为当前页面所在的域设置cookie。</td>
 </tr>
 </tbody></table>
-<p>HTTP协议解析</p>
 <h2 id="3-Tomcat"><a href="#3-Tomcat" class="headerlink" title="3.Tomcat"></a>3.Tomcat</h2><h3 id="1-Tomcat-基本使用"><a href="#1-Tomcat-基本使用" class="headerlink" title="1.Tomcat-基本使用"></a>1.Tomcat-基本使用</h3><p>下载：官网下载，地址 <a target="_blank" rel="noopener" href="https://tomcat.apache.org/download-90.cgi">https://tomcat.apache.org/download-90.cgi</a></p>
 <p>安装：绿色版，直接解压即可</p>
 <p>卸载：直接删除目录即可</p>
@@ -272,11 +273,6 @@
 
 <p>@RequestParam注解<br>方法形参名称与请求参数名称不匹配，通过该注解完成映射该注解的required属性默认是true，代表请求参数必须传递骨显示器设型</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RestController</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">test</span> &#123;</span><br><span class="line">    <span class="meta">@RequestMapping(&quot;/Simpleparam&quot;)</span></span><br><span class="line">    <span class="keyword">public</span> String <span class="title function_">Simpleparam</span><span class="params">( <span class="meta">@RequestParam(name=&quot;name&quot;)</span> </span></span><br><span class="line"><span class="params">                                String username, Integer age)</span>&#123;</span><br><span class="line">        System.out.println(username+<span class="string">&quot;-&gt;&quot;</span>+age);</span><br><span class="line">        <span class="keyword">return</span> <span class="string">&quot;OK&quot;</span>;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-<p>3.实体属性</p>
-<blockquote>
-<p>用类接收</p>
-</blockquote>
 <h3 id="4-数组接收参数"><a href="#4-数组接收参数" class="headerlink" title="4.数组接收参数"></a>4.数组接收参数</h3><p>1.使用数组</p>
 <figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@RequestMapping(&quot;/arrayParam&quot;)</span></span><br><span class="line"><span class="keyword">public</span> String <span class="title function_">arrayParam</span><span class="params">(String[] hobby)</span>&#123;</span><br><span class="line">    System.out.println(Arrays.toString(hobby));</span><br><span class="line">    System.out.println(<span class="string">&quot;array&quot;</span>);</span><br><span class="line">    <span class="keyword">return</span> <span class="string">&quot;OK&quot;</span>;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
@@ -349,7 +345,7 @@
 <p>@Component零件组成部分</p>
 <p>用在需要装配容器中的类的语句上</p>
 <p>@Autowired 装配</p>
-<h3 id="3-Bean的声明"><a href="#3-Bean的声明" class="headerlink" title="3.Bean的声明"></a>3.Bean的声明</h3><p>要把某个对象交给1OC容器管理，需要在对应的类上加上如下注解之一：</p>
+<h3 id="3-Bean的声明"><a href="#3-Bean的声明" class="headerlink" title="3.Bean的声明"></a>3.Bean的声明</h3><p>要把某个对象交给IOC容器管理，需要在对应的类上加上如下注解之一：</p>
 <table>
 <thead>
 <tr>

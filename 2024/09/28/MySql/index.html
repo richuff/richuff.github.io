@@ -533,6 +533,29 @@
 <li>repeatable read （默认）          无法解决幻读，可以解决脏读、不可重复读</li>
 <li>serializable                    可以解决脏读、不可重复读、幻读</li>
 </ul>
+<h4 id="1-Read-Uncommitted（读未提交）"><a href="#1-Read-Uncommitted（读未提交）" class="headerlink" title="1. Read Uncommitted（读未提交）"></a>1. Read Uncommitted（读未提交）</h4><p><strong>特点</strong>：</p>
+<ul>
+<li>这是最低的隔离级别。</li>
+<li>一个事务可以读取另一个事务尚未提交的数据（脏读）。</li>
+<li>无法解决脏读、不可重复读、幻读问题。</li>
+</ul>
+<h4 id="2-Read-Committed（读已提交）"><a href="#2-Read-Committed（读已提交）" class="headerlink" title="2. Read Committed（读已提交）"></a>2. Read Committed（读已提交）</h4><p><strong>特点</strong>：</p>
+<ul>
+<li>一个事务只能读取另一个事务已经提交的数据，避免了脏读。</li>
+<li>但同一个事务中，多次读取同一数据可能会看到其他事务提交后的不同结果（不可重复读）。</li>
+<li>无法解决不可重复读和幻读问题，但可以解决脏读问题。</li>
+</ul>
+<h4 id="3-Repeatable-Read（可重复读）（默认）"><a href="#3-Repeatable-Read（可重复读）（默认）" class="headerlink" title="3. Repeatable Read（可重复读）（默认）"></a>3. Repeatable Read（可重复读）（默认）</h4><p><strong>特点</strong>：</p>
+<ul>
+<li>在同一个事务中，多次读取同一数据会看到相同的结果，即使其他事务提交了修改。</li>
+<li>避免了脏读和不可重复读，但可能出现幻读（同一查询条件，后续读取出现新数据行）。</li>
+<li>无法解决幻读问题，但可以解决脏读和不可重复读问题。</li>
+</ul>
+<h4 id="4-Serializable（可串行化）"><a href="#4-Serializable（可串行化）" class="headerlink" title="4. Serializable（可串行化）"></a>4. Serializable（可串行化）</h4><p><strong>特点</strong>：</p>
+<ul>
+<li>最高的隔离级别，完全隔离事务，避免脏读、不可重复读和幻读。</li>
+<li>事务串行执行，性能较低，易产生锁竞争。</li>
+</ul>
 <blockquote>
 <p>查看事务隔离级别</p>
 </blockquote>
@@ -552,7 +575,6 @@
 <li>引擎层</li>
 <li>存储层</li>
 </ul>
-<p><a target="_blank" rel="noopener" href="https://imgse.com/i/pFTrAqf"><img src="https://s21.ax1x.com/2024/03/30/pFTrAqf.png" alt="pFTrAqf.png"></a></p>
 <h3 id="2-存储引擎简介"><a href="#2-存储引擎简介" class="headerlink" title="2.存储引擎简介"></a>2.存储引擎简介</h3><blockquote>
 <p>存储引擎就是存储数据、建立索引</p>
 </blockquote>

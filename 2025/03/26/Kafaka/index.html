@@ -3,7 +3,7 @@
   <head>
      
     <meta charset="UTF-8">
-    <title> - Richu</title>
+    <title>Kafaka - Richu</title>
     <link rel="shortcut icon" href="/static/img/icon.png">
     <link rel="icon" href="/static/img/icon.png" sizes="192x192"/>
     
@@ -15,7 +15,7 @@
 
     <meta name="viewport" content="width=device-width, maximum-scale=1, initial-scale=1"/>
     <meta property="og:site_name" content="Richu">
-    <meta property="og:title" content=""/>
+    <meta property="og:title" content="Kafaka"/>
     
     <style>body:before{ content: ''; background-image: url(https://img.meituan.net/csc/d05518606ba7064dd445508e3cf3d4c42860983.png) }</style>
     
@@ -51,18 +51,18 @@
     <main>
     <div class="wrap min">
         <section class="post-title">
-            <h2>没有标题的文章</h2>
+            <h2>Kafaka</h2>
             <div class="post-meta">
                 <time class="date">2025.03.26</time>
+            
+                <span class="category"><a class="category-link" href="/categories/Java/">Java</a></span>
             
             </div>
         </section>
         <article class="post-content">
           
-            <h2 id="一、概念理解"><a href="#一、概念理解" class="headerlink" title="一、概念理解"></a>一、概念理解</h2><blockquote>
-<p>Kafka是最初由Linkedin公司开发，是一个分布式、支持分区的（partition）、多副本的（replica），基于zookeeper协调的分布式消息系统，它的最大的特性就是可以实时的处理大量数据以满足各种需求场景：比如基于hadoop的批处理系统、低延迟的实时系统、storm&#x2F;Spark流式处理引擎，web&#x2F;nginx日志、访问日志，消息服务等等，用scala语言编写，Linkedin于2010年贡献给了Apache基金会并成为顶级开源 项目。</p>
-</blockquote>
-<p>（1）产生背景<br>当今社会各种应用系统诸如商业、社交、搜索、浏览等像信息工厂一样不断的生产出各种信息，在大数据时代，我们面临如下几个挑战：</p>
+            <p>Kafka是最初由Linkedin公司开发，是一个分布式、支持分区的（partition）、多副本的（replica），基于zookeeper协调的分布式消息系统，它的最大的特性就是可以实时的处理大量数据以满足各种需求场景：比如基于hadoop的批处理系统、低延迟的实时系统、storm&#x2F;Spark流式处理引擎，web&#x2F;nginx日志、访问日志，消息服务等等，用scala语言编写，Linkedin于2010年贡献给了Apache基金会并成为顶级开源 项目。</p>
+<h2 id="一、Kafaka"><a href="#一、Kafaka" class="headerlink" title="一、Kafaka"></a>一、Kafaka</h2><p>（1）产生背景<br>当今社会各种应用系统诸如商业、社交、搜索、浏览等像信息工厂一样不断的生产出各种信息，在大数据时代，我们面临如下几个挑战：</p>
 <p>1.如何收集这些巨大的信息<br>2.如何分析它</p>
 <p>如何及时做到如上两点<br>以上几个挑战形成了一个业务需求模型，即生产者生产（produce）各种信息，消费者消费（consume）（处理分析）这些信息，而在生产者与消费者之间，需要一个沟通两者的桥梁-消息系统。从一个微观层面来说，这种需求也可理解为不同的系统之间如何传递消息。</p>
 <p>（2）Kafka的特性<br>高吞吐量、低延迟：kafka每秒可以处理几十万条消息，它的延迟最低只有几毫秒<br>可扩展性：kafka集群支持热扩展<br>持久性、可靠性：消息被持久化到本地磁盘，并且支持数据备份防止数据丢失<br>容错性：允许集群中节点失败（若副本数量为n,则允许n-1个节点失败）<br>高并发：支持数千个客户端同时读写</p>
@@ -79,6 +79,10 @@
                 
             </ul>
         </section>
+        
+            <section class="post-tags">
+            <a class="-none-link" href="/tags/Java/" rel="tag">Java</a><a class="-none-link" href="/tags/Java-Web/" rel="tag">Java Web</a>
+            </section>
         
     
         <section class="post-author">

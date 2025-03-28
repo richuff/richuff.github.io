@@ -3,7 +3,7 @@
   <head>
      
     <meta charset="UTF-8">
-    <title>Vue - Richu</title>
+    <title> - Richu</title>
     <link rel="shortcut icon" href="/static/img/icon.png">
     <link rel="icon" href="/static/img/icon.png" sizes="192x192"/>
     
@@ -50,53 +50,49 @@
 
     <main>
     <div class="wrap min">
-        <section class="home-title">
+        <section class="post-title">
+            <h2>没有标题的文章</h2>
+            <div class="post-meta">
+                <time class="date">2025.03.26</time>
             
-            <h1>“Vue”</h1>
+            </div>
         </section>
-        <section class="home-posts">
-    
-    <div class="post-item">
-        <h2>
-            <a href="/2024/10/24/Vue%20development/">Vue development</a>
-        </h2>
-    
-        <p>一、搭建后台管理系统模板1.1项目初始化今天来带大家从0开始搭建一个vue3版本的后台管理系统。一个项目要有统一的规范，需要使用eslint+stylelint+prettier来对我们的代码质...</p>
-    
-        <div class="post-meta">
-            <time class="date">2024.10.24</time>
-            
-                <span class="category"><a class="category-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a></span>
-            
-            
-                <span class="tags"><a class="-none-link" href="/tags/Vue/" rel="tag">Vue</a>，<a class="-none-link" href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag">前端</a></span>
-            
-        </div>
-    </div>
-    
-    <div class="post-item">
-        <h2>
-            <a href="/2024/09/10/Vue/">Vue</a>
-        </h2>
-    
-        <p>Vue (发音为 /vjuː/，类似 view) 是一款用于构建用户界面的 JavaScript 框架。它基于标准 HTML、CSS 和 JavaScript 构建，并提供了一套声明式的、组件化...</p>
-    
-        <div class="post-meta">
-            <time class="date">2024.09.10</time>
-            
-                <span class="category"><a class="category-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a></span>
-            
-            
-                <span class="tags"><a class="-none-link" href="/tags/Vue/" rel="tag">Vue</a>，<a class="-none-link" href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag">前端</a></span>
-            
-        </div>
-    </div>
-    
-</section>
+        <article class="post-content">
+          
+            <h2 id="一、概念理解"><a href="#一、概念理解" class="headerlink" title="一、概念理解"></a>一、概念理解</h2><blockquote>
+<p>Kafka是最初由Linkedin公司开发，是一个分布式、支持分区的（partition）、多副本的（replica），基于zookeeper协调的分布式消息系统，它的最大的特性就是可以实时的处理大量数据以满足各种需求场景：比如基于hadoop的批处理系统、低延迟的实时系统、storm&#x2F;Spark流式处理引擎，web&#x2F;nginx日志、访问日志，消息服务等等，用scala语言编写，Linkedin于2010年贡献给了Apache基金会并成为顶级开源 项目。</p>
+</blockquote>
+<p>（1）产生背景<br>当今社会各种应用系统诸如商业、社交、搜索、浏览等像信息工厂一样不断的生产出各种信息，在大数据时代，我们面临如下几个挑战：</p>
+<p>1.如何收集这些巨大的信息<br>2.如何分析它</p>
+<p>如何及时做到如上两点<br>以上几个挑战形成了一个业务需求模型，即生产者生产（produce）各种信息，消费者消费（consume）（处理分析）这些信息，而在生产者与消费者之间，需要一个沟通两者的桥梁-消息系统。从一个微观层面来说，这种需求也可理解为不同的系统之间如何传递消息。</p>
+<p>（2）Kafka的特性<br>高吞吐量、低延迟：kafka每秒可以处理几十万条消息，它的延迟最低只有几毫秒<br>可扩展性：kafka集群支持热扩展<br>持久性、可靠性：消息被持久化到本地磁盘，并且支持数据备份防止数据丢失<br>容错性：允许集群中节点失败（若副本数量为n,则允许n-1个节点失败）<br>高并发：支持数千个客户端同时读写</p>
+<p>（3）Kafka场景应用<br>日志收集：一个公司可以用Kafka可以收集各种服务的log，通过kafka以统一接口服务的方式开放给各种consumer，例如hadoop、Hbase、Solr等。<br>消息系统：解耦和生产者和消费者、缓存消息等。<br>用户活动跟踪：Kafka经常被用来记录web用户或者app用户的各种活动，如浏览网页、搜索、点击等活动，这些活动信息被各个服务器发布到kafka的topic中，然后订阅者通过订阅这些topic来做实时的监控分析，或者装载到hadoop、数据仓库中做离线分析和挖掘。<br>运营指标：Kafka也经常用来记录运营监控数据。包括收集各种分布式应用的数据，生产各种操作的集中反馈，比如报警和报告。<br>流式处理：比如spark streaming和storm<br>事件源</p>
 
-        <section class="page-navigator">
-            <span class="page-number current">1</span>
+        </article>
+        <section class="post-near">
+            <ul>
+                
+                    <li>上一篇: 看完啦 (つд⊂)</li>
+                
+                
+                    <li>下一篇: <a href="/2025/03/18/Compose%20Jetpack/">Jetpack Compose</a></li>
+                
+            </ul>
         </section>
+        
+    
+        <section class="post-author">
+        
+            <figure class="author-avatar">
+                <img src="https://p1.meituan.net/csc/949ad40707d4b4bab7e2ebafbd649aa8211830.jpg" alt="日初" />
+            </figure>
+        
+            <div class="author-info">
+                <h4>日初</h4>
+                <p>一个什么都学的建模动画编程爱好者</p>
+            </div>
+        </section>
+    
     </div>
 </main>
 

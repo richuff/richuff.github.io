@@ -112,7 +112,6 @@
 <p>byte    与int8等价</p>
 </blockquote>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">import</span> <span class="string">&quot;unsafe&quot;</span></span><br><span class="line"></span><br><span class="line">fmt.Print(unsafe.Sizeof(j))   <span class="comment">//---&gt; 8</span></span><br></pre></td></tr></table></figure>
-
 <h3 id="2-浮点数"><a href="#2-浮点数" class="headerlink" title="2.浮点数"></a>2.浮点数</h3><blockquote>
 <p>单精度float32</p>
 <p>双精度float64 </p>
@@ -126,7 +125,6 @@
 <p>Go语言采用的编码是utf-8,解决了编码乱码的问题</p>
 </blockquote>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> c2 <span class="type">int</span> = <span class="string">&#x27;值&#x27;</span></span><br><span class="line">fmt.Println(c2)</span><br><span class="line"><span class="comment">// -----&gt;20540</span></span><br></pre></td></tr></table></figure>
-
 <h3 id="5-布尔类型"><a href="#5-布尔类型" class="headerlink" title="5.布尔类型"></a>5.布尔类型</h3><blockquote>
 <p>只有false,true</p>
 </blockquote>
@@ -136,52 +134,40 @@
 <p>以字符串的原生形式输出，包括换行和特殊字符</p>
 </blockquote>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fmt.Print(<span class="string">`\n test`</span>)</span><br></pre></td></tr></table></figure>
-
 <blockquote>
 <p>字符串的拼接</p>
 </blockquote>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">fmt.Print(<span class="string">&quot;test&quot;</span> + <span class="string">&quot;hahaha&quot;</span>)</span><br></pre></td></tr></table></figure>
-
 <h3 id="7-数据类型的默认值"><a href="#7-数据类型的默认值" class="headerlink" title="7.数据类型的默认值"></a>7.数据类型的默认值</h3><figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a <span class="type">int</span> <span class="comment">//0</span></span><br><span class="line"><span class="keyword">var</span> b <span class="type">float32</span> <span class="comment">//0</span></span><br><span class="line"><span class="keyword">var</span> v <span class="type">float64</span> <span class="comment">//0</span></span><br><span class="line"><span class="keyword">var</span> test <span class="type">bool</span> <span class="comment">//false</span></span><br><span class="line"><span class="keyword">var</span> name <span class="type">string</span> <span class="comment">//&quot;&quot;</span></span><br></pre></td></tr></table></figure>
-
 <h3 id="8-类型转换"><a href="#8-类型转换" class="headerlink" title="8.类型转换"></a>8.类型转换</h3><h4 id="1-类型转换"><a href="#1-类型转换" class="headerlink" title="1.类型转换"></a>1.类型转换</h4><blockquote>
 <p>Golang中数据类型不能自动转换</p>
 </blockquote>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">T(v)</span><br><span class="line"><span class="comment">//T为数据类型 int32 float64</span></span><br><span class="line"><span class="comment">//v为要转换的变量和数据</span></span><br></pre></td></tr></table></figure>
-
 <blockquote>
 <p>Go的数据类型可以是范围小到范围大，也可以范围大到范围小</p>
 </blockquote>
 <h4 id="2-基本类型转string"><a href="#2-基本类型转string" class="headerlink" title="2.基本类型转string"></a>2.基本类型转string</h4><p>通用：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">%v	值的默认格式表示</span><br><span class="line">%+v	类似%v，但输出结构体时会添加字段名</span><br><span class="line">%#v	值的Go语法表示</span><br><span class="line">%T	值的类型的Go语法表示</span><br><span class="line">%%	百分号</span><br></pre></td></tr></table></figure>
-
 <p>布尔值：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">%t	单词true或false</span><br></pre></td></tr></table></figure>
-
 <p>整数：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line">%b	表示为二进制</span><br><span class="line">%c	该值对应的unicode码值</span><br><span class="line">%d	表示为十进制</span><br><span class="line">%o	表示为八进制</span><br><span class="line">%q	该值对应的单引号括起来的go语法字符字面值，必要时会采用安全的转义表示</span><br><span class="line">%x	表示为十六进制，使用a-f</span><br><span class="line">%X	表示为十六进制，使用A-F</span><br><span class="line">%U	表示为Unicode格式：U+1234，等价于&quot;U+%04X&quot;</span><br></pre></td></tr></table></figure>
-
 <p>浮点数与复数的两个组分：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line">%b	无小数部分、二进制指数的科学计数法，如-123456p-78；参见strconv.FormatFloat</span><br><span class="line">%e	科学计数法，如-1234.456e+78</span><br><span class="line">%E	科学计数法，如-1234.456E+78</span><br><span class="line">%f	有小数部分但无指数部分，如123.456</span><br><span class="line">%F	等价于%f</span><br><span class="line">%g	根据实际情况采用%e或%f格式（以获得更简洁、准确的输出）</span><br><span class="line">%G	根据实际情况采用%E或%F格式（以获得更简洁、准确的输出）</span><br></pre></td></tr></table></figure>
-
 <p>字符串和[]byte：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">%s	直接输出字符串或者[]byte</span><br><span class="line">%q	该值对应的双引号括起来的go语法字符串字面值，必要时会采用安全的转义表示</span><br><span class="line">%x	每个字节用两字符十六进制数表示（使用a-f）</span><br><span class="line">%X	每个字节用两字符十六进制数表示（使用A-F）    </span><br></pre></td></tr></table></figure>
-
 <p>指针：</p>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">%p	表示为十六进制，并加上前导的0x    </span><br></pre></td></tr></table></figure>
-
 <blockquote>
 <p>fmt.Sprintf()</p>
 </blockquote>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> a1 <span class="type">int</span> = <span class="number">10</span></span><br><span class="line"><span class="keyword">var</span> str <span class="type">string</span>= fmt.Sprintf(<span class="string">&quot;%d&quot;</span>, a1)</span><br><span class="line"><span class="built_in">print</span>(str)</span><br></pre></td></tr></table></figure>
-
 <blockquote>
 <p>strconv.FormatInt()</p>
 <p>第一个参数是你要转换的整数。</p>
 <p>第二个参数是基数，表示你希望整数以哪种进制格式来表示。例如，基数10表示十进制，基数16表示十六进制。</p>
 </blockquote>
 <figure class="highlight go"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">var</span> str1 = strconv.FormatInt(<span class="number">10</span>,<span class="number">10</span>)</span><br><span class="line"></span><br><span class="line"><span class="comment">//&#x27;f&#x27;为格式 1表示保留一位小数   64表示为float64</span></span><br><span class="line"><span class="keyword">var</span> str2 = strconv.FormatFloat(<span class="number">89.99</span>, <span class="string">&#x27;f&#x27;</span>, <span class="number">1</span>, <span class="number">64</span>)</span><br></pre></td></tr></table></figure>
-
 <h4 id="3-String转基本类型"><a href="#3-String转基本类型" class="headerlink" title="3.String转基本类型"></a>3.String转基本类型</h4><blockquote>
 <p>ParseBool</p>
 </blockquote>

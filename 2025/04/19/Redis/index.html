@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html>
+  <head>
+     
+    <meta charset="UTF-8">
+    <title>Redis - Richu</title>
+    <link rel="shortcut icon" href="/static/img/icon.png">
+    <link rel="icon" href="/static/img/icon.png" sizes="192x192"/>
+    
+<link rel="stylesheet" href="/static/kico.css">
+<link rel="stylesheet" href="/static/hingle.css">
+
+    
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <meta name="viewport" content="width=device-width, maximum-scale=1, initial-scale=1"/>
+    <meta property="og:site_name" content="Richu">
+    <meta property="og:title" content="Redis"/>
+    
+    <style>body:before{ content: ''; background-image: url(http://kycloud3.koyoo.cn/2025033176e99202503311036156636.jpg) }</style>
+    
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+  <body>
+    <header>
+    <div class="head-title">
+        <h4>Richu</h4>
+    </div>
+    <div class="head-action">
+        <div class="toggle-btn"></div>
+        <div class="light-btn"></div>
+        <div class="search-btn"></div>
+    </div>
+    <form class="head-search" method="post">
+        <input type="text" name="s" placeholder="搜索什么？">
+    </form>
+    <nav class="head-menu">
+        <a href="/">首页</a>
+        <div class="has-child">
+            <a>分类</a>
+            <div class="sub-menu">
+                <a class="category-link" href="/categories/Android/">Android</a><a class="category-link" href="/categories/Go/">Go</a><a class="category-link" href="/categories/Java/">Java</a><a class="category-link" href="/categories/QT/">QT</a><a class="category-link" href="/categories/Unity/">Unity</a><a class="category-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a><a class="category-link" href="/categories/%E8%BF%90%E7%BB%B4/">运维</a>
+            </div>
+        </div>
+        
+            <a href="/about">关于我</a>
+        
+    </nav>
+</header>
+
+    <main>
+    <div class="wrap min">
+        <section class="post-title">
+            <h2>Redis</h2>
+            <div class="post-meta">
+                <time class="date">2025.04.19</time>
+            
+                <span class="category"><a class="category-link" href="/categories/Java/">Java</a></span>
+            
+            </div>
+        </section>
+        <article class="post-content">
+          
+            <p>Redis 是 Remote Dictionary Server 的缩写，是一个开源的、基于内存的键值存储数据库。它不仅支持简单的键值对，还支持丰富的数据结构，如字符串、哈希、列表、集合、位图、HyperLogLogs等。同时，Redis 也支持持久化，能够将内存中的数据异步保存到磁盘上，是内存数据库中最具代表性的产品之一。</p>
+<p>与传统数据库相比，Redis 的主要优势在于速度极快，它将数据存储在内存中，而不是硬盘，这使得数据读写操作的速度比传统数据库快了数百倍，适合需要快速响应的场景。</p>
+<h2 id="1-Redis的简介"><a href="#1-Redis的简介" class="headerlink" title="1.Redis的简介"></a>1.Redis的简介</h2><blockquote>
+<p>Redis是一个基于内存的key-value结构数据库</p>
+<ul>
+<li>基于内存存储，读写性能高</li>
+<li>适合存储热点数据（热点商品，咨讯，新闻）</li>
+</ul>
+</blockquote>
+<blockquote>
+<p>官方网站<br><a target="_blank" rel="noopener" href="https://redis.io/">https://redis.io</a></p>
+</blockquote>
+<blockquote>
+<p>安装好之后，启动redis<br>redis-server.exe</p>
+</blockquote>
+<h2 id="2-Redis的常用的数据类型"><a href="#2-Redis的常用的数据类型" class="headerlink" title="2.Redis的常用的数据类型"></a>2.Redis的常用的数据类型</h2><blockquote>
+<ul>
+<li>字符串string     普通字符串</li>
+<li>哈希hash          散列，类似于Java的HashMap结构</li>
+<li>列表list              按照插入顺序排序，可以有重复元素</li>
+<li>集合set                无序集合，没有重复元素，类似Java的HashMap</li>
+<li>有序集合sorted set &#x2F; zset      每个元素关联一个分数，根据分数升序排序，没有重复元素</li>
+</ul>
+</blockquote>
+<h2 id="3-Redis常用的操作"><a href="#3-Redis常用的操作" class="headerlink" title="3.Redis常用的操作"></a>3.Redis常用的操作</h2><h3 id="1-string操作"><a href="#1-string操作" class="headerlink" title="1.string操作"></a>1.string操作</h3><p>SET key value 设置指定key的值</p>
+<p>GET key  获取指定key的值</p>
+<p>SETEX key seconds value 设置指定key的值，并将key的过期时间设置为seconds秒</p>
+<p>SETNX key value 只有key不存在时才设置</p>
+<p>DEL key</p>
+<h3 id="2-哈希操作"><a href="#2-哈希操作" class="headerlink" title="2.哈希操作"></a>2.哈希操作</h3><p>HSET key  field value 设置指定字段的值</p>
+<p>HGET key  field 获取指定字段的值</p>
+<p>HDEL key  field  删除指定字段</p>
+<p>HKEYS key 获取哈希表的所有的字段</p>
+<p>HVALS key 获取哈希表的所有的值</p>
+<h3 id="3-列表操作命令"><a href="#3-列表操作命令" class="headerlink" title="3.列表操作命令"></a>3.列表操作命令</h3><p>HPUSH key value1 [value2]		将一个或者多个值插入到列表头部</p>
+<p>LRANGE key start stop			获取列表指定范围内的元素</p>
+<p>RPOP key				移除并获取列表最后一个元素</p>
+<p>LLEN key				获取列表长度</p>
+<h3 id="4-集合操作命令"><a href="#4-集合操作命令" class="headerlink" title="4.集合操作命令"></a>4.集合操作命令</h3><p>SADD key member1 [member2]   	添加成员</p>
+<p>SMEMBERS key 	返回所有成员</p>
+<p>SCARD key		获取集合的成员数</p>
+<p>SINTER key1 [key2] 返回集合的交集</p>
+<p>SUNION key1 [key1] 返回集合的并集</p>
+<p>SREM key member1 [member2]    删除集合中一个或多个成员</p>
+<h3 id="5-有序集合"><a href="#5-有序集合" class="headerlink" title="5.有序集合"></a>5.有序集合</h3><p>ZADD key score1  member1 [score2 member2]   	添加成员</p>
+<p>SRANGE key start stop [WITHSCORES]		通过索引区间返回有序集合中指定区间内的成员,加上WITHSCORES会返回分数</p>
+<p>ZINCRBY key increment member 有序集合中对指定成员的分数加上增量increment</p>
+<p>SREM key member1 [member2 …]    删除集合中一个或多个成员</p>
+<h3 id="6-通用操作"><a href="#6-通用操作" class="headerlink" title="6.通用操作"></a>6.通用操作</h3><p>keys pattern 查找符合给定模式的key</p>
+<p>exists key  检查是否存在key</p>
+<p>type key  返回key的类型</p>
+<p>del key   删除key</p>
+<h2 id="4-在Java中操作Redis"><a href="#4-在Java中操作Redis" class="headerlink" title="4.在Java中操作Redis"></a>4.在Java中操作Redis</h2><h3 id="1-基本模版"><a href="#1-基本模版" class="headerlink" title="1.基本模版"></a>1.基本模版</h3><p>1.导入坐标</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-data-redis<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>2.配置redis数据源</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">redis:</span></span><br><span class="line">    <span class="attr">host:</span> <span class="string">localhost</span></span><br><span class="line">    <span class="attr">port:</span> <span class="number">6379</span></span><br><span class="line">    <span class="attr">password:</span></span><br><span class="line">    <span class="attr">database:</span> <span class="number">0</span></span><br></pre></td></tr></table></figure>
+
+<p>3.新建配置类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="meta">@Slf4j</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">RedisConfiguration</span> &#123;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> RedisTemplate <span class="title function_">redisTemplate</span><span class="params">(RedisConnectionFactory redisConnectionFactory)</span>&#123;</span><br><span class="line">        log.info(<span class="string">&quot;开始创建redis模版对象&quot;</span>);</span><br><span class="line">        <span class="type">RedisTemplate</span> <span class="variable">redisTemplate</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">RedisTemplate</span>();</span><br><span class="line">        <span class="comment">//设置redis的连接工厂对象</span></span><br><span class="line">        redisTemplate.setConnectionFactory(redisConnectionFactory);</span><br><span class="line">        <span class="comment">//设置redis的key的序列化器</span></span><br><span class="line">        redisTemplate.setKeySerializer(<span class="keyword">new</span> <span class="title class_">StringRedisSerializer</span>());</span><br><span class="line">        <span class="keyword">return</span> redisTemplate;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>4.获取操作对象</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">ValueOperations</span> <span class="variable">valueOperations</span> <span class="operator">=</span> redisTemplate.opsForValue();</span><br><span class="line"><span class="type">ListOperations</span> <span class="variable">listOperations</span> <span class="operator">=</span> redisTemplate.opsForList();</span><br><span class="line"><span class="type">HashOperations</span> <span class="variable">hashOperations</span> <span class="operator">=</span> redisTemplate.opsForHash();</span><br><span class="line"><span class="type">ZSetOperations</span> <span class="variable">zSetOperations</span> <span class="operator">=</span> redisTemplate.opsForZSet();</span><br><span class="line"><span class="type">SetOperations</span> <span class="variable">setOperations</span> <span class="operator">=</span> redisTemplate.opsForSet();</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-操作string"><a href="#2-操作string" class="headerlink" title="2.操作string"></a>2.操作string</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">test1</span><span class="params">()</span> &#123;</span><br><span class="line">    redisTemplate.opsForValue().set(<span class="string">&quot;city&quot;</span>,<span class="string">&quot;纽约&quot;</span>);</span><br><span class="line">    System.out.println(redisTemplate.opsForValue().get(<span class="string">&quot;city&quot;</span>));</span><br><span class="line">    redisTemplate.opsForValue().set(<span class="string">&quot;token&quot;</span>,<span class="string">&quot;123&quot;</span>, <span class="number">3</span>, TimeUnit.MINUTES);</span><br><span class="line">    redisTemplate.opsForValue().setIfAbsent(<span class="string">&quot;city&quot;</span>,<span class="string">&quot;华盛顿&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-操作hash"><a href="#3-操作hash" class="headerlink" title="3.操作hash"></a>3.操作hash</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">HashOperations</span> <span class="variable">hashOperations</span> <span class="operator">=</span> redisTemplate.opsForHash();</span><br><span class="line">hashOperations.put(<span class="string">&quot;100&quot;</span>,<span class="string">&quot;name&quot;</span>,<span class="string">&quot;tom&quot;</span>);</span><br><span class="line">hashOperations.put(<span class="string">&quot;200&quot;</span>,<span class="string">&quot;age&quot;</span>,<span class="string">&quot;20&quot;</span>);</span><br><span class="line"><span class="type">String</span> <span class="variable">name</span> <span class="operator">=</span>  (String)hashOperations.get(<span class="string">&quot;100&quot;</span>,<span class="string">&quot;name&quot;</span>);</span><br><span class="line">System.out.println(name);</span><br><span class="line">hashOperations.delete(<span class="string">&quot;100&quot;</span>,<span class="string">&quot;name&quot;</span>);</span><br><span class="line"><span class="type">Set</span> <span class="variable">keys</span> <span class="operator">=</span> hashOperations.keys(<span class="string">&quot;100&quot;</span>);</span><br><span class="line"><span class="type">List</span> <span class="variable">values</span> <span class="operator">=</span> hashOperations.values(<span class="string">&quot;100&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+<h3 id="4-操作list"><a href="#4-操作list" class="headerlink" title="4.操作list"></a>4.操作list</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">test3</span><span class="params">()</span>&#123;</span><br><span class="line">    <span class="type">ListOperations</span> <span class="variable">listOperations</span> <span class="operator">=</span> redisTemplate.opsForList();</span><br><span class="line">    listOperations.leftPushAll(<span class="string">&quot;200&quot;</span>,<span class="string">&quot;age&quot;</span>,<span class="string">&quot;20&quot;</span>);</span><br><span class="line">    listOperations.leftPush(<span class="string">&quot;200&quot;</span>,<span class="string">&quot;name&quot;</span>);</span><br><span class="line"></span><br><span class="line">    listOperations.range(<span class="string">&quot;200&quot;</span>,<span class="number">1</span>,<span class="number">2</span>);</span><br><span class="line"></span><br><span class="line">    <span class="type">Long</span> <span class="variable">size</span> <span class="operator">=</span> listOperations.size(<span class="string">&quot;200&quot;</span>);</span><br><span class="line">    System.out.println(size);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="5-操作集合"><a href="#5-操作集合" class="headerlink" title="5.操作集合"></a>5.操作集合</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">test4</span><span class="params">()</span>&#123;</span><br><span class="line">    <span class="type">SetOperations</span> <span class="variable">setOperations</span> <span class="operator">=</span> redisTemplate.opsForSet();</span><br><span class="line">    setOperations.add(<span class="string">&quot;200&quot;</span>,<span class="string">&quot;age&quot;</span>,<span class="string">&quot;20&quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="type">Set</span> <span class="variable">members</span> <span class="operator">=</span> setOperations.members(<span class="string">&quot;200&quot;</span>);</span><br><span class="line">    System.out.println(members);</span><br><span class="line"></span><br><span class="line">    <span class="type">Set</span> <span class="variable">intersect</span> <span class="operator">=</span> setOperations.intersect(<span class="string">&quot;key1&quot;</span>, <span class="string">&quot;key2&quot;</span>);</span><br><span class="line">    System.out.println(intersect);</span><br><span class="line"></span><br><span class="line">    <span class="type">Set</span> <span class="variable">union</span> <span class="operator">=</span> setOperations.union(<span class="string">&quot;key1&quot;</span>, <span class="string">&quot;key2&quot;</span>);</span><br><span class="line">    System.out.println(union);</span><br><span class="line"></span><br><span class="line">    setOperations.remove(<span class="string">&quot;200&quot;</span>,<span class="string">&quot;age&quot;</span>,<span class="string">&quot;20&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="6-操作有序集合"><a href="#6-操作有序集合" class="headerlink" title="6.操作有序集合"></a>6.操作有序集合</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">test5</span><span class="params">()</span>&#123;</span><br><span class="line">    <span class="type">ZSetOperations</span> <span class="variable">zSetOperations</span> <span class="operator">=</span> redisTemplate.opsForZSet();</span><br><span class="line">    zSetOperations.add(<span class="string">&quot;key1&quot;</span>,<span class="string">&quot;a&quot;</span>,<span class="number">10</span>);</span><br><span class="line"></span><br><span class="line">    <span class="type">Set</span> <span class="variable">key1</span> <span class="operator">=</span> zSetOperations.range(<span class="string">&quot;key1&quot;</span>, <span class="number">0</span>, -<span class="number">1</span>);</span><br><span class="line">    key1.forEach(System.out::println);</span><br><span class="line"></span><br><span class="line">    zSetOperations.incrementScore(<span class="string">&quot;key1&quot;</span>,<span class="string">&quot;a&quot;</span>,<span class="number">9</span>);</span><br><span class="line"></span><br><span class="line">    zSetOperations.remove(<span class="string">&quot;key1&quot;</span>,<span class="string">&quot;a&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="7-通用操作"><a href="#7-通用操作" class="headerlink" title="7.通用操作"></a>7.通用操作</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">test6</span><span class="params">()</span>&#123;</span><br><span class="line">    <span class="type">Set</span> <span class="variable">keys</span> <span class="operator">=</span> redisTemplate.keys(<span class="string">&quot;key1&quot;</span>);</span><br><span class="line">    keys.forEach(System.out::println);</span><br><span class="line"></span><br><span class="line">    <span class="type">Boolean</span> <span class="variable">key11</span> <span class="operator">=</span> redisTemplate.hasKey(<span class="string">&quot;key1&quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="type">DataType</span> <span class="variable">key1</span> <span class="operator">=</span> redisTemplate.type(<span class="string">&quot;key1&quot;</span>);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    redisTemplate.delete(<span class="string">&quot;key1&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+        </article>
+        <section class="post-near">
+            <ul>
+                
+                    <li>上一篇: 看完啦 (つд⊂)</li>
+                
+                
+                    <li>下一篇: <a href="/2025/03/26/Kafaka/">Kafaka</a></li>
+                
+            </ul>
+        </section>
+        
+            <section class="post-tags">
+            <a class="-none-link" href="/tags/Java-Web/" rel="tag">Java Web</a><a class="-none-link" href="/tags/Redis/" rel="tag">Redis</a>
+            </section>
+        
+    
+        <section class="post-author">
+        
+            <figure class="author-avatar">
+                <img src="https://p1.meituan.net/csc/949ad40707d4b4bab7e2ebafbd649aa8211830.jpg" alt="日初" />
+            </figure>
+        
+            <div class="author-info">
+                <h4>日初</h4>
+                <p>一个什么都学的建模动画编程爱好者</p>
+            </div>
+        </section>
+    
+    </div>
+</main>
+
+    <footer>
+    <div class="buttons">
+        <a class="to-top" href="#"></a>
+    </div>
+    <div class="wrap min">
+        <section class="widget">
+            <div class="row">
+                <div class="col-m-4">
+                    <h3 class="title-recent">最新文章：</h3>
+                    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2025/04/19/Redis/">Redis</a></li><li class="post-list-item"><a class="post-list-link" href="/2025/03/26/Kafaka/">Kafaka</a></li><li class="post-list-item"><a class="post-list-link" href="/2025/03/18/JetpackCompose/">Jetpack Compose</a></li><li class="post-list-item"><a class="post-list-link" href="/2025/03/15/AJAX/">AJAX</a></li><li class="post-list-item"><a class="post-list-link" href="/2025/02/23/QT/">QT</a></li><li class="post-list-item"><a class="post-list-link" href="/2025/02/22/%E8%A7%A3%E5%86%B3Nginx%E7%AB%AF%E5%8F%A3%E6%97%A0%E6%B3%95%E8%AE%BF%E9%97%AE%E9%97%AE%E9%A2%98/">解决Nginx端口无法访问问题</a></li></ul>
+                </div>
+                <div class="col-m-4">
+                    <h3 class="title-date">时光机：</h3>
+                    <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/04/">四月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/03/">三月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/02/">二月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/01/">一月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/12/">十二月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/11/">十一月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/10/">十月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/09/">九月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/08/">八月 2024</a></li></ul>
+                </div>
+                <div class="col-m-4">
+                    <h3 class="title-tags">标签云：</h3>
+                    <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/CSS/" style="font-size: 20px;">CSS</a> <a href="/tags/Docker/" style="font-size: 20px;">Docker</a> <a href="/tags/Flutter/" style="font-size: 20px;">Flutter</a> <a href="/tags/Game/" style="font-size: 20px;">Game</a> <a href="/tags/Go/" style="font-size: 20px;">Go</a> <a href="/tags/Go-Web/" style="font-size: 20px;">Go Web</a> <a href="/tags/JS/" style="font-size: 20px;">JS</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/Java-Web/" style="font-size: 20px;">Java Web</a> <a href="/tags/Kotlin/" style="font-size: 20px;">Kotlin</a> <a href="/tags/Linux/" style="font-size: 20px;">Linux</a> <a href="/tags/MySql/" style="font-size: 20px;">MySql</a> <a href="/tags/MybatisPlus/" style="font-size: 20px;">MybatisPlus</a> <a href="/tags/Nginx/" style="font-size: 20px;">Nginx</a> <a href="/tags/NodeJs/" style="font-size: 20px;">NodeJs</a> <a href="/tags/QT/" style="font-size: 20px;">QT</a> <a href="/tags/React/" style="font-size: 20px;">React</a> <a href="/tags/Redis/" style="font-size: 20px;">Redis</a> <a href="/tags/Spring-Cloud/" style="font-size: 20px;">Spring Cloud</a> <a href="/tags/UniApp/" style="font-size: 20px;">UniApp</a> <a href="/tags/Unity/" style="font-size: 20px;">Unity</a> <a href="/tags/Vue/" style="font-size: 20px;">Vue</a> <a href="/tags/Webpack/" style="font-size: 20px;">Webpack</a> <a href="/tags/%E5%89%8D%E7%AB%AF/" style="font-size: 20px;">前端</a> <a href="/tags/%E8%BF%90%E7%BB%B4/" style="font-size: 20px;">运维</a>
+                </div>
+            </div>
+        </section>
+        <section class="sub-footer">
+            <p>© 2025 <a href="/">Richu</a>. All Rights Reserved. Theme By <a href="https://github.com/Dreamer-Paul/Hingle" target="_blank" rel="nofollow">Hingle</a>.</p>
+        </section>
+    </div>
+</footer>
+
+
+<script src="/static/kico.js"></script>
+<script src="/static/hingle.js"></script>
+
+
+<script>var hingle = new Paul_Hingle({"copyright":true,"night":false});</script>
+
+  </body>
+</html>

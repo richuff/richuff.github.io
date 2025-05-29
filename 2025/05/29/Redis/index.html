@@ -1,0 +1,537 @@
+<!DOCTYPE html>
+<html>
+  <head>
+     
+    <meta charset="UTF-8">
+    <title>Redis - Richu</title>
+    <link rel="shortcut icon" href="/static/img/icon.png">
+    <link rel="icon" href="/static/img/icon.png" sizes="192x192"/>
+    
+<link rel="stylesheet" href="/static/kico.css">
+<link rel="stylesheet" href="/static/hingle.css">
+
+    
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <meta name="viewport" content="width=device-width, maximum-scale=1, initial-scale=1"/>
+    <meta property="og:site_name" content="Richu">
+    <meta property="og:title" content="Redis"/>
+    
+    <style>body:before{ content: ''; background-image: url(http://kycloud3.koyoo.cn/2025033176e99202503311036156636.jpg) }</style>
+    
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+  <body>
+    <header>
+    <div class="head-title">
+        <h4>Richu</h4>
+    </div>
+    <div class="head-action">
+        <div class="toggle-btn"></div>
+        <div class="light-btn"></div>
+        <div class="search-btn"></div>
+    </div>
+    <form class="head-search" method="post">
+        <input type="text" name="s" placeholder="搜索什么？">
+    </form>
+    <nav class="head-menu">
+        <a href="/">首页</a>
+        <div class="has-child">
+            <a>分类</a>
+            <div class="sub-menu">
+                <a class="category-link" href="/categories/Android/">Android</a><a class="category-link" href="/categories/Go/">Go</a><a class="category-link" href="/categories/Java/">Java</a><a class="category-link" href="/categories/QT/">QT</a><a class="category-link" href="/categories/Unity/">Unity</a><a class="category-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a><a class="category-link" href="/categories/%E8%BF%90%E7%BB%B4/">运维</a>
+            </div>
+        </div>
+        
+            <a href="/about">关于我</a>
+        
+    </nav>
+</header>
+
+    <main>
+    <div class="wrap min">
+        <section class="post-title">
+            <h2>Redis</h2>
+            <div class="post-meta">
+                <time class="date">2025.05.29</time>
+            
+                <span class="category"><a class="category-link" href="/categories/Java/">Java</a></span>
+            
+            </div>
+        </section>
+        <article class="post-content">
+          
+            <p>Redis 是 Remote Dictionary Server 的缩写，是一个开源的、基于内存的键值存储数据库。它不仅支持简单的键值对，还支持丰富的数据结构，如字符串、哈希、列表、集合、位图、HyperLogLogs等。同时，Redis 也支持持久化，能够将内存中的数据异步保存到磁盘上，是内存数据库中最具代表性的产品之一。</p>
+<p>与传统数据库相比，Redis 的主要优势在于速度极快，它将数据存储在内存中，而不是硬盘，这使得数据读写操作的速度比传统数据库快了数百倍，适合需要快速响应的场景。</p>
+<h2 id="1-Redis的简介"><a href="#1-Redis的简介" class="headerlink" title="1.Redis的简介"></a>1.Redis的简介</h2><blockquote>
+<p>Redis是一个基于内存的key-value结构数据库</p>
+<ul>
+<li>基于内存存储，读写性能高</li>
+<li>适合存储热点数据（热点商品，咨讯，新闻）</li>
+</ul>
+</blockquote>
+<p>NoSQL(NoSQL &#x3D; Not Only SQL )，意即“不仅仅是SQL”，</p>
+<p>泛指非关系型的数据库。随着互联网web2.0网站的兴起，传统的关系数据库在应付web2.0网站，特别是超大规模和高并发的SNS类型的web2.0纯动态网站已经显得力不从心，暴露了很多难以克服的问题，而非关系型的数据库则由于其本身的特点得到了非常迅速的发展。NoSQL数据库的产生就是为了解决大规模数据集合多重数据种类带来的挑战，尤其是大数据应用难题，包括超大规模数据的存储。</p>
+<p><a target="_blank" rel="noopener" href="https://redis.io/">https://redis.io</a></p>
+<blockquote>
+<p>linux安装redis</p>
+<ul>
+<li><code>yum install -y gcc tcl</code> 安装依赖</li>
+<li><code>tar -zxvf redis.tar.gz</code> 解压</li>
+<li><code>make &amp;&amp; make install</code> 编译安装</li>
+<li>安装目录 <code>/usr/local/bin</code>  在目录中启动redis-server</li>
+</ul>
+</blockquote>
+<blockquote>
+<p>redis配置文件</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br><span class="line">35</span><br><span class="line">36</span><br><span class="line">37</span><br><span class="line">38</span><br><span class="line">39</span><br><span class="line">40</span><br><span class="line">41</span><br><span class="line">42</span><br><span class="line">43</span><br><span class="line">44</span><br><span class="line">45</span><br><span class="line">46</span><br><span class="line">47</span><br><span class="line">48</span><br><span class="line">49</span><br><span class="line">50</span><br><span class="line">51</span><br><span class="line">52</span><br><span class="line">53</span><br><span class="line">54</span><br><span class="line">55</span><br><span class="line">56</span><br><span class="line">57</span><br><span class="line">58</span><br><span class="line">59</span><br><span class="line">60</span><br><span class="line">61</span><br></pre></td><td class="code"><pre><span class="line"># 是否在后台执行，yes：后台运行；no：不是后台运行（老版本默认）</span><br><span class="line">daemonize yes</span><br><span class="line"></span><br><span class="line"># 当Redis以上述守护进程方式运行时，Redis默认会把进程文件写入/var/run/redis.pid文件</span><br><span class="line">pidfile /var/run/redis.pid</span><br><span class="line"></span><br><span class="line"># 是否开启保护模式。如配置里没有指定bind和密码。开启该参数后，redis只允许本地访问，拒绝外部访问</span><br><span class="line"># 要是开启了密码和bind，可以开启。否则最好关闭，设置为no。</span><br><span class="line">protected-mode no</span><br><span class="line"></span><br><span class="line"># Redis监听端口号，默认为6379，如果指定0端口，表示Redis不监听TCP连接</span><br><span class="line">port 6379</span><br><span class="line"></span><br><span class="line">#配置unix socket来让redis支持监听本地连接。</span><br><span class="line">&quot;redis.conf&quot; 387L, 16784C                                                                                                                                   35,17          6%</span><br><span class="line"></span><br><span class="line"># 是否在后台执行，yes：后台运行；no：不是后台运行（老版本默认）</span><br><span class="line">daemonize yes</span><br><span class="line"></span><br><span class="line"># 当Redis以上述守护进程方式运行时，Redis默认会把进程文件写入/var/run/redis.pid文件</span><br><span class="line">pidfile /var/run/redis.pid</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># 是否开启保护模式。如配置里没有指定bind和密码。开启该参数后，redis只允许本地访问，拒绝外部访问</span><br><span class="line"># 要是开启了密码和bind，可以开启。否则最好关闭，设置为no。</span><br><span class="line">protected-mode no</span><br><span class="line"></span><br><span class="line"># 只允许来自bind指定网卡的Redis请求。如没有指定，则可以接受来自任意一个网卡的Redis请求</span><br><span class="line">bind 127.0.0.1</span><br><span class="line"></span><br><span class="line"># 是否将日志输出到系统日志</span><br><span class="line"></span><br><span class="line"># 注释掉“save”这一行配置项就可以让保存数据库功能失效</span><br><span class="line"></span><br><span class="line"></span><br><span class="line"># master检测到slave上次发送的时间超过repl-timeout，即认为slave离线，清除该slave信息。</span><br><span class="line"></span><br><span class="line"># 注意：因为redis太快了，每秒可认证15w次密码，简单的很容易被攻破，最好使用一个更复杂的密码</span><br><span class="line"></span><br><span class="line"># maxmemory &lt;bytes&gt;</span><br><span class="line"></span><br><span class="line"># 但redis如果中途宕机，会导致可能有几分钟的数据丢失，按照上面save条件来策略进行持久化</span><br><span class="line"># Append Only File是另一种持久化方式，可提供更好的持久化特性。</span><br><span class="line"># 在AOF重写或写入rdb文件时，会执行大量IO</span><br><span class="line"># AOF自动重写配置。当目前AOF文件大小超过上一次重写的aof文件大小的百分之多少进行重写</span><br><span class="line">############################ LUA SCRIPTING（LUA 脚本） ###########################</span><br><span class="line"># 只有SCRIPT KILL和SHUTDOWN NOSAVE可以用。第一个可以杀没有调write命令的东西。</span><br><span class="line"></span><br><span class="line">############################ LUA SCRIPTING（LUA 脚本） ###########################</span><br><span class="line"># 如果达到最大时间限制（毫秒），redis会记个log，然后返回error。当一个脚本超过了最大时限。</span><br><span class="line"># 只有SCRIPT KILL和SHUTDOWN NOSAVE可以用。第一个可以杀没有调write命令的东西。</span><br><span class="line"># 要是已经调用了write，只能用第二个命令杀。</span><br><span class="line">lua-time-limit 5000</span><br><span class="line"></span><br><span class="line">########################### REDIS CLUSTER（Redis集群） ###########################</span><br><span class="line"># 集群开关，默认是不开启集群模式。</span><br><span class="line"># cluster-enabled yes</span><br><span class="line"></span><br><span class="line"># 集群配置文件的名称，每个节点都有一个集群相关的配置文件，持久化保存集群的信息。</span><br><span class="line"># 这个文件无需手动配置，这个配置文件有Redis生成并更新，每个Redis集群节点需要一个单独的配置文件，# 请确保与实例运行的系统中配置文件名称不冲突</span><br><span class="line"># cluster-config-file nodes-6379.conf</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-Redis的常用的数据类型"><a href="#2-Redis的常用的数据类型" class="headerlink" title="2.Redis的常用的数据类型"></a>2.Redis的常用的数据类型</h2><blockquote>
+<ul>
+<li>字符串string     普通字符串</li>
+<li>哈希hash          散列，类似于Java的HashMap结构</li>
+<li>列表list              按照插入顺序排序，可以有重复元素</li>
+<li>集合set                无序集合，没有重复元素，类似Java的HashMap</li>
+<li>有序集合sorted set &#x2F; zset      每个元素关联一个分数，根据分数升序排序，没有重复元素</li>
+</ul>
+</blockquote>
+<h2 id="3-Redis常用的操作"><a href="#3-Redis常用的操作" class="headerlink" title="3.Redis常用的操作"></a>3.Redis常用的操作</h2><h3 id="1-Redis通用操作"><a href="#1-Redis通用操作" class="headerlink" title="1.Redis通用操作"></a>1.Redis通用操作</h3><p><code>SELECT index</code></p>
+<blockquote>
+<p>SELECT 1  切换到一号redis数据库</p>
+</blockquote>
+<p><code>KEYS pattern</code></p>
+<blockquote>
+<p>KEYS *       匹配所有</p>
+<p>KEYS *name 匹配以name结尾的</p>
+</blockquote>
+<p><code>DEL key</code>   返回删除个数</p>
+<blockquote>
+<p>DEL name 删除name</p>
+<p>DEL k1 k2 k3 k4 k5  删除多个</p>
+</blockquote>
+<p><code>EXISTS key</code> 存在1 不存在为0</p>
+<blockquote>
+<p>EXISTS num 是否存在num</p>
+</blockquote>
+<p><code>EXPIRE key second</code></p>
+<blockquote>
+<p>EXPIRE test 10  设置test存在20秒</p>
+</blockquote>
+<p><code>TTL key</code> -2为不存在 -1为永久存储 其他的为剩余时间</p>
+<blockquote>
+<p>TTL test 查看test的剩余时间</p>
+</blockquote>
+<h3 id="1-string操作"><a href="#1-string操作" class="headerlink" title="1.string操作"></a>1.string操作</h3><p>SET key value 设置指定key的值</p>
+<blockquote>
+<p>SET name rc</p>
+</blockquote>
+<p>GET key  获取指定key的值</p>
+<blockquote>
+<p>GET name</p>
+</blockquote>
+<p>SETEX key seconds value 设置指定key的value，并将key的过期时间设置为seconds秒</p>
+<blockquote>
+<p>SETEX name 20 rc</p>
+</blockquote>
+<p>SETNX key value 只有key不存在时才设置</p>
+<blockquote>
+<p>SETNX key age</p>
+</blockquote>
+<p>INCR key 自增1</p>
+<blockquote>
+<p>INCR age</p>
+</blockquote>
+<p>INCRBY key num 让key增加num，num可以为负数</p>
+<blockquote>
+<p>INCRBY age -1</p>
+</blockquote>
+<p>INCRBYFLOAT key num 让key增加num，num可以为负数</p>
+<blockquote>
+<p>INCRBYFLOAT  height 0.1</p>
+</blockquote>
+<h3 id="2-哈希操作"><a href="#2-哈希操作" class="headerlink" title="2.哈希操作"></a>2.哈希操作</h3><p>HSET key  field value 设置指定字段的值</p>
+<p>HGET key  field 获取指定字段的值</p>
+<p>HDEL key  field  删除指定字段</p>
+<p>HKEYS key 获取哈希表的所有的字段</p>
+<p>HVALS key 获取哈希表的所有的值</p>
+<h3 id="3-列表操作命令"><a href="#3-列表操作命令" class="headerlink" title="3.列表操作命令"></a>3.列表操作命令</h3><p><code>LPUSH key value1 [value2]</code>		将一个或者多个值插入到列表头部</p>
+<blockquote>
+<p>LPUSH mylist 1 2 3</p>
+</blockquote>
+<p><code>RPUSH key value1 [value2]</code> 将一个或者多个值插入到列表尾部</p>
+<blockquote>
+<p>RPUSH mylist 4 5 6</p>
+</blockquote>
+<p><code>LRANGE key start stop</code>			获取列表指定范围内的元素</p>
+<blockquote>
+<p>LRANGE mylist 1 2</p>
+</blockquote>
+<p><code>RPOP key count</code>				移除并获取列表最后count个元素</p>
+<blockquote>
+<p>RPOP mylist 1</p>
+</blockquote>
+<p><code>LPOP key count</code>             移除并获取列表前count个元素</p>
+<blockquote>
+<p>LPOP mylist 1</p>
+</blockquote>
+<p><code>LLEN key</code>				获取列表长度</p>
+<blockquote>
+<p>LLEN mulist</p>
+</blockquote>
+<p><code>BLPOP key timeout</code> 如果列表为空则等待timeout,否则获取列表头元素</p>
+<blockquote>
+<p>BLPOP mylist 20      </p>
+</blockquote>
+<p><code>BRPOP key timeout</code> 如果列表为空则等待timeout,否则获取列表尾元素</p>
+<blockquote>
+<p>BRPOP mylist 20      </p>
+</blockquote>
+<h3 id="4-集合操作命令"><a href="#4-集合操作命令" class="headerlink" title="4.集合操作命令"></a>4.集合操作命令</h3><p>SADD key member1 [member2]   	添加成员</p>
+<blockquote>
+<p>SADD myset 1 2 3 4</p>
+</blockquote>
+<p>SMEMBERS key 	返回所有成员</p>
+<blockquote>
+<p>SMEMBERS myset</p>
+</blockquote>
+<p>SCARD key		获取集合的成员数</p>
+<blockquote>
+<p>SCARD myset</p>
+</blockquote>
+<p>SINTER key1 [key2] 返回集合的交集</p>
+<p>SDIFF key1 [key2] 返回集合的差集</p>
+<p>SUNION key1 [key1] 返回集合的并集</p>
+<p>SREM key member1 [member2]    删除集合中一个或多个成员</p>
+<p>SISMEMBER key value 判断集合是否有value</p>
+<blockquote>
+<p>SISMEMBER myset 1</p>
+</blockquote>
+<h3 id="5-有序集合"><a href="#5-有序集合" class="headerlink" title="5.有序集合"></a>5.有序集合</h3><blockquote>
+<p>SortedSet</p>
+</blockquote>
+<blockquote>
+<p>可排序的set，元素不能重复，查询速度快</p>
+</blockquote>
+<p>ZADD key score1  member1 [score2 member2]   	添加成员</p>
+<blockquote>
+<p>ZADD ss 85 Alice 92 Bob 78 Cindy 88 Dave 95 Eve</p>
+</blockquote>
+<p>ZRANGE key min max 按照排名排序</p>
+<blockquote>
+<p>ZRANGE m 0 2<br>ZREVRANGE key min max 查询倒数几名</p>
+</blockquote>
+<blockquote>
+<p>ZREVRANGE m 0 2</p>
+</blockquote>
+<p>ZRANK ket member   获取sorted set中的指定元素的排名</p>
+<blockquote>
+<p>ZRANK ss Alice</p>
+</blockquote>
+<p>ZINCRBY key increment member 有序集合中对指定成员的分数加上增量increment</p>
+<blockquote>
+<p>ZINCRBY ss 2 Alice</p>
+</blockquote>
+<p>SREM key member1 [member2 …]    删除集合中一个或多个成员</p>
+<p>ZSCORE key member 获取指定元素的score值</p>
+<p>ZCOUNT key min max 统计大于min小于max的人数</p>
+<p>ZDIFF，ZINTER，ZUNION  求差集，交集，并集</p>
+<p>ZRANGEBYSCORE key min max 获取位于min-max的score的属性值</p>
+<blockquote>
+<p>ZRANGEBYSCORE m 0 80</p>
+</blockquote>
+<h2 id="4-Jedis"><a href="#4-Jedis" class="headerlink" title="4.Jedis"></a>4.Jedis</h2><h3 id="1-Jedis基本使用"><a href="#1-Jedis基本使用" class="headerlink" title="1.Jedis基本使用"></a>1.Jedis基本使用</h3><blockquote>
+<p>引入依赖</p>
+</blockquote>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependencies</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>redis.clients<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>jedis<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line">        <span class="tag">&lt;<span class="name">version</span>&gt;</span>5.2.0<span class="tag">&lt;/<span class="name">version</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependencies</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>测试</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br><span class="line">29</span><br><span class="line">30</span><br><span class="line">31</span><br><span class="line">32</span><br><span class="line">33</span><br><span class="line">34</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">JedisTest</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> Jedis jedis;</span><br><span class="line">    <span class="meta">@Before</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">setUp</span><span class="params">()</span>&#123;</span><br><span class="line">        jedis = <span class="keyword">new</span> <span class="title class_">Jedis</span>(<span class="string">&quot;127.0.0.1&quot;</span>,<span class="number">6379</span>);</span><br><span class="line">        <span class="comment">//jedis.auth(&quot;&quot;);    验证密码</span></span><br><span class="line">        jedis.select(<span class="number">0</span>);  <span class="comment">//选择库 默认0</span></span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">testString</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="type">String</span> <span class="variable">result</span> <span class="operator">=</span> jedis.set(<span class="string">&quot;name&quot;</span>,<span class="string">&quot;richu&quot;</span>);</span><br><span class="line">        System.out.println(<span class="string">&quot;result:&quot;</span> + result);</span><br><span class="line">        <span class="type">String</span> <span class="variable">name</span> <span class="operator">=</span> jedis.get(<span class="string">&quot;name&quot;</span>);</span><br><span class="line">        System.out.println(<span class="string">&quot;name:&quot;</span> + name);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@Test</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">testHash</span><span class="params">()</span>&#123;</span><br><span class="line">        jedis.hset(<span class="string">&quot;rc:server&quot;</span>,<span class="string">&quot;name&quot;</span>,<span class="string">&quot;rc&quot;</span>);</span><br><span class="line">        jedis.hset(<span class="string">&quot;rc:server&quot;</span>,<span class="string">&quot;age&quot;</span>,<span class="string">&quot;32&quot;</span>);</span><br><span class="line"></span><br><span class="line">        <span class="type">String</span> <span class="variable">name</span> <span class="operator">=</span> jedis.hget(<span class="string">&quot;rc:server&quot;</span>, <span class="string">&quot;name&quot;</span>);</span><br><span class="line">        <span class="type">String</span> <span class="variable">age</span> <span class="operator">=</span> jedis.hget(<span class="string">&quot;rc:server&quot;</span>, <span class="string">&quot;age&quot;</span>);</span><br><span class="line">        System.out.println(<span class="string">&quot;name:&quot;</span>+name+<span class="string">&quot;,&quot;</span>+<span class="string">&quot;age:&quot;</span>+age);</span><br><span class="line">    &#125;</span><br><span class="line">    </span><br><span class="line">    <span class="meta">@After</span></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">resume</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="keyword">if</span> (jedis != <span class="literal">null</span>)&#123;</span><br><span class="line">            jedis.close();</span><br><span class="line">        &#125;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-Jedis连接池"><a href="#2-Jedis连接池" class="headerlink" title="2.Jedis连接池"></a>2.Jedis连接池</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">RedisClient</span> &#123;</span><br><span class="line">    <span class="keyword">private</span> <span class="keyword">static</span> JedisPool jedisPool;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">static</span> &#123;</span><br><span class="line">        <span class="type">JedisPoolConfig</span> <span class="variable">jedisPoolConfig</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">JedisPoolConfig</span>();</span><br><span class="line">        jedisPoolConfig.setMaxIdle(<span class="number">8</span>); <span class="comment">//最大等待</span></span><br><span class="line">        jedisPoolConfig.setMinIdle(<span class="number">0</span>); <span class="comment">//最小等待</span></span><br><span class="line">        jedisPoolConfig.setMaxTotal(<span class="number">8</span>); <span class="comment">//最大连接</span></span><br><span class="line">        jedisPoolConfig.setMaxWait(Duration.of(<span class="number">1000</span>, TimeUnit.MILLISECONDS.toChronoUnit()));</span><br><span class="line">        jedisPool = <span class="keyword">new</span> <span class="title class_">JedisPool</span>(jedisPoolConfig,<span class="string">&quot;127.0.0.1&quot;</span>,<span class="number">6379</span>,<span class="number">2000</span>);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="keyword">public</span> <span class="keyword">static</span> Jedis <span class="title function_">getJedis</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="keyword">return</span> jedisPool.getResource();</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="5-SpringDataRedis"><a href="#5-SpringDataRedis" class="headerlink" title="5.SpringDataRedis"></a>5.SpringDataRedis</h2><h3 id="1-基本模版"><a href="#1-基本模版" class="headerlink" title="1.基本模版"></a>1.基本模版</h3><p>1.导入坐标</p>
+<figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.boot<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-boot-starter-data-redis<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.apache.commons<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>commons-pool2<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
+
+<p>2.配置redis数据源</p>
+<figure class="highlight yaml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">spring:</span></span><br><span class="line">  <span class="attr">redis:</span></span><br><span class="line">    <span class="attr">host:</span> <span class="string">localhost</span></span><br><span class="line">    <span class="attr">port:</span> <span class="number">6379</span></span><br><span class="line">    <span class="attr">password:</span></span><br><span class="line">    <span class="attr">database:</span> <span class="number">0</span></span><br></pre></td></tr></table></figure>
+
+<p>3.新建配置类</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="meta">@Slf4j</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">RedisConfiguration</span> &#123;</span><br><span class="line"></span><br><span class="line">	<span class="meta">@Bean</span></span><br><span class="line">    <span class="keyword">public</span> RedisTemplate&lt;String,Object&gt; <span class="title function_">redisTemplate</span><span class="params">(RedisConnectionFactory connectionFactory)</span>&#123;</span><br><span class="line">        <span class="comment">//创建redisTemplate对象</span></span><br><span class="line">        RedisTemplate&lt;String,Object&gt; redisTemplate = <span class="keyword">new</span> <span class="title class_">RedisTemplate</span>&lt;&gt;();</span><br><span class="line">        redisTemplate.setConnectionFactory(connectionFactory);</span><br><span class="line">        <span class="comment">//设置key的序列化</span></span><br><span class="line">        redisTemplate.setKeySerializer(RedisSerializer.string());</span><br><span class="line">        redisTemplate.setHashKeySerializer(RedisSerializer.string());</span><br><span class="line">        <span class="comment">//设置value的序列化</span></span><br><span class="line">        redisTemplate.setValueSerializer(RedisSerializer.string());</span><br><span class="line">        redisTemplate.setHashValueSerializer(RedisSerializer.string());</span><br><span class="line">        <span class="keyword">return</span> redisTemplate;</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<p>4.获取操作对象</p>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">ValueOperations</span> <span class="variable">valueOperations</span> <span class="operator">=</span> redisTemplate.opsForValue();</span><br><span class="line"><span class="type">ListOperations</span> <span class="variable">listOperations</span> <span class="operator">=</span> redisTemplate.opsForList();</span><br><span class="line"><span class="type">HashOperations</span> <span class="variable">hashOperations</span> <span class="operator">=</span> redisTemplate.opsForHash();</span><br><span class="line"><span class="type">ZSetOperations</span> <span class="variable">zSetOperations</span> <span class="operator">=</span> redisTemplate.opsForZSet();</span><br><span class="line"><span class="type">SetOperations</span> <span class="variable">setOperations</span> <span class="operator">=</span> redisTemplate.opsForSet();</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-操作string"><a href="#2-操作string" class="headerlink" title="2.操作string"></a>2.操作string</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">test1</span><span class="params">()</span> &#123;</span><br><span class="line">    redisTemplate.opsForValue().set(<span class="string">&quot;city&quot;</span>,<span class="string">&quot;纽约&quot;</span>);</span><br><span class="line">    System.out.println(redisTemplate.opsForValue().get(<span class="string">&quot;city&quot;</span>));</span><br><span class="line">    redisTemplate.opsForValue().set(<span class="string">&quot;token&quot;</span>,<span class="string">&quot;123&quot;</span>, <span class="number">3</span>, TimeUnit.MINUTES);</span><br><span class="line">    redisTemplate.opsForValue().setIfAbsent(<span class="string">&quot;city&quot;</span>,<span class="string">&quot;华盛顿&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="3-操作hash"><a href="#3-操作hash" class="headerlink" title="3.操作hash"></a>3.操作hash</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">HashOperations</span> <span class="variable">hashOperations</span> <span class="operator">=</span> redisTemplate.opsForHash();</span><br><span class="line">hashOperations.put(<span class="string">&quot;100&quot;</span>,<span class="string">&quot;name&quot;</span>,<span class="string">&quot;tom&quot;</span>);</span><br><span class="line">hashOperations.put(<span class="string">&quot;200&quot;</span>,<span class="string">&quot;age&quot;</span>,<span class="string">&quot;20&quot;</span>);</span><br><span class="line"><span class="type">String</span> <span class="variable">name</span> <span class="operator">=</span>  (String)hashOperations.get(<span class="string">&quot;100&quot;</span>,<span class="string">&quot;name&quot;</span>);</span><br><span class="line">System.out.println(name);</span><br><span class="line">hashOperations.delete(<span class="string">&quot;100&quot;</span>,<span class="string">&quot;name&quot;</span>);</span><br><span class="line"><span class="type">Set</span> <span class="variable">keys</span> <span class="operator">=</span> hashOperations.keys(<span class="string">&quot;100&quot;</span>);</span><br><span class="line"><span class="type">List</span> <span class="variable">values</span> <span class="operator">=</span> hashOperations.values(<span class="string">&quot;100&quot;</span>);</span><br></pre></td></tr></table></figure>
+
+<h3 id="4-操作list"><a href="#4-操作list" class="headerlink" title="4.操作list"></a>4.操作list</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">test3</span><span class="params">()</span>&#123;</span><br><span class="line">    <span class="type">ListOperations</span> <span class="variable">listOperations</span> <span class="operator">=</span> redisTemplate.opsForList();</span><br><span class="line">    listOperations.leftPushAll(<span class="string">&quot;200&quot;</span>,<span class="string">&quot;age&quot;</span>,<span class="string">&quot;20&quot;</span>);</span><br><span class="line">    listOperations.leftPush(<span class="string">&quot;200&quot;</span>,<span class="string">&quot;name&quot;</span>);</span><br><span class="line"></span><br><span class="line">    listOperations.range(<span class="string">&quot;200&quot;</span>,<span class="number">1</span>,<span class="number">2</span>);</span><br><span class="line"></span><br><span class="line">    <span class="type">Long</span> <span class="variable">size</span> <span class="operator">=</span> listOperations.size(<span class="string">&quot;200&quot;</span>);</span><br><span class="line">    System.out.println(size);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="5-操作集合"><a href="#5-操作集合" class="headerlink" title="5.操作集合"></a>5.操作集合</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">test4</span><span class="params">()</span>&#123;</span><br><span class="line">    <span class="type">SetOperations</span> <span class="variable">setOperations</span> <span class="operator">=</span> redisTemplate.opsForSet();</span><br><span class="line">    setOperations.add(<span class="string">&quot;200&quot;</span>,<span class="string">&quot;age&quot;</span>,<span class="string">&quot;20&quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="type">Set</span> <span class="variable">members</span> <span class="operator">=</span> setOperations.members(<span class="string">&quot;200&quot;</span>);</span><br><span class="line">    System.out.println(members);</span><br><span class="line"></span><br><span class="line">    <span class="type">Set</span> <span class="variable">intersect</span> <span class="operator">=</span> setOperations.intersect(<span class="string">&quot;key1&quot;</span>, <span class="string">&quot;key2&quot;</span>);</span><br><span class="line">    System.out.println(intersect);</span><br><span class="line"></span><br><span class="line">    <span class="type">Set</span> <span class="variable">union</span> <span class="operator">=</span> setOperations.union(<span class="string">&quot;key1&quot;</span>, <span class="string">&quot;key2&quot;</span>);</span><br><span class="line">    System.out.println(union);</span><br><span class="line"></span><br><span class="line">    setOperations.remove(<span class="string">&quot;200&quot;</span>,<span class="string">&quot;age&quot;</span>,<span class="string">&quot;20&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="6-操作有序集合"><a href="#6-操作有序集合" class="headerlink" title="6.操作有序集合"></a>6.操作有序集合</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">test5</span><span class="params">()</span>&#123;</span><br><span class="line">    <span class="type">ZSetOperations</span> <span class="variable">zSetOperations</span> <span class="operator">=</span> redisTemplate.opsForZSet();</span><br><span class="line">    zSetOperations.add(<span class="string">&quot;key1&quot;</span>,<span class="string">&quot;a&quot;</span>,<span class="number">10</span>);</span><br><span class="line"></span><br><span class="line">    <span class="type">Set</span> <span class="variable">key1</span> <span class="operator">=</span> zSetOperations.range(<span class="string">&quot;key1&quot;</span>, <span class="number">0</span>, -<span class="number">1</span>);</span><br><span class="line">    key1.forEach(System.out::println);</span><br><span class="line"></span><br><span class="line">    zSetOperations.incrementScore(<span class="string">&quot;key1&quot;</span>,<span class="string">&quot;a&quot;</span>,<span class="number">9</span>);</span><br><span class="line"></span><br><span class="line">    zSetOperations.remove(<span class="string">&quot;key1&quot;</span>,<span class="string">&quot;a&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="7-通用操作"><a href="#7-通用操作" class="headerlink" title="7.通用操作"></a>7.通用操作</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">test6</span><span class="params">()</span>&#123;</span><br><span class="line">    <span class="type">Set</span> <span class="variable">keys</span> <span class="operator">=</span> redisTemplate.keys(<span class="string">&quot;key1&quot;</span>);</span><br><span class="line">    keys.forEach(System.out::println);</span><br><span class="line"></span><br><span class="line">    <span class="type">Boolean</span> <span class="variable">key11</span> <span class="operator">=</span> redisTemplate.hasKey(<span class="string">&quot;key1&quot;</span>);</span><br><span class="line"></span><br><span class="line">    <span class="type">DataType</span> <span class="variable">key1</span> <span class="operator">=</span> redisTemplate.type(<span class="string">&quot;key1&quot;</span>);</span><br><span class="line"></span><br><span class="line"></span><br><span class="line">    redisTemplate.delete(<span class="string">&quot;key1&quot;</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="8-StringRedisTemplate"><a href="#8-StringRedisTemplate" class="headerlink" title="8.StringRedisTemplate"></a>8.StringRedisTemplate</h3><blockquote>
+<p>使用stringRedisTemplate默认为string序列器，因此需要手动序列化</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Autowired</span></span><br><span class="line">StringRedisTemplate stringRedisTemplate;</span><br><span class="line"></span><br><span class="line"><span class="keyword">private</span> <span class="keyword">final</span> <span class="type">ObjectMapper</span> <span class="variable">mapper</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">ObjectMapper</span>();</span><br><span class="line"><span class="meta">@Test</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">void</span> <span class="title function_">testString</span><span class="params">()</span> <span class="keyword">throws</span> JsonProcessingException &#123;</span><br><span class="line">    <span class="type">User</span> <span class="variable">user</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">User</span>(<span class="string">&quot;1&quot;</span>,<span class="number">2</span>,<span class="string">&quot;3&quot;</span>);</span><br><span class="line">    <span class="comment">//手动序列化</span></span><br><span class="line">    <span class="type">String</span> <span class="variable">ustring</span> <span class="operator">=</span> mapper.writeValueAsString(user);</span><br><span class="line">    stringRedisTemplate.opsForValue().set(<span class="string">&quot;user:100&quot;</span>,ustring);</span><br><span class="line">    <span class="type">User</span> <span class="variable">nuser</span> <span class="operator">=</span> mapper.readValue(stringRedisTemplate.opsForValue().get(<span class="string">&quot;user:100&quot;</span>),User.class);</span><br><span class="line">    System.out.println(<span class="string">&quot;nuser = &quot;</span> + nuser);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h2 id="6-Redis脚本"><a href="#6-Redis脚本" class="headerlink" title="6.Redis脚本"></a>6.Redis脚本</h2><h3 id="EVAL命令"><a href="#EVAL命令" class="headerlink" title="EVAL命令"></a>EVAL命令</h3><p>Redis中使用<code>EVAL</code>命令来直接执行指定的Lua脚本。</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">EVAL luascript numkeys key [key ...] arg [arg ...]</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><code>EVAL</code> 命令的关键字。</li>
+<li><code>luascript</code> Lua 脚本。</li>
+<li><code>numkeys</code> 指定的Lua脚本需要处理键的数量，其实就是 <code>key</code>数组的长度。</li>
+<li><code>key</code> 传递给Lua脚本零到多个键，空格隔开，在Lua 脚本中通过 <code>KEYS[INDEX]</code>来获取对应的值，其中<code>1 &lt;= INDEX &lt;= numkeys</code>。</li>
+<li><code>arg</code>是传递给脚本的零到多个附加参数，空格隔开，在Lua脚本中通过<code>ARGV[INDEX]</code>来获取对应的值，其中<code>1 &lt;= INDEX &lt;= numkeys</code>。</li>
+</ul>
+<blockquote>
+<p>如果我们要执行redis.call(‘set’,’name’,’lucy’)这个脚本</p>
+</blockquote>
+<p><code>EVAL &quot;return  redis.call(&#39;set&#39;,&#39;name&#39;,&#39;lucy&#39;)&quot; 0</code></p>
+<blockquote>
+<p>样例      <code>EVAL &quot;return redis.call(&#39;set&#39;,KEYS[1],ARGV[1])&quot; 1 RC RICHU</code></p>
+</blockquote>
+<h3 id="JAVA执行redis脚本"><a href="#JAVA执行redis脚本" class="headerlink" title="JAVA执行redis脚本"></a>JAVA执行redis脚本</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br></pre></td><td class="code"><pre><span class="line"><span class="keyword">private</span> <span class="keyword">static</span> <span class="keyword">final</span> DefaultRedisScript&lt;Long&gt; UNLOCK_SCRIPT;</span><br><span class="line"></span><br><span class="line"><span class="keyword">static</span> &#123;</span><br><span class="line">    UNLOCK_SCRIPT = <span class="keyword">new</span> <span class="title class_">DefaultRedisScript</span>&lt;&gt;();</span><br><span class="line">    UNLOCK_SCRIPT.setLocation(<span class="keyword">new</span> <span class="title class_">ClassPathResource</span>(<span class="string">&quot;script.lua&quot;</span>));</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">stringRedisTemplate.execute(UNLOCK_SCRIPT,</span><br><span class="line">                            keyList,</span><br><span class="line">                            argvList);</span><br></pre></td></tr></table></figure>
+
+<h3 id="Redisson"><a href="#Redisson" class="headerlink" title="Redisson"></a>Redisson</h3><blockquote>
+<p>引入依赖</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">    &lt;groupId&gt;org.redisson&lt;/groupId&gt;</span><br><span class="line">    &lt;artifactId&gt;redisson&lt;/artifactId&gt;</span><br><span class="line">    &lt;version&gt;<span class="number">3.13</span><span class="number">.6</span>&lt;/version&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>配置类RedissonConfig.java</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">RedissonConfig</span> &#123;</span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="keyword">public</span> RedissonClient <span class="title function_">redissonClient</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="comment">//配置</span></span><br><span class="line">        <span class="type">Config</span> <span class="variable">config</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Config</span>();</span><br><span class="line">        config.useSingleServer().setAddress(<span class="string">&quot;redis://127.0.0.1:6379&quot;</span>).setPassword(<span class="string">&quot;&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> Redisson.create(config);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>使用</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Resource</span></span><br><span class="line"><span class="keyword">private</span> RedissonClient redissonClient;</span><br><span class="line"></span><br><span class="line"><span class="type">RLock</span> <span class="variable">lock</span> <span class="operator">=</span> redissonClient.getLock(<span class="string">&quot;key&quot;</span>);</span><br><span class="line"><span class="type">boolean</span> <span class="variable">b</span> <span class="operator">=</span> lock.tryLock(<span class="number">1</span>, <span class="number">10</span>, TimeUnit.SECONDS);</span><br><span class="line"><span class="keyword">try</span>&#123;</span><br><span class="line">    <span class="comment">//...</span></span><br><span class="line">&#125;<span class="keyword">finally</span> &#123;</span><br><span class="line">    lock.unlock();</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<h3 id="解决主从不一致问题"><a href="#解决主从不一致问题" class="headerlink" title="解决主从不一致问题"></a>解决主从不一致问题</h3><figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br></pre></td><td class="code"><pre><span class="line"><span class="meta">@Configuration</span></span><br><span class="line"><span class="keyword">public</span> <span class="keyword">class</span> <span class="title class_">RedissonConfig</span> &#123;</span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="keyword">public</span> RedissonClient <span class="title function_">redissonClient1</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="comment">//配置</span></span><br><span class="line">        <span class="type">Config</span> <span class="variable">config</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Config</span>();</span><br><span class="line">        config.useSingleServer().setAddress(<span class="string">&quot;redis://127.0.0.1:6379&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> Redisson.create(config);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="keyword">public</span> RedissonClient <span class="title function_">redissonClient2</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="comment">//配置</span></span><br><span class="line">        <span class="type">Config</span> <span class="variable">config</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Config</span>();</span><br><span class="line">        config.useSingleServer().setAddress(<span class="string">&quot;redis://127.0.0.1:6380&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> Redisson.create(config);</span><br><span class="line">    &#125;</span><br><span class="line"></span><br><span class="line">    <span class="meta">@Bean</span></span><br><span class="line">    <span class="keyword">public</span> RedissonClient <span class="title function_">redissonClient3</span><span class="params">()</span>&#123;</span><br><span class="line">        <span class="comment">//配置</span></span><br><span class="line">        <span class="type">Config</span> <span class="variable">config</span> <span class="operator">=</span> <span class="keyword">new</span> <span class="title class_">Config</span>();</span><br><span class="line">        config.useSingleServer().setAddress(<span class="string">&quot;redis://127.0.0.1:6381&quot;</span>);</span><br><span class="line">        <span class="keyword">return</span> Redisson.create(config);</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>设置锁</p>
+</blockquote>
+<figure class="highlight java"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line"><span class="type">RLock</span> <span class="variable">lock1</span> <span class="operator">=</span> redissonClient1.getLock(<span class="string">&quot;order&quot;</span>);</span><br><span class="line"><span class="type">RLock</span> <span class="variable">lock2</span> <span class="operator">=</span> redissonClient2.getLock(<span class="string">&quot;order&quot;</span>);</span><br><span class="line"><span class="type">RLock</span> <span class="variable">lock3</span> <span class="operator">=</span> redissonClient3.getLock(<span class="string">&quot;order&quot;</span>);</span><br><span class="line"></span><br><span class="line">redissonClient1.getMultiLock(lock1, lock2, lock3);</span><br></pre></td></tr></table></figure>
+
+<h2 id="7-Redis-Pub-Sub"><a href="#7-Redis-Pub-Sub" class="headerlink" title="7 .Redis Pub&#x2F;Sub"></a>7 .Redis Pub&#x2F;Sub</h2><p>Redis提供了一组简单而强大的Pub&#x2F;Sub命令，用于管理发布者和订阅者之间的消息传递。</p>
+<h3 id="1-订阅相关命令"><a href="#1-订阅相关命令" class="headerlink" title="1. 订阅相关命令"></a>1. 订阅相关命令</h3><ul>
+<li><p><strong>SUBSCRIBE</strong>：订阅一个或多个频道，接收发布到这些频道的消息。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">SUBSCRIBE channel [channel ...]</span><br><span class="line">1</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>PSUBSCRIBE</strong>：按模式订阅一个或多个频道，支持通配符。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">PSUBSCRIBE pattern [pattern ...]</span><br><span class="line">1</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>UNSUBSCRIBE</strong>：取消订阅一个或多个频道，或取消所有频道的订阅。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">UNSUBSCRIBE [channel [channel ...]]</span><br><span class="line">1</span><br></pre></td></tr></table></figure>
+</li>
+<li><p><strong>PUNSUBSCRIBE</strong>：取消按模式订阅一个或多个频道，或取消所有模式的订阅。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">PUNSUBSCRIBE [pattern [pattern ...]]</span><br><span class="line">1</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="2-发布相关命令"><a href="#2-发布相关命令" class="headerlink" title="2. 发布相关命令"></a>2. 发布相关命令</h3><ul>
+<li><p><strong>PUBLISH</strong>：向指定频道发布一条消息，所有订阅了该频道的订阅者都会接收到这条消息。</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">PUBLISH channel message</span><br></pre></td></tr></table></figure></li>
+</ul>
+<h3 id="3-Redis-Pub-Sub的特点"><a href="#3-Redis-Pub-Sub的特点" class="headerlink" title="3. Redis Pub&#x2F;Sub的特点"></a>3. Redis Pub&#x2F;Sub的特点</h3><ul>
+<li><strong>实时性高</strong>：消息一旦发布，订阅者几乎可以立即接收到，适用于需要即时响应的应用。</li>
+<li><strong>简单易用</strong>：Redis提供了简洁的命令集，易于集成和使用。</li>
+<li><strong>高效性能</strong>：由于Redis基于内存，Pub&#x2F;Sub消息传递的延迟极低，吞吐量高。</li>
+<li><strong>去中心化</strong>：发布者和订阅者不需要知道彼此的存在，通过频道进行消息传递，降低了系统耦合度。</li>
+</ul>
+<h3 id="4-缺点"><a href="#4-缺点" class="headerlink" title="4.缺点"></a>4.缺点</h3><ul>
+<li>不支持数据持久化</li>
+<li>无法避免数据丢失</li>
+</ul>
+<h2 id="8-Stream"><a href="#8-Stream" class="headerlink" title="8.Stream"></a>8.Stream</h2><h3 id="XADD"><a href="#XADD" class="headerlink" title="XADD"></a>XADD</h3><p>使用 XADD 向队列添加消息，如果指定的队列不存在，则创建一个队列，XADD 语法格式：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">XADD key ID field value [field value ...]</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>key</strong> ：队列名称，如果不存在就创建</li>
+<li><strong>ID</strong> ：消息 id，我们使用 * 表示由 redis 生成，可以自定义，但是要自己保证递增性。</li>
+<li><strong>field value</strong> ： 记录。</li>
+</ul>
+<h3 id="XRANGE"><a href="#XRANGE" class="headerlink" title="XRANGE"></a>XRANGE</h3><p>使用 XRANGE 获取消息列表，会自动过滤已经删除的消息 ，语法格式：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">XRANGE key start end [COUNT count]</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>key</strong> ：队列名</li>
+<li><strong>start</strong> ：开始值， <strong>-</strong> 表示最小值</li>
+<li><strong>end</strong> ：结束值， <strong>+</strong> 表示最大值</li>
+<li><strong>count</strong> ：数量</li>
+</ul>
+<h3 id="XREVRANGE"><a href="#XREVRANGE" class="headerlink" title="XREVRANGE"></a>XREVRANGE</h3><p>使用 XREVRANGE 获取消息列表，会自动过滤已经删除的消息 ，语法格式：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">XREVRANGE key end start [COUNT count]</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>key</strong> ：队列名</li>
+<li><strong>end</strong> ：结束值， <strong>+</strong> 表示最大值</li>
+<li><strong>start</strong> ：开始值， <strong>-</strong> 表示最小值</li>
+<li><strong>count</strong> ：数量</li>
+</ul>
+<h3 id="XREAD"><a href="#XREAD" class="headerlink" title="XREAD"></a>XREAD</h3><p>使用 XREAD 以阻塞或非阻塞方式获取消息列表 ，语法格式：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">XREAD [COUNT count] [BLOCK milliseconds] STREAMS key [key ...] id [id ...]</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>count</strong> ：数量</li>
+<li><strong>milliseconds</strong> ：可选，阻塞毫秒数，没有设置就是非阻塞模式</li>
+<li><strong>key</strong> ：队列名</li>
+<li><strong>id</strong> ：消息 ID</li>
+</ul>
+<h3 id="XGROUP-CREATE"><a href="#XGROUP-CREATE" class="headerlink" title="XGROUP CREATE"></a>XGROUP CREATE</h3><p>使用 XGROUP CREATE 创建消费者组，语法格式：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">XGROUP [CREATE key groupname id-or-$] [SETID key groupname id-or-$] [DESTROY key groupname] [DELCONSUMER key groupname consumername]</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>key</strong> ：队列名称，如果不存在就创建</li>
+<li><strong>groupname</strong> ：组名。</li>
+<li><strong>$</strong> ： 表示从尾部开始消费，只接受新消息，当前 Stream 消息会全部忽略。</li>
+</ul>
+<h3 id="XREADGROUP-GROUP"><a href="#XREADGROUP-GROUP" class="headerlink" title="XREADGROUP GROUP"></a>XREADGROUP GROUP</h3><p>使用 XREADGROUP GROUP 读取消费组中的消息，语法格式：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">XREADGROUP GROUP group consumer [COUNT count] [BLOCK milliseconds] [NOACK] STREAMS key [key ...] ID [ID ...]</span><br></pre></td></tr></table></figure>
+
+<ul>
+<li><strong>group</strong> ：消费组名</li>
+<li><strong>consumer</strong> ：消费者名。</li>
+<li><strong>count</strong> ： 读取数量。</li>
+<li><strong>milliseconds</strong> ： 阻塞毫秒数。</li>
+<li><strong>key</strong> ： 队列名。</li>
+<li><strong>ID</strong> ： 消息 ID。</li>
+</ul>
+<h2 id="9-Redis-GEO"><a href="#9-Redis-GEO" class="headerlink" title="9.Redis GEO"></a>9.Redis GEO</h2><p>Redis GEO 主要用于存储地理位置信息，并对存储的信息进行操作，该功能在 Redis 3.2 版本新增。</p>
+<p>Redis GEO 操作方法有：</p>
+<ul>
+<li>GEOADD：添加地理位置的坐标。</li>
+<li>GEOPOS：获取地理位置的坐标。</li>
+<li>GEODIST：计算两个位置之间的距离。</li>
+<li>GEORADIUS：根据用户给定的经纬度坐标来获取指定范围内的地理位置集合。</li>
+<li>GEORADIUSBYMEMBER：根据储存在位置集合里面的某个地点获取指定范围内的地理位置集合。</li>
+<li>GEOHASH：返回一个或多个位置对象的 geohash 值。</li>
+</ul>
+<h3 id="GEOADD"><a href="#GEOADD" class="headerlink" title="GEOADD"></a>GEOADD</h3><p>GEOADD用于存储指定的地理空间位置，可以将一个或多个经度(longitude)、纬度(latitude)、位置名称(member)添加到指定的 key 中。</p>
+<p>GEOADD语法格式如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GEOADD key longitude latitude member [longitude latitude member ...]</span><br></pre></td></tr></table></figure>
+
+<p><code>GEOADD g1 116.407396 39.904252 bj</code></p>
+<p><code>GEOADD g1 121.473701 31.230416 sh</code></p>
+<p><code>GEOADD g1 113.264356 23.129378 gz</code></p>
+<h3 id="GEOPOS"><a href="#GEOPOS" class="headerlink" title="GEOPOS"></a>GEOPOS</h3><p>GEOPOS用于从给定的 key 里返回所有指定名称(member)的位置（经度和纬度），不存在的返回 nil。</p>
+<p>GEOPOS语法格式如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GEOPOS key member [member ...]</span><br></pre></td></tr></table></figure>
+
+<p><code>GEOPOS g1 bj</code></p>
+<h3 id="GEODIST"><a href="#GEODIST" class="headerlink" title="GEODIST"></a>GEODIST</h3><p>GEODIST用于返回两个给定位置之间的距离。</p>
+<p>GEODIST语法格式如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GEODIST key member1 member2 [m|km|ft|mi]</span><br></pre></td></tr></table></figure>
+
+<p>member1 member2 为两个地理位置。</p>
+<p>最后一个距离单位参数说明：</p>
+<ul>
+<li>m ：米，默认单位。</li>
+<li>km ：千米。</li>
+<li>mi ：英里。</li>
+<li>ft ：英尺。</li>
+</ul>
+<p><code>GEODIST g1 bj sh</code></p>
+<p><code>GEODIST g1 bj sh km</code></p>
+<h3 id="GEORADIUS、GEORADIUSBYMEMBER"><a href="#GEORADIUS、GEORADIUSBYMEMBER" class="headerlink" title="GEORADIUS、GEORADIUSBYMEMBER"></a>GEORADIUS、GEORADIUSBYMEMBER</h3><p>GEORADIUS以给定的经纬度为中心， 返回键包含的位置元素当中， 与中心的距离不超过给定最大距离的所有位置元素。</p>
+<p>GEORADIUSBYMEMBER和 GEORADIUS 命令一样， 都可以找出位于指定范围内的元素， 但是 georadiusbymember 的中心点是由给定的位置元素决定的， 而不是使用经度和纬度来决定中心点。</p>
+<p>GEORADIUS与 GEORADIUSBYMEMBER语法格式如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">GEORADIUS key longitude latitude radius m|km|ft|mi [WITHCOORD] [WITHDIST] [WITHHASH] [COUNT count] [ASC|DESC] [STORE key] [STOREDIST key]</span><br><span class="line">GEORADIUSBYMEMBER key member radius m|km|ft|mi [WITHCOORD] [WITHDIST] [WITHHASH] [COUNT count] [ASC|DESC] [STORE key] [STOREDIST key]</span><br></pre></td></tr></table></figure>
+
+<p>参数说明：</p>
+<ul>
+<li>m ：米，默认单位。</li>
+<li>km ：千米。</li>
+<li>mi ：英里。</li>
+<li>ft ：英尺。</li>
+<li>WITHDIST: 在返回位置元素的同时， 将位置元素与中心之间的距离也一并返回。</li>
+<li>WITHCOORD: 将位置元素的经度和纬度也一并返回。</li>
+<li>WITHHASH: 以 52 位有符号整数的形式， 返回位置元素经过原始 geohash 编码的有序集合分值。 这个选项主要用于底层应用或者调试， 实际中的作用并不大。</li>
+<li>COUNT 限定返回的记录数。</li>
+<li>ASC: 查找结果根据距离从近到远排序。</li>
+<li>DESC: 查找结果根据从远到近排序。</li>
+</ul>
+<h3 id="GEOHASH"><a href="#GEOHASH" class="headerlink" title="GEOHASH"></a>GEOHASH</h3><p>Redis GEO 使用 GEOHASH来保存地理位置的坐标。</p>
+<p>GEOHASH用于获取一个或多个位置元素的 GEOHASH值。</p>
+<p>GEOHASH语法格式如下：</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">GEOHASH key member [member ...]</span><br></pre></td></tr></table></figure>
+
+<p><code>GEOHASH g1 bj</code></p>
+
+        </article>
+        <section class="post-near">
+            <ul>
+                
+                    <li>上一篇: 看完啦 (つд⊂)</li>
+                
+                
+                    <li>下一篇: <a href="/2025/05/17/MongoDB/">MongoDB</a></li>
+                
+            </ul>
+        </section>
+        
+            <section class="post-tags">
+            <a class="-none-link" href="/tags/Java-Web/" rel="tag">Java Web</a><a class="-none-link" href="/tags/Redis/" rel="tag">Redis</a>
+            </section>
+        
+    
+        <section class="post-author">
+        
+            <figure class="author-avatar">
+                <img src="https://p1.meituan.net/csc/949ad40707d4b4bab7e2ebafbd649aa8211830.jpg" alt="日初" />
+            </figure>
+        
+            <div class="author-info">
+                <h4>日初</h4>
+                <p>一个什么都学的建模动画编程爱好者</p>
+            </div>
+        </section>
+    
+    </div>
+</main>
+
+    <footer>
+    <div class="buttons">
+        <a class="to-top" href="#"></a>
+    </div>
+    <div class="wrap min">
+        <section class="widget">
+            <div class="row">
+                <div class="col-m-4">
+                    <h3 class="title-recent">最新文章：</h3>
+                    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2025/05/29/Redis/">Redis</a></li><li class="post-list-item"><a class="post-list-link" href="/2025/05/17/MongoDB/">MongoDB</a></li><li class="post-list-item"><a class="post-list-link" href="/2025/04/26/JUC/">JUC</a></li><li class="post-list-item"><a class="post-list-link" href="/2025/03/26/Kafaka/">Kafaka</a></li><li class="post-list-item"><a class="post-list-link" href="/2025/03/18/JetpackCompose/">Jetpack Compose</a></li><li class="post-list-item"><a class="post-list-link" href="/2025/03/15/AJAX/">AJAX</a></li></ul>
+                </div>
+                <div class="col-m-4">
+                    <h3 class="title-date">时光机：</h3>
+                    <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/05/">五月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/04/">四月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/03/">三月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/02/">二月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/01/">一月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/12/">十二月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/11/">十一月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/10/">十月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/09/">九月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/08/">八月 2024</a></li></ul>
+                </div>
+                <div class="col-m-4">
+                    <h3 class="title-tags">标签云：</h3>
+                    <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/CSS/" style="font-size: 20px;">CSS</a> <a href="/tags/Docker/" style="font-size: 20px;">Docker</a> <a href="/tags/Flutter/" style="font-size: 20px;">Flutter</a> <a href="/tags/Game/" style="font-size: 20px;">Game</a> <a href="/tags/Go/" style="font-size: 20px;">Go</a> <a href="/tags/Go-Web/" style="font-size: 20px;">Go Web</a> <a href="/tags/JS/" style="font-size: 20px;">JS</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/Java-Web/" style="font-size: 20px;">Java Web</a> <a href="/tags/Kotlin/" style="font-size: 20px;">Kotlin</a> <a href="/tags/Linux/" style="font-size: 20px;">Linux</a> <a href="/tags/MongoDB/" style="font-size: 20px;">MongoDB</a> <a href="/tags/MySql/" style="font-size: 20px;">MySql</a> <a href="/tags/MybatisPlus/" style="font-size: 20px;">MybatisPlus</a> <a href="/tags/Nginx/" style="font-size: 20px;">Nginx</a> <a href="/tags/NodeJs/" style="font-size: 20px;">NodeJs</a> <a href="/tags/QT/" style="font-size: 20px;">QT</a> <a href="/tags/React/" style="font-size: 20px;">React</a> <a href="/tags/Redis/" style="font-size: 20px;">Redis</a> <a href="/tags/Spring-Cloud/" style="font-size: 20px;">Spring Cloud</a> <a href="/tags/UniApp/" style="font-size: 20px;">UniApp</a> <a href="/tags/Unity/" style="font-size: 20px;">Unity</a> <a href="/tags/Vue/" style="font-size: 20px;">Vue</a> <a href="/tags/Webpack/" style="font-size: 20px;">Webpack</a> <a href="/tags/%E5%89%8D%E7%AB%AF/" style="font-size: 20px;">前端</a> <a href="/tags/%E8%BF%90%E7%BB%B4/" style="font-size: 20px;">运维</a>
+                </div>
+            </div>
+        </section>
+        <section class="sub-footer">
+            <p>© 2025 <a href="/">Richu</a>. All Rights Reserved. Theme By <a href="https://github.com/Dreamer-Paul/Hingle" target="_blank" rel="nofollow">Hingle</a>.</p>
+        </section>
+    </div>
+</footer>
+
+
+<script src="/static/kico.js"></script>
+<script src="/static/hingle.js"></script>
+
+
+<script>var hingle = new Paul_Hingle({"copyright":true,"night":false});</script>
+
+  </body>
+</html>

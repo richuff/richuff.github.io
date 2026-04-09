@@ -61,7 +61,7 @@
         </section>
         <article class="post-content">
         
-            <blockquote>这篇文章上次修改于 527 天前，可能其部分内容已经发生变化，如有疑问可询问作者。</blockquote>
+            <blockquote>这篇文章上次修改于 541 天前，可能其部分内容已经发生变化，如有疑问可询问作者。</blockquote>
           
             <p>Spring Cloud 是一系列框架的有序集合，它利用 Spring Boot 的开发便利性简化了分布式系统的开发，比如服务发现、服务网关、服务路由、链路追踪等。Spring Cloud 并不重复造轮子，而是将市面上开发得比较好的模块集成进去，进行封装，从而减少了各模块的开发成本。换句话说：Spring Cloud 提供了构建分布式系统所需的“全家桶”。</p>
 <h2 id="1-nacos"><a href="#1-nacos" class="headerlink" title="1.nacos"></a>1.nacos</h2><p>1.引入依赖</p>
@@ -78,9 +78,9 @@
 
 
 
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">PREFER_HOST_MODE=hostname</span><br><span class="line">MODE=standalone</span><br><span class="line">SPRING_DATASOURCE_PLATFORM=mysql</span><br><span class="line">MYSQL_SERVICE_HOST=192.168.3.133    //配置为自己的ip</span><br><span class="line">MYSQL_SERVICE_DB_NAME=nacos</span><br><span class="line">MYSQL_SERVICE_PORT=3306</span><br><span class="line">MYSQL_SERVICE_USER=root</span><br><span class="line">MYSQL_SERVICE_PASSWORD=123</span><br><span class="line">MYSQL_SERVICE_DB_PARAM=characterEncoding=utf8&amp;connectTimeout=1000&amp;socketTimeout=3000&amp;autoReconnect=true&amp;useSSL=false&amp;allowPublicKeyRetrieval=true&amp;serverTimezone=Asia/Shanghai</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">PREFER_HOST_MODE=hostname</span><br><span class="line">MODE=standalone</span><br><span class="line">SPRING_DATASOURCE_PLATFORM=mysql</span><br><span class="line">MYSQL_SERVICE_HOST=192.168.3.133    //配置为自己的ip</span><br><span class="line">MYSQL_SERVICE_DB_NAME=nacos</span><br><span class="line">MYSQL_SERVICE_PORT=3306</span><br><span class="line">MYSQL_SERVICE_USER=root</span><br><span class="line">MYSQL_SERVICE_PASSWORD=123</span><br><span class="line">MYSQL_SERVICE_DB_PARAM=characterEncoding=utf8&amp;connectTimeout=1000&amp;</span><br><span class="line">socketTimeout=3000&amp;autoReconnect=true&amp;useSSL=false&amp;</span><br><span class="line">allowPublicKeyRetrieval=true&amp;serverTimezone=Asia/Shanghai</span><br></pre></td></tr></table></figure>
 
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -d --name nacos --env-file /root/nacos/custom.env -p 8848:8848 -p 9848:9848 -p 9849:9849 --restart=always nacos/nacos-server:v2.1.1-slim</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker run -d --name nacos --env-file /root/nacos/custom.env </span><br><span class="line">-p 8848:8848 -p 9848:9848 -p 9849:9849 </span><br><span class="line">--restart=always nacos/nacos-server:v2.1.1-slim</span><br></pre></td></tr></table></figure>
 
 <h2 id="2-openFeign"><a href="#2-openFeign" class="headerlink" title="2.openFeign"></a>2.openFeign</h2><p>1.引入依赖</p>
 <figure class="highlight xml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-starter-openfeign<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;<span class="name">dependency</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">groupId</span>&gt;</span>org.springframework.cloud<span class="tag">&lt;/<span class="name">groupId</span>&gt;</span></span><br><span class="line">    <span class="tag">&lt;<span class="name">artifactId</span>&gt;</span>spring-cloud-starter-loadbalancer<span class="tag">&lt;/<span class="name">artifactId</span>&gt;</span></span><br><span class="line"><span class="tag">&lt;/<span class="name">dependency</span>&gt;</span></span><br></pre></td></tr></table></figure>
@@ -410,7 +410,7 @@
 <p>消息代理：管理、暂存、转发消息，类似与服务器  Broker </p>
 </blockquote>
 <h3 id="1-安装rabbitMQ"><a href="#1-安装rabbitMQ" class="headerlink" title="1.安装rabbitMQ"></a>1.安装rabbitMQ</h3><blockquote>
-<p>docker run -e RABBITMQ_DEFAULT_USER&#x3D;richu -e RABBITMQ_DEFAULT_PASS&#x3D;12345678 -v mq-plugins:&#x2F;plugins –name mq –hostname mq -p 15672:15672 -p 5672:5672 –network richu -d rabbitmq:3.8-management</p>
+<p>docker run -e RABBITMQ_DEFAULT_USER&#x3D;richu -e RABBITMQ_DEFAULT_PASS&#x3D;12345678 -v mq-plugins:&#x2F;plugins<br>–name mq –hostname mq -p 15672:15672 -p 5672:5672<br>–network richu -d rabbitmq:3.8-management</p>
 </blockquote>
 <h3 id="2-Java客户端的收发流程"><a href="#2-Java客户端的收发流程" class="headerlink" title="2.Java客户端的收发流程"></a>2.Java客户端的收发流程</h3><blockquote>
 <p>消息通信协议AMQP，该协议与语言无关，更符合微服务中独立性的要求</p>
@@ -826,38 +826,6 @@
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br></pre></td><td class="code"><pre><span class="line">GET /indexName/_search</span><br><span class="line">&#123;</span><br><span class="line">	&quot;query&quot;:&#123;</span><br><span class="line">		&quot;match_all&quot;:&#123;&#125;</span><br><span class="line">	&#125;,</span><br><span class="line">	&quot;from&quot;:0,</span><br><span class="line">	&quot;size&quot;:10,</span><br><span class="line">	&quot;sort&quot;:&#123;</span><br><span class="line">		&quot;FIELD&quot;:&quot;DESC&quot;  ASC、DESC</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h3 id="4-深度分页问题"><a href="#4-深度分页问题" class="headerlink" title="4.深度分页问题"></a>4.深度分页问题</h3><figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br></pre></td><td class="code"><pre><span class="line">GET /items/_search</span><br><span class="line">&#123;</span><br><span class="line">	&quot;query&quot;:&#123;</span><br><span class="line">		&quot;match&quot;:&#123;</span><br><span class="line">			&quot;filed&quot;:&quot;value&quot;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;,</span><br><span class="line">	&quot;highlight&quot;:&#123;</span><br><span class="line">		&quot;fields&quot;:&#123;</span><br><span class="line">			&quot;fields&quot;:&#123;</span><br><span class="line">				&quot;pre_tags&quot;:&quot;&lt;em&gt;&quot;,</span><br><span class="line">				&quot;post_tags&quot;:&quot;&lt;/em&gt;&quot;</span><br><span class="line">			&#125;</span><br><span class="line">		&#125;</span><br><span class="line">	&#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         </article>
         <section class="post-near">
             <ul>

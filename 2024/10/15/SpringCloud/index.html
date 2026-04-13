@@ -605,17 +605,38 @@
 <li>Elasticsearch</li>
 </ul>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">docker run -d --name es -e ES_JAVA_OPTS=&quot;-Xms512m -Xmx512m&quot; \</span><br><span class="line">  -e &quot;discovery.type=single-node&quot; \</span><br><span class="line">  -v es-data:/usr/share/elasticsearch/data \</span><br><span class="line">  -v es-plugins:/usr/share/elasticsearch/plugins \</span><br><span class="line">  --privileged \</span><br><span class="line">  --network richu \</span><br><span class="line">  -p 9200:9200 \</span><br><span class="line">  -p 9300:9300 \</span><br><span class="line">  elasticsearch:7.12.1</span><br></pre></td></tr></table></figure>
-
+<p>或</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -d --name elasticsearch --restart=always -p 9200:9200 -p 9300:9300 -e &quot;discovery.type=single-node&quot; -e &quot;ES_JAVA_OPTS=-Xms512m -Xmx512m&quot; -v D:/es/data:/usr/share/elasticsearch/data -v D:/es/plugins:/usr/share/elasticsearch/plugins docker.elastic.co/elasticsearch/elasticsearch:7.6.2</span><br></pre></td></tr></table></figure>
 <ul>
 <li>kibana 图形化</li>
 </ul>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -d --name kibana -e ELASTICSEARCH_HOST=http://es:9200 --network=richu -p 5601:5601 kibana:7.12.1</span><br></pre></td></tr></table></figure>
-
+<ul>
+<li>IK分词器<blockquote>
+<p>进入容器</p>
+</blockquote>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br></pre></td><td class="code"><pre><span class="line">docker exec -it elasticsearch /bin/bash</span><br><span class="line"></span><br><span class="line">./bin/elasticsearch-plugin install https://get.infini.cloud/elasticsearch/analysis-ik/7.6.2</span><br></pre></td></tr></table></figure></li>
+</ul>
+<blockquote>
+<p>重启es<br>docker restart elasticsearch</p>
+</blockquote>
+<blockquote>
+<p>测试 IK 分词</p>
+</blockquote>
+<ol>
+<li>最细粒度分词（ik_max_word）<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">POST /_analyze</span><br><span class="line">&#123;</span><br><span class="line">  &quot;analyzer&quot;: &quot;ik_max_word&quot;,</span><br><span class="line">  &quot;text&quot;: &quot;我爱学习，我每天学习&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure></li>
+<li>最常用 &#x2F; 最合理分词（ik_smart）<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">POST /_analyze</span><br><span class="line">&#123;</span><br><span class="line">  &quot;analyzer&quot;: &quot;ik_smart&quot;,</span><br><span class="line">  &quot;text&quot;: &quot;我爱学习，我每天学习&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<blockquote>
+<p>运行结果</p>
+</blockquote>
+</li>
+</ol>
+<p>我<br>爱<br>学习<br>我<br>每天<br>学习</p>
 <h3 id="2-倒排索引"><a href="#2-倒排索引" class="headerlink" title="2.倒排索引"></a>2.倒排索引</h3><blockquote>
 <p>文档：每条数据就是一个文档</p>
 <p>词条：文档按照语义分成的词语</p>
 </blockquote>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">POST /_analyze</span><br><span class="line">&#123;</span><br><span class="line">	&quot;analyzer&quot;:&quot;standard&quot;,</span><br><span class="line">	&quot;test&quot;:&quot;我爱学习，我每天学习&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br></pre></td><td class="code"><pre><span class="line">POST /_analyze</span><br><span class="line">&#123;</span><br><span class="line">	&quot;analyzer&quot;:&quot;standard&quot;,</span><br><span class="line">	&quot;text&quot;:&quot;我爱学习，我每天学习&quot;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <blockquote>
 <p>扩展分词器</p>

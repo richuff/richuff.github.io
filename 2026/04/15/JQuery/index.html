@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html>
+  <head>
+     
+    <meta charset="UTF-8">
+    <title>JQuery - Richu</title>
+    <link rel="shortcut icon" href="/static/img/icon.png">
+    <link rel="icon" href="/static/img/icon.png" sizes="192x192"/>
+    
+<link rel="stylesheet" href="/static/kico.css">
+<link rel="stylesheet" href="/static/hingle.css">
+
+    
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <meta name="viewport" content="width=device-width, maximum-scale=1, initial-scale=1"/>
+    <meta property="og:site_name" content="Richu">
+    <meta property="og:title" content="JQuery"/>
+    
+    <style>body:before{ content: ''; background-image: url(http://kycloud3.koyoo.cn/2025033176e99202503311036156636.jpg) }</style>
+    
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+  <body>
+    <header>
+    <div class="head-title">
+        <h4>Richu</h4>
+    </div>
+    <div class="head-action">
+        <div class="toggle-btn"></div>
+        <div class="light-btn"></div>
+        <div class="search-btn"></div>
+    </div>
+    <form class="head-search" method="post">
+        <input type="text" name="s" placeholder="搜索什么？">
+    </form>
+    <nav class="head-menu">
+        <a href="/">首页</a>
+        <div class="has-child">
+            <a>分类</a>
+            <div class="sub-menu">
+                <a class="category-link" href="/categories/Android/">Android</a><a class="category-link" href="/categories/Go/">Go</a><a class="category-link" href="/categories/Java/">Java</a><a class="category-link" href="/categories/QT/">QT</a><a class="category-link" href="/categories/Unity/">Unity</a><a class="category-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a><a class="category-link" href="/categories/%E8%BF%90%E7%BB%B4/">运维</a>
+            </div>
+        </div>
+        
+            <a href="/about">关于我</a>
+        
+    </nav>
+</header>
+
+    <main>
+    <div class="wrap min">
+        <section class="post-title">
+            <h2>JQuery</h2>
+            <div class="post-meta">
+                <time class="date">2026.04.15</time>
+            
+                <span class="category"><a class="category-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a></span>
+            
+            </div>
+        </section>
+        <article class="post-content">
+          
+            <p>Query 是一款快速、轻量且跨浏览器兼容的 JavaScript 库，核心理念为 Write Less, Do More（写更少代码，做更多事）。它以 CSS 选择器为基础，封装了 DOM 操作、事件处理、动画效果与 Ajax 交互等常用功能，提供简洁统一的 API，大幅降低原生 JS 编写成本与浏览器兼容负担。自 2006 年发布以来，它凭借链式调用、插件生态与高效开发体验广泛普及，至今仍在大量传统 Web 项目与快速原型开发中发挥作用。</p>
+<blockquote>
+<p>npm i JQuery</p>
+</blockquote>
+<h2 id="1-JQuery的基本使用"><a href="#1-JQuery的基本使用" class="headerlink" title="1.JQuery的基本使用"></a>1.JQuery的基本使用</h2><h3 id="1-DOM对象和Jquery对象的相互转换"><a href="#1-DOM对象和Jquery对象的相互转换" class="headerlink" title="1.DOM对象和Jquery对象的相互转换"></a>1.DOM对象和Jquery对象的相互转换</h3><blockquote>
+<p>DOM对象 –》 JQuery对象</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="variable constant_">DOM</span>对象)</span><br></pre></td></tr></table></figure>
+
+<blockquote>
+<p>JQuery对象 –》DOM对象</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="string">&#x27;div&#x27;</span>)[索引号]</span><br><span class="line">$(<span class="string">&#x27;div&#x27;</span>).<span class="title function_">get</span>(索引号)</span><br></pre></td></tr></table></figure>
+
+<h3 id="2-Jquery选择器"><a href="#2-Jquery选择器" class="headerlink" title="2.Jquery选择器"></a>2.Jquery选择器</h3><blockquote>
+<p><code>$(css选择器)</code></p>
+</blockquote>
+<h3 id="3-筛选选择器"><a href="#3-筛选选择器" class="headerlink" title="3.筛选选择器"></a>3.筛选选择器</h3><table>
+<thead>
+<tr>
+<th><a target="_blank" rel="noopener" href="https://www.runoob.com/jquery/sel-first.html">:first</a></th>
+<th>$(“p:first”)</th>
+<th>第一个 &lt;p&gt; 元素</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><a target="_blank" rel="noopener" href="https://www.runoob.com/jquery/sel-last.html">:last</a></td>
+<td>$(“p:last”)</td>
+<td>最后一个&lt;p&gt; 元素</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://www.runoob.com/jquery/sel-even.html">:even</a></td>
+<td>$(“tr:even”)</td>
+<td>所有偶数 &lt;tr&gt; 元素，索引值从 0 开始，第一个元素是偶数 (0)，第二个元素是奇数 (1)，以此类推。</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://www.runoob.com/jquery/sel-odd.html">:odd</a></td>
+<td>$(“tr:odd”)</td>
+<td>所有奇数&lt;tr&gt; 元素，索引值从 0 开始，第一个元素是偶数 (0)，第二个元素是奇数 (1)，以此类推。</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://www.runoob.com/jquery/jq-sel-firstchild.html">:first-child</a></td>
+<td>$(“p:first-child”)</td>
+<td>属于其父元素的第一个子元素的所有 &lt;p&gt; 元素</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://www.runoob.com/jquery/sel-firstoftype.html">:first-of-type</a></td>
+<td>$(“p:first-of-type”)</td>
+<td>属于其父元素的第一个 &lt;p&gt; 元素的所有 &lt;p&gt; 元素</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://www.runoob.com/jquery/sel-lastchild.html">:last-child</a></td>
+<td>$(“p:last-child”)</td>
+<td>属于其父元素的最后一个子元素的所有\ <p> 元素</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://www.runoob.com/jquery/sel-lastoftype.html">:last-of-type</a></td>
+<td>$(“p:last-of-type”)</td>
+<td>属于其父元素的最后一个 &lt;p&gt; 元素的所有\ <p> 元素</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://www.runoob.com/jquery/sel-nthchild.html">:nth-child(<em>n</em>)</a></td>
+<td>$(“p:nth-child(2)”)</td>
+<td>属于其父元素的第二个子元素的所有 <p> 元素</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://www.runoob.com/jquery/sel-nthlastchild.html">:nth-last-child(<em>n</em>)</a></td>
+<td>$(“p:nth-last-child(2)”)</td>
+<td>属于其父元素的第二个子元素的所有 <p> 元素，从最后一个子元素开始计数</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://www.runoob.com/jquery/sel-nthoftype.html">:nth-of-type(<em>n</em>)</a></td>
+<td>$(“p:nth-of-type(2)”)</td>
+<td>属于其父元素的第二个 <p> 元素的所有 <p> 元素</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://www.runoob.com/jquery/sel-nthlastoftype.html">:nth-last-of-type(<em>n</em>)</a></td>
+<td>$(“p:nth-last-of-type(2)”)</td>
+<td>属于其父元素的第二个 <p> 元素的所有 <p> 元素，从最后一个子元素开始计数</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://www.runoob.com/jquery/sel-onlychild.html">:only-child</a></td>
+<td>$(“p:only-child”)</td>
+<td>属于其父元素的唯一子元素的所有 <p> 元素</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://www.runoob.com/jquery/sel-onlyoftype.html">:only-of-type</a></td>
+<td>$(“p:only-of-type”)</td>
+<td>属于其父元素的特定类型的唯一子元素的所有 <p> 元素</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://www.runoob.com/jquery/sel-parent-child.html">parent &gt; child</a></td>
+<td>$(“div &gt; p”)</td>
+<td><div> 元素的直接子元素的所有 <p> 元素</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://www.runoob.com/jquery/sel-parent-descendant.html">parent descendant</a></td>
+<td>$(“div p”)</td>
+<td><div> 元素的后代的所有 <p> 元素</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://www.runoob.com/jquery/sel-previous-next.html">element + next</a></td>
+<td>$(“div + p”)</td>
+<td>每个 <div> 元素相邻的下一个 <p> 元素</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://www.runoob.com/jquery/sel-previous-siblings.html">element ~ siblings</a></td>
+<td>$(“div ~ p”)</td>
+<td><div> 元素同级的所有 <p> 元素</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://www.runoob.com/jquery/sel-eq.html">:eq(<em>index</em>)</a></td>
+<td>$(“ul li:eq(3)”)</td>
+<td>列表中的第四个元素（index 值从 0 开始）</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://www.runoob.com/jquery/sel-gt.html">:gt(<em>no</em>)</a></td>
+<td>$(“ul li:gt(3)”)</td>
+<td>列举 index 大于 3 的元素</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://www.runoob.com/jquery/sel-lt.html">:lt(<em>no</em>)</a></td>
+<td>$(“ul li:lt(3)”)</td>
+<td>列举 index 小于 3 的元素</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://www.runoob.com/jquery/jq-sel-not.html">:not(<em>selector</em>)</a></td>
+<td>$(“input:not(:empty)”)</td>
+<td>所有不为空的输入元素</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://www.runoob.com/jquery/sel-header.html">:header</a></td>
+<td>$(“:header”)</td>
+<td>所有标题元素 <h1>, <h2> …</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://www.runoob.com/jquery/sel-animated.html">:animated</a></td>
+<td>$(“:animated”)</td>
+<td>所有动画元素</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://www.runoob.com/jquery/jq-sel-focus.html">:focus</a></td>
+<td>$(“:focus”)</td>
+<td>当前具有焦点的元素</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://www.runoob.com/jquery/sel-contains.html">:contains(<em>text</em>)</a></td>
+<td>$(“:contains(‘Hello’)”)</td>
+<td>所有包含文本 “Hello” 的元素</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://www.runoob.com/jquery/sel-has.html">:has(<em>selector</em>)</a></td>
+<td>$(“div:has(p)”)</td>
+<td>所有包含有 <p> 元素在其内的 <div> 元素</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://www.runoob.com/jquery/jq-sel-empty.html">:empty</a></td>
+<td>$(“:empty”)</td>
+<td>所有空元素</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://www.runoob.com/jquery/sel-parent.html">:parent</a></td>
+<td>$(“:parent”)</td>
+<td>匹配所有含有子元素或者文本的父元素。</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://www.runoob.com/jquery/sel-hidden.html">:hidden</a></td>
+<td>$(“p:hidden”)</td>
+<td>所有隐藏的 <p> 元素</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://www.runoob.com/jquery/sel-visible.html">:visible</a></td>
+<td>$(“table:visible”)</td>
+<td>所有可见的表格</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://www.runoob.com/jquery/jq-sel-root.html">:root</a></td>
+<td>$(“:root”)</td>
+<td>文档的根元素</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://www.runoob.com/jquery/jq-sel-lang.html">:lang(<em>language</em>)</a></td>
+<td>$(“p:lang(de)”)</td>
+<td>所有 lang 属性值为 “de” 的 <p> 元素</td>
+</tr>
+<tr>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+<tr>
+<td>[<a target="_blank" rel="noopener" href="https://www.runoob.com/jquery/jq-sel-attribute.html"><em>attribute</em>]</a></td>
+<td>$(“[href]”)</td>
+<td>所有带有 href 属性的元素</td>
+</tr>
+<tr>
+<td>[<a target="_blank" rel="noopener" href="https://www.runoob.com/jquery/sel-attribute-equal-value.html"><em>attribute</em>&#x3D;<em>value</em>]</a></td>
+<td>$(“[href&#x3D;’default.htm’]”)</td>
+<td>所有带有 href 属性且值等于 “default.htm” 的元素</td>
+</tr>
+<tr>
+<td>[<a target="_blank" rel="noopener" href="https://www.runoob.com/jquery/sel-attribute-notequal-value.html"><em>attribute</em>!&#x3D;<em>value</em>]</a></td>
+<td>$(“[href!&#x3D;’default.htm’]”)</td>
+<td>所有带有 href 属性且值不等于 “default.htm” 的元素</td>
+</tr>
+<tr>
+<td>[<a target="_blank" rel="noopener" href="https://www.runoob.com/jquery/sel-attribute-end-value.html"><em>attribute</em>$&#x3D;<em>value</em>]</a></td>
+<td>$(“[href$&#x3D;’.jpg’]”)</td>
+<td>所有带有 href 属性且值以 “.jpg” 结尾的元素</td>
+</tr>
+<tr>
+<td>[<a target="_blank" rel="noopener" href="https://www.runoob.com/jquery/sel-attribute-prefix-value.html"><em>attribute</em>|&#x3D;<em>value</em>]</a></td>
+<td>$(“[title|&#x3D;’Tomorrow’]”)</td>
+<td>所有带有 title 属性且值等于 ‘Tomorrow’ 或者以 ‘Tomorrow’ 后跟连接符作为开头的字符串</td>
+</tr>
+<tr>
+<td>[<a target="_blank" rel="noopener" href="https://www.runoob.com/jquery/sel-attribute-beginning-value.html"><em>attribute</em>^&#x3D;<em>value</em>]</a></td>
+<td>$(“[title^&#x3D;’Tom’]”)</td>
+<td>所有带有 title 属性且值以 “Tom” 开头的元素</td>
+</tr>
+<tr>
+<td>[<a target="_blank" rel="noopener" href="https://www.runoob.com/jquery/sel-attribute-contains-value.html"><em>attribute</em>~&#x3D;<em>value</em>]</a></td>
+<td>$(“[title~&#x3D;’hello’]”)</td>
+<td>所有带有 title 属性且值包含单词 “hello” 的元素</td>
+</tr>
+<tr>
+<td>[<a target="_blank" rel="noopener" href="https://www.runoob.com/jquery/sel-attribute-contains-string-value.html"><em>attribute</em>*&#x3D;<em>value</em>]</a></td>
+<td>$(“[title*&#x3D;’hello’]”)</td>
+<td>所有带有 title 属性且值包含字符串 “hello” 的元素</td>
+</tr>
+<tr>
+<td>[<a target="_blank" rel="noopener" href="https://www.runoob.com/jquery/sel-multipleattribute-equal-value.html"><em>name</em>&#x3D;<em>value</em>][<em>name2</em>&#x3D;<em>value2</em>]</a></td>
+<td>$( “input[id][name$&#x3D;’man’]” )</td>
+<td>带有 id 属性，并且 name 属性以 man 结尾的输入框</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://www.runoob.com/jquery/sel-input.html">:input</a></td>
+<td>$(“:input”)</td>
+<td>所有 input 元素</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://www.runoob.com/jquery/sel-input-text.html">:text</a></td>
+<td>$(“:text”)</td>
+<td>所有带有 type&#x3D;”text” 的 input 元素</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://www.runoob.com/jquery/sel-input-password.html">:password</a></td>
+<td>$(“:password”)</td>
+<td>所有带有 type&#x3D;”password” 的 input 元素</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://www.runoob.com/jquery/sel-input-radio.html">:radio</a></td>
+<td>$(“:radio”)</td>
+<td>所有带有 type&#x3D;”radio” 的 input 元素</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://www.runoob.com/jquery/sel-input-checkbox.html">:checkbox</a></td>
+<td>$(“:checkbox”)</td>
+<td>所有带有 type&#x3D;”checkbox” 的 input 元素</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://www.runoob.com/jquery/sel-input-submit.html">:submit</a></td>
+<td>$(“:submit”)</td>
+<td>所有带有 type&#x3D;”submit” 的 input 元素</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://www.runoob.com/jquery/sel-input-reset.html">:reset</a></td>
+<td>$(“:reset”)</td>
+<td>所有带有 type&#x3D;”reset” 的 input 元素</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://www.runoob.com/jquery/sel-input-button.html">:button</a></td>
+<td>$(“:button”)</td>
+<td>所有带有 type&#x3D;”button” 的 input 元素</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://www.runoob.com/jquery/sel-input-image.html">:image</a></td>
+<td>$(“:image”)</td>
+<td>所有带有 type&#x3D;”image” 的 input 元素</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://www.runoob.com/jquery/sel-input-file.html">:file</a></td>
+<td>$(“:file”)</td>
+<td>所有带有 type&#x3D;”file” 的 input 元素</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://www.runoob.com/jquery/sel-input-enabled.html">:enabled</a></td>
+<td>$(“:enabled”)</td>
+<td>所有启用的元素</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://www.runoob.com/jquery/sel-input-disabled.html">:disabled</a></td>
+<td>$(“:disabled”)</td>
+<td>所有禁用的元素</td>
+</tr>
+<tr>
+<td>:selected</td>
+<td>$(“:selected”)</td>
+<td>所有选定的下拉列表元素</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://www.runoob.com/jquery/sel-input-checked.html">:checked</a></td>
+<td>$(“:checked”)</td>
+<td>所有选中的复选框选项</td>
+</tr>
+<tr>
+<td>.selector</td>
+<td>$(selector).selector</td>
+<td>在jQuery 1.7中已经不被赞成使用。返回传给jQuery()的原始选择器</td>
+</tr>
+<tr>
+<td><a target="_blank" rel="noopener" href="https://www.runoob.com/jquery/jq-sel-target.html">:target</a></td>
+<td>$( “p:target” )</td>
+<td>选择器将选中ID和URI中一个格式化的标识符相匹配的<p>元素</td>
+</tr>
+</tbody></table>
+<h3 id="4-小练习"><a href="#4-小练习" class="headerlink" title="4.小练习"></a>4.小练习</h3><figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">$(<span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">    $(<span class="string">&quot;.main li&quot;</span>).<span class="title function_">children</span>(<span class="string">&quot;ul&quot;</span>).<span class="title function_">hide</span>()</span><br><span class="line">    $(<span class="string">&quot;.main&gt;li&quot;</span>).<span class="title function_">mouseover</span>(<span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">        $(<span class="variable language_">this</span>).<span class="title function_">children</span>(<span class="string">&quot;ul&quot;</span>).<span class="title function_">show</span>()</span><br><span class="line">    &#125;)</span><br><span class="line">    $(<span class="string">&quot;.main li&quot;</span>).<span class="title function_">mouseleave</span>(<span class="keyword">function</span>(<span class="params"></span>)&#123;</span><br><span class="line">        $(<span class="variable language_">this</span>).<span class="title function_">children</span>(<span class="string">&quot;ul&quot;</span>).<span class="title function_">hide</span>()</span><br><span class="line">    &#125;)</span><br><span class="line">&#125;)</span><br></pre></td></tr></table></figure>
+
+<h2 id="2-JQuery入门使用"><a href="#2-JQuery入门使用" class="headerlink" title="2.JQuery入门使用"></a>2.JQuery入门使用</h2><blockquote>
+<p>$(this).index() 获取索引</p>
+</blockquote>
+<figure class="highlight javascript"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br></pre></td><td class="code"><pre><span class="line">&lt;body&gt;</span><br><span class="line">    <span class="language-xml"><span class="tag">&lt;<span class="name">button</span>&gt;</span>test<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span><br><span class="line">	<span class="language-xml"><span class="tag">&lt;<span class="name">button</span>&gt;</span>test<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span><br><span class="line">	<span class="language-xml"><span class="tag">&lt;<span class="name">button</span>&gt;</span>test<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span><br><span class="line">	<span class="language-xml"><span class="tag">&lt;<span class="name">button</span>&gt;</span>test<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span><br><span class="line">	<span class="language-xml"><span class="tag">&lt;<span class="name">button</span>&gt;</span>test<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span><br><span class="line">	<span class="language-xml"><span class="tag">&lt;<span class="name">button</span>&gt;</span>test<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span><br><span class="line">	<span class="language-xml"><span class="tag">&lt;<span class="name">button</span>&gt;</span>test<span class="tag">&lt;/<span class="name">button</span>&gt;</span></span></span><br><span class="line">	&lt;/body&gt;</span><br><span class="line"><span class="language-xml"><span class="tag">&lt;<span class="name">script</span>&gt;</span><span class="language-javascript"></span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">    $(<span class="keyword">function</span>(<span class="params"></span>)&#123;</span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">        $(<span class="string">&#x27;button&#x27;</span>).<span class="title function_">click</span>(<span class="keyword">function</span>(<span class="params"></span>)&#123;</span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">            $(<span class="variable language_">this</span>).<span class="title function_">css</span>(<span class="string">&#x27;background&#x27;</span>, <span class="string">&quot;pink&quot;</span>);</span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">            $(<span class="variable language_">this</span>).<span class="title function_">siblings</span>(<span class="string">&quot;button&quot;</span>).<span class="title function_">css</span>(<span class="string">&#x27;background&#x27;</span>, <span class="string">&quot;&quot;</span>);</span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">            <span class="variable language_">console</span>.<span class="title function_">log</span>($(<span class="variable language_">this</span>).<span class="title function_">index</span>()) <span class="comment">//打印出指定button的index</span></span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">        &#125;);</span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml">    &#125;);</span></span></span><br><span class="line"><span class="language-javascript"><span class="language-xml"></span><span class="tag">&lt;/<span class="name">script</span>&gt;</span></span></span><br></pre></td></tr></table></figure>
+
+<h3 id="1-修改样式css方法"><a href="#1-修改样式css方法" class="headerlink" title="1.修改样式css方法"></a>1.修改样式css方法</h3><blockquote>
+<p>$(“div”).css(‘width’)  返回div的宽度</p>
+<p>$(“div”).css(“height”,200) 将height设置为200px</p>
+<p>$(“div”).css({“height”,100,”width”,200}) 将height设置为100px,width设置为200px</p>
+</blockquote>
+<blockquote>
+<p>1.添加类		$(“div”).addClass(‘current’)</p>
+<p>2.移除类       $(‘div’).removeClass(‘current’)</p>
+<p>3.切换类 	$(‘div’).toggleClass(‘current’)</p>
+</blockquote>
+
+        </article>
+        <section class="post-near">
+            <ul>
+                
+                    <li>上一篇: 看完啦 (つд⊂)</li>
+                
+                
+                    <li>下一篇: <a href="/2026/04/15/Php/">PHP</a></li>
+                
+            </ul>
+        </section>
+        
+            <section class="post-tags">
+            <a class="-none-link" href="/tags/JQuery/" rel="tag">JQuery</a><a class="-none-link" href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag">前端</a>
+            </section>
+        
+    
+        <section class="post-author">
+        
+            <figure class="author-avatar">
+                <img src="https://p1.meituan.net/csc/949ad40707d4b4bab7e2ebafbd649aa8211830.jpg" alt="日初" />
+            </figure>
+        
+            <div class="author-info">
+                <h4>日初</h4>
+                <p>去关于我看看吧(´・ω・`)</p>
+            </div>
+        </section>
+    
+    </div>
+</main>
+
+    <footer>
+    <div class="buttons">
+        <a class="to-top" href="#"></a>
+    </div>
+    <div class="wrap min">
+        <section class="widget">
+            <div class="row">
+                <div class="col-m-4">
+                    <h3 class="title-recent">最新文章：</h3>
+                    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2026/04/15/JQuery/">JQuery</a></li><li class="post-list-item"><a class="post-list-link" href="/2026/04/15/Php/">PHP</a></li><li class="post-list-item"><a class="post-list-link" href="/2026/03/26/Uni-cloud/">Uni-Cloud</a></li><li class="post-list-item"><a class="post-list-link" href="/2026/03/26/Go%E9%A1%B9%E7%9B%AE%E6%8A%80%E5%B7%A7/">Go项目技巧</a></li><li class="post-list-item"><a class="post-list-link" href="/2025/07/08/Dubbo/">Dubbo</a></li><li class="post-list-item"><a class="post-list-link" href="/2025/07/07/Zookeeper/">ZooKeeper</a></li></ul>
+                </div>
+                <div class="col-m-4">
+                    <h3 class="title-date">时光机：</h3>
+                    <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/04/">四月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/03/">三月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/07/">七月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/06/">六月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/05/">五月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/04/">四月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/03/">三月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/02/">二月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/01/">一月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/12/">十二月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/11/">十一月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/10/">十月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/09/">九月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/08/">八月 2024</a></li></ul>
+                </div>
+                <div class="col-m-4">
+                    <h3 class="title-tags">标签云：</h3>
+                    <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/CSS/" style="font-size: 20px;">CSS</a> <a href="/tags/Docker/" style="font-size: 20px;">Docker</a> <a href="/tags/Dubbo/" style="font-size: 20px;">Dubbo</a> <a href="/tags/Flutter/" style="font-size: 20px;">Flutter</a> <a href="/tags/Game/" style="font-size: 20px;">Game</a> <a href="/tags/Go/" style="font-size: 20px;">Go</a> <a href="/tags/Go-Web/" style="font-size: 20px;">Go Web</a> <a href="/tags/JQuery/" style="font-size: 20px;">JQuery</a> <a href="/tags/JS/" style="font-size: 20px;">JS</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/Java-Web/" style="font-size: 20px;">Java Web</a> <a href="/tags/Kotlin/" style="font-size: 20px;">Kotlin</a> <a href="/tags/Linux/" style="font-size: 20px;">Linux</a> <a href="/tags/MongoDB/" style="font-size: 20px;">MongoDB</a> <a href="/tags/MySql/" style="font-size: 20px;">MySql</a> <a href="/tags/MybatisPlus/" style="font-size: 20px;">MybatisPlus</a> <a href="/tags/NIO/" style="font-size: 20px;">NIO</a> <a href="/tags/Nginx/" style="font-size: 20px;">Nginx</a> <a href="/tags/NodeJs/" style="font-size: 20px;">NodeJs</a> <a href="/tags/PHP/" style="font-size: 20px;">PHP</a> <a href="/tags/QT/" style="font-size: 20px;">QT</a> <a href="/tags/React/" style="font-size: 20px;">React</a> <a href="/tags/Redis/" style="font-size: 20px;">Redis</a> <a href="/tags/Spring-Cloud/" style="font-size: 20px;">Spring Cloud</a> <a href="/tags/UniApp/" style="font-size: 20px;">UniApp</a> <a href="/tags/UniCloud/" style="font-size: 20px;">UniCloud</a> <a href="/tags/Unity/" style="font-size: 20px;">Unity</a> <a href="/tags/Vue/" style="font-size: 20px;">Vue</a> <a href="/tags/Webpack/" style="font-size: 20px;">Webpack</a> <a href="/tags/ZooKeeper/" style="font-size: 20px;">ZooKeeper</a> <a href="/tags/%E5%89%8D%E7%AB%AF/" style="font-size: 20px;">前端</a> <a href="/tags/%E8%BF%90%E7%BB%B4/" style="font-size: 20px;">运维</a>
+                </div>
+            </div>
+        </section>
+        <section class="sub-footer">
+            <p>© 2026 <a href="/">Richu</a>. All Rights Reserved. Theme By <a href="https://github.com/Dreamer-Paul/Hingle" target="_blank" rel="nofollow">Hingle</a>.</p>
+        </section>
+    </div>
+</footer>
+
+
+<script src="/static/kico.js"></script>
+<script src="/static/hingle.js"></script>
+
+
+<script>var hingle = new Paul_Hingle({"copyright":true,"night":false});</script>
+
+  </body>
+</html>

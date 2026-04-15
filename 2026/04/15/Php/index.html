@@ -630,24 +630,6 @@
 <h3 id="7-等比缩放缩略图"><a href="#7-等比缩放缩略图" class="headerlink" title="7.等比缩放缩略图"></a>7.等比缩放缩略图</h3><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment">//缩略图宽高</span></span><br><span class="line"><span class="variable">$thumb_x</span> = <span class="number">0</span>;</span><br><span class="line"><span class="variable">$thumb_y</span> = <span class="number">0</span>;</span><br><span class="line"><span class="keyword">if</span> (<span class="variable">$thumb_b</span> &gt;= <span class="variable">$thumb_img</span>)&#123;</span><br><span class="line">    <span class="comment">//缩略图宽高比比原图大</span></span><br><span class="line">    <span class="variable">$thumb_y</span> = <span class="number">100</span>;</span><br><span class="line">    <span class="variable">$thumb_x</span> = <span class="title function_ invoke__">floor</span>(<span class="variable">$thumb_y</span> * <span class="variable">$thumb_b</span>);</span><br><span class="line">&#125;<span class="keyword">else</span>&#123;</span><br><span class="line">    <span class="comment">//缩略图宽高比比原图小</span></span><br><span class="line">    <span class="variable">$thumb_x</span> = <span class="number">100</span>;</span><br><span class="line">    <span class="variable">$thumb_y</span> = <span class="title function_ invoke__">floor</span>(<span class="variable">$thumb_x</span> / <span class="variable">$thumb_b</span>);</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
 
 <h3 id="8-水印图的制作"><a href="#8-水印图的制作" class="headerlink" title="8.水印图的制作"></a>8.水印图的制作</h3><figure class="highlight php"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br></pre></td><td class="code"><pre><span class="line"><span class="variable">$img_src</span> = <span class="string">&quot;./relationship-with-mybatis.png&quot;</span>;</span><br><span class="line"><span class="variable">$watermark_src</span> = <span class="string">&quot;./icon.png&quot;</span>;</span><br><span class="line"></span><br><span class="line"><span class="variable">$img</span> = <span class="title function_ invoke__">imagecreatefrompng</span>(<span class="variable">$img_src</span>);</span><br><span class="line"><span class="variable">$watermark</span> = <span class="title function_ invoke__">imagecreatefrompng</span>(<span class="variable">$watermark_src</span>);</span><br><span class="line"></span><br><span class="line"><span class="comment">//合并图片</span></span><br><span class="line"><span class="variable">$res</span> = <span class="title function_ invoke__">imagecopymerge</span>(<span class="variable">$img</span>,<span class="variable">$watermark</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="number">0</span>,<span class="title function_ invoke__">imagesx</span>(<span class="variable">$img</span>),<span class="title function_ invoke__">imagesy</span>(<span class="variable">$img</span>),<span class="number">50</span>);</span><br><span class="line"><span class="title function_ invoke__">header</span>(<span class="string">&quot;Content-type:image/png&quot;</span>);</span><br><span class="line"><span class="title function_ invoke__">imagepng</span>(<span class="variable">$img</span>);</span><br><span class="line"></span><br><span class="line"><span class="title function_ invoke__">imagedestroy</span>(<span class="variable">$img</span>);</span><br><span class="line"><span class="title function_ invoke__">imagedestroy</span>(<span class="variable">$watermark</span>);</span><br></pre></td></tr></table></figure>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         </article>
         <section class="post-near">
             <ul>

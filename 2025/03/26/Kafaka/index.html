@@ -69,6 +69,20 @@
 <p>如何及时做到如上两点<br>以上几个挑战形成了一个业务需求模型，即生产者生产（produce）各种信息，消费者消费（consume）（处理分析）这些信息，而在生产者与消费者之间，需要一个沟通两者的桥梁-消息系统。从一个微观层面来说，这种需求也可理解为不同的系统之间如何传递消息。</p>
 <p>（2）Kafka的特性<br>高吞吐量、低延迟：kafka每秒可以处理几十万条消息，它的延迟最低只有几毫秒<br>可扩展性：kafka集群支持热扩展<br>持久性、可靠性：消息被持久化到本地磁盘，并且支持数据备份防止数据丢失<br>容错性：允许集群中节点失败（若副本数量为n,则允许n-1个节点失败）<br>高并发：支持数千个客户端同时读写</p>
 <p>（3）Kafka场景应用<br>日志收集：一个公司可以用Kafka可以收集各种服务的log，通过kafka以统一接口服务的方式开放给各种consumer，例如hadoop、Hbase、Solr等。<br>消息系统：解耦和生产者和消费者、缓存消息等。<br>用户活动跟踪：Kafka经常被用来记录web用户或者app用户的各种活动，如浏览网页、搜索、点击等活动，这些活动信息被各个服务器发布到kafka的topic中，然后订阅者通过订阅这些topic来做实时的监控分析，或者装载到hadoop、数据仓库中做离线分析和挖掘。<br>运营指标：Kafka也经常用来记录运营监控数据。包括收集各种分布式应用的数据，生产各种操作的集中反馈，比如报警和报告。<br>流式处理：比如spark streaming和storm<br>事件源</p>
+<h2 id="二、安装"><a href="#二、安装" class="headerlink" title="二、安装"></a>二、安装</h2><p>Kafka 运行需要 Java 环境，确保安装了 JDK。</p>
+<p>从官方 Apache Kafka 网站下载 Kafka：<a target="_blank" rel="noopener" href="https://kafka.apache.org/downloads.html">https://kafka.apache.org/downloads.html</a></p>
+<p>下载安装包解压：<br>tar -xzf kafka_2.13-2.8.0.tgz<br>cd kafka_2.13-2.8.0</p>
+<p>Kafka 依赖 ZooKeeper 来管理集群。关于对zookeeper的总结，请看zookeeper铲屎官在一众中间件中的应用 。启动ZooKeeper：</p>
+<p>bin&#x2F;zookeeper-server-start.sh config&#x2F;zookeeper.properties<br>在另一个终端窗口中启动 Kafka 服务器：</p>
+<p>bin&#x2F;kafka-server-start.sh config&#x2F;server.properties</p>
+<h2 id="三、kafka的命令操作"><a href="#三、kafka的命令操作" class="headerlink" title="三、kafka的命令操作"></a>三、kafka的命令操作</h2><p>在我们部署好kafka环境之后，我可以查看kafka的bin目录的文件，提供许多操作执行脚本，包括服务端、生产者、消费者、主题等等。</p>
+<p>这里我查看并使用的是windows的kafaka执行脚本，后缀是.bat,linux脚本则为.sh,演示时使用的为.bat脚本</p>
+<img src="../../../../images/224223.png" alt="kafaka执行脚本" title="kafaka执行脚本"/>
+
+<blockquote>
+<p>主题命令操作</p>
+</blockquote>
+<p>kafka-topics.sh<br>对应参数如下：</p>
 
         </article>
         <section class="post-near">

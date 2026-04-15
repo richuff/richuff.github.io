@@ -61,7 +61,7 @@
         </section>
         <article class="post-content">
         
-            <blockquote>这篇文章上次修改于 545 天前，可能其部分内容已经发生变化，如有疑问可询问作者。</blockquote>
+            <blockquote>这篇文章上次修改于 547 天前，可能其部分内容已经发生变化，如有疑问可询问作者。</blockquote>
           
             <p>Spring Cloud 是一系列框架的有序集合，它利用 Spring Boot 的开发便利性简化了分布式系统的开发，比如服务发现、服务网关、服务路由、链路追踪等。Spring Cloud 并不重复造轮子，而是将市面上开发得比较好的模块集成进去，进行封装，从而减少了各模块的开发成本。换句话说：Spring Cloud 提供了构建分布式系统所需的“全家桶”。</p>
 <h2 id="1-nacos"><a href="#1-nacos" class="headerlink" title="1.nacos"></a>1.nacos</h2><p>1.引入依赖</p>
@@ -608,7 +608,7 @@
 </ul>
 <figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br></pre></td><td class="code"><pre><span class="line">docker run -d --name es -e ES_JAVA_OPTS=&quot;-Xms512m -Xmx512m&quot; \</span><br><span class="line">  -e &quot;discovery.type=single-node&quot; \</span><br><span class="line">  -v es-data:/usr/share/elasticsearch/data \</span><br><span class="line">  -v es-plugins:/usr/share/elasticsearch/plugins \</span><br><span class="line">  --privileged \</span><br><span class="line">  --network richu \</span><br><span class="line">  -p 9200:9200 \</span><br><span class="line">  -p 9300:9300 \</span><br><span class="line">  elasticsearch:7.12.1</span><br></pre></td></tr></table></figure>
 <p>或</p>
-<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br></pre></td><td class="code"><pre><span class="line">docker run -d --name elasticsearch --restart=always -p 9200:9200 -p 9300:9300 -e &quot;discovery.type=single-node&quot; -e &quot;ES_JAVA_OPTS=-Xms512m -Xmx512m&quot; -v D:/es/data:/usr/share/elasticsearch/data -v D:/es/plugins:/usr/share/elasticsearch/plugins docker.elastic.co/elasticsearch/elasticsearch:7.6.2</span><br></pre></td></tr></table></figure>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">docker run -d --name elasticsearch --restart=always -p 9200:9200 -p 9300:9300 </span><br><span class="line">-e &quot;discovery.type=single-node&quot; -e &quot;ES_JAVA_OPTS=-Xms512m -Xmx512m&quot; </span><br><span class="line">-v D:/es/data:/usr/share/elasticsearch/data </span><br><span class="line">-v D:/es/plugins:/usr/share/elasticsearch/plugins docker.elastic.co/elasticsearch/elasticsearch:7.6.2</span><br></pre></td></tr></table></figure>
 <ul>
 <li>kibana 图形化</li>
 </ul>

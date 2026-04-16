@@ -61,7 +61,7 @@
         </section>
         <article class="post-content">
         
-            <blockquote>这篇文章上次修改于 385 天前，可能其部分内容已经发生变化，如有疑问可询问作者。</blockquote>
+            <blockquote>这篇文章上次修改于 386 天前，可能其部分内容已经发生变化，如有疑问可询问作者。</blockquote>
           
             <p>Kafka是最初由Linkedin公司开发，是一个分布式、支持分区的（partition）、多副本的（replica），基于zookeeper协调的分布式消息系统，它的最大的特性就是可以实时的处理大量数据以满足各种需求场景：比如基于hadoop的批处理系统、低延迟的实时系统、storm&#x2F;Spark流式处理引擎，web&#x2F;nginx日志、访问日志，消息服务等等，用scala语言编写，Linkedin于2010年贡献给了Apache基金会并成为顶级开源 项目。</p>
 <h2 id="一、Kafaka"><a href="#一、Kafaka" class="headerlink" title="一、Kafaka"></a>一、Kafaka</h2><p>（1）产生背景<br>当今社会各种应用系统诸如商业、社交、搜索、浏览等像信息工厂一样不断的生产出各种信息，在大数据时代，我们面临如下几个挑战：</p>
@@ -80,10 +80,67 @@
 <img src="../../../../images/224223.png" alt="kafaka执行脚本" title="kafaka执行脚本"/>
 
 <blockquote>
-<p>主题命令操作</p>
+<p>主题命令操作<br>kafka-topics.sh</p>
 </blockquote>
-<p>kafka-topics.sh<br>对应参数如下：</p>
+<p>对应参数如下：</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>–bootstrap-server &lt;String: server to connect to&gt;</td>
+<td>连接的 Kafka Broker 主机名称和端口号；新版 Kafka（v2.8+）核心参数，支持不依赖 ZooKeeper 直接连接，老版本使用 –zookeeper 参数</td>
+</tr>
+<tr>
+<td>–topic &lt;String: topic&gt;</td>
+<td>操作的 Topic 名称</td>
+</tr>
+<tr>
+<td>–create</td>
+<td>创建主题</td>
+</tr>
+<tr>
+<td>–delete</td>
+<td>删除主题</td>
+</tr>
+<tr>
+<td>–alter</td>
+<td>修改主题</td>
+</tr>
+<tr>
+<td>–list</td>
+<td>查看所有主题</td>
+</tr>
+<tr>
+<td>–describe</td>
+<td>查看主题详细描述</td>
+</tr>
+<tr>
+<td>–partitions &lt;Integer: # of partitions&gt;</td>
+<td>设置主题分区数</td>
+</tr>
+<tr>
+<td>–replication-factor &lt;Integer: replication factor&gt;</td>
+<td>设置主题分区副本数</td>
+</tr>
+<tr>
+<td>–config &lt;String: name&#x3D;value&gt;</td>
+<td>更新主题默认系统配置，如消息最大保存时长、单条消息最大大小等</td>
+</tr>
+</tbody></table>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br></pre></td><td class="code"><pre><span class="line"># 创建topic</span><br><span class="line">kafka-topics.bat --create --replication-factor 1 --partitions 3 </span><br><span class="line">--topic rc-topic --bootstrap-server localhost:9092</span><br><span class="line">&gt; Created topic rc-topic.</span><br><span class="line"></span><br><span class="line"># 查看topic列表</span><br><span class="line">kafka-topics.bat --list --bootstrap-server localhost:9092</span><br><span class="line">&gt; rc-topic</span><br><span class="line"></span><br><span class="line"># 查看topic信息</span><br><span class="line">kafka-topics.bat --describe --topic rc-topic --bootstrap-server localhost:9092</span><br><span class="line">&gt; Topic: rc-topic TopicId: bFh2j7N0S7Gz7LxuhYSk4Q PartitionCount: 3       ReplicationFactor: 1    Configs:</span><br><span class="line">        Topic: rc-topic Partition: 0    Leader: 0       Replicas: 0     Isr: 0</span><br><span class="line">        Topic: rc-topic Partition: 1    Leader: 0       Replicas: 0     Isr: 0</span><br><span class="line">        Topic: rc-topic Partition: 2    Leader: 0       Replicas: 0     Isr: 0</span><br><span class="line"></span><br><span class="line"># 生产者发送消息</span><br><span class="line">kafka-console-producer.bat --broker-list localhost:9092 --topic test-topic</span><br><span class="line"></span><br><span class="line"># 消费者接收消息</span><br><span class="line">kafka-console-consumer.bat --bootstrap-server localhost:9092 --topic test-topic --from-beginning</span><br></pre></td></tr></table></figure>
 
+<h2 id="四、Java操作Kafka"><a href="#四、Java操作Kafka" class="headerlink" title="四、Java操作Kafka"></a>四、Java操作Kafka</h2><p>1.引入依赖</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">&lt;dependency&gt;</span><br><span class="line">  &lt;groupId&gt;org.springframework.kafka&lt;/groupId&gt;</span><br><span class="line">  &lt;artifactId&gt;spring-kafka&lt;/artifactId&gt;</span><br><span class="line">&lt;/dependency&gt;</span><br></pre></td></tr></table></figure>
+
+<p>2.发送消息</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br></pre></td><td class="code"><pre><span class="line">// 1. 配置生产者参数</span><br><span class="line">Properties props = new Properties();</span><br><span class="line">props.put(ProducerConfig.BOOTSTRAP_SERVERS_CONFIG, &quot;localhost:9092&quot;);</span><br><span class="line">props.put(ProducerConfig.KEY_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());</span><br><span class="line">props.put(ProducerConfig.VALUE_SERIALIZER_CLASS_CONFIG, StringSerializer.class.getName());</span><br><span class="line"></span><br><span class="line">// 2. 创建生产者对象</span><br><span class="line">KafkaProducer&lt;String, String&gt; producer = new KafkaProducer&lt;&gt;(props);</span><br><span class="line"></span><br><span class="line">// 3. 构建消息（topic名称，消息内容）</span><br><span class="line">ProducerRecord&lt;String, String&gt; record = new ProducerRecord&lt;&gt;(</span><br><span class="line">        &quot;rc-topic&quot;,  // 主题名</span><br><span class="line">        &quot;csndm！&quot;</span><br><span class="line">);</span><br><span class="line"></span><br><span class="line">// 4. 发送消息</span><br><span class="line">producer.send(record);</span><br><span class="line"></span><br><span class="line">// 5. 刷新并关闭</span><br><span class="line">producer.flush();</span><br><span class="line">producer.close();</span><br><span class="line"></span><br><span class="line">System.out.println(&quot;消息发送成功！&quot;);</span><br></pre></td></tr></table></figure>
+
+<p>3.上传消息</p>
+<figure class="highlight plaintext"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br><span class="line">13</span><br><span class="line">14</span><br><span class="line">15</span><br><span class="line">16</span><br><span class="line">17</span><br><span class="line">18</span><br><span class="line">19</span><br><span class="line">20</span><br><span class="line">21</span><br><span class="line">22</span><br><span class="line">23</span><br><span class="line">24</span><br><span class="line">25</span><br><span class="line">26</span><br><span class="line">27</span><br><span class="line">28</span><br></pre></td><td class="code"><pre><span class="line">// 1. 配置消费者参数</span><br><span class="line">Properties props = new Properties();</span><br><span class="line">props.put(ConsumerConfig.BOOTSTRAP_SERVERS_CONFIG, &quot;localhost:9092&quot;);</span><br><span class="line">// 消费者组id（随便写，不重复即可）</span><br><span class="line">props.put(ConsumerConfig.GROUP_ID_CONFIG, &quot;rc-group&quot;);</span><br><span class="line">// 反序列化</span><br><span class="line">props.put(ConsumerConfig.KEY_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());</span><br><span class="line">props.put(ConsumerConfig.VALUE_DESERIALIZER_CLASS_CONFIG, StringDeserializer.class.getName());</span><br><span class="line">// 从头开始消费（第一次启动时生效）</span><br><span class="line">props.put(ConsumerConfig.AUTO_OFFSET_RESET_CONFIG, &quot;earliest&quot;);</span><br><span class="line"></span><br><span class="line">// 2. 创建消费者对象</span><br><span class="line">KafkaConsumer&lt;String, String&gt; consumer = new KafkaConsumer&lt;&gt;(props);</span><br><span class="line"></span><br><span class="line">// 3. 订阅主题（和生产者主题一致）</span><br><span class="line">consumer.subscribe(Collections.singletonList(&quot;rc-topic&quot;));</span><br><span class="line">System.out.println(&quot;消费者已启动，等待接收消息...&quot;);</span><br><span class="line"></span><br><span class="line">// 4. 循环拉取消息</span><br><span class="line">while (true) &#123;</span><br><span class="line">    // 每隔100ms拉取一次消息</span><br><span class="line">    ConsumerRecords&lt;String, String&gt; records = consumer.poll(Duration.ofMillis(100));</span><br><span class="line"></span><br><span class="line">    // 处理收到的消息</span><br><span class="line">    for (ConsumerRecord&lt;String, String&gt; record : records) &#123;</span><br><span class="line">        System.out.println(&quot;收到消息：&quot; + record.value());</span><br><span class="line">    &#125;</span><br><span class="line">&#125;</span><br></pre></td></tr></table></figure>
         </article>
         <section class="post-near">
             <ul>

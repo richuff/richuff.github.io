@@ -70,22 +70,26 @@
 </blockquote>
 <img src="../../../../images/224224.png" alt="本地的ip" title="本地的ip"/>
 
+<blockquote>
+<p>修改一下配置文件<br>192.168.0.194为你本地本机的ip</p>
+</blockquote>
+<figure class="highlight yml"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br><span class="line">9</span><br><span class="line">10</span><br><span class="line">11</span><br><span class="line">12</span><br></pre></td><td class="code"><pre><span class="line"><span class="attr">server:</span></span><br><span class="line">  <span class="attr">port:</span> <span class="number">0.0</span><span class="number">.0</span><span class="number">.0</span><span class="string">:8081</span></span><br><span class="line"><span class="attr">mysql:</span></span><br><span class="line">  <span class="attr">host:</span> <span class="number">192.168</span><span class="number">.0</span><span class="number">.194</span></span><br><span class="line">  <span class="attr">port:</span> <span class="number">3306</span></span><br><span class="line">  <span class="attr">database:</span> <span class="string">study_room_management</span></span><br><span class="line">  <span class="attr">password:</span> <span class="string">password</span></span><br><span class="line">  <span class="attr">username:</span> <span class="string">root</span></span><br><span class="line"><span class="attr">redis:</span></span><br><span class="line">  <span class="attr">addr:</span> <span class="number">192.168</span><span class="number">.0</span><span class="number">.194</span><span class="string">:6379</span></span><br><span class="line">  <span class="attr">password:</span></span><br><span class="line">  <span class="attr">db:</span> <span class="number">0</span></span><br></pre></td></tr></table></figure>
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+<blockquote>
+<p>创建 MySQL root 账号，允许任意 IP 远程访问</p>
+</blockquote>
+<ol>
+<li>登录本地 MySQL<br>mysql -u root -p</li>
+<li>执行这条：创建 root 允许所有 IP</li>
+</ol>
+<p>– 创建用户 root@%<br>CREATE USER ‘root‘@’%’ IDENTIFIED BY ‘你的密码’;</p>
+<p>– 赋予所有权限<br>GRANT ALL PRIVILEGES ON <em>.</em> TO ‘root‘@’%’ WITH GRANT OPTION;</p>
+<p>– 刷新权限生效<br>FLUSH PRIVILEGES;</p>
+<p>关键说明<br>‘root‘@’%’：% 代表任意 IP 都能连接<br>*.*：所有库所有表权限</p>
+<ol start="3">
+<li>检查是否创建成功</li>
+</ol>
+<p>SELECT user,host FROM mysql.user;<br>看到有一行 root | % 就成功了。</p>
 
         </article>
         <section class="post-near">

@@ -53,6 +53,7 @@
         <section class="post-title">
             <h2>NodeJs</h2>
             <div class="post-meta">
+                
                 <time class="date">2024.11.09</time>
             
                 <span class="category"><a class="category-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a></span>
@@ -60,9 +61,6 @@
             </div>
         </section>
         <article class="post-content">
-        
-            <blockquote>这篇文章上次修改于 710 天前，可能其部分内容已经发生变化，如有疑问可询问作者。</blockquote>
-          
             <p>Node.js is a free, open-source, cross-platform JavaScript runtime environment that lets developers create servers, web apps, command line tools and scripts. </p>
 <h2 id="1-入门"><a href="#1-入门" class="headerlink" title="1.入门"></a>1.入门</h2><h3 id="1-下载"><a href="#1-下载" class="headerlink" title="1.下载"></a>1.下载</h3><p><a target="_blank" rel="noopener" href="https://nodejs.cn/download/">下载 | Node.js 中文网 (nodejs.cn)</a></p>
 <h3 id="2-初识-Node-js"><a href="#2-初识-Node-js" class="headerlink" title="2.初识 Node.js"></a>2.初识 Node.js</h3><p>Nodejs@ is a JavaScript runtime built on Chrome’s V8 JavaScript engine.</p>
@@ -901,7 +899,7 @@ exports<span class="token punctuation">.</span><span class="token function-varia
 <p>对密码进行加密</p>
 <p>bcryptjs</p>
 <blockquote>
-<p>npm i <a href="mailto:&#98;&#99;&#114;&#x79;&#112;&#x74;&#x6a;&#115;&#64;&#50;&#x2e;&#52;&#x2e;&#51;">&#98;&#99;&#114;&#x79;&#112;&#x74;&#x6a;&#115;&#64;&#50;&#x2e;&#52;&#x2e;&#51;</a></p>
+<p>npm i <a href="mailto:&#98;&#99;&#x72;&#121;&#112;&#116;&#x6a;&#115;&#x40;&#x32;&#46;&#52;&#x2e;&#x33;">&#98;&#99;&#x72;&#121;&#112;&#116;&#x6a;&#115;&#x40;&#x32;&#46;&#52;&#x2e;&#x33;</a></p>
 </blockquote>
 <pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">const</span> bcrypt<span class="token operator">=</span><span class="token function">require</span><span class="token punctuation">(</span><span class="token string">"bcryptjs"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 mes<span class="token punctuation">.</span>password <span class="token operator">=</span> bcrypt<span class="token punctuation">.</span><span class="token function">hashSync</span><span class="token punctuation">(</span>mes<span class="token punctuation">.</span>password<span class="token punctuation">,</span><span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
@@ -920,7 +918,7 @@ res<span class="token punctuation">.</span><span class="token function">send</sp
 
 <p>解析token的中间件</p>
 <blockquote>
-<p>npm i <a href="mailto:&#x65;&#x78;&#x70;&#114;&#101;&#x73;&#x73;&#x2d;&#x6a;&#119;&#116;&#64;&#53;&#x2e;&#51;&#x2e;&#51;">&#x65;&#x78;&#x70;&#114;&#101;&#x73;&#x73;&#x2d;&#x6a;&#119;&#116;&#64;&#53;&#x2e;&#51;&#x2e;&#51;</a></p>
+<p>npm i <a href="mailto:&#x65;&#x78;&#x70;&#114;&#101;&#x73;&#115;&#x2d;&#106;&#119;&#116;&#x40;&#x35;&#46;&#51;&#46;&#x33;">&#x65;&#x78;&#x70;&#114;&#101;&#x73;&#115;&#x2d;&#106;&#119;&#116;&#x40;&#x35;&#46;&#51;&#46;&#x33;</a></p>
 </blockquote>
 <pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript">app<span class="token punctuation">.</span><span class="token function">use</span><span class="token punctuation">(</span><span class="token function">expressJWT</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span><span class="token literal-property property">secret</span><span class="token operator">:</span>config<span class="token punctuation">.</span>jwtSecretKey<span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">unless</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span><span class="token literal-property property">path</span><span class="token operator">:</span><span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">^\/login</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 

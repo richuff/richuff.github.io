@@ -485,6 +485,11 @@ main img {
 }
 
 .post-meta .date:before{ content: "\f017" }
+.post-meta .updated:before{ content: "\f021" }  /* fa-refresh：最后更新日期 */
+.post-meta .updated{
+    color: #8a8a8a;
+    font-size: .95em;
+}
 .post-meta .category:before{ content: "\f07b" }
 .post-meta .tags:before{ content: "\f02c" }
 .post-meta .user:before{ content: "\f007" }

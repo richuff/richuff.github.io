@@ -9,6 +9,7 @@
     
 <link rel="stylesheet" href="/static/kico.css">
 <link rel="stylesheet" href="/static/hingle.css">
+<link rel="stylesheet" href="/static/md-enhance.css">
 
     
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -54,6 +55,8 @@
             <h2>JavaScript</h2>
             <div class="post-meta">
                 
+                    <time class="updated" datetime="2026-10-20T12:01:01.442Z" title="最后更新于 2026-10-20 20:01" aria-label="最后更新于 2026-10-20 20:01">2026.10.20</time>
+                
                 <time class="date">2026.06.03</time>
             
                 <span class="category"><a class="category-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a></span>
@@ -61,7 +64,13 @@
             </div>
         </section>
         <article class="post-content">
-            <p>JavaScript 是一种脚本编程语言，这门语言可用于 HTML 和 web，更可广泛用于服务器、PC、笔记本电脑、平板电脑和智能手机等设备。它可以在网页上实现复杂的功能，网页展现给你的不再是简单的静态信息，而是实时的内容更新。</p>
+            <div class="md-intro">
+
+<div class="md-hero">JavaScript</div>
+
+</div>
+
+<p>JavaScript 是一种脚本编程语言，这门语言可用于 HTML 和 web，更可广泛用于服务器、PC、笔记本电脑、平板电脑和智能手机等设备。它可以在网页上实现复杂的功能，网页展现给你的不再是简单的静态信息，而是实时的内容更新。</p>
 <h2 id="1-书写语法"><a href="#1-书写语法" class="headerlink" title="1.书写语法"></a>1.书写语法</h2><h3 id="1-注释"><a href="#1-注释" class="headerlink" title="1.注释"></a>1.注释</h3><blockquote>
 <p>单行注释 ： &#x2F;&#x2F; 注释内容</p>
 <p>多行注释 ： &#x2F;* 注释内容 *&#x2F;</p>
@@ -168,9 +177,12 @@
 <span class="token punctuation">(</span><span class="token keyword">function</span> <span class="token function">getnumber</span><span class="token punctuation">(</span><span class="token parameter">x<span class="token punctuation">,</span>y</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
     console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>x<span class="token operator">+</span>y<span class="token punctuation">)</span><span class="token punctuation">;</span><span class="token punctuation">&#125;</span><span class="token punctuation">(</span><span class="token number">1</span><span class="token punctuation">,</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<blockquote>
+<div class="md-note md-idea">
+
 <p>本质就是调用匿名函数</p>
-</blockquote>
+</div>
+
+
 <h3 id="3-调用"><a href="#3-调用" class="headerlink" title="3.调用"></a>3.调用</h3><p>函数名称（实际参数列表）</p>
 <ul>
 <li>可以多传，但是只会接收对应的参数</li>
@@ -485,11 +497,12 @@ console<span class="token punctuation">.</span><span class="token function">log<
 <blockquote>
 <p>可以追加对象的一个新属性</p>
 </blockquote>
-<h2 id="11-JSON格式"><a href="#11-JSON格式" class="headerlink" title="11.JSON格式"></a>11.JSON格式</h2><blockquote>
-<p>概念：Javascript Object Notation,JavaScript对象标记法</p>
-<p>JSON 是通过JavaScript对象标记法书写的文本</p>
-<p>用于网络数据传输</p>
-</blockquote>
+<h2 id="11-JSON格式"><a href="#11-JSON格式" class="headerlink" title="11.JSON格式"></a>11.JSON格式</h2><div class="md-note md-info">
+
+<p>概念：Javascript Object Notation,JavaScript对象标记法<br>JSON 是通过JavaScript对象标记法书写的文本<br>用于网络数据传输</p>
+</div>
+
+
 <blockquote>
 <p>‘{</p>
 <p>​	“name” &#x3D; “123”</p>
@@ -796,9 +809,12 @@ console<span class="token punctuation">.</span><span class="token function">log<
 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>body</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <h4 id="4-量词"><a href="#4-量词" class="headerlink" title="4.量词"></a>4.量词</h4><p>量词用来设定某个模式重复次数</p>
-<blockquote>
+<div class="md-note md-warn">
+
 <p>注意： 逗号左右两侧千万不要出现空格</p>
-</blockquote>
+</div>
+
+
 <pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>body</span><span class="token punctuation">></span></span>
   <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>script</span><span class="token punctuation">></span></span><span class="token script"><span class="token language-javascript">
     <span class="token comment">// 元字符之量词</span>
@@ -1117,11 +1133,12 @@ code<span class="token punctuation">.</span><span class="token function">addEven
 <p>表单属性中添加就有效果，移除就没有效果，一律使用布尔值表示如果为true代表添加了该属性 如果是false代表移除了该属性</p>
 <p>比如：disabled、checked、selected</p>
 </blockquote>
-<h3 id="10-自定义属性"><a href="#10-自定义属性" class="headerlink" title="10.自定义属性"></a>10.自定义属性</h3><blockquote>
-<p>必须以data-开头</p>
-<p>一律以dataset对象方式来获取</p>
-<p>类名.dataset.自定义属性(不加data-)</p>
-</blockquote>
+<h3 id="10-自定义属性"><a href="#10-自定义属性" class="headerlink" title="10.自定义属性"></a>10.自定义属性</h3><div class="md-note md-attention">
+
+<p>必须以data-开头<br>一律以dataset对象方式来获取<br>类名.dataset.自定义属性(不加data-)</p>
+</div>
+
+
 <h3 id="11-查找DOM节点"><a href="#11-查找DOM节点" class="headerlink" title="11.查找DOM节点"></a>11.查找DOM节点</h3><p>1.父节点查找</p>
 <blockquote>
 <p>parentNode属性</p>
@@ -1179,9 +1196,12 @@ ul<span class="token punctuation">.</span>nextElementSibling   <span class="toke
     <span class="token punctuation">&#125;</span>
 </span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<blockquote>
+<div class="md-note md-tip">
+
 <p>推荐使用事件监听</p>
-</blockquote>
+</div>
+
+
 <h3 id="2-常见事件"><a href="#2-常见事件" class="headerlink" title="2.常见事件"></a>2.常见事件</h3><h4 id="1-窗口事件"><a href="#1-窗口事件" class="headerlink" title="1.窗口事件"></a>1.窗口事件</h4><p>由窗口触发该事件 (同样适用于 <body> 标签)：</p>
 <blockquote>
 <p>属性	描述</p>
@@ -1653,13 +1673,16 @@ btn<span class="token punctuation">.</span><span class="token function">removeEv
 <h3 id="2-全局作用域"><a href="#2-全局作用域" class="headerlink" title="2.全局作用域"></a>2.全局作用域</h3><blockquote>
 <p>script标签和.js文件</p>
 </blockquote>
-<h3 id="3-作用域链"><a href="#3-作用域链" class="headerlink" title="3.作用域链"></a>3.作用域链</h3><blockquote>
+<h3 id="3-作用域链"><a href="#3-作用域链" class="headerlink" title="3.作用域链"></a>3.作用域链</h3><div class="md-note md-idea">
+
 <p>本质是底层的变量查找机制</p>
 <ul>
 <li>在函数执行时，会优先在当前函数作用域中查找变量</li>
 <li>如果查找不到，则会沿着父级作用域直到全局作用域</li>
 </ul>
-</blockquote>
+</div>
+
+
 <p>子作用域能够访问父作用域，父级作用域无法访问子级作用域</p>
 <h3 id="4-垃圾回收机制"><a href="#4-垃圾回收机制" class="headerlink" title="4.垃圾回收机制"></a>4.垃圾回收机制</h3><p>引用计数法</p>
 <p>引用计数法，查看一个对象是否有指向它的引用，没用引用就回收对象</p>
@@ -2017,13 +2040,16 @@ console<span class="token punctuation">.</span><span class="token function">log<
 <p>封装是面向对象思想中比较重要的一部分，js面向对象可以通过构造函数实现的封装。</p>
 <p>同样的将变量和函数组合到了一起并能通过 this 实现数据的共享，所不同的是借助构造函数创建出来的实例对象之</p>
 <p>间是彼此不影响的</p>
-<blockquote>
+<div class="md-note md-tip">
+
 <p>总结：</p>
 <ol>
 <li>构造函数体现了面向对象的封装特性</li>
 <li>构造函数实例创建的对象彼此独立、互不影响</li>
 </ol>
-</blockquote>
+</div>
+
+
 <p>前面我们学过的构造函数方法很好用，但是 存在<code>浪费内存</code>的问题</p>
 <h2 id="21-原型对象"><a href="#21-原型对象" class="headerlink" title="21.原型对象"></a>21.原型对象</h2><p>构造函数通过原型分配的函数是所有对象所 共享的。</p>
 <ul>

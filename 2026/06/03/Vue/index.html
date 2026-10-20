@@ -9,6 +9,7 @@
     
 <link rel="stylesheet" href="/static/kico.css">
 <link rel="stylesheet" href="/static/hingle.css">
+<link rel="stylesheet" href="/static/md-enhance.css">
 
     
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -54,6 +55,8 @@
             <h2>Vue</h2>
             <div class="post-meta">
                 
+                    <time class="updated" datetime="2026-10-20T12:01:01.469Z" title="最后更新于 2026-10-20 20:01" aria-label="最后更新于 2026-10-20 20:01">2026.10.20</time>
+                
                 <time class="date">2026.06.03</time>
             
                 <span class="category"><a class="category-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a></span>
@@ -61,7 +64,15 @@
             </div>
         </section>
         <article class="post-content">
-            <p>Vue (发音为 /vjuː/，类似 view) 是一款用于构建用户界面的 JavaScript 框架。它基于标准 HTML、CSS 和 JavaScript 构建，并提供了一套声明式的、组件化的编程模型，帮助你高效地开发用户界面。无论是简单还是复杂的界面，Vue 都可以胜任。</p>
+            <div class="md-intro">
+
+<div class="md-hero">Vue</div>
+<blockquote>
+<p>Vue (发音为 \/vjuː\/，类似 view) 是一款用于构建用户界面的 JavaScript 框架。它基于标准 HTML、CSS 和 JavaScript 构建，并提供了一套声明式的、组件化的编程模型，帮助你高效地开发用户界面。无论是简单还是复杂的界面，Vue 都可以胜任。</p>
+</blockquote>
+
+</div>
+
 <h1 id="Vue"><a href="#Vue" class="headerlink" title="Vue"></a>Vue</h1><h2 id="1简介"><a href="#1简介" class="headerlink" title="1简介"></a>1简介</h2><h3 id="1-入门"><a href="#1-入门" class="headerlink" title="1.入门"></a>1.入门</h3><blockquote>
 <p>前端框架，便于书写</p>
 <p>基于MVVM的思想，实现数据的双向绑定，将编程的关注点放在数据上</p>
@@ -363,9 +374,12 @@ vm<span class="token punctuation">.</span><span class="token function">$watch</s
     <span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
 </span></span><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>script</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<blockquote>
+<div class="md-note md-attention">
+
 <p>必须在数据模型中声明，例如上面的url</p>
-</blockquote>
+</div>
+
+
 <h3 id="v-on"><a href="#v-on" class="headerlink" title="v-on"></a>v-on</h3><blockquote>
 <p>(为HTML标签绑定事件)</p>
 </blockquote>
@@ -1039,10 +1053,12 @@ getter，返回已注册的过滤器
 <p>(2).new Vue(options)配置中:</p>
 <p>data函数、methods中的函数、watch中的函数、computed中的函数 它们的this均是【Vue实例对象】</p>
 <p>5.VueComponent的实例对象，以后简称vc（也可称之为：组件实例对象）<br>Vue的实例对象，以后简称vm<br>准备好一个容器–&gt;</p>
-<blockquote>
-<p>重要的内置关系：</p>
-<p>VueComponent.prototype._<em>proto</em>_ &#x3D;&#x3D;&#x3D;Vue.prototype</p>
-</blockquote>
+<div class="md-note md-attention">
+
+<p>重要的内置关系：<br>VueComponent.prototype._<em>proto</em>_ &#x3D;&#x3D;&#x3D;Vue.prototype</p>
+</div>
+
+
 <h3 id="4-单文件组件"><a href="#4-单文件组件" class="headerlink" title="4.单文件组件"></a>4.单文件组件</h3><pre class="line-numbers language-vue" data-language="vue"><code class="language-vue">&lt;template&gt;
     &lt;div class&#x3D;&quot;demo&quot;&gt;  
         &lt;h2&gt;名称：&#123;&#123;name1&#125;&#125;&lt;&#x2F;h2&gt;

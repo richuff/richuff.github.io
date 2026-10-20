@@ -9,6 +9,7 @@
     
 <link rel="stylesheet" href="/static/kico.css">
 <link rel="stylesheet" href="/static/hingle.css">
+<link rel="stylesheet" href="/static/md-enhance.css">
 
     
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -54,7 +55,7 @@
             <h2>QT</h2>
             <div class="post-meta">
                 
-                    <time class="updated" datetime="2026-04-15T07:38:39.442Z" title="最后更新于 2026-04-15 15:38" aria-label="最后更新于 2026-04-15 15:38">2026.04.15</time>
+                    <time class="updated" datetime="2026-10-20T12:01:01.458Z" title="最后更新于 2026-10-20 20:01" aria-label="最后更新于 2026-10-20 20:01">2026.10.20</time>
                 
                 <time class="date">2025.02.23</time>
             
@@ -63,7 +64,16 @@
             </div>
         </section>
         <article class="post-content">
-            <p>Qt是一个跨平台的C++图形用户界面应用程序框架。它为应用程序开发者提供建立图形界面所需的所有功能。它是完全面向对象的，很容易扩展，并且允许真正的组件编程。</p>
+            <div class="md-intro">
+
+<div class="md-hero">QT</div>
+<blockquote>
+<p>Qt是一个跨平台的C++图形用户界面应用程序框架。它为应用程序开发者提供建立图形界面所需的所有功能。它是完全面向对象的，很容易扩展，并且允许真正的组件编程。</p>
+</blockquote>
+
+</div>
+
+
 <p>QT的优势:<br>1)跨平台，几乎支持所有的平台</p>
 <p>2)接口简单，容易上手，学习QT框架对学习其他框架有参考意义。</p>
 <p>3)一定程度上简化了内存回收机制</p>
@@ -123,9 +133,12 @@ connect(quitBtn,&amp;QPushButton::clicked,this,&amp;MyWidget::close);<span aria-
 <p>   3)receiver：信号接收者</p>
 <p>   4)slot：接收对象在接收到信号之后所需要调用的函数（槽函数）</p>
 </blockquote>
-<h3 id="1-4自定义信号和槽"><a href="#1-4自定义信号和槽" class="headerlink" title="1.4自定义信号和槽"></a>1.4自定义信号和槽</h3><blockquote>
+<h3 id="1-4自定义信号和槽"><a href="#1-4自定义信号和槽" class="headerlink" title="1.4自定义信号和槽"></a>1.4自定义信号和槽</h3><div class="md-note md-info">
+
 <p>定义信号发送方</p>
-</blockquote>
+</div>
+
+
 <pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include &lt;QObject&gt;
 
 class Teacher : public QObject
@@ -138,9 +151,12 @@ signals:
     void hungry(); &#x2F;&#x2F;不需要实现
 &#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<blockquote>
+<div class="md-note md-info">
+
 <p>定义信号接收方</p>
-</blockquote>
+</div>
+
+
 <pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include &lt;QObject&gt;
 #include &lt;QDebug&gt;
 

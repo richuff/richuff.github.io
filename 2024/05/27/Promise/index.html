@@ -9,6 +9,7 @@
     
 <link rel="stylesheet" href="/static/kico.css">
 <link rel="stylesheet" href="/static/hingle.css">
+<link rel="stylesheet" href="/static/md-enhance.css">
 
     
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -54,7 +55,7 @@
             <h2>Promise</h2>
             <div class="post-meta">
                 
-                    <time class="updated" datetime="2026-10-19T14:11:36.719Z" title="最后更新于 2026-10-19 22:11" aria-label="最后更新于 2026-10-19 22:11">2026.10.19</time>
+                    <time class="updated" datetime="2026-10-20T10:56:19.798Z" title="最后更新于 2026-10-20 18:56" aria-label="最后更新于 2026-10-20 18:56">2026.10.20</time>
                 
                 <time class="date">2024.05.27</time>
             
@@ -63,15 +64,15 @@
             </div>
         </section>
         <article class="post-content">
-            <div class="promise-intro">
+            <div class="md-intro">
 
-<div class="promise-hero">Promise</div>
+<div class="md-hero">Promise</div>
 <blockquote>
 <p>Promise 是 JavaScript 中用于表示一个异步操作<strong>最终完成（或失败）及其结果值</strong>的对象。</p>
 <p>它的出现只有一个核心目的：<strong>把异步操作的"结果"当作一个值来传递和处理</strong>，从而解决传统回调函数嵌套带来的回调地狱（Callback Hell）问题。</p>
 </blockquote>
 
-<div class="promise-lead">
+<div class="md-lead">
 
 <p>回调地狱的典型形态：每一步异步都依赖上一步的结果，代码不断向右&#x2F;向内缩进，错误处理被重复书写无数遍，根本无法维护。</p>
 </div>
@@ -100,9 +101,9 @@ fs<span class="token punctuation">.</span><span class="token function">readFile<
 
 </div>
 
-<span class="kbd-wrap">
+<span class="md-kbd-wrap">
 
-<p><span class="kbd-mini">ECMAScript 2015 (ES6)</span></p>
+<p><span class="md-kbd">ECMAScript 2015 (ES6)</span></p>
 </span>
 
 <h2 id="1-为什么需要-Promise"><a href="#1-为什么需要-Promise" class="headerlink" title="1. 为什么需要 Promise"></a>1. 为什么需要 Promise</h2><p>在没有 Promise 之前，异步操作只能通过<strong>回调函数</strong>完成：把”接下来要做的事”作为参数传给异步 API，由它在合适的时机回调。</p>
@@ -137,21 +138,21 @@ fs<span class="token punctuation">.</span><span class="token function">readFile<
 </tbody></table>
 <p>Promise 把这些痛点一次性解决：它用一个对象<strong>代理未来才会拿到的结果</strong>，让你可以链式调用、统一捕获错误、自由组合并发。</p>
 <h2 id="2-Promise-的三种状态"><a href="#2-Promise-的三种状态" class="headerlink" title="2. Promise 的三种状态"></a>2. Promise 的三种状态</h2><p>Promise 实例内部维护一个<strong>状态（PromiseState）</strong>，它只有三种取值。</p>
-<div class="promise-states">
+<div class="md-cards">
 
-<div class="state-card pending">
+<div class="md-card md-pending">
 
 <h3 id="pending"><a href="#pending" class="headerlink" title="pending"></a>pending</h3><p><strong>等待态（进行中）</strong></p>
 <p>实例刚被创建时的初始状态，此时异步操作尚未结束，结果值还是 <code>undefined</code>。</p>
 </div>
 
-<div class="state-card fulfilled">
+<div class="md-card md-ok">
 
 <h3 id="fulfilled"><a href="#fulfilled" class="headerlink" title="fulfilled"></a>fulfilled</h3><p><strong>成功态（已完成）</strong></p>
 <p>异步操作成功完成，由执行器中的 <code>resolve(value)</code> 触发，结果值被固定下来。</p>
 </div>
 
-<div class="state-card rejected">
+<div class="md-card md-err">
 
 <h3 id="rejected"><a href="#rejected" class="headerlink" title="rejected"></a>rejected</h3><p><strong>失败态（已拒绝）</strong></p>
 <p>异步操作失败，由执行器中的 <code>reject(reason)</code> 或执行器中抛出的异常触发。</p>
@@ -159,7 +160,7 @@ fs<span class="token punctuation">.</span><span class="token function">readFile<
 
 </div>
 
-<div class="promise-note note-blue">
+<div class="md-note md-info">
 
 <p><strong>状态不可逆，且只能改变一次</strong></p>
 <p>一个 Promise 一旦从 <code>pending</code> 变为 <code>fulfilled</code> 或 <code>rejected</code>，就<strong>永远不会再变</strong>：</p>
@@ -179,7 +180,7 @@ console<span class="token punctuation">.</span><span class="token function">log<
 </div>
 
 <h2 id="3-Promise-的基本使用"><a href="#3-Promise-的基本使用" class="headerlink" title="3. Promise 的基本使用"></a>3. Promise 的基本使用</h2><h3 id="3-1-创建-Promise"><a href="#3-1-创建-Promise" class="headerlink" title="3.1 创建 Promise"></a>3.1 创建 Promise</h3><p><code>Promise</code> 是一个构造函数，接收一个<strong>执行器函数（executor）</strong>作为参数。</p>
-<div class="promise-note note-green">
+<div class="md-note md-tip">
 
 <p><strong>执行器是同步立即执行的</strong></p>
 <p><code>new Promise(fn)</code> 时，<code>fn</code> 会被<strong>立刻同步调用</strong>，它内部的 <code>console.log</code> 会排在后续同步代码之前。</p>
@@ -232,7 +233,7 @@ console<span class="token punctuation">.</span><span class="token function">log<
 
 <span class="token comment">// 输出顺序：start → end → promise</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<div class="promise-note note-aqua">
+<div class="md-note md-fast">
 
 <p><strong>同一个 Promise 可以被多次 then</strong></p>
 <p>状态确定后，所有注册过的回调<strong>都会</strong>被调用，且拿到的是同一个结果值。</p>
@@ -274,7 +275,7 @@ p<span class="token punctuation">.</span><span class="token function">then</span
     <span class="token parameter">reason</span> <span class="token operator">=></span> console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>reason<span class="token punctuation">)</span>
 <span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<div class="promise-note note-purple">
+<div class="md-note md-idea">
 
 <p><strong>更简单的做法：util.promisify</strong></p>
 <p>Node.js 内置的 <code>util.promisify</code> 可以把任何 <strong>错误优先（error-first）回调风格</strong>的函数一次性转成返回 Promise 的函数，无需手写包装。</p>
@@ -326,7 +327,7 @@ p<span class="token punctuation">.</span><span class="token function">then</span
 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>body</span><span class="token punctuation">></span></span>
 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>html</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<div class="promise-note note-green">
+<div class="md-note md-tip">
 
 <p><strong>别忘了错误处理</strong></p>
 <p><code>xhr</code> 的网络层错误会触发 <code>onerror</code>，上面的例子没有监听。生产环境中建议补上：</p>
@@ -401,7 +402,7 @@ console<span class="token punctuation">.</span><span class="token function">log<
 
 console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>p2<span class="token punctuation">)</span><span class="token punctuation">;</span>   <span class="token comment">// Promise &#123;&lt;rejected>: "sdalds"&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 
-<div class="promise-note note-red">
+<div class="md-note md-warn">
 
 <p><strong>务必处理 reject</strong></p>
 <p><code>Promise.reject</code> 产生的失败如果<strong>没有</strong>被 <code>catch</code> 处理，会在控制台抛出 <code>UnhandledPromiseRejection</code> 警告（Node.js 中甚至会直接终止进程）。任何 Promise 链的末尾都建议加上 <code>catch</code>。</p>
@@ -416,7 +417,7 @@ console<span class="token punctuation">.</span><span class="token function">log<
 
 console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>res<span class="token punctuation">)</span><span class="token punctuation">;</span>   <span class="token comment">// Promise &#123;&lt;fulfilled>: ["OK", "OK", "OK"]&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<div class="promise-note note-amber">
+<div class="md-note md-attention">
 
 <p><strong>快速失败（fail fast）</strong></p>
 <p><code>Promise.all</code> 是并行执行的，但只要其中一个 <code>reject</code>，整个 <code>all</code> 立刻 <code>reject</code>，<strong>其余 Promise 的结果会被丢弃</strong>（虽然它们的异步操作仍在继续）。</p>
@@ -424,7 +425,7 @@ console<span class="token punctuation">.</span><span class="token function">log<
 </div>
 
 <h3 id="6-5-Promise-race"><a href="#6-5-Promise-race" class="headerlink" title="6.5 Promise.race"></a>6.5 Promise.race</h3><p>返回一个新的 Promise，结果是<strong>第一个改变状态的 Promise</strong> 的结果（无论成功还是失败）。</p>
-<div class="promise-note note-cyan">
+<div class="md-note md-quote">
 
 <p><strong><code>Promise.all</code> vs <code>Promise.race</code></strong></p>
 <ul>
@@ -476,7 +477,7 @@ console<span class="token punctuation">.</span><span class="token function">log<
 
 console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>p<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<div class="promise-note note-purple">
+<div class="md-note md-idea">
 
 <p><strong><code>throw</code> 也会被捕获</strong></p>
 <p>执行器中 <code>throw</code> 出的异常会被 <code>new Promise</code> 内部用 <code>try...catch</code> 捕获，并自动转为失败状态——这正是自定义封装时必须处理的地方。</p>
@@ -497,27 +498,27 @@ p<span class="token punctuation">.</span><span class="token function">then</span
 <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <h3 id="7-3-then-的返回结果由回调函数决定"><a href="#7-3-then-的返回结果由回调函数决定" class="headerlink" title="7.3 then 的返回结果由回调函数决定"></a>7.3 then 的返回结果由回调函数决定</h3><p><code>then</code> 方法本身总是返回一个<strong>全新的 Promise</strong>，这个新 Promise 的状态和值，<strong>由指定的回调函数的执行结果决定</strong>：</p>
-<div class="promise-result">
+<div class="md-grid">
 
-<div class="result-item">
+<div>
 
 <p><strong>抛出异常</strong></p>
 <p>回调中 <code>throw</code> 或运行时出错 ⇒ 新 Promise 失败，值为抛出的异常。</p>
 </div>
 
-<div class="result-item">
+<div>
 
 <p><strong>返回非 Promise</strong></p>
 <p>回调返回一个普通值 ⇒ 新 Promise 成功，值为该返回值。</p>
 </div>
 
-<div class="result-item">
+<div>
 
 <p><strong>返回 Promise</strong></p>
 <p>回调返回一个 Promise ⇒ 新 Promise 的<strong>状态和结果完全由这个返回的 Promise 决定</strong>。</p>
 </div>
 
-<div class="result-item">
+<div>
 
 <p><strong>没有返回</strong></p>
 <p>回调没有返回值（即 <code>undefined</code>）⇒ 新 Promise 成功，值为 <code>undefined</code>。</p>
@@ -541,7 +542,7 @@ p<span class="token punctuation">.</span><span class="token function">then</span
     console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<div class="promise-note note-green">
+<div class="md-note md-tip">
 
 <p><strong>这正是链式调用的根基</strong></p>
 <p>因为 <code>then</code> 永远返回一个新 Promise，所以可以无限 <code>.then()</code> 下去。每一次的结果都会作为下一次的输入，形成一条清晰的数据管道：</p>
@@ -570,7 +571,7 @@ p<span class="token punctuation">.</span><span class="token function">then</span
     console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>reason<span class="token punctuation">)</span><span class="token punctuation">;</span>   <span class="token comment">// 前面任意环节出错，都会落到这里</span>
 <span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<div class="promise-note note-blue">
+<div class="md-note md-info">
 
 <p><strong>为什么能穿透</strong></p>
 <p>因为当某个 <code>then</code> 没有指定失败回调时，会用默认的失败回调 <code>reason =&gt; &#123; throw reason; &#125;</code> 把错误<strong>原样再抛出去</strong>，于是错误就被下一个 Promise 继承，一直传到遇到 <code>catch</code> 为止。</p>
@@ -734,7 +735,7 @@ p<span class="token punctuation">.</span><span class="token function">then</span
     <span class="token punctuation">&#125;</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<div class="promise-note note-amber">
+<div class="md-note md-attention">
 
 <p><strong>实现要点回顾</strong></p>
 <ul>
@@ -766,7 +767,7 @@ p<span class="token punctuation">.</span><span class="token function">then</span
 
 console<span class="token punctuation">.</span><span class="token function">log</span><span class="token punctuation">(</span>result<span class="token punctuation">)</span><span class="token punctuation">;</span>   <span class="token comment">// Promise &#123;&lt;rejected>: "ERROR"&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<div class="promise-note note-purple">
+<div class="md-note md-idea">
 
 <p><strong>也可以直接用 await 接住异常</strong></p>
 <p><code>async</code> 函数的返回值是 Promise，所以用 <code>.catch()</code> 或 <code>await</code> 配合 <code>try...catch</code> 都能处理失败。</p>
@@ -796,7 +797,7 @@ console<span class="token punctuation">.</span><span class="token function">log<
     <span class="token punctuation">&#125;</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<div class="promise-note note-aqua">
+<div class="md-note md-fast">
 
 <p><strong>await 会阻塞（仅阻塞 async 函数内部）</strong></p>
 <p><code>await</code> 会暂停当前 <code>async</code> 函数的执行，等待 Promise 落定后再继续。<strong>但它不会阻塞主线程</strong>，外面的同步代码照常运行。这也是它比同步阻塞写法优越的原因。</p>
@@ -811,7 +812,7 @@ console<span class="token punctuation">.</span><span class="token function">log<
 <span class="token comment">// ✅ 并发：总共耗时 ≈ 最慢的那个</span>
 <span class="token keyword">const</span> <span class="token punctuation">[</span>a<span class="token punctuation">,</span> b<span class="token punctuation">,</span> c<span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token keyword">await</span> Promise<span class="token punctuation">.</span><span class="token function">all</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token function">task1</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token function">task2</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token function">task3</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<div class="promise-note note-red">
+<div class="md-note md-warn">
 
 <p><strong>注意：不要在循环中直接 await</strong></p>
 <pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">// ❌ 串行，n 次请求叠加耗时</span>
@@ -863,39 +864,39 @@ fs.readFile("../res/1.html", "utf-8", (err, datastr1) => &#123;
 
 <span class="token function">mainFast</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<h2 id="10-实践要点"><a href="#10-实践要点" class="headerlink" title="10. 实践要点"></a>10. 实践要点</h2><div class="promise-checklist">
+<h2 id="10-实践要点"><a href="#10-实践要点" class="headerlink" title="10. 实践要点"></a>10. 实践要点</h2><div class="md-checklist">
 
-<div class="check-item">
+<div>
 
 <p><strong>每个 Promise 链都以 catch 收尾</strong></p>
 <p>未被捕获的 rejection 会变成 <code>UnhandledPromiseRejection</code>，在 Node.js 中甚至会让进程崩溃。</p>
 </div>
 
-<div class="check-item">
+<div>
 
 <p><strong>注意 return 的重要性</strong></p>
 <p><code>then</code> 回调里如果调用异步操作却**忘记 <code>return</code>**，外层链就等不到它，结果会丢失。</p>
 </div>
 
-<div class="check-item">
+<div>
 
 <p><strong>all vs allSettled 要分清</strong></p>
 <p>要求”缺一不可”用 <code>all</code>；只要全部跑完、允许部分失败用 <code>allSettled</code>。</p>
 </div>
 
-<div class="check-item">
+<div>
 
 <p><strong>用 race 做超时控制</strong></p>
 <p>网络请求务必加超时兜底，避免无限期挂起。</p>
 </div>
 
-<div class="check-item">
+<div>
 
 <p><strong>循环里别直接 await</strong></p>
 <p>需要并发时用 <code>Promise.all(arr.map(...))</code>，否则会退化成串行。</p>
 </div>
 
-<div class="check-item">
+<div>
 
 <p><strong>async 函数返回值永远是 Promise</strong></p>
 <p>即便 <code>return 1</code>，外面拿到的也是 <code>Promise &#123;&lt;fulfilled&gt;: 1&#125;</code>。</p>
@@ -977,472 +978,6 @@ fs.readFile("../res/1.html", "utf-8", (err, datastr1) => &#123;
 <p><strong>一句话总结</strong>：Promise 用”一个代表未来的值的对象”取代了层层嵌套的回调；而 <code>async</code>&#x2F;<code>await</code> 又把这个对象还原成了看起来像同步的代码——两者结合，才是现代 JavaScript 异步编程的标准写法。</p>
 </blockquote>
 <!-- 以下是本文专用的增强样式，仅作用于本页，不影响其他文章 -->
-
-<style>
-/* ===========================
-   Promise 笔记 · 增强样式
-   作用域：仅本文「五角星粉备忘记」通用
-   =========================== */
-
-/* --- 文章主容器统一样式基线 */
-article.post-content,
-article.page-content{
-    -webkit-font-smoothing: antialiased;
-    -moz-osx-font-smoothing: grayscale;
-    text-rendering: optimizeLegibility;
-}
-
-/* --- 保证长代码块换行不溢出 */
-article .highlight pre{
-    overflow-x: auto;
-    white-space: pre;
-}
-
-/* --- 页面正文行高与段落间距，提升长文阅读舒适度 */
-article.post-content p,
-article.page-content p{
-    line-height: 1.9;
-    margin-bottom: 1.1em;
-}
-
-/* --- 中文标点/英文混排优化 */
-article.post-content li,
-article.page-content li{
-    line-height: 1.9;
-    margin-bottom: .35em;
-}
-
-/* ===========================
-   1) 文章头部介绍卡片
-   =========================== */
-.promise-intro{
-    position: relative;
-    overflow: hidden;
-    margin: 0 0 2em;
-    padding: 1.8em 1.6em 1.4em;
-    border-radius: 12px;
-    border: 1px solid #e2ecf5;
-    background:
-        radial-gradient(900px 220px at 8% -30%, rgba(111,159,199,.14), transparent 70%),
-        radial-gradient(700px 220px at 100% 0%, rgba(242,157,175,.12), transparent 70%),
-        #fff;
-    box-shadow: 0 6px 22px rgba(60, 90, 130, .07);
-}
-
-/* 英雄标题：用 div 模拟，避免与页面标题重复、也不污染目录树 */
-.promise-hero{
-    margin: .1em 0 .7em;
-    font-weight: 800;
-    letter-spacing: 1px;
-    font-size: 2.1em;
-    line-height: 1.25;
-    text-align: center;
-    background: linear-gradient(100deg, #6f9fc7 0%, #9fcff7 42%, #f29daf 100%);
-    -webkit-background-clip: text;
-    background-clip: text;
-    -webkit-text-fill-color: transparent;
-    color: #6f9fc7; /* 不支持时的降级色 */
-}
-
-/* 标题下方的引导 blockquote */
-.promise-intro > blockquote{
-    margin: 0 0 1.3em !important;
-    padding: 1em 1.15em !important;
-    border-left: 0 !important;
-    border-radius: 10px;
-    background: linear-gradient(180deg, rgba(111,159,199,.10), rgba(111,159,199,.05));
-    box-shadow: inset 0 0 0 1px rgba(111,159,199,.16);
-    color: #4c5a68;
-    line-height: 1.95;
-}
-.promise-intro > blockquote p{ margin: 0 0 .45em }
-.promise-intro > blockquote p:last-child{ margin-bottom: 0 }
-
-/* 引导语 */
-.promise-lead{
-    margin: 0 0 1.35em;
-    padding: .85em 1.1em;
-    border-radius: 8px;
-    border-left: 4px solid #f29daf;
-    background: rgba(242,157,175,.09);
-    color: #7a5560;
-    font-size: .96em;
-    line-height: 1.9;
-}
-
-/* 介绍区内的代码块去掉左右边界，更像嵌入卡片 */
-.promise-intro .highlight{
-    margin: 0 0 1.1em;
-    border-radius: 9px;
-    overflow: hidden;
-    box-shadow: 0 2px 10px rgba(60,90,130,.08);
-}
-.promise-intro .highlight:last-child{ margin-bottom: .2em }
-.promise-intro .highlight pre{
-    margin: 0;
-    border: 0;
-    border-radius: 9px;
-}
-
-/* ===========================
-   2) 版本 / 特性标签（括号内）
-   =========================== */
-.kbd-wrap{
-    display: block;
-    margin: -1.2em 0 2.2em;
-    text-align: center;
-}
-
-.kbd-mini{
-    display: inline-block;
-    padding: .28em .85em;
-    border-radius: 999px;
-    border: 1px solid rgba(111,159,199,.28);
-    background: rgba(111,159,199,.10);
-    color: #5a7f9f;
-    font-size: .8em;
-    letter-spacing: .4px;
-    line-height: 1.7;
-    vertical-align: middle;
-    -webkit-user-select: none;
-    user-select: none;
-}
-
-/* ===========================
-   3) 状态卡片三连
-   =========================== */
-.promise-states{
-    display: flex;
-    flex-wrap: wrap;
-    gap: 1em;
-    margin: 1.6em 0 2em;
-}
-
-.promise-states .state-card{
-    flex: 1 1 13em;
-    min-width: 0;
-    padding: 1.15em 1.25em 1.25em;
-    border-radius: 11px;
-    border: 1px solid #e6eef6;
-    background: #fff;
-    box-shadow: 0 4px 16px rgba(60,90,130,.06);
-    transition: transform .22s ease, box-shadow .22s ease;
-}
-.promise-states .state-card:hover{
-    transform: translateY(-3px);
-    box-shadow: 0 10px 24px rgba(60,90,130,.13);
-}
-
-.promise-states .state-card h3{
-    margin: 0 0 .55em !important;
-    font-size: 1.06em !important;
-    font-weight: 700 !important;
-    letter-spacing: .3px;
-}
-/* 去掉主题给标题统一添加的 "#" 前缀 */
-.promise-states .state-card h3::before{
-    content: none !important;
-}
-.promise-states .state-card p{
-    margin: 0;
-    font-size: .93em;
-    line-height: 1.85;
-    color: #5d6a78;
-}
-
-/* 卡片内的加粗小标题，换色区分 */
-.promise-states .state-card strong{ font-weight: 700 }
-
-.promise-states .state-card.pending{
-    border-top: 3px solid #f0b429;
-    background: linear-gradient(180deg, rgba(240,180,41,.09), #fff 62%);
-}
-.promise-states .state-card.pending h3{ color: #b57d10 }
-.promise-states .state-card.pending strong{ color: #b57d10 }
-
-.promise-states .state-card.fulfilled{
-    border-top: 3px solid #34a853;
-    background: linear-gradient(180deg, rgba(52,168,83,.10), #fff 62%);
-}
-.promise-states .state-card.fulfilled h3{ color: #1f7a3d }
-.promise-states .state-card.fulfilled strong{ color: #1f7a3d }
-
-.promise-states .state-card.rejected{
-    border-top: 3px solid #ea4335;
-    background: linear-gradient(180deg, rgba(234,67,53,.10), #fff 62%);
-}
-.promise-states .state-card.rejected h3{ color: #c0342a }
-.promise-states .state-card.rejected strong{ color: #c0342a }
-
-/* ===========================
-   4) 通用彩色提示块（带图标）
-   =========================== */
-.promise-note{
-    position: relative;
-    margin: 1.7em 0;
-    padding: 1.15em 1.35em 1.15em 3.6em;
-    border-radius: 10px;
-    border-left: 5px solid #6f9fc7;
-    background: rgba(111,159,199,.075);
-    color: #4a5b6b;
-    line-height: 1.95;
-}
-
-.promise-note::before{
-    content: "\f05a";            /* fa-info-circle */
-    position: absolute;
-    top: 1.05em;
-    left: 1.25em;
-    font-family: "FontAwesome";
-    font-size: 1.15em;
-    line-height: 1;
-    opacity: .95;
-}
-
-.promise-note p{ margin: 0 0 .6em }
-.promise-note p:last-child{ margin-bottom: 0 }
-.promise-note > strong{
-    display: block;
-    margin-bottom: .35em;
-    font-size: 1.02em;
-    letter-spacing: .2px;
-}
-.promise-note ul,
-.promise-note ol{
-    margin: .5em 0 .2em 1.25em;
-    padding: 0;
-}
-.promise-note li{ margin-bottom: .3em }
-
-/* 提示块内嵌代码块去掉外框阴影，保持统一 */
-.promise-note .highlight{
-    margin: .9em 0 .2em;
-    border-radius: 8px;
-    overflow: hidden;
-}
-.promise-note .highlight pre{
-    margin: 0;
-    border: 0;
-    border-radius: 8px;
-}
-
-/* --- 配色变体 */
-.promise-note.note-blue{
-    border-left-color: #6f9fc7;
-    background: rgba(111,159,199,.08);
-}
-.promise-note.note-blue > strong{ color: #41719a }
-
-.promise-note.note-green{
-    border-left-color: #34a853;
-    background: rgba(52,168,83,.085);
-}
-.promise-note.note-green::before{ content: "\f00c"; font-size: 1em }  /* fa-check */
-.promise-note.note-green > strong{ color: #1f7a3d }
-
-.promise-note.note-red{
-    border-left-color: #ea4335;
-    background: rgba(234,67,53,.085);
-}
-.promise-note.note-red::before{ content: "\f071" }  /* fa-exclamation-triangle */
-.promise-note.note-red > strong{ color: #c0342a }
-
-.promise-note.note-amber{
-    border-left-color: #f0b429;
-    background: rgba(240,180,41,.10);
-}
-.promise-note.note-amber::before{ content: "\f0a4"; font-size: 1.05em }  /* fa-hand-o-right */
-.promise-note.note-amber > strong{ color: #a97c11 }
-
-.promise-note.note-purple{
-    border-left-color: #8b5cf6;
-    background: rgba(139,92,246,.085);
-}
-.promise-note.note-purple::before{ content: "\f0eb" }  /* fa-lightbulb-o */
-.promise-note.note-purple > strong{ color: #6b3fd4 }
-
-.promise-note.note-aqua{
-    border-left-color: #17a2b8;
-    background: rgba(23,162,184,.085);
-}
-.promise-note.note-aqua::before{ content: "\f0e7" }  /* fa-bolt */
-.promise-note.note-aqua > strong{ color: #117a8b }
-
-.promise-note.note-cyan{
-    border-left-color: #17a2b8;
-    background: rgba(23,162,184,.075);
-}
-.promise-note.note-cyan::before{ content: "\f0f6"; font-size: 1.02em }  /* fa-file-text-o */
-.promise-note.note-cyan > strong{ color: #117a8b }
-
-/* 提示块内部的小表格不留外边距 */
-.promise-note table{ margin: .6em 0 .1em }
-
-/* ===========================
-   5) then 返回结果的四宫格
-   =========================== */
-.promise-result{
-    display: flex;
-    flex-wrap: wrap;
-    gap: .9em;
-    margin: 1.6em 0 1.9em;
-}
-
-.promise-result .result-item{
-    flex: 1 1 14em;
-    min-width: 0;
-    padding: 1em 1.1em;
-    border-radius: 10px;
-    border: 1px solid #e6eef6;
-    border-left: 4px solid #6f9fc7;
-    background: linear-gradient(180deg, #fbfdff, #f5f9fc);
-    font-size: .93em;
-    line-height: 1.85;
-    color: #586674;
-    transition: border-left-color .22s, transform .22s, box-shadow .22s;
-}
-.promise-result .result-item:hover{
-    transform: translateY(-2px);
-    box-shadow: 0 8px 20px rgba(60,90,130,.10);
-}
-
-.promise-result .result-item strong{
-    display: block;
-    margin-bottom: .3em;
-    font-size: 1.02em;
-    color: #41719a;
-}
-
-.promise-result .result-item:nth-child(1){ border-left-color: #ea4335 }
-.promise-result .result-item:nth-child(1) strong{ color: #c0342a }
-.promise-result .result-item:nth-child(2){ border-left-color: #34a853 }
-.promise-result .result-item:nth-child(2) strong{ color: #1f7a3d }
-.promise-result .result-item:nth-child(3){ border-left-color: #8b5cf6 }
-.promise-result .result-item:nth-child(3) strong{ color: #6b3fd4 }
-.promise-result .result-item:nth-child(4){ border-left-color: #f0b429 }
-.promise-result .result-item:nth-child(4) strong{ color: #a97c11 }
-
-/* ===========================
-   6) 实践要点清单
-   =========================== */
-.promise-checklist{
-    display: flex;
-    flex-wrap: wrap;
-    gap: .9em;
-    margin: 1.6em 0 1.8em;
-}
-
-.promise-checklist .check-item{
-    position: relative;
-    flex: 1 1 16em;
-    min-width: 0;
-    padding: .95em 1.1em .95em 2.5em;
-    border-radius: 10px;
-    border: 1px solid #e6eef6;
-    background: linear-gradient(180deg, #fcfdff, #f4f8fb);
-    font-size: .93em;
-    line-height: 1.85;
-    color: #57646f;
-    transition: transform .22s, box-shadow .22s;
-}
-.promise-checklist .check-item:hover{
-    transform: translateY(-2px);
-    box-shadow: 0 8px 20px rgba(60,90,130,.10);
-}
-
-.promise-checklist .check-item::before{
-    content: "\f00c";            /* fa-check */
-    position: absolute;
-    top: 1em;
-    left: 1em;
-    color: #34a853;
-    font-family: "FontAwesome";
-    font-size: 1em;
-    line-height: 1;
-}
-
-.promise-checklist .check-item strong{
-    display: block;
-    margin-bottom: .25em;
-    font-size: 1.02em;
-    color: #3f5568;
-}
-
-/* 最后一节 API 表格：关键词用代码块样式自然呈现（无需额外处理） */
-
-/* ===========================
-   7) 夜间模式适配
-   =========================== */
-.dark-theme .promise-intro{
-    border-color: #3a3a3a;
-    background:
-        radial-gradient(900px 220px at 8% -30%, rgba(110,138,173,.22), transparent 70%),
-        radial-gradient(700px 220px at 100% 0%, rgba(242,157,175,.14), transparent 70%),
-        #272727;
-    box-shadow: 0 6px 22px rgba(0,0,0,.35);
-}
-.dark-theme .promise-intro > blockquote{
-    background: rgba(255,255,255,.06);
-    box-shadow: inset 0 0 0 1px rgba(255,255,255,.07);
-    color: #c8c8c8;
-}
-.dark-theme .promise-lead{
-    background: rgba(242,157,175,.12);
-    color: #dcc3cb;
-}
-.dark-theme .kbd-mini{
-    border-color: rgba(159,207,247,.28);
-    background: rgba(159,207,247,.12);
-    color: #a9c6de;
-}
-.dark-theme .promise-states .state-card{
-    border-color: #3a3a3a;
-    background: #2a2a2a;
-    box-shadow: 0 4px 16px rgba(0,0,0,.32);
-}
-.dark-theme .promise-states .state-card.pending{
-    background: linear-gradient(180deg, rgba(240,180,41,.14), #2a2a2a 62%);
-}
-.dark-theme .promise-states .state-card.fulfilled{
-    background: linear-gradient(180deg, rgba(52,168,83,.14), #2a2a2a 62%);
-}
-.dark-theme .promise-states .state-card.rejected{
-    background: linear-gradient(180deg, rgba(234,67,53,.14), #2a2a2a 62%);
-}
-.dark-theme .promise-states .state-card p{ color: #b6b6b6 }
-.dark-theme .promise-note{
-    color: #b9b9b9;
-    background: rgba(255,255,255,.05);
-}
-.dark-theme .promise-note > strong{ filter: brightness(1.25) }
-.dark-theme .promise-result .result-item,
-.dark-theme .promise-checklist .check-item{
-    border-color: #3a3a3a;
-    background: #2a2a2a;
-    color: #b6b6b6;
-}
-.dark-theme .promise-result .result-item strong,
-.dark-theme .promise-checklist .check-item strong{ filter: brightness(1.22) }
-
-/* ===========================
-   8) 移动端适配
-   =========================== */
-@media screen and (max-width: 599px){
-    .promise-intro{
-        margin: 0 -.35em 1.6em;
-        padding: 1.35em 1.1em 1.1em;
-    }
-    .promise-intro > h1:first-child{ font-size: 1.5em }
-    .promise-note{
-        padding: 1em 1em 1em 2.9em;
-    }
-    .promise-note::before{ left: .95em }
-    .promise-states{ gap: .75em }
-    .promise-states .state-card{ flex: 1 1 100% }
-    .promise-result .result-item{ flex: 1 1 100% }
-    .promise-checklist .check-item{ flex: 1 1 100% }
-}
-</style>
 
         </article>
         <section class="post-near">

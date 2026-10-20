@@ -9,6 +9,7 @@
     
 <link rel="stylesheet" href="/static/kico.css">
 <link rel="stylesheet" href="/static/hingle.css">
+<link rel="stylesheet" href="/static/md-enhance.css">
 
     
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -54,6 +55,8 @@
             <h2>Nginx</h2>
             <div class="post-meta">
                 
+                    <time class="updated" datetime="2026-10-20T12:01:01.455Z" title="最后更新于 2026-10-20 20:01" aria-label="最后更新于 2026-10-20 20:01">2026.10.20</time>
+                
                 <time class="date">2026.06.03</time>
             
                 <span class="category"><a class="category-link" href="/categories/%E8%BF%90%E7%BB%B4/">运维</a></span>
@@ -61,7 +64,15 @@
             </div>
         </section>
         <article class="post-content">
-            <p>nginx is an HTTP and reverse proxy server, a mail proxy server, and a generic<br>TCP/UDP proxy server, originally written by Igor Sysoev.</p>
+            <div class="md-intro">
+
+<div class="md-hero">Nginx</div>
+<blockquote>
+<p>nginx is an HTTP and reverse proxy server, a mail proxy server, and a generic TCP\/UDP proxy server, originally written by Igor Sysoev.</p>
+</blockquote>
+
+</div>
+
 <h1 id="Nginx"><a href="#Nginx" class="headerlink" title="Nginx"></a>Nginx</h1><h2 id="1-Nginx功能特性"><a href="#1-Nginx功能特性" class="headerlink" title="1.Nginx功能特性"></a>1.Nginx功能特性</h2><h3 id="1-1-Nginx常用的功能模块"><a href="#1-1-Nginx常用的功能模块" class="headerlink" title="1.1.Nginx常用的功能模块"></a>1.1.Nginx常用的功能模块</h3><blockquote>
 <p>静态资源的部署</p>
 <p>Rewrite地址重写</p>
@@ -530,9 +541,12 @@ local&#x2F;nginx&#x2F;conf&#x2F;nginx.conf test failed<span aria-hidden="true" c
 <td>events</td>
 </tr>
 </tbody></table>
-<blockquote>
+<div class="md-note md-tip">
+
 <p>建议开启on</p>
-</blockquote>
+</div>
+
+
 <p>(3)worker connections:用来配置单个worker进程最大的连接数</p>
 <table>
 <thead>
@@ -1301,11 +1315,12 @@ gzip_proxied off;   <span aria-hidden="true" class="line-numbers-rows"><span></s
 <td>http、server、location</td>
 </tr>
 </tbody></table>
-<blockquote>
-<p>报错</p>
-<p>nginx: [emerg] unknown directive “gzip_static” in &#x2F;usr&#x2F;local&#x2F;nginx&#x2F;conf&#x2F;nginx.conf:33</p>
-<p>nginx: configuration file &#x2F;usr&#x2F;local&#x2F;nginx&#x2F;conf&#x2F;nginx.conf test failed</p>
-</blockquote>
+<div class="md-note md-warn">
+
+<p>报错<br>nginx: [emerg] unknown directive “gzip_static” in &#x2F;usr&#x2F;local&#x2F;nginx&#x2F;conf&#x2F;nginx.conf:33<br>nginx: configuration file &#x2F;usr&#x2F;local&#x2F;nginx&#x2F;conf&#x2F;nginx.conf test failed</p>
+</div>
+
+
 <blockquote>
 <p>添加模块到Nginx</p>
 </blockquote>
@@ -2278,9 +2293,12 @@ openssl x509 -req -days 365 -in server.csr -signkey server.key
 <p>实际使用模式</p>
 <p>四层（LVS）+七层（Nginx）</p>
 </blockquote>
-<h3 id="11-3Nginx七层负载均衡"><a href="#11-3Nginx七层负载均衡" class="headerlink" title="11.3Nginx七层负载均衡"></a>11.3Nginx七层负载均衡</h3><h4 id="11-3-1upstream"><a href="#11-3-1upstream" class="headerlink" title="11.3.1upstream"></a>11.3.1upstream</h4><blockquote>
+<h3 id="11-3Nginx七层负载均衡"><a href="#11-3Nginx七层负载均衡" class="headerlink" title="11.3Nginx七层负载均衡"></a>11.3Nginx七层负载均衡</h3><h4 id="11-3-1upstream"><a href="#11-3-1upstream" class="headerlink" title="11.3.1upstream"></a>11.3.1upstream</h4><div class="md-note md-info">
+
 <p>定义一组服务器，监听不同端口的服务器</p>
-</blockquote>
+</div>
+
+
 <table>
 <thead>
 <tr>
@@ -2474,11 +2492,12 @@ make[1]: 离开目录“&#x2F;root&#x2F;nginx&#x2F;core&#x2F;nginx-1.26.1”
 make: *** [Makefile:10：build] 错误 2
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<blockquote>
-<p>报错解决方案</p>
-<p>cd nginx目录&#x2F;src&#x2F;http</p>
-<p>vim ngx_http_upstream.h</p>
-</blockquote>
+<div class="md-note md-warn">
+
+<p>报错解决方案<br>cd nginx目录&#x2F;src&#x2F;http<br>vim ngx_http_upstream.h</p>
+</div>
+
+
 <pre class="line-numbers language-none"><code class="language-none">struct ngx_http_upstream_srv_conf_s &#123;
     ngx_http_upstream_peer_t         peer;
     void                           **srv_conf;

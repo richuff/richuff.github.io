@@ -9,6 +9,7 @@
     
 <link rel="stylesheet" href="/static/kico.css">
 <link rel="stylesheet" href="/static/hingle.css">
+<link rel="stylesheet" href="/static/md-enhance.css">
 
     
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -54,6 +55,8 @@
             <h2>Java Web</h2>
             <div class="post-meta">
                 
+                    <time class="updated" datetime="2026-10-20T12:01:01.439Z" title="最后更新于 2026-10-20 20:01" aria-label="最后更新于 2026-10-20 20:01">2026.10.20</time>
+                
                 <time class="date">2026.06.03</time>
             
                 <span class="category"><a class="category-link" href="/categories/Java/">Java</a></span>
@@ -61,7 +64,15 @@
             </div>
         </section>
         <article class="post-content">
-            <p>java web 是指由Java语言开发出来可以在万维网上访问浏览的程序。web通过一系列的通信实现与java的交互，java是你的后台，进行逻辑处理，中间层进行数据的交互，web显示给用户来看。</p>
+            <div class="md-intro">
+
+<div class="md-hero">Java Web</div>
+<blockquote>
+<p>java web 是指由Java语言开发出来可以在万维网上访问浏览的程序。web通过一系列的通信实现与java的交互，java是你的后台，进行逻辑处理，中间层进行数据的交互，web显示给用户来看。</p>
+</blockquote>
+
+</div>
+
 <h2 id="1-Maven"><a href="#1-Maven" class="headerlink" title="1.Maven"></a>1.Maven</h2><h3 id="1-安装"><a href="#1-安装" class="headerlink" title="1.安装"></a>1.安装</h3><p>1.下载</p>
 <p><a target="_blank" rel="noopener" href="https://maven.apache.org/download.cgi">Maven – Download Apache Maven</a></p>
 <p>2.解压，配置仓库目录</p>
@@ -440,11 +451,12 @@
 <td>标注在数据访问类上（由于与mybatis整合，用的少)</td>
 </tr>
 </tbody></table>
-<blockquote>
-<p>注意事项</p>
-<p>声明bean的时候，可以通过value属性指定bean的名字，如果没有指定，默认为类名首字母小写</p>
-<p>使用以上四个注解都可以声明bean，但是在springboot集成web开发中，声明控制器bean只能用@Controller</p>
-</blockquote>
+<div class="md-note md-warn">
+
+<p>注意事项<br>声明bean的时候，可以通过value属性指定bean的名字，如果没有指定，默认为类名首字母小写<br>使用以上四个注解都可以声明bean，但是在springboot集成web开发中，声明控制器bean只能用@Controller</p>
+</div>
+
+
 <h3 id="4-Bean注入"><a href="#4-Bean注入" class="headerlink" title="4.Bean注入"></a>4.Bean注入</h3><blockquote>
 <p>@Autowired 注解，默认是按照类型进行，如果存在多个相同类型的bean，将会报出如下错误</p>
 </blockquote>
@@ -816,10 +828,12 @@ createTime<span class="token punctuation">,</span> update_time updateTime from e
 <p>服务器会接收很多的请求，但是服务器是需要识别出这些请求是不是同一个浏览器发出来的。比如：1和2这两个请求是不是同一个浏览器发出来的，3和5这两个请求不是同一个浏览器发出来的。如果是同一个浏览器发出来的，就说明是同一个会话。如果是不同的浏览器发出来的，就说明是不同的会话。而识别多次请求是否来自于同一浏览器的过程，我们就称为会话跟踪。</p>
 </blockquote>
 <p>我们使用会话跟踪技术就是要完成在同一个会话中，多个请求之间进行共享数据。</p>
-<blockquote>
-<p>为什么要共享数据呢？</p>
-<p>由于HTTP是无状态协议，在后面请求中怎么拿到前一次请求生成的数据呢？此时就需要在一次会话的多次请求之间进行数据共享</p>
-</blockquote>
+<div class="md-note md-idea">
+
+<p>为什么要共享数据呢？<br>由于HTTP是无状态协议，在后面请求中怎么拿到前一次请求生成的数据呢？此时就需要在一次会话的多次请求之间进行数据共享</p>
+</div>
+
+
 <p>会话跟踪技术有两种：</p>
 <ol>
 <li>Cookie（客户端会话跟踪技术）<ul>
@@ -1382,11 +1396,12 @@ http://192.168.150.200/login.html ----------&gt; http://192.168.150.200/login   
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>重新启动服务，打开浏览器，执行部门管理的请求，可以看到控制台输出了过滤器中的内容：</p>
-<blockquote>
-<p>注意事项：</p>
-<pre><code>在过滤器Filter中，如果不执行放行操作，将无法访问后面的资源。 放行操作：chain.doFilter(request, response);
-</code></pre>
-</blockquote>
+<div class="md-note md-warn">
+
+<p>注意事项：<br>    在过滤器Filter中，如果不执行放行操作，将无法访问后面的资源。 放行操作：chain.doFilter(request, response);</p>
+</div>
+
+
 <p>现在我们已完成了Filter过滤器的基本使用，下面我们将学习Filter过滤器在使用过程中的一些细节。</p>
 <h4 id="2-Filter详解"><a href="#2-Filter详解" class="headerlink" title="2.Filter详解"></a>2.Filter详解</h4><h5 id="1-过滤器使用细节"><a href="#1-过滤器使用细节" class="headerlink" title="1.过滤器使用细节"></a>1.过滤器使用细节</h5><p>过滤器Filter在使用中的一些细节。主要介绍以下3个方面的细节：</p>
 <ol>
@@ -1813,15 +1828,14 @@ http://192.168.150.200/login.html ----------&gt; http://192.168.150.200/login   
     <span class="token punctuation">&#125;</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<blockquote>
-<p>注意：</p>
-<pre><code>preHandle方法：目标资源方法执行前执行。 返回true：放行    返回false：不放行
-                                                            
-postHandle方法：目标资源方法执行后执行
-                                                            
-afterCompletion方法：视图渲染完毕后执行，最后执行
-</code></pre>
-</blockquote>
+<div class="md-note md-warn">
+
+<p>注意：<br>    preHandle方法：目标资源方法执行前执行。 返回true：放行    返回false：不放行<br>    postHandle方法：目标资源方法执行后执行<br>    afterCompletion方法：视图渲染完毕后执行，最后执行</p>
+</div>
+
+
+
+
 <p><strong>注册配置拦截器</strong>：实现WebMvcConfigurer接口，并重写addInterceptors方法</p>
 <pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@Configuration</span>  
 <span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">WebConfig</span> <span class="token keyword">implements</span> <span class="token class-name">WebMvcConfigurer</span> <span class="token punctuation">&#123;</span>
@@ -3642,7 +3656,8 @@ com.richu.Case.controller.DeptController@29d2fa84<span aria-hidden="true" class=
 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">></span></span>1.0-SNAPSHOT<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>这里是以 tlias-utils 为例，指定了其父工程。其他的模块，都是相同的配置方式。</p>
-<blockquote>
+<div class="md-note md-warn">
+
 <p>注意：</p>
 <ul>
 <li>在子工程中，配置了继承关系之后，坐标中的groupId是可以省略的，因为会自动继承父工程的 。</li>
@@ -3651,7 +3666,9 @@ com.richu.Case.controller.DeptController@29d2fa84<span aria-hidden="true" class=
 </ul>
 </li>
 </ul>
-</blockquote>
+</div>
+
+
 <p>3). 在父工程中配置各个工程共有的依赖（子工程会自动继承父工程的依赖）。</p>
 <pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependencies</span><span class="token punctuation">></span></span>
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
@@ -3702,15 +3719,16 @@ com.richu.Case.controller.DeptController@29d2fa84<span aria-hidden="true" class=
     <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span>
 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependencies</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<blockquote>
+<div class="md-note md-warn">
+
 <p>注意：</p>
 <ul>
-<li><p>在父工程中所配置的 <code>&lt;dependencyManagement&gt;</code> 只能统一管理依赖版本，并不会将这个依赖直接引入进来。 这点和 <code>&lt;dependencies&gt;</code> 是不同的。</p>
-</li>
-<li><p>子工程要使用这个依赖，还是需要引入的，只是此时就无需指定 <code>&lt;version&gt;</code> 版本号了，父工程统一管理。变更依赖版本，只需在父工程中统一变更。</p>
-</li>
+<li>在父工程中所配置的 <code>&lt;dependencyManagement&gt;</code> 只能统一管理依赖版本，并不会将这个依赖直接引入进来。 这点和 <code>&lt;dependencies&gt;</code> 是不同的。</li>
+<li>子工程要使用这个依赖，还是需要引入的，只是此时就无需指定 <code>&lt;version&gt;</code> 版本号了，父工程统一管理。变更依赖版本，只需在父工程中统一变更。</li>
 </ul>
-</blockquote>
+</div>
+
+
 <h4 id="3-实现"><a href="#3-实现" class="headerlink" title="3.实现"></a>3.实现</h4><p>接下来，我们就可以将tlias-utils模块中单独配置的依赖，将其版本统一交给 tlias-parent 进行统一管理。</p>
 <p>具体步骤如下：</p>
 <p>1). tlias-parent 中的配置</p>

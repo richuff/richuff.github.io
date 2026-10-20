@@ -9,6 +9,7 @@
     
 <link rel="stylesheet" href="/static/kico.css">
 <link rel="stylesheet" href="/static/hingle.css">
+<link rel="stylesheet" href="/static/md-enhance.css">
 
     
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -54,7 +55,7 @@
             <h2>Flutter</h2>
             <div class="post-meta">
                 
-                    <time class="updated" datetime="2025-04-01T07:41:39.751Z" title="最后更新于 2025-04-01 15:41" aria-label="最后更新于 2025-04-01 15:41">2025.04.01</time>
+                    <time class="updated" datetime="2026-10-20T12:01:01.430Z" title="最后更新于 2026-10-20 20:01" aria-label="最后更新于 2026-10-20 20:01">2026.10.20</time>
                 
                 <time class="date">2024.10.30</time>
             
@@ -63,7 +64,13 @@
             </div>
         </section>
         <article class="post-content">
-            <p>Flutter 是一个跨平台的 UI 工具集，它的设计初衷，就是允许在各种操作系统上复用同样的代码，例如 iOS 和 Android，同时让应用程序可以直接与底层平台服务进行交互。如此设计是为了让开发者能够在不同的平台上，都能交付拥有原生体验的高性能应用，尽可能地共享复用代码的同时，包容不同平台的差异。</p>
+            <div class="md-intro">
+
+<div class="md-hero">Flutter</div>
+
+</div>
+
+<p>Flutter 是一个跨平台的 UI 工具集，它的设计初衷，就是允许在各种操作系统上复用同样的代码，例如 iOS 和 Android，同时让应用程序可以直接与底层平台服务进行交互。如此设计是为了让开发者能够在不同的平台上，都能交付拥有原生体验的高性能应用，尽可能地共享复用代码的同时，包容不同平台的差异。</p>
 <h2 id="1-Dart"><a href="#1-Dart" class="headerlink" title="1.Dart"></a>1.Dart</h2><h3 id="1-基础"><a href="#1-基础" class="headerlink" title="1.基础"></a>1.基础</h3><h4 id="1-1入口方法"><a href="#1-1入口方法" class="headerlink" title="1.1入口方法"></a>1.1入口方法</h4><blockquote>
 <p><code>main.dart</code></p>
 </blockquote>
@@ -3651,9 +3658,12 @@ defaultTransition<span class="token punctuation">:</span> <span class="token cla
 </blockquote>
 <pre class="line-numbers language-dart" data-language="dart"><code class="language-dart"><span class="token class-name">Get</span><span class="token punctuation">.</span>arguments<span class="token punctuation">[</span><span class="token string-literal"><span class="token string">"title"</span></span><span class="token punctuation">]</span><span class="token punctuation">,</span> child<span class="token punctuation">:</span> <span class="token class-name">Text</span><span class="token punctuation">(</span><span class="token class-name">Get</span><span class="token punctuation">.</span>arguments<span class="token punctuation">[</span><span class="token string-literal"><span class="token string">"title"</span></span><span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
-<h4 id="6-中间件"><a href="#6-中间件" class="headerlink" title="6.中间件"></a>6.中间件</h4><blockquote>
+<h4 id="6-中间件"><a href="#6-中间件" class="headerlink" title="6.中间件"></a>6.中间件</h4><div class="md-note md-info">
+
 <p>定义中间件</p>
-</blockquote>
+</div>
+
+
 <pre class="line-numbers language-dart" data-language="dart"><code class="language-dart"><span class="token keyword">class</span> <span class="token class-name">ShopMiddleware</span> <span class="token keyword">extends</span> <span class="token class-name">GetMiddleware</span><span class="token punctuation">&#123;</span>
   <span class="token class-name">RouteSettings</span><span class="token operator">?</span> <span class="token function">redirect</span><span class="token punctuation">(</span><span class="token class-name">String</span><span class="token operator">?</span> route<span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
       <span class="token comment">//return null 默认不做操作</span>
@@ -3690,9 +3700,12 @@ defaultTransition<span class="token punctuation">:</span> <span class="token cla
   <span class="token punctuation">&#125;</span>
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<h3 id="2-状态管理"><a href="#2-状态管理" class="headerlink" title="2.状态管理"></a>2.状态管理</h3><blockquote>
+<h3 id="2-状态管理"><a href="#2-状态管理" class="headerlink" title="2.状态管理"></a>2.状态管理</h3><div class="md-note md-info">
+
 <p>定义一个响应式变量</p>
-</blockquote>
+</div>
+
+
 <pre class="line-numbers language-dart" data-language="dart"><code class="language-dart"><span class="token class-name">RxInt</span> _counter <span class="token operator">=</span> <span class="token number">0.</span>obs<span class="token punctuation">;</span>
 <span class="token class-name">RxString</span> _name <span class="token operator">=</span> <span class="token string-literal"><span class="token string">""</span></span><span class="token punctuation">.</span>obs<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
@@ -3702,9 +3715,12 @@ defaultTransition<span class="token punctuation">:</span> <span class="token cla
 <pre class="line-numbers language-dart" data-language="dart"><code class="language-dart">children<span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token class-name">Obx</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">=</span><span class="token operator">></span><span class="token class-name">Text</span><span class="token punctuation">(</span><span class="token string-literal"><span class="token string">"</span><span class="token interpolation"><span class="token punctuation">$</span><span class="token expression">_counter</span></span><span class="token string">.value"</span></span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
 <span class="token class-name">Obx</span><span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">=</span><span class="token operator">></span><span class="token class-name">Text</span><span class="token punctuation">(</span>_name<span class="token punctuation">.</span>value<span class="token punctuation">)</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
-<blockquote>
+<div class="md-note md-info">
+
 <p>定义响应式变量的方法</p>
-</blockquote>
+</div>
+
+
 <pre class="line-numbers language-dart" data-language="dart"><code class="language-dart"><span class="token class-name">Rx</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">String</span><span class="token punctuation">></span></span> _test1 <span class="token operator">=</span> <span class="token class-name">Rx</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">String</span><span class="token punctuation">></span></span><span class="token punctuation">(</span><span class="token string-literal"><span class="token string">"test"</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 <span class="token class-name">RxString</span> _test2 <span class="token operator">=</span> <span class="token class-name">RxString</span><span class="token punctuation">(</span><span class="token string-literal"><span class="token string">"test"</span></span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
@@ -3865,9 +3881,12 @@ defaultTransition<span class="token punctuation">:</span> <span class="token cla
 <span class="token punctuation">)</span><span class="token punctuation">,</span>
 <span class="token class-name">ElevatedButton</span><span class="token punctuation">(</span>onPressed<span class="token punctuation">:</span> <span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span><span class="token punctuation">,</span> child<span class="token punctuation">:</span> <span class="token keyword">const</span> <span class="token class-name">Text</span><span class="token punctuation">(</span><span class="token string-literal"><span class="token string">"切换到英文"</span></span><span class="token punctuation">)</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<blockquote>
+<div class="md-note md-info">
+
 <p>定义语言</p>
-</blockquote>
+</div>
+
+
 <pre class="line-numbers language-dart" data-language="dart"><code class="language-dart"><span class="token keyword">import</span> <span class="token string-literal"><span class="token string">'package:get/get.dart'</span></span><span class="token punctuation">;</span>
 
 <span class="token keyword">class</span> <span class="token class-name">Message</span> <span class="token keyword">extends</span> <span class="token class-name">Translations</span> <span class="token punctuation">&#123;</span>

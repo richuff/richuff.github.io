@@ -9,6 +9,7 @@
     
 <link rel="stylesheet" href="/static/kico.css">
 <link rel="stylesheet" href="/static/hingle.css">
+<link rel="stylesheet" href="/static/md-enhance.css">
 
     
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -54,7 +55,7 @@
             <h2>Kotlin</h2>
             <div class="post-meta">
                 
-                    <time class="updated" datetime="2025-03-01T07:03:10.004Z" title="最后更新于 2025-03-01 15:03" aria-label="最后更新于 2025-03-01 15:03">2025.03.01</time>
+                    <time class="updated" datetime="2026-10-20T12:01:01.446Z" title="最后更新于 2026-10-20 20:01" aria-label="最后更新于 2026-10-20 20:01">2026.10.20</time>
                 
                 <time class="date">2024.12.02</time>
             
@@ -63,7 +64,14 @@
             </div>
         </section>
         <article class="post-content">
-            <p>Kotlin 是一门现代但已成熟的编程语言，旨在让开发人员更幸福快乐。 它简洁、安全、可与 Java 及其他语言互操作，并提供了多种方式在多个平台间复用代码，以实现高效编程。Kotlin 是一种在 Java 虚拟机上运行的静态类型编程语言，被称之为 Android 世界的Swift，由 JetBrains 设计开发并开源。<br>Kotlin 可以编译成Java字节码，也可以编译成 JavaScript，方便在没有 JVM 的设备上运行。<br>在Google I&#x2F;O 2017中，Google 宣布 Kotlin 成为 Android 官方开发语言。</p>
+            <div class="md-intro">
+
+<div class="md-hero">Kotlin</div>
+
+</div>
+
+
+<p>Kotlin 是一门现代但已成熟的编程语言，旨在让开发人员更幸福快乐。 它简洁、安全、可与 Java 及其他语言互操作，并提供了多种方式在多个平台间复用代码，以实现高效编程。Kotlin 是一种在 Java 虚拟机上运行的静态类型编程语言，被称之为 Android 世界的Swift，由 JetBrains 设计开发并开源。<br>Kotlin 可以编译成Java字节码，也可以编译成 JavaScript，方便在没有 JVM 的设备上运行。<br>在Google I&#x2F;O 2017中，Google 宣布 Kotlin 成为 Android 官方开发语言。</p>
 <h2 id="1-内置数据类型"><a href="#1-内置数据类型" class="headerlink" title="1.内置数据类型"></a>1.内置数据类型</h2><h3 id="1-基本类型"><a href="#1-基本类型" class="headerlink" title="1.基本类型"></a>1.基本类型</h3><blockquote>
 <p>String 字符串</p>
 <p>Char 字符</p>
@@ -221,9 +229,12 @@ fun main&#123;
 </blockquote>
 <pre class="line-numbers language-kotlin" data-language="kotlin"><code class="language-kotlin"><span class="token keyword">fun</span> <span class="token function">test2</span><span class="token punctuation">(</span>a<span class="token operator">:</span>Int<span class="token punctuation">,</span>b<span class="token operator">:</span>Int<span class="token punctuation">)</span> <span class="token operator">=</span> a<span class="token operator">+</span>b<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
-<blockquote>
+<div class="md-note md-quote">
+
 <p>引用函数</p>
-</blockquote>
+</div>
+
+
 <pre class="line-numbers language-kotlin" data-language="kotlin"><code class="language-kotlin"> <span class="token keyword">fun</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
   <span class="token keyword">val</span> test2 <span class="token operator">=</span> <span class="token operator">::</span>test1
     <span class="token function">test2</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
@@ -969,9 +980,12 @@ s1<span class="token punctuation">.</span>name <span class="token operator">=</s
 <pre class="line-numbers language-kotlin" data-language="kotlin"><code class="language-kotlin">array2<span class="token punctuation">.</span><span class="token function">contains</span><span class="token punctuation">(</span><span class="token string-literal singleline"><span class="token string">"1234"</span></span><span class="token punctuation">)</span>
 <span class="token string-literal singleline"><span class="token string">"1234"</span></span> <span class="token keyword">in</span> array2<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
 
-<blockquote>
+<div class="md-note md-fast">
+
 <p>快速查找元素在哪一位置</p>
-</blockquote>
+</div>
+
+
 <pre class="line-numbers language-kotlin" data-language="kotlin"><code class="language-kotlin">array2<span class="token punctuation">.</span><span class="token function">indexOf</span><span class="token punctuation">(</span><span class="token string-literal singleline"><span class="token string">"1234"</span></span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <blockquote>
@@ -1195,9 +1209,12 @@ list1<span class="token punctuation">.</span><span class="token function">filter
 <span class="token punctuation">&#125;</span><span class="token punctuation">.</span><span class="token function">take</span><span class="token punctuation">(</span><span class="token number">2</span><span class="token punctuation">)</span>
 <span class="token function">println</span><span class="token punctuation">(</span>result<span class="token punctuation">.</span><span class="token function">joinToString</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<h2 id="11-特殊的类型"><a href="#11-特殊的类型" class="headerlink" title="11.特殊的类型"></a>11.特殊的类型</h2><h3 id="1-数据类型"><a href="#1-数据类型" class="headerlink" title="1.数据类型"></a>1.数据类型</h3><blockquote>
+<h2 id="11-特殊的类型"><a href="#11-特殊的类型" class="headerlink" title="11.特殊的类型"></a>11.特殊的类型</h2><h3 id="1-数据类型"><a href="#1-数据类型" class="headerlink" title="1.数据类型"></a>1.数据类型</h3><div class="md-note md-idea">
+
 <p>本质是class</p>
-</blockquote>
+</div>
+
+
 <pre class="line-numbers language-kotlin" data-language="kotlin"><code class="language-kotlin"><span class="token keyword">data</span> <span class="token keyword">class</span> <span class="token function">Data</span><span class="token punctuation">(</span><span class="token keyword">val</span> name<span class="token operator">:</span>String<span class="token punctuation">,</span><span class="token keyword">val</span> age<span class="token operator">:</span>Int<span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
     
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
@@ -1244,9 +1261,12 @@ list1<span class="token punctuation">.</span><span class="token function">filter
     <span class="token keyword">fun</span> <span class="token function">isERR</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">=</span> <span class="token keyword">this</span> <span class="token operator">==</span> ERR
 <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<blockquote>
+<div class="md-note md-info">
+
 <p>定义成员变量</p>
-</blockquote>
+</div>
+
+
 <pre class="line-numbers language-kotlin" data-language="kotlin"><code class="language-kotlin"><span class="token keyword">fun</span> <span class="token function">main</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
     <span class="token function">println</span><span class="token punctuation">(</span>status<span class="token punctuation">.</span>state<span class="token punctuation">)</span>
 <span class="token punctuation">&#125;</span>

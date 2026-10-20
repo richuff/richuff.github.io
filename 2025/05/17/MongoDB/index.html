@@ -9,6 +9,7 @@
     
 <link rel="stylesheet" href="/static/kico.css">
 <link rel="stylesheet" href="/static/hingle.css">
+<link rel="stylesheet" href="/static/md-enhance.css">
 
     
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -54,6 +55,8 @@
             <h2>MongoDB</h2>
             <div class="post-meta">
                 
+                    <time class="updated" datetime="2026-10-20T12:01:01.448Z" title="最后更新于 2026-10-20 20:01" aria-label="最后更新于 2026-10-20 20:01">2026.10.20</time>
+                
                 <time class="date">2025.05.17</time>
             
                 <span class="category"><a class="category-link" href="/categories/Java/">Java</a></span>
@@ -61,7 +64,16 @@
             </div>
         </section>
         <article class="post-content">
-            <p>MongoDB是一个流行的开源文档型数据库，它使用类似 JSON 的文档模型存储数据，这使得数据存储变得非常灵活。<br>MongoDB 是一个基于文档的 NoSQL 数据库，由 MongoDB Inc. 开发。<br>MongoDB 旨在为 WEB 应用提供可扩展的高性能数据存储解决方案。<br>MongoDB 是一个介于关系数据库和非关系数据库之间的产品，是非关系数据库当中功能最丰富，最像关系数据库的。</p>
+            <div class="md-intro">
+
+<div class="md-hero">MongoDB</div>
+<blockquote>
+<p>MongoDB是一个流行的开源文档型数据库，它使用类似 JSON 的文档模型存储数据，这使得数据存储变得非常灵活。 MongoDB 是一个基于文档的 NoSQL 数据库，由 MongoDB Inc. 开发。 MongoDB 旨在为 WEB 应用提供可扩展的高性能数据存储解决方案。 MongoDB 是一个介于关系数据库和非关系数据库之间的产品，是非关系数据库当中功能最丰富，最像关系数据库的。</p>
+</blockquote>
+
+</div>
+
+
 <h2 id="1-业务应用场景"><a href="#1-业务应用场景" class="headerlink" title="1.业务应用场景"></a>1.业务应用场景</h2><blockquote>
 <p>解决三高需求</p>
 <ul>
@@ -633,11 +645,12 @@ db.collection.update(&#123;_id:&quot;67121a9cb63f7427aa0306b5&quot;&#125;, &#123
 <span class="token punctuation">&#125;</span>
 <span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<blockquote>
-<p>注意:</p>
-<p>​	@Document(collection &#x3D; “comment”)  写collection不要写collation 不然可能会报如下的错误</p>
-<p><code>org.springframework.data.mongodb.UncategorizedMongoDbException: Command failed with error 2 (BadValue): &#39;Field &#39;locale&#39; is invalid in: &#123; locale: &quot;comment&quot; &#125;&#39; on server 127.0.0.1:27017. The full response is &#123;&quot;ok&quot;: 0.0, &quot;errmsg&quot;: &quot;Field &#39;locale&#39; is invalid in: &#123; locale: \&quot;comment\&quot; &#125;&quot;, &quot;code&quot;: 2, &quot;codeName&quot;: &quot;BadValue&quot;&#125;</code></p>
-</blockquote>
+<div class="md-note md-warn">
+
+<p>注意:<br>​	@Document(collection &#x3D; “comment”)  写collection不要写collation 不然可能会报如下的错误<br><code>org.springframework.data.mongodb.UncategorizedMongoDbException: Command failed with error 2 (BadValue): &#39;Field &#39;locale&#39; is invalid in: &#123; locale: &quot;comment&quot; &#125;&#39; on server 127.0.0.1:27017. The full response is &#123;&quot;ok&quot;: 0.0, &quot;errmsg&quot;: &quot;Field &#39;locale&#39; is invalid in: &#123; locale: \&quot;comment\&quot; &#125;&quot;, &quot;code&quot;: 2, &quot;codeName&quot;: &quot;BadValue&quot;&#125;</code></p>
+</div>
+
+
 <blockquote>
 <p>service类</p>
 </blockquote>

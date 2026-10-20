@@ -9,6 +9,7 @@
     
 <link rel="stylesheet" href="/static/kico.css">
 <link rel="stylesheet" href="/static/hingle.css">
+<link rel="stylesheet" href="/static/md-enhance.css">
 
     
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -54,6 +55,8 @@
             <h2>Spring Cloud</h2>
             <div class="post-meta">
                 
+                    <time class="updated" datetime="2026-10-20T12:01:01.463Z" title="最后更新于 2026-10-20 20:01" aria-label="最后更新于 2026-10-20 20:01">2026.10.20</time>
+                
                 <time class="date">2026.06.03</time>
             
                 <span class="category"><a class="category-link" href="/categories/Java/">Java</a></span>
@@ -61,7 +64,15 @@
             </div>
         </section>
         <article class="post-content">
-            <p>Spring Cloud 是一系列框架的有序集合，它利用 Spring Boot 的开发便利性简化了分布式系统的开发，比如服务发现、服务网关、服务路由、链路追踪等。Spring Cloud 并不重复造轮子，而是将市面上开发得比较好的模块集成进去，进行封装，从而减少了各模块的开发成本。换句话说：Spring Cloud 提供了构建分布式系统所需的“全家桶”。</p>
+            <div class="md-intro">
+
+<div class="md-hero">Spring Cloud</div>
+<blockquote>
+<p>Spring Cloud 是一系列框架的有序集合，它利用 Spring Boot 的开发便利性简化了分布式系统的开发，比如服务发现、服务网关、服务路由、链路追踪等。Spring Cloud 并不重复造轮子，而是将市面上开发得比较好的模块集成进去，进行封装，从而减少了各模块的开发成本。换句话说：Spring Cloud 提供了构建分布式系统所需的“全家桶”。</p>
+</blockquote>
+
+</div>
+
 <h2 id="1-nacos"><a href="#1-nacos" class="headerlink" title="1.nacos"></a>1.nacos</h2><p>1.引入依赖</p>
 <p>你需要下载Nacos的安装包，你可以从Nacos的官方网站上下载：<a target="_blank" rel="noopener" href="https://github.com/alibaba/nacos/releases">https://github.com/alibaba/nacos/releases</a></p>
 <p>2.配置文件</p>
@@ -723,9 +734,12 @@ Query  配置说明：【Query&#x3D;参数名，参数值】<span aria-hidden="t
   <span class="token key atrule">okhttp</span><span class="token punctuation">:</span>
     <span class="token key atrule">enabled</span><span class="token punctuation">:</span> <span class="token boolean important">true</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<blockquote>
+<div class="md-note md-info">
+
 <p>定义fallbackFactory</p>
-</blockquote>
+</div>
+
+
 <pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@Slf4j</span>
 <span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">ItemClientFallbackFactory</span> <span class="token keyword">implements</span> <span class="token class-name">FallbackFactory</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">ItemClient</span><span class="token punctuation">></span></span> <span class="token punctuation">&#123;</span>
 
@@ -864,11 +878,12 @@ docker inspect mysql<span aria-hidden="true" class="line-numbers-rows"><span></s
 <p>时效性强，等到结果才返回</p>
 </blockquote>
 <p>同步调用缺点</p>
-<blockquote>
-<p>扩展性差	</p>
-<p>性能下降</p>
-<p>级联失败问题</p>
-</blockquote>
+<div class="md-note md-idea">
+
+<p>扩展性差<br>性能下降<br>级联失败问题</p>
+</div>
+
+
 <p>异步调用</p>
 <blockquote>
 <p>消息发送者：投递消息的人，就是原来的调用者   Publisher</p>
@@ -1442,10 +1457,12 @@ rabbitTemplate<span class="token punctuation">.</span><span class="token functio
   &quot;text&quot;:&quot;我爱学习，我每天学习&quot;
 &#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<blockquote>
-<p>扩展分词器</p>
-<p>IkAnalyzer.cfg.xml</p>
-</blockquote>
+<div class="md-note md-idea">
+
+<p>扩展分词器<br>IkAnalyzer.cfg.xml</p>
+</div>
+
+
 <pre class="line-numbers language-none"><code class="language-none">&lt;entry key&#x3D;&quot;ext_dict&quot;&gt;ext.dic&lt;&#x2F;entry&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <h3 id="3-基础概念"><a href="#3-基础概念" class="headerlink" title="3.基础概念"></a>3.基础概念</h3><blockquote>

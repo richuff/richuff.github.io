@@ -9,6 +9,7 @@
     
 <link rel="stylesheet" href="/static/kico.css">
 <link rel="stylesheet" href="/static/hingle.css">
+<link rel="stylesheet" href="/static/md-enhance.css">
 
     
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -54,7 +55,7 @@
             <h2>React</h2>
             <div class="post-meta">
                 
-                    <time class="updated" datetime="2026-04-15T07:31:35.617Z" title="最后更新于 2026-04-15 15:31" aria-label="最后更新于 2026-04-15 15:31">2026.04.15</time>
+                    <time class="updated" datetime="2026-10-20T12:01:01.459Z" title="最后更新于 2026-10-20 20:01" aria-label="最后更新于 2026-10-20 20:01">2026.10.20</time>
                 
                 <time class="date">2024.09.10</time>
             
@@ -63,7 +64,15 @@
             </div>
         </section>
         <article class="post-content">
-            <p>React 是一个用于构建用户界面的库。React 不是一个框架——它的应用甚至不局限于 Web 开发，它可以与其他库一起使用以渲染到特定环境。例如，React Native 可用于构建移动应用程序；React 360 可用于构建虚拟现实应用程序…</p>
+            <div class="md-intro">
+
+<div class="md-hero">React</div>
+<blockquote>
+<p>React 是一个用于构建用户界面的库。React 不是一个框架——它的应用甚至不局限于 Web 开发，它可以与其他库一起使用以渲染到特定环境。例如，React Native 可用于构建移动应用程序；React 360 可用于构建虚拟现实应用程序…</p>
+</blockquote>
+
+</div>
+
 <h1 id="React"><a href="#React" class="headerlink" title="React"></a>React</h1><h2 id="1-搭建开发环境"><a href="#1-搭建开发环境" class="headerlink" title="1.搭建开发环境"></a>1.搭建开发环境</h2><blockquote>
 <p>create-react-app快速搭建开发环境</p>
 </blockquote>
@@ -750,13 +759,12 @@
 <p>类似pinia（vuex）</p>
 <p>通过集中管理的方式管理应用的状态</p>
 </blockquote>
-<blockquote>
-<p>定义一个reducer对象</p>
-<p>使用createStore方法传入reducer函数 生成一个store实例对象</p>
-<p>使用subscribe方法订阅数据的变化</p>
-<p>dispatch方法提交action对象触发数据变化</p>
-<p>getState获取最新的状态数据更新到视图中</p>
-</blockquote>
+<div class="md-note md-info">
+
+<p>定义一个reducer对象<br>使用createStore方法传入reducer函数 生成一个store实例对象<br>使用subscribe方法订阅数据的变化<br>dispatch方法提交action对象触发数据变化<br>getState获取最新的状态数据更新到视图中</p>
+</div>
+
+
 <pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token doctype"><span class="token punctuation">&lt;!</span><span class="token doctype-tag">DOCTYPE</span> <span class="token name">html</span><span class="token punctuation">></span></span>
 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>html</span> <span class="token attr-name">lang</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>en<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
 <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>head</span><span class="token punctuation">></span></span>
@@ -1440,7 +1448,7 @@ request<span class="token punctuation">.</span>interceptors<span class="token pu
 
 <span class="token keyword">export</span> <span class="token punctuation">&#123;</span>loginAPI<span class="token punctuation">,</span>getProfileAPT<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<h3 id="14-富文本"><a href="#14-富文本" class="headerlink" title="14.富文本"></a>14.富文本</h3><p>npm i <a href="mailto:&#x72;&#101;&#97;&#99;&#116;&#x2d;&#x71;&#117;&#105;&#x6c;&#x6c;&#x40;&#x32;&#46;&#48;&#x2e;&#48;&#45;&#98;&#x65;&#x74;&#97;&#46;&#x32;">&#x72;&#101;&#97;&#99;&#116;&#x2d;&#x71;&#117;&#105;&#x6c;&#x6c;&#x40;&#x32;&#46;&#48;&#x2e;&#48;&#45;&#98;&#x65;&#x74;&#97;&#46;&#x32;</a> –legacy-peer-deps</p>
+<h3 id="14-富文本"><a href="#14-富文本" class="headerlink" title="14.富文本"></a>14.富文本</h3><p>npm i <a href="mailto:&#114;&#101;&#x61;&#99;&#116;&#x2d;&#113;&#x75;&#x69;&#108;&#x6c;&#x40;&#x32;&#x2e;&#48;&#46;&#x30;&#x2d;&#98;&#x65;&#116;&#x61;&#x2e;&#50;">&#114;&#101;&#x61;&#99;&#116;&#x2d;&#113;&#x75;&#x69;&#108;&#x6c;&#x40;&#x32;&#x2e;&#48;&#46;&#x30;&#x2d;&#98;&#x65;&#116;&#x61;&#x2e;&#50;</a> –legacy-peer-deps</p>
 <p>15.使用表单回填数据</p>
 <pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">const</span> <span class="token punctuation">[</span>form<span class="token punctuation">]</span> <span class="token operator">=</span> Form<span class="token punctuation">.</span><span class="token function">useForm</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
 <span class="token comment">//获取传来的id参数</span>

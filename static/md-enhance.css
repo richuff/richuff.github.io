@@ -1,0 +1,721 @@
+@charset "UTF-8";
+
+/* ==========================================================================
+
+   # md-enhance.css —— Markdown 笔记增强样式（全站公用）
+
+   把 Promise.md 里验证过的一套组件抽取为全站公用样式，供任何文章直接使用；
+   同时对全站正文排版（引用/表格/标题/代码/列表）做统一美化。
+
+   组件命名统一用 .md-* 前缀，与单篇文章内的私有样式互不干扰。
+
+   用法示例（任意 .md 里直接写 HTML）：
+     <div class="md-note md-tip">**要点** 说明文字</div>
+     <div class="md-cards"><div class="md-card">…</div></div>
+     <div class="md-hero">标题</div>
+     <span class="md-kbd">ES6</span>
+
+   ========================================================================== */
+
+
+/* ==========================================================================
+   0 - 正文排版基线
+   ========================================================================== */
+
+article.post-content,
+article.page-content{
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* --- 段落与行高：长文阅读舒适度 */
+article.post-content p,
+article.page-content p{
+    line-height: 1.9;
+    margin-bottom: 1.05em;
+}
+
+article.post-content li,
+article.page-content li{
+    line-height: 1.9;
+    margin-bottom: .3em;
+}
+
+/* --- 列表项间距更紧凑，避免长列表过于松散 */
+article.post-content ul,
+article.page-content ul,
+article.post-content ol,
+article.page-content ol{
+    margin-bottom: 1.1em;
+}
+
+article.post-content li > ul,
+article.page-content li > ul,
+article.post-content li > ol,
+article.page-content li > ol{
+    margin-bottom: .2em;
+}
+
+/* --- 标题：统一层级节奏 + 去掉主题自带的 "#" 前缀造成的视觉噪音 */
+article.post-content h1,
+article.post-content h2,
+article.post-content h3,
+article.post-content h4,
+article.page-content h1,
+article.page-content h2,
+article.page-content h3,
+article.page-content h4{
+    line-height: 1.4;
+    letter-spacing: .2px;
+}
+
+article.post-content h2,
+article.page-content h2{
+    padding-bottom: .35em;
+    border-bottom: 1px solid #eef2f6;
+    border-color: var(--light-border);
+}
+
+/* 主题给 h1-h3 统一加了 "#"；这里换成更清爽的竖线色块 */
+article.post-content h2::before,
+article.post-content h3::before,
+article.page-content h2::before,
+article.page-content h3::before{
+    content: "";
+    display: inline-block;
+    width: .18em;
+    height: .95em;
+    margin-right: .5em;
+    vertical-align: -.1em;
+    border-radius: 2px;
+    background: #6f9fc7;
+    background: var(--blue);
+    opacity: .85;
+}
+
+article.post-content h3::before,
+article.page-content h3::before{
+    width: .15em;
+    height: .85em;
+    opacity: .6;
+}
+
+/* --- 引用（这些笔记里大量用于正文要点，做成柔和卡片而非大色块） */
+article.post-content blockquote,
+article.page-content blockquote{
+    margin: 0 0 1.15em;
+    padding: .85em 1.1em;
+    border-left: 4px solid #6f9fc7;
+    border-left-color: var(--blue);
+    border-radius: .25em;
+    border-radius: var(--radius);
+    background: rgba(111, 159, 199, .06);
+    line-height: 1.9;
+}
+
+article.post-content blockquote p,
+article.page-content blockquote p{
+    margin: 0 0 .4em;
+}
+article.post-content blockquote p:last-child,
+article.page-content blockquote p:last-child{
+    margin-bottom: 0;
+}
+
+/* --- 行内代码 */
+article.post-content :not(pre) > code,
+article.page-content :not(pre) > code{
+    padding: .18em .45em;
+    font-size: .88em;
+    border-radius: 4px;
+    border: 1px solid rgba(196, 11, 0, .12);
+    background: #fdf6f8;
+    word-break: break-word;
+}
+
+/* --- 代码块：圆角 + 轻阴影 + 横向滚动 */
+article.post-content .highlight,
+article.page-content .highlight{
+    margin: 0 0 1.3em;
+    border-radius: 9px;
+    overflow: hidden;
+}
+
+article.post-content pre[class*="language-"],
+article.page-content pre[class*="language-"]{
+    margin: 0;
+    border-radius: 9px;
+    font-size: .92em;
+    line-height: 1.75;
+}
+
+article.post-content .highlight pre,
+article.page-content .highlight pre{
+    overflow-x: auto;
+}
+
+/* --- 表格：这些笔记里大量使用，做成卡片式 + 表头高亮 + 斑马纹 + 横向滚动 */
+article.post-content table,
+article.page-content table{
+    display: table;
+    width: 100%;
+    margin: 0 0 1.4em;
+    border-collapse: collapse;
+    font-size: .93em;
+    border-radius: 8px;
+    overflow: hidden;
+}
+
+/* 让宽表格可横向滚动，不撑破窄屏布局 */
+article.post-content .table-wrap,
+article.page-content .table-wrap{
+    width: 100%;
+    overflow-x: auto;
+    margin-bottom: 1.4em;
+}
+article.post-content .table-wrap table,
+article.page-content .table-wrap table{ margin-bottom: 0 }
+
+article.post-content thead tr,
+article.page-content thead tr{
+    background: #6f9fc7;
+    background: var(--blue);
+    border-bottom: 0;
+}
+
+article.post-content thead th,
+article.page-content thead th{
+    padding: .7em .8em;
+    color: #fff;
+    font-weight: 500;
+    text-align: left;
+    white-space: nowrap;
+}
+
+article.post-content tbody tr,
+article.page-content tbody tr{
+    border-bottom: 1px solid #eee;
+    border-color: var(--light-border);
+    transition: background-color .2s;
+}
+
+article.post-content tbody tr:nth-child(even),
+article.page-content tbody tr:nth-child(even){
+    background: rgba(111, 159, 199, .045);
+}
+
+article.post-content tbody tr:hover,
+article.page-content tbody tr:hover{
+    background: rgba(111, 159, 199, .1);
+}
+
+article.post-content tbody td,
+article.page-content tbody td{
+    padding: .62em .8em;
+    line-height: 1.75;
+    vertical-align: top;
+}
+
+article.post-content tbody tr:last-child,
+article.page-content tbody tr:last-child{ border-bottom: 0 }
+
+/* --- 分割线 */
+article.post-content hr,
+article.page-content hr{
+    margin: 2.4em 0;
+    border: 0;
+    height: 1px;
+    background: linear-gradient(90deg, transparent, #d9e3ec, transparent);
+}
+
+
+/* ==========================================================================
+   1 - 英雄标题（文章内大标题，替代会污染目录树的 <h1>）
+   ========================================================================== */
+
+.md-hero{
+    margin: .1em 0 .7em;
+    font-weight: 800;
+    letter-spacing: 1px;
+    font-size: 2.1em;
+    line-height: 1.25;
+    text-align: center;
+    background: linear-gradient(100deg, #6f9fc7 0%, #9fcff7 42%, #f29daf 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+    color: #6f9fc7; /* 不支持时的降级色 */
+}
+
+
+/* ==========================================================================
+   2 - 介绍卡片（文章开头综合运用：标题 + 导语 + 代码对比）
+   ========================================================================== */
+
+.md-intro{
+    position: relative;
+    overflow: hidden;
+    margin: 0 0 2em;
+    padding: 1.8em 1.6em 1.4em;
+    border-radius: 12px;
+    border: 1px solid #e2ecf5;
+    background:
+        radial-gradient(900px 220px at 8% -30%, rgba(111,159,199,.14), transparent 70%),
+        radial-gradient(700px 220px at 100% 0%, rgba(242,157,175,.12), transparent 70%),
+        #fff;
+    box-shadow: 0 6px 22px rgba(60, 90, 130, .07);
+}
+
+.md-intro > blockquote{
+    margin: 0 0 1.3em;
+    padding: 1em 1.15em;
+    border-left: 0;
+    border-radius: 10px;
+    background: linear-gradient(180deg, rgba(111,159,199,.10), rgba(111,159,199,.05));
+    box-shadow: inset 0 0 0 1px rgba(111,159,199,.16);
+    color: #4c5a68;
+    line-height: 1.95;
+}
+.md-intro > blockquote p:last-child{ margin-bottom: 0 }
+
+.md-intro .highlight{
+    margin: 0 0 1.1em;
+    border-radius: 9px;
+    box-shadow: 0 2px 10px rgba(60,90,130,.08);
+}
+.md-intro .highlight:last-child{ margin-bottom: .2em }
+
+/* 引导语 */
+.md-lead{
+    margin: 0 0 1.35em;
+    padding: .85em 1.1em;
+    border-radius: 8px;
+    border-left: 4px solid #f29daf;
+    background: rgba(242,157,175,.09);
+    color: #7a5560;
+    font-size: .96em;
+    line-height: 1.9;
+}
+
+
+/* ==========================================================================
+   3 - 标签 / 徽章
+   ========================================================================== */
+
+.md-kbd-wrap{
+    display: block;
+    margin: -1.2em 0 2.2em;
+    text-align: center;
+}
+
+.md-kbd{
+    display: inline-block;
+    padding: .28em .85em;
+    border-radius: 999px;
+    border: 1px solid rgba(111,159,199,.28);
+    background: rgba(111,159,199,.10);
+    color: #5a7f9f;
+    font-size: .8em;
+    letter-spacing: .4px;
+    line-height: 1.7;
+    vertical-align: middle;
+    -webkit-user-select: none;
+    user-select: none;
+}
+
+
+/* ==========================================================================
+   4 - 通用彩色提示块（带 FontAwesome 图标）
+   ========================================================================== */
+
+.md-note{
+    position: relative;
+    margin: 1.7em 0;
+    padding: 1.15em 1.35em 1.15em 3.6em;
+    border-radius: 10px;
+    border-left: 5px solid #6f9fc7;
+    background: rgba(111,159,199,.075);
+    color: #4a5b6b;
+    line-height: 1.95;
+}
+
+.md-note::before{
+    content: "\f05a";            /* fa-info-circle */
+    position: absolute;
+    top: 1.05em;
+    left: 1.25em;
+    font-family: "FontAwesome";
+    font-size: 1.15em;
+    line-height: 1;
+    opacity: .95;
+}
+
+.md-note p{ margin: 0 0 .6em }
+.md-note p:last-child{ margin-bottom: 0 }
+
+/* 标题行：markdown 会把 **加粗** 包进 <p>，所以同时匹配直接子元素和首个 p */
+.md-note > strong,
+.md-note > p:first-child > strong{
+    display: block;
+    margin-bottom: .35em;
+    font-size: 1.02em;
+    letter-spacing: .2px;
+}
+
+/* 标题独占一段时，去掉该段的下边距，避免和标题 margin 叠加 */
+.md-note > p:first-child:has(> strong:only-child){ margin-bottom: .35em }
+
+/* 标题与正文用 <br> 连在同一段时（由 markdown 转换而来的提示块）：
+   给第一个 <br> 之前的部分加粗、上色、独占一行 */
+.md-note > p:first-child > strong:first-child{
+    display: inline-block;
+}
+.md-note p:first-child br:first-of-type + br{ display: none }
+.md-note p:first-child > strong:first-child::after{
+    content: "";
+    display: block;
+}
+.md-note ul,
+.md-note ol{ margin: .5em 0 .2em 1.25em }
+.md-note li{ margin-bottom: .3em }
+
+.md-note .highlight{
+    margin: .9em 0 .2em;
+    border-radius: 8px;
+}
+.md-note .highlight pre{ margin: 0; border: 0; border-radius: 8px }
+
+/* --- 配色变体 */
+.md-note.md-info{
+    border-left-color: #6f9fc7;
+    background: rgba(111,159,199,.08);
+}
+.md-note.md-info > strong,
+.md-note.md-info > p:first-child > strong{ color: #41719a }
+
+.md-note.md-tip{
+    border-left-color: #34a853;
+    background: rgba(52,168,83,.085);
+}
+.md-note.md-tip::before{ content: "\f00c"; font-size: 1em }   /* fa-check */
+.md-note.md-tip > strong,
+.md-note.md-tip > p:first-child > strong{ color: #1f7a3d }
+
+.md-note.md-warn{
+    border-left-color: #ea4335;
+    background: rgba(234,67,53,.085);
+}
+.md-note.md-warn::before{ content: "\f071" }                  /* fa-exclamation-triangle */
+.md-note.md-warn > strong,
+.md-note.md-warn > p:first-child > strong{ color: #c0342a }
+
+.md-note.md-attention{
+    border-left-color: #f0b429;
+    background: rgba(240,180,41,.10);
+}
+.md-note.md-attention::before{ content: "\f0a4"; font-size: 1.05em }  /* fa-hand-o-right */
+.md-note.md-attention > strong,
+.md-note.md-attention > p:first-child > strong{ color: #a97c11 }
+
+.md-note.md-idea{
+    border-left-color: #8b5cf6;
+    background: rgba(139,92,246,.085);
+}
+.md-note.md-idea::before{ content: "\f0eb" }                   /* fa-lightbulb-o */
+.md-note.md-idea > strong,
+.md-note.md-idea > p:first-child > strong{ color: #6b3fd4 }
+
+.md-note.md-fast{
+    border-left-color: #17a2b8;
+    background: rgba(23,162,184,.085);
+}
+.md-note.md-fast::before{ content: "\f0e7" }                   /* fa-bolt */
+.md-note.md-fast > strong,
+.md-note.md-fast > p:first-child > strong{ color: #117a8b }
+
+.md-note.md-quote{
+    border-left-color: #17a2b8;
+    background: rgba(23,162,184,.075);
+}
+.md-note.md-quote::before{ content: "\f0f6"; font-size: 1.02em }  /* fa-file-text-o */
+.md-note.md-quote > strong,
+.md-note.md-quote > p:first-child > strong{ color: #117a8b }
+
+.md-note table{ margin: .6em 0 .1em }
+
+
+/* ==========================================================================
+   5 - 卡片组（状态卡 / 要点卡 / 清单）
+   ========================================================================== */
+
+.md-cards{
+    display: flex;
+    flex-wrap: wrap;
+    gap: 1em;
+    margin: 1.6em 0 2em;
+}
+
+.md-card{
+    flex: 1 1 13em;
+    min-width: 0;
+    padding: 1.15em 1.25em 1.25em;
+    border-radius: 11px;
+    border: 1px solid #e6eef6;
+    background: #fff;
+    box-shadow: 0 4px 16px rgba(60,90,130,.06);
+    transition: transform .22s ease, box-shadow .22s ease;
+}
+.md-card:hover{
+    transform: translateY(-3px);
+    box-shadow: 0 10px 24px rgba(60,90,130,.13);
+}
+
+.md-card h3,
+.md-card h4{
+    margin: 0 0 .55em;
+    font-size: 1.06em;
+    font-weight: 700;
+    letter-spacing: .3px;
+}
+/* 卡片内标题不需要主题的竖线前缀 */
+.md-card h3::before,
+.md-card h4::before{ content: none }
+
+.md-card p{
+    margin: 0;
+    font-size: .93em;
+    line-height: 1.85;
+    color: #5d6a78;
+}
+
+/* --- 状态色：顶部粗条 + 淡色渐变 */
+.md-card.md-pending{
+    border-top: 3px solid #f0b429;
+    background: linear-gradient(180deg, rgba(240,180,41,.09), #fff 62%);
+}
+.md-card.md-pending h3,
+.md-card.md-pending h4,
+.md-card.md-pending strong{ color: #b57d10 }
+
+.md-card.md-ok{
+    border-top: 3px solid #34a853;
+    background: linear-gradient(180deg, rgba(52,168,83,.10), #fff 62%);
+}
+.md-card.md-ok h3,
+.md-card.md-ok h4,
+.md-card.md-ok strong{ color: #1f7a3d }
+
+.md-card.md-err{
+    border-top: 3px solid #ea4335;
+    background: linear-gradient(180deg, rgba(234,67,53,.10), #fff 62%);
+}
+.md-card.md-err h3,
+.md-card.md-err h4,
+.md-card.md-err strong{ color: #c0342a }
+
+.md-card.md-info{
+    border-top: 3px solid #6f9fc7;
+    background: linear-gradient(180deg, rgba(111,159,199,.10), #fff 62%);
+}
+.md-card.md-info h3,
+.md-card.md-info h4,
+.md-card.md-info strong{ color: #41719a }
+
+
+/* ==========================================================================
+   6 - 四宫格 / 结果说明
+   ========================================================================== */
+
+.md-grid{
+    display: flex;
+    flex-wrap: wrap;
+    gap: .9em;
+    margin: 1.6em 0 1.9em;
+}
+
+.md-grid > div{
+    flex: 1 1 14em;
+    min-width: 0;
+    padding: 1em 1.1em;
+    border-radius: 10px;
+    border: 1px solid #e6eef6;
+    border-left: 4px solid #6f9fc7;
+    background: linear-gradient(180deg, #fbfdff, #f5f9fc);
+    font-size: .93em;
+    line-height: 1.85;
+    color: #586674;
+    transition: border-left-color .22s, transform .22s, box-shadow .22s;
+}
+.md-grid > div:hover{
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(60,90,130,.10);
+}
+
+.md-grid > div strong,
+.md-grid > div > p:first-child > strong{
+    display: block;
+    margin-bottom: .3em;
+    font-size: 1.02em;
+    color: #41719a;
+}
+
+.md-grid > div:nth-child(1){ border-left-color: #ea4335 }
+.md-grid > div:nth-child(1) strong{ color: #c0342a }
+.md-grid > div:nth-child(2){ border-left-color: #34a853 }
+.md-grid > div:nth-child(2) strong{ color: #1f7a3d }
+.md-grid > div:nth-child(3){ border-left-color: #8b5cf6 }
+.md-grid > div:nth-child(3) strong{ color: #6b3fd4 }
+.md-grid > div:nth-child(4){ border-left-color: #f0b429 }
+.md-grid > div:nth-child(4) strong{ color: #a97c11 }
+
+
+/* ==========================================================================
+   7 - 清单 / 最佳实践
+   ========================================================================== */
+
+.md-checklist{
+    display: flex;
+    flex-wrap: wrap;
+    gap: .9em;
+    margin: 1.6em 0 1.8em;
+}
+
+.md-checklist > div{
+    position: relative;
+    flex: 1 1 16em;
+    min-width: 0;
+    padding: .95em 1.1em .95em 2.5em;
+    border-radius: 10px;
+    border: 1px solid #e6eef6;
+    background: linear-gradient(180deg, #fcfdff, #f4f8fb);
+    font-size: .93em;
+    line-height: 1.85;
+    color: #57646f;
+    transition: transform .22s, box-shadow .22s;
+}
+.md-checklist > div:hover{
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(60,90,130,.10);
+}
+
+.md-checklist > div::before{
+    content: "\f00c";            /* fa-check */
+    position: absolute;
+    top: 1em;
+    left: 1em;
+    color: #34a853;
+    font-family: "FontAwesome";
+    font-size: 1em;
+    line-height: 1;
+}
+
+.md-checklist > div strong,
+.md-checklist > div > p:first-child > strong{
+    display: block;
+    margin-bottom: .25em;
+    font-size: 1.02em;
+    color: #3f5568;
+}
+
+
+/* ==========================================================================
+   8 - 夜间模式适配
+   ========================================================================== */
+
+.dark-theme .md-intro{
+    border-color: #3a3a3a;
+    background:
+        radial-gradient(900px 220px at 8% -30%, rgba(110,138,173,.22), transparent 70%),
+        radial-gradient(700px 220px at 100% 0%, rgba(242,157,175,.14), transparent 70%),
+        #272727;
+    box-shadow: 0 6px 22px rgba(0,0,0,.35);
+}
+.dark-theme .md-intro > blockquote{
+    background: rgba(255,255,255,.06);
+    box-shadow: inset 0 0 0 1px rgba(255,255,255,.07);
+    color: #c8c8c8;
+}
+.dark-theme .md-lead{
+    background: rgba(242,157,175,.12);
+    color: #dcc3cb;
+}
+.dark-theme .md-kbd{
+    border-color: rgba(159,207,247,.28);
+    background: rgba(159,207,247,.12);
+    color: #a9c6de;
+}
+
+.dark-theme article.post-content blockquote,
+.dark-theme article.page-content blockquote{
+    background: rgba(255,255,255,.045);
+}
+
+.dark-theme article.post-content :not(pre) > code,
+.dark-theme article.page-content :not(pre) > code{
+    border-color: rgba(255,165,165,.25);
+}
+
+.dark-theme article.post-content thead tr,
+.dark-theme article.page-content thead tr{
+    background: #56718c;
+}
+.dark-theme article.post-content tbody tr:nth-child(even),
+.dark-theme article.page-content tbody tr:nth-child(even){
+    background: rgba(255,255,255,.035);
+}
+.dark-theme article.post-content tbody tr:hover,
+.dark-theme article.page-content tbody tr:hover{
+    background: rgba(255,255,255,.07);
+}
+
+.dark-theme .md-card{
+    border-color: #3a3a3a;
+    background: #2a2a2a;
+    box-shadow: 0 4px 16px rgba(0,0,0,.32);
+}
+.dark-theme .md-card.md-pending{ background: linear-gradient(180deg, rgba(240,180,41,.14), #2a2a2a 62%) }
+.dark-theme .md-card.md-ok{ background: linear-gradient(180deg, rgba(52,168,83,.14), #2a2a2a 62%) }
+.dark-theme .md-card.md-err{ background: linear-gradient(180deg, rgba(234,67,53,.14), #2a2a2a 62%) }
+.dark-theme .md-card.md-info{ background: linear-gradient(180deg, rgba(111,159,199,.16), #2a2a2a 62%) }
+.dark-theme .md-card p{ color: #b6b6b6 }
+
+.dark-theme .md-note{
+    color: #b9b9b9;
+    background: rgba(255,255,255,.05);
+}
+.dark-theme .md-note > strong{ filter: brightness(1.25) }
+
+.dark-theme .md-grid > div,
+.dark-theme .md-checklist > div{
+    border-color: #3a3a3a;
+    background: #2a2a2a;
+    color: #b6b6b6;
+}
+.dark-theme .md-grid > div strong,
+.dark-theme .md-checklist > div strong{ filter: brightness(1.22) }
+
+
+/* ==========================================================================
+   9 - 移动端适配
+   ========================================================================== */
+
+@media screen and (max-width: 599px){
+    .md-intro{
+        margin: 0 -.35em 1.6em;
+        padding: 1.35em 1.1em 1.1em;
+    }
+    .md-hero{ font-size: 1.5em }
+
+    .md-note{
+        padding: 1em 1em 1em 2.9em;
+    }
+    .md-note::before{ left: .95em }
+
+    .md-cards{ gap: .75em }
+    .md-card{ flex: 1 1 100% }
+    .md-grid > div{ flex: 1 1 100% }
+    .md-checklist > div{ flex: 1 1 100% }
+
+    article.post-content table,
+    article.page-content table{ font-size: .88em }
+}

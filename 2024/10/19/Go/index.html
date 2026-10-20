@@ -9,6 +9,7 @@
     
 <link rel="stylesheet" href="/static/kico.css">
 <link rel="stylesheet" href="/static/hingle.css">
+<link rel="stylesheet" href="/static/md-enhance.css">
 
     
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -54,7 +55,7 @@
             <h2>Go</h2>
             <div class="post-meta">
                 
-                    <time class="updated" datetime="2025-06-22T14:16:07.610Z" title="最后更新于 2025-06-22 22:16" aria-label="最后更新于 2025-06-22 22:16">2025.06.22</time>
+                    <time class="updated" datetime="2026-10-20T12:01:01.432Z" title="最后更新于 2026-10-20 20:01" aria-label="最后更新于 2026-10-20 20:01">2026.10.20</time>
                 
                 <time class="date">2024.10.19</time>
             
@@ -63,7 +64,15 @@
             </div>
         </section>
         <article class="post-content">
-            <p>Go 语言被设计成一门应用于搭载 Web 服务器，存储集群或类似用途的巨型中央服务器的系统编程语言。对于高性能分布式系统领域而言，Go 语言无疑比大多数其它语言有着更高的开发效率。它提供了海量并行的支持，这对于游戏服务端的开发而言是再好不过了。</p>
+            <div class="md-intro">
+
+<div class="md-hero">Go</div>
+<blockquote>
+<p>Go 语言被设计成一门应用于搭载 Web 服务器，存储集群或类似用途的巨型中央服务器的系统编程语言。对于高性能分布式系统领域而言，Go 语言无疑比大多数其它语言有着更高的开发效率。它提供了海量并行的支持，这对于游戏服务端的开发而言是再好不过了。</p>
+</blockquote>
+
+</div>
+
 <h2 id="1-开发环境搭建"><a href="#1-开发环境搭建" class="headerlink" title="1.开发环境搭建"></a>1.开发环境搭建</h2><p><a target="_blank" rel="noopener" href="https://golang.google.cn/">https://golang.google.cn/</a></p>
 <h2 id="2-基础"><a href="#2-基础" class="headerlink" title="2.基础"></a>2.基础</h2><h3 id="2-1编译"><a href="#2-1编译" class="headerlink" title="2.1编译"></a>2.1编译</h3><blockquote>
 <p>go run 文件名          —–&gt; 直接运行文件</p>
@@ -652,9 +661,12 @@ fmt<span class="token punctuation">.</span><span class="token function">Println<
 <li>cap int  容量</li>
 </ul>
 </blockquote>
-<blockquote>
+<div class="md-note md-info">
+
 <p>定义切片</p>
-</blockquote>
+</div>
+
+
 <pre class="line-numbers language-none"><code class="language-none">var 切片[]type &#x3D; make([],len,[cap])<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
 <pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token keyword">var</span> test <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">float64</span> <span class="token operator">=</span> <span class="token function">make</span><span class="token punctuation">(</span><span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token builtin">float64</span><span class="token punctuation">,</span> <span class="token number">5</span><span class="token punctuation">,</span> <span class="token number">10</span><span class="token punctuation">)</span>
@@ -719,9 +731,12 @@ fmt<span class="token punctuation">.</span><span class="token function">Println<
 a<span class="token punctuation">[</span><span class="token string">"1"</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token string">"一"</span>
 fmt<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span>a<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
 
-<blockquote>
+<div class="md-note md-info">
+
 <p>定义一个map，map里面还是map</p>
-</blockquote>
+</div>
+
+
 <pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token keyword">var</span> students <span class="token keyword">map</span><span class="token punctuation">[</span><span class="token builtin">string</span><span class="token punctuation">]</span><span class="token keyword">map</span><span class="token punctuation">[</span><span class="token builtin">string</span><span class="token punctuation">]</span><span class="token builtin">string</span> <span class="token operator">=</span> <span class="token function">make</span><span class="token punctuation">(</span><span class="token keyword">map</span><span class="token punctuation">[</span><span class="token builtin">string</span><span class="token punctuation">]</span><span class="token keyword">map</span><span class="token punctuation">[</span><span class="token builtin">string</span><span class="token punctuation">]</span><span class="token builtin">string</span><span class="token punctuation">,</span> <span class="token number">3</span><span class="token punctuation">)</span>
 students<span class="token punctuation">[</span><span class="token string">"1001"</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token keyword">map</span><span class="token punctuation">[</span><span class="token builtin">string</span><span class="token punctuation">]</span><span class="token builtin">string</span><span class="token punctuation">&#123;</span><span class="token string">"name"</span><span class="token punctuation">:</span> <span class="token string">"tom"</span><span class="token punctuation">,</span> <span class="token string">"age"</span><span class="token punctuation">:</span> <span class="token string">"18"</span><span class="token punctuation">&#125;</span>
 students<span class="token punctuation">[</span><span class="token string">"1002"</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token keyword">map</span><span class="token punctuation">[</span><span class="token builtin">string</span><span class="token punctuation">]</span><span class="token builtin">string</span><span class="token punctuation">&#123;</span><span class="token string">"name"</span><span class="token punctuation">:</span> <span class="token string">"jack"</span><span class="token punctuation">,</span> <span class="token string">"age"</span><span class="token punctuation">:</span> <span class="token string">"19"</span><span class="token punctuation">&#125;</span>
@@ -1246,9 +1261,12 @@ fmt<span class="token punctuation">.</span><span class="token function">Println<
     <span class="token punctuation">&#125;</span>
 <span class="token punctuation">&#125;</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<blockquote>
+<div class="md-note md-fast">
+
 <p>简化写法</p>
-</blockquote>
+</div>
+
+
 <pre class="line-numbers language-go" data-language="go"><code class="language-go"><span class="token keyword">defer</span> <span class="token keyword">func</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
   <span class="token keyword">if</span> err <span class="token operator">:=</span> <span class="token function">recover</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> err <span class="token operator">!=</span> <span class="token boolean">nil</span> <span class="token punctuation">&#123;</span>
     log<span class="token punctuation">.</span><span class="token function">Println</span><span class="token punctuation">(</span>err<span class="token punctuation">)</span>

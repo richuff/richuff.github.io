@@ -9,6 +9,7 @@
     
 <link rel="stylesheet" href="/static/kico.css">
 <link rel="stylesheet" href="/static/hingle.css">
+<link rel="stylesheet" href="/static/md-enhance.css">
 
     
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
@@ -54,7 +55,7 @@
             <h2>CSS</h2>
             <div class="post-meta">
                 
-                    <time class="updated" datetime="2026-04-15T06:41:37.426Z" title="最后更新于 2026-04-15 14:41" aria-label="最后更新于 2026-04-15 14:41">2026.04.15</time>
+                    <time class="updated" datetime="2026-10-20T12:01:01.426Z" title="最后更新于 2026-10-20 20:01" aria-label="最后更新于 2026-10-20 20:01">2026.10.20</time>
                 
                 <time class="date">2024.10.05</time>
             
@@ -63,7 +64,15 @@
             </div>
         </section>
         <article class="post-content">
-            <p>CSS (Cascading Style Sheets，层叠样式表），是一种用来为结构化文档（如 HTML 文档或 XML 应用）添加样式（字体、间距和颜色等）的计算机语言，CSS 文件扩展名为 .css。CSS3 现在已被大部分现代浏览器支持,通过使用 CSS 我们可以大大提升网页开发的工作效率！</p>
+            <div class="md-intro">
+
+<div class="md-hero">CSS</div>
+<blockquote>
+<p>CSS (Cascading Style Sheets，层叠样式表），是一种用来为结构化文档（如 HTML 文档或 XML 应用）添加样式（字体、间距和颜色等）的计算机语言，CSS 文件扩展名为 .css。CSS3 现在已被大部分现代浏览器支持,通过使用 CSS 我们可以大大提升网页开发的工作效率！</p>
+</blockquote>
+
+</div>
+
 <h2 id="1-选择器"><a href="#1-选择器" class="headerlink" title="1.选择器"></a>1.选择器</h2><h3 id="1-基础选择器"><a href="#1-基础选择器" class="headerlink" title="1.基础选择器"></a>1.基础选择器</h3><h4 id="1-1-标签选择器"><a href="#1-1-标签选择器" class="headerlink" title="1.1 标签选择器"></a>1.1 标签选择器</h4><p>也称为元素选择器，使用HTML标签作为选择器的名称</p>
 <h4 id="1-2-类选择器"><a href="#1-2-类选择器" class="headerlink" title="1.2 类选择器"></a>1.2 类选择器</h4><p>使用自定义的名称，以 . 号作为前缀，然后再通过HTML标签的class属性调用类选择器</p>
 <p>以标签的class属性作为样式应用的依据</p>
@@ -346,16 +355,12 @@ p</span><span class="token punctuation">&#123;</span>
 <p>normal 普通</p>
 </blockquote>
 <h4 id="5-字体粗细"><a href="#5-字体粗细" class="headerlink" title="5.字体粗细"></a>5.字体粗细</h4><p>font weight</p>
-<blockquote>
-<p>关键词</p>
-<p>lighter 细</p>
-<p>normal 正常</p>
-<p>bold 粗</p>
-<p>bolder 很粗 (很多字体不支持)</p>
-<p>数值</p>
-<p>100~1000</p>
-<p>100~300 &#x3D;  lighter 400-500&#x3D;normal 600以上&#x3D;bold</p>
-</blockquote>
+<div class="md-note md-attention">
+
+<p>关键词<br>lighter 细<br>normal 正常<br>bold 粗<br>bolder 很粗 (很多字体不支持)<br>数值<br>100<del>1000<br>100</del>300 &#x3D;  lighter 400-500&#x3D;normal 600以上&#x3D;bold</p>
+</div>
+
+
 <pre class="line-numbers language-css" data-language="css"><code class="language-css"><span class="token selector">.c4</span><span class="token punctuation">&#123;</span>
     //关键字
     <span class="token property">font-weight</span><span class="token punctuation">:</span> bolder<span class="token punctuation">;</span>
@@ -950,9 +955,12 @@ ul</span><span class="token punctuation">&#123;</span>
 </blockquote>
 <p>特点:<br>1.不会脱离文档流，元素位置的变化，只是视觉效果上的变化，不会对其他元素产生任何影响。<br>2.定位元素的显示层级比普通元素高，无论什么定位，显示层级都是一样的。<br>    默认规则是:<br>         定位的元素会盖在普通元素之上。<br>     	都发生定位的两个元素，后写的元素会盖在先写的元素之上。</p>
 <p>3.left不能和right—起设置，top和bottom不能一起设置。<br>4.相对定位的元素，也能继续浮动，但不推荐这样做。<br>5.相对行为的元素，也能通过margin调整位置，但不推荐这样做。</p>
-<blockquote>
+<div class="md-note md-warn">
+
 <p>注意：绝大多数情况下，相对定位，会与绝对定位配合使用。</p>
-</blockquote>
+</div>
+
+
 <h3 id="2-绝对定位"><a href="#2-绝对定位" class="headerlink" title="2.绝对定位"></a>2.绝对定位</h3><blockquote>
 <p>给元素设置 position：absolute 即可实现绝对定位。</p>
 <p>可以使用 left、right、top、bottom 四个属性调整位置。</p>
@@ -1067,12 +1075,12 @@ ul</span><span class="token punctuation">&#123;</span>
 <p>4.z-index的属性值是数字，没有单位，值越大显示层级越高。</p>
 <p>5.只有定位的元素设置z-index才有效。</p>
 <p>6.如果z-index值大的元素，依然没有覆盖掉z-index值小的元素，那么请检查其包含块的层级。</p>
-<h3 id="6-定位的特殊应用"><a href="#6-定位的特殊应用" class="headerlink" title="6.定位的特殊应用"></a>6.定位的特殊应用</h3><blockquote>
-<p>注意：</p>
-<p>1.发生固定定位、绝对定位后，元素都变成了定位元素，默认宽高被内容撑开，且依然可以设置宽高。</p>
-<p>2.发生相对定位后，元素依然是之前的显示模式。</p>
-<p>3.以下所说的特殊应用，只针对 绝对定位 和 固定定位的元素，不包括相对定位的元素。</p>
-</blockquote>
+<h3 id="6-定位的特殊应用"><a href="#6-定位的特殊应用" class="headerlink" title="6.定位的特殊应用"></a>6.定位的特殊应用</h3><div class="md-note md-warn">
+
+<p>注意：<br>1.发生固定定位、绝对定位后，元素都变成了定位元素，默认宽高被内容撑开，且依然可以设置宽高。<br>2.发生相对定位后，元素依然是之前的显示模式。<br>3.以下所说的特殊应用，只针对 绝对定位 和 固定定位的元素，不包括相对定位的元素。</p>
+</div>
+
+
 <blockquote>
 <p>让定位元素的宽充满包含块</p>
 </blockquote>
@@ -1093,9 +1101,12 @@ margin-left：负的宽度一半
 
 margin-top：负的高度一半<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<blockquote>
+<div class="md-note md-warn">
+
 <p>注意：该定位的元素必须设置宽高！！!</p>
-</blockquote>
+</div>
+
+
 <h2 id="6-布局"><a href="#6-布局" class="headerlink" title="6.布局"></a>6.布局</h2><h3 id="1-版心"><a href="#1-版心" class="headerlink" title="1.版心"></a>1.版心</h3><p>1.版心<br>在PC端网页中，一般都会有一个固定宽度且水平居中的盒子，来显示网页的主要内容，这是网页的版心。<br>版心的宽度一般是960~1200像素之间。<br>版心可以是一个，也可以是多个。版心png</p>
 <h3 id="2-常见布局名词"><a href="#2-常见布局名词" class="headerlink" title="2.常见布局名词"></a>2.常见布局名词</h3><p>顶部导航条  topbar</p>
 <p>页头 header、page-header</p>
@@ -1718,9 +1729,12 @@ q:before, q:after</span> <span class="token punctuation">&#123;</span>
 &lt;script src="../sources/js/html5shiv.js">&lt;/script>
 &lt;![endif]--></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<blockquote>
+<div class="md-note md-idea">
+
 <p>扩展<br>1t 小于1te 小于等于gt大于gte大于等于！逻辑非</p>
-</blockquote>
+</div>
+
+
 <h2 id="8-CSS3"><a href="#8-CSS3" class="headerlink" title="8.CSS3"></a>8.CSS3</h2><h3 id="1-CSS3概述"><a href="#1-CSS3概述" class="headerlink" title="1.CSS3概述"></a>1.CSS3概述</h3><blockquote>
 <p>CSS3是CSS2的升级版本，它在CSS2的基础上，新增了很多强大的新功能，从而解决一些实际面临的问题。</p>
 <p>CSS3 在未来会按照模块化的方式去发展： <a target="_blank" rel="noopener" href="https://www.w3.org/Style/CSS/current-work.html">https://www.w3.org/Style/CSS/current-work.html</a></p>
@@ -1906,9 +1920,12 @@ q:before, q:after</span> <span class="token punctuation">&#123;</span>
 <h4 id="3-文本溢出"><a href="#3-文本溢出" class="headerlink" title="3.文本溢出"></a>3.文本溢出</h4><p>在CSS3中，我们可以使用text-overflow 属性设置文本内容溢出时的呈现模式。</p>
 <p>clip			当内联内容溢出时，将溢出部分裁切掉。（默认值)</p>
 <p>ellipsis  	当内联内容溢出块容器时，将溢出部分替换为.….。</p>
-<blockquote>
+<div class="md-note md-warn">
+
 <p>注意：要使得text-overflow 属性生效，块容器必须显式定义overflow 为非visible值，white-space 为nowrap值。</p>
-</blockquote>
+</div>
+
+
 <h4 id="4-文本修饰"><a href="#4-文本修饰" class="headerlink" title="4.文本修饰"></a>4.文本修饰</h4><blockquote>
 <p>CSS3升级了text-decoration属性，让其变成了复合属性</p>
 <p>text-decoration: text-decoration-line || text-decoration-style || text-decoration-color</p>
@@ -2192,9 +2209,12 @@ q:before, q:after</span> <span class="token punctuation">&#123;</span>
 <p>1.先给元素添加 转换属性transform</p>
 <p>2.编写transform的具体值，相关可选值如下：</p>
 <p>设置旋转角度，需指定一个角度值（deg)，正值顺时针，负值逆时针。</p>
-<blockquote>
+<div class="md-note md-warn">
+
 <p>注意：rotateZ(20deg)相当于rotate(20deg），当然到了3D变换的时候，还能写：rotate(x，X，x)</p>
-</blockquote>
+</div>
+
+
 <h4 id="4-扭曲"><a href="#4-扭曲" class="headerlink" title="4.扭曲"></a>4.扭曲</h4><blockquote>
 <p>2D扭曲是指：让元素在二维平面内被“拉扯”，进而“走形”，实际开发几乎不用，了解即可</p>
 </blockquote>
@@ -2203,9 +2223,12 @@ q:before, q:after</span> <span class="token punctuation">&#123;</span>
 <p>skewX 	设置元素在水平方向扭曲，值为角度值，会将元素的左上角、右下角 拉扯</p>
 <p>skewY 	设置元素在垂直方向扭曲，值为角度值，会将元素的左上角、右下角拉扯。</p>
 <p>skew 	一个值代表 skewX，两个值分别代表：skewX、skewY</p>
-<h4 id="5-多重变换"><a href="#5-多重变换" class="headerlink" title="5.多重变换"></a>5.多重变换</h4><blockquote>
+<h4 id="5-多重变换"><a href="#5-多重变换" class="headerlink" title="5.多重变换"></a>5.多重变换</h4><div class="md-note md-tip">
+
 <p>建议最后进行旋转，因为旋转会破坏坐标原点</p>
-</blockquote>
+</div>
+
+
 <h4 id="6-变换原点"><a href="#6-变换原点" class="headerlink" title="6.变换原点"></a>6.变换原点</h4><blockquote>
 <p>默认原点在中间，位移变换不参考原点</p>
 </blockquote>
@@ -2219,9 +2242,12 @@ q:before, q:after</span> <span class="token punctuation">&#123;</span>
 <p>transform-origin:0，只写一个值的时候，第二个值默认为50%。</p>
 <h3 id="13-3D变换"><a href="#13-3D变换" class="headerlink" title="13.3D变换"></a>13.3D变换</h3><p>transform</p>
 <h4 id="1-空间与景深"><a href="#1-空间与景深" class="headerlink" title="1.空间与景深"></a>1.空间与景深</h4><p>1.开启3D空间</p>
-<blockquote>
+<div class="md-note md-attention">
+
 <p>重要原则：元素进行 3D变换的首要操作：父元素必须开启 3D空间!</p>
-</blockquote>
+</div>
+
+
 <p>使用transform-style开启3D空间</p>
 <p>flat：让子元素位于此元素的二维平面内（2D空间)</p>
 <p>preserve-3d：让子元素位于此元素的三维空间内（3D空间)</p>
@@ -2234,18 +2260,27 @@ q:before, q:after</span> <span class="token punctuation">&#123;</span>
 <li><p>长度值：指定观察者距离z&#x3D;0平面的距离，不允许负值.</p>
 </li>
 </ul>
-<blockquote>
+<div class="md-note md-warn">
+
 <p>注意：perspective 设置给发生3D变换元素的父元素!</p>
-</blockquote>
-<h4 id="2-透视点位置"><a href="#2-透视点位置" class="headerlink" title="2.透视点位置"></a>2.透视点位置</h4><blockquote>
+</div>
+
+
+<h4 id="2-透视点位置"><a href="#2-透视点位置" class="headerlink" title="2.透视点位置"></a>2.透视点位置</h4><div class="md-note md-info">
+
 <p>所谓透视点位置，就是观察者位置；默认的透视点在元素的中心。</p>
-</blockquote>
+</div>
+
+
 <p>使用perspective-origin设置观察者位置（透视点的位置）</p>
 <p>相对坐标轴往右偏移400px，往下偏移300px（相当于人蹲下300像素，然后向右移动400像素看元素）</p>
 <p>perspective-origin: 400px 300px;</p>
-<blockquote>
+<div class="md-note md-warn">
+
 <p>注意：通常情况下，我们不需要调整透视点位置。</p>
-</blockquote>
+</div>
+
+
 <h4 id="3-位移"><a href="#3-位移" class="headerlink" title="3.位移"></a>3.位移</h4><blockquote>
 <p>3D位移是在2D位移的基础上，可以让元素沿z轴位移</p>
 <p>1.先给元素添加 转换属性transform</p>

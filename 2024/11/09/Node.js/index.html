@@ -919,7 +919,7 @@ exports<span class="token punctuation">.</span><span class="token function-varia
 <p>对密码进行加密</p>
 <p>bcryptjs</p>
 <blockquote>
-<p>npm i <a href="mailto:&#x62;&#x63;&#114;&#x79;&#x70;&#116;&#x6a;&#115;&#64;&#50;&#46;&#x34;&#46;&#51;">&#x62;&#x63;&#114;&#x79;&#x70;&#116;&#x6a;&#115;&#64;&#50;&#46;&#x34;&#46;&#51;</a></p>
+<p>npm i <a href="mailto:&#98;&#x63;&#x72;&#x79;&#x70;&#x74;&#106;&#115;&#x40;&#50;&#46;&#x34;&#x2e;&#51;">&#98;&#x63;&#x72;&#x79;&#x70;&#x74;&#106;&#115;&#x40;&#50;&#46;&#x34;&#x2e;&#51;</a></p>
 </blockquote>
 <pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token keyword">const</span> bcrypt<span class="token operator">=</span><span class="token function">require</span><span class="token punctuation">(</span><span class="token string">"bcryptjs"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
 mes<span class="token punctuation">.</span>password <span class="token operator">=</span> bcrypt<span class="token punctuation">.</span><span class="token function">hashSync</span><span class="token punctuation">(</span>mes<span class="token punctuation">.</span>password<span class="token punctuation">,</span><span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
@@ -938,7 +938,7 @@ res<span class="token punctuation">.</span><span class="token function">send</sp
 
 <p>解析token的中间件</p>
 <blockquote>
-<p>npm i <a href="mailto:&#x65;&#x78;&#112;&#x72;&#x65;&#115;&#x73;&#x2d;&#x6a;&#x77;&#116;&#x40;&#x35;&#x2e;&#x33;&#46;&#51;">&#x65;&#x78;&#112;&#x72;&#x65;&#115;&#x73;&#x2d;&#x6a;&#x77;&#116;&#x40;&#x35;&#x2e;&#x33;&#46;&#51;</a></p>
+<p>npm i <a href="mailto:&#101;&#120;&#112;&#x72;&#101;&#115;&#x73;&#x2d;&#106;&#x77;&#x74;&#x40;&#x35;&#46;&#51;&#x2e;&#x33;">&#101;&#120;&#112;&#x72;&#101;&#115;&#x73;&#x2d;&#106;&#x77;&#x74;&#x40;&#x35;&#46;&#51;&#x2e;&#x33;</a></p>
 </blockquote>
 <pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript">app<span class="token punctuation">.</span><span class="token function">use</span><span class="token punctuation">(</span><span class="token function">expressJWT</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span><span class="token literal-property property">secret</span><span class="token operator">:</span>config<span class="token punctuation">.</span>jwtSecretKey<span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">.</span><span class="token function">unless</span><span class="token punctuation">(</span><span class="token punctuation">&#123;</span><span class="token literal-property property">path</span><span class="token operator">:</span><span class="token regex"><span class="token regex-delimiter">/</span><span class="token regex-source language-regex">^\/login</span><span class="token regex-delimiter">/</span></span><span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
 
@@ -1033,7 +1033,8 @@ res<span class="token punctuation">.</span><span class="token function">send</sp
 <script src="/static/hingle.js"></script>
 
 
-<script>var hingle = new Paul_Hingle({"copyright":true,"night":false});</script>
+<script>var SITE_ROOT = "/";</script>
+<script>var hingle = new Paul_Hingle({"copyright":true,"night":false,"code":{"language_label":true,"language_label_exclude":["markup","none","plain","plaintext","text"],"line_numbers":true,"line_numbers_toggle":true}});</script>
 
   </body>
 </html>

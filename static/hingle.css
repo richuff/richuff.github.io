@@ -376,6 +376,111 @@ header{
     .head-search input{ width: 100% }
 }
 
+/* - 站内搜索结果浮层 */
+.search-results{
+    top: 2.6em;
+    right: 0;
+    z-index: 5;
+    width: 22em;
+    max-width: 86vw;
+    max-height: 70vh;
+    overflow-y: auto;
+    position: absolute;
+    box-sizing: border-box;
+    padding: .5em 0;
+    color: #555;
+    background-color: #fff;
+    background-color: var(--light-background);
+    border: 1px solid #ddd;
+    border-color: var(--border);
+    border-radius: .25em;
+    border-radius: var(--radius);
+    box-shadow: 0 6px 24px rgba(0, 0, 0, .12);
+    text-align: left;
+}
+
+.search-results[hidden]{ display: none }
+
+.search-count{
+    padding: .4em .9em;
+    font-size: .82em;
+    color: #888;
+    border-bottom: 1px solid #eee;
+    border-color: var(--light-border);
+}
+
+.search-empty{
+    padding: .9em;
+    color: #999;
+    text-align: center;
+}
+
+.search-list{
+    list-style: none;
+    margin: 0;
+    padding: 0;
+}
+
+.search-item{ border-bottom: 1px solid #f2f2f2 }
+
+.search-link{
+    display: block;
+    padding: .6em .9em;
+    color: #555;
+    text-decoration: none;
+    line-height: 1.6;
+}
+
+.search-link:hover{
+    background: #f5f8fb;
+    background: rgba(111, 159, 199, .1);
+}
+
+.search-link > :first-child{
+    font-size: 1em;
+    font-weight: 600;
+    color: #34495e;
+    color: var(--blue);
+}
+
+.search-meta{
+    margin: .15em 0;
+    font-size: .76em;
+    color: #9aa6b2;
+}
+
+.search-snippet{
+    font-size: .84em;
+    color: #777;
+    line-height: 1.5;
+}
+
+/* 命中关键词高亮 */
+.search-link mark,
+.search-snippet mark{
+    padding: 0 .1em;
+    color: #9d174d;
+    background: #ffe3ec;
+    border-radius: 2px;
+}
+
+/* 夜间风格适配 */
+.dark-theme .search-results{
+    color: #bbb;
+    box-shadow: 0 6px 24px rgba(0, 0, 0, .5);
+}
+
+.dark-theme .search-link{ color: #bbb }
+.dark-theme .search-link > :first-child{ color: #9fcff7 }
+
+.dark-theme .search-link:hover{ background: rgba(255, 255, 255, .06) }
+
+.dark-theme .search-link mark,
+.dark-theme .search-snippet mark{
+    color: #ffd0dd;
+    background: rgba(157, 23, 77, .4);
+}
+
 /* 2 - 正文
 -------------------------------- */
 main{
@@ -988,14 +1093,45 @@ pre[class*="language-"] code span::selection{ background: #f8c9d8 }
 
 .namespace { opacity: .7 }
 
-pre[class*="language-"].line-numbers {
+/* 行号：默认由 hingle.js 在 .code-block 上加 show-line-numbers 控制显隐，
+   这样不依赖运行时的 prismjs.js，纯 CSS 计数器即可渲染行号 */
+.code-block.show-line-numbers pre[class*="language-"]{
     position: relative;
-    padding-left: 3.8em;
     counter-reset: linenumber;
+    padding-left: 3.2em;
 }
 
-pre[class*="language-"] .line-numbers-rows{
-    border-color: #f3d4dd;
+/* 关掉行号时，把 prismjs 生成的空 gutter span 彻底藏起来，避免跑到代码里 */
+.code-block .line-numbers-rows{
+    display: none;
+}
+
+.code-block.show-line-numbers .line-numbers-rows{
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 2.6em;
+    margin: 0;
+    padding: 1em 0;
+    text-align: right;
+    color: #b9849b;
+    border-right: 1px solid #efbfd0;
+    user-select: none;
+    pointer-events: none;
+    font-size: 1em;
+    line-height: 1.75; /* 与代码行高保持一致，行号才能对齐 */
+}
+
+.code-block.show-line-numbers .line-numbers-rows > span{
+    display: block;
+    counter-increment: linenumber;
+}
+
+.code-block.show-line-numbers .line-numbers-rows > span::before{
+    content: counter(linenumber);
+    display: block;
+    padding-right: .8em;
 }
 
 .code-block{
@@ -1054,31 +1190,65 @@ pre[class*="language-"] .line-numbers-rows{
     }
 }
 
-.line-numbers .line-numbers-rows {
-    top: 0;
-    left: 0;
-    padding: 1em 0;
-    user-select: none;
+/* --- 代码块右上角工具栏：语言标签 + 行号开关（紧贴复制按钮左侧） */
+.code-toolbar{
     position: absolute;
+    top: .65em;
+    right: 3.4em;
+    z-index: 1;
+    display: flex;
+    align-items: center;
+    gap: .5em;
     pointer-events: none;
-    width: 3em; /* works for line-numbers below 1000 lines */
-    border-right: 1px solid #ddd;
-    border-color: var(--border);
-    transition: border-color .3s;
-
 }
 
-.line-numbers-rows > span {
-    display: block;
-    counter-increment: linenumber;
+.code-lang{
+    padding: .1em .55em;
+    font-size: .72em;
+    font-weight: 600;
+    letter-spacing: .02em;
+    color: #9d174d;
+    background: rgba(255, 255, 255, .92);
+    border: 1px solid #efbfd0;
+    border-radius: 4px;
+    text-transform: lowercase;
 }
 
-.line-numbers-rows > span::before {
-    content: counter(linenumber);
-    color: #999;
-    display: block;
-    padding-right: 0.8em;
-    text-align: right;
+.code-ln-btn{
+    pointer-events: auto;
+    width: 2.25em;
+    height: 1.9em;
+    padding: 0;
+    font-size: .7em;
+    color: #9d174d;
+    border: 1px solid #efbfd0;
+    border-radius: 4px;
+    background: rgba(255, 255, 255, .92);
+    cursor: pointer;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity .18s, visibility .18s, background .18s, color .18s, border-color .18s;
+}
+
+.code-block:hover .code-ln-btn,
+.code-ln-btn:focus-visible,
+.code-block:focus-within .code-ln-btn{
+    opacity: 1;
+    visibility: visible;
+}
+
+.code-ln-btn:hover{ background: #ffd6e3 }
+.code-ln-btn.active{
+    color: #166534;
+    border-color: #86c99a;
+    background: #eaf8ee;
+}
+
+@media (hover: none){
+    .code-ln-btn{
+        opacity: 1;
+        visibility: visible;
+    }
 }
 
 .gutter{

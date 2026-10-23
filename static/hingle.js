@@ -110,46 +110,12 @@ var Paul_Hingle = function (config) {
             if(!code || pre.parentNode.classList.contains("code-block")) return;
 
             var wrap = document.createElement("div");
-            var button = document.createElement("button");
             wrap.className = "code-block";
-            button.className = "code-copy-btn";
-            button.type = "button";
-            button.textContent = "";
-            button.setAttribute("aria-label", "复制代码");
-            button.title = "复制代码";
 
             pre.parentNode.insertBefore(wrap, pre);
             wrap.appendChild(pre);
-            wrap.appendChild(button);
 
-            button.addEventListener("click", function () {
-                var text = code.textContent;
-                var copy = navigator.clipboard && window.isSecureContext
-                    ? navigator.clipboard.writeText(text)
-                    : new Promise(function (resolve, reject) {
-                        var input = document.createElement("textarea");
-                        input.value = text;
-                        input.style.position = "fixed";
-                        input.style.opacity = "0";
-                        document.body.appendChild(input);
-                        input.select();
-                        document.execCommand("copy") ? resolve() : reject();
-                        document.body.removeChild(input);
-                    });
-
-                copy.then(function () {
-                    button.title = "已复制";
-                    button.setAttribute("aria-label", "代码已复制");
-                    button.classList.add("copied");
-                    window.setTimeout(function () {
-                        button.title = "复制代码";
-                        button.setAttribute("aria-label", "复制代码");
-                        button.classList.remove("copied");
-                    }, 1600);
-                });
-            });
-
-            // 右上角工具栏：语言标签 + 行号开关（复用同一个 .code-block 容器）
+            // 头部条：语言标签 + 行号开关 + 复制按钮，始终横排常显
             var toolbar = document.createElement("div");
             toolbar.className = "code-toolbar";
 
@@ -187,8 +153,44 @@ var Paul_Hingle = function (config) {
                 wrap.classList.add("show-line-numbers");
             }
 
+            // 复制按钮：固定最右，与上面两个成对
+            var button = document.createElement("button");
+            button.className = "code-copy-btn";
+            button.type = "button";
+            button.textContent = "";
+            button.setAttribute("aria-label", "复制代码");
+            button.title = "复制代码";
+            button.addEventListener("click", function () {
+                var text = code.textContent;
+                var copy = navigator.clipboard && window.isSecureContext
+                    ? navigator.clipboard.writeText(text)
+                    : new Promise(function (resolve, reject) {
+                        var input = document.createElement("textarea");
+                        input.value = text;
+                        input.style.position = "fixed";
+                        input.style.opacity = "0";
+                        document.body.appendChild(input);
+                        input.select();
+                        document.execCommand("copy") ? resolve() : reject();
+                        document.body.removeChild(input);
+                    });
+
+                copy.then(function () {
+                    button.title = "已复制";
+                    button.setAttribute("aria-label", "代码已复制");
+                    button.classList.add("copied");
+                    window.setTimeout(function () {
+                        button.title = "复制代码";
+                        button.setAttribute("aria-label", "复制代码");
+                        button.classList.remove("copied");
+                    }, 1600);
+                });
+            });
+            toolbar.appendChild(button);
+
+            // 工具栏放到代码块顶部（有元素时才加）
             if(toolbar.children.length){
-                wrap.appendChild(toolbar);
+                wrap.insertBefore(toolbar, pre);
             }
         });
     };

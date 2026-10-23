@@ -162,6 +162,32 @@ input, textarea, pre, hr, blockquote{
 }
 .dark-theme .head-search input::-webkit-input-placeholder{ color: #bbb }
 
+/* 代码块头部条 / 控件：暗色适配（跟随主题，不引入新色） */
+.dark-theme .code-toolbar{
+    background: #2c2c30;
+    border-color: #4a3a44;
+}
+.dark-theme pre[class*="language-"]{
+    color: #e6dfe8;
+    border-color: #4a3a44;
+    background: #26262a;
+}
+.dark-theme .code-lang,
+.dark-theme .code-ln-btn,
+.dark-theme .code-copy-btn{
+    color: #f0b8cf;
+    border-color: #5a4651;
+    background: #34343a;
+}
+.dark-theme .code-ln-btn:hover,
+.dark-theme .code-copy-btn:hover{ background: #4a3543 }
+.dark-theme .code-ln-btn.active,
+.dark-theme .code-copy-btn.copied{
+    color: #f7d2e0;
+    border-color: #8a5e72;
+    background: #4a2f3d;
+}
+
 /* 1 - 页眉
 -------------------------------- */
 header{
@@ -1044,7 +1070,7 @@ footer .sub-footer p{ font-size: .875em }
 pre[class*="language-"]{
     color: #3f3340;
     border-color: #f6d8e1;
-    background: rgba(255, 249, 251, .42);
+    background: #fdfafc;
     overflow-x: auto;
     tab-size: 2;
 }
@@ -1138,117 +1164,100 @@ pre[class*="language-"] code span::selection{ background: #f8c9d8 }
     position: relative;
 }
 
+/* 复制按钮：与语言标签/行号开关同一套 chip 样式，常显，靠右 */
 .code-copy-btn{
-    top: .65em;
-    right: .65em;
-    z-index: 1;
-    position: absolute;
-    width: 2.25em;
-    height: 2.25em;
-    padding: 0;
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 1.7em;
+    min-width: 1.7em;
+    margin-left: auto;            /* 始终推到工具栏最右 */
+    padding: 0 .5em;
     color: #9d174d;
     border: 1px solid #efbfd0;
     border-radius: 4px;
-    background: rgba(255, 255, 255, .92);
+    background: rgba(255, 255, 255, .85);
     cursor: pointer;
-    font-size: .8em;
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity .18s, visibility .18s, background .18s;
+    font-size: .72em;
+    transition: background .18s, color .18s, border-color .18s;
 }
 
 .code-copy-btn::before,
 .code-copy-btn::after{
     content: "";
     position: absolute;
-    width: .72em;
-    height: .82em;
+    width: .7em;
+    height: .8em;
     border: 1.5px solid currentColor;
     border-radius: 2px;
 }
 
-.code-copy-btn::before{ top: .58em; left: .58em }
-.code-copy-btn::after{ top: .82em; left: .82em; background: inherit }
-.code-block:hover .code-copy-btn,
-.code-copy-btn:focus-visible,
-.code-block:focus-within .code-copy-btn{
-    opacity: 1;
-    visibility: visible;
-}
+.code-copy-btn::before{ top: 50%; left: 50%; transform: translate(-65%, -55%) }
+.code-copy-btn::after{ top: 50%; left: 50%; transform: translate(-35%, -35%); background: rgba(255, 255, 255, .85) }
 
 .code-copy-btn:hover{ background: #ffd6e3 }
 .code-copy-btn.copied{
-    color: #166534;
-    border-color: #86c99a;
-    background: #eaf8ee;
+    color: #6f3d57;
+    border-color: #e89bb6;
+    background: #f6c9da;
 }
 
-@media (hover: none){
-    .code-copy-btn{
-        opacity: 1;
-        visibility: visible;
-    }
-}
-
-/* --- 代码块右上角工具栏：语言标签 + 行号开关（紧贴复制按钮左侧） */
+/* --- 代码块头部条：语言标签 + 行号开关（常显，横排，不遮挡代码） --- */
 .code-toolbar{
-    position: absolute;
-    top: .65em;
-    right: 3.4em;
-    z-index: 1;
     display: flex;
     align-items: center;
     gap: .5em;
-    pointer-events: none;
+    min-height: 2.1em;
+    padding: .35em .65em;
+    background: #f6eef3;
+    border: 1px solid #f6d8e1;
+    border-bottom: none;
+    border-radius: 9px 9px 0 0;
+}
+
+/* 让头部条 + pre 组合成一个圆角卡片，复制按钮浮在 pre 右上角 */
+.code-block pre[class*="language-"]{
+    border-radius: 0 0 9px 9px;
+    margin: 0;
+}
+
+/* 语言标签 / 行号开关：同一套内边距、高度、字号、圆角，成对出现 */
+.code-lang,
+.code-ln-btn{
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    height: 1.7em;
+    padding: 0 .65em;
+    font-size: .72em;
+    font-weight: 600;
+    line-height: 1;
+    letter-spacing: .02em;
+    border: 1px solid #efbfd0;
+    border-radius: 4px;
+    background: rgba(255, 255, 255, .85);
+    color: #9d174d;
+    /* 常显：去掉 hover 才出现的逻辑 */
 }
 
 .code-lang{
-    padding: .1em .55em;
-    font-size: .72em;
-    font-weight: 600;
-    letter-spacing: .02em;
-    color: #9d174d;
-    background: rgba(255, 255, 255, .92);
-    border: 1px solid #efbfd0;
-    border-radius: 4px;
     text-transform: lowercase;
 }
 
 .code-ln-btn{
     pointer-events: auto;
-    width: 2.25em;
-    height: 1.9em;
-    padding: 0;
-    font-size: .7em;
-    color: #9d174d;
-    border: 1px solid #efbfd0;
-    border-radius: 4px;
-    background: rgba(255, 255, 255, .92);
     cursor: pointer;
-    opacity: 0;
-    visibility: hidden;
-    transition: opacity .18s, visibility .18s, background .18s, color .18s, border-color .18s;
+    font-family: inherit;
+    transition: background .18s, color .18s, border-color .18s;
 }
 
-.code-block:hover .code-ln-btn,
-.code-ln-btn:focus-visible,
-.code-block:focus-within .code-ln-btn{
-    opacity: 1;
-    visibility: visible;
-}
-
+/* 开/关两态：只靠底色深浅 + 边框区分，跟随主题粉紫色系 */
 .code-ln-btn:hover{ background: #ffd6e3 }
 .code-ln-btn.active{
-    color: #166534;
-    border-color: #86c99a;
-    background: #eaf8ee;
-}
-
-@media (hover: none){
-    .code-ln-btn{
-        opacity: 1;
-        visibility: visible;
-    }
+    color: #6f3d57;
+    border-color: #e89bb6;
+    background: #f6c9da;
 }
 
 .gutter{

@@ -719,3 +719,145 @@ article.page-content hr{
     article.post-content table,
     article.page-content table{ font-size: .88em }
 }
+
+
+/* ==========================================================================
+   10 - 常用链接卡片（按模块分组，数据来自 source/_data/links.yml）
+   ========================================================================== */
+
+/* --- 分组：每组一个标题 + 一组卡片 --- */
+.link-group{
+    margin-bottom: 2.4em;
+}
+.link-group:last-child{ margin-bottom: .6em }
+
+/* --- 分组小标题：左侧竖线色块，与正文 h2/h3 风格呼应 --- */
+.link-group-title{
+    margin: 0 0 .9em;
+    font-size: 1.12em;
+    font-weight: 600;
+    line-height: 1.4;
+    color: #3f5568;
+}
+
+/* 主题会给 h1-h3 加 "#" 前缀，这里清掉 */
+.link-group-title::before{
+    content: none;
+}
+
+.link-group-title::after{
+    content: "";
+    display: block;
+    width: 2.4em;
+    height: 3px;
+    margin-top: .4em;
+    border-radius: 2px;
+    background: #6f9fc7;
+    background: var(--blue);
+    opacity: .8;
+}
+
+.link-cards{
+    display: flex;
+    flex-wrap: wrap;
+    gap: .9em;
+    margin: 0;
+}
+
+.link-card{
+    display: flex;
+    align-items: center;
+    flex: 1 1 15em;
+    min-width: 0;
+    padding: .9em 1.05em;
+    border-radius: 10px;
+    border: 1px solid #e6eef6;
+    border-color: var(--light-border);
+    background: #fff;
+    background: var(--light-background);
+    box-shadow: 0 4px 16px rgba(60, 90, 130, .06);
+    color: #3f5568;
+    text-decoration: none;
+    transition: transform .22s ease, box-shadow .22s ease, border-color .22s ease;
+}
+
+.link-card:hover{
+    transform: translateY(-3px);
+    border-color: #6f9fc7;
+    border-color: var(--blue);
+    box-shadow: 0 10px 24px rgba(60, 90, 130, .13);
+}
+
+/* 左侧图标：固定宽度的圆形底色块 */
+.link-card-icon{
+    flex: 0 0 2.5em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 2.5em;
+    height: 2.5em;
+    margin-right: .85em;
+    border-radius: 50%;
+    background: rgba(111, 159, 199, .10);
+    color: #6f9fc7;
+    color: var(--blue);
+    font-size: 1.05em;
+    line-height: 1;
+    transition: background-color .22s ease, color .22s ease;
+}
+
+.link-card:hover .link-card-icon{
+    background: #6f9fc7;
+    background: var(--blue);
+    color: #fff;
+}
+
+.link-card-icon i{
+    font-style: normal;
+}
+
+/* 右侧标题 */
+.link-card-title{
+    font-size: 1em;
+    font-weight: 500;
+    letter-spacing: .3px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.link-empty{
+    color: #8a8a8a;
+}
+
+/* --- 夜间模式 */
+.dark-theme .link-group-title{
+    color: #c8c8c8;
+}
+.dark-theme .link-group-title::after{
+    background: #9fcff7;
+    background: var(--light-blue);
+}
+.dark-theme .link-card{
+    color: #c8c8c8;
+    box-shadow: 0 4px 16px rgba(0, 0, 0, .32);
+}
+.dark-theme .link-card:hover{
+    border-color: #9fcff7;
+    border-color: var(--light-blue);
+    box-shadow: 0 10px 24px rgba(0, 0, 0, .42);
+}
+.dark-theme .link-card-icon{
+    background: rgba(255, 255, 255, .08);
+    color: #9fcff7;
+}
+.dark-theme .link-card:hover .link-card-icon{
+    background: #9fcff7;
+    background: var(--light-blue);
+    color: #222;
+}
+
+/* --- 移动端：单列 */
+@media screen and (max-width: 599px){
+    .link-card{ flex: 1 1 100% }
+}

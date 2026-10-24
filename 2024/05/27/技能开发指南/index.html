@@ -1,0 +1,453 @@
+<!DOCTYPE html>
+<html>
+  <head>
+     
+    <meta charset="UTF-8">
+    <title>技能开发指南 - Richu</title>
+    <link rel="shortcut icon" href="/static/img/icon.png">
+    <link rel="icon" href="/static/img/icon.png" sizes="192x192"/>
+    
+<link rel="stylesheet" href="/static/kico.css">
+<link rel="stylesheet" href="/static/hingle.css">
+<link rel="stylesheet" href="/static/md-enhance.css">
+
+    
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <meta name="viewport" content="width=device-width, maximum-scale=1, initial-scale=1"/>
+    <meta property="og:site_name" content="Richu">
+    <meta property="og:title" content="技能开发指南"/>
+    
+    <style>body:before{ content: ''; background-image: url(http://kycloud3.koyoo.cn/2025033176e99202503311036156636.jpg) }</style>
+    
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+  <body>
+    <header>
+    <div class="head-title">
+        <h4>Richu</h4>
+    </div>
+    <div class="head-action">
+        <div class="toggle-btn"></div>
+        <div class="light-btn"></div>
+        <div class="search-btn"></div>
+    </div>
+    <form class="head-search" method="post">
+        <input type="text" name="s" placeholder="搜索什么？">
+    </form>
+    <nav class="head-menu">
+        <a href="/">首页</a>
+        <div class="has-child">
+            <a>分类</a>
+            <div class="sub-menu">
+                <a class="category-link" href="/categories/AI/">AI</a><a class="category-link" href="/categories/Android/">Android</a><a class="category-link" href="/categories/Go/">Go</a><a class="category-link" href="/categories/Java/">Java</a><a class="category-link" href="/categories/QT/">QT</a><a class="category-link" href="/categories/Unity/">Unity</a><a class="category-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a><a class="category-link" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a><a class="category-link" href="/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE/">大数据</a><a class="category-link" href="/categories/%E8%BF%90%E7%BB%B4/">运维</a>
+            </div>
+        </div>
+        
+            <a href="/links">常用链接</a>
+        
+    </nav>
+</header>
+
+    <main>
+    <div class="wrap min">
+        <section class="post-title">
+            <h2>技能开发指南</h2>
+            <div class="post-meta">
+                
+                    <time class="updated" datetime="2026-10-24T15:01:46.088Z" title="最后更新于 2026-10-24 23:01" aria-label="最后更新于 2026-10-24 23:01">2026.10.24</time>
+                
+                <time class="date">2024.05.27</time>
+            
+                <span class="category"><a class="category-link" href="/categories/AI/">AI</a></span>
+            
+            </div>
+        </section>
+        <article class="post-content">
+            <div class="md-intro">
+
+<div class="md-hero">技能开发指南</div>
+<blockquote>
+<p>技能（Skill）是 Skills Agent 的能力单元，每个技能封装了特定领域的<strong>系统提示词、工具权限和生命周期钩子</strong>。</p>
+<p>它的核心目的只有一个：<strong>把一类专业能力的"知识 + 行为规则 + 可用工具"打包成一个可被发现、可被执行、可被复用的独立单元</strong>，让 Agent 在合适的时机自动启用它。</p>
+</blockquote>
+
+<div class="md-lead">
+
+<p>没有技能时，Agent 只能依赖一个巨型的系统提示词”硬记”所有能力：能力越多，提示词越臃肿，意图越容易混淆，维护和扩展都举步维艰。</p>
+</div>
+
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token comment"># ✅ 一份声明式技能：意图清晰、边界分明、运行时按需加载</span>
+<span class="token key atrule">name</span><span class="token punctuation">:</span> code<span class="token punctuation">-</span>review
+<span class="token key atrule">description</span><span class="token punctuation">:</span> Review code changes for bugs<span class="token punctuation">,</span> security issues<span class="token punctuation">,</span> and style violations
+<span class="token key atrule">version</span><span class="token punctuation">:</span> <span class="token string">"1.0.0"</span>
+<span class="token key atrule">triggers</span><span class="token punctuation">:</span>
+  <span class="token key atrule">keywords</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>review<span class="token punctuation">,</span> 审查<span class="token punctuation">]</span>
+<span class="token key atrule">tools</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>file_read<span class="token punctuation">,</span> web_search<span class="token punctuation">]</span>
+<span class="token key atrule">permissions</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>read_filesystem<span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+</div>
+
+<span class="md-kbd-wrap">
+
+<p><span class="md-kbd">Skills Agent</span></p>
+</span>
+
+<h2 id="1-概述"><a href="#1-概述" class="headerlink" title="1. 概述"></a>1. 概述</h2><p>技能是 Skills Agent 的基本能力单元。它把”某个领域该怎么思考、能用哪些工具、在加载&#x2F;出错时做什么”全部收敛在一个文件里，让 Agent 的能力从”写死在系统提示词里”变成”按需插拔的模块”。</p>
+<p>一个设计良好的技能应当满足三点：</p>
+<table>
+<thead>
+<tr>
+<th>特性</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>自包含</td>
+<td>提示词、工具、钩子都在技能内，不依赖外部隐式状态</td>
+</tr>
+<tr>
+<td>可发现</td>
+<td>通过关键词、文件路径或上下文触发，运行时自动匹配</td>
+</tr>
+<tr>
+<td>可隔离</td>
+<td>只声明自己真正需要的工具与权限，遵循最小权限原则</td>
+</tr>
+</tbody></table>
+<h2 id="2-快速开始"><a href="#2-快速开始" class="headerlink" title="2. 快速开始"></a>2. 快速开始</h2><p>技能有两种写法，按复杂度选择：<strong>简单技能用 YAML 声明式，复杂技能用 Python 类</strong>。</p>
+<h3 id="2-1-方式一：YAML-声明式（推荐简单技能）"><a href="#2-1-方式一：YAML-声明式（推荐简单技能）" class="headerlink" title="2.1 方式一：YAML 声明式（推荐简单技能）"></a>2.1 方式一：YAML 声明式（推荐简单技能）</h3><p>在 <code>skills/&lt;name&gt;/skill.yaml</code> 中创建即可，无需写任何代码：</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">name</span><span class="token punctuation">:</span> my<span class="token punctuation">-</span>first<span class="token punctuation">-</span>skill
+<span class="token key atrule">description</span><span class="token punctuation">:</span> 帮助用户完成某项任务的技能
+<span class="token key atrule">version</span><span class="token punctuation">:</span> <span class="token string">"0.1.0"</span>
+<span class="token key atrule">author</span><span class="token punctuation">:</span> your<span class="token punctuation">-</span>name
+
+<span class="token key atrule">triggers</span><span class="token punctuation">:</span>
+  <span class="token key atrule">keywords</span><span class="token punctuation">:</span>
+    <span class="token punctuation">-</span> keyword1
+    <span class="token punctuation">-</span> 中文关键词
+  <span class="token key atrule">context</span><span class="token punctuation">:</span>
+    <span class="token punctuation">-</span> git_diff
+    <span class="token punctuation">-</span> code_review
+
+<span class="token key atrule">tools</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> file_read
+  <span class="token punctuation">-</span> web_search
+
+<span class="token key atrule">dependencies</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+<span class="token key atrule">permissions</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> read_filesystem<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="2-2-方式二：Python-类（推荐复杂技能）"><a href="#2-2-方式二：Python-类（推荐复杂技能）" class="headerlink" title="2.2 方式二：Python 类（推荐复杂技能）"></a>2.2 方式二：Python 类（推荐复杂技能）</h3><p>当技能需要自定义钩子、动态逻辑或专属工具时，在 <code>skills/&lt;name&gt;/skill.py</code> 中继承 <code>Skill</code>：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">from</span> src<span class="token punctuation">.</span>skills <span class="token keyword">import</span> Skill
+<span class="token keyword">from</span> src<span class="token punctuation">.</span>models <span class="token keyword">import</span> SkillTrigger
+
+<span class="token keyword">class</span> <span class="token class-name">MySkill</span><span class="token punctuation">(</span>Skill<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    name <span class="token operator">=</span> <span class="token string">"my-skill"</span>
+    description <span class="token operator">=</span> <span class="token string">"What this skill does"</span>
+    version <span class="token operator">=</span> <span class="token string">"0.1.0"</span>
+
+    triggers <span class="token operator">=</span> SkillTrigger<span class="token punctuation">(</span>
+        keywords<span class="token operator">=</span><span class="token punctuation">[</span><span class="token string">"keyword1"</span><span class="token punctuation">,</span> <span class="token string">"关键词"</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+        context_hints<span class="token operator">=</span><span class="token punctuation">[</span><span class="token string">"git_diff"</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+    <span class="token punctuation">)</span>
+
+    dependencies <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+    required_permissions <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string">"read_filesystem"</span><span class="token punctuation">]</span>
+
+    <span class="token keyword">def</span> <span class="token function">system_prompt</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">></span> <span class="token builtin">str</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> <span class="token punctuation">(</span>
+            <span class="token string">"You are an expert at [domain]. Follow these rules:\n"</span>
+            <span class="token string">"1. Rule one\n"</span>
+            <span class="token string">"2. Rule two\n"</span>
+        <span class="token punctuation">)</span>
+
+    <span class="token keyword">def</span> <span class="token function">tool_names</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">></span> <span class="token builtin">list</span><span class="token punctuation">[</span><span class="token builtin">str</span><span class="token punctuation">]</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> <span class="token punctuation">[</span><span class="token string">"file_read"</span><span class="token punctuation">,</span> <span class="token string">"web_search"</span><span class="token punctuation">]</span>
+
+    <span class="token keyword">async</span> <span class="token keyword">def</span> <span class="token function">on_load</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> context<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token triple-quoted-string string">"""技能加载时执行一次"""</span>
+        <span class="token keyword">pass</span>
+
+    <span class="token keyword">async</span> <span class="token keyword">def</span> <span class="token function">on_unload</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> context<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token triple-quoted-string string">"""技能卸载时清理"""</span>
+        <span class="token keyword">pass</span>
+
+    <span class="token keyword">async</span> <span class="token keyword">def</span> <span class="token function">on_error</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> error<span class="token punctuation">,</span> context<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token triple-quoted-string string">"""处理执行中的错误"""</span>
+        <span class="token keyword">return</span> <span class="token string">"Recovery message or None to propagate"</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<div class="md-note md-tip">
+
+<p><strong>两种写法如何选择？</strong></p>
+<ul>
+<li>技能只是”一段提示词 + 几个工具”，没有自定义逻辑 → 用 YAML，声明即生效。</li>
+<li>技能需要在加载时初始化、在出错时降级、要挂专属工具 → 用 Python 类，逻辑更自由。</li>
+</ul>
+</div>
+
+<h2 id="3-技能定义规范"><a href="#3-技能定义规范" class="headerlink" title="3. 技能定义规范"></a>3. 技能定义规范</h2><p>无论用哪种写法，一份完整的技能定义都离不开下面这些字段。</p>
+<h3 id="3-1-name（必填）"><a href="#3-1-name（必填）" class="headerlink" title="3.1 name（必填）"></a>3.1 name（必填）</h3><ul>
+<li>格式：<code>kebab-case</code>（小写字母 + 数字 + 连字符）</li>
+<li>唯一，不可与已有技能重名</li>
+<li>示例：<code>code-review</code>、<code>deploy-check</code>、<code>api-doc-gen</code></li>
+</ul>
+<h3 id="3-2-description（必填）"><a href="#3-2-description（必填）" class="headerlink" title="3.2 description（必填）"></a>3.2 description（必填）</h3><ul>
+<li>一句话描述技能功能</li>
+<li>用于技能列表展示和 LLM 意图分类</li>
+<li>示例：<code>&quot;Review code changes for bugs, security issues, and style violations&quot;</code></li>
+</ul>
+<h3 id="3-3-triggers（必填）"><a href="#3-3-triggers（必填）" class="headerlink" title="3.3 triggers（必填）"></a>3.3 triggers（必填）</h3><p>定义技能何时被激活。三种触发方式按优先级排列：</p>
+<table>
+<thead>
+<tr>
+<th>方式</th>
+<th>字段</th>
+<th>说明</th>
+<th>示例</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>关键词</td>
+<td><code>keywords</code></td>
+<td>在用户输入中匹配</td>
+<td><code>[&quot;review&quot;, &quot;审查&quot;]</code></td>
+</tr>
+<tr>
+<td>Glob 模式</td>
+<td><code>patterns</code></td>
+<td>文件路径匹配</td>
+<td><code>[&quot;*.diff&quot;, &quot;*.patch&quot;]</code></td>
+</tr>
+<tr>
+<td>上下文</td>
+<td><code>context_hints</code></td>
+<td>会话上下文中的标记</td>
+<td><code>[&quot;pull_request&quot;]</code></td>
+</tr>
+</tbody></table>
+<h3 id="3-4-tools（可选）"><a href="#3-4-tools（可选）" class="headerlink" title="3.4 tools（可选）"></a>3.4 tools（可选）</h3><p>技能需要的工具列表。只声明工具名，Agent 运行时自动绑定：</p>
+<ul>
+<li><code>file_read</code> — 读取文件</li>
+<li><code>file_write</code> — 写入文件</li>
+<li><code>web_search</code> — 搜索网页</li>
+<li><code>shell_exec</code> — 执行命令</li>
+<li><code>http_request</code> — HTTP 请求</li>
+<li><code>clock</code> — 获取时间</li>
+</ul>
+<div class="md-note md-info">
+
+<p><strong>最小权限原则</strong></p>
+<p>工具不是”声明得越多越安全”，而是”用得到才声明”。无关工具一旦声明，就扩大了技能的攻击面。只读工具永远优于写工具，写工具必须配合权限声明。</p>
+</div>
+
+<h3 id="3-5-system-prompt（Python-类必填）"><a href="#3-5-system-prompt（Python-类必填）" class="headerlink" title="3.5 system_prompt（Python 类必填）"></a>3.5 system_prompt（Python 类必填）</h3><p>当技能激活时，这段内容会被注入到 LLM 的系统提示词中。写好它的核心原则有四个：</p>
+<ol>
+<li><strong>角色定义</strong>：明确技能扮演的角色</li>
+<li><strong>规则约束</strong>：列出具体的行为规则</li>
+<li><strong>输出格式</strong>：指定期望的输出结构</li>
+<li><strong>边界说明</strong>：明确技能不做什么</li>
+</ol>
+<h3 id="3-6-hooks（可选）"><a href="#3-6-hooks（可选）" class="headerlink" title="3.6 hooks（可选）"></a>3.6 hooks（可选）</h3><p>生命周期钩子让技能在关键节点介入运行：</p>
+<pre class="line-numbers language-none"><code class="language-none">on_load    → 技能加载到会话时
+on_execute → 技能执行前（可用于 enrich context）
+on_error   → 执行出错时（返回恢复消息或 None）
+on_unload  → 技能卸载时清理资源<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="4-最佳实践"><a href="#4-最佳实践" class="headerlink" title="4. 最佳实践"></a>4. 最佳实践</h2><h3 id="4-1-Prompt-工程"><a href="#4-1-Prompt-工程" class="headerlink" title="4.1 Prompt 工程"></a>4.1 Prompt 工程</h3><p>系统提示词要”说清规则”，而不是”笼统地提一句”。对比两种写法：</p>
+<pre class="line-numbers language-text" data-language="text"><code class="language-text">✅ 好:
+"You are a code review expert. Check for:
+ 1. Logic errors (off-by-one, null dereference)
+ 2. Security issues (SQL injection, XSS)
+ 3. Performance (N+1 queries, unnecessary allocation)
+ Report as: [severity] file:line — description"
+
+❌ 差:
+"Review the code and tell me if there are problems."<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="4-2-工具选择"><a href="#4-2-工具选择" class="headerlink" title="4.2 工具选择"></a>4.2 工具选择</h3><ul>
+<li>只声明技能实际需要的工具（最小权限原则）</li>
+<li>读操作优先于写操作</li>
+<li><code>shell_exec</code> 只在绝对必要时使用，并指定 <code>timeout</code></li>
+</ul>
+<h3 id="4-3-错误处理"><a href="#4-3-错误处理" class="headerlink" title="4.3 错误处理"></a>4.3 错误处理</h3><ul>
+<li>始终实现 <code>on_error</code> 提供优雅降级</li>
+<li>返回人类可读的错误恢复消息</li>
+<li>不要吞掉错误而不记录</li>
+</ul>
+<div class="md-note md-warn">
+
+<p><strong>别让错误静默消失</strong></p>
+<p><code>on_error</code> 返回 <code>None</code> 表示把异常向外传播。如果你直接吞掉异常又不记录，问题会像回调地狱里的 <code>if (err)</code> 被漏写一样——表面风平浪静，实则已经偏离预期。</p>
+</div>
+
+<h3 id="4-4-技能粒度"><a href="#4-4-技能粒度" class="headerlink" title="4.4 技能粒度"></a>4.4 技能粒度</h3><ul>
+<li><strong>过细</strong>：每个小功能一个技能 → 路由混乱</li>
+<li><strong>过粗</strong>：一个技能做所有事 → 失去模块化优势</li>
+<li><strong>合理</strong>：一个技能覆盖一个清晰的领域边界</li>
+</ul>
+<h3 id="4-5-测试技能"><a href="#4-5-测试技能" class="headerlink" title="4.5 测试技能"></a>4.5 测试技能</h3><p>技能写完后应当有对应的测试，覆盖”能否被发现”和”关键词能否命中”两条核心链路：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment"># tests/test_my_skill.py</span>
+<span class="token keyword">import</span> pytest
+<span class="token keyword">from</span> src<span class="token punctuation">.</span>skills<span class="token punctuation">.</span>registry <span class="token keyword">import</span> skill_registry
+<span class="token keyword">from</span> src<span class="token punctuation">.</span>skills<span class="token punctuation">.</span>loader <span class="token keyword">import</span> SkillLoader
+
+<span class="token keyword">async</span> <span class="token keyword">def</span> <span class="token function">test_skill_discovery</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    loader <span class="token operator">=</span> SkillLoader<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    count <span class="token operator">=</span> <span class="token keyword">await</span> loader<span class="token punctuation">.</span>scan_and_register<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token keyword">assert</span> count <span class="token operator">></span> <span class="token number">0</span>
+
+<span class="token keyword">def</span> <span class="token function">test_skill_keyword_match</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    matches <span class="token operator">=</span> skill_registry<span class="token punctuation">.</span>match_by_keyword<span class="token punctuation">(</span><span class="token string">"帮我审查这段代码"</span><span class="token punctuation">)</span>
+    <span class="token keyword">assert</span> <span class="token string">"code-review"</span> <span class="token keyword">in</span> matches<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="5-技能示例"><a href="#5-技能示例" class="headerlink" title="5. 技能示例"></a>5. 技能示例</h2><p>参考项目中的示例技能，作为你动手写第一个技能的蓝本：</p>
+<ul>
+<li><code>skills/example_skill.py</code> — Code Review 技能的完整 Python 实现</li>
+</ul>
+<div class="md-checklist">
+
+<div>
+
+<p><strong>先想清边界，再写提示词</strong></p>
+<p>一个技能只解决一个领域的问题，提示词里的规则也要对应这个边界，避免贪多。</p>
+</div>
+
+<div>
+
+<p><strong>触发条件宁窄勿滥</strong></p>
+<p>关键词太宽泛会导致技能被误唤醒，抢占更合适的技能。先用窄条件跑通，再按需放宽。</p>
+</div>
+
+<div>
+
+<p><strong>工具与权限配对声明</strong></p>
+<p>每声明一个工具，就要想清楚它对应的权限是否必要，从源头收敛风险。</p>
+</div>
+
+<div>
+
+<p><strong>钩子要可重入</strong></p>
+<p><code>on_load</code> 可能在同一会话里被多次调用路径触发，初始化逻辑要幂等，避免重复副作用。</p>
+</div>
+
+</div>
+
+<hr>
+<h2 id="附：核心字段速查"><a href="#附：核心字段速查" class="headerlink" title="附：核心字段速查"></a>附：核心字段速查</h2><table>
+<thead>
+<tr>
+<th>字段</th>
+<th>必填</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>name</code></td>
+<td>是</td>
+<td>唯一标识符，kebab-case</td>
+</tr>
+<tr>
+<td><code>description</code></td>
+<td>是</td>
+<td>一句话描述，驱动意图分类</td>
+</tr>
+<tr>
+<td><code>triggers</code></td>
+<td>是</td>
+<td>关键词 &#x2F; 路径 &#x2F; 上下文，决定何时激活</td>
+</tr>
+<tr>
+<td><code>tools</code></td>
+<td>否</td>
+<td>技能可使用的工具名列表</td>
+</tr>
+<tr>
+<td><code>system_prompt</code></td>
+<td>类必填</td>
+<td>激活时注入的提示词</td>
+</tr>
+<tr>
+<td><code>permissions</code></td>
+<td>否</td>
+<td>技能所需的权限声明</td>
+</tr>
+<tr>
+<td><code>hooks</code></td>
+<td>否</td>
+<td>加载 &#x2F; 执行 &#x2F; 出错 &#x2F; 卸载的生命周期钩子</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p><strong>一句话总结</strong>：技能把”专业能力”封装成了可插拔的模块——声明式写法负责简单场景，Python 类负责复杂逻辑；而清晰的边界、精准的触发和最小化的权限，才是写好一个技能的关键。</p>
+</blockquote>
+
+        </article>
+        <section class="post-near">
+            <ul>
+                
+                    <li>上一篇: <a href="/2024/05/27/Promise/">Promise</a></li>
+                
+                
+                    <li>下一篇: <a href="/2024/05/27/%E7%9F%A5%E8%AF%86%E6%96%87%E6%A1%A3%E6%8A%80%E6%9C%AF%E6%96%87%E6%A1%A3/">企业知识库技术文档（RAG + pgvector）</a></li>
+                
+            </ul>
+        </section>
+        
+            <section class="post-tags">
+            <a class="-none-link" href="/tags/AI-Agent/" rel="tag">AI Agent</a><a class="-none-link" href="/tags/Skill/" rel="tag">Skill</a><a class="-none-link" href="/tags/%E6%8A%80%E8%83%BD/" rel="tag">技能</a>
+            </section>
+        
+    
+        <section class="post-author">
+        
+            <figure class="author-avatar">
+                <img src="https://nos.netease.com/ysf/984b6beaecc19c99414093c0481a2619.png" alt="日初" />
+            </figure>
+        
+            <div class="author-info">
+                <h4>日初</h4>
+                <p>去关于我看看吧(´・ω・`)</p>
+            </div>
+        </section>
+    
+    </div>
+</main>
+
+    <footer>
+    <div class="buttons">
+        <a class="to-top" href="#"></a>
+    </div>
+    <div class="wrap min">
+        <section class="widget">
+            <div class="row">
+                <div class="col-m-4">
+                    <h3 class="title-recent">最新文章：</h3>
+                    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2026/06/03/MySql/">Mysql</a></li><li class="post-list-item"><a class="post-list-link" href="/2026/06/03/SpringCloud/">Spring Cloud</a></li><li class="post-list-item"><a class="post-list-link" href="/2026/06/03/Andriod/">Android</a></li><li class="post-list-item"><a class="post-list-link" href="/2026/06/03/JetpackCompose/">Jetpack Compose</a></li><li class="post-list-item"><a class="post-list-link" href="/2026/06/03/Docker&mysql&nacos/">Docker&mysql&nacos</a></li><li class="post-list-item"><a class="post-list-link" href="/2026/06/03/SpringMVC/">SpringMVC</a></li></ul>
+                </div>
+                <div class="col-m-4">
+                    <h3 class="title-date">时光机：</h3>
+                    <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/06/">六月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/04/">四月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/03/">三月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/07/">七月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/06/">六月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/05/">五月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/04/">四月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/03/">三月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/02/">二月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/12/">十二月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/11/">十一月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/10/">十月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/09/">九月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/05/">五月 2024</a></li></ul>
+                </div>
+                <div class="col-m-4">
+                    <h3 class="title-tags">标签云：</h3>
+                    <a href="/tags/AI-Agent/" style="font-size: 20px;">AI Agent</a> <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/CSS/" style="font-size: 20px;">CSS</a> <a href="/tags/Centos/" style="font-size: 20px;">Centos</a> <a href="/tags/Docker/" style="font-size: 20px;">Docker</a> <a href="/tags/Dubbo/" style="font-size: 20px;">Dubbo</a> <a href="/tags/Flutter/" style="font-size: 20px;">Flutter</a> <a href="/tags/GO/" style="font-size: 20px;">GO</a> <a href="/tags/Game/" style="font-size: 20px;">Game</a> <a href="/tags/Go/" style="font-size: 20px;">Go</a> <a href="/tags/Go-Web/" style="font-size: 20px;">Go Web</a> <a href="/tags/HBase/" style="font-size: 20px;">HBase</a> <a href="/tags/Hadoop/" style="font-size: 20px;">Hadoop</a> <a href="/tags/JQuery/" style="font-size: 20px;">JQuery</a> <a href="/tags/JS/" style="font-size: 20px;">JS</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/Java-Web/" style="font-size: 20px;">Java Web</a> <a href="/tags/K8S/" style="font-size: 20px;">K8S</a> <a href="/tags/Kotlin/" style="font-size: 20px;">Kotlin</a> <a href="/tags/Linux/" style="font-size: 20px;">Linux</a> <a href="/tags/MongoDB/" style="font-size: 20px;">MongoDB</a> <a href="/tags/MySql/" style="font-size: 20px;">MySql</a> <a href="/tags/MybatisPlus/" style="font-size: 20px;">MybatisPlus</a> <a href="/tags/Nginx/" style="font-size: 20px;">Nginx</a> <a href="/tags/NodeJs/" style="font-size: 20px;">NodeJs</a> <a href="/tags/PHP/" style="font-size: 20px;">PHP</a> <a href="/tags/Promise/" style="font-size: 20px;">Promise</a> <a href="/tags/QT/" style="font-size: 20px;">QT</a> <a href="/tags/RAG/" style="font-size: 20px;">RAG</a> <a href="/tags/React/" style="font-size: 20px;">React</a> <a href="/tags/Redis/" style="font-size: 20px;">Redis</a> <a href="/tags/Skill/" style="font-size: 20px;">Skill</a> <a href="/tags/Spark/" style="font-size: 20px;">Spark</a> <a href="/tags/Spring-Cloud/" style="font-size: 20px;">Spring Cloud</a> <a href="/tags/SpringMVC/" style="font-size: 20px;">SpringMVC</a> <a href="/tags/UniApp/" style="font-size: 20px;">UniApp</a> <a href="/tags/UniCloud/" style="font-size: 20px;">UniCloud</a> <a href="/tags/Unity/" style="font-size: 20px;">Unity</a> <a href="/tags/Vue/" style="font-size: 20px;">Vue</a> <a href="/tags/Webpack/" style="font-size: 20px;">Webpack</a> <a href="/tags/ZooKeeper/" style="font-size: 20px;">ZooKeeper</a> <a href="/tags/pgvector/" style="font-size: 20px;">pgvector</a> <a href="/tags/%E5%89%8D%E7%AB%AF/" style="font-size: 20px;">前端</a> <a href="/tags/%E5%90%91%E9%87%8F%E6%A3%80%E7%B4%A2/" style="font-size: 20px;">向量检索</a> <a href="/tags/%E6%8A%80%E8%83%BD/" style="font-size: 20px;">技能</a> <a href="/tags/%E6%8A%80%E8%83%BD%E6%A8%A1%E5%BC%8F/" style="font-size: 20px;">技能模式</a> <a href="/tags/%E7%9F%A5%E8%AF%86%E5%BA%93/" style="font-size: 20px;">知识库</a> <a href="/tags/%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1/" style="font-size: 20px;">系统设计</a> <a href="/tags/%E8%BF%90%E7%BB%B4/" style="font-size: 20px;">运维</a>
+                </div>
+            </div>
+        </section>
+        <section class="sub-footer">
+            <p>© 2026 <a href="/">Richu</a>. All Rights Reserved. Theme By <a href="https://github.com/Dreamer-Paul/Hingle" target="_blank" rel="nofollow">Hingle</a>.</p>
+        </section>
+    </div>
+</footer>
+
+
+<script src="/static/kico.js"></script>
+<script src="/static/hingle.js"></script>
+
+
+<script>var SITE_ROOT = "/";</script>
+<script>var hingle = new Paul_Hingle({"copyright":true,"night":false,"code":{"language_label":true,"language_label_exclude":["markup","none","plain","plaintext","text"],"line_numbers":true,"line_numbers_toggle":true}});</script>
+
+  </body>
+</html>

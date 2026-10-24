@@ -1,0 +1,1069 @@
+<!DOCTYPE html>
+<html>
+  <head>
+     
+    <meta charset="UTF-8">
+    <title>技能模式 AI Agent 系统设计 - Richu</title>
+    <link rel="shortcut icon" href="/static/img/icon.png">
+    <link rel="icon" href="/static/img/icon.png" sizes="192x192"/>
+    
+<link rel="stylesheet" href="/static/kico.css">
+<link rel="stylesheet" href="/static/hingle.css">
+<link rel="stylesheet" href="/static/md-enhance.css">
+
+    
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <meta name="viewport" content="width=device-width, maximum-scale=1, initial-scale=1"/>
+    <meta property="og:site_name" content="Richu">
+    <meta property="og:title" content="技能模式 AI Agent 系统设计"/>
+    
+    <style>body:before{ content: ''; background-image: url(http://kycloud3.koyoo.cn/2025033176e99202503311036156636.jpg) }</style>
+    
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+  <body>
+    <header>
+    <div class="head-title">
+        <h4>Richu</h4>
+    </div>
+    <div class="head-action">
+        <div class="toggle-btn"></div>
+        <div class="light-btn"></div>
+        <div class="search-btn"></div>
+    </div>
+    <form class="head-search" method="post">
+        <input type="text" name="s" placeholder="搜索什么？">
+    </form>
+    <nav class="head-menu">
+        <a href="/">首页</a>
+        <div class="has-child">
+            <a>分类</a>
+            <div class="sub-menu">
+                <a class="category-link" href="/categories/AI/">AI</a><a class="category-link" href="/categories/Android/">Android</a><a class="category-link" href="/categories/Go/">Go</a><a class="category-link" href="/categories/Java/">Java</a><a class="category-link" href="/categories/QT/">QT</a><a class="category-link" href="/categories/Unity/">Unity</a><a class="category-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a><a class="category-link" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a><a class="category-link" href="/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE/">大数据</a><a class="category-link" href="/categories/%E8%BF%90%E7%BB%B4/">运维</a>
+            </div>
+        </div>
+        
+            <a href="/links">常用链接</a>
+        
+    </nav>
+</header>
+
+    <main>
+    <div class="wrap min">
+        <section class="post-title">
+            <h2>技能模式 AI Agent 系统设计</h2>
+            <div class="post-meta">
+                
+                    <time class="updated" datetime="2026-10-24T15:03:48.776Z" title="最后更新于 2026-10-24 23:03" aria-label="最后更新于 2026-10-24 23:03">2026.10.24</time>
+                
+                <time class="date">2024.05.27</time>
+            
+                <span class="category"><a class="category-link" href="/categories/AI/">AI</a></span>
+            
+            </div>
+        </section>
+        <article class="post-content">
+            <div class="md-intro">
+
+<div class="md-hero">技能模式 AI Agent</div>
+<blockquote>
+<p>技能模式（Skills Pattern）AI Agent 是一种<strong>模块化、可组合、可扩展</strong>的智能体架构。</p>
+<p>它的核心思想只有一个：<strong>把 Agent 的能力拆成独立的"技能（Skill）"单元</strong>，每个技能封装特定领域的知识、提示词、工具和子流程，运行时再根据用户意图和上下文动态发现、加载并执行。</p>
+</blockquote>
+
+<div class="md-lead">
+
+<p>传统 Agent 把一切塞进一个巨型 Prompt：逻辑、工具、规则全混在一起，越堆越难维护。技能模式把它拆成”轻量内核 + 一堆自治技能”，让能力可以独立开发、独立测试、按需组合。</p>
+</div>
+
+<pre class="line-numbers language-text" data-language="text"><code class="language-text">传统 Agent:                          技能模式 Agent:
+┌──────────────┐                    ┌──────────────┐
+│   单一巨型    │                    │   Agent Core │
+│   Prompt      │                    │  (轻量内核)   │
+│   + 工具列表   │                    └──────┬───────┘
+│   + 逻辑混杂   │                    ┌──────┼──────┐
+└──────────────┘                    │      │       │
+                               ┌─────┴─┐ ┌──┴──┐ ┌──┴─────┐
+                               │Skill A│ │Skill│ │Skill C │
+                               │(代码)  │ │B(文 │ │(搜索)   │
+                               │       │ │档)  │ │        │
+                               └───────┘ └─────┘ └────────┘<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+</div>
+
+<span class="md-kbd-wrap">
+
+<p><span class="md-kbd">Draft v1.0</span></p>
+</span>
+
+<h2 id="1-概述"><a href="#1-概述" class="headerlink" title="1. 概述"></a>1. 概述</h2><h3 id="1-1-什么是技能模式-AI-Agent"><a href="#1-1-什么是技能模式-AI-Agent" class="headerlink" title="1.1 什么是技能模式 AI Agent"></a>1.1 什么是技能模式 AI Agent</h3><p>技能模式 AI Agent 是一种<strong>模块化、可组合、可扩展</strong>的智能体架构。它与传统 Agent 最大的区别，在于”能力”不再是写死在系统提示词里的一团逻辑，而是拆分成一个个自包含的技能单元。</p>
+<h3 id="1-2-设计目标"><a href="#1-2-设计目标" class="headerlink" title="1.2 设计目标"></a>1.2 设计目标</h3><table>
+<thead>
+<tr>
+<th>目标</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>模块化</strong></td>
+<td>每个技能是自包含的独立单元，可独立开发、测试、发布</td>
+</tr>
+<tr>
+<td><strong>动态发现</strong></td>
+<td>Agent 根据上下文自动匹配和加载技能，无需硬编码</td>
+</tr>
+<tr>
+<td><strong>可组合</strong></td>
+<td>多个技能可链式调用或并行执行，形成复杂工作流</td>
+</tr>
+<tr>
+<td><strong>可扩展</strong></td>
+<td>第三方开发者可创建和分享自定义技能包</td>
+</tr>
+<tr>
+<td><strong>安全可控</strong></td>
+<td>技能在沙箱中运行，权限最小化，执行可审计</td>
+</tr>
+<tr>
+<td><strong>人机协作</strong></td>
+<td>在关键决策点引入人工审批，支持渐进式自主权</td>
+</tr>
+</tbody></table>
+<h3 id="1-3-与传统-Agent-架构的对比"><a href="#1-3-与传统-Agent-架构的对比" class="headerlink" title="1.3 与传统 Agent 架构的对比"></a>1.3 与传统 Agent 架构的对比</h3><pre class="line-numbers language-none"><code class="language-none">传统 Agent:                          技能模式 Agent:
+┌──────────────┐                    ┌──────────────┐
+│   单一巨型    │                    │   Agent Core │
+│   Prompt      │                    │  (轻量内核)   │
+│   + 工具列表   │                    └──────┬───────┘
+│   + 逻辑混杂   │                    ┌──────┼──────┐
+└──────────────┘                    │      │       │
+                               ┌─────┴─┐ ┌──┴──┐ ┌──┴─────┐
+                               │Skill A│ │Skill│ │Skill C │
+                               │(代码)  │ │B(文 │ │(搜索)   │
+                               │       │ │档)  │ │        │
+                               └───────┘ └─────┘ └────────┘<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="2-核心概念"><a href="#2-核心概念" class="headerlink" title="2. 核心概念"></a>2. 核心概念</h2><h3 id="2-1-技能（Skill）"><a href="#2-1-技能（Skill）" class="headerlink" title="2.1 技能（Skill）"></a>2.1 技能（Skill）</h3><p>技能是 Agent 能力的原子单元，由元数据、提示词模板、工具、子技能、权限和生命周期钩子共同组成：</p>
+<pre class="line-numbers language-none"><code class="language-none">Skill
+├── Metadata (元数据)
+│   ├── name: 唯一标识符 (kebab-case)
+│   ├── description: 一句话描述
+│   ├── version: 语义化版本
+│   ├── author: 作者信息
+│   └── triggers: 触发条件列表
+├── Prompt Template (提示词模板)
+│   ├── system: 系统提示词
+│   ├── context: 上下文注入规则
+│   └── examples: Few-shot 示例
+├── Tools (工具定义)
+│   ├── built-in: 内置工具引用
+│   └── custom: 自定义工具实现
+├── Sub-skills (子技能引用)
+│   └── dependencies: 依赖的其他技能
+├── Permissions (权限声明)
+│   └── capabilities: 所需权限列表
+└── Hooks (生命周期钩子)
+    ├── on_load: 技能加载时
+    ├── on_execute: 执行前&#x2F;后
+    └── on_error: 错误处理<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h4 id="技能定义示例（skill-yaml）"><a href="#技能定义示例（skill-yaml）" class="headerlink" title="技能定义示例（skill.yaml）"></a>技能定义示例（skill.yaml）</h4><pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">name</span><span class="token punctuation">:</span> code<span class="token punctuation">-</span>review
+<span class="token key atrule">description</span><span class="token punctuation">:</span> Review code changes for bugs<span class="token punctuation">,</span> security issues<span class="token punctuation">,</span> and style violations
+<span class="token key atrule">version</span><span class="token punctuation">:</span> 1.2.0
+<span class="token key atrule">author</span><span class="token punctuation">:</span> team<span class="token punctuation">-</span>platypus
+<span class="token key atrule">triggers</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">keywords</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">"review"</span><span class="token punctuation">,</span> <span class="token string">"code review"</span><span class="token punctuation">,</span> <span class="token string">"检查代码"</span><span class="token punctuation">,</span> <span class="token string">"审查"</span><span class="token punctuation">]</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">patterns</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">"*.diff"</span><span class="token punctuation">,</span> <span class="token string">"*.patch"</span><span class="token punctuation">,</span> <span class="token string">"git diff"</span><span class="token punctuation">]</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">context</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">"pull_request"</span><span class="token punctuation">,</span> <span class="token string">"code_change"</span><span class="token punctuation">]</span>
+<span class="token key atrule">tools</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">built-in</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>Glob<span class="token punctuation">,</span> Grep<span class="token punctuation">,</span> Read<span class="token punctuation">]</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">custom</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>report_findings<span class="token punctuation">]</span>
+<span class="token key atrule">permissions</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> read_filesystem
+  <span class="token punctuation">-</span> git_diff
+<span class="token key atrule">hooks</span><span class="token punctuation">:</span>
+  <span class="token key atrule">on_load</span><span class="token punctuation">:</span> load_review_checklist
+  <span class="token key atrule">on_error</span><span class="token punctuation">:</span> fallback_to_lint<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="2-2-Agent-核心（Agent-Core）"><a href="#2-2-Agent-核心（Agent-Core）" class="headerlink" title="2.2 Agent 核心（Agent Core）"></a>2.2 Agent 核心（Agent Core）</h3><p>Agent Core 是最小化的运行时内核，负责把”用户输入”翻译成”该调用哪个技能、怎么调”：</p>
+<ul>
+<li><strong>意图路由（Intent Routing）</strong>：解析用户输入，匹配技能</li>
+<li><strong>技能编排（Skill Orchestration）</strong>：加载、执行、卸载技能</li>
+<li><strong>上下文管理（Context Management）</strong>：维护对话历史和技能状态</li>
+<li><strong>工具调度（Tool Dispatch）</strong>：安全地执行工具调用</li>
+<li><strong>记忆管理（Memory Management）</strong>：短期&#x2F;长期记忆的读写</li>
+</ul>
+<h3 id="2-3-工具（Tool）"><a href="#2-3-工具（Tool）" class="headerlink" title="2.3 工具（Tool）"></a>2.3 工具（Tool）</h3><p>工具是技能与外部世界交互的接口，按风险分级管理：</p>
+<pre class="line-numbers language-none"><code class="language-none">Tool Type Hierarchy:
+├── ReadOnly Tools (只读安全)
+│   ├── file_read
+│   ├── search
+│   └── api_get
+├── SideEffect Tools (需审批)
+│   ├── file_write
+│   ├── api_post
+│   └── git_commit
+└── Dangerous Tools (需显式授权)
+    ├── shell_exec
+    ├── db_migrate
+    └── deploy<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="2-4-记忆（Memory）"><a href="#2-4-记忆（Memory）" class="headerlink" title="2.4 记忆（Memory）"></a>2.4 记忆（Memory）</h3><p>分层记忆架构让”临时上下文”和”长期知识”各归其位：</p>
+<pre class="line-numbers language-none"><code class="language-none">Memory Layer          Retention       Use Case
+─────────────────────────────────────────────
+Working Memory        单次会话         当前对话上下文
+Short-term Memory     会话期间         技能状态、中间结果
+Long-term Memory      持久化           用户偏好、项目知识
+Episodic Memory       索引化           历史交互经验
+Semantic Memory       向量化           知识库、文档<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="3-系统架构"><a href="#3-系统架构" class="headerlink" title="3. 系统架构"></a>3. 系统架构</h2><h3 id="3-1-整体架构"><a href="#3-1-整体架构" class="headerlink" title="3.1 整体架构"></a>3.1 整体架构</h3><pre class="line-numbers language-none"><code class="language-none">                               ┌─────────────────────┐
+                               │    API Gateway       │
+                               │  (REST + WebSocket)  │
+                               └──────────┬──────────┘
+                                          │
+                     ┌────────────────────┼────────────────────┐
+                     │                    │                    │
+               ┌─────┴─────┐      ┌──────┴──────┐      ┌─────┴─────┐
+               │   Web UI   │      │  CLI Client  │      │  SDK&#x2F;API  │
+               └───────────┘      └─────────────┘      └───────────┘
+
+┌─────────────────────────────────────────────────────────────────┐
+│                        Agent Server                              │
+│  ┌───────────────────────────────────────────────────────────┐  │
+│  │                    Agent Runtime                           │  │
+│  │  ┌──────────┐  ┌──────────┐  ┌──────────┐  ┌──────────┐  │  │
+│  │  │ Intent   │  │ Skill    │  │ Context  │  │ Tool     │  │  │
+│  │  │ Router   │─▶│ Manager  │─▶│ Manager  │─▶│ Executor │  │  │
+│  │  └──────────┘  └──────────┘  └──────────┘  └──────────┘  │  │
+│  │        │             │              │              │        │  │
+│  │        ▼             ▼              ▼              ▼        │  │
+│  │  ┌──────────────────────────────────────────────────┐     │  │
+│  │  │              Skill Registry                       │     │  │
+│  │  └──────────────────────────────────────────────────┘     │  │
+│  └───────────────────────────────────────────────────────────┘  │
+│                                                                 │
+│  ┌──────────┐  ┌──────────┐  ┌──────────┐  ┌──────────────┐   │
+│  │ Memory   │  │ Sandbox  │  │ Permission│  │ Event Bus    │   │
+│  │ Store    │  │ Manager  │  │ Manager   │  │ (Pub&#x2F;Sub)    │   │
+│  └──────────┘  └──────────┘  └──────────┘  └──────────────┘   │
+└─────────────────────────────────────────────────────────────────┘
+                                          │
+               ┌──────────────────────────┼──────────────────────┐
+               │                          │                      │
+         ┌─────┴─────┐            ┌───────┴───────┐       ┌─────┴─────┐
+         │  Vector   │            │   Relational  │       │   Cache   │
+         │  DB       │            │   DB (SQL)    │       │  (Redis)  │
+         │ (Qdrant)  │            │  (PostgreSQL) │       │           │
+         └───────────┘            └───────────────┘       └───────────┘<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="3-2-组件职责"><a href="#3-2-组件职责" class="headerlink" title="3.2 组件职责"></a>3.2 组件职责</h3><table>
+<thead>
+<tr>
+<th>组件</th>
+<th>职责</th>
+<th>技术选型</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>API Gateway</strong></td>
+<td>请求路由、认证、限流、协议转换</td>
+<td>Nginx &#x2F; Envoy</td>
+</tr>
+<tr>
+<td><strong>Intent Router</strong></td>
+<td>NLP 意图识别、技能匹配、歧义消解</td>
+<td>基于 LLM + 规则引擎</td>
+</tr>
+<tr>
+<td><strong>Skill Manager</strong></td>
+<td>技能注册、发现、加载、生命周期</td>
+<td>自研</td>
+</tr>
+<tr>
+<td><strong>Context Manager</strong></td>
+<td>对话窗口管理、token 预算、上下文压缩</td>
+<td>LangChain &#x2F; 自研</td>
+</tr>
+<tr>
+<td><strong>Tool Executor</strong></td>
+<td>工具校验、沙箱执行、结果序列化</td>
+<td>Docker &#x2F; WASM 沙箱</td>
+</tr>
+<tr>
+<td><strong>Memory Store</strong></td>
+<td>多层级记忆的 CRUD</td>
+<td>ChromaDB &#x2F; PostgreSQL</td>
+</tr>
+<tr>
+<td><strong>Permission Manager</strong></td>
+<td>基于能力的访问控制 (CBAC)</td>
+<td>OPA &#x2F; Casbin</td>
+</tr>
+<tr>
+<td><strong>Event Bus</strong></td>
+<td>Agent 间异步通信、事件驱动编排</td>
+<td>Redis Pub&#x2F;Sub &#x2F; NATS</td>
+</tr>
+</tbody></table>
+<h2 id="4-技能系统设计"><a href="#4-技能系统设计" class="headerlink" title="4. 技能系统设计"></a>4. 技能系统设计</h2><h3 id="4-1-技能注册与发现"><a href="#4-1-技能注册与发现" class="headerlink" title="4.1 技能注册与发现"></a>4.1 技能注册与发现</h3><h4 id="技能源优先级"><a href="#技能源优先级" class="headerlink" title="技能源优先级"></a>技能源优先级</h4><pre class="line-numbers language-none"><code class="language-none">1. Built-in (内置)      → 系统自带，最高优先级
+2. Project (项目级)     → 项目 .agent&#x2F;skills&#x2F; 目录
+3. User (用户级)        → 用户 ~&#x2F;.agent&#x2F;skills&#x2F; 目录
+4. Marketplace (市场)   → 远程注册表下载
+5. Remote (远程服务)    → MCP 协议连接的外部技能服务<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h4 id="技能索引结构"><a href="#技能索引结构" class="headerlink" title="技能索引结构"></a>技能索引结构</h4><pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment"># 技能注册表在内存中的索引</span>
+<span class="token keyword">class</span> <span class="token class-name">SkillIndex</span><span class="token punctuation">:</span>
+    name<span class="token punctuation">:</span> <span class="token builtin">str</span>                    <span class="token comment"># 唯一名称</span>
+    triggers<span class="token punctuation">:</span> List<span class="token punctuation">[</span>Trigger<span class="token punctuation">]</span>      <span class="token comment"># 触发条件</span>
+    embedding<span class="token punctuation">:</span> np<span class="token punctuation">.</span>ndarray        <span class="token comment"># 描述向量，用于语义匹配</span>
+    source<span class="token punctuation">:</span> SkillSource          <span class="token comment"># 来源</span>
+    priority<span class="token punctuation">:</span> <span class="token builtin">int</span>                <span class="token comment"># 优先级</span>
+    enabled<span class="token punctuation">:</span> <span class="token builtin">bool</span>                <span class="token comment"># 是否启用</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h4 id="匹配策略"><a href="#匹配策略" class="headerlink" title="匹配策略"></a>匹配策略</h4><pre class="line-numbers language-none"><code class="language-none">触发匹配流程:
+User Input → Preprocess(分词&#x2F;实体识别)
+                 │
+                 ├── 1. 关键词精确匹配 (fast path)
+                 ├── 2. Glob Pattern 匹配
+                 ├── 3. 语义向量相似度匹配 (fallback)
+                 └── 4. LLM 意图分类 (ambiguous cases)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="4-2-技能生命周期"><a href="#4-2-技能生命周期" class="headerlink" title="4.2 技能生命周期"></a>4.2 技能生命周期</h3><pre class="line-numbers language-none"><code class="language-none">                ┌──────────┐
+                │  Registered│  ← 技能文件被扫描到
+                └─────┬────┘
+                      │
+                ┌─────▼────┐
+                │  Validated│  ← 校验 schema、依赖、权限
+                └─────┬────┘
+                      │
+                ┌─────▼────┐
+                │  Indexed  │  ← 加入索引，可被搜索
+                └─────┬────┘
+                      │
+     ┌────────────────┼────────────────┐
+     │                │                │
+┌────▼────┐     ┌─────▼──────┐   ┌─────▼────┐
+│ Disabled│     │   Loaded   │   │  Error   │
+└─────────┘     └─────┬──────┘   └──────────┘
+                      │
+          ┌───────────┼───────────┐
+          │           │           │
+     ┌────▼────┐ ┌────▼────┐ ┌───▼──────┐
+     │ Running │ │ Paused  │ │ Completed│
+     └────┬────┘ └─────────┘ └──────────┘
+          │
+     ┌────▼────┐
+     │Unloaded │  ← 会话结束或超时卸载
+     └─────────┘<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="4-3-技能执行模型"><a href="#4-3-技能执行模型" class="headerlink" title="4.3 技能执行模型"></a>4.3 技能执行模型</h3><pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment"># 技能执行的伪代码</span>
+<span class="token keyword">async</span> <span class="token keyword">def</span> <span class="token function">execute_skill</span><span class="token punctuation">(</span>
+    skill<span class="token punctuation">:</span> Skill<span class="token punctuation">,</span>
+    context<span class="token punctuation">:</span> AgentContext<span class="token punctuation">,</span>
+    user_input<span class="token punctuation">:</span> <span class="token builtin">str</span>
+<span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">></span> SkillResult<span class="token punctuation">:</span>
+    <span class="token comment"># 1. 权限检查</span>
+    <span class="token keyword">await</span> permission_manager<span class="token punctuation">.</span>check<span class="token punctuation">(</span>skill<span class="token punctuation">.</span>required_permissions<span class="token punctuation">)</span>
+
+    <span class="token comment"># 2. 上下文注入</span>
+    enriched_context <span class="token operator">=</span> <span class="token keyword">await</span> context_manager<span class="token punctuation">.</span>inject<span class="token punctuation">(</span>
+        base_context<span class="token operator">=</span>context<span class="token punctuation">,</span>
+        skill_context<span class="token operator">=</span>skill<span class="token punctuation">.</span>prompt_template<span class="token punctuation">,</span>
+        memory<span class="token operator">=</span><span class="token keyword">await</span> memory_store<span class="token punctuation">.</span>retrieve_relevant<span class="token punctuation">(</span>user_input<span class="token punctuation">)</span>
+    <span class="token punctuation">)</span>
+
+    <span class="token comment"># 3. 工具绑定</span>
+    bound_tools <span class="token operator">=</span> <span class="token keyword">await</span> tool_registry<span class="token punctuation">.</span>bind<span class="token punctuation">(</span>
+        skill<span class="token punctuation">.</span>tools<span class="token punctuation">,</span>
+        sandbox<span class="token operator">=</span>skill<span class="token punctuation">.</span>sandbox_config
+    <span class="token punctuation">)</span>
+
+    <span class="token comment"># 4. 执行循环</span>
+    <span class="token keyword">async</span> <span class="token keyword">with</span> skill_session<span class="token punctuation">(</span>skill<span class="token punctuation">,</span> enriched_context<span class="token punctuation">)</span> <span class="token keyword">as</span> session<span class="token punctuation">:</span>
+        result <span class="token operator">=</span> <span class="token keyword">await</span> session<span class="token punctuation">.</span>run<span class="token punctuation">(</span>
+            <span class="token builtin">input</span><span class="token operator">=</span>user_input<span class="token punctuation">,</span>
+            tools<span class="token operator">=</span>bound_tools<span class="token punctuation">,</span>
+            hooks<span class="token operator">=</span>skill<span class="token punctuation">.</span>hooks<span class="token punctuation">,</span>
+            on_permission_required<span class="token operator">=</span>request_user_approval
+        <span class="token punctuation">)</span>
+
+    <span class="token comment"># 5. 结果持久化</span>
+    <span class="token keyword">await</span> memory_store<span class="token punctuation">.</span>save<span class="token punctuation">(</span>skill<span class="token punctuation">.</span>name<span class="token punctuation">,</span> result<span class="token punctuation">)</span>
+
+    <span class="token keyword">return</span> result<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<div class="md-note md-info">
+
+<p><strong>一次技能执行做了五件事</strong></p>
+<p>权限先于一切、上下文按需注入、工具按沙箱绑定、执行循环内可请求人工审批、结果最后落库。任何一步缺位，技能就只是”提示词”，而不是”可控的能力”。</p>
+</div>
+
+<h3 id="4-4-技能组合模式"><a href="#4-4-技能组合模式" class="headerlink" title="4.4 技能组合模式"></a>4.4 技能组合模式</h3><p>技能之间可以像函数一样组合，构成更复杂的工作流。</p>
+<h4 id="链式组合（Pipeline）"><a href="#链式组合（Pipeline）" class="headerlink" title="链式组合（Pipeline）"></a>链式组合（Pipeline）</h4><pre class="line-numbers language-none"><code class="language-none">Skill A → Skill B → Skill C
+(代码生成) → (代码审查) → (格式化)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<h4 id="并行组合（Parallel）"><a href="#并行组合（Parallel）" class="headerlink" title="并行组合（Parallel）"></a>并行组合（Parallel）</h4><pre class="line-numbers language-none"><code class="language-none">          ┌→ Skill B1 (lint)
+Skill A ─┼→ Skill B2 (security scan)
+          └→ Skill B3 (test)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<h4 id="条件组合（Conditional）"><a href="#条件组合（Conditional）" class="headerlink" title="条件组合（Conditional）"></a>条件组合（Conditional）</h4><pre class="line-numbers language-none"><code class="language-none">Skill A → [判断] ──→ Skill B (成功路径)
+                  └─→ Skill C (错误处理)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<h4 id="工作流定义（YAML-DSL）"><a href="#工作流定义（YAML-DSL）" class="headerlink" title="工作流定义（YAML DSL）"></a>工作流定义（YAML DSL）</h4><pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">workflow</span><span class="token punctuation">:</span> deploy<span class="token punctuation">-</span>review
+<span class="token key atrule">steps</span><span class="token punctuation">:</span>
+  <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> lint
+    <span class="token key atrule">skill</span><span class="token punctuation">:</span> code<span class="token punctuation">-</span>lint
+    <span class="token key atrule">on_error</span><span class="token punctuation">:</span> abort
+
+  <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> review
+    <span class="token key atrule">parallel</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> <span class="token key atrule">skill</span><span class="token punctuation">:</span> security<span class="token punctuation">-</span>review
+      <span class="token punctuation">-</span> <span class="token key atrule">skill</span><span class="token punctuation">:</span> code<span class="token punctuation">-</span>review
+        <span class="token key atrule">args</span><span class="token punctuation">:</span> <span class="token punctuation">&#123;</span> <span class="token key atrule">level</span><span class="token punctuation">:</span> high <span class="token punctuation">&#125;</span>
+    <span class="token key atrule">on_complete</span><span class="token punctuation">:</span> aggregate_results
+
+  <span class="token punctuation">-</span> <span class="token key atrule">name</span><span class="token punctuation">:</span> decide
+    <span class="token key atrule">condition</span><span class="token punctuation">:</span> all_passed
+    <span class="token key atrule">then</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> <span class="token key atrule">skill</span><span class="token punctuation">:</span> deploy
+        <span class="token key atrule">args</span><span class="token punctuation">:</span> <span class="token punctuation">&#123;</span> <span class="token key atrule">env</span><span class="token punctuation">:</span> staging <span class="token punctuation">&#125;</span>
+        <span class="token key atrule">requires_approval</span><span class="token punctuation">:</span> <span class="token boolean important">true</span>
+    <span class="token key atrule">else</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> <span class="token key atrule">skill</span><span class="token punctuation">:</span> notify
+        <span class="token key atrule">args</span><span class="token punctuation">:</span> <span class="token punctuation">&#123;</span> <span class="token key atrule">channel</span><span class="token punctuation">:</span> slack<span class="token punctuation">,</span> <span class="token key atrule">status</span><span class="token punctuation">:</span> failed <span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="5-Agent-运行时"><a href="#5-Agent-运行时" class="headerlink" title="5. Agent 运行时"></a>5. Agent 运行时</h2><h3 id="5-1-主循环（Agent-Loop）"><a href="#5-1-主循环（Agent-Loop）" class="headerlink" title="5.1 主循环（Agent Loop）"></a>5.1 主循环（Agent Loop）</h3><pre class="line-numbers language-none"><code class="language-none">┌─────────────────────────────────────────────────┐
+│                   AGENT LOOP                     │
+│                                                 │
+│  ┌─────────┐     ┌──────────┐     ┌──────────┐ │
+│  │ RECEIVE │────▶│  MATCH   │────▶│   LOAD   │ │
+│  │ input   │     │  skills  │     │  skills  │ │
+│  └─────────┘     └──────────┘     └──────────┘ │
+│       ▲                                 │       │
+│       │                                 ▼       │
+│       │                          ┌──────────┐   │
+│       │                          │ COMPOSE  │   │
+│       │                          │ context  │   │
+│       │                          └──────────┘   │
+│       │                                 │       │
+│       │                                 ▼       │
+│       │                          ┌──────────┐   │
+│       │                          │  CALL LLM│   │
+│       │                          └──────────┘   │
+│       │                                 │       │
+│       │                    ┌────────────┼────┐  │
+│       │                    │            │    │  │
+│       │                    ▼            ▼    │  │
+│       │              ┌────────┐  ┌────────┐ │  │
+│       │              │EXECUTE │  │RESPOND │ │  │
+│       │              │ tool   │  │to user │ │  │
+│       │              └───┬────┘  └────────┘ │  │
+│       │                  │                  │  │
+│       │                  ▼                  │  │
+│       │           ┌────────────┐            │  │
+│       └───────────│ OBSERVE    │◄───────────┘  │
+│                   │ result     │               │
+│                   └────────────┘               │
+└─────────────────────────────────────────────────┘<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<div class="md-note md-tip">
+
+<p><strong>循环的本质是”观察—决策—行动”</strong></p>
+<p><code>OBSERVE</code> 把工具执行结果重新喂回循环顶部，于是 Agent 可以基于上一步的真实反馈决定下一步——这正是它能处理多步、依赖型任务的原因。</p>
+</div>
+
+<h3 id="5-2-上下文窗口管理"><a href="#5-2-上下文窗口管理" class="headerlink" title="5.2 上下文窗口管理"></a>5.2 上下文窗口管理</h3><pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">ContextManager</span><span class="token punctuation">:</span>
+    <span class="token triple-quoted-string string">"""
+    Token 预算分配策略:
+    ┌────────────────────────────────────┐
+    │ System Prompt     ████████  20%    │
+    │ Skill Prompt      ██████    15%    │
+    │ Tool Definitions  ███       8%     │
+    │ Conversation      █████████ 25%    │
+    │ Retrieved Memory  █████     12%    │
+    │ Reserved/Output   ████████  20%    │
+    └────────────────────────────────────┘
+    """</span>
+
+    <span class="token keyword">async</span> <span class="token keyword">def</span> <span class="token function">compose_context</span><span class="token punctuation">(</span>
+        self<span class="token punctuation">,</span>
+        system_prompt<span class="token punctuation">:</span> <span class="token builtin">str</span><span class="token punctuation">,</span>
+        skill_prompts<span class="token punctuation">:</span> List<span class="token punctuation">[</span><span class="token builtin">str</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+        conversation<span class="token punctuation">:</span> List<span class="token punctuation">[</span>Message<span class="token punctuation">]</span><span class="token punctuation">,</span>
+        memory<span class="token punctuation">:</span> List<span class="token punctuation">[</span>Memory<span class="token punctuation">]</span><span class="token punctuation">,</span>
+        token_budget<span class="token punctuation">:</span> <span class="token builtin">int</span>
+    <span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">></span> ComposeResult<span class="token punctuation">:</span>
+        <span class="token comment"># 1. 计算各部分 token 预算</span>
+        <span class="token comment"># 2. 压缩超出的对话历史（摘要/裁剪）</span>
+        <span class="token comment"># 3. 按优先级排序检索到的记忆</span>
+        <span class="token comment"># 4. 组装最终上下文</span>
+        <span class="token keyword">pass</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="5-3-流式输出处理"><a href="#5-3-流式输出处理" class="headerlink" title="5.3 流式输出处理"></a>5.3 流式输出处理</h3><pre class="line-numbers language-none"><code class="language-none">LLM Streaming Response
+         │
+         ├── text → SSE → Client (逐字展示)
+         ├── tool_call → [解析] → 执行 → [注入结果] → 继续生成
+         └── skill_switch → [检测] → 加载新技能 → 切换上下文<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="6-工具系统"><a href="#6-工具系统" class="headerlink" title="6. 工具系统"></a>6. 工具系统</h2><h3 id="6-1-工具定义标准"><a href="#6-1-工具定义标准" class="headerlink" title="6.1 工具定义标准"></a>6.1 工具定义标准</h3><p>采用与 OpenAI Function Calling &#x2F; Anthropic Tool Use 兼容的 JSON Schema：</p>
+<pre class="line-numbers language-json" data-language="json"><code class="language-json"><span class="token punctuation">&#123;</span>
+  <span class="token property">"name"</span><span class="token operator">:</span> <span class="token string">"web_search"</span><span class="token punctuation">,</span>
+  <span class="token property">"description"</span><span class="token operator">:</span> <span class="token string">"Search the web for current information"</span><span class="token punctuation">,</span>
+  <span class="token property">"parameters"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+    <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"object"</span><span class="token punctuation">,</span>
+    <span class="token property">"properties"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+      <span class="token property">"query"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+        <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"string"</span><span class="token punctuation">,</span>
+        <span class="token property">"description"</span><span class="token operator">:</span> <span class="token string">"The search query"</span>
+      <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+      <span class="token property">"max_results"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+        <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"integer"</span><span class="token punctuation">,</span>
+        <span class="token property">"default"</span><span class="token operator">:</span> <span class="token number">10</span><span class="token punctuation">,</span>
+        <span class="token property">"minimum"</span><span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span>
+        <span class="token property">"maximum"</span><span class="token operator">:</span> <span class="token number">50</span>
+      <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+    <span class="token property">"required"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"query"</span><span class="token punctuation">]</span>
+  <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+  <span class="token property">"permissions"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"network_outbound"</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+  <span class="token property">"sandbox"</span><span class="token operator">:</span> <span class="token string">"none"</span><span class="token punctuation">,</span>
+  <span class="token property">"cache"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+    <span class="token property">"ttl"</span><span class="token operator">:</span> <span class="token number">300</span><span class="token punctuation">,</span>
+    <span class="token property">"strategy"</span><span class="token operator">:</span> <span class="token string">"url-based"</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="6-2-工具执行沙箱"><a href="#6-2-工具执行沙箱" class="headerlink" title="6.2 工具执行沙箱"></a>6.2 工具执行沙箱</h3><pre class="line-numbers language-none"><code class="language-none">Permission Level     Execution Context
+─────────────────────────────────────────
+Level 0 (Trusted)    进程内直接调用
+Level 1 (ReadOnly)   只读文件系统视图
+Level 2 (Sandboxed)  Docker&#x2F;WASM 隔离
+Level 3 (Approved)   需用户审批 + Level 2<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="6-3-MCP-协议集成"><a href="#6-3-MCP-协议集成" class="headerlink" title="6.3 MCP 协议集成"></a>6.3 MCP 协议集成</h3><p>支持通过 <a target="_blank" rel="noopener" href="https://modelcontextprotocol.io/">Model Context Protocol (MCP)</a> 连接外部工具服务：</p>
+<pre class="line-numbers language-none"><code class="language-none">Agent Core ←→ MCP Client ←→ MCP Server (remote tools)
+                                 ├── Database tools
+                                 ├── API integrations
+                                 └── Custom services<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="7-记忆与上下文管理"><a href="#7-记忆与上下文管理" class="headerlink" title="7. 记忆与上下文管理"></a>7. 记忆与上下文管理</h2><h3 id="7-1-分层记忆架构"><a href="#7-1-分层记忆架构" class="headerlink" title="7.1 分层记忆架构"></a>7.1 分层记忆架构</h3><pre class="line-numbers language-none"><code class="language-none">┌─────────────────────────────────────────────────────┐
+│ Layer 1: Working Memory (当前轮次)                    │
+│ ┌─────────────────────────────────────────────────┐ │
+│ │ tool_calls[], intermediate_results[], errors[]    │ │
+│ └─────────────────────────────────────────────────┘ │
+├─────────────────────────────────────────────────────┤
+│ Layer 2: Short-term Memory (会话级)                  │
+│ ┌─────────────────────────────────────────────────┐ │
+│ │ conversation[], skill_states&#123;&#125;, user_prefs&#123;&#125;      │ │
+│ └─────────────────────────────────────────────────┘ │
+├─────────────────────────────────────────────────────┤
+│ Layer 3: Long-term Memory (持久化)                   │
+│ ┌─────────────────────────────────────────────────┐ │
+│ │ Project: code_structure, conventions, patterns    │ │
+│ │ User: preferences, feedback_history              │ │
+│ │ Knowledge: indexed documents, API docs            │ │
+│ └─────────────────────────────────────────────────┘ │
+├─────────────────────────────────────────────────────┤
+│ Layer 4: Episodic Memory (经验)                      │
+│ ┌─────────────────────────────────────────────────┐ │
+│ │ Past interactions, successful strategies,        │
+│ │ failure patterns, resolution records             │
+│ └─────────────────────────────────────────────────┘ │
+└─────────────────────────────────────────────────────┘<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="7-2-记忆存储后端"><a href="#7-2-记忆存储后端" class="headerlink" title="7.2 记忆存储后端"></a>7.2 记忆存储后端</h3><table>
+<thead>
+<tr>
+<th>记忆层级</th>
+<th>存储后端</th>
+<th>检索方式</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Working Memory</td>
+<td>进程内存</td>
+<td>直接引用</td>
+</tr>
+<tr>
+<td>Short-term</td>
+<td>Redis</td>
+<td>Key-Value</td>
+</tr>
+<tr>
+<td>Long-term</td>
+<td>PostgreSQL + pgvector</td>
+<td>SQL + 向量搜索</td>
+</tr>
+<tr>
+<td>Episodic</td>
+<td>ChromaDB &#x2F; Qdrant</td>
+<td>语义相似度</td>
+</tr>
+</tbody></table>
+<h3 id="7-3-记忆召回策略"><a href="#7-3-记忆召回策略" class="headerlink" title="7.3 记忆召回策略"></a>7.3 记忆召回策略</h3><pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">MemoryRetrieval</span><span class="token punctuation">:</span>
+    <span class="token keyword">async</span> <span class="token keyword">def</span> <span class="token function">retrieve</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> query<span class="token punctuation">:</span> <span class="token builtin">str</span><span class="token punctuation">,</span> layers<span class="token punctuation">:</span> List<span class="token punctuation">[</span><span class="token builtin">str</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">></span> List<span class="token punctuation">[</span>Memory<span class="token punctuation">]</span><span class="token punctuation">:</span>
+        results <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+
+        <span class="token keyword">if</span> <span class="token string">"working"</span> <span class="token keyword">in</span> layers<span class="token punctuation">:</span>
+            results <span class="token operator">+=</span> self<span class="token punctuation">.</span>_get_working_memory<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+        <span class="token keyword">if</span> <span class="token string">"short_term"</span> <span class="token keyword">in</span> layers<span class="token punctuation">:</span>
+            results <span class="token operator">+=</span> <span class="token keyword">await</span> self<span class="token punctuation">.</span>_redis_search<span class="token punctuation">(</span>query<span class="token punctuation">)</span>
+
+        <span class="token keyword">if</span> <span class="token string">"long_term"</span> <span class="token keyword">in</span> layers<span class="token punctuation">:</span>
+            <span class="token comment"># 混合检索: 关键词 + 语义向量</span>
+            keyword_results <span class="token operator">=</span> <span class="token keyword">await</span> self<span class="token punctuation">.</span>_pg_search<span class="token punctuation">(</span>query<span class="token punctuation">)</span>
+            semantic_results <span class="token operator">=</span> <span class="token keyword">await</span> self<span class="token punctuation">.</span>_vector_search<span class="token punctuation">(</span>query<span class="token punctuation">)</span>
+            results <span class="token operator">+=</span> self<span class="token punctuation">.</span>_reciprocal_rank_fusion<span class="token punctuation">(</span>
+                keyword_results<span class="token punctuation">,</span> semantic_results
+            <span class="token punctuation">)</span>
+
+        <span class="token keyword">if</span> <span class="token string">"episodic"</span> <span class="token keyword">in</span> layers<span class="token punctuation">:</span>
+            results <span class="token operator">+=</span> <span class="token keyword">await</span> self<span class="token punctuation">.</span>_episodic_search<span class="token punctuation">(</span>
+                query<span class="token punctuation">,</span> top_k<span class="token operator">=</span><span class="token number">5</span><span class="token punctuation">,</span> recency_weight<span class="token operator">=</span><span class="token number">0.3</span>
+            <span class="token punctuation">)</span>
+
+        <span class="token keyword">return</span> self<span class="token punctuation">.</span>_deduplicate_and_rank<span class="token punctuation">(</span>results<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="8-通信模式"><a href="#8-通信模式" class="headerlink" title="8. 通信模式"></a>8. 通信模式</h2><h3 id="8-1-Agent-间通信"><a href="#8-1-Agent-间通信" class="headerlink" title="8.1 Agent 间通信"></a>8.1 Agent 间通信</h3><pre class="line-numbers language-none"><code class="language-none">┌──────────────────────────────────────────┐
+│           Agent Communication            │
+│                                          │
+│  ┌─────────┐   Message    ┌─────────┐   │
+│  │ Agent A │─────────────▶│ Agent B │   │
+│  │(Skill X)│◀─────────────│(Skill Y)│   │
+│  └─────────┘   Response   └─────────┘   │
+│                                          │
+│  Patterns:                               │
+│  ├── Direct Call (同步)                   │
+│  ├── Pub&#x2F;Sub (异步广播)                   │
+│  ├── Task Queue (工作分发)                │
+│  └── Blackboard (共享状态)               │
+└──────────────────────────────────────────┘<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="8-2-人机协作模式"><a href="#8-2-人机协作模式" class="headerlink" title="8.2 人机协作模式"></a>8.2 人机协作模式</h3><pre class="line-numbers language-none"><code class="language-none">Autonomy Level       Behavior
+───────────────────────────────────────────
+L0: Full Manual      每步都需用户确认
+L1: Suggest          建议行动，等待确认
+L2: Auto-execute     自动执行可逆操作
+L3: Auto-approve     自动执行(事后通知)
+L4: Full Auto        完全自主(限定域)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="9-技术栈选型"><a href="#9-技术栈选型" class="headerlink" title="9. 技术栈选型"></a>9. 技术栈选型</h2><h3 id="9-1-推荐的技术栈"><a href="#9-1-推荐的技术栈" class="headerlink" title="9.1 推荐的技术栈"></a>9.1 推荐的技术栈</h3><table>
+<thead>
+<tr>
+<th>层级</th>
+<th>技术</th>
+<th>理由</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>语言</strong></td>
+<td>Python 3.12+</td>
+<td>最成熟的 AI&#x2F;ML 生态；async&#x2F;await 原生支持；与 LLM SDK 最佳兼容</td>
+</tr>
+<tr>
+<td><strong>LLM</strong></td>
+<td>Anthropic Claude API (Opus 5.5)</td>
+<td>最强的推理和工具使用能力；原生支持 tool_use；超长上下文窗口</td>
+</tr>
+<tr>
+<td><strong>Agent 框架</strong></td>
+<td>LangGraph + 自研</td>
+<td>LangGraph 提供状态机编排；自研部分处理技能特有逻辑</td>
+</tr>
+<tr>
+<td><strong>Web 框架</strong></td>
+<td>FastAPI</td>
+<td>高性能 async；原生 OpenAPI；Pydantic 集成</td>
+</tr>
+<tr>
+<td><strong>数据库</strong></td>
+<td>PostgreSQL + pgvector</td>
+<td>关系型 + 向量搜索二合一；成熟稳定</td>
+</tr>
+<tr>
+<td><strong>缓存</strong></td>
+<td>Redis</td>
+<td>高性能 KV；Pub&#x2F;Sub；支持多种数据结构</td>
+</tr>
+<tr>
+<td><strong>向量搜索</strong></td>
+<td>pgvector &#x2F; Qdrant</td>
+<td>pgvector 适合中规模；Qdrant 适合大规模高性能场景</td>
+</tr>
+<tr>
+<td><strong>消息队列</strong></td>
+<td>NATS &#x2F; Redis Streams</td>
+<td>轻量；支持 Pub&#x2F;Sub 和 Request&#x2F;Reply</td>
+</tr>
+<tr>
+<td><strong>沙箱</strong></td>
+<td>Docker &#x2F; Firecracker (microVM)</td>
+<td>隔离性强；启动快；资源可控</td>
+</tr>
+<tr>
+<td><strong>MCP 协议</strong></td>
+<td>mcp (Python SDK)</td>
+<td>标准化的工具&#x2F;资源&#x2F;提示词协议</td>
+</tr>
+<tr>
+<td><strong>监控</strong></td>
+<td>OpenTelemetry + Grafana</td>
+<td>可观测性标准；LLM 调用追踪</td>
+</tr>
+<tr>
+<td><strong>配置</strong></td>
+<td>YAML + Pydantic Settings</td>
+<td>人类可读；类型安全</td>
+</tr>
+</tbody></table>
+<h3 id="9-2-备选方案对比"><a href="#9-2-备选方案对比" class="headerlink" title="9.2 备选方案对比"></a>9.2 备选方案对比</h3><h4 id="Agent-框架选择"><a href="#Agent-框架选择" class="headerlink" title="Agent 框架选择"></a>Agent 框架选择</h4><table>
+<thead>
+<tr>
+<th>框架</th>
+<th>优点</th>
+<th>缺点</th>
+<th>适用场景</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>LangGraph</strong></td>
+<td>状态机模型清晰；流式支持好；社区活跃</td>
+<td>抽象层级较高；调试困难</td>
+<td>复杂多步工作流</td>
+</tr>
+<tr>
+<td><strong>CrewAI</strong></td>
+<td>简单易用；角色扮演模型</td>
+<td>灵活性有限；不适合复杂编排</td>
+<td>简单多 Agent 协作</td>
+</tr>
+<tr>
+<td><strong>AutoGen</strong></td>
+<td>微软支持；对话驱动</td>
+<td>与 Azure 绑定紧；学习曲线</td>
+<td>企业微软生态</td>
+</tr>
+<tr>
+<td><strong>自研</strong></td>
+<td>完全可控；最小开销</td>
+<td>开发成本高；需持续维护</td>
+<td>深度定制需求</td>
+</tr>
+</tbody></table>
+<p><strong>推荐</strong>：LangGraph + 自研技能管理层。LangGraph 处理通用 Agent 状态机，自研部分聚焦技能特有的注册&#x2F;发现&#x2F;生命周期。</p>
+<h4 id="为什么选择-Claude-API-作为主要-LLM"><a href="#为什么选择-Claude-API-作为主要-LLM" class="headerlink" title="为什么选择 Claude API 作为主要 LLM"></a>为什么选择 Claude API 作为主要 LLM</h4><table>
+<thead>
+<tr>
+<th>能力</th>
+<th align="center">Claude Opus 5.5</th>
+<th align="center">GPT-4o</th>
+<th>意义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>工具使用准确率</td>
+<td align="center">★★★★★</td>
+<td align="center">★★★★</td>
+<td>减少工具调用重试</td>
+</tr>
+<tr>
+<td>指令遵循</td>
+<td align="center">★★★★★</td>
+<td align="center">★★★★</td>
+<td>技能 prompt 执行力</td>
+</tr>
+<tr>
+<td>代码生成</td>
+<td align="center">★★★★★</td>
+<td align="center">★★★★</td>
+<td>代码类技能质量</td>
+</tr>
+<tr>
+<td>长上下文</td>
+<td align="center">200K tokens</td>
+<td align="center">128K tokens</td>
+<td>更多对话和技能上下文</td>
+</tr>
+<tr>
+<td>多语言</td>
+<td align="center">★★★★★</td>
+<td align="center">★★★★</td>
+<td>中文场景友好</td>
+</tr>
+<tr>
+<td>安全性</td>
+<td align="center">★★★★★</td>
+<td align="center">★★★</td>
+<td>技能执行更安全可控</td>
+</tr>
+</tbody></table>
+<h3 id="9-3-部署架构"><a href="#9-3-部署架构" class="headerlink" title="9.3 部署架构"></a>9.3 部署架构</h3><pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token comment"># docker-compose.yml 核心服务</span>
+<span class="token key atrule">services</span><span class="token punctuation">:</span>
+  <span class="token key atrule">agent-server</span><span class="token punctuation">:</span>
+    <span class="token key atrule">build</span><span class="token punctuation">:</span> .
+    <span class="token key atrule">ports</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">"8000:8000"</span><span class="token punctuation">]</span>
+    <span class="token key atrule">environment</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> ANTHROPIC_API_KEY=$<span class="token punctuation">&#123;</span>ANTHROPIC_API_KEY<span class="token punctuation">&#125;</span>
+      <span class="token punctuation">-</span> DATABASE_URL=postgresql<span class="token punctuation">:</span>//<span class="token punctuation">...</span>
+      <span class="token punctuation">-</span> REDIS_URL=redis<span class="token punctuation">:</span>//<span class="token punctuation">...</span>
+    <span class="token key atrule">depends_on</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>postgres<span class="token punctuation">,</span> redis<span class="token punctuation">]</span>
+
+  <span class="token key atrule">postgres</span><span class="token punctuation">:</span>
+    <span class="token key atrule">image</span><span class="token punctuation">:</span> pgvector/pgvector<span class="token punctuation">:</span>pg16
+    <span class="token key atrule">volumes</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>pgdata<span class="token punctuation">:</span>/var/lib/postgresql/data<span class="token punctuation">]</span>
+
+  <span class="token key atrule">redis</span><span class="token punctuation">:</span>
+    <span class="token key atrule">image</span><span class="token punctuation">:</span> redis<span class="token punctuation">:</span>7<span class="token punctuation">-</span>alpine
+
+  <span class="token key atrule">sandbox</span><span class="token punctuation">:</span>
+    <span class="token key atrule">image</span><span class="token punctuation">:</span> agent<span class="token punctuation">-</span>sandbox<span class="token punctuation">:</span>latest
+    <span class="token key atrule">privileged</span><span class="token punctuation">:</span> <span class="token boolean important">false</span>  <span class="token comment"># 安全: 非特权容器</span>
+
+  <span class="token key atrule">nginx</span><span class="token punctuation">:</span>
+    <span class="token key atrule">image</span><span class="token punctuation">:</span> nginx<span class="token punctuation">:</span>alpine
+    <span class="token key atrule">ports</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">"443:443"</span><span class="token punctuation">]</span>
+    <span class="token key atrule">volumes</span><span class="token punctuation">:</span> <span class="token punctuation">[</span>./nginx.conf<span class="token punctuation">:</span>/etc/nginx/nginx.conf<span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="10-实现路线图"><a href="#10-实现路线图" class="headerlink" title="10. 实现路线图"></a>10. 实现路线图</h2><div class="md-grid">
+
+<div>
+
+<p><strong>Phase 1：核心基础（4–6 周）</strong></p>
+<ul>
+<li>Skill schema 定义与验证</li>
+<li>Skill registry 实现</li>
+<li>Agent Core 最小化运行时</li>
+<li>Tool 系统（内置 10+ 工具）</li>
+<li>LLM 集成（Claude API）</li>
+<li>基础 CLI 接口</li>
+</ul>
+</div>
+
+<div>
+
+<p><strong>Phase 2：技能系统（4–6 周）</strong></p>
+<ul>
+<li>技能发现与自动加载</li>
+<li>意图路由与技能匹配</li>
+<li>技能链式&#x2F;并行执行</li>
+<li>上下文窗口管理</li>
+<li>基础权限系统</li>
+<li>WebSocket 流式输出</li>
+</ul>
+</div>
+
+<div>
+
+<p><strong>Phase 3：记忆与扩展（4–6 周）</strong></p>
+<ul>
+<li>分层记忆系统</li>
+<li>向量数据库集成</li>
+<li>MCP 协议客户端</li>
+<li>沙箱执行环境</li>
+<li>第三方技能市场</li>
+<li>Web UI 基础版</li>
+</ul>
+</div>
+
+<div>
+
+<p><strong>Phase 4：生产化（4–6 周）</strong></p>
+<ul>
+<li>多租户支持</li>
+<li>审计日志</li>
+<li>性能优化与缓存</li>
+<li>水平扩展</li>
+<li>监控告警</li>
+<li>文档与示例</li>
+</ul>
+</div>
+
+</div>
+
+<h2 id="11-附录"><a href="#11-附录" class="headerlink" title="11. 附录"></a>11. 附录</h2><h3 id="A-技能开发快速示例"><a href="#A-技能开发快速示例" class="headerlink" title="A. 技能开发快速示例"></a>A. 技能开发快速示例</h3><pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment"># skills/code_review/skill.py</span>
+<span class="token keyword">from</span> agent_core <span class="token keyword">import</span> Skill<span class="token punctuation">,</span> tool<span class="token punctuation">,</span> hook
+
+<span class="token keyword">class</span> <span class="token class-name">CodeReviewSkill</span><span class="token punctuation">(</span>Skill<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    name <span class="token operator">=</span> <span class="token string">"code-review"</span>
+    description <span class="token operator">=</span> <span class="token string">"Review code changes for bugs and style issues"</span>
+
+    triggers <span class="token operator">=</span> <span class="token punctuation">[</span>
+        <span class="token punctuation">&#123;</span><span class="token string">"keywords"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">"review"</span><span class="token punctuation">,</span> <span class="token string">"审查"</span><span class="token punctuation">]</span><span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+        <span class="token punctuation">&#123;</span><span class="token string">"patterns"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">"*.diff"</span><span class="token punctuation">,</span> <span class="token string">"*.patch"</span><span class="token punctuation">]</span><span class="token punctuation">&#125;</span>
+    <span class="token punctuation">]</span>
+
+    <span class="token comment"># 技能专属工具</span>
+    <span class="token decorator annotation punctuation">@tool</span>
+    <span class="token keyword">async</span> <span class="token keyword">def</span> <span class="token function">report_findings</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> findings<span class="token punctuation">:</span> <span class="token builtin">list</span><span class="token punctuation">[</span><span class="token builtin">dict</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">></span> <span class="token builtin">str</span><span class="token punctuation">:</span>
+        <span class="token triple-quoted-string string">"""Report review findings in structured format"""</span>
+        <span class="token keyword">return</span> self<span class="token punctuation">.</span>format_report<span class="token punctuation">(</span>findings<span class="token punctuation">)</span>
+
+    <span class="token comment"># 生命周期钩子</span>
+    <span class="token decorator annotation punctuation">@hook</span><span class="token punctuation">(</span><span class="token string">"on_load"</span><span class="token punctuation">)</span>
+    <span class="token keyword">async</span> <span class="token keyword">def</span> <span class="token function">load_checklist</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        self<span class="token punctuation">.</span>checklist <span class="token operator">=</span> <span class="token keyword">await</span> self<span class="token punctuation">.</span>fetch_review_checklist<span class="token punctuation">(</span><span class="token punctuation">)</span>
+
+    <span class="token decorator annotation punctuation">@hook</span><span class="token punctuation">(</span><span class="token string">"on_execute"</span><span class="token punctuation">)</span>
+    <span class="token keyword">async</span> <span class="token keyword">def</span> <span class="token function">enrich_context</span><span class="token punctuation">(</span>self<span class="token punctuation">,</span> context<span class="token punctuation">)</span><span class="token punctuation">:</span>
+        context<span class="token punctuation">[</span><span class="token string">"review_standards"</span><span class="token punctuation">]</span> <span class="token operator">=</span> self<span class="token punctuation">.</span>checklist
+        <span class="token keyword">return</span> context
+
+<span class="token comment"># 注册技能</span>
+registry<span class="token punctuation">.</span>register<span class="token punctuation">(</span>CodeReviewSkill<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="B-与-Claude-Code-Skill-系统的关系"><a href="#B-与-Claude-Code-Skill-系统的关系" class="headerlink" title="B. 与 Claude Code Skill 系统的关系"></a>B. 与 Claude Code Skill 系统的关系</h3><p>本设计受 Claude Code 的 Skill 系统启发，但进行了泛化和扩展：</p>
+<table>
+<thead>
+<tr>
+<th>特性</th>
+<th align="center">Claude Code Skills</th>
+<th align="center">本设计</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>技能作用域</td>
+<td align="center">CLI 会话内</td>
+<td align="center">多 Agent 共享</td>
+</tr>
+<tr>
+<td>触发方式</td>
+<td align="center">用户显式调用或自动匹配</td>
+<td align="center">意图路由自动匹配</td>
+</tr>
+<tr>
+<td>技能组合</td>
+<td align="center">单技能执行</td>
+<td align="center">Pipeline&#x2F;Parallel</td>
+</tr>
+<tr>
+<td>记忆持久化</td>
+<td align="center">文件系统</td>
+<td align="center">多层向量数据库</td>
+</tr>
+<tr>
+<td>工具扩展</td>
+<td align="center">MCP&#x2F;内置</td>
+<td align="center">MCP + 自定义工具 SDK</td>
+</tr>
+<tr>
+<td>部署模式</td>
+<td align="center">本地 CLI</td>
+<td align="center">服务端 + 客户端</td>
+</tr>
+</tbody></table>
+<h3 id="C-关键设计决策记录（ADR）"><a href="#C-关键设计决策记录（ADR）" class="headerlink" title="C. 关键设计决策记录（ADR）"></a>C. 关键设计决策记录（ADR）</h3><table>
+<thead>
+<tr>
+<th>ID</th>
+<th>决策</th>
+<th>理由</th>
+<th>权衡</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>ADR-001</td>
+<td>使用 YAML 定义技能</td>
+<td>人类可读写，工具链成熟</td>
+<td>不如 JSON Schema 严格</td>
+</tr>
+<tr>
+<td>ADR-002</td>
+<td>Agent 有状态</td>
+<td>支持长对话和多步工作流</td>
+<td>增加了状态管理复杂度</td>
+</tr>
+<tr>
+<td>ADR-003</td>
+<td>技能无状态</td>
+<td>简化技能开发，易于横向扩展</td>
+<td>状态需外部存储（记忆系统）</td>
+</tr>
+<tr>
+<td>ADR-004</td>
+<td>Python 为主语言</td>
+<td>AI 生态最丰富</td>
+<td>性能不如 Go&#x2F;Rust</td>
+</tr>
+<tr>
+<td>ADR-005</td>
+<td>向量 + 关键词混合检索</td>
+<td>兼顾语义理解和精确匹配</td>
+<td>实现复杂度增加</td>
+</tr>
+</tbody></table>
+<hr>
+<blockquote>
+<p><strong>下一步</strong>：基于本文档进行技术原型验证（PoC），验证意图路由和技能加载的核心链路。</p>
+</blockquote>
+
+        </article>
+        <section class="post-near">
+            <ul>
+                
+                    <li>上一篇: <a href="/2024/05/27/%E7%9F%A5%E8%AF%86%E6%96%87%E6%A1%A3%E6%8A%80%E6%9C%AF%E6%96%87%E6%A1%A3/">企业知识库技术文档（RAG + pgvector）</a></li>
+                
+                
+                    <li>下一篇: 看完啦 (つд⊂)</li>
+                
+            </ul>
+        </section>
+        
+            <section class="post-tags">
+            <a class="-none-link" href="/tags/AI-Agent/" rel="tag">AI Agent</a><a class="-none-link" href="/tags/%E6%8A%80%E8%83%BD%E6%A8%A1%E5%BC%8F/" rel="tag">技能模式</a><a class="-none-link" href="/tags/%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1/" rel="tag">系统设计</a>
+            </section>
+        
+    
+        <section class="post-author">
+        
+            <figure class="author-avatar">
+                <img src="https://nos.netease.com/ysf/984b6beaecc19c99414093c0481a2619.png" alt="日初" />
+            </figure>
+        
+            <div class="author-info">
+                <h4>日初</h4>
+                <p>去关于我看看吧(´・ω・`)</p>
+            </div>
+        </section>
+    
+    </div>
+</main>
+
+    <footer>
+    <div class="buttons">
+        <a class="to-top" href="#"></a>
+    </div>
+    <div class="wrap min">
+        <section class="widget">
+            <div class="row">
+                <div class="col-m-4">
+                    <h3 class="title-recent">最新文章：</h3>
+                    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2026/06/03/MySql/">Mysql</a></li><li class="post-list-item"><a class="post-list-link" href="/2026/06/03/SpringCloud/">Spring Cloud</a></li><li class="post-list-item"><a class="post-list-link" href="/2026/06/03/Andriod/">Android</a></li><li class="post-list-item"><a class="post-list-link" href="/2026/06/03/JetpackCompose/">Jetpack Compose</a></li><li class="post-list-item"><a class="post-list-link" href="/2026/06/03/Docker&mysql&nacos/">Docker&mysql&nacos</a></li><li class="post-list-item"><a class="post-list-link" href="/2026/06/03/SpringMVC/">SpringMVC</a></li></ul>
+                </div>
+                <div class="col-m-4">
+                    <h3 class="title-date">时光机：</h3>
+                    <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/06/">六月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/04/">四月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/03/">三月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/07/">七月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/06/">六月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/05/">五月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/04/">四月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/03/">三月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/02/">二月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/12/">十二月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/11/">十一月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/10/">十月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/09/">九月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/05/">五月 2024</a></li></ul>
+                </div>
+                <div class="col-m-4">
+                    <h3 class="title-tags">标签云：</h3>
+                    <a href="/tags/AI-Agent/" style="font-size: 20px;">AI Agent</a> <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/CSS/" style="font-size: 20px;">CSS</a> <a href="/tags/Centos/" style="font-size: 20px;">Centos</a> <a href="/tags/Docker/" style="font-size: 20px;">Docker</a> <a href="/tags/Dubbo/" style="font-size: 20px;">Dubbo</a> <a href="/tags/Flutter/" style="font-size: 20px;">Flutter</a> <a href="/tags/GO/" style="font-size: 20px;">GO</a> <a href="/tags/Game/" style="font-size: 20px;">Game</a> <a href="/tags/Go/" style="font-size: 20px;">Go</a> <a href="/tags/Go-Web/" style="font-size: 20px;">Go Web</a> <a href="/tags/HBase/" style="font-size: 20px;">HBase</a> <a href="/tags/Hadoop/" style="font-size: 20px;">Hadoop</a> <a href="/tags/JQuery/" style="font-size: 20px;">JQuery</a> <a href="/tags/JS/" style="font-size: 20px;">JS</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/Java-Web/" style="font-size: 20px;">Java Web</a> <a href="/tags/K8S/" style="font-size: 20px;">K8S</a> <a href="/tags/Kotlin/" style="font-size: 20px;">Kotlin</a> <a href="/tags/Linux/" style="font-size: 20px;">Linux</a> <a href="/tags/MongoDB/" style="font-size: 20px;">MongoDB</a> <a href="/tags/MySql/" style="font-size: 20px;">MySql</a> <a href="/tags/MybatisPlus/" style="font-size: 20px;">MybatisPlus</a> <a href="/tags/Nginx/" style="font-size: 20px;">Nginx</a> <a href="/tags/NodeJs/" style="font-size: 20px;">NodeJs</a> <a href="/tags/PHP/" style="font-size: 20px;">PHP</a> <a href="/tags/Promise/" style="font-size: 20px;">Promise</a> <a href="/tags/QT/" style="font-size: 20px;">QT</a> <a href="/tags/RAG/" style="font-size: 20px;">RAG</a> <a href="/tags/React/" style="font-size: 20px;">React</a> <a href="/tags/Redis/" style="font-size: 20px;">Redis</a> <a href="/tags/Skill/" style="font-size: 20px;">Skill</a> <a href="/tags/Spark/" style="font-size: 20px;">Spark</a> <a href="/tags/Spring-Cloud/" style="font-size: 20px;">Spring Cloud</a> <a href="/tags/SpringMVC/" style="font-size: 20px;">SpringMVC</a> <a href="/tags/UniApp/" style="font-size: 20px;">UniApp</a> <a href="/tags/UniCloud/" style="font-size: 20px;">UniCloud</a> <a href="/tags/Unity/" style="font-size: 20px;">Unity</a> <a href="/tags/Vue/" style="font-size: 20px;">Vue</a> <a href="/tags/Webpack/" style="font-size: 20px;">Webpack</a> <a href="/tags/ZooKeeper/" style="font-size: 20px;">ZooKeeper</a> <a href="/tags/pgvector/" style="font-size: 20px;">pgvector</a> <a href="/tags/%E5%89%8D%E7%AB%AF/" style="font-size: 20px;">前端</a> <a href="/tags/%E5%90%91%E9%87%8F%E6%A3%80%E7%B4%A2/" style="font-size: 20px;">向量检索</a> <a href="/tags/%E6%8A%80%E8%83%BD/" style="font-size: 20px;">技能</a> <a href="/tags/%E6%8A%80%E8%83%BD%E6%A8%A1%E5%BC%8F/" style="font-size: 20px;">技能模式</a> <a href="/tags/%E7%9F%A5%E8%AF%86%E5%BA%93/" style="font-size: 20px;">知识库</a> <a href="/tags/%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1/" style="font-size: 20px;">系统设计</a> <a href="/tags/%E8%BF%90%E7%BB%B4/" style="font-size: 20px;">运维</a>
+                </div>
+            </div>
+        </section>
+        <section class="sub-footer">
+            <p>© 2026 <a href="/">Richu</a>. All Rights Reserved. Theme By <a href="https://github.com/Dreamer-Paul/Hingle" target="_blank" rel="nofollow">Hingle</a>.</p>
+        </section>
+    </div>
+</footer>
+
+
+<script src="/static/kico.js"></script>
+<script src="/static/hingle.js"></script>
+
+
+<script>var SITE_ROOT = "/";</script>
+<script>var hingle = new Paul_Hingle({"copyright":true,"night":false,"code":{"language_label":true,"language_label_exclude":["markup","none","plain","plaintext","text"],"line_numbers":true,"line_numbers_toggle":true}});</script>
+
+  </body>
+</html>

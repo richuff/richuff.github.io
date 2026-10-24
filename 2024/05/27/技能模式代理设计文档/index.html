@@ -55,7 +55,7 @@
             <h2>技能模式 AI Agent 系统设计</h2>
             <div class="post-meta">
                 
-                    <time class="updated" datetime="2026-10-24T16:01:08.798Z" title="最后更新于 2026-10-25 00:01" aria-label="最后更新于 2026-10-25 00:01">2026.10.25</time>
+                    <time class="updated" datetime="2026-10-24T16:20:25.476Z" title="最后更新于 2026-10-25 00:20" aria-label="最后更新于 2026-10-25 00:20">2026.10.25</time>
                 
                 <time class="date">2024.05.27</time>
             
@@ -240,7 +240,7 @@ flowchart LR
 </tbody></table>
 <h2 id="3-系统架构"><a href="#3-系统架构" class="headerlink" title="3. 系统架构"></a>3. 系统架构</h2><h3 id="3-1-整体架构"><a href="#3-1-整体架构" class="headerlink" title="3.1 整体架构"></a>3.1 整体架构</h3><div class="mermaid">
 flowchart TD
-    GW["API Gateway<br/>（REST + WebSocket）"] --> SERVER
+    GW["API Gateway<br/>（REST + WebSocket）"] --> IR
     GW --> UI["Web UI"]
     GW --> CLI["CLI Client"]
     GW --> SDK["SDK / API"]
@@ -256,9 +256,9 @@ flowchart TD
     SVC[&quot;Memory Store · Sandbox Manager · Permission Manager · Event Bus&quot;]
 end
 
-SERVER --&gt; VDB[&quot;Vector DB&lt;br/&gt;（Qdrant）&quot;]
-SERVER --&gt; RDB[&quot;Relational DB&lt;br/&gt;（PostgreSQL）&quot;]
-SERVER --&gt; CACHE[&quot;Cache&lt;br/&gt;（Redis）&quot;]
+TE --&gt; VDB[&quot;Vector DB&lt;br/&gt;（Qdrant）&quot;]
+TE --&gt; RDB[&quot;Relational DB&lt;br/&gt;（PostgreSQL）&quot;]
+TE --&gt; CACHE[&quot;Cache&lt;br/&gt;（Redis）&quot;]
 </code></pre>
 </div>
 

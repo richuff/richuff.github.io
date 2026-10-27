@@ -55,7 +55,7 @@
             <h2>企业知识库技术文档（RAG + pgvector）</h2>
             <div class="post-meta">
                 
-                    <time class="updated" datetime="2026-10-27T09:02:05.802Z" title="最后更新于 2026-10-27 17:02" aria-label="最后更新于 2026-10-27 17:02">2026.10.27</time>
+                    <time class="updated" datetime="2026-10-27T09:08:59.640Z" title="最后更新于 2026-10-27 17:08" aria-label="最后更新于 2026-10-27 17:08">2026.10.27</time>
                 
                 <time class="date">2026.10.28</time>
             
@@ -82,7 +82,7 @@
 flowchart LR
     DOC["📄 原始文档"] --> CHUNK["🔪 文本分块"]
     CHUNK --> EMB["🧠 向量嵌入"]
-    EMB --> STORE["💾 向量入库"]
+    EMB --> STORE["向量入库"]
     QUERY["📊 用户提问"] --> ENCODE["Embed"]
     ENCODE --> SIM["pgvector 相似度搜索"]
     SIM -->|召回| STORE
@@ -177,7 +177,7 @@ flowchart TD
         RAW["📄 原始文档<br/>.txt / .md / .pdf / .html"]
         CHK["🔪 文本分块<br/>Chunk 1 / 2 / 3 ..."]
         EMB["🧠 向量嵌入<br/>[0.02, -0.45, 0.79, ...]"]
-        VDB["💾 向量入库<br/>vector_documents"]
+        VDB["向量入库<br/>vector_documents"]
         RAW --> CHK --> EMB --> VDB
     end
 

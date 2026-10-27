@@ -55,7 +55,7 @@
             <h2>企业知识库技术文档（RAG + pgvector）</h2>
             <div class="post-meta">
                 
-                    <time class="updated" datetime="2026-10-27T09:08:59.640Z" title="最后更新于 2026-10-27 17:08" aria-label="最后更新于 2026-10-27 17:08">2026.10.27</time>
+                    <time class="updated" datetime="2026-10-27T09:25:59.900Z" title="最后更新于 2026-10-27 17:25" aria-label="最后更新于 2026-10-27 17:25">2026.10.27</time>
                 
                 <time class="date">2026.10.28</time>
             
@@ -183,10 +183,10 @@ flowchart TD
 
 <pre><code>subgraph RETRIEVE[&quot;语义检索&quot;]
     direction LR
-    Q[&quot;🔍 用户提问&lt;br/&gt;\&quot;年假? \&quot;&quot;]
+        Q1[&quot;🔍 用户提问&lt;br/&gt;「年假?」&quot;]
     EN[&quot;Embed&lt;br/&gt;编码&quot;]
     PG[&quot;pgvector&lt;br/&gt;相似度搜索&quot;]
-    Q --&gt; EN --&gt; PG
+        Q1 --&gt; EN --&gt; PG
 end
 
 subgraph MGMT[&quot;文档管理&quot;]

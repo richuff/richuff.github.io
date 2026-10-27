@@ -1,0 +1,985 @@
+<!DOCTYPE html>
+<html>
+  <head>
+     
+    <meta charset="UTF-8">
+    <title>Vue development - Richu</title>
+    <link rel="shortcut icon" href="/static/img/icon.png">
+    <link rel="icon" href="/static/img/icon.png" sizes="192x192"/>
+    
+<link rel="stylesheet" href="/static/kico.css">
+<link rel="stylesheet" href="/static/hingle.css">
+<link rel="stylesheet" href="/static/md-enhance.css">
+
+    
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <meta name="viewport" content="width=device-width, maximum-scale=1, initial-scale=1"/>
+    <meta property="og:site_name" content="Richu">
+    <meta property="og:title" content="Vue development"/>
+    
+    <style>body:before{ content: ''; background-image: url(http://kycloud3.koyoo.cn/2025033176e99202503311036156636.jpg) }</style>
+    
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+  <body>
+    <header>
+    <div class="head-title">
+        <h4>Richu</h4>
+    </div>
+    <div class="head-action">
+        <div class="toggle-btn"></div>
+        <div class="light-btn"></div>
+        <div class="search-btn"></div>
+    </div>
+    <form class="head-search" method="post">
+        <input type="text" name="s" placeholder="搜索什么？">
+    </form>
+    <nav class="head-menu">
+        <a href="/">首页</a>
+        <div class="has-child">
+            <a>分类</a>
+            <div class="sub-menu">
+                <a class="category-link" href="/categories/AI/">AI</a><a class="category-link" href="/categories/Android/">Android</a><a class="category-link" href="/categories/Go/">Go</a><a class="category-link" href="/categories/Java/">Java</a><a class="category-link" href="/categories/QT/">QT</a><a class="category-link" href="/categories/Unity/">Unity</a><a class="category-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a><a class="category-link" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a><a class="category-link" href="/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE/">大数据</a><a class="category-link" href="/categories/%E8%BF%90%E7%BB%B4/">运维</a>
+            </div>
+        </div>
+        
+            <a href="/links">常用链接</a>
+        
+    </nav>
+</header>
+
+    <main>
+    <div class="wrap min">
+        <section class="post-title">
+            <h2>Vue development</h2>
+            <div class="post-meta">
+                
+                    <time class="updated" datetime="2026-10-27T03:43:16.821Z" title="最后更新于 2026-10-27 11:43" aria-label="最后更新于 2026-10-27 11:43">2026.10.27</time>
+                
+                <time class="date">2026.04.01</time>
+            
+                <span class="category"><a class="category-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a></span>
+            
+            </div>
+        </section>
+        <article class="post-content">
+            <div class="md-intro">
+<div class="md-hero">Vue development</div>
+<blockquote>
+<p>Vue 是一款用于构建用户界面的渐进式 JavaScript 框架；本文以 Vue 3 + Vite 为基础，从 0 到 1 搭建一套后台管理系统（运营平台）模板。</p>
+<p>核心思路是**通过一套统一的工程化规范与组件集成方案，把代码质量、风格与提交标准前置到开发流程中，让团队在不牺牲效率的前提下保持一致**。</p>
+</blockquote>
+<div class="md-lead">传统做法中每位开发者的本地环境与代码风格各异，规范往往靠自觉、容易漏掉格式化与校验；本文用 Git Hook 与统一配置，让“规范”在每次提交前自动生效，避免“能跑就行”的代码污染仓库。</div>
+</div>
+<span class="md-kbd-wrap"><span class="md-kbd">Vue 3 · Vite 后台模板</span></span>
+
+<h2 id="1-概述"><a href="#1-概述" class="headerlink" title="1. 概述"></a>1. 概述</h2><p>今天来带大家从 0 开始搭建一个 Vue 3 版本的后台管理系统。一个项目要有统一的规范，需要使用 <code>eslint</code> + <code>stylelint</code> + <code>prettier</code> 来对我们的代码质量做检测和修复，需要使用 <code>husky</code> 来做 commit 拦截，需要使用 <code>commitlint</code> 来统一提交规范，需要使用 <code>preinstall</code> 来统一包管理工具。</p>
+<p>下面我们就用这一套规范来初始化我们的项目，集成一个规范的模版。</p>
+<h3 id="1-1-环境准备"><a href="#1-1-环境准备" class="headerlink" title="1.1 环境准备"></a>1.1 环境准备</h3><p>搭建前请确保本机已具备以下运行环境：</p>
+<table>
+<thead>
+<tr>
+<th>工具</th>
+<th>版本</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>node</td>
+<td>v16.14.2</td>
+</tr>
+<tr>
+<td>pnpm</td>
+<td>8.0.0</td>
+</tr>
+</tbody></table>
+<h3 id="1-2-初始化项目"><a href="#1-2-初始化项目" class="headerlink" title="1.2 初始化项目"></a>1.2 初始化项目</h3><p>本项目使用 Vite 进行构建，Vite 官方中文文档参考：<a target="_blank" rel="noopener" href="https://cn.vitejs.dev/guide/">cn.vitejs.dev&#x2F;guide&#x2F;</a></p>
+<p><strong>pnpm：performant npm，意为“高性能的 npm”。<a target="_blank" rel="noopener" href="https://so.csdn.net/so/search?q=pnpm&spm=1001.2101.3001.7020">pnpm</a> 由 npm&#x2F;yarn 衍生而来，解决了 npm&#x2F;yarn 内部潜在的 bug，极大的优化了性能，扩展了使用场景。被誉为“最先进的包管理工具”</strong></p>
+<p>pnpm 安装指令：</p>
+<pre class="line-numbers language-none"><code class="language-none">npm i -g pnpm<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>项目初始化命令：</p>
+<pre class="line-numbers language-none"><code class="language-none">pnpm create vite<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>进入到项目根目录 <code>pnpm install</code> 安装全部依赖。安装完依赖运行程序：<code>pnpm run dev</code></p>
+<p>运行完毕项目跑在 <a target="_blank" rel="noopener" href="http://127.0.0.1:5173/%EF%BC%8C%E5%8F%AF%E4%BB%A5%E8%AE%BF%E9%97%AE%E4%BD%A0%E7%9A%84%E9%A1%B9%E7%9B%AE%E5%95%A6%E3%80%82">http://127.0.0.1:5173/，可以访问你的项目啦。</a></p>
+<h2 id="2-工程化规范配置"><a href="#2-工程化规范配置" class="headerlink" title="2. 工程化规范配置"></a>2. 工程化规范配置</h2><p>为保证代码质量与团队一致性，需要对 ESLint、Prettier、Stylelint、Husky、Commitlint 以及包管理器进行统一配置。</p>
+<h3 id="2-1-ESLint-配置"><a href="#2-1-ESLint-配置" class="headerlink" title="2.1 ESLint 配置"></a>2.1 ESLint 配置</h3><p><strong>ESLint 中文官网：<a target="_blank" rel="noopener" href="http://eslint.cn/">http://eslint.cn/</a></strong></p>
+<p>ESLint 最初是由 <a target="_blank" rel="noopener" href="http://nczonline.net/">Nicholas C. Zakas</a> 于 2013 年 6 月创建的开源项目。它的目标是提供一个插件化的 <strong>javascript 代码检测工具</strong>。</p>
+<p>首先安装 ESLint：</p>
+<pre class="line-numbers language-none"><code class="language-none">pnpm i eslint -D<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>生成配置文件 <code>.eslint.cjs</code>：</p>
+<pre class="line-numbers language-none"><code class="language-none">npx eslint --init<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p><strong>.eslint.cjs 配置文件</strong></p>
+<pre class="line-numbers language-none"><code class="language-none">module.exports &#x3D; &#123;
+   &#x2F;&#x2F;运行环境
+    &quot;env&quot;: &#123; 
+        &quot;browser&quot;: true,&#x2F;&#x2F;浏览器端
+        &quot;es2021&quot;: true,&#x2F;&#x2F;es2021
+    &#125;,
+    &#x2F;&#x2F;规则继承
+    &quot;extends&quot;: [ 
+       &#x2F;&#x2F;全部规则默认是关闭的,这个配置项开启推荐规则,推荐规则参照文档
+       &#x2F;&#x2F;比如:函数不能重名、对象不能出现重复key
+        &quot;eslint:recommended&quot;,
+        &#x2F;&#x2F;vue3语法规则
+        &quot;plugin:vue&#x2F;vue3-essential&quot;,
+        &#x2F;&#x2F;ts语法规则
+        &quot;plugin:@typescript-eslint&#x2F;recommended&quot;
+    ],
+    &#x2F;&#x2F;要为特定类型的文件指定处理器
+    &quot;overrides&quot;: [
+    ],
+    &#x2F;&#x2F;指定解析器:解析器
+    &#x2F;&#x2F;Esprima 默认解析器
+    &#x2F;&#x2F;Babel-ESLint babel解析器
+    &#x2F;&#x2F;@typescript-eslint&#x2F;parser ts解析器
+    &quot;parser&quot;: &quot;@typescript-eslint&#x2F;parser&quot;,
+    &#x2F;&#x2F;指定解析器选项
+    &quot;parserOptions&quot;: &#123;
+        &quot;ecmaVersion&quot;: &quot;latest&quot;,&#x2F;&#x2F;校验ECMA最新版本
+        &quot;sourceType&quot;: &quot;module&quot;&#x2F;&#x2F;设置为&quot;script&quot;（默认），或者&quot;module&quot;代码在ECMAScript模块中
+    &#125;,
+    &#x2F;&#x2F;ESLint支持使用第三方插件。在使用插件之前，您必须使用npm安装它
+    &#x2F;&#x2F;该eslint-plugin-前缀可以从插件名称被省略
+    &quot;plugins&quot;: [
+        &quot;vue&quot;,
+        &quot;@typescript-eslint&quot;
+    ],
+    &#x2F;&#x2F;eslint规则
+    &quot;rules&quot;: &#123;
+    &#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h4 id="2-1-1-vue3-环境代码校验插件"><a href="#2-1-1-vue3-环境代码校验插件" class="headerlink" title="2.1.1 vue3 环境代码校验插件"></a>2.1.1 vue3 环境代码校验插件</h4><pre class="line-numbers language-none"><code class="language-none"># 让所有与prettier规则存在冲突的Eslint rules失效，并使用prettier进行代码检查
+&quot;eslint-config-prettier&quot;: &quot;^8.6.0&quot;,
+&quot;eslint-plugin-import&quot;: &quot;^2.27.5&quot;,
+&quot;eslint-plugin-node&quot;: &quot;^11.1.0&quot;,
+# 运行更漂亮的Eslint，使prettier规则优先级更高，Eslint优先级低
+&quot;eslint-plugin-prettier&quot;: &quot;^4.2.1&quot;,
+# vue.js的Eslint插件（查找vue语法错误，发现错误指令，查找违规风格指南
+&quot;eslint-plugin-vue&quot;: &quot;^9.9.0&quot;,
+# 该解析器允许使用Eslint校验所有babel code
+&quot;@babel&#x2F;eslint-parser&quot;: &quot;^7.19.1&quot;,<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>安装指令：</p>
+<pre class="line-numbers language-none"><code class="language-none">pnpm install -D eslint-plugin-import eslint-plugin-vue eslint-plugin-node eslint-plugin-prettier eslint-config-prettier eslint-plugin-node @babel&#x2F;eslint-parser<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<h4 id="2-1-2-修改-eslintrc-cjs-配置文件"><a href="#2-1-2-修改-eslintrc-cjs-配置文件" class="headerlink" title="2.1.2 修改 .eslintrc.cjs 配置文件"></a>2.1.2 修改 .eslintrc.cjs 配置文件</h4><pre class="line-numbers language-none"><code class="language-none">&#x2F;&#x2F; @see https:&#x2F;&#x2F;eslint.bootcss.com&#x2F;docs&#x2F;rules&#x2F;
+
+module.exports &#x3D; &#123;
+  env: &#123;
+    browser: true,
+    es2021: true,
+    node: true,
+    jest: true,
+  &#125;,
+  &#x2F;* 指定如何解析语法 *&#x2F;
+  parser: &#39;vue-eslint-parser&#39;,
+  &#x2F;** 优先级低于 parse 的语法解析配置 *&#x2F;
+  parserOptions: &#123;
+    ecmaVersion: &#39;latest&#39;,
+    sourceType: &#39;module&#39;,
+    parser: &#39;@typescript-eslint&#x2F;parser&#39;,
+    jsxPragma: &#39;React&#39;,
+    ecmaFeatures: &#123;
+      jsx: true,
+    &#125;,
+  &#125;,
+  &#x2F;* 继承已有的规则 *&#x2F;
+  extends: [
+    &#39;eslint:recommended&#39;,
+    &#39;plugin:vue&#x2F;vue3-essential&#39;,
+    &#39;plugin:@typescript-eslint&#x2F;recommended&#39;,
+    &#39;plugin:prettier&#x2F;recommended&#39;,
+  ],
+  plugins: [&#39;vue&#39;, &#39;@typescript-eslint&#39;],
+  &#x2F;*
+   * &quot;off&quot; 或 0    &#x3D;&#x3D;&gt;  关闭规则
+   * &quot;warn&quot; 或 1   &#x3D;&#x3D;&gt;  打开的规则作为警告（不影响代码执行）
+   * &quot;error&quot; 或 2  &#x3D;&#x3D;&gt;  规则作为一个错误（代码不能执行，界面报错）
+   *&#x2F;
+  rules: &#123;
+    &#x2F;&#x2F; eslint（https:&#x2F;&#x2F;eslint.bootcss.com&#x2F;docs&#x2F;rules&#x2F;）
+    &#39;no-var&#39;: &#39;error&#39;, &#x2F;&#x2F; 要求使用 let 或 const 而不是 var
+    &#39;no-multiple-empty-lines&#39;: [&#39;warn&#39;, &#123; max: 1 &#125;], &#x2F;&#x2F; 不允许多个空行
+    &#39;no-console&#39;: process.env.NODE_ENV &#x3D;&#x3D;&#x3D; &#39;production&#39; ? &#39;error&#39; : &#39;off&#39;,
+    &#39;no-debugger&#39;: process.env.NODE_ENV &#x3D;&#x3D;&#x3D; &#39;production&#39; ? &#39;error&#39; : &#39;off&#39;,
+    &#39;no-unexpected-multiline&#39;: &#39;error&#39;, &#x2F;&#x2F; 禁止空余的多行
+    &#39;no-useless-escape&#39;: &#39;off&#39;, &#x2F;&#x2F; 禁止不必要的转义字符
+
+    &#x2F;&#x2F; typeScript (https:&#x2F;&#x2F;typescript-eslint.io&#x2F;rules)
+    &#39;@typescript-eslint&#x2F;no-unused-vars&#39;: &#39;error&#39;, &#x2F;&#x2F; 禁止定义未使用的变量
+    &#39;@typescript-eslint&#x2F;prefer-ts-expect-error&#39;: &#39;error&#39;, &#x2F;&#x2F; 禁止使用 @ts-ignore
+    &#39;@typescript-eslint&#x2F;no-explicit-any&#39;: &#39;off&#39;, &#x2F;&#x2F; 禁止使用 any 类型
+    &#39;@typescript-eslint&#x2F;no-non-null-assertion&#39;: &#39;off&#39;,
+    &#39;@typescript-eslint&#x2F;no-namespace&#39;: &#39;off&#39;, &#x2F;&#x2F; 禁止使用自定义 TypeScript 模块和命名空间。
+    &#39;@typescript-eslint&#x2F;semi&#39;: &#39;off&#39;,
+
+    &#x2F;&#x2F; eslint-plugin-vue (https:&#x2F;&#x2F;eslint.vuejs.org&#x2F;rules&#x2F;)
+    &#39;vue&#x2F;multi-word-component-names&#39;: &#39;off&#39;, &#x2F;&#x2F; 要求组件名称始终为 “-” 链接的单词
+    &#39;vue&#x2F;script-setup-uses-vars&#39;: &#39;error&#39;, &#x2F;&#x2F; 防止&lt;script setup&gt;使用的变量&lt;template&gt;被标记为未使用
+    &#39;vue&#x2F;no-mutating-props&#39;: &#39;off&#39;, &#x2F;&#x2F; 不允许组件 prop的改变
+    &#39;vue&#x2F;attribute-hyphenation&#39;: &#39;off&#39;, &#x2F;&#x2F; 对模板中的自定义组件强制执行属性命名样式
+  &#125;,
+&#125;
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h4 id="2-1-3-eslintignore-忽略文件"><a href="#2-1-3-eslintignore-忽略文件" class="headerlink" title="2.1.3 .eslintignore 忽略文件"></a>2.1.3 .eslintignore 忽略文件</h4><pre class="line-numbers language-none"><code class="language-none">dist
+node_modules<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<h4 id="2-1-4-运行脚本"><a href="#2-1-4-运行脚本" class="headerlink" title="2.1.4 运行脚本"></a>2.1.4 运行脚本</h4><p>package.json 新增两个运行脚本：</p>
+<pre class="line-numbers language-none"><code class="language-none">&quot;scripts&quot;: &#123;
+    &quot;lint&quot;: &quot;eslint src&quot;,
+    &quot;fix&quot;: &quot;eslint src --fix&quot;,
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="2-2-Prettier-配置"><a href="#2-2-Prettier-配置" class="headerlink" title="2.2 Prettier 配置"></a>2.2 Prettier 配置</h3><div class="md-note md-info">
+**为什么有了 ESLint 还需要 Prettier？** ESLint 针对的是 JavaScript，它是一个检测工具，包含 JS 语法以及少部分格式问题；在 ESLint 看来，语法对了就能保证代码正常运行，格式问题属于其次。而 Prettier 属于格式化工具，它看不惯格式不统一，所以把 ESLint 没干好的事接着干，并且 Prettier 支持包含 JS 在内的多种语言。总结起来，**ESLint 和 Prettier 这俩兄弟一个保证 JS 代码质量，一个保证代码美观。**
+</div>
+
+<h4 id="2-2-1-安装依赖包"><a href="#2-2-1-安装依赖包" class="headerlink" title="2.2.1 安装依赖包"></a>2.2.1 安装依赖包</h4><pre class="line-numbers language-none"><code class="language-none">pnpm install -D eslint-plugin-prettier prettier eslint-config-prettier<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<h4 id="2-2-2-prettierrc-json-添加规则"><a href="#2-2-2-prettierrc-json-添加规则" class="headerlink" title="2.2.2 .prettierrc.json 添加规则"></a>2.2.2 .prettierrc.json 添加规则</h4><pre class="line-numbers language-none"><code class="language-none">&#123;
+  &quot;singleQuote&quot;: true,
+  &quot;semi&quot;: false,
+  &quot;bracketSpacing&quot;: true,
+  &quot;htmlWhitespaceSensitivity&quot;: &quot;ignore&quot;,
+  &quot;endOfLine&quot;: &quot;auto&quot;,
+  &quot;trailingComma&quot;: &quot;all&quot;,
+  &quot;tabWidth&quot;: 2
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h4 id="2-2-3-prettierignore-忽略文件"><a href="#2-2-3-prettierignore-忽略文件" class="headerlink" title="2.2.3 .prettierignore 忽略文件"></a>2.2.3 .prettierignore 忽略文件</h4><pre class="line-numbers language-none"><code class="language-none">&#x2F;dist&#x2F;*
+&#x2F;html&#x2F;*
+.local
+&#x2F;node_modules&#x2F;**
+**&#x2F;*.svg
+**&#x2F;*.sh
+&#x2F;public&#x2F;*<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong>通过 <code>pnpm run lint</code> 去检测语法，如果出现不规范格式，通过 <code>pnpm run fix</code> 修改</strong></p>
+<h3 id="2-3-Stylelint-配置"><a href="#2-3-Stylelint-配置" class="headerlink" title="2.3 Stylelint 配置"></a>2.3 Stylelint 配置</h3><p><a target="_blank" rel="noopener" href="https://stylelint.io/">stylelint</a> 为 CSS 的 lint 工具。可格式化 CSS 代码，检查 CSS 语法错误与不合理的写法，指定 CSS 书写顺序等。</p>
+<p>我们的项目中使用 SCSS 作为预处理器，安装以下依赖：</p>
+<pre class="line-numbers language-none"><code class="language-none">pnpm add sass sass-loader stylelint postcss postcss-scss postcss-html stylelint-config-prettier stylelint-config-recess-order stylelint-config-recommended-scss stylelint-config-standard stylelint-config-standard-vue stylelint-scss stylelint-order stylelint-config-standard-scss -D<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<h4 id="2-3-1-stylelintrc-cjs-配置文件"><a href="#2-3-1-stylelintrc-cjs-配置文件" class="headerlink" title="2.3.1 .stylelintrc.cjs 配置文件"></a>2.3.1 .stylelintrc.cjs 配置文件</h4><p><strong>官网：<a target="_blank" rel="noopener" href="https://stylelint.bootcss.com/">https://stylelint.bootcss.com/</a></strong></p>
+<pre class="line-numbers language-none"><code class="language-none">&#x2F;&#x2F; @see https:&#x2F;&#x2F;stylelint.bootcss.com&#x2F;
+
+module.exports &#x3D; &#123;
+  extends: [
+    &#39;stylelint-config-standard&#39;, &#x2F;&#x2F; 配置stylelint拓展插件
+    &#39;stylelint-config-html&#x2F;vue&#39;, &#x2F;&#x2F; 配置 vue 中 template 样式格式化
+    &#39;stylelint-config-standard-scss&#39;, &#x2F;&#x2F; 配置stylelint scss插件
+    &#39;stylelint-config-recommended-vue&#x2F;scss&#39;, &#x2F;&#x2F; 配置 vue 中 scss 样式格式化
+    &#39;stylelint-config-recess-order&#39;, &#x2F;&#x2F; 配置stylelint css属性书写顺序插件,
+    &#39;stylelint-config-prettier&#39;, &#x2F;&#x2F; 配置stylelint和prettier兼容
+  ],
+  overrides: [
+    &#123;
+      files: [&#39;**&#x2F;*.(scss|css|vue|html)&#39;],
+      customSyntax: &#39;postcss-scss&#39;,
+    &#125;,
+    &#123;
+      files: [&#39;**&#x2F;*.(html|vue)&#39;],
+      customSyntax: &#39;postcss-html&#39;,
+    &#125;,
+  ],
+  ignoreFiles: [
+    &#39;**&#x2F;*.js&#39;,
+    &#39;**&#x2F;*.jsx&#39;,
+    &#39;**&#x2F;*.tsx&#39;,
+    &#39;**&#x2F;*.ts&#39;,
+    &#39;**&#x2F;*.json&#39;,
+    &#39;**&#x2F;*.md&#39;,
+    &#39;**&#x2F;*.yaml&#39;,
+  ],
+  &#x2F;**
+   * null  &#x3D;&gt; 关闭该规则
+   * always &#x3D;&gt; 必须
+   *&#x2F;
+  rules: &#123;
+    &#39;value-keyword-case&#39;: null, &#x2F;&#x2F; 在 css 中使用 v-bind，不报错
+    &#39;no-descending-specificity&#39;: null, &#x2F;&#x2F; 禁止在具有较高优先级的选择器后出现被其覆盖的较低优先级的选择器
+    &#39;function-url-quotes&#39;: &#39;always&#39;, &#x2F;&#x2F; 要求或禁止 URL 的引号 &quot;always(必须加上引号)&quot;|&quot;never(没有引号)&quot;
+    &#39;no-empty-source&#39;: null, &#x2F;&#x2F; 关闭禁止空源码
+    &#39;selector-class-pattern&#39;: null, &#x2F;&#x2F; 关闭强制选择器类名的格式
+    &#39;property-no-unknown&#39;: null, &#x2F;&#x2F; 禁止未知的属性(true 为不允许)
+    &#39;block-opening-brace-space-before&#39;: &#39;always&#39;, &#x2F;&#x2F;大括号之前必须有一个空格或不能有空白符
+    &#39;value-no-vendor-prefix&#39;: null, &#x2F;&#x2F; 关闭 属性值前缀 --webkit-box
+    &#39;property-no-vendor-prefix&#39;: null, &#x2F;&#x2F; 关闭 属性前缀 -webkit-mask
+    &#39;selector-pseudo-class-no-unknown&#39;: [
+      &#x2F;&#x2F; 不允许未知的选择器
+      true,
+      &#123;
+        ignorePseudoClasses: [&#39;global&#39;, &#39;v-deep&#39;, &#39;deep&#39;], &#x2F;&#x2F; 忽略属性，修改element默认样式的时候能使用到
+      &#125;,
+    ],
+  &#125;,
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h4 id="2-3-2-stylelintignore-忽略文件"><a href="#2-3-2-stylelintignore-忽略文件" class="headerlink" title="2.3.2 .stylelintignore 忽略文件"></a>2.3.2 .stylelintignore 忽略文件</h4><pre class="line-numbers language-none"><code class="language-none">&#x2F;node_modules&#x2F;*
+&#x2F;dist&#x2F;*
+&#x2F;html&#x2F;*
+&#x2F;public&#x2F;*<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h4 id="2-3-3-运行脚本"><a href="#2-3-3-运行脚本" class="headerlink" title="2.3.3 运行脚本"></a>2.3.3 运行脚本</h4><pre class="line-numbers language-none"><code class="language-none">&quot;scripts&quot;: &#123;
+  &quot;lint:style&quot;: &quot;stylelint src&#x2F;**&#x2F;*.&#123;css,scss,vue&#125; --cache --fix&quot;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p>最后配置统一的 Prettier 来格式化我们的 JS、CSS、HTML 代码：</p>
+<pre class="line-numbers language-none"><code class="language-none">&quot;scripts&quot;: &#123;
+   &quot;dev&quot;: &quot;vite --open&quot;,
+   &quot;build&quot;: &quot;vue-tsc &amp;&amp; vite build&quot;,
+   &quot;preview&quot;: &quot;vite preview&quot;,
+   &quot;lint&quot;: &quot;eslint src&quot;,
+   &quot;fix&quot;: &quot;eslint src --fix&quot;,
+   &quot;format&quot;: &quot;prettier --write \&quot;.&#x2F;**&#x2F;*.&#123;html,vue,ts,js,json,md&#125;\&quot;&quot;,
+   &quot;lint:eslint&quot;: &quot;eslint src&#x2F;**&#x2F;*.&#123;ts,vue&#125; --cache --fix&quot;,
+   &quot;lint:style&quot;: &quot;stylelint src&#x2F;**&#x2F;*.&#123;css,scss,vue&#125; --cache --fix&quot;
+ &#125;,<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong>当我们运行 <code>pnpm run format</code> 的时候，会把代码直接格式化</strong></p>
+<h3 id="2-4-Husky-配置"><a href="#2-4-Husky-配置" class="headerlink" title="2.4 Husky 配置"></a>2.4 Husky 配置</h3><p>在上面我们已经集成好了我们代码校验工具，但是需要每次手动的去执行命令才会格式化我们的代码。如果有人没有格式化就提交了远程仓库中，那这个规范就没什么用。所以我们需要强制让开发人员按照代码规范来提交。</p>
+<p>要做到这件事情，就需要利用 Husky 在代码提交之前触发 git hook（git 在客户端的钩子），然后执行 <code>pnpm run format</code> 来自动的格式化我们的代码。</p>
+<div class="md-note md-tip">
+**提交前自动格式化** 在 `pre-commit` 钩子里执行 `pnpm run format`，可以在 commit 时强制把代码格式化后再提交，避免不规范代码进入仓库。
+</div>
+
+<p>安装 <code>husky</code>：</p>
+<pre class="line-numbers language-none"><code class="language-none">pnpm install -D husky<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>执行：</p>
+<pre class="line-numbers language-none"><code class="language-none">npx husky-init<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>会在根目录下生成一个 <code>.husky</code> 目录，在这个目录下面会有一个 <code>pre-commit</code> 文件，这个文件里面的命令在我们执行 commit 的时候就会执行。</p>
+<p>在 <code>.husky/pre-commit</code> 文件添加如下命令：</p>
+<pre class="line-numbers language-none"><code class="language-none">#!&#x2F;usr&#x2F;bin&#x2F;env sh
+. &quot;$(dirname -- &quot;$0&quot;)&#x2F;_&#x2F;husky.sh&quot;
+pnpm run format<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p>当我们对代码进行 commit 操作的时候，就会执行命令，对代码进行格式化，然后再提交。</p>
+<h3 id="2-5-Commitlint-配置"><a href="#2-5-Commitlint-配置" class="headerlink" title="2.5 Commitlint 配置"></a>2.5 Commitlint 配置</h3><p>对于我们的 commit 信息，也是有统一规范的，不能随便写，要让每个人都按照统一的标准来执行，我们可以利用 <strong>commitlint</strong> 来实现。</p>
+<p>安装包：</p>
+<pre class="line-numbers language-none"><code class="language-none">pnpm add @commitlint&#x2F;config-conventional @commitlint&#x2F;cli -D<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>添加配置文件，新建 <code>commitlint.config.cjs</code>（注意是 cjs），然后添加下面的代码：</p>
+<pre class="line-numbers language-none"><code class="language-none">module.exports &#x3D; &#123;
+  extends: [&#39;@commitlint&#x2F;config-conventional&#39;],
+  &#x2F;&#x2F; 校验规则
+  rules: &#123;
+    &#39;type-enum&#39;: [
+      2,
+      &#39;always&#39;,
+      [
+        &#39;feat&#39;,
+        &#39;fix&#39;,
+        &#39;docs&#39;,
+        &#39;style&#39;,
+        &#39;refactor&#39;,
+        &#39;perf&#39;,
+        &#39;test&#39;,
+        &#39;chore&#39;,
+        &#39;revert&#39;,
+        &#39;build&#39;,
+      ],
+    ],
+    &#39;type-case&#39;: [0],
+    &#39;type-empty&#39;: [0],
+    &#39;scope-empty&#39;: [0],
+    &#39;scope-case&#39;: [0],
+    &#39;subject-full-stop&#39;: [0, &#39;never&#39;],
+    &#39;subject-case&#39;: [0, &#39;never&#39;],
+    &#39;header-max-length&#39;: [0, &#39;always&#39;, 72],
+  &#125;,
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>在 <code>package.json</code> 中配置 scripts 命令：</p>
+<pre class="line-numbers language-none"><code class="language-none"># 在scrips中添加下面的代码
+&#123;
+&quot;scripts&quot;: &#123;
+    &quot;commitlint&quot;: &quot;commitlint --config commitlint.config.cjs -e -V&quot;
+  &#125;,
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>配置结束，现在当我们填写 <code>commit</code> 信息的时候，前面就需要带着下面的 <code>subject</code>：</p>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>feat</td>
+<td>新特性、新功能</td>
+</tr>
+<tr>
+<td>fix</td>
+<td>修改 bug</td>
+</tr>
+<tr>
+<td>docs</td>
+<td>文档修改</td>
+</tr>
+<tr>
+<td>style</td>
+<td>代码格式修改，注意不是 css 修改</td>
+</tr>
+<tr>
+<td>refactor</td>
+<td>代码重构</td>
+</tr>
+<tr>
+<td>perf</td>
+<td>优化相关，比如提升性能、体验</td>
+</tr>
+<tr>
+<td>test</td>
+<td>测试用例修改</td>
+</tr>
+<tr>
+<td>chore</td>
+<td>其他修改，比如改变构建流程、或者增加依赖库、工具等</td>
+</tr>
+<tr>
+<td>revert</td>
+<td>回滚到上一个版本</td>
+</tr>
+<tr>
+<td>build</td>
+<td>编译相关的修改，例如发布版本、对项目构建或者依赖的改动</td>
+</tr>
+</tbody></table>
+<p>配置 husky：</p>
+<pre class="line-numbers language-none"><code class="language-none">npx husky add .husky&#x2F;commit-msg <span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>在生成的 commit-msg 文件中添加下面的命令：</p>
+<pre class="line-numbers language-none"><code class="language-none">#!&#x2F;usr&#x2F;bin&#x2F;env sh
+. &quot;$(dirname -- &quot;$0&quot;)&#x2F;_&#x2F;husky.sh&quot;
+pnpm commitlint<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<div class="md-note md-warn">
+**提交信息格式** 当我们 commit 提交信息时，就不能再随意写了，必须是 `git commit -m 'fix: xxx'` 符合类型的才可以。**需要注意的是类型的后面需要用英文的 `:`，并且冒号后面是需要空一格的，这个是不能省略的。**
+</div>
+
+<h3 id="2-6-强制使用-pnpm-包管理器工具"><a href="#2-6-强制使用-pnpm-包管理器工具" class="headerlink" title="2.6 强制使用 pnpm 包管理器工具"></a>2.6 强制使用 pnpm 包管理器工具</h3><p>团队开发项目的时候，需要统一包管理器工具，因为不同包管理器工具下载同一个依赖，可能版本不一样，导致项目出现 bug 问题，因此包管理器工具需要统一管理！！！</p>
+<p>在根目录创建 <code>scritps/preinstall.js</code> 文件，添加下面的内容：</p>
+<pre class="line-numbers language-none"><code class="language-none">if (!&#x2F;pnpm&#x2F;.test(process.env.npm_execpath || &#39;&#39;)) &#123;
+  console.warn(
+    &#96;\u001b[33mThis repository must using pnpm as the package manager &#96; +
+    &#96; for scripts to work properly.\u001b[39m\n&#96;,
+  )
+  process.exit(1)
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>配置命令：</p>
+<pre class="line-numbers language-none"><code class="language-none">&quot;scripts&quot;: &#123;
+  &quot;preinstall&quot;: &quot;node .&#x2F;scripts&#x2F;preinstall.js&quot;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p><strong>当我们使用 npm 或者 yarn 来安装包的时候，就会报错了。原理就是在 install 的时候会触发 preinstall（npm 提供的生命周期钩子）这个文件里面的代码。</strong></p>
+<h2 id="3-项目集成"><a href="#3-项目集成" class="headerlink" title="3. 项目集成"></a>3. 项目集成</h2><p>在规范配置完成后，继续集成项目所需的各类依赖与功能模块。</p>
+<h3 id="3-1-集成-Element-Plus"><a href="#3-1-集成-Element-Plus" class="headerlink" title="3.1 集成 Element Plus"></a>3.1 集成 Element Plus</h3><p>硅谷甄选运营平台，UI 组件库采用的 Element Plus，因此需要集成 Element Plus 插件！！！</p>
+<p>官网地址：<a target="_blank" rel="noopener" href="https://element-plus.gitee.io/zh-CN/">https://element-plus.gitee.io/zh-CN/</a></p>
+<pre class="line-numbers language-none"><code class="language-none">pnpm install element-plus @element-plus&#x2F;icons-vue<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p><strong>入口文件 main.ts 全局安装 Element Plus，Element Plus 默认支持语言英语设置为中文</strong></p>
+<pre class="line-numbers language-none"><code class="language-none">import ElementPlus from &#39;element-plus&#39;;
+import &#39;element-plus&#x2F;dist&#x2F;index.css&#39;
+&#x2F;&#x2F;@ts-ignore忽略当前文件ts类型的检测否则有红色提示(打包会失败)
+import zhCn from &#39;element-plus&#x2F;dist&#x2F;locale&#x2F;zh-cn.mjs&#39;
+app.use(ElementPlus, &#123;
+    locale: zhCn
+&#125;)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong>Element Plus 全局组件类型声明</strong></p>
+<pre class="line-numbers language-none"><code class="language-none">&#x2F;&#x2F; tsconfig.json
+&#123;
+  &quot;compilerOptions&quot;: &#123;
+    &#x2F;&#x2F; ...
+    &quot;types&quot;: [&quot;element-plus&#x2F;global&quot;]
+  &#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>配置完毕可以测试 Element Plus 组件与图标的使用。</p>
+<h3 id="3-2-src-别名的配置"><a href="#3-2-src-别名的配置" class="headerlink" title="3.2 src 别名的配置"></a>3.2 src 别名的配置</h3><p>在开发项目的时候文件与文件关系可能很复杂，因此我们需要给 src 文件夹配置一个别名！！！</p>
+<pre class="line-numbers language-none"><code class="language-none">&#x2F;&#x2F; vite.config.ts
+import &#123;defineConfig&#125; from &#39;vite&#39;
+import vue from &#39;@vitejs&#x2F;plugin-vue&#39;
+import path from &#39;path&#39;
+export default defineConfig(&#123;
+    plugins: [vue()],
+    resolve: &#123;
+        alias: &#123;
+            &quot;@&quot;: path.resolve(__dirname,&quot;.&#x2F;src&quot;) &#x2F;&#x2F; 相对路径别名配置，使用 @ 代替 src
+        &#125;
+    &#125;
+&#125;)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong>TypeScript 编译配置</strong></p>
+<pre class="line-numbers language-none"><code class="language-none">&#x2F;&#x2F; tsconfig.json
+&#123;
+  &quot;compilerOptions&quot;: &#123;
+    &quot;baseUrl&quot;: &quot;.&#x2F;&quot;, &#x2F;&#x2F; 解析非相对模块的基地址，默认是当前目录
+    &quot;paths&quot;: &#123; &#x2F;&#x2F;路径映射，相对于baseUrl
+      &quot;@&#x2F;*&quot;: [&quot;src&#x2F;*&quot;] 
+    &#125;
+  &#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="3-3-环境变量的配置"><a href="#3-3-环境变量的配置" class="headerlink" title="3.3 环境变量的配置"></a>3.3 环境变量的配置</h3><p><strong>项目开发过程中，至少会经历开发环境、测试环境和生产环境（即正式环境）三个阶段。不同阶段请求的状态（如接口地址等）不尽相同，若手动切换接口地址是相当繁琐且易出错的。于是环境变量配置的需求就应运而生，我们只需做简单的配置，把环境状态切换的工作交给代码。</strong></p>
+<ul>
+<li><strong>开发环境（development）</strong>：顾名思义，开发使用的环境，每位开发人员在自己的 dev 分支上干活，开发到一定程度，同事会合并代码，进行联调。</li>
+<li><strong>测试环境（testing）</strong>：测试同事干活的环境啦，一般会由测试同事自己来部署，然后在此环境进行测试。</li>
+<li><strong>生产环境（production）</strong>：生产环境是指正式提供对外服务的，一般会关掉错误报告，打开错误日志。（正式提供给客户使用的环境。）</li>
+</ul>
+<p>注意：一般情况下，一个环境对应一台服务器，也有的公司开发与测试环境是一台服务器！！！</p>
+<p>项目根目录分别添加开发、生产和测试环境的文件：</p>
+<pre class="line-numbers language-none"><code class="language-none">.env.development
+.env.production
+.env.test<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p>文件内容：</p>
+<pre class="line-numbers language-none"><code class="language-none"># 变量必须以 VITE_ 为前缀才能暴露给外部读取
+NODE_ENV &#x3D; &#39;development&#39;
+VITE_APP_TITLE &#x3D; &#39;硅谷甄选运营平台&#39;
+VITE_APP_BASE_API &#x3D; &#39;&#x2F;dev-api&#39;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-none"><code class="language-none">NODE_ENV &#x3D; &#39;production&#39;
+VITE_APP_TITLE &#x3D; &#39;硅谷甄选运营平台&#39;
+VITE_APP_BASE_API &#x3D; &#39;&#x2F;prod-api&#39;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-none"><code class="language-none"># 变量必须以 VITE_ 为前缀才能暴露给外部读取
+NODE_ENV &#x3D; &#39;test&#39;
+VITE_APP_TITLE &#x3D; &#39;硅谷甄选运营平台&#39;
+VITE_APP_BASE_API &#x3D; &#39;&#x2F;test-api&#39;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<table>
+<thead>
+<tr>
+<th>文件</th>
+<th>NODE_ENV</th>
+<th>VITE_APP_BASE_API</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>.env.development</td>
+<td>development</td>
+<td>&#x2F;dev-api</td>
+</tr>
+<tr>
+<td>.env.production</td>
+<td>production</td>
+<td>&#x2F;prod-api</td>
+</tr>
+<tr>
+<td>.env.test</td>
+<td>test</td>
+<td>&#x2F;test-api</td>
+</tr>
+</tbody></table>
+<p>配置运行命令：package.json</p>
+<pre class="line-numbers language-none"><code class="language-none">&quot;scripts&quot;: &#123;
+   &quot;dev&quot;: &quot;vite --open&quot;,
+   &quot;build:test&quot;: &quot;vue-tsc &amp;&amp; vite build --mode test&quot;,
+   &quot;build:pro&quot;: &quot;vue-tsc &amp;&amp; vite build --mode production&quot;,
+   &quot;preview&quot;: &quot;vite preview&quot;
+ &#125;,<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>通过 <code>import.meta.env</code> 获取环境变量。</p>
+<h3 id="3-4-SVG-图标配置"><a href="#3-4-SVG-图标配置" class="headerlink" title="3.4 SVG 图标配置"></a>3.4 SVG 图标配置</h3><p>在开发项目的时候经常会用到 SVG 矢量图，而且我们使用 SVG 以后，页面上加载的不再是图片资源，这对页面性能来说是个很大的提升，而且我们 SVG 文件比 img 要小的很多，放在项目中几乎不占用资源。</p>
+<p><strong>安装 SVG 依赖插件</strong></p>
+<pre class="line-numbers language-none"><code class="language-none">pnpm install vite-plugin-svg-icons -D<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p><strong>在 <code>vite.config.ts</code> 中配置插件</strong></p>
+<pre class="line-numbers language-none"><code class="language-none">import &#123; createSvgIconsPlugin &#125; from &#39;vite-plugin-svg-icons&#39;
+import path from &#39;path&#39;
+export default () &#x3D;&gt; &#123;
+  return &#123;
+    plugins: [
+      createSvgIconsPlugin(&#123;
+        &#x2F;&#x2F; Specify the icon folder to be cached
+        iconDirs: [path.resolve(process.cwd(), &#39;src&#x2F;assets&#x2F;icons&#39;)],
+        &#x2F;&#x2F; Specify symbolId format
+        symbolId: &#39;icon-[dir]-[name]&#39;,
+      &#125;),
+    ],
+  &#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong>入口文件导入</strong></p>
+<pre class="line-numbers language-none"><code class="language-none">import &#39;virtual:svg-icons-register&#39;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<h4 id="3-4-1-svg-封装为全局组件"><a href="#3-4-1-svg-封装为全局组件" class="headerlink" title="3.4.1 svg 封装为全局组件"></a>3.4.1 svg 封装为全局组件</h4><p>因为项目很多模块需要使用图标，因此把它封装为全局组件！！！</p>
+<p><strong>在 src&#x2F;components 目录下创建一个 SvgIcon 组件：代表如下</strong></p>
+<pre class="line-numbers language-none"><code class="language-none">&lt;template&gt;
+  &lt;div&gt;
+    &lt;svg :style&#x3D;&quot;&#123; width: width, height: height &#125;&quot;&gt;
+      &lt;use :xlink:href&#x3D;&quot;prefix + name&quot; :fill&#x3D;&quot;color&quot;&gt;&lt;&#x2F;use&gt;
+    &lt;&#x2F;svg&gt;
+  &lt;&#x2F;div&gt;
+&lt;&#x2F;template&gt;
+
+&lt;script setup lang&#x3D;&quot;ts&quot;&gt;
+defineProps(&#123;
+  &#x2F;&#x2F;xlink:href属性值的前缀
+  prefix: &#123;
+    type: String,
+    default: &#39;#icon-&#39;
+  &#125;,
+  &#x2F;&#x2F;svg矢量图的名字
+  name: String,
+  &#x2F;&#x2F;svg图标的颜色
+  color: &#123;
+    type: String,
+    default: &quot;&quot;
+  &#125;,
+  &#x2F;&#x2F;svg宽度
+  width: &#123;
+    type: String,
+    default: &#39;16px&#39;
+  &#125;,
+  &#x2F;&#x2F;svg高度
+  height: &#123;
+    type: String,
+    default: &#39;16px&#39;
+  &#125;
+
+&#125;)
+&lt;&#x2F;script&gt;
+&lt;style scoped&gt;&lt;&#x2F;style&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>在 src 文件夹目录下创建一个 index.ts 文件：用于注册 components 文件夹内部全部全局组件！！！</p>
+<pre class="line-numbers language-none"><code class="language-none">import SvgIcon from &#39;.&#x2F;SvgIcon&#x2F;index.vue&#39;;
+import type &#123; App, Component &#125; from &#39;vue&#39;;
+const components: &#123; [name: string]: Component &#125; &#x3D; &#123; SvgIcon &#125;;
+export default &#123;
+    install(app: App) &#123;
+        Object.keys(components).forEach((key: string) &#x3D;&gt; &#123;
+            app.component(key, components[key]);
+        &#125;)
+    &#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>在入口文件引入 src&#x2F;index.ts 文件，通过 <code>app.use</code> 方法安装自定义插件：</p>
+<pre class="line-numbers language-none"><code class="language-none">import gloablComponent from &#39;.&#x2F;components&#x2F;index&#39;;
+app.use(gloablComponent);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<h3 id="3-5-集成-Sass"><a href="#3-5-集成-Sass" class="headerlink" title="3.5 集成 Sass"></a>3.5 集成 Sass</h3><p>我们目前在组件内部已经可以使用 SCSS 样式，因为在配置 styleLint 工具的时候，项目当中已经安装过 sass sass-loader，因此我们再组件内可以使用 SCSS 语法！！！需要加上 <code>lang=&quot;scss&quot;</code>：</p>
+<pre class="line-numbers language-none"><code class="language-none">&lt;style scoped lang&#x3D;&quot;scss&quot;&gt;&lt;&#x2F;style&gt;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>接下来我们为项目添加一些全局的样式。</p>
+<p>在 src&#x2F;styles 目录下创建一个 index.scss 文件，当然项目中需要用到清除默认样式，因此在 index.scss 引入 reset.scss：</p>
+<pre class="line-numbers language-none"><code class="language-none">@import reset.scss<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>在入口文件引入：</p>
+<pre class="line-numbers language-none"><code class="language-none">import &#39;@&#x2F;styles&#39;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>但是你会发现在 src&#x2F;styles&#x2F;index.scss 全局样式文件中没有办法使用 $ 变量，因此需要给项目中引入全局变量 $。</p>
+<p>在 style&#x2F;variable.scss 创建一个 variable.scss 文件！</p>
+<p>在 vite.config.ts 文件配置如下：</p>
+<pre class="line-numbers language-none"><code class="language-none">export default defineConfig((config) &#x3D;&gt; &#123;
+  css: &#123;
+      preprocessorOptions: &#123;
+        scss: &#123;
+          javascriptEnabled: true,
+          additionalData: &#39;@import &quot;.&#x2F;src&#x2F;styles&#x2F;variable.scss&quot;;&#39;,
+        &#125;,
+      &#125;,
+    &#125;,
+  &#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<div class="md-note md-warn">
+**注意** `@import "./src/styles/variable.less";` 后面的 `;` 不要忘记，不然会报错！
+</div>
+
+<p>配置完毕你会发现 SCSS 提供这些全局变量可以在组件样式中使用了！！！</p>
+<h3 id="3-6-Mock-数据"><a href="#3-6-Mock-数据" class="headerlink" title="3.6 Mock 数据"></a>3.6 Mock 数据</h3><p>安装依赖：<a target="_blank" rel="noopener" href="https://www.npmjs.com/package/vite-plugin-mock">https://www.npmjs.com/package/vite-plugin-mock</a></p>
+<pre class="line-numbers language-none"><code class="language-none">pnpm install -D vite-plugin-mock mockjs<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>在 vite.config.js 配置文件启用插件。</p>
+<pre class="line-numbers language-none"><code class="language-none">import &#123; UserConfigExport, ConfigEnv &#125; from &#39;vite&#39;
+import &#123; viteMockServe &#125; from &#39;vite-plugin-mock&#39;
+import vue from &#39;@vitejs&#x2F;plugin-vue&#39;
+export default (&#123; command &#125;)&#x3D;&gt; &#123;
+  return &#123;
+    plugins: [
+      vue(),
+      viteMockServe(&#123;
+        localEnabled: command &#x3D;&#x3D;&#x3D; &#39;serve&#39;,
+      &#125;),
+    ],
+  &#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>在根目录创建 mock 文件夹：去创建我们需要 mock 数据与接口！！！</p>
+<p>在 mock 文件夹内部创建一个 user.ts 文件：</p>
+<pre class="line-numbers language-none"><code class="language-none">&#x2F;&#x2F;用户信息数据
+function createUserList() &#123;
+    return [
+        &#123;
+            userId: 1,
+            avatar:
+                &#39;https:&#x2F;&#x2F;wpimg.wallstcn.com&#x2F;f778738c-e4f8-4870-b634-56703b4acafe.gif&#39;,
+            username: &#39;admin&#39;,
+            password: &#39;111111&#39;,
+            desc: &#39;平台管理员&#39;,
+            roles: [&#39;平台管理员&#39;],
+            buttons: [&#39;cuser.detail&#39;],
+            routes: [&#39;home&#39;],
+            token: &#39;Admin Token&#39;,
+        &#125;,
+        &#123;
+            userId: 2,
+            avatar:
+                &#39;https:&#x2F;&#x2F;wpimg.wallstcn.com&#x2F;f778738c-e4f8-4870-b634-56703b4acafe.gif&#39;,
+            username: &#39;system&#39;,
+            password: &#39;111111&#39;,
+            desc: &#39;系统管理员&#39;,
+            roles: [&#39;系统管理员&#39;],
+            buttons: [&#39;cuser.detail&#39;, &#39;cuser.user&#39;],
+            routes: [&#39;home&#39;],
+            token: &#39;System Token&#39;,
+        &#125;,
+    ]
+&#125;
+
+export default [
+    &#x2F;&#x2F; 用户登录接口
+    &#123;
+        url: &#39;&#x2F;api&#x2F;user&#x2F;login&#39;,&#x2F;&#x2F;请求地址
+        method: &#39;post&#39;,&#x2F;&#x2F;请求方式
+        response: (&#123; body &#125;) &#x3D;&gt; &#123;
+            &#x2F;&#x2F;获取请求体携带过来的用户名与密码
+            const &#123; username, password &#125; &#x3D; body;
+            &#x2F;&#x2F;调用获取用户信息函数,用于判断是否有此用户
+            const checkUser &#x3D; createUserList().find(
+                (item) &#x3D;&gt; item.username &#x3D;&#x3D;&#x3D; username &amp;&amp; item.password &#x3D;&#x3D;&#x3D; password,
+            )
+            &#x2F;&#x2F;没有用户返回失败信息
+            if (!checkUser) &#123;
+                return &#123; code: 201, data: &#123; message: &#39;账号或者密码不正确&#39; &#125; &#125;
+            &#125;
+            &#x2F;&#x2F;如果有返回成功信息
+            const &#123; token &#125; &#x3D; checkUser
+            return &#123; code: 200, data: &#123; token &#125; &#125;
+        &#125;,
+    &#125;,
+    &#x2F;&#x2F; 获取用户信息
+    &#123;
+        url: &#39;&#x2F;api&#x2F;user&#x2F;info&#39;,
+        method: &#39;get&#39;,
+        response: (request) &#x3D;&gt; &#123;
+            &#x2F;&#x2F;获取请求头携带token
+            const token &#x3D; request.headers.token;
+            &#x2F;&#x2F;查看用户信息是否包含有次token用户
+            const checkUser &#x3D; createUserList().find((item) &#x3D;&gt; item.token &#x3D;&#x3D;&#x3D; token)
+            &#x2F;&#x2F;没有返回失败的信息
+            if (!checkUser) &#123;
+                return &#123; code: 201, data: &#123; message: &#39;获取用户信息失败&#39; &#125; &#125;
+            &#125;
+            &#x2F;&#x2F;如果有返回成功信息
+            return &#123; code: 200, data: &#123;checkUser&#125; &#125;
+        &#125;,
+    &#125;,
+]<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong>安装 axios</strong></p>
+<pre class="line-numbers language-none"><code class="language-none">pnpm install axios<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>最后通过 axios 测试接口！！！</p>
+<h3 id="3-7-Axios-二次封装"><a href="#3-7-Axios-二次封装" class="headerlink" title="3.7 Axios 二次封装"></a>3.7 Axios 二次封装</h3><p>在开发项目的时候避免不了与后端进行交互，因此我们需要使用 axios 插件实现发送网络请求。在开发项目的时候我们经常会把 axios 进行二次封装。</p>
+<p>目的：</p>
+<ol>
+<li>使用请求拦截器，可以在请求拦截器中处理一些业务（开始进度条、请求头携带公共参数）</li>
+<li>使用响应拦截器，可以在响应拦截器中处理一些业务（进度条结束、简化服务器返回的数据、处理 http 网络错误）</li>
+</ol>
+<p>在根目录下创建 utils&#x2F;request.ts：</p>
+<pre class="line-numbers language-none"><code class="language-none">import axios from &quot;axios&quot;;
+import &#123; ElMessage &#125; from &quot;element-plus&quot;;
+&#x2F;&#x2F;创建axios实例
+let request &#x3D; axios.create(&#123;
+    baseURL: import.meta.env.VITE_APP_BASE_API,
+    timeout: 5000
+&#125;)
+&#x2F;&#x2F;请求拦截器
+request.interceptors.request.use(config &#x3D;&gt; &#123;
+    return config;
+&#125;);
+&#x2F;&#x2F;响应拦截器
+request.interceptors.response.use((response) &#x3D;&gt; &#123;
+    return response.data;
+&#125;, (error) &#x3D;&gt; &#123;
+    &#x2F;&#x2F;处理网络错误
+    let msg &#x3D; &#39;&#39;;
+    let status &#x3D; error.response.status;
+    switch (status) &#123;
+        case 401:
+            msg &#x3D; &quot;token过期&quot;;
+            break;
+        case 403:
+            msg &#x3D; &#39;无权访问&#39;;
+            break;
+        case 404:
+            msg &#x3D; &quot;请求地址错误&quot;;
+            break;
+        case 500:
+            msg &#x3D; &quot;服务器出现问题&quot;;
+            break;
+        default:
+            msg &#x3D; &quot;无网络&quot;;
+
+    &#125;
+    ElMessage(&#123;
+        type: &#39;error&#39;,
+        message: msg
+    &#125;)
+    return Promise.reject(error);
+&#125;);
+export default request;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<table>
+<thead>
+<tr>
+<th>状态码</th>
+<th>提示信息</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>401</td>
+<td>token 过期</td>
+</tr>
+<tr>
+<td>403</td>
+<td>无权访问</td>
+</tr>
+<tr>
+<td>404</td>
+<td>请求地址错误</td>
+</tr>
+<tr>
+<td>500</td>
+<td>服务器出现问题</td>
+</tr>
+<tr>
+<td>其他</td>
+<td>无网络</td>
+</tr>
+</tbody></table>
+<h3 id="3-8-API-接口统一管理"><a href="#3-8-API-接口统一管理" class="headerlink" title="3.8 API 接口统一管理"></a>3.8 API 接口统一管理</h3><p>在开发项目的时候，接口可能很多需要统一管理。在 src 目录下去创建 api 文件夹去统一管理项目的接口；比如：下面方式</p>
+<pre class="line-numbers language-none"><code class="language-none">&#x2F;&#x2F;统一管理咱们项目用户相关的接口
+
+import request from &#39;@&#x2F;utils&#x2F;request&#39;
+
+import type &#123;
+
+ loginFormData,
+
+ loginResponseData,
+
+ userInfoReponseData,
+
+&#125; from &#39;.&#x2F;type&#39;
+
+&#x2F;&#x2F;项目用户相关的请求地址
+
+enum API &#123;
+
+ LOGIN_URL &#x3D; &#39;&#x2F;admin&#x2F;acl&#x2F;index&#x2F;login&#39;,
+
+ USERINFO_URL &#x3D; &#39;&#x2F;admin&#x2F;acl&#x2F;index&#x2F;info&#39;,
+
+ LOGOUT_URL &#x3D; &#39;&#x2F;admin&#x2F;acl&#x2F;index&#x2F;logout&#39;,
+
+&#125;
+&#x2F;&#x2F;登录接口
+export const reqLogin &#x3D; (data: loginFormData) &#x3D;&gt;
+ request.post&lt;any, loginResponseData&gt;(API.LOGIN_URL, data)
+&#x2F;&#x2F;获取用户信息
+
+export const reqUserInfo &#x3D; () &#x3D;&gt;
+ request.get&lt;any, userInfoReponseData&gt;(API.USERINFO_URL)
+
+&#x2F;&#x2F;退出登录
+
+export const reqLogout &#x3D; () &#x3D;&gt; request.post&lt;any, any&gt;(API.LOGOUT_URL)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<hr>
+<blockquote>
+<p><strong>一句话总结</strong>：本文以 Vue 3 + Vite 为基础，从工程化规范（ESLint &#x2F; Prettier &#x2F; Stylelint &#x2F; Husky &#x2F; Commitlint &#x2F; pnpm）到功能集成（Element Plus &#x2F; 别名 &#x2F; 环境变量 &#x2F; SVG &#x2F; Sass &#x2F; Mock &#x2F; Axios &#x2F; API），完整给出了一套可复用的后台管理系统模板搭建方案。</p>
+</blockquote>
+
+        </article>
+        <section class="post-near">
+            <ul>
+                
+                    <li>上一篇: <a href="/2026/04/15/Nginx/">Nginx</a></li>
+                
+                
+                    <li>下一篇: <a href="/2026/03/01/MySql/">Mysql</a></li>
+                
+            </ul>
+        </section>
+        
+            <section class="post-tags">
+            <a class="-none-link" href="/tags/Vue/" rel="tag">Vue</a><a class="-none-link" href="/tags/%E5%89%8D%E7%AB%AF/" rel="tag">前端</a>
+            </section>
+        
+    
+        <section class="post-author">
+        
+            <figure class="author-avatar">
+                <img src="https://nos.netease.com/ysf/984b6beaecc19c99414093c0481a2619.png" alt="日初" />
+            </figure>
+        
+            <div class="author-info">
+                <h4>日初</h4>
+                <p>去关于我看看吧(´・ω・`)</p>
+            </div>
+        </section>
+    
+    </div>
+</main>
+
+    <footer>
+    <div class="buttons">
+        <a class="to-top" href="#"></a>
+    </div>
+    <div class="wrap min">
+        <section class="widget">
+            <div class="row">
+                <div class="col-m-4">
+                    <h3 class="title-recent">最新文章：</h3>
+                    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2026/10/28/%E7%9F%A5%E8%AF%86%E6%96%87%E6%A1%A3%E6%8A%80%E6%9C%AF%E6%96%87%E6%A1%A3/">企业知识库技术文档（RAG + pgvector）</a></li><li class="post-list-item"><a class="post-list-link" href="/2026/10/27/%E6%8A%80%E8%83%BD%E5%BC%80%E5%8F%91%E6%8C%87%E5%8D%97/">技能开发指南</a></li><li class="post-list-item"><a class="post-list-link" href="/2026/10/27/%E6%8A%80%E8%83%BD%E6%A8%A1%E5%BC%8F%E4%BB%A3%E7%90%86%E8%AE%BE%E8%AE%A1%E6%96%87%E6%A1%A3/">技能模式 AI Agent 系统设计</a></li><li class="post-list-item"><a class="post-list-link" href="/2026/10/01/Redis/">Redis</a></li><li class="post-list-item"><a class="post-list-link" href="/2026/09/01/React/">React</a></li><li class="post-list-item"><a class="post-list-link" href="/2026/08/01/QT/">QT</a></li></ul>
+                </div>
+                <div class="col-m-4">
+                    <h3 class="title-date">时光机：</h3>
+                    <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/10/">十月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/09/">九月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/08/">八月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/07/">七月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/06/">六月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/05/">五月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/04/">四月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/03/">三月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/02/">二月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/01/">一月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/12/">十二月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/11/">十一月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/10/">十月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/09/">九月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/08/">八月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/07/">七月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/06/">六月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/05/">五月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/04/">四月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/03/">三月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/02/">二月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/01/">一月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/12/">十二月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/11/">十一月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/10/">十月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/09/">九月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/08/">八月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/07/">七月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/06/">六月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/05/">五月 2024</a></li></ul>
+                </div>
+                <div class="col-m-4">
+                    <h3 class="title-tags">标签云：</h3>
+                    <a href="/tags/AI-Agent/" style="font-size: 20px;">AI Agent</a> <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/CSS/" style="font-size: 20px;">CSS</a> <a href="/tags/Centos/" style="font-size: 20px;">Centos</a> <a href="/tags/Docker/" style="font-size: 20px;">Docker</a> <a href="/tags/Dubbo/" style="font-size: 20px;">Dubbo</a> <a href="/tags/Flutter/" style="font-size: 20px;">Flutter</a> <a href="/tags/GO/" style="font-size: 20px;">GO</a> <a href="/tags/Game/" style="font-size: 20px;">Game</a> <a href="/tags/Go/" style="font-size: 20px;">Go</a> <a href="/tags/Go-Web/" style="font-size: 20px;">Go Web</a> <a href="/tags/HBase/" style="font-size: 20px;">HBase</a> <a href="/tags/Hadoop/" style="font-size: 20px;">Hadoop</a> <a href="/tags/JQuery/" style="font-size: 20px;">JQuery</a> <a href="/tags/JS/" style="font-size: 20px;">JS</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/Java-Web/" style="font-size: 20px;">Java Web</a> <a href="/tags/K8S/" style="font-size: 20px;">K8S</a> <a href="/tags/Kotlin/" style="font-size: 20px;">Kotlin</a> <a href="/tags/Linux/" style="font-size: 20px;">Linux</a> <a href="/tags/MongoDB/" style="font-size: 20px;">MongoDB</a> <a href="/tags/MySql/" style="font-size: 20px;">MySql</a> <a href="/tags/MybatisPlus/" style="font-size: 20px;">MybatisPlus</a> <a href="/tags/Nginx/" style="font-size: 20px;">Nginx</a> <a href="/tags/NodeJs/" style="font-size: 20px;">NodeJs</a> <a href="/tags/PHP/" style="font-size: 20px;">PHP</a> <a href="/tags/Promise/" style="font-size: 20px;">Promise</a> <a href="/tags/QT/" style="font-size: 20px;">QT</a> <a href="/tags/RAG/" style="font-size: 20px;">RAG</a> <a href="/tags/React/" style="font-size: 20px;">React</a> <a href="/tags/Redis/" style="font-size: 20px;">Redis</a> <a href="/tags/Skill/" style="font-size: 20px;">Skill</a> <a href="/tags/Spark/" style="font-size: 20px;">Spark</a> <a href="/tags/Spring-Cloud/" style="font-size: 20px;">Spring Cloud</a> <a href="/tags/SpringMVC/" style="font-size: 20px;">SpringMVC</a> <a href="/tags/UniApp/" style="font-size: 20px;">UniApp</a> <a href="/tags/UniCloud/" style="font-size: 20px;">UniCloud</a> <a href="/tags/Unity/" style="font-size: 20px;">Unity</a> <a href="/tags/Vue/" style="font-size: 20px;">Vue</a> <a href="/tags/Webpack/" style="font-size: 20px;">Webpack</a> <a href="/tags/ZooKeeper/" style="font-size: 20px;">ZooKeeper</a> <a href="/tags/pgvector/" style="font-size: 20px;">pgvector</a> <a href="/tags/%E5%89%8D%E7%AB%AF/" style="font-size: 20px;">前端</a> <a href="/tags/%E5%90%91%E9%87%8F%E6%A3%80%E7%B4%A2/" style="font-size: 20px;">向量检索</a> <a href="/tags/%E6%8A%80%E8%83%BD/" style="font-size: 20px;">技能</a> <a href="/tags/%E6%8A%80%E8%83%BD%E6%A8%A1%E5%BC%8F/" style="font-size: 20px;">技能模式</a> <a href="/tags/%E7%9F%A5%E8%AF%86%E5%BA%93/" style="font-size: 20px;">知识库</a> <a href="/tags/%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1/" style="font-size: 20px;">系统设计</a> <a href="/tags/%E8%BF%90%E7%BB%B4/" style="font-size: 20px;">运维</a>
+                </div>
+            </div>
+        </section>
+        <section class="sub-footer">
+            <p>© 2026 <a href="/">Richu</a>. All Rights Reserved. Theme By <a href="https://github.com/Dreamer-Paul/Hingle" target="_blank" rel="nofollow">Hingle</a>.</p>
+        </section>
+    </div>
+</footer>
+
+
+<script src="/static/kico.js"></script>
+<script src="/static/hingle.js"></script>
+
+
+<script>var SITE_ROOT = "/";</script>
+<script>var hingle = new Paul_Hingle({"copyright":true,"night":false,"code":{"language_label":true,"language_label_exclude":["markup","none","plain","plaintext","text"],"line_numbers":true,"line_numbers_toggle":true}});</script>
+
+    <script src="/js/mermaid-boot.js"></script>
+  </body>
+</html>

@@ -1,0 +1,1014 @@
+<!DOCTYPE html>
+<html>
+  <head>
+     
+    <meta charset="UTF-8">
+    <title>Unity - Richu</title>
+    <link rel="shortcut icon" href="/static/img/icon.png">
+    <link rel="icon" href="/static/img/icon.png" sizes="192x192"/>
+    
+<link rel="stylesheet" href="/static/kico.css">
+<link rel="stylesheet" href="/static/hingle.css">
+<link rel="stylesheet" href="/static/md-enhance.css">
+
+    
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <meta name="viewport" content="width=device-width, maximum-scale=1, initial-scale=1"/>
+    <meta property="og:site_name" content="Richu">
+    <meta property="og:title" content="Unity"/>
+    
+    <style>body:before{ content: ''; background-image: url(http://kycloud3.koyoo.cn/2025033176e99202503311036156636.jpg) }</style>
+    
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+  <body>
+    <header>
+    <div class="head-title">
+        <h4>Richu</h4>
+    </div>
+    <div class="head-action">
+        <div class="toggle-btn"></div>
+        <div class="light-btn"></div>
+        <div class="search-btn"></div>
+    </div>
+    <form class="head-search" method="post">
+        <input type="text" name="s" placeholder="搜索什么？">
+    </form>
+    <nav class="head-menu">
+        <a href="/">首页</a>
+        <div class="has-child">
+            <a>分类</a>
+            <div class="sub-menu">
+                <a class="category-link" href="/categories/AI/">AI</a><a class="category-link" href="/categories/Android/">Android</a><a class="category-link" href="/categories/Go/">Go</a><a class="category-link" href="/categories/Java/">Java</a><a class="category-link" href="/categories/QT/">QT</a><a class="category-link" href="/categories/Unity/">Unity</a><a class="category-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a><a class="category-link" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a><a class="category-link" href="/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE/">大数据</a><a class="category-link" href="/categories/%E8%BF%90%E7%BB%B4/">运维</a>
+            </div>
+        </div>
+        
+            <a href="/links">常用链接</a>
+        
+    </nav>
+</header>
+
+    <main>
+    <div class="wrap min">
+        <section class="post-title">
+            <h2>Unity</h2>
+            <div class="post-meta">
+                
+                    <time class="updated" datetime="2026-10-27T03:41:47.598Z" title="最后更新于 2026-10-27 11:41" aria-label="最后更新于 2026-10-27 11:41">2026.10.27</time>
+                
+                <time class="date">2024.09.15</time>
+            
+                <span class="category"><a class="category-link" href="/categories/Unity/">Unity</a></span>
+            
+            </div>
+        </section>
+        <article class="post-content">
+            <div class="md-intro">
+<div class="md-hero">Unity</div>
+<blockquote>
+<p>Unity 是一款跨平台游戏与交互式内容开发引擎，可用于在 20+ 个平台与设备上创建、发布并运营游戏、应用与各类体验。</p>
+<p>其核心理念是 <strong>“一次开发、多平台部署”</strong>，通过统一的 C# 脚本 API 屏蔽不同平台差异，让开发者专注于游戏逻辑本身。</p>
+</blockquote>
+<div class="md-lead">相比为不同平台分别编写原生代码的传统方式，Unity 提供统一编辑器与脚本接口，解决了跨平台重复开发与组件复用困难的痛点。</div>
+</div>
+<span class="md-kbd-wrap"><span class="md-kbd">Unity LTS</span></span>
+
+<h2 id="1-概述"><a href="#1-概述" class="headerlink" title="1. 概述"></a>1. 概述</h2><p>Unity 是一款跨平台游戏与交互式内容开发引擎，可在 20+ 个平台上创建、发布并运营游戏与应用。其核心理念是“一次开发、多平台部署”，通过统一的 C# 脚本 API 屏蔽不同平台差异。本文从 C# 脚本基础出发，系统梳理了物体、场景、物理、动画、UI 等核心模块，帮助开发者快速建立 Unity 开发的整体认知。</p>
+<h2 id="2-C-脚本"><a href="#2-C-脚本" class="headerlink" title="2. C# 脚本"></a>2. C# 脚本</h2><h3 id="1-1-脚本基本结构"><a href="#1-1-脚本基本结构" class="headerlink" title="1.1 脚本基本结构"></a>1.1 脚本基本结构</h3><blockquote>
+<p>脚本的基本结构，其中 Move 是脚本名。</p>
+</blockquote>
+<pre class="line-numbers language-c#" data-language="c#"><code class="language-c#">using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class Move : MonoBehaviour
+&#123;
+    &#x2F;&#x2F; Start is called before the first frame update
+    void Start()
+    &#123;
+        
+    &#125;
+
+    &#x2F;&#x2F; Update is called once per frame
+    void Update()
+    &#123;
+        
+    &#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="1-2-脚本生命周期"><a href="#1-2-脚本生命周期" class="headerlink" title="1.2 脚本生命周期"></a>1.2 脚本生命周期</h3><p>脚本从加载到销毁会按固定顺序调用以下方法：</p>
+<table>
+<thead>
+<tr>
+<th>方法</th>
+<th>调用时机</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Awake</td>
+<td>物体载入时</td>
+<td>立即调用 1 次；常用于在游戏开始前进行初始化，可判断当前是否满足某种条件执行此脚本：<code>this.enable = true;</code></td>
+</tr>
+<tr>
+<td>OnEnable</td>
+<td>激活后</td>
+<td>只会调用一次</td>
+</tr>
+<tr>
+<td>Start</td>
+<td>开始时</td>
+<td>调用一次，可设置初始值</td>
+</tr>
+<tr>
+<td>FixedUpdate</td>
+<td>固定频率</td>
+<td>固定时间间隔调用</td>
+</tr>
+<tr>
+<td>Update</td>
+<td>每帧</td>
+<td>每帧调用一次</td>
+</tr>
+<tr>
+<td>LateUpdate</td>
+<td>Update 之后</td>
+<td>适用于跟随逻辑</td>
+</tr>
+<tr>
+<td>OnDisable</td>
+<td>组件未激活</td>
+<td>组件被禁用时调用</td>
+</tr>
+<tr>
+<td>OnDestroy</td>
+<td>销毁时</td>
+<td>物体销毁时调用</td>
+</tr>
+<tr>
+<td>OnApplicationQuit</td>
+<td>程序结束</td>
+<td>当前程序结束时调用</td>
+</tr>
+</tbody></table>
+<div class="md-note md-tip"> <strong>提示</strong> 生命周期方法由 Unity 引擎自动调用，无需手动 invoke；Awake 永远早于 Start，且同一帧内所有脚本的 Awake 先于所有脚本的 Start。</div>
+
+<h3 id="1-3-序列化特性"><a href="#1-3-序列化特性" class="headerlink" title="1.3 序列化特性"></a>1.3 序列化特性</h3><blockquote>
+<p>[SerializeField] 在编辑器中无法修改，在脚本内可修改，即序列化字段。</p>
+</blockquote>
+<pre class="line-numbers language-c#" data-language="c#"><code class="language-c#">[SerializeField]
+private int a &#x3D; 100;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<blockquote>
+<p>[HideInInspector] 在编辑器中无法显示。</p>
+</blockquote>
+<pre class="line-numbers language-c#" data-language="c#"><code class="language-c#">[HideInInspector]
+private int b;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<blockquote>
+<p>[Range()] 限定数值范围。</p>
+</blockquote>
+<pre class="line-numbers language-c#" data-language="c#"><code class="language-c#">[Range(0,100)]
+private int c;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<table>
+<thead>
+<tr>
+<th>特性</th>
+<th>作用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>[SerializeField]</td>
+<td>序列化字段，在 Inspector 中可见、可赋值，但脚本内仍可修改</td>
+</tr>
+<tr>
+<td>[HideInInspector]</td>
+<td>在 Inspector 中隐藏该字段</td>
+</tr>
+<tr>
+<td>[Range(min,max)]</td>
+<td>以滑块形式限定数值取值范围</td>
+</tr>
+</tbody></table>
+<h2 id="3-脚本的执行顺序"><a href="#3-脚本的执行顺序" class="headerlink" title="3. 脚本的执行顺序"></a>3. 脚本的执行顺序</h2><blockquote>
+<p>先执行所有脚本的 Awake 方法，再执行所有脚本的 OnEnable 方法……</p>
+</blockquote>
+<blockquote>
+<p>在 Execution Order 中可以更改脚本的执行顺序。</p>
+</blockquote>
+<div class="md-note md-info"> <strong>执行顺序</strong> 不同脚本之间的生命周期顺序可在 Project Settings → Script Execution Order 中手动调整优先级。</div>
+
+<h2 id="4-标识"><a href="#4-标识" class="headerlink" title="4. 标识"></a>4. 标识</h2><blockquote>
+<p>Tag 唯一标识符。<br>Layer 图层，用于碰撞检测。</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>标识</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Tag</td>
+<td>物体的唯一标识符，常用于查找与区分物体</td>
+</tr>
+<tr>
+<td>Layer</td>
+<td>图层（层），常用于碰撞检测、相机渲染裁剪等</td>
+</tr>
+</tbody></table>
+<h2 id="5-预制体和变体"><a href="#5-预制体和变体" class="headerlink" title="5. 预制体和变体"></a>5. 预制体和变体</h2><h3 id="4-1-预制体"><a href="#4-1-预制体" class="headerlink" title="4.1 预制体"></a>4.1 预制体</h3><blockquote>
+<p>rigidbody 添加重力。</p>
+</blockquote>
+<blockquote>
+<p>多个物体有相同的预设可以使用预设体（Prefab）。</p>
+</blockquote>
+<pre class="line-numbers language-c#" data-language="c#"><code class="language-c#">&#x2F;&#x2F; 使用预制体创建一个实例
+Instantiate(Prefab);
+&#x2F;&#x2F; 创建一个物体，并且作为本游戏物体的子物体
+Instantiate(Prefab, transform);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="4-2-变体"><a href="#4-2-变体" class="headerlink" title="4.2 变体"></a>4.2 变体</h3><blockquote>
+<p>原本的预设体会影响变体，变体的预设体只会影响变体。</p>
+</blockquote>
+<pre class="line-numbers language-c#" data-language="c#"><code class="language-c#">&#x2F;&#x2F; 创建一个物体
+GameObject go &#x3D; Instantiate(Prefab, Vector3.up, Quaternion.identity);
+&#x2F;&#x2F; 销毁一个游戏物体
+Destroy(go);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="6-Vector3-的使用"><a href="#6-Vector3-的使用" class="headerlink" title="6. Vector3 的使用"></a>6. Vector3 的使用</h2><blockquote>
+<p>用于表示向量、坐标、旋转、缩放。</p>
+</blockquote>
+<h3 id="5-1-创建向量"><a href="#5-1-创建向量" class="headerlink" title="5.1 创建向量"></a>5.1 创建向量</h3><pre class="line-numbers language-c#" data-language="c#"><code class="language-c#">Vector3 v &#x3D; new Vector3();
+Vector3 v3 &#x3D; new Vector3(1, 0.5f, 0.6f);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-c#" data-language="c#"><code class="language-c#">v3 &#x3D; Vector3.zero;
+v3 &#x3D; Vector3.one;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<h3 id="5-2-修改分量"><a href="#5-2-修改分量" class="headerlink" title="5.2 修改分量"></a>5.2 修改分量</h3><blockquote>
+<p>修改向量的 x &#x2F; y &#x2F; z 值。</p>
+</blockquote>
+<pre class="line-numbers language-c#" data-language="c#"><code class="language-c#">v3.x &#x3D; 1;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<h3 id="5-3-向量运算"><a href="#5-3-向量运算" class="headerlink" title="5.3 向量运算"></a>5.3 向量运算</h3><blockquote>
+<p>两个向量之间的常用计算。</p>
+</blockquote>
+<pre class="line-numbers language-c#" data-language="c#"><code class="language-c#">&#x2F;&#x2F;角度
+Debug.Log(Vector3.Angle(v31, v3));
+&#x2F;&#x2F;距离
+Debug.Log(Vector3.Distance(v31, v3));
+&#x2F;&#x2F;点乘
+Debug.Log(Vector3.Dot(v31, v3));
+&#x2F;&#x2F;叉乘
+Debug.Log(Vector3.Cross(v31, v3));
+&#x2F;&#x2F;插值
+&#x2F;&#x2F;0.5为两个向量的中点
+Debug.Log(Vector3.Lerp(Vector3.zero, Vector3.one, 0.5f));
+&#x2F;&#x2F;向量的模
+Debug.Log(v3.magnitude);
+&#x2F;&#x2F;规范化向量(单位化向量)
+Debug.Log(v3.normalized);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="7-欧拉角与四元数"><a href="#7-欧拉角与四元数" class="headerlink" title="7. 欧拉角与四元数"></a>7. 欧拉角与四元数</h2><pre class="line-numbers language-c#" data-language="c#"><code class="language-c#">&#x2F;&#x2F;欧拉角，四元数
+Vector3 rotate &#x3D; new Vector3(0,30,0);
+Quaternion quat &#x3D; Quaternion.identity;
+&#x2F;&#x2F;欧拉角转换为四元数
+quat &#x3D; Quaternion.Euler(rotate);
+&#x2F;&#x2F;四元数转换为欧拉角
+rotate &#x3D; quat.eulerAngles ;
+&#x2F;&#x2F;看向一个物体(旋转到一个方向)
+quat &#x3D; Quaternion.LookRotation(new Vector3(0,0,0));<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="8-Debug"><a href="#8-Debug" class="headerlink" title="8. Debug"></a>8. Debug</h2><blockquote>
+<p>可以定义共有变量，程序运行后在 Inspector 面板查看数据。</p>
+</blockquote>
+<pre class="line-numbers language-c#" data-language="c#"><code class="language-c#">Debug.Log(&quot;&quot;);
+&#x2F;&#x2F;警告
+Debug.LogWarning(&quot;&quot;);
+&#x2F;&#x2F;错误
+Debug.LogError(&quot;&quot;);
+
+&#x2F;&#x2F;绘制一条线(指定颜色为红色)
+Debug.DrawLine(Vector3.one, Vector3.zero, Color.red);
+&#x2F;&#x2F;绘制一条射线 (起点，射线，颜色)
+Debug.DrawRay(Vector3.one, Vector3.up, Color.yellow);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="9-游戏物体的使用方法"><a href="#9-游戏物体的使用方法" class="headerlink" title="9. 游戏物体的使用方法"></a>9. 游戏物体的使用方法</h2><h3 id="8-1-获取当前物体"><a href="#8-1-获取当前物体" class="headerlink" title="8.1 获取当前物体"></a>8.1 获取当前物体</h3><blockquote>
+<p>拿到当前脚本所挂载的游戏物体。</p>
+</blockquote>
+<pre class="line-numbers language-c#" data-language="c#"><code class="language-c#">public class EmptyTest : MonoBehaviour
+&#123;
+    public GameObject cube;
+    &#x2F;&#x2F; Start is called before the first frame update
+    void Start()
+    &#123;
+        
+    &#125;
+
+    &#x2F;&#x2F; Update is called once per frame
+    void Update()
+    &#123;
+        
+    &#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="8-2-激活状态"><a href="#8-2-激活状态" class="headerlink" title="8.2 激活状态"></a>8.2 激活状态</h3><blockquote>
+<p>判断组件的激活状态。</p>
+</blockquote>
+<pre class="line-numbers language-c#" data-language="c#"><code class="language-c#">&#x2F;&#x2F;所在层级是否激活
+Debug.Log(gameObject.activeInHierarchy);
+&#x2F;&#x2F;自身是否激活
+Debug.Log(gameObject.activeSelf);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="8-3-获取组件"><a href="#8-3-获取组件" class="headerlink" title="8.3 获取组件"></a>8.3 获取组件</h3><blockquote>
+<p>获取 transform 组件。</p>
+</blockquote>
+<pre class="line-numbers language-c#" data-language="c#"><code class="language-c#">Transform trans &#x3D; this.transform;<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<blockquote>
+<p>获取物体的组件。</p>
+</blockquote>
+<pre class="line-numbers language-c#" data-language="c#"><code class="language-c#">&#x2F;&#x2F;获取自身的其他组件
+BoxCollider bc  &#x3D; GetComponent&lt;BoxCollider&gt;();
+&#x2F;&#x2F;获取子物体的组件
+GetComponentInChildren&lt;BoxCollider&gt;(bc);
+&#x2F;&#x2F;获取父物体的组件
+GetComponentInParent&lt;BoxCollider&gt;(bc);
+
+&#x2F;&#x2F;添加一个组件
+cube.AddComponent&lt;AudioSource&gt;();<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="8-4-查找游戏物体"><a href="#8-4-查找游戏物体" class="headerlink" title="8.4 查找游戏物体"></a>8.4 查找游戏物体</h3><blockquote>
+<p>获取游戏物体。</p>
+</blockquote>
+<pre class="line-numbers language-c#" data-language="c#"><code class="language-c#">&#x2F;&#x2F;通过物体名
+GameObject Capsule1 &#x3D; GameObject.Find(&quot;Capsule&quot;);
+Debug.Log(Capsule1.name);
+&#x2F;&#x2F;通过标签获取
+GameObject Capsule2 &#x3D; GameObject.FindWithTag(&quot;Player&quot;);
+Debug.Log(Capsule2.name);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><code>Capsule1.SetActive(false);</code> 取消激活。</p>
+<h3 id="8-5-预设体实例化"><a href="#8-5-预设体实例化" class="headerlink" title="8.5 预设体实例化"></a>8.5 预设体实例化</h3><pre class="line-numbers language-c#" data-language="c#"><code class="language-c#">&#x2F;&#x2F;使用预制体创建一个实例
+Instantiate(Prefab);
+&#x2F;&#x2F;创建一个物体，并且作为本游戏物体的子物体
+Instantiate(Prefab,transform);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-c#" data-language="c#"><code class="language-c#">&#x2F;&#x2F;创建一个物体
+GameObject go &#x3D; Instantiate(Prefab,Vector3.up,Quaternion.identity);
+&#x2F;&#x2F;销毁一个游戏物体
+Destroy(go);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="10-游戏时间"><a href="#10-游戏时间" class="headerlink" title="10. 游戏时间"></a>10. 游戏时间</h2><pre class="line-numbers language-c#" data-language="c#"><code class="language-c#">&#x2F;&#x2F;游戏到现在所花的时间
+Debug.Log(Time.time);
+&#x2F;&#x2F;时间缩放值
+Debug.Log(Time.timeScale);
+&#x2F;&#x2F;固定时间间隔
+Debug.Log(Time.fixedDeltaTime);
+&#x2F;&#x2F;上一帧到下一帧的时间间隔
+Debug.Log(Time.deltaTime);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="11-路径权限"><a href="#11-路径权限" class="headerlink" title="11. 路径权限"></a>11. 路径权限</h2><pre class="line-numbers language-c#" data-language="c#"><code class="language-c#">&#x2F;&#x2F;只读，压缩加密
+Debug.Log(Application.dataPath + &quot;&#x2F;新建.txtx&quot;);
+&#x2F;&#x2F;持久化文件夹路径
+Debug.Log(Application.persistentDataPath);
+&#x2F;&#x2F;StreamingAssert文件夹路径(只读，配置文件);
+Debug.Log(Application.streamingAssetsPath);
+&#x2F;&#x2F;临时文件夹
+Debug.Log(Application.temporaryCachePath);
+&#x2F;&#x2F;是否在后台运行
+Debug.Log(Application.runInBackground);
+&#x2F;&#x2F;打开url
+Application.OpenURL(&quot;https:&#x2F;&#x2F;www.baidu.com&quot;);
+&#x2F;&#x2F;退出游戏
+Application.Quit();<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="12-场景类"><a href="#12-场景类" class="headerlink" title="12. 场景类"></a>12. 场景类</h2><blockquote>
+<p>场景类（Scene）、场景管理类（SceneManager）。</p>
+</blockquote>
+<pre class="line-numbers language-c#" data-language="c#"><code class="language-c#">&#x2F;&#x2F;跳转场景
+SceneManager.LoadScene(1);   &#x2F;&#x2F;1号场景
+SceneManager.LoadScene(&quot;Test&quot;); &#x2F;&#x2F;场景名称
+&#x2F;&#x2F;获取当前场景
+Scene scence &#x3D; SceneManager.GetActiveScene();
+Debug.Log(scence.name);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="11-1-场景-API"><a href="#11-1-场景-API" class="headerlink" title="11.1 场景 API"></a>11.1 场景 API</h3><pre class="line-numbers language-c#" data-language="c#"><code class="language-c#">&#x2F;&#x2F;场景是否在加载
+Debug.Log(scence.isLoaded);
+&#x2F;&#x2F;场景的路径
+Debug.Log(scence.path);
+&#x2F;&#x2F;场景的索引
+Debug.Log(scence.buildIndex);
+
+&#x2F;&#x2F;获取场景的游戏物体
+GameObject[] games &#x3D; scence.GetRootGameObjects();
+Debug.Log(games.Length);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="11-2-场景管理类"><a href="#11-2-场景管理类" class="headerlink" title="11.2 场景管理类"></a>11.2 场景管理类</h3><pre class="line-numbers language-c#" data-language="c#"><code class="language-c#">&#x2F;&#x2F;当前场景数
+Debug.Log(SceneManager.sceneCount.ToString());
+&#x2F;&#x2F;创建新场景
+SceneManager.CreateScene(&quot;newScene&quot;);
+Debug.Log(SceneManager.sceneCount.ToString());
+
+&#x2F;&#x2F;卸载场景
+Scene newScene &#x3D; SceneManager.CreateScene(&quot;newScene&quot;);
+SceneManager.UnloadSceneAsync(newScene);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<blockquote>
+<p>加载场景。</p>
+</blockquote>
+<pre class="line-numbers language-c#" data-language="c#"><code class="language-c#">&#x2F;&#x2F;加载场景
+SceneManager.LoadScene(&quot;myscene&quot;, LoadSceneMode.Single);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<h2 id="13-异步加载场景并获取进度"><a href="#13-异步加载场景并获取进度" class="headerlink" title="13. 异步加载场景并获取进度"></a>13. 异步加载场景并获取进度</h2><pre class="line-numbers language-c#" data-language="c#"><code class="language-c#">public class AsyncTest : MonoBehaviour
+&#123;
+    AsyncOperation operation;
+    void Start()
+    &#123;
+        StartCoroutine(loadScene());
+    &#125;
+
+    IEnumerator loadScene()
+    &#123;
+        operation &#x3D; SceneManager.LoadSceneAsync(1);
+        yield return operation;
+    &#125;
+
+    void Update()
+    &#123;
+        
+    &#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="12-1-输出加载进度"><a href="#12-1-输出加载进度" class="headerlink" title="12.1 输出加载进度"></a>12.1 输出加载进度</h3><pre class="line-numbers language-c#" data-language="c#"><code class="language-c#">&#x2F;&#x2F;输出加载进度0-0.9
+Debug.Log(operation.progress.ToString());<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<h3 id="12-2-模拟定时器"><a href="#12-2-模拟定时器" class="headerlink" title="12.2 模拟定时器"></a>12.2 模拟定时器</h3><pre class="line-numbers language-c#" data-language="c#"><code class="language-c#">public class AsyncTest : MonoBehaviour
+&#123;
+    AsyncOperation operation;
+    void Start()
+    &#123;
+        StartCoroutine(loadScene());
+    &#125;
+
+    &#x2F;&#x2F;用携程来异步加载场景
+    IEnumerator loadScene()
+    &#123;
+        operation &#x3D; SceneManager.LoadSceneAsync(1);
+        &#x2F;&#x2F;加载完场景不要跳转
+        operation.allowSceneActivation &#x3D; false;
+        yield return operation;
+    &#125;
+    float Timer &#x3D; 0;
+    void Update()
+    &#123;
+        &#x2F;&#x2F;输出加载进度0-0.9
+        Debug.Log(operation.progress.ToString());
+        Timer +&#x3D; Time.deltaTime;
+        &#x2F;&#x2F;达到5秒后跳转
+        if (Timer &gt; 5)
+        &#123;
+            operation.allowSceneActivation &#x3D; true;
+        &#125;
+    &#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="14-Transform"><a href="#14-Transform" class="headerlink" title="14. Transform"></a>14. Transform</h2><h3 id="13-1-位置-旋转-缩放"><a href="#13-1-位置-旋转-缩放" class="headerlink" title="13.1 位置 &#x2F; 旋转 &#x2F; 缩放"></a>13.1 位置 &#x2F; 旋转 &#x2F; 缩放</h3><blockquote>
+<p>transform API。</p>
+</blockquote>
+<pre class="line-numbers language-c#" data-language="c#"><code class="language-c#">&#x2F;&#x2F;获取位置
+Debug.Log(transform.position);
+Debug.Log(transform.localPosition);
+&#x2F;&#x2F;获取旋转
+Debug.Log(transform.rotation);
+Debug.Log(transform.localRotation);
+Debug.Log(transform.eulerAngles);
+Debug.Log(transform.localEulerAngles);
+
+&#x2F;&#x2F;获取缩放
+Debug.Log(transform.localScale);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="13-2-方向向量"><a href="#13-2-方向向量" class="headerlink" title="13.2 方向向量"></a>13.2 方向向量</h3><blockquote>
+<p>获取向量。</p>
+</blockquote>
+<pre class="line-numbers language-c#" data-language="c#"><code class="language-c#">&#x2F;&#x2F;向量
+Debug.Log(transform.forward);
+
+Debug.Log(transform.right);
+
+Debug.Log(transform.up);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-c#" data-language="c#"><code class="language-c#">&#x2F;&#x2F;时时刻刻看向0,0,0
+transform.LookAt(new Vector3(0, 0, 0));
+
+&#x2F;&#x2F;旋转
+transform.Rotate(Vector3.up, 1);
+
+&#x2F;&#x2F;绕某个物体旋转
+transform.RotateAround(Vector3.zero,Vector3.up, 5);
+
+&#x2F;&#x2F;移动
+transform.Translate(Vector3.forward * 0.1f);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="13-3-父子关系"><a href="#13-3-父子关系" class="headerlink" title="13.3 父子关系"></a>13.3 父子关系</h3><pre class="line-numbers language-c#" data-language="c#"><code class="language-c#">&#x2F;&#x2F;获取父物体
+&#x2F;&#x2F;transform.parent.gameObject
+&#x2F;&#x2F;获取子物体
+&#x2F;&#x2F;transform.childCount
+&#x2F;&#x2F;解除父子关系
+transform.DetachChildren();<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-c#" data-language="c#"><code class="language-c#">&#x2F;&#x2F;获取子物体
+Transform trans &#x3D; transform.Find(&quot;Children&quot;);
+transform.GetChild(0);
+&#x2F;&#x2F;判断一个物体是否是另一个物体的子物体
+bool res &#x3D; trans.IsChildOf(transform);
+&#x2F;&#x2F;设置父物体
+trans.SetParent(transform);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="15-游戏操作方式"><a href="#15-游戏操作方式" class="headerlink" title="15. 游戏操作方式"></a>15. 游戏操作方式</h2><blockquote>
+<p>在 Update 里面写。</p>
+</blockquote>
+<h3 id="14-1-鼠标输入"><a href="#14-1-鼠标输入" class="headerlink" title="14.1 鼠标输入"></a>14.1 鼠标输入</h3><pre class="line-numbers language-c#" data-language="c#"><code class="language-c#">&#x2F;&#x2F;鼠标的点击 0左键 1右键 2滚轮
+&#x2F;&#x2F;点击
+if (Input.GetMouseButtonDown(0))
+&#123;
+    Debug.Log(&quot;&quot;);
+&#125;
+&#x2F;&#x2F;点击后
+if (Input.GetMouseButtonUp(0))
+&#123;
+    Debug.Log(&quot;&quot;);
+&#125;
+&#x2F;&#x2F;持续点击
+if (Input.GetMouseButton(0))
+&#123;
+     Debug.Log(&quot;&quot;);
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="14-2-键盘输入"><a href="#14-2-键盘输入" class="headerlink" title="14.2 键盘输入"></a>14.2 键盘输入</h3><pre class="line-numbers language-c#" data-language="c#"><code class="language-c#">if (Input.GetMouseButton(0))
+&#123;
+    Debug.Log(&quot;&quot;);
+&#125;
+
+if (Input.GetKey(KeyCode.Space))
+&#123;
+    Debug.Log(&quot;&quot;);
+&#125;
+if (Input.GetKeyUp(KeyCode.Space))
+&#123;
+    Debug.Log(&quot;&quot;);
+&#125;
+if (Input.GetKeyDown(KeyCode.Space))
+&#123;
+    Debug.Log(&quot;&quot;);
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="16-操作兼容与过渡"><a href="#16-操作兼容与过渡" class="headerlink" title="16. 操作兼容与过渡"></a>16. 操作兼容与过渡</h2><blockquote>
+<p>Edit → Project Setting → Input Manager → Axes。</p>
+</blockquote>
+<blockquote>
+<p>水平 Horizontal &#x2F; 垂直 Vertical。</p>
+</blockquote>
+<pre class="line-numbers language-c#" data-language="c#"><code class="language-c#">&#x2F;&#x2F;获取水平轴
+float horizontal &#x3D; Input.GetAxis(&quot;Horizontal&quot;);
+
+&#x2F;&#x2F;获取垂直轴
+float vertical &#x3D; Input.GetAxis(&quot;Vertical&quot;);
+Debug.Log(horizontal + &quot; &quot; + vertical);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="15-1-虚拟按键"><a href="#15-1-虚拟按键" class="headerlink" title="15.1 虚拟按键"></a>15.1 虚拟按键</h3><blockquote>
+<p>虚拟按键的使用。</p>
+</blockquote>
+<pre class="line-numbers language-c#" data-language="c#"><code class="language-c#">&#x2F;&#x2F;虚拟按键
+if (Input.GetButtonDown(&quot;Jump&quot;))
+&#123;
+    Debug.Log(&quot;&quot;);
+&#125;
+if (Input.GetButtonUp(&quot;Jump&quot;))
+&#123;
+    Debug.Log(&quot;&quot;);
+&#125;
+if (Input.GetButton(&quot;Jump&quot;))
+&#123;
+    Debug.Log(&quot;&quot;);
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="17-手机平板触屏"><a href="#17-手机平板触屏" class="headerlink" title="17. 手机平板触屏"></a>17. 手机平板触屏</h2><pre class="line-numbers language-c#" data-language="c#"><code class="language-c#">&#x2F;&#x2F;开启多点触屏
+Input.multiTouchEnabled &#x3D; true;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<h3 id="16-1-判断单点触摸"><a href="#16-1-判断单点触摸" class="headerlink" title="16.1 判断单点触摸"></a>16.1 判断单点触摸</h3><pre class="line-numbers language-c#" data-language="c#"><code class="language-c#">&#x2F;&#x2F;判断单点触摸
+if (Input.touchCount &#x3D;&#x3D; 1)
+&#123;
+    &#x2F;&#x2F;触摸对象
+    Touch touch &#x3D; Input.touches[0];
+    &#x2F;&#x2F;触摸位置
+    Debug.Log(touch.position);
+
+    switch(touch.phase)
+    &#123;
+        case TouchPhase.Began:
+            break;
+        case TouchPhase.Moved:
+            break;
+        case TouchPhase.Stationary:
+            break;
+        case TouchPhase.Ended:
+            break;
+        case TouchPhase.Canceled:
+            break;
+
+    &#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="18-灯光与烘焙"><a href="#18-灯光与烘焙" class="headerlink" title="18. 灯光与烘焙"></a>18. 灯光与烘焙</h2><blockquote>
+<p>定向灯光 → 从无穷远的地方照射而来。</p>
+</blockquote>
+<blockquote>
+<p>烘焙光：静态光。<br>实时光：动态光会实时计算光的渲染。</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>灯光类型</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>定向光 Directional Light</td>
+<td>类似太阳光，从无穷远处平行照射</td>
+</tr>
+<tr>
+<td>烘焙光 Baked Light</td>
+<td>静态光，预先烘焙到光照贴图</td>
+</tr>
+<tr>
+<td>实时光 Realtime Light</td>
+<td>动态光，实时计算光照渲染</td>
+</tr>
+</tbody></table>
+<h2 id="19-摄像机"><a href="#19-摄像机" class="headerlink" title="19. 摄像机"></a>19. 摄像机</h2><blockquote>
+<p>摄像机深度（Depth）越大，优先级越高。</p>
+</blockquote>
+<div class="md-note md-info"> <strong>摄像机</strong> 当多个摄像机同时存在时，Depth 值更大的摄像机会覆盖在更上层，优先显示。</div>
+
+<h2 id="20-音频"><a href="#20-音频" class="headerlink" title="20. 音频"></a>20. 音频</h2><blockquote>
+<p>添加 Audio Source 组件。</p>
+</blockquote>
+<pre class="line-numbers language-c#" data-language="c#"><code class="language-c#">&#x2F;&#x2F;AudioClip
+public AudioClip music;
+public AudioClip se;
+
+public AudioSource player;
+void Start()
+&#123;
+    player &#x3D; GetComponent&lt;AudioSource&gt;();
+    &#x2F;&#x2F;设定播放的音乐音频
+    player.clip &#x3D; music;
+    &#x2F;&#x2F;循环
+    player.loop &#x3D; true;
+    &#x2F;&#x2F;音量
+    player.volume &#x3D; 0.5f;
+    &#x2F;&#x2F;播放
+    player.Play();
+&#125;
+
+&#x2F;&#x2F; Update is called once per frame
+void Update()
+&#123;
+    if (Input.GetKeyDown(KeyCode.Escape))
+    &#123;
+        if (player.isPlaying)
+        &#123;
+            &#x2F;&#x2F;暂停播放
+            player.Pause();
+            &#x2F;&#x2F;停止播放
+            &#x2F;*player.Stop();*&#x2F;
+        &#125;
+        else
+        &#123;
+            &#x2F;&#x2F;继续播放
+            player.UnPause();
+        &#125;
+    &#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-c#" data-language="c#"><code class="language-c#">&#x2F;&#x2F;播放一声，常用于播放音效
+player.PlayOneShot(se);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<h2 id="21-视频播放"><a href="#21-视频播放" class="headerlink" title="21. 视频播放"></a>21. 视频播放</h2><blockquote>
+<p>Video Player。</p>
+</blockquote>
+<pre class="line-numbers language-c#" data-language="c#"><code class="language-c#">using UnityEngine.Video;
+    private VideoPlayer mPlayer; 
+    void Start()
+    &#123;
+        mPlayer &#x3D; GetComponent&lt;VideoPlayer&gt;();
+    &#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="22-角色控制"><a href="#22-角色控制" class="headerlink" title="22. 角色控制"></a>22. 角色控制</h2><pre class="line-numbers language-c#" data-language="c#"><code class="language-c#">public class PlayerControll : MonoBehaviour
+&#123;
+    private CharacterController characterController;
+
+    void Start()
+    &#123;
+        characterController &#x3D; GetComponent&lt;CharacterController&gt;();
+    &#125;
+
+    void Update()
+    &#123;
+        &#x2F;&#x2F;水平轴
+        float horizontal &#x3D; Input.GetAxis(&quot;Horizontal&quot;);
+        &#x2F;&#x2F;垂直轴
+        float vertical &#x3D; Input.GetAxis(&quot;Vertical&quot;);
+        &#x2F;&#x2F;创建一个方向向量
+        Vector3 dir &#x3D; new Vector3(horizontal,0,vertical);
+        characterController.SimpleMove(dir);
+    &#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="23-物理系统"><a href="#23-物理系统" class="headerlink" title="23. 物理系统"></a>23. 物理系统</h2><h3 id="22-1-碰撞的产生与监听"><a href="#22-1-碰撞的产生与监听" class="headerlink" title="22.1 碰撞的产生与监听"></a>22.1 碰撞的产生与监听</h3><pre class="line-numbers language-c#" data-language="c#"><code class="language-c#">public class PlayerControll : MonoBehaviour
+&#123;
+    private GameObject Prefab;
+    void Start()
+    &#123;
+        
+    &#125;
+
+    void Update()
+    &#123;
+    
+    &#125;
+
+    &#x2F;&#x2F;监听发生碰撞
+    private void OnCollisionEnter(Collision collision)
+    &#123;
+        &#x2F;&#x2F;创建发生碰撞后产生的物体
+        Instantiate(Prefab,transform.position,Quaternion.identity);
+        &#x2F;&#x2F;销毁自身
+        Destroy(gameObject);
+    &#125;
+    &#x2F;&#x2F;持续碰撞
+    private void OnCollisionStay(Collision collision)
+    &#123;
+        
+    &#125;
+    &#x2F;&#x2F;结束碰撞
+    private void OnCollisionExit(Collision collision)
+    &#123;
+        
+    &#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="22-2-触发"><a href="#22-2-触发" class="headerlink" title="22.2 触发"></a>22.2 触发</h3><pre class="line-numbers language-c#" data-language="c#"><code class="language-c#">private void OnTriggerEnter(Collider other)
+&#123;
+    GameObject go &#x3D; GameObject.Find(&quot;Cube&quot;);
+    if (go !&#x3D; null) &#123;
+        go.SetActive(false);
+    &#125;
+&#125;
+private void OnTriggerStay(Collider other)
+&#123;
+    
+&#125;
+
+private void OnTriggerExit(Collider other)
+&#123;
+    
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<blockquote>
+<p>弹簧 Spring Joint &#x2F; 铰链 Hinge Joint。</p>
+</blockquote>
+<div class="md-note md-warn"> <strong>注意</strong> 触发（Trigger）需要碰撞体勾选 Is Trigger，且不产生物理阻挡；碰撞（Collision）会产生物理反馈。两者回调方法不同，需根据需求选择。</div>
+
+<h2 id="24-冰面与地面"><a href="#24-冰面与地面" class="headerlink" title="24. 冰面与地面"></a>24. 冰面与地面</h2><blockquote>
+<p>物理材质（Physic Material）的使用。<br>静态摩擦和动态摩擦的使用。</p>
+</blockquote>
+<h2 id="25-射线检测"><a href="#25-射线检测" class="headerlink" title="25. 射线检测"></a>25. 射线检测</h2><pre class="line-numbers language-c#" data-language="c#"><code class="language-c#">&#x2F;&#x2F;方式1
+Ray ray &#x3D; new Ray(Vector3.zero,Vector3.up);
+&#x2F;&#x2F;方式1
+ray &#x3D; Camera.main.ScreenPointToRay(Input.mousePosition);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-c#" data-language="c#"><code class="language-c#">if (Input.GetMouseButtonDown(0))
+&#123;
+    Ray ray &#x3D; Camera.main.ScreenPointToRay(Input.mousePosition);
+    &#x2F;&#x2F;声明一个碰撞信息类
+    RaycastHit hit;
+    bool res &#x3D; Physics.Raycast(ray, out hit);
+    if (res)
+    &#123;
+        Debug.Log(hit.point);
+        &#x2F;&#x2F;移动
+        transform.position &#x3D; hit.point;
+    &#125;
+    &#x2F;&#x2F;多检测
+    RaycastHit[] hits &#x3D; Physics.RaycastAll(ray, 100);
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="26-彩色尾条和拖尾"><a href="#26-彩色尾条和拖尾" class="headerlink" title="26. 彩色尾条和拖尾"></a>26. 彩色尾条和拖尾</h2><blockquote>
+<p>Line Renderer。</p>
+</blockquote>
+<pre class="line-numbers language-c#" data-language="c#"><code class="language-c#">&#x2F;&#x2F;获取线段渲染器
+LineRenderer lineRenderer &#x3D; GetComponent&lt;LineRenderer&gt;();
+&#x2F;&#x2F;设置三个点
+lineRenderer.positionCount &#x3D; 3;
+lineRenderer.SetPosition(0, Vector3.zero);
+lineRenderer.SetPosition(0, Vector3.one);
+lineRenderer.SetPosition(0, Vector3.forward);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<blockquote>
+<p>Trail Renderer。</p>
+</blockquote>
+<h2 id="27-动画组件"><a href="#27-动画组件" class="headerlink" title="27. 动画组件"></a>27. 动画组件</h2><blockquote>
+<p>Animation 旧组件。</p>
+</blockquote>
+<pre class="line-numbers language-c#" data-language="c#"><code class="language-c#">void Update()
+&#123;
+    if (Input.GetMouseButtonDown(0))
+    &#123;
+        GetComponent&lt;Animation&gt;().Play(&quot;name&quot;);
+    &#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<blockquote>
+<p>Animator 新组件。<br>新建动画器控制器（Animator Controller）。</p>
+</blockquote>
+<h2 id="28-模型动作"><a href="#28-模型动作" class="headerlink" title="28. 模型动作"></a>28. 模型动作</h2><pre class="line-numbers language-c#" data-language="c#"><code class="language-c#">if (Input.GetKeyDown(KeyCode.F))
+&#123;
+    &#x2F;&#x2F;触发触发器triggername
+    GetComponent&lt;Animator&gt;().SetTrigger(&quot;triggername&quot;);
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-c#" data-language="c#"><code class="language-c#">float horizontal &#x3D; Input.GetAxis(&quot;Horizontal&quot;);
+float vertical &#x3D; Input.GetAxis(&quot;VErtical&quot;);
+
+Vector3 dir &#x3D; new Vector3 (horizontal,0, vertical);
+if (dir !&#x3D; Vector3.zero)
+&#123;
+    transform.rotation &#x3D; Quaternion.LookRotation(dir);
+    transform.Translate (dir * 1.5f);
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="29-帧事件的使用"><a href="#29-帧事件的使用" class="headerlink" title="29. 帧事件的使用"></a>29. 帧事件的使用</h2><pre class="line-numbers language-c#" data-language="c#"><code class="language-c#">void test1()
+&#123;
+    Debug.Log(&quot;test1&quot;);
+&#125;
+void test2()
+&#123;
+    Debug.Log(&quot;test2&quot;);
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<blockquote>
+<p>在脚落地时打上帧事件，播放踩地的声音。</p>
+</blockquote>
+<h2 id="30-混合动画"><a href="#30-混合动画" class="headerlink" title="30. 混合动画"></a>30. 混合动画</h2><blockquote>
+<p>设置权重，权重越高显示在前。<br>Avatar Mask 相当于蒙版。</p>
+</blockquote>
+<h2 id="31-反向动力学"><a href="#31-反向动力学" class="headerlink" title="31. 反向动力学"></a>31. 反向动力学</h2><blockquote>
+<p>反向运动学（IK）是一种设置动画的方法，它翻转链操纵的方向。</p>
+</blockquote>
+<pre class="line-numbers language-c#" data-language="c#"><code class="language-c#">&#x2F;&#x2F;IK方法
+private void OnAnimatorIK(int layerIndex)
+&#123;
+    &#x2F;&#x2F;人物头部IK
+    animator.SetLookAtWeight(1);
+    animator.SetLookAtPosition(target.position);
+    &#x2F;&#x2F;设置右手IK
+    animator.SetIKPositionWeight(AvatarIKGoal.RightHand, 1);
+    &#x2F;&#x2F;旋转
+    animator.SetIKRotationWeight(AvatarIKGoal.LeftHand, 1);
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="32-导航网格"><a href="#32-导航网格" class="headerlink" title="32. 导航网格"></a>32. 导航网格</h2><blockquote>
+<p>新版使用 NavMeshSurface 组件来进行烘焙。</p>
+</blockquote>
+<blockquote>
+<p>Nav Mesh Agent 导航代理组件（用于角色）。</p>
+</blockquote>
+<pre class="line-numbers language-c#" data-language="c#"><code class="language-c#">private NavMeshAgent agent;
+void Start()
+&#123;
+    agent &#x3D; GetComponent&lt;NavMeshAgent&gt;();
+&#125;
+
+&#x2F;&#x2F; Update is called once per frame
+void Update()
+&#123;
+    if (Input.GetMouseButtonDown(0))
+    &#123;
+        &#x2F;&#x2F;获取位置
+        Ray ray &#x3D; Camera.main.ScreenPointToRay(Input.mousePosition);
+        &#x2F;&#x2F;射线信息类
+        RaycastHit hit;
+        if (Physics.Raycast(ray, out hit))
+        &#123;
+            Vector3 point &#x3D; hit.point;
+            &#x2F;&#x2F;该点为导航目标点
+            agent.SetDestination(point);
+        &#125;
+    &#125;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<blockquote>
+<p>在两点之间传送：创建两个物体，其中一个绑定 Off Mesh Link 再绑定起始点。</p>
+</blockquote>
+<h2 id="33-锚点和轴心点"><a href="#33-锚点和轴心点" class="headerlink" title="33. 锚点和轴心点"></a>33. 锚点和轴心点</h2><blockquote>
+<p>当四个锚点均在同一点时，用轴心点（Pivot）到锚点的水平距离和垂直距离来定位。</p>
+</blockquote>
+<h2 id="34-按钮"><a href="#34-按钮" class="headerlink" title="34. 按钮"></a>34. 按钮</h2><blockquote>
+<p>使用图片前转为精灵图（Sprite）。<br>在脚本内使用画布内的组件，新版需加入 TMPro 命名空间。</p>
+</blockquote>
+<blockquote>
+<p>绑定事件：先将脚本绑定到画布，再在按钮的鼠标单击事件（Button Click）中绑定脚本的方法。</p>
+</blockquote>
+<h2 id="35-下拉选项-Dropdown"><a href="#35-下拉选项-Dropdown" class="headerlink" title="35. 下拉选项 Dropdown"></a>35. 下拉选项 Dropdown</h2><pre class="line-numbers language-c#" data-language="c#"><code class="language-c#">void Start()
+&#123;
+    &#x2F;&#x2F;获取下拉组件
+    Dropdown dropdown &#x3D; GetComponent&lt;Dropdown&gt;();
+    &#x2F;&#x2F;获取组件的选项
+    List&lt;Dropdown.OptionData&gt; options &#x3D; dropdown.options;
+    &#x2F;&#x2F;修改选项
+    options.Add(new Dropdown.OptionData(&quot;new selection&quot;));
+    dropdown.options &#x3D; options
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="36-常用的-UI-组件"><a href="#36-常用的-UI-组件" class="headerlink" title="36. 常用的 UI 组件"></a>36. 常用的 UI 组件</h2><blockquote>
+<p>Vertical Layout Group 可以用于多个元素之间控制相同的距离和宽度。<br>Grid 网格布局。</p>
+</blockquote>
+<hr>
+<blockquote>
+<p><strong>一句话总结</strong>：Unity 借助统一的 C# 脚本 API 与组件化体系，覆盖从物体、场景、物理到动画导航的全流程，实现一次开发、多平台部署的游戏与应用开发。</p>
+</blockquote>
+
+        </article>
+        <section class="post-near">
+            <ul>
+                
+                    <li>上一篇: <a href="/2024/10/01/Flutter/">Flutter</a></li>
+                
+                
+                    <li>下一篇: <a href="/2024/09/01/Dubbo/">Dubbo</a></li>
+                
+            </ul>
+        </section>
+        
+            <section class="post-tags">
+            <a class="-none-link" href="/tags/Game/" rel="tag">Game</a><a class="-none-link" href="/tags/Unity/" rel="tag">Unity</a>
+            </section>
+        
+    
+        <section class="post-author">
+        
+            <figure class="author-avatar">
+                <img src="https://nos.netease.com/ysf/984b6beaecc19c99414093c0481a2619.png" alt="日初" />
+            </figure>
+        
+            <div class="author-info">
+                <h4>日初</h4>
+                <p>去关于我看看吧(´・ω・`)</p>
+            </div>
+        </section>
+    
+    </div>
+</main>
+
+    <footer>
+    <div class="buttons">
+        <a class="to-top" href="#"></a>
+    </div>
+    <div class="wrap min">
+        <section class="widget">
+            <div class="row">
+                <div class="col-m-4">
+                    <h3 class="title-recent">最新文章：</h3>
+                    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2026/10/28/%E7%9F%A5%E8%AF%86%E6%96%87%E6%A1%A3%E6%8A%80%E6%9C%AF%E6%96%87%E6%A1%A3/">企业知识库技术文档（RAG + pgvector）</a></li><li class="post-list-item"><a class="post-list-link" href="/2026/10/27/%E6%8A%80%E8%83%BD%E5%BC%80%E5%8F%91%E6%8C%87%E5%8D%97/">技能开发指南</a></li><li class="post-list-item"><a class="post-list-link" href="/2026/10/27/%E6%8A%80%E8%83%BD%E6%A8%A1%E5%BC%8F%E4%BB%A3%E7%90%86%E8%AE%BE%E8%AE%A1%E6%96%87%E6%A1%A3/">技能模式 AI Agent 系统设计</a></li><li class="post-list-item"><a class="post-list-link" href="/2026/10/01/Redis/">Redis</a></li><li class="post-list-item"><a class="post-list-link" href="/2026/09/01/React/">React</a></li><li class="post-list-item"><a class="post-list-link" href="/2026/08/01/QT/">QT</a></li></ul>
+                </div>
+                <div class="col-m-4">
+                    <h3 class="title-date">时光机：</h3>
+                    <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/10/">十月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/09/">九月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/08/">八月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/07/">七月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/06/">六月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/05/">五月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/04/">四月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/03/">三月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/02/">二月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/01/">一月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/12/">十二月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/11/">十一月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/10/">十月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/09/">九月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/08/">八月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/07/">七月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/06/">六月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/05/">五月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/04/">四月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/03/">三月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/02/">二月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/01/">一月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/12/">十二月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/11/">十一月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/10/">十月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/09/">九月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/08/">八月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/07/">七月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/06/">六月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/05/">五月 2024</a></li></ul>
+                </div>
+                <div class="col-m-4">
+                    <h3 class="title-tags">标签云：</h3>
+                    <a href="/tags/AI-Agent/" style="font-size: 20px;">AI Agent</a> <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/CSS/" style="font-size: 20px;">CSS</a> <a href="/tags/Centos/" style="font-size: 20px;">Centos</a> <a href="/tags/Docker/" style="font-size: 20px;">Docker</a> <a href="/tags/Dubbo/" style="font-size: 20px;">Dubbo</a> <a href="/tags/Flutter/" style="font-size: 20px;">Flutter</a> <a href="/tags/GO/" style="font-size: 20px;">GO</a> <a href="/tags/Game/" style="font-size: 20px;">Game</a> <a href="/tags/Go/" style="font-size: 20px;">Go</a> <a href="/tags/Go-Web/" style="font-size: 20px;">Go Web</a> <a href="/tags/HBase/" style="font-size: 20px;">HBase</a> <a href="/tags/Hadoop/" style="font-size: 20px;">Hadoop</a> <a href="/tags/JQuery/" style="font-size: 20px;">JQuery</a> <a href="/tags/JS/" style="font-size: 20px;">JS</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/Java-Web/" style="font-size: 20px;">Java Web</a> <a href="/tags/K8S/" style="font-size: 20px;">K8S</a> <a href="/tags/Kotlin/" style="font-size: 20px;">Kotlin</a> <a href="/tags/Linux/" style="font-size: 20px;">Linux</a> <a href="/tags/MongoDB/" style="font-size: 20px;">MongoDB</a> <a href="/tags/MySql/" style="font-size: 20px;">MySql</a> <a href="/tags/MybatisPlus/" style="font-size: 20px;">MybatisPlus</a> <a href="/tags/Nginx/" style="font-size: 20px;">Nginx</a> <a href="/tags/NodeJs/" style="font-size: 20px;">NodeJs</a> <a href="/tags/PHP/" style="font-size: 20px;">PHP</a> <a href="/tags/Promise/" style="font-size: 20px;">Promise</a> <a href="/tags/QT/" style="font-size: 20px;">QT</a> <a href="/tags/RAG/" style="font-size: 20px;">RAG</a> <a href="/tags/React/" style="font-size: 20px;">React</a> <a href="/tags/Redis/" style="font-size: 20px;">Redis</a> <a href="/tags/Skill/" style="font-size: 20px;">Skill</a> <a href="/tags/Spark/" style="font-size: 20px;">Spark</a> <a href="/tags/Spring-Cloud/" style="font-size: 20px;">Spring Cloud</a> <a href="/tags/SpringMVC/" style="font-size: 20px;">SpringMVC</a> <a href="/tags/UniApp/" style="font-size: 20px;">UniApp</a> <a href="/tags/UniCloud/" style="font-size: 20px;">UniCloud</a> <a href="/tags/Unity/" style="font-size: 20px;">Unity</a> <a href="/tags/Vue/" style="font-size: 20px;">Vue</a> <a href="/tags/Webpack/" style="font-size: 20px;">Webpack</a> <a href="/tags/ZooKeeper/" style="font-size: 20px;">ZooKeeper</a> <a href="/tags/pgvector/" style="font-size: 20px;">pgvector</a> <a href="/tags/%E5%89%8D%E7%AB%AF/" style="font-size: 20px;">前端</a> <a href="/tags/%E5%90%91%E9%87%8F%E6%A3%80%E7%B4%A2/" style="font-size: 20px;">向量检索</a> <a href="/tags/%E6%8A%80%E8%83%BD/" style="font-size: 20px;">技能</a> <a href="/tags/%E6%8A%80%E8%83%BD%E6%A8%A1%E5%BC%8F/" style="font-size: 20px;">技能模式</a> <a href="/tags/%E7%9F%A5%E8%AF%86%E5%BA%93/" style="font-size: 20px;">知识库</a> <a href="/tags/%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1/" style="font-size: 20px;">系统设计</a> <a href="/tags/%E8%BF%90%E7%BB%B4/" style="font-size: 20px;">运维</a>
+                </div>
+            </div>
+        </section>
+        <section class="sub-footer">
+            <p>© 2026 <a href="/">Richu</a>. All Rights Reserved. Theme By <a href="https://github.com/Dreamer-Paul/Hingle" target="_blank" rel="nofollow">Hingle</a>.</p>
+        </section>
+    </div>
+</footer>
+
+
+<script src="/static/kico.js"></script>
+<script src="/static/hingle.js"></script>
+
+
+<script>var SITE_ROOT = "/";</script>
+<script>var hingle = new Paul_Hingle({"copyright":true,"night":false,"code":{"language_label":true,"language_label_exclude":["markup","none","plain","plaintext","text"],"line_numbers":true,"line_numbers_toggle":true}});</script>
+
+    <script src="/js/mermaid-boot.js"></script>
+  </body>
+</html>

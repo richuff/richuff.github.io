@@ -1,0 +1,509 @@
+<!DOCTYPE html>
+<html>
+  <head>
+     
+    <meta charset="UTF-8">
+    <title>Hadoop大数据部署 - Richu</title>
+    <link rel="shortcut icon" href="/static/img/icon.png">
+    <link rel="icon" href="/static/img/icon.png" sizes="192x192"/>
+    
+<link rel="stylesheet" href="/static/kico.css">
+<link rel="stylesheet" href="/static/hingle.css">
+<link rel="stylesheet" href="/static/md-enhance.css">
+
+    
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <meta name="viewport" content="width=device-width, maximum-scale=1, initial-scale=1"/>
+    <meta property="og:site_name" content="Richu">
+    <meta property="og:title" content="Hadoop大数据部署"/>
+    
+    <style>body:before{ content: ''; background-image: url(http://kycloud3.koyoo.cn/2025033176e99202503311036156636.jpg) }</style>
+    
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+  <body>
+    <header>
+    <div class="head-title">
+        <h4>Richu</h4>
+    </div>
+    <div class="head-action">
+        <div class="toggle-btn"></div>
+        <div class="light-btn"></div>
+        <div class="search-btn"></div>
+    </div>
+    <form class="head-search" method="post">
+        <input type="text" name="s" placeholder="搜索什么？">
+    </form>
+    <nav class="head-menu">
+        <a href="/">首页</a>
+        <div class="has-child">
+            <a>分类</a>
+            <div class="sub-menu">
+                <a class="category-link" href="/categories/AI/">AI</a><a class="category-link" href="/categories/Android/">Android</a><a class="category-link" href="/categories/Go/">Go</a><a class="category-link" href="/categories/Java/">Java</a><a class="category-link" href="/categories/QT/">QT</a><a class="category-link" href="/categories/Unity/">Unity</a><a class="category-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a><a class="category-link" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a><a class="category-link" href="/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE/">大数据</a><a class="category-link" href="/categories/%E8%BF%90%E7%BB%B4/">运维</a>
+            </div>
+        </div>
+        
+            <a href="/links">常用链接</a>
+        
+    </nav>
+</header>
+
+    <main>
+    <div class="wrap min">
+        <section class="post-title">
+            <h2>Hadoop大数据部署</h2>
+            <div class="post-meta">
+                
+                    <time class="updated" datetime="2026-10-27T03:41:47.366Z" title="最后更新于 2026-10-27 11:41" aria-label="最后更新于 2026-10-27 11:41">2026.10.27</time>
+                
+                <time class="date">2025.04.01</time>
+            
+                <span class="category"><a class="category-link" href="/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE/">大数据</a></span>
+            
+            </div>
+        </section>
+        <article class="post-content">
+            <div class="md-intro">
+<div class="md-hero">Hadoop大数据部署</div>
+<blockquote>
+<p>Hadoop 大数据部署是一套基于 HDFS 分布式存储、YARN 资源调度构建多节点服务器分布式集群的工程实践，通常采用主从模式规划角色节点，将集群划分为 NameNode、ResourceManager 等主服务节点，以及 DataNode、NodeManager 等从工作节点，并为上层 HBase、Spark、Hive 等组件提供底层存储与资源调度支撑。</p>
+<p>其核心思路是**以统一配置 + 角色拆分 + 集群协同的方式，搭建可横向扩展、高可靠、高容错的大数据基础底座**，从而支撑海量离线数据存储与分布式计算，是大数据生态体系的核心底层基座。</p>
+</blockquote>
+<div class="md-lead">传统单机环境难以应对海量数据的存储与计算压力；通过 Hadoop 集群化部署，将存储与计算分散到多节点并统一调度，解决了单机容量与算力瓶颈、缺乏容错与扩展能力的问题。</div>
+</div>
+<span class="md-kbd-wrap"><span class="md-kbd">大数据集群部署手册</span></span>
+
+<h2 id="1-概述"><a href="#1-概述" class="headerlink" title="1. 概述"></a>1. 概述</h2><p>Hadoop 大数据部署以 HDFS 分布式存储、YARN 资源调度为核心，依托多节点服务器构建分布式集群架构，通常采用主从模式规划角色节点，将集群划分为 NameNode、ResourceManager 等主服务节点，以及 DataNode、NodeManager 等从工作节点。部署前需完成服务器主机名配置、IP 映射、集群间 SSH 免密登录、防火墙与 SELinux 关闭、JDK 环境统一配置等基础环境准备；随后依次配置 Hadoop 核心配置文件，包括环境变量文件、核心站点文件、HDFS 站点文件、YARN 调度文件与 MapReduce 配置文件，定义文件系统地址、数据存储目录、副本数量及资源调度规则。配置完成后将配置文件同步至所有集群节点，执行 NameNode 格式化操作，再按顺序启动 HDFS 与 YARN 服务，通过 jps 校验各守护进程运行状态，最终搭建起可横向扩展、高可靠、高容错的大数据基础集群，能够支撑海量离线数据存储、分布式计算，同时为 HBase、Spark、Hive 等大数据组件提供底层存储与资源调度支撑，是大数据生态体系的核心底层基座。</p>
+<div class="md-note md-info">
+**组件角色总览** 本部署涉及 Zookeeper（集群协调）、Hadoop HDFS/YARN（存储与调度）、HBase（分布式数据库）、Spark（内存计算）四大组件，均依托统一规划的 bigdata01/02/03 三节点集群。
+</div>
+
+<table>
+<thead>
+<tr>
+<th>组件</th>
+<th>角色定位</th>
+<th>关键进程</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Zookeeper</td>
+<td>分布式协调服务，集群选举与配置管理</td>
+<td>QuorumPeerMain</td>
+</tr>
+<tr>
+<td>Hadoop HDFS</td>
+<td>分布式文件系统存储</td>
+<td>NameNode &#x2F; DataNode &#x2F; SecondaryNameNode</td>
+</tr>
+<tr>
+<td>Hadoop YARN</td>
+<td>资源调度框架</td>
+<td>ResourceManager &#x2F; NodeManager</td>
+</tr>
+<tr>
+<td>HBase</td>
+<td>基于 HDFS 的分布式列式数据库</td>
+<td>HMaster &#x2F; HRegionServer</td>
+</tr>
+<tr>
+<td>Spark</td>
+<td>基于内存的分布式计算引擎</td>
+<td>Master &#x2F; Worker</td>
+</tr>
+</tbody></table>
+<h2 id="2-Zookeeper-部署"><a href="#2-Zookeeper-部署" class="headerlink" title="2. Zookeeper 部署"></a>2. Zookeeper 部署</h2><h3 id="2-1-配置-zoo-cfg"><a href="#2-1-配置-zoo-cfg" class="headerlink" title="2.1 配置 zoo.cfg"></a>2.1 配置 zoo.cfg</h3><p>编辑配置文件 <code>zoo.cfg</code>：</p>
+<pre class="line-numbers language-none"><code class="language-none"># 基本时间单位（毫秒），默认2000，不用改
+tickTime&#x3D;2000
+
+# 集群初始化时，从节点同步数据的超时时间（10*tickTime）
+initLimit&#x3D;10
+
+# 集群运行时，主从节点心跳同步的超时时间（5*tickTime）
+syncLimit&#x3D;5
+
+# 客户端连接端口（默认2181，必须配置）
+clientPort&#x3D;2181
+
+# 数据目录（关键！路径必须正确，无换行符）
+dataDir&#x3D;&#x2F;data&#x2F;soft&#x2F;apache-zookeeper-3.5.8-bin&#x2F;data
+
+# 日志目录（可选，建议配置，避免日志混乱）
+dataLogDir&#x3D;&#x2F;data&#x2F;soft&#x2F;apache-zookeeper-3.5.8-bin&#x2F;logs
+
+# 集群节点列表（server.x 中的x必须和myid一致）
+# 格式：server.x&#x3D;节点名:通信端口（2888）:选举端口（3888）
+server.0&#x3D;bigdata01:2888:3888
+server.1&#x3D;bigdata02:2888:3888
+server.2&#x3D;bigdata03:2888:3888<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>tickTime</td>
+<td>基本时间单位（毫秒），默认 2000，不用改</td>
+</tr>
+<tr>
+<td>initLimit</td>
+<td>集群初始化时，从节点同步数据的超时时间（10×tickTime）</td>
+</tr>
+<tr>
+<td>syncLimit</td>
+<td>集群运行时，主从节点心跳同步的超时时间（5×tickTime）</td>
+</tr>
+<tr>
+<td>clientPort</td>
+<td>客户端连接端口（默认 2181，必须配置）</td>
+</tr>
+<tr>
+<td>dataDir</td>
+<td>数据目录（关键！路径必须正确，无换行符）</td>
+</tr>
+<tr>
+<td>dataLogDir</td>
+<td>日志目录（可选，建议配置，避免日志混乱）</td>
+</tr>
+<tr>
+<td>server.x</td>
+<td>集群节点列表（server.x 中的 x 必须和 myid 一致）；格式：server.x&#x3D;节点名:通信端口（2888）:选举端口（3888）</td>
+</tr>
+</tbody></table>
+<h3 id="2-2-配置-myid"><a href="#2-2-配置-myid" class="headerlink" title="2.2 配置 myid"></a>2.2 配置 myid</h3><p>在三个 data 目录下新建 <code>myid</code> 文件，在每个虚拟机的 <code>myid</code> 中输入以下内容：</p>
+<table>
+<thead>
+<tr>
+<th>节点</th>
+<th>myid 内容</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>bigdata01</td>
+<td>1</td>
+</tr>
+<tr>
+<td>bigdata02</td>
+<td>2</td>
+</tr>
+<tr>
+<td>bigdata03</td>
+<td>3</td>
+</tr>
+</tbody></table>
+<div class="md-note md-warn">
+**myid 必须一致** `server.x` 中的 x 必须与对应节点的 `myid` 文件内容保持一致，否则 Zookeeper 集群将无法正确选举与同步。
+</div>
+
+<h2 id="3-Hadoop-部署"><a href="#3-Hadoop-部署" class="headerlink" title="3. Hadoop 部署"></a>3. Hadoop 部署</h2><h3 id="3-1-配置文件总览"><a href="#3-1-配置文件总览" class="headerlink" title="3.1 配置文件总览"></a>3.1 配置文件总览</h3><p>Hadoop 配置文件均位于 <code>$HADOOP_HOME/etc/hadoop</code> 目录下：</p>
+<table>
+<thead>
+<tr>
+<th>配置文件</th>
+<th>作用说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>hadoop-env.sh</td>
+<td>环境变量（JAVA_HOME 等）</td>
+</tr>
+<tr>
+<td>core-site.xml</td>
+<td>核心（HDFS 地址、临时目录）</td>
+</tr>
+<tr>
+<td>hdfs-site.xml</td>
+<td>HDFS（副本数、NameNode&#x2F;DataNode 目录）</td>
+</tr>
+<tr>
+<td>mapred-site.xml</td>
+<td>MapReduce 框架（交给 YARN）</td>
+</tr>
+<tr>
+<td>yarn-site.xml</td>
+<td>YARN 资源调度</td>
+</tr>
+</tbody></table>
+<h3 id="3-2-配置-hadoop-env-sh"><a href="#3-2-配置-hadoop-env-sh" class="headerlink" title="3.2 配置 hadoop-env.sh"></a>3.2 配置 hadoop-env.sh</h3><blockquote>
+<p>vi $HADOOP_HOME&#x2F;etc&#x2F;hadoop&#x2F;hadoop-env.sh</p>
+</blockquote>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token builtin class-name">export</span> <span class="token assign-left variable">JAVA_HOME</span><span class="token operator">=</span>/data/soft/jdk1.8
+<span class="token builtin class-name">export</span> <span class="token assign-left variable">HADOOP_LOG_DIR</span><span class="token operator">=</span>/data/hadoop_repo/logs/hadoop
+<span class="token builtin class-name">export</span> <span class="token assign-left variable">HDFS_NAMENODE_USER</span><span class="token operator">=</span>root
+<span class="token builtin class-name">export</span> <span class="token assign-left variable">HDFS_DATANODE_USER</span><span class="token operator">=</span>root
+<span class="token builtin class-name">export</span> <span class="token assign-left variable">HDFS_SECONDARYNAMENODE_USER</span><span class="token operator">=</span>root
+
+<span class="token builtin class-name">export</span> <span class="token assign-left variable">YARN_RESOURCEMANAGER_USER</span><span class="token operator">=</span>root
+<span class="token builtin class-name">export</span> <span class="token assign-left variable">YARN_NODEMANAGER_USER</span><span class="token operator">=</span>root<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="3-3-配置-core-site-xml"><a href="#3-3-配置-core-site-xml" class="headerlink" title="3.3 配置 core-site.xml"></a>3.3 配置 core-site.xml</h3><blockquote>
+<p>vi $HADOOP_HOME&#x2F;etc&#x2F;hadoop&#x2F;core-site.xml</p>
+</blockquote>
+<pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>configuration</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>name</span><span class="token punctuation">></span></span>fs.defaultFS<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>name</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>value</span><span class="token punctuation">></span></span>hdfs://bigdata01:9000<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>value</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>name</span><span class="token punctuation">></span></span>hadoop.tmp.dir<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>name</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>value</span><span class="token punctuation">></span></span>/data/hadoop_repo<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>value</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>name</span><span class="token punctuation">></span></span>fs.permissions.umask-mode<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>name</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>value</span><span class="token punctuation">></span></span>000<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>value</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>name</span><span class="token punctuation">></span></span>fs.permissions.enabled<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>name</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>value</span><span class="token punctuation">></span></span>false<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>value</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>configuration</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="3-4-配置-hdfs-site-xml"><a href="#3-4-配置-hdfs-site-xml" class="headerlink" title="3.4 配置 hdfs-site.xml"></a>3.4 配置 hdfs-site.xml</h3><blockquote>
+<p>vi $HADOOP_HOME&#x2F;etc&#x2F;hadoop&#x2F;hdfs-site.xml</p>
+</blockquote>
+<pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>configuration</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>name</span><span class="token punctuation">></span></span>dfs.replication<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>name</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>value</span><span class="token punctuation">></span></span>2<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>value</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>name</span><span class="token punctuation">></span></span>dfs.namenode.secondary.http-address<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>name</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>value</span><span class="token punctuation">></span></span>bigdata01:50090<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>value</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>configuration</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="3-5-配置-mapred-site-xml"><a href="#3-5-配置-mapred-site-xml" class="headerlink" title="3.5 配置 mapred-site.xml"></a>3.5 配置 mapred-site.xml</h3><blockquote>
+<p>vi $HADOOP_HOME&#x2F;etc&#x2F;hadoop&#x2F;mapred-site.xml</p>
+</blockquote>
+<pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>configuration</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>name</span><span class="token punctuation">></span></span>mapreduce.framework.name<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>name</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>value</span><span class="token punctuation">></span></span>yarn<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>value</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>configuration</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="3-6-配置-yarn-site-xml"><a href="#3-6-配置-yarn-site-xml" class="headerlink" title="3.6 配置 yarn-site.xml"></a>3.6 配置 yarn-site.xml</h3><blockquote>
+<p>vi $HADOOP_HOME&#x2F;etc&#x2F;hadoop&#x2F;yarn-site.xml</p>
+</blockquote>
+<pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>configuration</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>name</span><span class="token punctuation">></span></span>yarn.nodemanager.aux-services<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>name</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>value</span><span class="token punctuation">></span></span>mapreduce_shuffle<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>value</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>name</span><span class="token punctuation">></span></span>yarn.nodemanager.env-whitelist<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>name</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>value</span><span class="token punctuation">></span></span>JAVA_HOME,HADOOP_COMMON_HOME,HADOOP_HDFS_HOME,HADOOP_CONF_DIR,CLASSPATH_PREPEND_DISTCACHE,HADOOP_YARN_HOME,HADOOP_MAPRED_HOME<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>value</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>configuration</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="3-7-启动集群与进程校验"><a href="#3-7-启动集群与进程校验" class="headerlink" title="3.7 启动集群与进程校验"></a>3.7 启动集群与进程校验</h3><blockquote>
+<p>启动 Hadoop 集群</p>
+</blockquote>
+<ol>
+<li>启动 HDFS 分布式文件系统<br><code>start-dfs.sh</code></li>
+<li>启动 YARN 资源调度<br><code>start-yarn.sh</code></li>
+</ol>
+<blockquote>
+<p>一键查看是否启动成功<br><code>jps</code></p>
+</blockquote>
+<div class="md-note md-tip">
+**进程校验** 配置完成后需将配置文件同步至所有集群节点，并执行 NameNode 格式化操作，再按顺序启动 HDFS 与 YARN 服务，最后通过 `jps` 校验各守护进程运行状态。
+</div>
+
+<table>
+<thead>
+<tr>
+<th>节点类型</th>
+<th>应出现的进程</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>主节点（NameNode）</td>
+<td>NameNode、SecondaryNameNode、ResourceManager、Jps</td>
+</tr>
+<tr>
+<td>从节点（DataNode）</td>
+<td>DataNode、NodeManager、Jps</td>
+</tr>
+</tbody></table>
+<h2 id="4-HBase-部署"><a href="#4-HBase-部署" class="headerlink" title="4. HBase 部署"></a>4. HBase 部署</h2><h3 id="4-1-配置-hbase-site-xml"><a href="#4-1-配置-hbase-site-xml" class="headerlink" title="4.1 配置 hbase-site.xml"></a>4.1 配置 hbase-site.xml</h3><pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>configuration</span><span class="token punctuation">></span></span>
+    <span class="token comment">&lt;!-- 开启分布式模式 --></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>name</span><span class="token punctuation">></span></span>hbase.cluster.distributed<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>name</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>value</span><span class="token punctuation">></span></span>true<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>value</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span>
+
+    <span class="token comment">&lt;!-- 本地文件系统tmp目录 --></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>name</span><span class="token punctuation">></span></span>hbase.tmp.dir<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>name</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>value</span><span class="token punctuation">></span></span>/data/hbase/tmp<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>value</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span>
+
+    <span class="token comment">&lt;!-- 分布式环境必须设为false，默认也为false --></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>name</span><span class="token punctuation">></span></span>hbase.unsafe.stream.capability.enforce<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>name</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>value</span><span class="token punctuation">></span></span>false<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>value</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span>
+
+    <span class="token comment">&lt;!-- HBase 在 HDFS 上的根存储路径 --></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>name</span><span class="token punctuation">></span></span>hbase.rootdir<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>name</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>value</span><span class="token punctuation">></span></span>hdfs://bigdata01:9000/hbase<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>value</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span>
+
+    <span class="token comment">&lt;!-- Zookeeper 集群地址，多节点逗号分隔 --></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>name</span><span class="token punctuation">></span></span>hbase.zookeeper.quorum<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>name</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>value</span><span class="token punctuation">></span></span>bigdata01,bigdata02,bigdata03<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>value</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span>
+
+    <span class="token comment">&lt;!-- HBase 在 Zookeeper 中的根znode节点 --></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>name</span><span class="token punctuation">></span></span>zookeeper.znode.parent<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>name</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>value</span><span class="token punctuation">></span></span>/hbase<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>value</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span>
+
+    <span class="token comment">&lt;!-- Zookeeper 客户端通信端口，默认2181 --></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>property</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>name</span><span class="token punctuation">></span></span>hbase.zookeeper.property.clientPort<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>name</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>value</span><span class="token punctuation">></span></span>2181<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>value</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>property</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>configuration</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="4-2-启动与校验"><a href="#4-2-启动与校验" class="headerlink" title="4.2 启动与校验"></a>4.2 启动与校验</h3><blockquote>
+<p>启动 hbase 集群<br>.&#x2F;start-hbase.sh</p>
+</blockquote>
+<blockquote>
+<p>检查是否启动成功<br><code>jps</code></p>
+</blockquote>
+<p>你应该看到：</p>
+<table>
+<thead>
+<tr>
+<th>节点类型</th>
+<th>应出现的进程</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>主节点</td>
+<td>HMaster</td>
+</tr>
+<tr>
+<td>所有从节点</td>
+<td>HRegionServer</td>
+</tr>
+</tbody></table>
+<h2 id="5-Spark-部署"><a href="#5-Spark-部署" class="headerlink" title="5. Spark 部署"></a>5. Spark 部署</h2><h3 id="5-1-重命名配置模板"><a href="#5-1-重命名配置模板" class="headerlink" title="5.1 重命名配置模板"></a>5.1 重命名配置模板</h3><pre class="line-numbers language-none"><code class="language-none">cd &#x2F;data&#x2F;soft&#x2F;spark&#x2F;conf
+mv slaves.template slaves
+mv spark-env.sh.template spark-env.sh<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="5-2-编辑-slaves（指定从节点）"><a href="#5-2-编辑-slaves（指定从节点）" class="headerlink" title="5.2 编辑 slaves（指定从节点）"></a>5.2 编辑 slaves（指定从节点）</h3><p><code>vim slaves</code></p>
+<pre class="line-numbers language-none"><code class="language-none">bigdata01
+bigdata02
+bigdata03<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="5-3-编辑-spark-env-sh"><a href="#5-3-编辑-spark-env-sh" class="headerlink" title="5.3 编辑 spark-env.sh"></a>5.3 编辑 spark-env.sh</h3><p><code>vim spark-env.sh</code></p>
+<pre class="line-numbers language-none"><code class="language-none">export JAVA_HOME&#x3D;&#x2F;data&#x2F;soft&#x2F;jdk1.8.0
+export HADOOP_HOME&#x3D;&#x2F;data&#x2F;soft&#x2F;hadoop
+export HADOOP_CONF_DIR&#x3D;$HADOOP_HOME&#x2F;etc&#x2F;hadoop
+export SPARK_MASTER_HOST&#x3D;bigdata01<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="5-4-启动与校验"><a href="#5-4-启动与校验" class="headerlink" title="5.4 启动与校验"></a>5.4 启动与校验</h3><blockquote>
+<p>.&#x2F;start-all.sh</p>
+</blockquote>
+<p><code>jps</code></p>
+<table>
+<thead>
+<tr>
+<th>节点类型</th>
+<th>应出现的进程</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>主节点 bigdata01</td>
+<td>Master + Worker</td>
+</tr>
+<tr>
+<td>从节点 bigdata02&#x2F;03</td>
+<td>Worker</td>
+</tr>
+</tbody></table>
+<hr>
+<blockquote>
+<p><strong>一句话总结</strong>：Hadoop 大数据部署以 HDFS 存储与 YARN 调度为核心，通过统一配置、角色拆分与多组件（Zookeeper、Hadoop、HBase、Spark）集群协同，搭建出可横向扩展、高可靠、高容错的大数据基础底座。</p>
+</blockquote>
+
+        </article>
+        <section class="post-near">
+            <ul>
+                
+                    <li>上一篇: <a href="/2025/05/01/Java%20Web/">Java Web</a></li>
+                
+                
+                    <li>下一篇: <a href="/2025/03/15/%E4%BF%AE%E6%94%B9Centos%E8%99%9A%E6%8B%9F%E6%9C%BAip/">修改Centos虚拟机ip</a></li>
+                
+            </ul>
+        </section>
+        
+            <section class="post-tags">
+            <a class="-none-link" href="/tags/HBase/" rel="tag">HBase</a><a class="-none-link" href="/tags/Hadoop/" rel="tag">Hadoop</a><a class="-none-link" href="/tags/Spark/" rel="tag">Spark</a>
+            </section>
+        
+    
+        <section class="post-author">
+        
+            <figure class="author-avatar">
+                <img src="https://nos.netease.com/ysf/984b6beaecc19c99414093c0481a2619.png" alt="日初" />
+            </figure>
+        
+            <div class="author-info">
+                <h4>日初</h4>
+                <p>去关于我看看吧(´・ω・`)</p>
+            </div>
+        </section>
+    
+    </div>
+</main>
+
+    <footer>
+    <div class="buttons">
+        <a class="to-top" href="#"></a>
+    </div>
+    <div class="wrap min">
+        <section class="widget">
+            <div class="row">
+                <div class="col-m-4">
+                    <h3 class="title-recent">最新文章：</h3>
+                    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2026/10/28/%E7%9F%A5%E8%AF%86%E6%96%87%E6%A1%A3%E6%8A%80%E6%9C%AF%E6%96%87%E6%A1%A3/">企业知识库技术文档（RAG + pgvector）</a></li><li class="post-list-item"><a class="post-list-link" href="/2026/10/27/%E6%8A%80%E8%83%BD%E5%BC%80%E5%8F%91%E6%8C%87%E5%8D%97/">技能开发指南</a></li><li class="post-list-item"><a class="post-list-link" href="/2026/10/27/%E6%8A%80%E8%83%BD%E6%A8%A1%E5%BC%8F%E4%BB%A3%E7%90%86%E8%AE%BE%E8%AE%A1%E6%96%87%E6%A1%A3/">技能模式 AI Agent 系统设计</a></li><li class="post-list-item"><a class="post-list-link" href="/2026/10/01/Redis/">Redis</a></li><li class="post-list-item"><a class="post-list-link" href="/2026/09/01/React/">React</a></li><li class="post-list-item"><a class="post-list-link" href="/2026/08/01/QT/">QT</a></li></ul>
+                </div>
+                <div class="col-m-4">
+                    <h3 class="title-date">时光机：</h3>
+                    <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/10/">十月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/09/">九月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/08/">八月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/07/">七月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/06/">六月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/05/">五月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/04/">四月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/03/">三月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/02/">二月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/01/">一月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/12/">十二月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/11/">十一月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/10/">十月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/09/">九月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/08/">八月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/07/">七月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/06/">六月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/05/">五月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/04/">四月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/03/">三月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/02/">二月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/01/">一月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/12/">十二月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/11/">十一月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/10/">十月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/09/">九月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/08/">八月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/07/">七月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/06/">六月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/05/">五月 2024</a></li></ul>
+                </div>
+                <div class="col-m-4">
+                    <h3 class="title-tags">标签云：</h3>
+                    <a href="/tags/AI-Agent/" style="font-size: 20px;">AI Agent</a> <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/CSS/" style="font-size: 20px;">CSS</a> <a href="/tags/Centos/" style="font-size: 20px;">Centos</a> <a href="/tags/Docker/" style="font-size: 20px;">Docker</a> <a href="/tags/Dubbo/" style="font-size: 20px;">Dubbo</a> <a href="/tags/Flutter/" style="font-size: 20px;">Flutter</a> <a href="/tags/GO/" style="font-size: 20px;">GO</a> <a href="/tags/Game/" style="font-size: 20px;">Game</a> <a href="/tags/Go/" style="font-size: 20px;">Go</a> <a href="/tags/Go-Web/" style="font-size: 20px;">Go Web</a> <a href="/tags/HBase/" style="font-size: 20px;">HBase</a> <a href="/tags/Hadoop/" style="font-size: 20px;">Hadoop</a> <a href="/tags/JQuery/" style="font-size: 20px;">JQuery</a> <a href="/tags/JS/" style="font-size: 20px;">JS</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/Java-Web/" style="font-size: 20px;">Java Web</a> <a href="/tags/K8S/" style="font-size: 20px;">K8S</a> <a href="/tags/Kotlin/" style="font-size: 20px;">Kotlin</a> <a href="/tags/Linux/" style="font-size: 20px;">Linux</a> <a href="/tags/MongoDB/" style="font-size: 20px;">MongoDB</a> <a href="/tags/MySql/" style="font-size: 20px;">MySql</a> <a href="/tags/MybatisPlus/" style="font-size: 20px;">MybatisPlus</a> <a href="/tags/Nginx/" style="font-size: 20px;">Nginx</a> <a href="/tags/NodeJs/" style="font-size: 20px;">NodeJs</a> <a href="/tags/PHP/" style="font-size: 20px;">PHP</a> <a href="/tags/Promise/" style="font-size: 20px;">Promise</a> <a href="/tags/QT/" style="font-size: 20px;">QT</a> <a href="/tags/RAG/" style="font-size: 20px;">RAG</a> <a href="/tags/React/" style="font-size: 20px;">React</a> <a href="/tags/Redis/" style="font-size: 20px;">Redis</a> <a href="/tags/Skill/" style="font-size: 20px;">Skill</a> <a href="/tags/Spark/" style="font-size: 20px;">Spark</a> <a href="/tags/Spring-Cloud/" style="font-size: 20px;">Spring Cloud</a> <a href="/tags/SpringMVC/" style="font-size: 20px;">SpringMVC</a> <a href="/tags/UniApp/" style="font-size: 20px;">UniApp</a> <a href="/tags/UniCloud/" style="font-size: 20px;">UniCloud</a> <a href="/tags/Unity/" style="font-size: 20px;">Unity</a> <a href="/tags/Vue/" style="font-size: 20px;">Vue</a> <a href="/tags/Webpack/" style="font-size: 20px;">Webpack</a> <a href="/tags/ZooKeeper/" style="font-size: 20px;">ZooKeeper</a> <a href="/tags/pgvector/" style="font-size: 20px;">pgvector</a> <a href="/tags/%E5%89%8D%E7%AB%AF/" style="font-size: 20px;">前端</a> <a href="/tags/%E5%90%91%E9%87%8F%E6%A3%80%E7%B4%A2/" style="font-size: 20px;">向量检索</a> <a href="/tags/%E6%8A%80%E8%83%BD/" style="font-size: 20px;">技能</a> <a href="/tags/%E6%8A%80%E8%83%BD%E6%A8%A1%E5%BC%8F/" style="font-size: 20px;">技能模式</a> <a href="/tags/%E7%9F%A5%E8%AF%86%E5%BA%93/" style="font-size: 20px;">知识库</a> <a href="/tags/%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1/" style="font-size: 20px;">系统设计</a> <a href="/tags/%E8%BF%90%E7%BB%B4/" style="font-size: 20px;">运维</a>
+                </div>
+            </div>
+        </section>
+        <section class="sub-footer">
+            <p>© 2026 <a href="/">Richu</a>. All Rights Reserved. Theme By <a href="https://github.com/Dreamer-Paul/Hingle" target="_blank" rel="nofollow">Hingle</a>.</p>
+        </section>
+    </div>
+</footer>
+
+
+<script src="/static/kico.js"></script>
+<script src="/static/hingle.js"></script>
+
+
+<script>var SITE_ROOT = "/";</script>
+<script>var hingle = new Paul_Hingle({"copyright":true,"night":false,"code":{"language_label":true,"language_label_exclude":["markup","none","plain","plaintext","text"],"line_numbers":true,"line_numbers_toggle":true}});</script>
+
+    <script src="/js/mermaid-boot.js"></script>
+  </body>
+</html>

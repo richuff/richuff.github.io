@@ -1,0 +1,260 @@
+<!DOCTYPE html>
+<html>
+  <head>
+     
+    <meta charset="UTF-8">
+    <title>Docker&amp;mysql&amp;nacos - Richu</title>
+    <link rel="shortcut icon" href="/static/img/icon.png">
+    <link rel="icon" href="/static/img/icon.png" sizes="192x192"/>
+    
+<link rel="stylesheet" href="/static/kico.css">
+<link rel="stylesheet" href="/static/hingle.css">
+<link rel="stylesheet" href="/static/md-enhance.css">
+
+    
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <meta name="viewport" content="width=device-width, maximum-scale=1, initial-scale=1"/>
+    <meta property="og:site_name" content="Richu">
+    <meta property="og:title" content="Docker&amp;mysql&amp;nacos"/>
+    
+    <style>body:before{ content: ''; background-image: url(http://kycloud3.koyoo.cn/2025033176e99202503311036156636.jpg) }</style>
+    
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+  <body>
+    <header>
+    <div class="head-title">
+        <h4>Richu</h4>
+    </div>
+    <div class="head-action">
+        <div class="toggle-btn"></div>
+        <div class="light-btn"></div>
+        <div class="search-btn"></div>
+    </div>
+    <form class="head-search" method="post">
+        <input type="text" name="s" placeholder="搜索什么？">
+    </form>
+    <nav class="head-menu">
+        <a href="/">首页</a>
+        <div class="has-child">
+            <a>分类</a>
+            <div class="sub-menu">
+                <a class="category-link" href="/categories/AI/">AI</a><a class="category-link" href="/categories/Android/">Android</a><a class="category-link" href="/categories/Go/">Go</a><a class="category-link" href="/categories/Java/">Java</a><a class="category-link" href="/categories/QT/">QT</a><a class="category-link" href="/categories/Unity/">Unity</a><a class="category-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a><a class="category-link" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a><a class="category-link" href="/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE/">大数据</a><a class="category-link" href="/categories/%E8%BF%90%E7%BB%B4/">运维</a>
+            </div>
+        </div>
+        
+            <a href="/links">常用链接</a>
+        
+    </nav>
+</header>
+
+    <main>
+    <div class="wrap min">
+        <section class="post-title">
+            <h2>Docker&amp;mysql&amp;nacos</h2>
+            <div class="post-meta">
+                
+                    <time class="updated" datetime="2026-10-27T03:41:47.326Z" title="最后更新于 2026-10-27 11:41" aria-label="最后更新于 2026-10-27 11:41">2026.10.27</time>
+                
+                <time class="date">2024.08.01</time>
+            
+                <span class="category"><a class="category-link" href="/categories/%E8%BF%90%E7%BB%B4/">运维</a></span>
+            
+            </div>
+        </section>
+        <article class="post-content">
+            <div class="md-intro">
+
+<div class="md-hero">Docker&mysql&nacos</div>
+
+<blockquote>
+<p>Docker 是一个旨在帮助开发人员构建、共享和运行现代应用程序的容器化平台，可在 Mac、Windows 或 Linux 上免费下载使用；本文在此基础上，进一步用 Docker 在 CentOS 8 虚拟机上部署 MySQL 数据库与 Nacos 服务，并通过自定义容器网络将它们连成一体。</p>
+<p>核心思路是**以容器代替逐台手动安装**：把中间件标准化为可复用的镜像与一条条 <code>docker run</code> 命令，从而大幅降低环境搭建与排错的成本。</p>
+</blockquote>
+
+<div class="md-lead">传统方式需要在每台物理机或虚拟机上手动安装并维护 MySQL、Nacos 等中间件；使用 Docker 后，只需几条命令即可拉起标准化容器，并将它们接入同一自定义网络实现互通。</div>
+
+</div>
+
+<p><span class="md-kbd-wrap"><span class="md-kbd">实战部署 · CentOS 8 &#x2F; Docker CE</span></span></p>
+<h2 id="1-概述"><a href="#1-概述" class="headerlink" title="1. 概述"></a>1. 概述</h2><p>本文是一份在 CentOS 8 虚拟机中基于 Docker 部署 MySQL 与 Nacos 的实战笔记，覆盖从虚拟机准备、Docker 安装、镜像加速器配置，到 MySQL 与 Nacos 容器化运行与访问的完整链路。</p>
+<table>
+<thead>
+<tr>
+<th>软件 &#x2F; 组件</th>
+<th>版本 &#x2F; 说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>VMware Workstation Pro</td>
+<td>虚拟机平台（用于承载 CentOS 8）</td>
+</tr>
+<tr>
+<td>CentOS 8</td>
+<td>操作系统镜像</td>
+</tr>
+<tr>
+<td>Docker CE</td>
+<td>容器引擎（来自阿里云镜像源）</td>
+</tr>
+<tr>
+<td>MySQL</td>
+<td>数据库，以容器方式部署，作为 Nacos 数据源</td>
+</tr>
+<tr>
+<td>Nacos</td>
+<td>镜像 <code>nacos/nacos-server:v2.1.0-slim</code></td>
+</tr>
+<tr>
+<td>Nginx</td>
+<td>镜像 <code>nginx</code>，按需一并拉取</td>
+</tr>
+</tbody></table>
+<h2 id="2-准备虚拟机环境"><a href="#2-准备虚拟机环境" class="headerlink" title="2. 准备虚拟机环境"></a>2. 准备虚拟机环境</h2><h3 id="2-1-下载-VMware-Workstation"><a href="#2-1-下载-VMware-Workstation" class="headerlink" title="2.1 下载 VMware Workstation"></a>2.1 下载 VMware Workstation</h3><p>前往官方页面下载 VMware Workstation Pro：</p>
+<p><a target="_blank" rel="noopener" href="https://www.vmware.com/content/vmware/vmware-published-sites/cn/products/workstation-pro/workstation-pro-evaluation.html">下载 VMware Workstation Pro | CN</a></p>
+<h3 id="2-2-下载-CentOS-8-镜像"><a href="#2-2-下载-CentOS-8-镜像" class="headerlink" title="2.2 下载 CentOS 8 镜像"></a>2.2 下载 CentOS 8 镜像</h3><p>从阿里云开源镜像站获取 CentOS 8 安装包：</p>
+<p><a target="_blank" rel="noopener" href="https://mirrors.aliyun.com/centos/8/isos/x86_64/?spm=a2c6h.25603864.0.0.446e1ce4MQ5qtK">centos-8-isos-x86_64安装包下载_开源镜像站-阿里云 (aliyun.com)</a></p>
+<h3 id="2-3-安装虚拟机与系统初始化"><a href="#2-3-安装虚拟机与系统初始化" class="headerlink" title="2.3 安装虚拟机与系统初始化"></a>2.3 安装虚拟机与系统初始化</h3><p>安装虚拟机后，先执行系统更新：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">yum update<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<div class="md-note md-info">
+**软件安装源与 DNS**：如果在安装过程中找不到软件安装源，可改用 `https://mirrors.aliyun.com/centos/8-stream/BaseOS/x86_64/os/`，并在网络配置中添加 DNS `8.8.8.8`。
+</div>
+
+<div class="md-note md-warn">
+**yum 元数据下载失败**：若执行 `yum update` 时出现下载元数据失败，可运行下面两条指令修复仓库地址，然后重新执行 `yum update`。
+
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> <span class="token function">sed</span> <span class="token parameter variable">-i</span> <span class="token parameter variable">-e</span> “s<span class="token operator">|</span><span class="token assign-left variable">mirrorlist</span><span class="token operator">=</span><span class="token operator">|</span><span class="token comment">#mirrorlist=|g” /etc/yum.repos.d/CentOS-*</span>
+<span class="token function">sudo</span> <span class="token function">sed</span> <span class="token parameter variable">-i</span> <span class="token parameter variable">-e</span> “s<span class="token operator">|</span><span class="token comment">#baseurl=http://mirror.centos.org|baseurl=http://vault.centos.org|g” /etc/yum.repos.d/CentOS-*</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+</div>
+
+<h2 id="3-安装-Docker"><a href="#3-安装-Docker" class="headerlink" title="3. 安装 Docker"></a>3. 安装 Docker</h2><h3 id="3-1-安装依赖与-Docker-引擎"><a href="#3-1-安装依赖与-Docker-引擎" class="headerlink" title="3.1 安装依赖与 Docker 引擎"></a>3.1 安装依赖与 Docker 引擎</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">yum - y <span class="token function">install</span> gcc
+yum <span class="token parameter variable">-y</span> <span class="token function">install</span> gcc-c++
+yum <span class="token function">install</span> <span class="token parameter variable">-y</span> yum-utils
+yum-config-manager --add-repo http://mirrors.aliyun.com/docker-ce/linux/centos/docker-ce.repo
+yum <span class="token function">install</span> docker-ce docker-ce-cli containerd.io docker-compose-plugin
+systemctl start <span class="token function">docker</span>
+systemctl <span class="token builtin class-name">enable</span> <span class="token function">docker</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="3-2-验证安装"><a href="#3-2-验证安装" class="headerlink" title="3.2 验证安装"></a>3.2 验证安装</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">docker</span> version<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<h2 id="4-配置-Docker-镜像加速器"><a href="#4-配置-Docker-镜像加速器" class="headerlink" title="4. 配置 Docker 镜像加速器"></a>4. 配置 Docker 镜像加速器</h2><p>登录阿里云容器镜像服务获取专属加速器地址：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">https://cr.console.aliyun.com/cn-hangzhou/instances/mirrors?accounttraceid<span class="token operator">=</span>54ebb47dd2134ed59f6d5d2b9215f808mvmm<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>将加速器地址写入 Docker 守护进程配置并重启生效：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> <span class="token function">mkdir</span> <span class="token parameter variable">-p</span> /etc/docker
+<span class="token function">sudo</span> <span class="token function">tee</span> /etc/docker/daemon.json <span class="token operator">&lt;&lt;-</span><span class="token string">'EOF'
+&#123;
+  "registry-mirrors":[加速器地址]
+&#125;
+EOF</span>
+<span class="token function">sudo</span> systemctl daemon-reload
+<span class="token function">sudo</span> systemctl restart <span class="token function">docker</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="5-拉取镜像"><a href="#5-拉取镜像" class="headerlink" title="5. 拉取镜像"></a>5. 拉取镜像</h2><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">docker</span> pull mysql
+<span class="token function">docker</span> pull nginx<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<h2 id="6-配置-MySQL"><a href="#6-配置-MySQL" class="headerlink" title="6. 配置 MySQL"></a>6. 配置 MySQL</h2><h3 id="6-1-创建网络"><a href="#6-1-创建网络" class="headerlink" title="6.1 创建网络"></a>6.1 创建网络</h3><p>为后续容器互联创建自定义网络 <code>richu</code>：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">docker</span> network create richu<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<h3 id="6-2-运行-MySQL-容器"><a href="#6-2-运行-MySQL-容器" class="headerlink" title="6.2 运行 MySQL 容器"></a>6.2 运行 MySQL 容器</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">docker</span> run <span class="token parameter variable">-d</span> <span class="token parameter variable">--name</span> mysql <span class="token parameter variable">-p</span> <span class="token number">3306</span>:3306 <span class="token parameter variable">-e</span> <span class="token assign-left variable">TZ</span><span class="token operator">=</span>Asia/Shanghai <span class="token parameter variable">-e</span> <span class="token assign-left variable">MYSQL_ROOT_PASSWORD</span><span class="token operator">=</span><span class="token number">123</span> <span class="token parameter variable">-v</span> /root/mysql/data:/var/lib/mysql <span class="token parameter variable">-v</span> /root/mysql/conf:/etc/mysql/conf.d <span class="token parameter variable">-v</span> /root/mysql/init:/docker-entrypoint-initdb.d <span class="token parameter variable">--network</span> richu mysql<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<h2 id="7-配置-Nacos"><a href="#7-配置-Nacos" class="headerlink" title="7. 配置 Nacos"></a>7. 配置 Nacos</h2><h3 id="7-1-配置-MySQL-表"><a href="#7-1-配置-MySQL-表" class="headerlink" title="7.1 配置 MySQL 表"></a>7.1 配置 MySQL 表</h3><p>在 MySQL 中创建 Nacos 所需的数据库表，库名需与下文环境变量 <code>MYSQL_SERVICE_DB_NAME</code> 保持一致（即 <code>nacos</code>）。</p>
+<h3 id="7-2-配置环境变量文件"><a href="#7-2-配置环境变量文件" class="headerlink" title="7.2 配置环境变量文件"></a>7.2 配置环境变量文件</h3><p>将 Nacos 的运行参数写入环境变量文件（如 <code>./nacos/custom.env</code>）：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token assign-left variable">PREFER_HOST_MODE</span><span class="token operator">=</span>hostname
+<span class="token assign-left variable">MODE</span><span class="token operator">=</span>standalone
+<span class="token assign-left variable">SPRING_DATASOURCE_PLATFORM</span><span class="token operator">=</span>mysql
+<span class="token assign-left variable">MYSQL_SERVICE_HOST</span><span class="token operator">=</span><span class="token number">192.168</span>.3.133
+<span class="token assign-left variable">MYSQL_SERVICE_DB_NAME</span><span class="token operator">=</span>nacos
+<span class="token assign-left variable">MYSQL_SERVICE_PORT</span><span class="token operator">=</span><span class="token number">3306</span>
+<span class="token assign-left variable">MYSQL_SERVICE_USER</span><span class="token operator">=</span>root
+<span class="token assign-left variable">MYSQL_SERVICE_PASSWORD</span><span class="token operator">=</span><span class="token number">123</span>
+<span class="token assign-left variable">MYSQL_SERVICE_DB_PARAM</span><span class="token operator">=</span>characterEncoding<span class="token operator">=</span>utf8<span class="token operator">&amp;</span><span class="token assign-left variable">connectTimeout</span><span class="token operator">=</span><span class="token number">1000</span><span class="token operator">&amp;</span><span class="token assign-left variable">socketTimeout</span><span class="token operator">=</span><span class="token number">3000</span><span class="token operator">&amp;</span><span class="token assign-left variable">autoReconnect</span><span class="token operator">=</span>true<span class="token operator">&amp;</span><span class="token assign-left variable">useSSL</span><span class="token operator">=</span>false<span class="token operator">&amp;</span><span class="token assign-left variable">allowPublicKeyRetrieval</span><span class="token operator">=</span>true<span class="token operator">&amp;</span><span class="token assign-left variable">serverTimezone</span><span class="token operator">=</span>Asia/Shanghai<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="7-3-运行-Nacos-容器"><a href="#7-3-运行-Nacos-容器" class="headerlink" title="7.3 运行 Nacos 容器"></a>7.3 运行 Nacos 容器</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">docker</span> run <span class="token parameter variable">-d</span> <span class="token parameter variable">--name</span> nacos --env-file ./nacos/custom.env <span class="token parameter variable">-p</span> <span class="token number">8848</span>:8848 <span class="token parameter variable">-p</span> <span class="token number">9848</span>:9848 <span class="token parameter variable">-p</span> <span class="token number">9849</span>:9849 <span class="token parameter variable">--restart</span><span class="token operator">=</span>always nacos/nacos-server:v2.1.0-slim <span class="token parameter variable">--network</span> richu<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<div class="md-note md-tip">
+**no DateSource Set 报错**：如果启动 Nacos 时出现 `no DateSource Set`，可加上 `--network` 参数，使其与 MySQL 处于同一自定义网络（如 `richu`）即可互通。
+</div>
+
+<h3 id="7-4-访问-Nacos-控制台"><a href="#7-4-访问-Nacos-控制台" class="headerlink" title="7.4 访问 Nacos 控制台"></a>7.4 访问 Nacos 控制台</h3><ul>
+<li>访问地址：虚拟机 IP<code>:8848/nacos</code></li>
+<li>登录账号：<code>nacos</code></li>
+<li>登录密码：<code>nacos</code></li>
+</ul>
+<hr>
+<blockquote>
+<p><strong>一句话总结</strong>：通过 Docker 在 CentOS 8 上将 MySQL 与 Nacos 以容器方式部署并接入同一自定义网络，即可用几条命令完成传统方式下繁琐的中间件安装与互联。</p>
+</blockquote>
+
+        </article>
+        <section class="post-near">
+            <ul>
+                
+                    <li>上一篇: <a href="/2024/08/15/Uni-cloud/">Uni-Cloud</a></li>
+                
+                
+                    <li>下一篇: <a href="/2024/07/15/Uni-App/">Uni-App</a></li>
+                
+            </ul>
+        </section>
+        
+            <section class="post-tags">
+            <a class="-none-link" href="/tags/Docker/" rel="tag">Docker</a><a class="-none-link" href="/tags/%E8%BF%90%E7%BB%B4/" rel="tag">运维</a>
+            </section>
+        
+    
+        <section class="post-author">
+        
+            <figure class="author-avatar">
+                <img src="https://nos.netease.com/ysf/984b6beaecc19c99414093c0481a2619.png" alt="日初" />
+            </figure>
+        
+            <div class="author-info">
+                <h4>日初</h4>
+                <p>去关于我看看吧(´・ω・`)</p>
+            </div>
+        </section>
+    
+    </div>
+</main>
+
+    <footer>
+    <div class="buttons">
+        <a class="to-top" href="#"></a>
+    </div>
+    <div class="wrap min">
+        <section class="widget">
+            <div class="row">
+                <div class="col-m-4">
+                    <h3 class="title-recent">最新文章：</h3>
+                    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2026/10/28/%E7%9F%A5%E8%AF%86%E6%96%87%E6%A1%A3%E6%8A%80%E6%9C%AF%E6%96%87%E6%A1%A3/">企业知识库技术文档（RAG + pgvector）</a></li><li class="post-list-item"><a class="post-list-link" href="/2026/10/27/%E6%8A%80%E8%83%BD%E5%BC%80%E5%8F%91%E6%8C%87%E5%8D%97/">技能开发指南</a></li><li class="post-list-item"><a class="post-list-link" href="/2026/10/27/%E6%8A%80%E8%83%BD%E6%A8%A1%E5%BC%8F%E4%BB%A3%E7%90%86%E8%AE%BE%E8%AE%A1%E6%96%87%E6%A1%A3/">技能模式 AI Agent 系统设计</a></li><li class="post-list-item"><a class="post-list-link" href="/2026/10/01/Redis/">Redis</a></li><li class="post-list-item"><a class="post-list-link" href="/2026/09/01/React/">React</a></li><li class="post-list-item"><a class="post-list-link" href="/2026/08/01/QT/">QT</a></li></ul>
+                </div>
+                <div class="col-m-4">
+                    <h3 class="title-date">时光机：</h3>
+                    <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/10/">十月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/09/">九月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/08/">八月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/07/">七月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/06/">六月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/05/">五月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/04/">四月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/03/">三月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/02/">二月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/01/">一月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/12/">十二月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/11/">十一月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/10/">十月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/09/">九月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/08/">八月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/07/">七月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/06/">六月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/05/">五月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/04/">四月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/03/">三月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/02/">二月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/01/">一月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/12/">十二月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/11/">十一月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/10/">十月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/09/">九月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/08/">八月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/07/">七月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/06/">六月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/05/">五月 2024</a></li></ul>
+                </div>
+                <div class="col-m-4">
+                    <h3 class="title-tags">标签云：</h3>
+                    <a href="/tags/AI-Agent/" style="font-size: 20px;">AI Agent</a> <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/CSS/" style="font-size: 20px;">CSS</a> <a href="/tags/Centos/" style="font-size: 20px;">Centos</a> <a href="/tags/Docker/" style="font-size: 20px;">Docker</a> <a href="/tags/Dubbo/" style="font-size: 20px;">Dubbo</a> <a href="/tags/Flutter/" style="font-size: 20px;">Flutter</a> <a href="/tags/GO/" style="font-size: 20px;">GO</a> <a href="/tags/Game/" style="font-size: 20px;">Game</a> <a href="/tags/Go/" style="font-size: 20px;">Go</a> <a href="/tags/Go-Web/" style="font-size: 20px;">Go Web</a> <a href="/tags/HBase/" style="font-size: 20px;">HBase</a> <a href="/tags/Hadoop/" style="font-size: 20px;">Hadoop</a> <a href="/tags/JQuery/" style="font-size: 20px;">JQuery</a> <a href="/tags/JS/" style="font-size: 20px;">JS</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/Java-Web/" style="font-size: 20px;">Java Web</a> <a href="/tags/K8S/" style="font-size: 20px;">K8S</a> <a href="/tags/Kotlin/" style="font-size: 20px;">Kotlin</a> <a href="/tags/Linux/" style="font-size: 20px;">Linux</a> <a href="/tags/MongoDB/" style="font-size: 20px;">MongoDB</a> <a href="/tags/MySql/" style="font-size: 20px;">MySql</a> <a href="/tags/MybatisPlus/" style="font-size: 20px;">MybatisPlus</a> <a href="/tags/Nginx/" style="font-size: 20px;">Nginx</a> <a href="/tags/NodeJs/" style="font-size: 20px;">NodeJs</a> <a href="/tags/PHP/" style="font-size: 20px;">PHP</a> <a href="/tags/Promise/" style="font-size: 20px;">Promise</a> <a href="/tags/QT/" style="font-size: 20px;">QT</a> <a href="/tags/RAG/" style="font-size: 20px;">RAG</a> <a href="/tags/React/" style="font-size: 20px;">React</a> <a href="/tags/Redis/" style="font-size: 20px;">Redis</a> <a href="/tags/Skill/" style="font-size: 20px;">Skill</a> <a href="/tags/Spark/" style="font-size: 20px;">Spark</a> <a href="/tags/Spring-Cloud/" style="font-size: 20px;">Spring Cloud</a> <a href="/tags/SpringMVC/" style="font-size: 20px;">SpringMVC</a> <a href="/tags/UniApp/" style="font-size: 20px;">UniApp</a> <a href="/tags/UniCloud/" style="font-size: 20px;">UniCloud</a> <a href="/tags/Unity/" style="font-size: 20px;">Unity</a> <a href="/tags/Vue/" style="font-size: 20px;">Vue</a> <a href="/tags/Webpack/" style="font-size: 20px;">Webpack</a> <a href="/tags/ZooKeeper/" style="font-size: 20px;">ZooKeeper</a> <a href="/tags/pgvector/" style="font-size: 20px;">pgvector</a> <a href="/tags/%E5%89%8D%E7%AB%AF/" style="font-size: 20px;">前端</a> <a href="/tags/%E5%90%91%E9%87%8F%E6%A3%80%E7%B4%A2/" style="font-size: 20px;">向量检索</a> <a href="/tags/%E6%8A%80%E8%83%BD/" style="font-size: 20px;">技能</a> <a href="/tags/%E6%8A%80%E8%83%BD%E6%A8%A1%E5%BC%8F/" style="font-size: 20px;">技能模式</a> <a href="/tags/%E7%9F%A5%E8%AF%86%E5%BA%93/" style="font-size: 20px;">知识库</a> <a href="/tags/%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1/" style="font-size: 20px;">系统设计</a> <a href="/tags/%E8%BF%90%E7%BB%B4/" style="font-size: 20px;">运维</a>
+                </div>
+            </div>
+        </section>
+        <section class="sub-footer">
+            <p>© 2026 <a href="/">Richu</a>. All Rights Reserved. Theme By <a href="https://github.com/Dreamer-Paul/Hingle" target="_blank" rel="nofollow">Hingle</a>.</p>
+        </section>
+    </div>
+</footer>
+
+
+<script src="/static/kico.js"></script>
+<script src="/static/hingle.js"></script>
+
+
+<script>var SITE_ROOT = "/";</script>
+<script>var hingle = new Paul_Hingle({"copyright":true,"night":false,"code":{"language_label":true,"language_label_exclude":["markup","none","plain","plaintext","text"],"line_numbers":true,"line_numbers_toggle":true}});</script>
+
+    <script src="/js/mermaid-boot.js"></script>
+  </body>
+</html>

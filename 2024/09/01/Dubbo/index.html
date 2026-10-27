@@ -1,0 +1,635 @@
+<!DOCTYPE html>
+<html>
+  <head>
+     
+    <meta charset="UTF-8">
+    <title>Dubbo - Richu</title>
+    <link rel="shortcut icon" href="/static/img/icon.png">
+    <link rel="icon" href="/static/img/icon.png" sizes="192x192"/>
+    
+<link rel="stylesheet" href="/static/kico.css">
+<link rel="stylesheet" href="/static/hingle.css">
+<link rel="stylesheet" href="/static/md-enhance.css">
+
+    
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <meta name="viewport" content="width=device-width, maximum-scale=1, initial-scale=1"/>
+    <meta property="og:site_name" content="Richu">
+    <meta property="og:title" content="Dubbo"/>
+    
+    <style>body:before{ content: ''; background-image: url(http://kycloud3.koyoo.cn/2025033176e99202503311036156636.jpg) }</style>
+    
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+  <body>
+    <header>
+    <div class="head-title">
+        <h4>Richu</h4>
+    </div>
+    <div class="head-action">
+        <div class="toggle-btn"></div>
+        <div class="light-btn"></div>
+        <div class="search-btn"></div>
+    </div>
+    <form class="head-search" method="post">
+        <input type="text" name="s" placeholder="搜索什么？">
+    </form>
+    <nav class="head-menu">
+        <a href="/">首页</a>
+        <div class="has-child">
+            <a>分类</a>
+            <div class="sub-menu">
+                <a class="category-link" href="/categories/AI/">AI</a><a class="category-link" href="/categories/Android/">Android</a><a class="category-link" href="/categories/Go/">Go</a><a class="category-link" href="/categories/Java/">Java</a><a class="category-link" href="/categories/QT/">QT</a><a class="category-link" href="/categories/Unity/">Unity</a><a class="category-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a><a class="category-link" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a><a class="category-link" href="/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE/">大数据</a><a class="category-link" href="/categories/%E8%BF%90%E7%BB%B4/">运维</a>
+            </div>
+        </div>
+        
+            <a href="/links">常用链接</a>
+        
+    </nav>
+</header>
+
+    <main>
+    <div class="wrap min">
+        <section class="post-title">
+            <h2>Dubbo</h2>
+            <div class="post-meta">
+                
+                    <time class="updated" datetime="2026-10-27T03:41:47.331Z" title="最后更新于 2026-10-27 11:41" aria-label="最后更新于 2026-10-27 11:41">2026.10.27</time>
+                
+                <time class="date">2024.09.01</time>
+            
+                <span class="category"><a class="category-link" href="/categories/Java/">Java</a></span>
+            
+            </div>
+        </section>
+        <article class="post-content">
+            <div class="md-intro">
+<div class="md-hero">Dubbo</div>
+<blockquote>
+<p>Apache Dubbo 是一款微服务开发框架，它提供了 RPC 通信与微服务治理两大关键能力。这意味着，使用 Dubbo 开发的微服务，将具备相互之间的远程发现与通信能力，同时利用 Dubbo 提供的丰富服务治理能力，可以实现诸如服务发现、负载均衡、流量调度等服务治理诉求。同时 Dubbo 是高度可扩展的，用户几乎可以在任意功能点去定制自己的实现，以改变框架的默认行为来满足自己的业务需求。</p>
+<p>Dubbo 的核心价值在于：用**一套统一的 RPC 与治理模型**，让分布式服务之间的远程调用、服务发现与流量治理变得简单可控，从而支撑超大规模微服务架构的落地与演进。</p>
+</blockquote>
+<div class="md-lead">传统单体应用把所有逻辑耦合在一起，服务拆分后面临着远程调用、服务发现与流量治理等难题；Dubbo 正是为解决“微服务之间如何高效、可靠地通信与治理”这一痛点而生。</div>
+</div>
+<span class="md-kbd-wrap"><span class="md-kbd">Dubbo 3.x</span></span>
+
+<h2 id="1-概述"><a href="#1-概述" class="headerlink" title="1. 概述"></a>1. 概述</h2><p>Apache Dubbo 是一款微服务开发框架，提供了 RPC 通信与微服务治理两大关键能力。使用 Dubbo 开发的微服务可以具备相互之间的远程发现与通信能力，并通过服务发现、负载均衡、流量调度等治理能力满足分布式治理诉求。Dubbo 高度可扩展，用户几乎可以在任意功能点定制实现，用一套统一的 RPC 与治理模型支撑超大规模微服务架构的落地与演进。</p>
+<h2 id="2-简介"><a href="#2-简介" class="headerlink" title="2. 简介"></a>2. 简介</h2><p>Apache Dubbo 是一款微服务开发框架，它提供了 RPC 通信与微服务治理两大关键能力。这意味着，使用 Dubbo 开发的微服务，将具备相互之间的远程发现与通信能力，同时利用 Dubbo 提供的丰富服务治理能力，可以实现诸如服务发现、负载均衡、流量调度等服务治理诉求。同时 Dubbo 是高度可扩展的，用户几乎可以在任意功能点去定制自己的实现，以改变框架的默认行为来满足自己的业务需求。</p>
+<h3 id="1-1-Dubbo3-的演进"><a href="#1-1-Dubbo3-的演进" class="headerlink" title="1.1 Dubbo3 的演进"></a>1.1 Dubbo3 的演进</h3><p>Dubbo3 基于 Dubbo2 演进而来，在保持原有核心功能特性的同时，Dubbo3 在易用性、超大规模微服务实践、云原生基础设施适配、安全设计等几大方向上进行了全面升级。以下文档都将基于 Dubbo3 展开。</p>
+<div class="md-note md-info"> **定位** Dubbo 同时具备 RPC 通信与微服务治理能力，既能解决服务间远程调用，也能提供服务发现、负载均衡、流量调度等治理特性。</div>
+
+<h2 id="3-ZooKeeper-注册中心"><a href="#3-ZooKeeper-注册中心" class="headerlink" title="3. ZooKeeper 注册中心"></a>3. ZooKeeper 注册中心</h2><p>Dubbo 通常依赖注册中心来实现服务的注册与发现，ZooKeeper 是常用的注册中心之一。</p>
+<h3 id="2-1-安装-ZooKeeper"><a href="#2-1-安装-ZooKeeper" class="headerlink" title="2.1 安装 ZooKeeper"></a>2.1 安装 ZooKeeper</h3><p>到 <a href="https://link.zhihu.com/?target=https://archive.apache.org/dist/zookeeper/stable/">ZooKeeper 稳定版下载地址</a> 下载 ZooKeeper，目前的最新版是 3.5.6。</p>
+<p>把 <code>apache-zookeeper-3.5.6-bin.tar.gz</code> 解压到一个本地目录（目录名最好不要包含空格和中文）。示例使用 <code>/usr/local</code> 目录：</p>
+<pre class="line-numbers language-text" data-language="text"><code class="language-text">tar -zxvf apache-zookeeper-3.8.4-bin.tar.gz<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>把 <code>conf</code> 目录下的 <code>zoo_sample.cfg</code> 重命名为 <code>zoo.cfg</code>，然后修改配置：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">cp</span> zoo_sample.cfg zoo.cfg
+<span class="token function">mkdir</span> zoodata<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p><code>zoo.cfg</code> 关键配置如下（其中 <code>tickTime</code> 为心跳检查时间，单位毫秒）：</p>
+<pre class="line-numbers language-text" data-language="text"><code class="language-text"># 心跳检查的时间 2秒
+tickTime=2000
+# 初始化时 连接到服务器端的间隔次数，总时间10*2=20秒
+initLimit=10
+# ZK Leader 和follower 之间通讯的次数，总时间5*2=10秒
+syncLimit=5
+# 存储内存中数据快照的位置，如果不设置参数，更新事务日志将被存储到默认位置。
+dataDir=/root//root/apache-zookeeper-3.8.4-bin/zoodata
+# ZK 服务器端的监听端口  
+clientPort=2181<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>配置以下环境变量（<code>vim /etc/profile</code>）：</p>
+<pre class="line-numbers language-text" data-language="text"><code class="language-text">export ZOOKEEPER_HOME=/root/apache-zookeeper-3.8.4-bin
+export PATH=$PATH:$ZOOKEEPER_HOME/bin:$ZOOKEEPER_HOME/conf<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token builtin class-name">source</span> /etc/profile<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<div class="md-note md-tip"> **目录建议** 解压 ZooKeeper 的目录名最好不要包含空格和中文，以免引发路径解析问题。</div>
+
+<h3 id="2-2-启动与停止-ZooKeeper"><a href="#2-2-启动与停止-ZooKeeper" class="headerlink" title="2.2 启动与停止 ZooKeeper"></a>2.2 启动与停止 ZooKeeper</h3><p>安装配置完成后，使用 <code>zkServer.sh start</code> 启动 ZooKeeper 服务：</p>
+<pre class="line-numbers language-text" data-language="text"><code class="language-text">[root@wupx apache-zookeeper-3.5.6-bin]# ./zkServer.sh start
+/usr/bin/java
+ZooKeeper JMX enabled by default
+Using config: /usr/local/apache-zookeeper-3.5.6-bin/bin/../conf/zoo.cfg
+Starting zookeeper ... STARTED<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>常用运维命令如下：</p>
+<table>
+<thead>
+<tr>
+<th>命令</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>./zkServer.sh start</code></td>
+<td>启动 ZooKeeper 服务</td>
+</tr>
+<tr>
+<td><code>./zkServer.sh status</code></td>
+<td>查看 ZooKeeper 运行状态</td>
+</tr>
+<tr>
+<td><code>./zkServer.sh stop</code></td>
+<td>停止 ZooKeeper 服务</td>
+</tr>
+</tbody></table>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 查看状态</span>
+./zkServer.sh status
+
+<span class="token comment"># 停止 ZooKeeper</span>
+./zkServer.sh stop<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="4-使用-Dubbo"><a href="#4-使用-Dubbo" class="headerlink" title="4. 使用 Dubbo"></a>4. 使用 Dubbo</h2><p>下面演示如何在 Spring&#x2F;Spring MVC 与 Spring Boot 项目中接入 Dubbo，并安装 dubbo-admin 控制台。</p>
+<h3 id="3-1-引入依赖"><a href="#3-1-引入依赖" class="headerlink" title="3.1 引入依赖"></a>3.1 引入依赖</h3><p>新建 Spring 和 Spring MVC 项目，并在 <code>pom.xml</code> 中引入相关依赖（servlet 3.0 规范、Spring、日志、Dubbo 以及 ZooKeeper 客户端 Curator）：</p>
+<pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>properties</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>spring.version</span><span class="token punctuation">></span></span>5.1.9.RELEASE<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>spring.version</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dubbo.version</span><span class="token punctuation">></span></span>2.7.4.1<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dubbo.version</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>zookeeper.version</span><span class="token punctuation">></span></span>4.0.0<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>zookeeper.version</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>properties</span><span class="token punctuation">></span></span>
+
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependencies</span><span class="token punctuation">></span></span>
+      <span class="token comment">&lt;!--servlet 3.0规范--></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
+          <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>javax.servlet<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+          <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>javax.servlet-api<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+          <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">></span></span>3.1.0<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">></span></span>
+          <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>scope</span><span class="token punctuation">></span></span>provided<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>scope</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span>
+
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
+          <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>org.springframework<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+          <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>spring-context<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+          <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">></span></span>$&#123;spring.version&#125;<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
+          <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>org.springframework<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+          <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>spring-webmvc<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+          <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">></span></span>$&#123;spring.version&#125;<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span>
+
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
+          <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>org.slf4j<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+          <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>slf4j-api<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+          <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">></span></span>1.7.33<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
+          <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>org.slf4j<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+          <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>slf4j-log4j12<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+          <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">></span></span>1.7.33<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span>
+
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
+          <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>org.apache.dubbo<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+          <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>dubbo<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+          <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">></span></span>$&#123;dubbo.version&#125;<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
+          <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>org.apache.curator<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+          <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>curator-framework<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+          <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">></span></span>$&#123;zookeeper.version&#125;<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
+          <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>org.apache.curator<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+          <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>curator-recipes<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+          <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">></span></span>$&#123;zookeeper.version&#125;<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">></span></span>
+      <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependencies</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="3-2-配置文件"><a href="#3-2-配置文件" class="headerlink" title="3.2 配置文件"></a>3.2 配置文件</h3><p>在 <code>resources</code> 目录下创建 <code>Spring.xml</code>，声明 Dubbo 应用名、注册中心地址与包扫描：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token operator">&lt;</span><span class="token operator">?</span>xml version<span class="token operator">=</span><span class="token string">"1.0"</span> encoding<span class="token operator">=</span><span class="token string">"UTF-8"</span><span class="token operator">?</span><span class="token operator">></span>
+<span class="token operator">&lt;</span>beans xmlns<span class="token operator">=</span><span class="token string">"http://www.springframework.org/schema/beans"</span>
+       xmlns<span class="token operator">:</span>xsi<span class="token operator">=</span><span class="token string">"http://www.w3.org/2001/XMLSchema-instance"</span>
+       xmlns<span class="token operator">:</span>dubbo<span class="token operator">=</span><span class="token string">"http://dubbo.apache.org/schema/dubbo"</span> xmlns<span class="token operator">:</span>context<span class="token operator">=</span><span class="token string">"http://www.springframework.org/schema/context"</span>
+       xsi<span class="token operator">:</span>schemaLocation<span class="token operator">=</span>"http<span class="token operator">:</span><span class="token operator">/</span><span class="token operator">/</span>www<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>org<span class="token operator">/</span>schema<span class="token operator">/</span>beans
+       http<span class="token operator">:</span><span class="token operator">/</span><span class="token operator">/</span>www<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>org<span class="token operator">/</span>schema<span class="token operator">/</span>beans<span class="token operator">/</span>spring<span class="token operator">-</span>beans<span class="token punctuation">.</span>xsd
+       http<span class="token operator">:</span><span class="token operator">/</span><span class="token operator">/</span>dubbo<span class="token punctuation">.</span>apache<span class="token punctuation">.</span>org<span class="token operator">/</span>schema<span class="token operator">/</span>dubbo http<span class="token operator">:</span><span class="token operator">/</span><span class="token operator">/</span>dubbo<span class="token punctuation">.</span>apache<span class="token punctuation">.</span>org<span class="token operator">/</span>schema<span class="token operator">/</span>dubbo<span class="token operator">/</span>dubbo<span class="token punctuation">.</span>xsd http<span class="token operator">:</span><span class="token operator">/</span><span class="token operator">/</span>www<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>org<span class="token operator">/</span>schema<span class="token operator">/</span>context https<span class="token operator">:</span><span class="token operator">/</span><span class="token operator">/</span>www<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>org<span class="token operator">/</span>schema<span class="token operator">/</span>context<span class="token operator">/</span>spring<span class="token operator">-</span>context<span class="token punctuation">.</span>xsd"<span class="token operator">></span>
+
+<span class="token operator">&lt;</span><span class="token operator">!</span><span class="token operator">--</span>    <span class="token operator">&lt;</span>context<span class="token operator">:</span>component<span class="token operator">-</span>scan base<span class="token operator">-</span><span class="token keyword">package</span><span class="token operator">=</span><span class="token string">"com.richu.service"</span><span class="token operator">/</span><span class="token operator">></span> <span class="token operator">--</span><span class="token operator">></span>
+    <span class="token operator">&lt;</span><span class="token operator">!</span><span class="token operator">--</span>项目名<span class="token operator">--</span><span class="token operator">></span>
+    <span class="token operator">&lt;</span>dubbo<span class="token operator">:</span>application name<span class="token operator">=</span><span class="token string">"dubbo-server"</span><span class="token operator">/</span><span class="token operator">></span>
+    <span class="token operator">&lt;</span><span class="token operator">!</span><span class="token operator">--</span>注册中心地址<span class="token operator">--</span><span class="token operator">></span>
+    <span class="token operator">&lt;</span>dubbo<span class="token operator">:</span>registry address<span class="token operator">=</span><span class="token string">"zookeeper://192.168.3.133:2181"</span><span class="token operator">/</span><span class="token operator">></span>
+    <span class="token operator">&lt;</span><span class="token operator">!</span><span class="token operator">--</span>包扫描<span class="token operator">--</span><span class="token operator">></span>
+    <span class="token operator">&lt;</span>dubbo<span class="token operator">:</span>annotation <span class="token keyword">package</span><span class="token operator">=</span><span class="token string">"com.richu.service"</span><span class="token operator">/</span><span class="token operator">></span>
+<span class="token operator">&lt;</span><span class="token operator">/</span>beans<span class="token operator">></span>
+<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>在 <code>webapp/WEB-INF/</code> 下创建 <code>web.xml</code>，配置 Spring 容器监听：</p>
+<pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token prolog">&lt;?xml version="1.0" encoding="UTF-8"?></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>web-app</span> <span class="token attr-name">xmlns</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>http://xmlns.jcp.org/xml/ns/javaee<span class="token punctuation">"</span></span>
+         <span class="token attr-name"><span class="token namespace">xmlns:</span>xsi</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>http://www.w3.org/2001/XMLSchema-instance<span class="token punctuation">"</span></span>
+         <span class="token attr-name"><span class="token namespace">xsi:</span>schemaLocation</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-app_4_0.xsd<span class="token punctuation">"</span></span>
+         <span class="token attr-name">version</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>4.0<span class="token punctuation">"</span></span><span class="token punctuation">></span></span>
+
+    <span class="token comment">&lt;!-- 配置spring --></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>context-param</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>param-name</span><span class="token punctuation">></span></span>contextConfigLocation<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>param-name</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>param-value</span><span class="token punctuation">></span></span>classpath:Spring.xml<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>param-value</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>context-param</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>listener</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>listener-class</span><span class="token punctuation">></span></span>org.springframework.web.context.ContextLoaderListener<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>listener-class</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>listener</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>web-app</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>添加 <code>@DubboService</code> 注解暴露服务实现：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@DubboService</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">UserServiceImpl</span> <span class="token keyword">implements</span> <span class="token class-name">UserService</span> <span class="token punctuation">&#123;</span>
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token class-name">String</span> <span class="token function">login</span><span class="token punctuation">(</span><span class="token class-name">String</span> username<span class="token punctuation">,</span> <span class="token class-name">String</span> password<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">return</span> <span class="token string">"test login"</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="3-3-Spring-Boot-使用-Dubbo"><a href="#3-3-Spring-Boot-使用-Dubbo" class="headerlink" title="3.3 Spring Boot 使用 Dubbo"></a>3.3 Spring Boot 使用 Dubbo</h3><p>定义可序列化的 <code>User</code> 类与 <code>UserService</code> 接口：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@Data</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">User</span> <span class="token keyword">implements</span> <span class="token class-name">Serializable</span> <span class="token punctuation">&#123;</span>
+    <span class="token keyword">private</span> <span class="token keyword">static</span> <span class="token keyword">final</span> <span class="token keyword">long</span> serialVersionUID <span class="token operator">=</span> <span class="token operator">-</span><span class="token number">9206514891359830486L</span><span class="token punctuation">;</span>
+    <span class="token keyword">private</span> <span class="token keyword">int</span> id<span class="token punctuation">;</span>
+    <span class="token keyword">private</span> <span class="token class-name">String</span> name<span class="token punctuation">;</span>
+    <span class="token keyword">private</span> <span class="token class-name">String</span> sex<span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">public</span> <span class="token keyword">interface</span> <span class="token class-name">UserService</span> <span class="token punctuation">&#123;</span>
+    <span class="token class-name">User</span> <span class="token function">getUser</span><span class="token punctuation">(</span><span class="token keyword">int</span> id<span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p>新建两个 Spring Boot 项目，一个是服务提供者，一个是服务消费者，引入 Dubbo 核心依赖。<strong>注意排除 Curator 自带的 ZooKeeper 依赖，改用自己指定的 ZooKeeper 版本</strong>：</p>
+<pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>org.apache.dubbo<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>dubbo-spring-boot-starter<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">></span></span>2.7.4.1<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>org.apache.curator<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>curator-framework<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">></span></span>4.0.0<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>org.apache.curator<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>curator-recipes<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">></span></span>4.0.0<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>exclusions</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>exclusion</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>org.apache.zookeeper<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+            <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>zookeeper<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+        <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>exclusion</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>exclusions</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>org.apache.zookeeper<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>zookeeper<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>version</span><span class="token punctuation">></span></span>3.4.14<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>version</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>服务提供者的配置写在 <code>application.yaml</code> 中：</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">dubbo</span><span class="token punctuation">:</span>
+  <span class="token key atrule">application</span><span class="token punctuation">:</span>
+    <span class="token key atrule">name</span><span class="token punctuation">:</span> dubbo<span class="token punctuation">-</span>provider
+  <span class="token key atrule">registry</span><span class="token punctuation">:</span>
+    <span class="token key atrule">address</span><span class="token punctuation">:</span> zookeeper<span class="token punctuation">:</span>//127.0.0.1<span class="token punctuation">:</span><span class="token number">2181</span>
+  <span class="token key atrule">protocol</span><span class="token punctuation">:</span>
+    <span class="token key atrule">name</span><span class="token punctuation">:</span> dubbo
+    <span class="token key atrule">port</span><span class="token punctuation">:</span> <span class="token number">20880</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>服务提供者需要写服务实现类，注意 <code>@Service</code> 注解采用的是 Dubbo 包下的：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token keyword">import</span> <span class="token import"><span class="token namespace">org<span class="token punctuation">.</span>apache<span class="token punctuation">.</span>dubbo<span class="token punctuation">.</span>config<span class="token punctuation">.</span>annotation<span class="token punctuation">.</span></span><span class="token class-name">Service</span></span><span class="token punctuation">;</span>
+<span class="token keyword">import</span> <span class="token import"><span class="token namespace">org<span class="token punctuation">.</span>springframework<span class="token punctuation">.</span>stereotype<span class="token punctuation">.</span></span><span class="token class-name">Component</span></span><span class="token punctuation">;</span>
+
+<span class="token annotation punctuation">@Service</span>
+<span class="token annotation punctuation">@Component</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">UserServiceImpl</span> <span class="token keyword">implements</span> <span class="token class-name">UserService</span> <span class="token punctuation">&#123;</span>
+    <span class="token annotation punctuation">@Override</span>
+    <span class="token keyword">public</span> <span class="token class-name">User</span> <span class="token function">getUser</span><span class="token punctuation">(</span><span class="token keyword">int</span> id<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token class-name">User</span> user<span class="token operator">=</span><span class="token keyword">new</span> <span class="token class-name">User</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        user<span class="token punctuation">.</span><span class="token function">setId</span><span class="token punctuation">(</span>id<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        user<span class="token punctuation">.</span><span class="token function">setName</span><span class="token punctuation">(</span><span class="token string">"javayz"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        user<span class="token punctuation">.</span><span class="token function">setSex</span><span class="token punctuation">(</span><span class="token string">"man"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> user<span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>接着在启动类上添加一个 <code>@EnableDubbo</code> 注解即可。</p>
+<p>服务消费者同样先写配置文件：</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">dubbo</span><span class="token punctuation">:</span>
+  <span class="token key atrule">application</span><span class="token punctuation">:</span>
+    <span class="token key atrule">name</span><span class="token punctuation">:</span> dubbo<span class="token punctuation">-</span>consumer
+  <span class="token key atrule">registry</span><span class="token punctuation">:</span>
+    <span class="token key atrule">address</span><span class="token punctuation">:</span> zookeeper<span class="token punctuation">:</span>//127.0.0.1<span class="token punctuation">:</span><span class="token number">2181</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>在 <code>UserController</code> 中通过 <code>@Reference</code> 注解将 service 对象引进来：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@RestController</span>
+<span class="token annotation punctuation">@RequestMapping</span><span class="token punctuation">(</span><span class="token string">"/user"</span><span class="token punctuation">)</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">UserController</span> <span class="token punctuation">&#123;</span>
+
+    <span class="token annotation punctuation">@Reference</span>
+    <span class="token keyword">private</span> <span class="token class-name">UserService</span> userService<span class="token punctuation">;</span>
+
+    <span class="token annotation punctuation">@GetMapping</span><span class="token punctuation">(</span><span class="token string">"/&#123;id&#125;"</span><span class="token punctuation">)</span>
+    <span class="token keyword">public</span> <span class="token class-name">User</span> <span class="token function">getUser</span><span class="token punctuation">(</span><span class="token annotation punctuation">@PathVariable</span> <span class="token keyword">int</span> id<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token keyword">return</span> userService<span class="token punctuation">.</span><span class="token function">getUser</span><span class="token punctuation">(</span>id<span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>访问 <code>http://localhost:8081/user/1</code>，返回结果如下：</p>
+<pre class="line-numbers language-json" data-language="json"><code class="language-json"><span class="token punctuation">&#123;</span>
+  <span class="token property">"id"</span><span class="token operator">:</span> <span class="token number">1</span><span class="token punctuation">,</span>
+  <span class="token property">"name"</span><span class="token operator">:</span> <span class="token string">"hello"</span><span class="token punctuation">,</span>
+  <span class="token property">"sex"</span><span class="token operator">:</span> <span class="token string">"man"</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<div class="md-note md-tip"> **注解来源** 服务提供者端的 `@Service` 要使用 `org.apache.dubbo.config.annotation.Service`，而不是 Spring 的 `@Service`，否则不会被 Dubbo 暴露为远程服务。</div>
+
+<h3 id="3-4-安装-dubbo-admin"><a href="#3-4-安装-dubbo-admin" class="headerlink" title="3.4 安装 dubbo-admin"></a>3.4 安装 dubbo-admin</h3><p>从 <a target="_blank" rel="noopener" href="https://github.com/apache/dubbo-admin">https://github.com/apache/dubbo-admin</a> 下载并解压，需要提前准备好 Maven 和 Node 环境：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 使用 maven 打包</span>
+mvn clean package
+<span class="token comment"># 或跳过测试打包</span>
+mvn clean package <span class="token parameter variable">-Dmaven.test.skip</span><span class="token operator">=</span>true
+
+<span class="token comment"># 打包后用 java -jar 执行（推荐使用 java8 或 11）</span>
+<span class="token function">java</span> <span class="token parameter variable">-jar</span> dubbo-admin-*.jar<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>在 ui 模块中可直接使用其 <code>node</code> 文件夹下的 <code>node.exe</code>，然后通过 <code>npm run dev</code> 启动前端，默认访问地址为 <code>http://localhost:38082/</code>。</p>
+<table>
+<thead>
+<tr>
+<th>操作</th>
+<th>命令</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>后端打包</td>
+<td><code>mvn clean package -Dmaven.test.skip=true</code></td>
+<td>跳过测试快速打包</td>
+</tr>
+<tr>
+<td>后端运行</td>
+<td><code>java -jar xxx</code></td>
+<td>运行打包后的后端（推荐 java8&#x2F;11）</td>
+</tr>
+<tr>
+<td>前端启动</td>
+<td><code>npm run dev</code></td>
+<td>启动前端，默认 <code>http://localhost:38082/</code></td>
+</tr>
+</tbody></table>
+<div class="md-note md-warn"> **运行环境** dubbo-admin 后端推荐使用 Java 8 或 Java 11 运行，避免高版本 JDK 兼容性问题。</div>
+
+<h2 id="5-Dubbo-高级特性"><a href="#5-Dubbo-高级特性" class="headerlink" title="5. Dubbo 高级特性"></a>5. Dubbo 高级特性</h2><h3 id="4-1-重试、超时与多版本"><a href="#4-1-重试、超时与多版本" class="headerlink" title="4.1 重试、超时与多版本"></a>4.1 重试、超时与多版本</h3><p>Dubbo 支持声明式的重试与超时控制：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@Service</span><span class="token punctuation">(</span>timeout <span class="token operator">=</span> <span class="token number">5000</span><span class="token punctuation">,</span>retries <span class="token operator">=</span> <span class="token number">10</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>多版本控制可通过 <code>version</code> 属性区分不同实现，消费方在注入时指定所需版本：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@Service</span><span class="token punctuation">(</span>timeout <span class="token operator">=</span> <span class="token number">5000</span><span class="token punctuation">,</span>retries <span class="token operator">=</span> <span class="token number">10</span><span class="token punctuation">,</span>version <span class="token operator">=</span> <span class="token string">"v2.0"</span><span class="token punctuation">)</span>
+<span class="token annotation punctuation">@Service</span><span class="token punctuation">(</span>timeout <span class="token operator">=</span> <span class="token number">5000</span><span class="token punctuation">,</span>retries <span class="token operator">=</span> <span class="token number">10</span><span class="token punctuation">,</span>version <span class="token operator">=</span> <span class="token string">"v1.0"</span><span class="token punctuation">)</span>
+
+<span class="token comment">//注入的时候指定版本</span>
+<span class="token annotation punctuation">@Reference</span><span class="token punctuation">(</span>version <span class="token operator">=</span> <span class="token string">"v1.0"</span><span class="token punctuation">)</span>
+<span class="token keyword">private</span> <span class="token class-name">UserService</span> userService<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="4-2-负载均衡策略"><a href="#4-2-负载均衡策略" class="headerlink" title="4.2 负载均衡策略"></a>4.2 负载均衡策略</h3><p>Dubbo 提供多种负载均衡策略，详见 <a target="_blank" rel="noopener" href="https://cn.dubbo.apache.org/zh-cn/overview/what/core-features/load-balance/">官方负载均衡文档</a>。权重可通过 <code>@Service(weight = ...)</code> 配置：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">//配置权重</span>
+<span class="token annotation punctuation">@Service</span><span class="token punctuation">(</span>weight <span class="token operator">=</span> <span class="token number">100</span><span class="token punctuation">)</span>
+<span class="token annotation punctuation">@Service</span><span class="token punctuation">(</span>weight <span class="token operator">=</span> <span class="token number">200</span><span class="token punctuation">)</span>
+<span class="token annotation punctuation">@Service</span><span class="token punctuation">(</span>weight <span class="token operator">=</span> <span class="token number">300</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<table>
+<thead>
+<tr>
+<th>负载均衡策略</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>random</code></td>
+<td>Dubbo 默认策略，加权随机负载均衡</td>
+</tr>
+<tr>
+<td><code>roundrobin</code></td>
+<td>轮询，可在全局、接口级、方法级配置</td>
+</tr>
+<tr>
+<td><code>consistenthash</code></td>
+<td>一致性哈希，默认取第一个参数作为哈希 key</td>
+</tr>
+</tbody></table>
+<h4 id="4-2-1-全局配置"><a href="#4-2-1-全局配置" class="headerlink" title="4.2.1 全局配置"></a>4.2.1 全局配置</h4><p>Dubbo 框架的默认策略是 <code>random</code> 加权随机负载均衡。如果要调整策略，只需设置 <code>loadbalance</code> 相应取值即可。</p>
+<p>为所有服务调用指定全局配置：</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">dubbo</span><span class="token punctuation">:</span>
+  <span class="token key atrule">consumer</span><span class="token punctuation">:</span>
+    <span class="token key atrule">loadbalance</span><span class="token punctuation">:</span> roundrobin<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<h4 id="4-2-2-接口级配置"><a href="#4-2-2-接口级配置" class="headerlink" title="4.2.2 接口级配置"></a>4.2.2 接口级配置</h4><p>可以为每个服务指定不同的负载均衡策略。</p>
+<p>在 provider 端设置，作为 consumer 侧默认值：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@DubboService</span><span class="token punctuation">(</span>loadbalance <span class="token operator">=</span> <span class="token string">"roundrobin"</span><span class="token punctuation">)</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">DemoServiceImpl</span> <span class="token keyword">implements</span> <span class="token class-name">DemoService</span> <span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>在 consumer 端设置，具备更高优先级：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@DubboReference</span><span class="token punctuation">(</span>loadbalance <span class="token operator">=</span> <span class="token string">"roundrobin"</span><span class="token punctuation">)</span>
+<span class="token keyword">private</span> <span class="token class-name">DemoService</span> demoService<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<h4 id="4-2-3-方法级配置"><a href="#4-2-3-方法级配置" class="headerlink" title="4.2.3 方法级配置"></a>4.2.3 方法级配置</h4><p>也可以指定方法（method）级别的负载均衡策略。在 Spring Boot 开发模式下，配置 method 级别参数有以下几种方式：</p>
+<p><strong>JavaConfig</strong></p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@Configuration</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">DubboConfiguration</span> <span class="token punctuation">&#123;</span>
+    <span class="token annotation punctuation">@Bean</span>
+    <span class="token keyword">public</span> <span class="token class-name">ServiceBean</span> <span class="token function">demoService</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    	<span class="token class-name">MethodConfig</span> method <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">MethodConfig</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    method<span class="token punctuation">.</span><span class="token function">setName</span><span class="token punctuation">(</span><span class="token string">"sayHello"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    method<span class="token punctuation">.</span><span class="token function">setLoadbalance</span><span class="token punctuation">(</span><span class="token string">"roundrobin"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token class-name">ServiceBean</span> service <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ServiceBean</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        service<span class="token punctuation">.</span><span class="token function">setInterface</span><span class="token punctuation">(</span><span class="token class-name">DemoService</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        service<span class="token punctuation">.</span><span class="token function">setRef</span><span class="token punctuation">(</span><span class="token keyword">new</span> <span class="token class-name">DemoServiceImpl</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+        service<span class="token punctuation">.</span><span class="token function">addMethod</span><span class="token punctuation">(</span>method<span class="token punctuation">)</span>
+        <span class="token keyword">return</span> service<span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span>
+<span class="token annotation punctuation">@Autowired</span>
+<span class="token keyword">private</span> <span class="token class-name">DemoService</span> demoService<span class="token punctuation">;</span>
+
+<span class="token annotation punctuation">@Configuration</span>
+<span class="token keyword">public</span> <span class="token keyword">class</span> <span class="token class-name">DubboConfiguration</span> <span class="token punctuation">&#123;</span>
+    <span class="token annotation punctuation">@Bean</span>
+    <span class="token keyword">public</span> <span class="token class-name">ReferenceBean</span> <span class="token function">demoService</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    	<span class="token class-name">MethodConfig</span> method <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">MethodConfig</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  method<span class="token punctuation">.</span><span class="token function">setName</span><span class="token punctuation">(</span><span class="token string">"sayHello"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  method<span class="token punctuation">.</span><span class="token function">setLoadbalance</span><span class="token punctuation">(</span><span class="token string">"roundrobin"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+        <span class="token class-name">ReferenceBean</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">DemoService</span><span class="token punctuation">></span></span> reference <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ReferenceBean</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token punctuation">></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  reference<span class="token punctuation">.</span><span class="token function">setInterface</span><span class="token punctuation">(</span><span class="token class-name">DemoService</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+  reference<span class="token punctuation">.</span><span class="token function">addMethod</span><span class="token punctuation">(</span>method<span class="token punctuation">)</span><span class="token punctuation">;</span>
+        <span class="token keyword">return</span> reference<span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong>dubbo.properties</strong></p>
+<pre class="line-numbers language-properties" data-language="properties"><code class="language-properties"><span class="token key attr-name">dubbo.reference.org.apache.dubbo.samples.api.DemoService.sayHello.loadbalance</span><span class="token punctuation">=</span><span class="token value attr-value">roundrobin</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<h4 id="4-2-4-一致性哈希配置"><a href="#4-2-4-一致性哈希配置" class="headerlink" title="4.2.4 一致性哈希配置"></a>4.2.4 一致性哈希配置</h4><p>默认采用第一个参数作为哈希 key，如果需要切换参数，可以指定 <code>hash.arguments</code> 属性：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token class-name">ReferenceConfig</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">DemoService</span><span class="token punctuation">></span></span> referenceConfig <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ReferenceConfig</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">DemoService</span><span class="token punctuation">></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">// ... init</span>
+<span class="token class-name">Map</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">String</span><span class="token punctuation">,</span> <span class="token class-name">String</span><span class="token punctuation">></span></span> parameters <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">HashMap</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">String</span><span class="token punctuation">,</span> <span class="token class-name">String</span><span class="token punctuation">></span></span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+parameters<span class="token punctuation">.</span><span class="token function">put</span><span class="token punctuation">(</span><span class="token string">"hash.arguments"</span><span class="token punctuation">,</span> <span class="token string">"1"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+parameters<span class="token punctuation">.</span><span class="token function">put</span><span class="token punctuation">(</span><span class="token string">"sayHello.hash.arguments"</span><span class="token punctuation">,</span> <span class="token string">"0,1"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+referenceConfig<span class="token punctuation">.</span><span class="token function">setParameters</span><span class="token punctuation">(</span>parameters<span class="token punctuation">)</span><span class="token punctuation">;</span>
+referenceConfig<span class="token punctuation">.</span><span class="token function">setLoadBalance</span><span class="token punctuation">(</span><span class="token string">"consistenthash"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+referenceConfig<span class="token punctuation">.</span><span class="token function">get</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="4-3-限流策略配置"><a href="#4-3-限流策略配置" class="headerlink" title="4.3 限流策略配置"></a>4.3 限流策略配置</h3><p>Dubbo 支持在服务器端和消费端按服务粒度或方法粒度限制并发执行数（占用线程池线程数或连接数）。</p>
+<h4 id="4-3-1-限制服务器端并发执行数（服务粒度）"><a href="#4-3-1-限制服务器端并发执行数（服务粒度）" class="headerlink" title="4.3.1 限制服务器端并发执行数（服务粒度）"></a>4.3.1 限制服务器端并发执行数（服务粒度）</h4><p>限制 <code>com.richu.UserService</code> 的每个方法，服务器端并发执行（或占用线程池线程数）不能超过 10 个：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@DubboService</span><span class="token punctuation">(</span>executes<span class="token operator">=</span><span class="token number">10</span><span class="token punctuation">)</span>
+<span class="token keyword">private</span> <span class="token class-name">UserServiceImpl</span> <span class="token keyword">implements</span> <span class="token class-name">UserService</span><span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<h4 id="4-3-2-限制服务器端并发执行数（方法粒度）"><a href="#4-3-2-限制服务器端并发执行数（方法粒度）" class="headerlink" title="4.3.2 限制服务器端并发执行数（方法粒度）"></a>4.3.2 限制服务器端并发执行数（方法粒度）</h4><p>限制 <code>com.richu.UserService</code> 的 <code>sayHello</code> 方法，服务器端并发执行（或占用线程池线程数）不能超过 10 个：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@DubboService</span><span class="token punctuation">(</span>executes<span class="token operator">=</span><span class="token number">10</span><span class="token punctuation">,</span> methods <span class="token operator">=</span> <span class="token punctuation">&#123;</span><span class="token annotation punctuation">@Method</span><span class="token punctuation">(</span>name<span class="token operator">=</span><span class="token string">"sayHello"</span><span class="token punctuation">,</span>executes<span class="token operator">=</span><span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+<span class="token keyword">private</span> <span class="token class-name">UserServiceImpl</span> <span class="token keyword">implements</span> <span class="token class-name">UserService</span><span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<h4 id="4-3-3-限制消费端并发调用数（服务粒度）"><a href="#4-3-3-限制消费端并发调用数（服务粒度）" class="headerlink" title="4.3.3 限制消费端并发调用数（服务粒度）"></a>4.3.3 限制消费端并发调用数（服务粒度）</h4><p>限制 <code>com.richu.UserService</code> 的每个方法，每客户端并发执行（或占用连接的请求数）不能超过 10 个：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@DubboReference</span><span class="token punctuation">(</span>actives<span class="token operator">=</span><span class="token number">10</span><span class="token punctuation">)</span>
+<span class="token keyword">private</span> <span class="token class-name">UserService</span> userService<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<h4 id="4-3-4-限制消费端并发调用数（方法粒度）"><a href="#4-3-4-限制消费端并发调用数（方法粒度）" class="headerlink" title="4.3.4 限制消费端并发调用数（方法粒度）"></a>4.3.4 限制消费端并发调用数（方法粒度）</h4><p>限制 <code>com.richu.UserService</code> 的 <code>sayHello</code> 方法，每客户端并发执行（或占用连接的请求数）不能超过 10 个：</p>
+<pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token annotation punctuation">@DubboReference</span><span class="token punctuation">(</span>actives<span class="token operator">=</span><span class="token number">10</span><span class="token punctuation">,</span> methods <span class="token operator">=</span> <span class="token punctuation">&#123;</span><span class="token annotation punctuation">@Method</span><span class="token punctuation">(</span>name<span class="token operator">=</span><span class="token string">"sayHello"</span><span class="token punctuation">,</span>executes<span class="token operator">=</span><span class="token number">10</span><span class="token punctuation">)</span><span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+<span class="token keyword">private</span> <span class="token class-name">UserService</span> userService<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<h3 id="4-4-集群容错模式"><a href="#4-4-集群容错模式" class="headerlink" title="4.4 集群容错模式"></a>4.4 集群容错模式</h3><p>Dubbo 内置多种集群容错策略，也可以自行扩展，参见 <a target="_blank" rel="noopener" href="https://cn.dubbo.apache.org/zh-cn/overview/mannual/java-sdk/dev/impls/cluster">集群扩展文档</a>。</p>
+<table>
+<thead>
+<tr>
+<th>模式</th>
+<th>特点</th>
+<th>适用场景</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Failover</td>
+<td>失败自动切换，重试其它服务器（可用 <code>retries</code> 设置重试次数，不含第一次）</td>
+<td>读操作（重试会带来更长延迟）</td>
+</tr>
+<tr>
+<td>Failfast</td>
+<td>快速失败，只发起一次调用，失败立即报错</td>
+<td>非幂等性的写操作，如新增记录</td>
+</tr>
+<tr>
+<td>Failsafe</td>
+<td>失败安全，出现异常时直接忽略</td>
+<td>写入审计日志等操作</td>
+</tr>
+<tr>
+<td>Failback</td>
+<td>失败自动恢复，后台记录失败请求，定时重发</td>
+<td>消息通知操作</td>
+</tr>
+<tr>
+<td>Forking</td>
+<td>并行调用多个服务器，只要一个成功即返回（可用 <code>forks</code> 设置最大并行数）</td>
+<td>实时性要求较高的读操作</td>
+</tr>
+<tr>
+<td>Broadcast</td>
+<td>广播调用所有提供者，逐个调用，任意一台报错则报错</td>
+<td>通知所有提供者更新缓存或日志等本地资源信息</td>
+</tr>
+</tbody></table>
+<h4 id="4-4-1-Failover-Cluster"><a href="#4-4-1-Failover-Cluster" class="headerlink" title="4.4.1 Failover Cluster"></a>4.4.1 Failover Cluster</h4><p>失败自动切换，当出现失败，重试其它服务器。通常用于读操作，但重试会带来更长延迟。可通过 <code>retries=&quot;2&quot;</code> 来设置重试次数（不含第一次）。</p>
+<p>重试次数配置如下：</p>
+<pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">dubbo:</span>service</span> <span class="token attr-name">retries</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>2<span class="token punctuation">"</span></span> <span class="token punctuation">/></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>或</p>
+<pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">dubbo:</span>reference</span> <span class="token attr-name">retries</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>2<span class="token punctuation">"</span></span> <span class="token punctuation">/></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>或</p>
+<pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">dubbo:</span>reference</span><span class="token punctuation">></span></span>
+    <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span><span class="token namespace">dubbo:</span>method</span> <span class="token attr-name">name</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>findFoo<span class="token punctuation">"</span></span> <span class="token attr-name">retries</span><span class="token attr-value"><span class="token punctuation attr-equals">=</span><span class="token punctuation">"</span>2<span class="token punctuation">"</span></span> <span class="token punctuation">/></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span><span class="token namespace">dubbo:</span>reference</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<h4 id="4-4-2-Failfast-Cluster"><a href="#4-4-2-Failfast-Cluster" class="headerlink" title="4.4.2 Failfast Cluster"></a>4.4.2 Failfast Cluster</h4><p>快速失败，只发起一次调用，失败立即报错。通常用于非幂等性的写操作，比如新增记录。</p>
+<h4 id="4-4-3-Failsafe-Cluster"><a href="#4-4-3-Failsafe-Cluster" class="headerlink" title="4.4.3 Failsafe Cluster"></a>4.4.3 Failsafe Cluster</h4><p>失败安全，出现异常时，直接忽略。通常用于写入审计日志等操作。</p>
+<h4 id="4-4-4-Failback-Cluster"><a href="#4-4-4-Failback-Cluster" class="headerlink" title="4.4.4 Failback Cluster"></a>4.4.4 Failback Cluster</h4><p>失败自动恢复，后台记录失败请求，定时重发。通常用于消息通知操作。</p>
+<h4 id="4-4-5-Forking-Cluster"><a href="#4-4-5-Forking-Cluster" class="headerlink" title="4.4.5 Forking Cluster"></a>4.4.5 Forking Cluster</h4><p>并行调用多个服务器，只要一个成功即返回。通常用于实时性要求较高的读操作，但需要浪费更多服务资源。可通过 <code>forks=&quot;2&quot;</code> 来设置最大并行数。</p>
+<h4 id="4-4-6-Broadcast-Cluster"><a href="#4-4-6-Broadcast-Cluster" class="headerlink" title="4.4.6 Broadcast Cluster"></a>4.4.6 Broadcast Cluster</h4><p>广播调用所有提供者，逐个调用，任意一台报错则报错。通常用于通知所有提供者更新缓存或日志等本地资源信息。</p>
+<p>在广播调用中，可以通过 <code>broadcast.fail.percent</code> 配置节点调用失败的比例，当达到这个比例后，<code>BroadcastClusterInvoker</code> 将不再调用其他节点，直接抛出异常。<code>broadcast.fail.percent</code> 取值在 0～100 范围内。默认情况下当全部调用失败后，才会抛出异常。<code>broadcast.fail.percent</code> 只是控制失败后是否继续调用其他节点，并不改变结果（任意一台报错则报错）。该参数在 dubbo 2.7.10 及以上版本生效。</p>
+<p><code>broadcast.fail.percent=20</code> 代表当 20% 的节点调用失败就抛出异常，不再调用其他节点。</p>
+<pre class="line-numbers language-text" data-language="text"><code class="language-text">@reference(cluster = "broadcast", parameters = &#123;"broadcast.fail.percent", "20"&#125;)<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<div class="md-note md-warn"> **版本注意** `broadcast.fail.percent` 参数仅在 Dubbo 2.7.10 及以上版本生效，低版本不生效。</div>
+
+<hr>
+<blockquote>
+<p><strong>一句话总结</strong>：Dubbo 通过统一的 RPC 通信与微服务治理能力（服务发现、负载均衡、限流、集群容错等），让分布式微服务之间的远程调用与治理变得简单、可控且可扩展。</p>
+</blockquote>
+
+        </article>
+        <section class="post-near">
+            <ul>
+                
+                    <li>上一篇: <a href="/2024/09/15/Unity3D/">Unity</a></li>
+                
+                
+                    <li>下一篇: <a href="/2024/08/15/Uni-cloud/">Uni-Cloud</a></li>
+                
+            </ul>
+        </section>
+        
+            <section class="post-tags">
+            <a class="-none-link" href="/tags/Dubbo/" rel="tag">Dubbo</a><a class="-none-link" href="/tags/Java-Web/" rel="tag">Java Web</a>
+            </section>
+        
+    
+        <section class="post-author">
+        
+            <figure class="author-avatar">
+                <img src="https://nos.netease.com/ysf/984b6beaecc19c99414093c0481a2619.png" alt="日初" />
+            </figure>
+        
+            <div class="author-info">
+                <h4>日初</h4>
+                <p>去关于我看看吧(´・ω・`)</p>
+            </div>
+        </section>
+    
+    </div>
+</main>
+
+    <footer>
+    <div class="buttons">
+        <a class="to-top" href="#"></a>
+    </div>
+    <div class="wrap min">
+        <section class="widget">
+            <div class="row">
+                <div class="col-m-4">
+                    <h3 class="title-recent">最新文章：</h3>
+                    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2026/10/28/%E7%9F%A5%E8%AF%86%E6%96%87%E6%A1%A3%E6%8A%80%E6%9C%AF%E6%96%87%E6%A1%A3/">企业知识库技术文档（RAG + pgvector）</a></li><li class="post-list-item"><a class="post-list-link" href="/2026/10/27/%E6%8A%80%E8%83%BD%E5%BC%80%E5%8F%91%E6%8C%87%E5%8D%97/">技能开发指南</a></li><li class="post-list-item"><a class="post-list-link" href="/2026/10/27/%E6%8A%80%E8%83%BD%E6%A8%A1%E5%BC%8F%E4%BB%A3%E7%90%86%E8%AE%BE%E8%AE%A1%E6%96%87%E6%A1%A3/">技能模式 AI Agent 系统设计</a></li><li class="post-list-item"><a class="post-list-link" href="/2026/10/01/Redis/">Redis</a></li><li class="post-list-item"><a class="post-list-link" href="/2026/09/01/React/">React</a></li><li class="post-list-item"><a class="post-list-link" href="/2026/08/01/QT/">QT</a></li></ul>
+                </div>
+                <div class="col-m-4">
+                    <h3 class="title-date">时光机：</h3>
+                    <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/10/">十月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/09/">九月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/08/">八月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/07/">七月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/06/">六月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/05/">五月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/04/">四月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/03/">三月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/02/">二月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/01/">一月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/12/">十二月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/11/">十一月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/10/">十月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/09/">九月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/08/">八月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/07/">七月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/06/">六月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/05/">五月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/04/">四月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/03/">三月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/02/">二月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/01/">一月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/12/">十二月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/11/">十一月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/10/">十月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/09/">九月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/08/">八月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/07/">七月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/06/">六月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/05/">五月 2024</a></li></ul>
+                </div>
+                <div class="col-m-4">
+                    <h3 class="title-tags">标签云：</h3>
+                    <a href="/tags/AI-Agent/" style="font-size: 20px;">AI Agent</a> <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/CSS/" style="font-size: 20px;">CSS</a> <a href="/tags/Centos/" style="font-size: 20px;">Centos</a> <a href="/tags/Docker/" style="font-size: 20px;">Docker</a> <a href="/tags/Dubbo/" style="font-size: 20px;">Dubbo</a> <a href="/tags/Flutter/" style="font-size: 20px;">Flutter</a> <a href="/tags/GO/" style="font-size: 20px;">GO</a> <a href="/tags/Game/" style="font-size: 20px;">Game</a> <a href="/tags/Go/" style="font-size: 20px;">Go</a> <a href="/tags/Go-Web/" style="font-size: 20px;">Go Web</a> <a href="/tags/HBase/" style="font-size: 20px;">HBase</a> <a href="/tags/Hadoop/" style="font-size: 20px;">Hadoop</a> <a href="/tags/JQuery/" style="font-size: 20px;">JQuery</a> <a href="/tags/JS/" style="font-size: 20px;">JS</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/Java-Web/" style="font-size: 20px;">Java Web</a> <a href="/tags/K8S/" style="font-size: 20px;">K8S</a> <a href="/tags/Kotlin/" style="font-size: 20px;">Kotlin</a> <a href="/tags/Linux/" style="font-size: 20px;">Linux</a> <a href="/tags/MongoDB/" style="font-size: 20px;">MongoDB</a> <a href="/tags/MySql/" style="font-size: 20px;">MySql</a> <a href="/tags/MybatisPlus/" style="font-size: 20px;">MybatisPlus</a> <a href="/tags/Nginx/" style="font-size: 20px;">Nginx</a> <a href="/tags/NodeJs/" style="font-size: 20px;">NodeJs</a> <a href="/tags/PHP/" style="font-size: 20px;">PHP</a> <a href="/tags/Promise/" style="font-size: 20px;">Promise</a> <a href="/tags/QT/" style="font-size: 20px;">QT</a> <a href="/tags/RAG/" style="font-size: 20px;">RAG</a> <a href="/tags/React/" style="font-size: 20px;">React</a> <a href="/tags/Redis/" style="font-size: 20px;">Redis</a> <a href="/tags/Skill/" style="font-size: 20px;">Skill</a> <a href="/tags/Spark/" style="font-size: 20px;">Spark</a> <a href="/tags/Spring-Cloud/" style="font-size: 20px;">Spring Cloud</a> <a href="/tags/SpringMVC/" style="font-size: 20px;">SpringMVC</a> <a href="/tags/UniApp/" style="font-size: 20px;">UniApp</a> <a href="/tags/UniCloud/" style="font-size: 20px;">UniCloud</a> <a href="/tags/Unity/" style="font-size: 20px;">Unity</a> <a href="/tags/Vue/" style="font-size: 20px;">Vue</a> <a href="/tags/Webpack/" style="font-size: 20px;">Webpack</a> <a href="/tags/ZooKeeper/" style="font-size: 20px;">ZooKeeper</a> <a href="/tags/pgvector/" style="font-size: 20px;">pgvector</a> <a href="/tags/%E5%89%8D%E7%AB%AF/" style="font-size: 20px;">前端</a> <a href="/tags/%E5%90%91%E9%87%8F%E6%A3%80%E7%B4%A2/" style="font-size: 20px;">向量检索</a> <a href="/tags/%E6%8A%80%E8%83%BD/" style="font-size: 20px;">技能</a> <a href="/tags/%E6%8A%80%E8%83%BD%E6%A8%A1%E5%BC%8F/" style="font-size: 20px;">技能模式</a> <a href="/tags/%E7%9F%A5%E8%AF%86%E5%BA%93/" style="font-size: 20px;">知识库</a> <a href="/tags/%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1/" style="font-size: 20px;">系统设计</a> <a href="/tags/%E8%BF%90%E7%BB%B4/" style="font-size: 20px;">运维</a>
+                </div>
+            </div>
+        </section>
+        <section class="sub-footer">
+            <p>© 2026 <a href="/">Richu</a>. All Rights Reserved. Theme By <a href="https://github.com/Dreamer-Paul/Hingle" target="_blank" rel="nofollow">Hingle</a>.</p>
+        </section>
+    </div>
+</footer>
+
+
+<script src="/static/kico.js"></script>
+<script src="/static/hingle.js"></script>
+
+
+<script>var SITE_ROOT = "/";</script>
+<script>var hingle = new Paul_Hingle({"copyright":true,"night":false,"code":{"language_label":true,"language_label_exclude":["markup","none","plain","plaintext","text"],"line_numbers":true,"line_numbers_toggle":true}});</script>
+
+    <script src="/js/mermaid-boot.js"></script>
+  </body>
+</html>

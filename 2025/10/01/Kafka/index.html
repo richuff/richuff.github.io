@@ -1,0 +1,379 @@
+<!DOCTYPE html>
+<html>
+  <head>
+     
+    <meta charset="UTF-8">
+    <title>Kafka - Richu</title>
+    <link rel="shortcut icon" href="/static/img/icon.png">
+    <link rel="icon" href="/static/img/icon.png" sizes="192x192"/>
+    
+<link rel="stylesheet" href="/static/kico.css">
+<link rel="stylesheet" href="/static/hingle.css">
+<link rel="stylesheet" href="/static/md-enhance.css">
+
+    
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <meta name="viewport" content="width=device-width, maximum-scale=1, initial-scale=1"/>
+    <meta property="og:site_name" content="Richu">
+    <meta property="og:title" content="Kafka"/>
+    
+    <style>body:before{ content: ''; background-image: url(http://kycloud3.koyoo.cn/2025033176e99202503311036156636.jpg) }</style>
+    
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+  <body>
+    <header>
+    <div class="head-title">
+        <h4>Richu</h4>
+    </div>
+    <div class="head-action">
+        <div class="toggle-btn"></div>
+        <div class="light-btn"></div>
+        <div class="search-btn"></div>
+    </div>
+    <form class="head-search" method="post">
+        <input type="text" name="s" placeholder="搜索什么？">
+    </form>
+    <nav class="head-menu">
+        <a href="/">首页</a>
+        <div class="has-child">
+            <a>分类</a>
+            <div class="sub-menu">
+                <a class="category-link" href="/categories/AI/">AI</a><a class="category-link" href="/categories/Android/">Android</a><a class="category-link" href="/categories/Go/">Go</a><a class="category-link" href="/categories/Java/">Java</a><a class="category-link" href="/categories/QT/">QT</a><a class="category-link" href="/categories/Unity/">Unity</a><a class="category-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a><a class="category-link" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a><a class="category-link" href="/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE/">大数据</a><a class="category-link" href="/categories/%E8%BF%90%E7%BB%B4/">运维</a>
+            </div>
+        </div>
+        
+            <a href="/links">常用链接</a>
+        
+    </nav>
+</header>
+
+    <main>
+    <div class="wrap min">
+        <section class="post-title">
+            <h2>Kafka</h2>
+            <div class="post-meta">
+                
+                    <time class="updated" datetime="2026-10-27T03:41:47.437Z" title="最后更新于 2026-10-27 11:41" aria-label="最后更新于 2026-10-27 11:41">2026.10.27</time>
+                
+                <time class="date">2025.10.01</time>
+            
+                <span class="category"><a class="category-link" href="/categories/Java/">Java</a></span>
+            
+            </div>
+        </section>
+        <article class="post-content">
+            <div class="md-intro">
+
+<div class="md-hero">Kafka</div>
+
+<blockquote>
+<p>Kafka 最初由 Linkedin 公司开发，是一个分布式、支持分区（partition）和多副本（replica）、基于 ZooKeeper 协调的分布式消息系统，使用 Scala 语言编写，并于 2010 年贡献给 Apache 基金会成为顶级开源项目，能够实时处理大量数据以满足批处理、低延迟实时系统、流式处理等多种场景需求。</p>
+<p>其核心思想是**以高吞吐量、低延迟的方式在生产者与消费者之间搭建一座可靠的消息桥梁**，让海量数据的收集、传递与分析变得简单且可扩展。</p>
+</blockquote>
+
+<div class="md-lead">传统应用之间点对点直接调用难以应对海量、高并发数据的收集与解耦；Kafka 通过统一接口的消息系统解耦生产者和消费者、缓存消息，并以持久化与备份保障可靠性。</div>
+
+</div>
+
+<p><span class="md-kbd-wrap"><span class="md-kbd">Apache Kafka 2.8.0</span></span></p>
+<h2 id="1-概述"><a href="#1-概述" class="headerlink" title="1. 概述"></a>1. 概述</h2><p>Kafka 是目前主流的分布式消息系统之一，适用于大数据场景下的数据收集、传输与实时处理。</p>
+<h3 id="1-1-产生背景"><a href="#1-1-产生背景" class="headerlink" title="1.1 产生背景"></a>1.1 产生背景</h3><p>当今社会各种应用系统（商业、社交、搜索、浏览等）像信息工厂一样不断生产各种信息，在大数据时代我们面临如下挑战：</p>
+<ol>
+<li>如何收集这些巨大的信息；</li>
+<li>如何分析它；</li>
+<li>如何及时地做到以上两点。</li>
+</ol>
+<p>以上挑战形成了一个业务需求模型：生产者生产（produce）各种信息，消费者消费（consume &#x2F; 处理分析）这些信息，而在生产者与消费者之间，需要一个沟通两者的桥梁——消息系统。从微观层面来说，这种需求也可理解为不同系统之间如何传递消息。</p>
+<h3 id="1-2-核心特性"><a href="#1-2-核心特性" class="headerlink" title="1.2 核心特性"></a>1.2 核心特性</h3><table>
+<thead>
+<tr>
+<th>特性</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>高吞吐量、低延迟</td>
+<td>Kafka 每秒可以处理几十万条消息，延迟最低只有几毫秒</td>
+</tr>
+<tr>
+<td>可扩展性</td>
+<td>Kafka 集群支持热扩展</td>
+</tr>
+<tr>
+<td>持久性、可靠性</td>
+<td>消息被持久化到本地磁盘，并支持数据备份防止数据丢失</td>
+</tr>
+<tr>
+<td>容错性</td>
+<td>允许集群中节点失败（若副本数量为 n，则允许 n-1 个节点失败）</td>
+</tr>
+<tr>
+<td>高并发</td>
+<td>支持数千个客户端同时读写</td>
+</tr>
+</tbody></table>
+<h3 id="1-3-场景应用"><a href="#1-3-场景应用" class="headerlink" title="1.3 场景应用"></a>1.3 场景应用</h3><table>
+<thead>
+<tr>
+<th>场景</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>日志收集</td>
+<td>公司可用 Kafka 收集各种服务的 log，以统一接口服务方式开放给各种 consumer，例如 hadoop、Hbase、Solr 等</td>
+</tr>
+<tr>
+<td>消息系统</td>
+<td>解耦生产者和消费者、缓存消息等</td>
+</tr>
+<tr>
+<td>用户活动跟踪</td>
+<td>记录 web 或 app 用户的各种活动（浏览、搜索、点击等），发布到 topic 中供订阅者实时监控分析，或装载到 hadoop、数据仓库做离线分析</td>
+</tr>
+<tr>
+<td>运营指标</td>
+<td>记录运营监控数据，收集分布式应用数据，集中反馈操作如报警和报告</td>
+</tr>
+<tr>
+<td>流式处理</td>
+<td>如 Spark Streaming 和 Storm</td>
+</tr>
+<tr>
+<td>事件源</td>
+<td>作为事件溯源的数据基础</td>
+</tr>
+</tbody></table>
+<h2 id="2-安装"><a href="#2-安装" class="headerlink" title="2. 安装"></a>2. 安装</h2><p>Kafka 运行需要 Java 环境，确保已安装 JDK。</p>
+<p>从官方 Apache Kafka 网站下载 Kafka：<a target="_blank" rel="noopener" href="https://kafka.apache.org/downloads.html">https://kafka.apache.org/downloads.html</a></p>
+<p>下载安装包并解压：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">tar</span> <span class="token parameter variable">-xzf</span> kafka_2.13-2.8.0.tgz
+<span class="token builtin class-name">cd</span> kafka_2.13-2.8.0<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>Kafka 依赖 ZooKeeper 来管理集群（关于 ZooKeeper 的总结可参考其在各中间件中的应用）。启动 ZooKeeper：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">bin/zookeeper-server-start.sh config/zookeeper.properties<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>在另一个终端窗口中启动 Kafka 服务器：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">bin/kafka-server-start.sh config/server.properties<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<div class="md-note md-info">
+**运行说明** 演示中使用的为 Windows 的 `.bat` 脚本，Linux 脚本则为 `.sh`；二者命令参数完全一致，仅后缀不同。
+</div>
+
+<h2 id="3-命令操作"><a href="#3-命令操作" class="headerlink" title="3. 命令操作"></a>3. 命令操作</h2><p>部署好 Kafka 环境后，可查看其 <code>bin</code> 目录下的执行脚本，包含服务端、生产者、消费者、主题等多种操作脚本。</p>
+<blockquote>
+<p>主题命令操作：<code>kafka-topics.sh</code></p>
+</blockquote>
+<h3 id="3-1-主题命令参数"><a href="#3-1-主题命令参数" class="headerlink" title="3.1 主题命令参数"></a>3.1 主题命令参数</h3><table>
+<thead>
+<tr>
+<th>参数</th>
+<th>描述</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>--bootstrap-server &lt;String: server to connect to&gt;</code></td>
+<td>连接的 Kafka Broker 主机名称和端口号；新版 Kafka（v2.8+）核心参数，支持不依赖 ZooKeeper 直接连接，老版本使用 <code>--zookeeper</code> 参数</td>
+</tr>
+<tr>
+<td><code>--topic &lt;String: topic&gt;</code></td>
+<td>操作的 Topic 名称</td>
+</tr>
+<tr>
+<td><code>--create</code></td>
+<td>创建主题</td>
+</tr>
+<tr>
+<td><code>--delete</code></td>
+<td>删除主题</td>
+</tr>
+<tr>
+<td><code>--alter</code></td>
+<td>修改主题</td>
+</tr>
+<tr>
+<td><code>--list</code></td>
+<td>查看所有主题</td>
+</tr>
+<tr>
+<td><code>--describe</code></td>
+<td>查看主题详细描述</td>
+</tr>
+<tr>
+<td><code>--partitions &lt;Integer: # of partitions&gt;</code></td>
+<td>设置主题分区数</td>
+</tr>
+<tr>
+<td><code>--replication-factor &lt;Integer: replication factor&gt;</code></td>
+<td>设置主题分区副本数</td>
+</tr>
+<tr>
+<td><code>--config &lt;String: name=value&gt;</code></td>
+<td>更新主题默认系统配置，如消息最大保存时长、单条消息最大大小等</td>
+</tr>
+</tbody></table>
+<h3 id="3-2-常用命令示例"><a href="#3-2-常用命令示例" class="headerlink" title="3.2 常用命令示例"></a>3.2 常用命令示例</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 创建topic</span>
+kafka-topics.bat <span class="token parameter variable">--create</span> --replication-factor <span class="token number">1</span> <span class="token parameter variable">--partitions</span> <span class="token number">3</span> 
+<span class="token parameter variable">--topic</span> rc-topic --bootstrap-server localhost:9092
+<span class="token operator">></span> Created topic rc-topic.
+
+<span class="token comment"># 查看topic列表</span>
+kafka-topics.bat <span class="token parameter variable">--list</span> --bootstrap-server localhost:9092
+<span class="token operator">></span> rc-topic
+
+<span class="token comment"># 查看topic信息</span>
+kafka-topics.bat <span class="token parameter variable">--describe</span> <span class="token parameter variable">--topic</span> rc-topic --bootstrap-server localhost:9092
+<span class="token operator">></span> Topic: rc-topic TopicId: bFh2j7N0S7Gz7LxuhYSk4Q PartitionCount: <span class="token number">3</span>       ReplicationFactor: <span class="token number">1</span>    Configs:
+        Topic: rc-topic Partition: <span class="token number">0</span>    Leader: <span class="token number">0</span>       Replicas: <span class="token number">0</span>     Isr: <span class="token number">0</span>
+        Topic: rc-topic Partition: <span class="token number">1</span>    Leader: <span class="token number">0</span>       Replicas: <span class="token number">0</span>     Isr: <span class="token number">0</span>
+        Topic: rc-topic Partition: <span class="token number">2</span>    Leader: <span class="token number">0</span>       Replicas: <span class="token number">0</span>     Isr: <span class="token number">0</span>
+
+<span class="token comment"># 生产者发送消息</span>
+kafka-console-producer.bat --broker-list localhost:9092 <span class="token parameter variable">--topic</span> test-topic
+
+<span class="token comment"># 消费者接收消息</span>
+kafka-console-consumer.bat --bootstrap-server localhost:9092 <span class="token parameter variable">--topic</span> test-topic --from-beginning<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<div class="md-note md-tip">
+**提示** 新版 Kafka（v2.8+）可直接使用 `--bootstrap-server` 连接 Broker，无需依赖 ZooKeeper；老版本需使用 `--zookeeper` 参数。
+</div>
+
+<h2 id="4-Java-操作-Kafka"><a href="#4-Java-操作-Kafka" class="headerlink" title="4. Java 操作 Kafka"></a>4. Java 操作 Kafka</h2><h3 id="4-1-引入依赖"><a href="#4-1-引入依赖" class="headerlink" title="4.1 引入依赖"></a>4.1 引入依赖</h3><pre class="line-numbers language-markup" data-language="markup"><code class="language-markup"><span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>dependency</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>groupId</span><span class="token punctuation">></span></span>org.springframework.kafka<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>groupId</span><span class="token punctuation">></span></span>
+  <span class="token tag"><span class="token tag"><span class="token punctuation">&lt;</span>artifactId</span><span class="token punctuation">></span></span>spring-kafka<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>artifactId</span><span class="token punctuation">></span></span>
+<span class="token tag"><span class="token tag"><span class="token punctuation">&lt;/</span>dependency</span><span class="token punctuation">></span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="4-2-发送消息"><a href="#4-2-发送消息" class="headerlink" title="4.2 发送消息"></a>4.2 发送消息</h3><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">// 1. 配置生产者参数</span>
+<span class="token class-name">Properties</span> props <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Properties</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+props<span class="token punctuation">.</span><span class="token function">put</span><span class="token punctuation">(</span><span class="token class-name">ProducerConfig</span><span class="token punctuation">.</span><span class="token constant">BOOTSTRAP_SERVERS_CONFIG</span><span class="token punctuation">,</span> <span class="token string">"localhost:9092"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+props<span class="token punctuation">.</span><span class="token function">put</span><span class="token punctuation">(</span><span class="token class-name">ProducerConfig</span><span class="token punctuation">.</span><span class="token constant">KEY_SERIALIZER_CLASS_CONFIG</span><span class="token punctuation">,</span> <span class="token class-name">StringSerializer</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">.</span><span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+props<span class="token punctuation">.</span><span class="token function">put</span><span class="token punctuation">(</span><span class="token class-name">ProducerConfig</span><span class="token punctuation">.</span><span class="token constant">VALUE_SERIALIZER_CLASS_CONFIG</span><span class="token punctuation">,</span> <span class="token class-name">StringSerializer</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">.</span><span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment">// 2. 创建生产者对象</span>
+<span class="token class-name">KafkaProducer</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">String</span><span class="token punctuation">,</span> <span class="token class-name">String</span><span class="token punctuation">></span></span> producer <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">KafkaProducer</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token punctuation">></span></span><span class="token punctuation">(</span>props<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment">// 3. 构建消息（topic名称，消息内容）</span>
+<span class="token class-name">ProducerRecord</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">String</span><span class="token punctuation">,</span> <span class="token class-name">String</span><span class="token punctuation">></span></span> record <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">ProducerRecord</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token punctuation">></span></span><span class="token punctuation">(</span>
+        <span class="token string">"rc-topic"</span><span class="token punctuation">,</span>  <span class="token comment">// 主题名</span>
+        <span class="token string">"csndm！"</span>
+<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment">// 4. 发送消息</span>
+producer<span class="token punctuation">.</span><span class="token function">send</span><span class="token punctuation">(</span>record<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment">// 5. 刷新并关闭</span>
+producer<span class="token punctuation">.</span><span class="token function">flush</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+producer<span class="token punctuation">.</span><span class="token function">close</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"消息发送成功！"</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="4-3-接收消息"><a href="#4-3-接收消息" class="headerlink" title="4.3 接收消息"></a>4.3 接收消息</h3><pre class="line-numbers language-java" data-language="java"><code class="language-java"><span class="token comment">// 1. 配置消费者参数</span>
+<span class="token class-name">Properties</span> props <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">Properties</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+props<span class="token punctuation">.</span><span class="token function">put</span><span class="token punctuation">(</span><span class="token class-name">ConsumerConfig</span><span class="token punctuation">.</span><span class="token constant">BOOTSTRAP_SERVERS_CONFIG</span><span class="token punctuation">,</span> <span class="token string">"localhost:9092"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">// 消费者组id（随便写，不重复即可）</span>
+props<span class="token punctuation">.</span><span class="token function">put</span><span class="token punctuation">(</span><span class="token class-name">ConsumerConfig</span><span class="token punctuation">.</span><span class="token constant">GROUP_ID_CONFIG</span><span class="token punctuation">,</span> <span class="token string">"rc-group"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">// 反序列化</span>
+props<span class="token punctuation">.</span><span class="token function">put</span><span class="token punctuation">(</span><span class="token class-name">ConsumerConfig</span><span class="token punctuation">.</span><span class="token constant">KEY_DESERIALIZER_CLASS_CONFIG</span><span class="token punctuation">,</span> <span class="token class-name">StringDeserializer</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">.</span><span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+props<span class="token punctuation">.</span><span class="token function">put</span><span class="token punctuation">(</span><span class="token class-name">ConsumerConfig</span><span class="token punctuation">.</span><span class="token constant">VALUE_DESERIALIZER_CLASS_CONFIG</span><span class="token punctuation">,</span> <span class="token class-name">StringDeserializer</span><span class="token punctuation">.</span><span class="token keyword">class</span><span class="token punctuation">.</span><span class="token function">getName</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token comment">// 从头开始消费（第一次启动时生效）</span>
+props<span class="token punctuation">.</span><span class="token function">put</span><span class="token punctuation">(</span><span class="token class-name">ConsumerConfig</span><span class="token punctuation">.</span><span class="token constant">AUTO_OFFSET_RESET_CONFIG</span><span class="token punctuation">,</span> <span class="token string">"earliest"</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment">// 2. 创建消费者对象</span>
+<span class="token class-name">KafkaConsumer</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">String</span><span class="token punctuation">,</span> <span class="token class-name">String</span><span class="token punctuation">></span></span> consumer <span class="token operator">=</span> <span class="token keyword">new</span> <span class="token class-name">KafkaConsumer</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token punctuation">></span></span><span class="token punctuation">(</span>props<span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment">// 3. 订阅主题（和生产者主题一致）</span>
+consumer<span class="token punctuation">.</span><span class="token function">subscribe</span><span class="token punctuation">(</span><span class="token class-name">Collections</span><span class="token punctuation">.</span><span class="token function">singletonList</span><span class="token punctuation">(</span><span class="token string">"rc-topic"</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+<span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"消费者已启动，等待接收消息..."</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+<span class="token comment">// 4. 循环拉取消息</span>
+<span class="token keyword">while</span> <span class="token punctuation">(</span><span class="token boolean">true</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+    <span class="token comment">// 每隔100ms拉取一次消息</span>
+    <span class="token class-name">ConsumerRecords</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">String</span><span class="token punctuation">,</span> <span class="token class-name">String</span><span class="token punctuation">></span></span> records <span class="token operator">=</span> consumer<span class="token punctuation">.</span><span class="token function">poll</span><span class="token punctuation">(</span><span class="token class-name">Duration</span><span class="token punctuation">.</span><span class="token function">ofMillis</span><span class="token punctuation">(</span><span class="token number">100</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+
+    <span class="token comment">// 处理收到的消息</span>
+    <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token class-name">ConsumerRecord</span><span class="token generics"><span class="token punctuation">&lt;</span><span class="token class-name">String</span><span class="token punctuation">,</span> <span class="token class-name">String</span><span class="token punctuation">></span></span> record <span class="token operator">:</span> records<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
+        <span class="token class-name">System</span><span class="token punctuation">.</span>out<span class="token punctuation">.</span><span class="token function">println</span><span class="token punctuation">(</span><span class="token string">"收到消息："</span> <span class="token operator">+</span> record<span class="token punctuation">.</span><span class="token function">value</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
+    <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<div class="md-note md-warn">
+**注意** 消费端 `while (true)` 为持续拉取示例，生产环境应结合优雅关闭、异常处理与批量消费策略，避免空轮询浪费资源。
+</div>
+
+<hr>
+<blockquote>
+<p><strong>一句话总结</strong>：Kafka 是一个以高吞吐量、低延迟在生产者与消费者之间搭建可靠消息桥梁的分布式消息系统，可通过命令行与 Java API 便捷地完成主题管理与消息收发。</p>
+</blockquote>
+
+        </article>
+        <section class="post-near">
+            <ul>
+                
+                    <li>上一篇: <a href="/2025/11/01/Kotlin/">Kotlin</a></li>
+                
+                
+                    <li>下一篇: <a href="/2025/09/01/JUC/">JUC</a></li>
+                
+            </ul>
+        </section>
+        
+            <section class="post-tags">
+            <a class="-none-link" href="/tags/Java/" rel="tag">Java</a><a class="-none-link" href="/tags/Java-Web/" rel="tag">Java Web</a>
+            </section>
+        
+    
+        <section class="post-author">
+        
+            <figure class="author-avatar">
+                <img src="https://nos.netease.com/ysf/984b6beaecc19c99414093c0481a2619.png" alt="日初" />
+            </figure>
+        
+            <div class="author-info">
+                <h4>日初</h4>
+                <p>去关于我看看吧(´・ω・`)</p>
+            </div>
+        </section>
+    
+    </div>
+</main>
+
+    <footer>
+    <div class="buttons">
+        <a class="to-top" href="#"></a>
+    </div>
+    <div class="wrap min">
+        <section class="widget">
+            <div class="row">
+                <div class="col-m-4">
+                    <h3 class="title-recent">最新文章：</h3>
+                    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2026/10/28/%E7%9F%A5%E8%AF%86%E6%96%87%E6%A1%A3%E6%8A%80%E6%9C%AF%E6%96%87%E6%A1%A3/">企业知识库技术文档（RAG + pgvector）</a></li><li class="post-list-item"><a class="post-list-link" href="/2026/10/27/%E6%8A%80%E8%83%BD%E5%BC%80%E5%8F%91%E6%8C%87%E5%8D%97/">技能开发指南</a></li><li class="post-list-item"><a class="post-list-link" href="/2026/10/27/%E6%8A%80%E8%83%BD%E6%A8%A1%E5%BC%8F%E4%BB%A3%E7%90%86%E8%AE%BE%E8%AE%A1%E6%96%87%E6%A1%A3/">技能模式 AI Agent 系统设计</a></li><li class="post-list-item"><a class="post-list-link" href="/2026/10/01/Redis/">Redis</a></li><li class="post-list-item"><a class="post-list-link" href="/2026/09/01/React/">React</a></li><li class="post-list-item"><a class="post-list-link" href="/2026/08/01/QT/">QT</a></li></ul>
+                </div>
+                <div class="col-m-4">
+                    <h3 class="title-date">时光机：</h3>
+                    <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/10/">十月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/09/">九月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/08/">八月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/07/">七月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/06/">六月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/05/">五月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/04/">四月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/03/">三月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/02/">二月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/01/">一月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/12/">十二月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/11/">十一月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/10/">十月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/09/">九月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/08/">八月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/07/">七月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/06/">六月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/05/">五月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/04/">四月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/03/">三月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/02/">二月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/01/">一月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/12/">十二月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/11/">十一月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/10/">十月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/09/">九月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/08/">八月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/07/">七月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/06/">六月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/05/">五月 2024</a></li></ul>
+                </div>
+                <div class="col-m-4">
+                    <h3 class="title-tags">标签云：</h3>
+                    <a href="/tags/AI-Agent/" style="font-size: 20px;">AI Agent</a> <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/CSS/" style="font-size: 20px;">CSS</a> <a href="/tags/Centos/" style="font-size: 20px;">Centos</a> <a href="/tags/Docker/" style="font-size: 20px;">Docker</a> <a href="/tags/Dubbo/" style="font-size: 20px;">Dubbo</a> <a href="/tags/Flutter/" style="font-size: 20px;">Flutter</a> <a href="/tags/GO/" style="font-size: 20px;">GO</a> <a href="/tags/Game/" style="font-size: 20px;">Game</a> <a href="/tags/Go/" style="font-size: 20px;">Go</a> <a href="/tags/Go-Web/" style="font-size: 20px;">Go Web</a> <a href="/tags/HBase/" style="font-size: 20px;">HBase</a> <a href="/tags/Hadoop/" style="font-size: 20px;">Hadoop</a> <a href="/tags/JQuery/" style="font-size: 20px;">JQuery</a> <a href="/tags/JS/" style="font-size: 20px;">JS</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/Java-Web/" style="font-size: 20px;">Java Web</a> <a href="/tags/K8S/" style="font-size: 20px;">K8S</a> <a href="/tags/Kotlin/" style="font-size: 20px;">Kotlin</a> <a href="/tags/Linux/" style="font-size: 20px;">Linux</a> <a href="/tags/MongoDB/" style="font-size: 20px;">MongoDB</a> <a href="/tags/MySql/" style="font-size: 20px;">MySql</a> <a href="/tags/MybatisPlus/" style="font-size: 20px;">MybatisPlus</a> <a href="/tags/Nginx/" style="font-size: 20px;">Nginx</a> <a href="/tags/NodeJs/" style="font-size: 20px;">NodeJs</a> <a href="/tags/PHP/" style="font-size: 20px;">PHP</a> <a href="/tags/Promise/" style="font-size: 20px;">Promise</a> <a href="/tags/QT/" style="font-size: 20px;">QT</a> <a href="/tags/RAG/" style="font-size: 20px;">RAG</a> <a href="/tags/React/" style="font-size: 20px;">React</a> <a href="/tags/Redis/" style="font-size: 20px;">Redis</a> <a href="/tags/Skill/" style="font-size: 20px;">Skill</a> <a href="/tags/Spark/" style="font-size: 20px;">Spark</a> <a href="/tags/Spring-Cloud/" style="font-size: 20px;">Spring Cloud</a> <a href="/tags/SpringMVC/" style="font-size: 20px;">SpringMVC</a> <a href="/tags/UniApp/" style="font-size: 20px;">UniApp</a> <a href="/tags/UniCloud/" style="font-size: 20px;">UniCloud</a> <a href="/tags/Unity/" style="font-size: 20px;">Unity</a> <a href="/tags/Vue/" style="font-size: 20px;">Vue</a> <a href="/tags/Webpack/" style="font-size: 20px;">Webpack</a> <a href="/tags/ZooKeeper/" style="font-size: 20px;">ZooKeeper</a> <a href="/tags/pgvector/" style="font-size: 20px;">pgvector</a> <a href="/tags/%E5%89%8D%E7%AB%AF/" style="font-size: 20px;">前端</a> <a href="/tags/%E5%90%91%E9%87%8F%E6%A3%80%E7%B4%A2/" style="font-size: 20px;">向量检索</a> <a href="/tags/%E6%8A%80%E8%83%BD/" style="font-size: 20px;">技能</a> <a href="/tags/%E6%8A%80%E8%83%BD%E6%A8%A1%E5%BC%8F/" style="font-size: 20px;">技能模式</a> <a href="/tags/%E7%9F%A5%E8%AF%86%E5%BA%93/" style="font-size: 20px;">知识库</a> <a href="/tags/%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1/" style="font-size: 20px;">系统设计</a> <a href="/tags/%E8%BF%90%E7%BB%B4/" style="font-size: 20px;">运维</a>
+                </div>
+            </div>
+        </section>
+        <section class="sub-footer">
+            <p>© 2026 <a href="/">Richu</a>. All Rights Reserved. Theme By <a href="https://github.com/Dreamer-Paul/Hingle" target="_blank" rel="nofollow">Hingle</a>.</p>
+        </section>
+    </div>
+</footer>
+
+
+<script src="/static/kico.js"></script>
+<script src="/static/hingle.js"></script>
+
+
+<script>var SITE_ROOT = "/";</script>
+<script>var hingle = new Paul_Hingle({"copyright":true,"night":false,"code":{"language_label":true,"language_label_exclude":["markup","none","plain","plaintext","text"],"line_numbers":true,"line_numbers_toggle":true}});</script>
+
+    <script src="/js/mermaid-boot.js"></script>
+  </body>
+</html>

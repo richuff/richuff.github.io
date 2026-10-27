@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html>
+  <head>
+     
+    <meta charset="UTF-8">
+    <title>QT - Richu</title>
+    <link rel="shortcut icon" href="/static/img/icon.png">
+    <link rel="icon" href="/static/img/icon.png" sizes="192x192"/>
+    
+<link rel="stylesheet" href="/static/kico.css">
+<link rel="stylesheet" href="/static/hingle.css">
+<link rel="stylesheet" href="/static/md-enhance.css">
+
+    
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <meta name="viewport" content="width=device-width, maximum-scale=1, initial-scale=1"/>
+    <meta property="og:site_name" content="Richu">
+    <meta property="og:title" content="QT"/>
+    
+    <style>body:before{ content: ''; background-image: url(http://kycloud3.koyoo.cn/2025033176e99202503311036156636.jpg) }</style>
+    
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+  <body>
+    <header>
+    <div class="head-title">
+        <h4>Richu</h4>
+    </div>
+    <div class="head-action">
+        <div class="toggle-btn"></div>
+        <div class="light-btn"></div>
+        <div class="search-btn"></div>
+    </div>
+    <form class="head-search" method="post">
+        <input type="text" name="s" placeholder="搜索什么？">
+    </form>
+    <nav class="head-menu">
+        <a href="/">首页</a>
+        <div class="has-child">
+            <a>分类</a>
+            <div class="sub-menu">
+                <a class="category-link" href="/categories/AI/">AI</a><a class="category-link" href="/categories/Android/">Android</a><a class="category-link" href="/categories/Go/">Go</a><a class="category-link" href="/categories/Java/">Java</a><a class="category-link" href="/categories/QT/">QT</a><a class="category-link" href="/categories/Unity/">Unity</a><a class="category-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a><a class="category-link" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a><a class="category-link" href="/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE/">大数据</a><a class="category-link" href="/categories/%E8%BF%90%E7%BB%B4/">运维</a>
+            </div>
+        </div>
+        
+            <a href="/links">常用链接</a>
+        
+    </nav>
+</header>
+
+    <main>
+    <div class="wrap min">
+        <section class="post-title">
+            <h2>QT</h2>
+            <div class="post-meta">
+                
+                    <time class="updated" datetime="2026-10-27T03:41:47.565Z" title="最后更新于 2026-10-27 11:41" aria-label="最后更新于 2026-10-27 11:41">2026.10.27</time>
+                
+                <time class="date">2026.08.01</time>
+            
+                <span class="category"><a class="category-link" href="/categories/QT/">QT</a></span>
+            
+            </div>
+        </section>
+        <article class="post-content">
+            <div class="md-intro">
+<div class="md-hero">QT</div>
+<blockquote>
+<p>Qt 是一个跨平台的 C++ 图形用户界面应用程序框架。它为应用程序开发者提供建立图形界面所需的所有功能，完全面向对象、易于扩展，并支持真正的组件编程。</p>
+<p>其核心在于**以一套代码同时构建多平台原生界面**，从而大幅降低跨平台桌面与嵌入式应用的开发成本。</p>
+</blockquote>
+<div class="md-lead">相比为每个平台单独编写原生界面，Qt 用统一的 C++ API 屏蔽了平台差异，让开发者无需重复造轮子即可覆盖桌面与嵌入式场景。</div>
+</div>
+<span class="md-kbd-wrap"><span class="md-kbd">Qt 跨平台 C++ 框架</span></span>
+
+<h2 id="1-概述"><a href="#1-概述" class="headerlink" title="1. 概述"></a>1. 概述</h2><p>Qt 作为企业级 GUI 开发框架，相较于传统“每个平台单独写一套界面”的方式，具备以下优势：</p>
+<table>
+<thead>
+<tr>
+<th>优势</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>跨平台</td>
+<td>几乎支持所有的平台</td>
+</tr>
+<tr>
+<td>接口简单</td>
+<td>容易上手，学习 Qt 框架对学习其他框架有参考意义</td>
+</tr>
+<tr>
+<td>内存回收简化</td>
+<td>一定程度上简化了内存回收机制</td>
+</tr>
+<tr>
+<td>开发效率高</td>
+<td>能够快速构建应用程序</td>
+</tr>
+<tr>
+<td>社区氛围好</td>
+<td>市场份额在缓慢上升</td>
+</tr>
+<tr>
+<td>嵌入式开发</td>
+<td>可以进行嵌入式开发</td>
+</tr>
+</tbody></table>
+<div class="md-note md-info">
+**适用场景** Qt 既适用于桌面端跨平台应用，也适用于嵌入式设备的图形界面开发。
+</div>
+
+<h2 id="2-入门"><a href="#2-入门" class="headerlink" title="2. 入门"></a>2. 入门</h2><h3 id="2-1-main-cpp-文件"><a href="#2-1-main-cpp-文件" class="headerlink" title="2.1 main.cpp 文件"></a>2.1 main.cpp 文件</h3><p>每个 Qt 应用程序都包含一个 <code>main</code> 函数作为入口，负责创建应用对象、构建界面并进入事件循环。</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include &lt;QApplication&gt;&#x2F;&#x2F;包含应用程序头文件
+
+&#x2F;&#x2F;main函数，接收的参数
+int main(int argc, char *argv[])
+&#123;
+    QApplication a(argc, argv);
+  
+    MyWidget w;&#x2F;&#x2F;创建应用对象
+    
+    w.show();     &#x2F;&#x2F;展示对象
+  resize(600,400); &#x2F;&#x2F;重置窗口大小
+    return a.exec(); &#x2F;&#x2F;执行
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="2-2-QPushButton"><a href="#2-2-QPushButton" class="headerlink" title="2.2 QPushButton"></a>2.2 QPushButton</h3><p>按钮可通过两种方式创建：先 <code>new</code> 再设置父对象，或构造时直接指定父对象与文字。</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">&#x2F;&#x2F;创建一个按钮
+QPushButton* btn &#x3D; new QPushButton;
+&#x2F;&#x2F;让按钮依附在窗口中
+btn-&gt;setParent(this);
+&#x2F;&#x2F;设置文字
+btn-&gt;setText(&quot;点我&quot;);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<blockquote>
+<p>另一种创建方法</p>
+</blockquote>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">QPushButton* btn &#x3D; new QPushButton(&quot;点我&quot;,this);
+btn-&gt;move(100,100); &#x2F;&#x2F;移动按钮到(100,100)<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<blockquote>
+<p>其他窗口方法</p>
+</blockquote>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">setWindowTitle(&quot;我是应用程序名&quot;); &#x2F;&#x2F;设置窗口标题
+
+setFixedHeight(600);&#x2F;&#x2F;设置固定高度
+setFixedWidth(400); &#x2F;&#x2F;设置固定宽度
+
+setFixedSize(500,500); &#x2F;&#x2F;宽  高 固定<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="2-3-信号和槽"><a href="#2-3-信号和槽" class="headerlink" title="2.3 信号和槽"></a>2.3 信号和槽</h3><p>信号（signal）表示各种事件，槽（slot）是响应信号的动作。例如按钮被点击后发出 <code>clicked</code> 信号，某对象接收到该信号后执行对应的槽函数。Qt 对象不会无故收到信号，必须通过 <code>connect</code> 建立发送者与接收者之间的连接。</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">QPushButton * quitBtn &#x3D; new QPushButton(&quot;关闭窗口&quot;,this);
+
+&#x2F;&#x2F;信号的发送者 发送的信号(函数的地址) 接收者 处理的槽函数(函数的地址)
+connect(quitBtn,&amp;QPushButton::clicked,this,&amp;MyWidget::close);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><code>connect</code> 函数的四个核心参数如下：</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>sender</td>
+<td>信号发送者</td>
+</tr>
+<tr>
+<td>signal</td>
+<td>信号</td>
+</tr>
+<tr>
+<td>receiver</td>
+<td>信号接收者</td>
+</tr>
+<tr>
+<td>slot</td>
+<td>接收对象在接收到信号之后所需要调用的函数（槽函数）</td>
+</tr>
+</tbody></table>
+<h3 id="2-4-自定义信号和槽"><a href="#2-4-自定义信号和槽" class="headerlink" title="2.4 自定义信号和槽"></a>2.4 自定义信号和槽</h3><div class="md-note md-info">
+**定义信号发送方** 在 `signals:` 区域声明信号，信号只需声明、不需要实现。
+</div>
+
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include &lt;QObject&gt;
+
+class Teacher : public QObject
+&#123;
+    Q_OBJECT
+public:
+    explicit Teacher(QObject *parent &#x3D; 0);
+
+signals:
+    void hungry(); &#x2F;&#x2F;不需要实现
+&#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<div class="md-note md-info">
+**定义信号接收方** 在 `public slots:` 区域声明并实现槽函数。
+</div>
+
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">#include &lt;QObject&gt;
+#include &lt;QDebug&gt;
+
+class Student : public QObject
+&#123;
+    Q_OBJECT
+public:
+    explicit Student(QObject *parent &#x3D; 0);
+public slots:
+    void treat()&#123; &#x2F;&#x2F;需要实现
+        qDebug() &lt;&lt; &quot;触发信号&quot;;
+    &#125;
+&#125;;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<blockquote>
+<p>建立连接并触发信号</p>
+</blockquote>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">connect(tc,&amp;Teacher::hungry,sd,&amp;Student::treat);
+&#x2F;&#x2F; 触发信号
+emit tc-&gt;hungry();<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="2-5-解决槽的重载"><a href="#2-5-解决槽的重载" class="headerlink" title="2.5 解决槽的重载"></a>2.5 解决槽的重载</h3><p>当槽函数存在重载时（如带参 &#x2F; 不带参），需要通过函数指针明确指定要连接的版本。</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">void Student::treat()&#123;
+    qDebug() &lt;&lt; &quot;test&quot;;
+&#125;
+
+void Student::treat(QString foodName)&#123;
+    qDebug() &lt;&lt; foodName;
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<blockquote>
+<p>解决方式：使用函数指针区分重载</p>
+</blockquote>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">void (Teacher:: *teacherSinal)(QString) &#x3D; &amp;Teacher::hungry;
+void (Student:: *studentSolt) (QString) &#x3D; &amp;Student::treat;
+
+connect(tc,teacherSinal,sd,studentSolt);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<blockquote>
+<p>QString 转 char*（避免输出带引号的字符串）</p>
+</blockquote>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">void Student::treat(QString foodName)&#123;
+    qDebug() &lt;&lt; foodName.toUtf8().data();
+&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="2-6-信号连接信号"><a href="#2-6-信号连接信号" class="headerlink" title="2.6 信号连接信号"></a>2.6 信号连接信号</h3><p>除了“信号连接槽”，也支持“信号连接信号”：点击按钮触发的信号再转发为发送者的信号。</p>
+<blockquote>
+<p>点击按钮，触发信号</p>
+</blockquote>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">QPushButton* btn &#x3D; new QPushButton(&quot;click&quot;,this);
+connect(btn,&amp;QPushButton::clicked,this,&amp;MyWidget::ClassOver);
+
+void (Teacher:: *teacherSinal)(QString) &#x3D; &amp;Teacher::hungry;
+void (Student:: *studentSolt) (QString) &#x3D; &amp;Student::treat;
+connect(tc,teacherSinal,sd,studentSolt);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<blockquote>
+<p>信号连接信号：点击按钮的信号触发发送者的信号</p>
+</blockquote>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">void (Teacher:: *teacherSinal)(void) &#x3D; &amp;Teacher::hungry;
+void (Student:: *studentSolt) (void) &#x3D; &amp;Student::treat;
+connect(tc,teacherSinal,sd,studentSolt);
+
+connect(btn,&amp;QPushButton::clicked,tc,teacherSinal);<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="2-7-Lambda-表达式"><a href="#2-7-Lambda-表达式" class="headerlink" title="2.7 Lambda 表达式"></a>2.7 Lambda 表达式</h3><p>C++11 中的 Lambda 表达式用于定义匿名的函数对象，以简化编程工作。其基本构成分为四个部分：<code>[局部变量捕获列表]</code>、<code>（函数参数）</code>、函数额外属性设置 <code>opt</code>、函数返回值 <code>-&gt;retype</code>、<code>&#123;函数主体&#125;</code>。</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">[capture](parameters) opt -&gt;retType
+&#123;
+    ……;
+&#125;
+&#x2F;&#x2F;调用
+[&#x3D;]()&#123;
+    
+&#125;();<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>局部变量引入方式（捕获列表）如下：</p>
+<table>
+<thead>
+<tr>
+<th>捕获形式</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>[ ]</td>
+<td>不能访问外部函数体的任何局部变量</td>
+</tr>
+<tr>
+<td>[a]</td>
+<td>在函数体内部使用值传递的方式访问 a 变量</td>
+</tr>
+<tr>
+<td>[&amp;b]</td>
+<td>在函数体内部使用引用传递的方式访问 b 变量</td>
+</tr>
+<tr>
+<td>[&#x3D;]</td>
+<td>函数外的所有局部变量都通过值传递的方式使用，函数体内使用的是副本</td>
+</tr>
+<tr>
+<td>[&amp;]</td>
+<td>引用的方式使用 lambda 表达式外部的所有变量</td>
+</tr>
+<tr>
+<td>[&#x3D;, &amp;foo]</td>
+<td>foo 使用引用方式，其余是值传递的方式</td>
+</tr>
+<tr>
+<td>[&amp;, foo]</td>
+<td>foo 使用值传递方式，其余是引用传递的方式</td>
+</tr>
+<tr>
+<td>[this]</td>
+<td>在函数内部可以使用类的成员函数和成员变量，&#x3D; 和 &amp; 形式也都会默认引入</td>
+</tr>
+</tbody></table>
+<div class="md-note md-warn">
+**注意** 引用方式捕获的对象可能存在“局部变量已释放而 lambda 尚未被调用”的情况，此时引用捕获进来的局部变量值不可预知。无特殊情况下建议使用 `[=](){}` 的形式。
+</div>
+
+<h3 id="2-8-opt-额外属性"><a href="#2-8-opt-额外属性" class="headerlink" title="2.8 opt 额外属性"></a>2.8 opt 额外属性</h3><p>最常用的是 <code>mutable</code> 声明，这部分可以省略。外部函数局部变量通过值传递引进来时，其默认是 <code>const</code>，不能修改该局部变量的拷贝，加上 <code>mutable</code> 即可修改。</p>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">int c &#x3D; 0;
+[ c ] () mutable &#123;
+    cout &lt;&lt; c &lt;&lt; endl;
+    c &#x3D; 10;
+&#125;();<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<blockquote>
+<p>lambda 表达式的返回值</p>
+</blockquote>
+<pre class="line-numbers language-c++" data-language="c++"><code class="language-c++">&#x2F;&#x2F; int --&gt; 返回值的类型
+int b &#x3D; [c] () mutable -&gt; int &#123;
+    cout &lt;&lt; c &lt;&lt; endl;
+    c &#x3D; 10;
+    return 100;
+    &#125;();<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="2-9-槽函数使用-Lambda-表达式"><a href="#2-9-槽函数使用-Lambda-表达式" class="headerlink" title="2.9 槽函数使用 Lambda 表达式"></a>2.9 槽函数使用 Lambda 表达式</h3><p>以 <code>QPushButton</code> 点击事件为例，可直接将 Lambda 作为槽函数传入 <code>connect</code>。</p>
+<pre class="line-numbers language-cpp" data-language="cpp"><code class="language-cpp"><span class="token function">connect</span><span class="token punctuation">(</span>btn<span class="token punctuation">,</span><span class="token operator">&amp;</span>QPushButton<span class="token double-colon punctuation">::</span>clicked<span class="token punctuation">,</span><span class="token punctuation">[</span><span class="token operator">=</span><span class="token punctuation">]</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#123;</span>
+        <span class="token function">qDebug</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token operator">&lt;&lt;</span><span class="token string">"Clicked"</span><span class="token punctuation">;</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<hr>
+<blockquote>
+<p><strong>一句话总结</strong>：Qt 通过“信号与槽”机制与跨平台 C++ API，让开发者以一套代码构建多平台原生界面，并用 Lambda 等现代 C++ 特性简化事件处理逻辑。</p>
+</blockquote>
+
+        </article>
+        <section class="post-near">
+            <ul>
+                
+                    <li>上一篇: <a href="/2026/09/01/React/">React</a></li>
+                
+                
+                    <li>下一篇: <a href="/2026/07/01/Php/">PHP</a></li>
+                
+            </ul>
+        </section>
+        
+            <section class="post-tags">
+            <a class="-none-link" href="/tags/QT/" rel="tag">QT</a>
+            </section>
+        
+    
+        <section class="post-author">
+        
+            <figure class="author-avatar">
+                <img src="https://nos.netease.com/ysf/984b6beaecc19c99414093c0481a2619.png" alt="日初" />
+            </figure>
+        
+            <div class="author-info">
+                <h4>日初</h4>
+                <p>去关于我看看吧(´・ω・`)</p>
+            </div>
+        </section>
+    
+    </div>
+</main>
+
+    <footer>
+    <div class="buttons">
+        <a class="to-top" href="#"></a>
+    </div>
+    <div class="wrap min">
+        <section class="widget">
+            <div class="row">
+                <div class="col-m-4">
+                    <h3 class="title-recent">最新文章：</h3>
+                    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2026/10/28/%E7%9F%A5%E8%AF%86%E6%96%87%E6%A1%A3%E6%8A%80%E6%9C%AF%E6%96%87%E6%A1%A3/">企业知识库技术文档（RAG + pgvector）</a></li><li class="post-list-item"><a class="post-list-link" href="/2026/10/27/%E6%8A%80%E8%83%BD%E5%BC%80%E5%8F%91%E6%8C%87%E5%8D%97/">技能开发指南</a></li><li class="post-list-item"><a class="post-list-link" href="/2026/10/27/%E6%8A%80%E8%83%BD%E6%A8%A1%E5%BC%8F%E4%BB%A3%E7%90%86%E8%AE%BE%E8%AE%A1%E6%96%87%E6%A1%A3/">技能模式 AI Agent 系统设计</a></li><li class="post-list-item"><a class="post-list-link" href="/2026/10/01/Redis/">Redis</a></li><li class="post-list-item"><a class="post-list-link" href="/2026/09/01/React/">React</a></li><li class="post-list-item"><a class="post-list-link" href="/2026/08/01/QT/">QT</a></li></ul>
+                </div>
+                <div class="col-m-4">
+                    <h3 class="title-date">时光机：</h3>
+                    <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/10/">十月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/09/">九月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/08/">八月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/07/">七月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/06/">六月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/05/">五月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/04/">四月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/03/">三月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/02/">二月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/01/">一月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/12/">十二月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/11/">十一月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/10/">十月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/09/">九月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/08/">八月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/07/">七月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/06/">六月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/05/">五月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/04/">四月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/03/">三月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/02/">二月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/01/">一月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/12/">十二月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/11/">十一月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/10/">十月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/09/">九月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/08/">八月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/07/">七月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/06/">六月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/05/">五月 2024</a></li></ul>
+                </div>
+                <div class="col-m-4">
+                    <h3 class="title-tags">标签云：</h3>
+                    <a href="/tags/AI-Agent/" style="font-size: 20px;">AI Agent</a> <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/CSS/" style="font-size: 20px;">CSS</a> <a href="/tags/Centos/" style="font-size: 20px;">Centos</a> <a href="/tags/Docker/" style="font-size: 20px;">Docker</a> <a href="/tags/Dubbo/" style="font-size: 20px;">Dubbo</a> <a href="/tags/Flutter/" style="font-size: 20px;">Flutter</a> <a href="/tags/GO/" style="font-size: 20px;">GO</a> <a href="/tags/Game/" style="font-size: 20px;">Game</a> <a href="/tags/Go/" style="font-size: 20px;">Go</a> <a href="/tags/Go-Web/" style="font-size: 20px;">Go Web</a> <a href="/tags/HBase/" style="font-size: 20px;">HBase</a> <a href="/tags/Hadoop/" style="font-size: 20px;">Hadoop</a> <a href="/tags/JQuery/" style="font-size: 20px;">JQuery</a> <a href="/tags/JS/" style="font-size: 20px;">JS</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/Java-Web/" style="font-size: 20px;">Java Web</a> <a href="/tags/K8S/" style="font-size: 20px;">K8S</a> <a href="/tags/Kotlin/" style="font-size: 20px;">Kotlin</a> <a href="/tags/Linux/" style="font-size: 20px;">Linux</a> <a href="/tags/MongoDB/" style="font-size: 20px;">MongoDB</a> <a href="/tags/MySql/" style="font-size: 20px;">MySql</a> <a href="/tags/MybatisPlus/" style="font-size: 20px;">MybatisPlus</a> <a href="/tags/Nginx/" style="font-size: 20px;">Nginx</a> <a href="/tags/NodeJs/" style="font-size: 20px;">NodeJs</a> <a href="/tags/PHP/" style="font-size: 20px;">PHP</a> <a href="/tags/Promise/" style="font-size: 20px;">Promise</a> <a href="/tags/QT/" style="font-size: 20px;">QT</a> <a href="/tags/RAG/" style="font-size: 20px;">RAG</a> <a href="/tags/React/" style="font-size: 20px;">React</a> <a href="/tags/Redis/" style="font-size: 20px;">Redis</a> <a href="/tags/Skill/" style="font-size: 20px;">Skill</a> <a href="/tags/Spark/" style="font-size: 20px;">Spark</a> <a href="/tags/Spring-Cloud/" style="font-size: 20px;">Spring Cloud</a> <a href="/tags/SpringMVC/" style="font-size: 20px;">SpringMVC</a> <a href="/tags/UniApp/" style="font-size: 20px;">UniApp</a> <a href="/tags/UniCloud/" style="font-size: 20px;">UniCloud</a> <a href="/tags/Unity/" style="font-size: 20px;">Unity</a> <a href="/tags/Vue/" style="font-size: 20px;">Vue</a> <a href="/tags/Webpack/" style="font-size: 20px;">Webpack</a> <a href="/tags/ZooKeeper/" style="font-size: 20px;">ZooKeeper</a> <a href="/tags/pgvector/" style="font-size: 20px;">pgvector</a> <a href="/tags/%E5%89%8D%E7%AB%AF/" style="font-size: 20px;">前端</a> <a href="/tags/%E5%90%91%E9%87%8F%E6%A3%80%E7%B4%A2/" style="font-size: 20px;">向量检索</a> <a href="/tags/%E6%8A%80%E8%83%BD/" style="font-size: 20px;">技能</a> <a href="/tags/%E6%8A%80%E8%83%BD%E6%A8%A1%E5%BC%8F/" style="font-size: 20px;">技能模式</a> <a href="/tags/%E7%9F%A5%E8%AF%86%E5%BA%93/" style="font-size: 20px;">知识库</a> <a href="/tags/%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1/" style="font-size: 20px;">系统设计</a> <a href="/tags/%E8%BF%90%E7%BB%B4/" style="font-size: 20px;">运维</a>
+                </div>
+            </div>
+        </section>
+        <section class="sub-footer">
+            <p>© 2026 <a href="/">Richu</a>. All Rights Reserved. Theme By <a href="https://github.com/Dreamer-Paul/Hingle" target="_blank" rel="nofollow">Hingle</a>.</p>
+        </section>
+    </div>
+</footer>
+
+
+<script src="/static/kico.js"></script>
+<script src="/static/hingle.js"></script>
+
+
+<script>var SITE_ROOT = "/";</script>
+<script>var hingle = new Paul_Hingle({"copyright":true,"night":false,"code":{"language_label":true,"language_label_exclude":["markup","none","plain","plaintext","text"],"line_numbers":true,"line_numbers_toggle":true}});</script>
+
+    <script src="/js/mermaid-boot.js"></script>
+  </body>
+</html>

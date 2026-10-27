@@ -1,0 +1,1877 @@
+<!DOCTYPE html>
+<html>
+  <head>
+     
+    <meta charset="UTF-8">
+    <title>Linux - Richu</title>
+    <link rel="shortcut icon" href="/static/img/icon.png">
+    <link rel="icon" href="/static/img/icon.png" sizes="192x192"/>
+    
+<link rel="stylesheet" href="/static/kico.css">
+<link rel="stylesheet" href="/static/hingle.css">
+<link rel="stylesheet" href="/static/md-enhance.css">
+
+    
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <meta name="viewport" content="width=device-width, maximum-scale=1, initial-scale=1"/>
+    <meta property="og:site_name" content="Richu">
+    <meta property="og:title" content="Linux"/>
+    
+    <style>body:before{ content: ''; background-image: url(http://kycloud3.koyoo.cn/2025033176e99202503311036156636.jpg) }</style>
+    
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+  <body>
+    <header>
+    <div class="head-title">
+        <h4>Richu</h4>
+    </div>
+    <div class="head-action">
+        <div class="toggle-btn"></div>
+        <div class="light-btn"></div>
+        <div class="search-btn"></div>
+    </div>
+    <form class="head-search" method="post">
+        <input type="text" name="s" placeholder="搜索什么？">
+    </form>
+    <nav class="head-menu">
+        <a href="/">首页</a>
+        <div class="has-child">
+            <a>分类</a>
+            <div class="sub-menu">
+                <a class="category-link" href="/categories/AI/">AI</a><a class="category-link" href="/categories/Android/">Android</a><a class="category-link" href="/categories/Go/">Go</a><a class="category-link" href="/categories/Java/">Java</a><a class="category-link" href="/categories/QT/">QT</a><a class="category-link" href="/categories/Unity/">Unity</a><a class="category-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a><a class="category-link" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a><a class="category-link" href="/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE/">大数据</a><a class="category-link" href="/categories/%E8%BF%90%E7%BB%B4/">运维</a>
+            </div>
+        </div>
+        
+            <a href="/links">常用链接</a>
+        
+    </nav>
+</header>
+
+    <main>
+    <div class="wrap min">
+        <section class="post-title">
+            <h2>Linux</h2>
+            <div class="post-meta">
+                
+                    <time class="updated" datetime="2026-10-27T03:41:47.448Z" title="最后更新于 2026-10-27 11:41" aria-label="最后更新于 2026-10-27 11:41">2026.10.27</time>
+                
+                <time class="date">2025.12.01</time>
+            
+                <span class="category"><a class="category-link" href="/categories/%E8%BF%90%E7%BB%B4/">运维</a></span>
+            
+            </div>
+        </section>
+        <article class="post-content">
+            <div class="md-intro">
+
+<div class="md-hero">Linux</div>
+<blockquote>
+<p>Linux 是一种自由和开放源码的类 UNIX 操作系统（Linux is not Unix）。Linux 遵循 GNU 通用公共许可证（GPL），任何个人和机构都可以自由地使用 Linux 的所有底层源代码，也可以自由地修改和再发布。由于 Linux 是自由软件，任何人都可以创建一个符合自己需求的 Linux 发行版。</p>
+<p>其核心在于 <strong>以开源、多用户与权限隔离的模型</strong> 构建稳定、可定制的服务器与开发环境，这正是它被企业基础设施广泛采用的原因。</p>
+</blockquote>
+<div class="md-lead">传统商业 UNIX 价格高昂且闭源，Linux 以免费、可定制和强大的命令行与权限体系，解决了服务器成本控制与大规模自动化运维的痛点。</div>
+
+</div>
+
+<p><span class="md-kbd-wrap"><span class="md-kbd">Linux · 运维技术手册</span></span></p>
+<h2 id="1-概述"><a href="#1-概述" class="headerlink" title="1. 概述"></a>1. 概述</h2><p>Linux 是一种自由开源的类 UNIX 操作系统，遵循 GPL 许可证，任何人都可以自由使用、修改并再发布其底层源代码。它以开源、多用户与权限隔离的模型构建稳定、可定制的服务器与开发环境，因此被企业基础设施广泛采用。相比价格高昂且闭源的传统商业 UNIX，Linux 凭借免费、可定制以及强大的命令行与权限体系，解决了服务器成本控制与大规模自动化运维的痛点。</p>
+<h2 id="2-Linux-基础命令"><a href="#2-Linux-基础命令" class="headerlink" title="2. Linux 基础命令"></a>2. Linux 基础命令</h2><h3 id="1-1-Linux-的目录结构"><a href="#1-1-Linux-的目录结构" class="headerlink" title="1.1 Linux 的目录结构"></a>1.1 Linux 的目录结构</h3><blockquote>
+<p>目录结构是一个树型结构</p>
+<p>只有一个根目录，所有文件都在根目录 <code>/</code> 下面</p>
+</blockquote>
+<blockquote>
+<p>层级关系用 <code>/</code> 表示</p>
+</blockquote>
+<h3 id="1-2-Linux-命令基础"><a href="#1-2-Linux-命令基础" class="headerlink" title="1.2 Linux 命令基础"></a>1.2 Linux 命令基础</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token builtin class-name">command</span> <span class="token punctuation">[</span>-option<span class="token punctuation">]</span> <span class="token punctuation">[</span>parameter<span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<table>
+<thead>
+<tr>
+<th>组成部分</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>command</code></td>
+<td>命令本身</td>
+</tr>
+<tr>
+<td><code>-option</code></td>
+<td>【可选，非必填】命令的一些选项，可以通过选项控制命令的行为细节</td>
+</tr>
+<tr>
+<td><code>parameter</code></td>
+<td>【可选，非必填】命令的参数，多数用于命令的指向目标等</td>
+</tr>
+</tbody></table>
+<h3 id="1-3-ls-命令入门"><a href="#1-3-ls-命令入门" class="headerlink" title="1.3 ls 命令入门"></a>1.3 ls 命令入门</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">ls</span> <span class="token punctuation">[</span>-a <span class="token parameter variable">-l</span> -h<span class="token punctuation">]</span> <span class="token punctuation">[</span>Linux路径<span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<table>
+<thead>
+<tr>
+<th>组成部分</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>-a -l -h</code></td>
+<td>可选的选项</td>
+</tr>
+<tr>
+<td><code>Linux路径</code></td>
+<td>此命令可选的参数</td>
+</tr>
+</tbody></table>
+<h3 id="1-4-ls-命令的参数和选项"><a href="#1-4-ls-命令的参数和选项" class="headerlink" title="1.4 ls 命令的参数和选项"></a>1.4 ls 命令的参数和选项</h3><table>
+<thead>
+<tr>
+<th>选项</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>-a</code></td>
+<td>all 的意思，即列出全部文件（包含隐藏的文件&#x2F;文件夹）</td>
+</tr>
+<tr>
+<td><code>-l</code></td>
+<td>list，以列表的形式展示内容，并展示更多信息</td>
+</tr>
+<tr>
+<td><code>-h</code></td>
+<td>表示以易于阅读的形式，列出文件大小，如 K、M、G；<strong>必须搭配 <code>-l</code> 一起使用</strong></td>
+</tr>
+</tbody></table>
+<h3 id="1-5-目录切换相关命令（cd-pwd）"><a href="#1-5-目录切换相关命令（cd-pwd）" class="headerlink" title="1.5 目录切换相关命令（cd &#x2F; pwd）"></a>1.5 目录切换相关命令（cd &#x2F; pwd）</h3><h4 id="1-5-1-cd"><a href="#1-5-1-cd" class="headerlink" title="1.5.1 cd"></a>1.5.1 cd</h4><blockquote>
+<p>可以使用 <code>cd</code> 命令，更改当前所在的工作目录</p>
+<p>cd：change directory</p>
+</blockquote>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token builtin class-name">cd</span> linux路径<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<ul>
+<li><code>cd</code> 命令无需选项，只有参数，表示要切换到哪个目录下</li>
+<li><code>cd</code> 命令直接执行，不写参数，表示回到用户的 HOME 目录</li>
+</ul>
+<h4 id="1-5-2-pwd"><a href="#1-5-2-pwd" class="headerlink" title="1.5.2 pwd"></a>1.5.2 pwd</h4><blockquote>
+<p>通过 <code>pwd</code> 命令查看当前的工作目录</p>
+<p>pwd：print work directory</p>
+</blockquote>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token builtin class-name">pwd</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<ul>
+<li>无选项，无参数，直接输入 <code>pwd</code> 即可</li>
+</ul>
+<h3 id="1-6-相对路径、绝对路径和特殊路径符"><a href="#1-6-相对路径、绝对路径和特殊路径符" class="headerlink" title="1.6 相对路径、绝对路径和特殊路径符"></a>1.6 相对路径、绝对路径和特殊路径符</h3><h4 id="1-6-1-绝对路径"><a href="#1-6-1-绝对路径" class="headerlink" title="1.6.1 绝对路径"></a>1.6.1 绝对路径</h4><blockquote>
+<p>绝对路径：以根目录为起点</p>
+</blockquote>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token builtin class-name">cd</span> /home/test1/test2<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<h4 id="1-6-2-相对路径"><a href="#1-6-2-相对路径" class="headerlink" title="1.6.2 相对路径"></a>1.6.2 相对路径</h4><blockquote>
+<p>相对路径：以当前目录为起点</p>
+</blockquote>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token builtin class-name">cd</span> test1<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<h4 id="1-6-3-特殊路径符"><a href="#1-6-3-特殊路径符" class="headerlink" title="1.6.3 特殊路径符"></a>1.6.3 特殊路径符</h4><table>
+<thead>
+<tr>
+<th>符号</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>.</code></td>
+<td>表示当前目录</td>
+</tr>
+<tr>
+<td><code>..</code></td>
+<td>表示上一级目录</td>
+</tr>
+<tr>
+<td><code>~</code></td>
+<td>表示 HOME 目录</td>
+</tr>
+</tbody></table>
+<h3 id="1-7-创建目录命令（mkdir）"><a href="#1-7-创建目录命令（mkdir）" class="headerlink" title="1.7 创建目录命令（mkdir）"></a>1.7 创建目录命令（mkdir）</h3><blockquote>
+<p><code>mkdir</code> 命令可以创建新的目录（文件夹）</p>
+<p>mkdir：make directory</p>
+</blockquote>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">mkdir</span> <span class="token punctuation">[</span>-p<span class="token punctuation">]</span> Linux路径<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<ul>
+<li>参数必填，表示 Linux 路径，即要创建文件夹的路径，相对路径或绝对路径均可</li>
+<li><code>-p</code> 选项选填，表示自动创建不存在的父目录，适用于创建连续多层级的目录</li>
+</ul>
+<h3 id="1-8-文件操作命令-part1（touch、cat、more）"><a href="#1-8-文件操作命令-part1（touch、cat、more）" class="headerlink" title="1.8 文件操作命令 part1（touch、cat、more）"></a>1.8 文件操作命令 part1（touch、cat、more）</h3><h4 id="1-8-1-touch"><a href="#1-8-1-touch" class="headerlink" title="1.8.1 touch"></a>1.8.1 touch</h4><blockquote>
+<p><code>touch</code> 命令无选项，参数必填，表示创建的文件路径，相对、绝对、特殊路径均可</p>
+</blockquote>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">touch</span> Linux路径<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<h4 id="1-8-2-cat"><a href="#1-8-2-cat" class="headerlink" title="1.8.2 cat"></a>1.8.2 cat</h4><blockquote>
+<p><code>cat</code> 同样没有选项，只有必填参数，参数表示：被查看的文件路径，相对、绝对、特殊路径符都可以使用</p>
+</blockquote>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">cat</span> Linux路径<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<h4 id="1-8-3-more"><a href="#1-8-3-more" class="headerlink" title="1.8.3 more"></a>1.8.3 more</h4><blockquote>
+<p><code>more</code> 可以一页一页展示文件内容</p>
+<p>同样没有选项，只有必填参数，参数表示：被查看的文件路径，相对、绝对、特殊路径符都可以使用</p>
+<p>在查看时用空格翻页</p>
+<p>按 <code>q</code> 退出</p>
+</blockquote>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">more</span> Linux路径<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<h3 id="1-9-文件操作命令-part2（cp、mv、rm）"><a href="#1-9-文件操作命令-part2（cp、mv、rm）" class="headerlink" title="1.9 文件操作命令 part2（cp、mv、rm）"></a>1.9 文件操作命令 part2（cp、mv、rm）</h3><h4 id="1-9-1-cp"><a href="#1-9-1-cp" class="headerlink" title="1.9.1 cp"></a>1.9.1 cp</h4><blockquote>
+<p><code>cp</code> 命令可以复制文件&#x2F;文件夹，cp 命令来自英文单词：copy</p>
+</blockquote>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">cp</span> <span class="token punctuation">[</span>-r<span class="token punctuation">]</span> 参数1 参数2<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<table>
+<thead>
+<tr>
+<th>组成部分</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>-r</code></td>
+<td>可选，用于复制文件夹，表示递归</td>
+</tr>
+<tr>
+<td>参数1</td>
+<td>Linux 路径，表示复制的文件或文件夹</td>
+</tr>
+<tr>
+<td>参数2</td>
+<td>Linux 路径，表示要复制去的地方</td>
+</tr>
+</tbody></table>
+<h4 id="1-9-2-mv"><a href="#1-9-2-mv" class="headerlink" title="1.9.2 mv"></a>1.9.2 mv</h4><blockquote>
+<p><code>mv</code> 命令可以用于移动文件\文件夹，mv 命令来自英文单词：move</p>
+</blockquote>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">mv</span> 参数1 参数2<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<table>
+<thead>
+<tr>
+<th>组成部分</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>参数1</td>
+<td>Linux 路径，表示被移动的文件或文件夹</td>
+</tr>
+<tr>
+<td>参数2</td>
+<td>Linux 路径，表示要移动去的地方；若目标不存在，则进行改名（需确保目标存在）</td>
+</tr>
+</tbody></table>
+<h4 id="1-9-3-rm"><a href="#1-9-3-rm" class="headerlink" title="1.9.3 rm"></a>1.9.3 rm</h4><blockquote>
+<p><code>rm</code> 命令可用于删除文件、文件夹</p>
+<p>rm 命令来自英文单词：remove</p>
+</blockquote>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">rm</span> <span class="token punctuation">[</span>-r -f<span class="token punctuation">]</span> 参数1，参数2，<span class="token punctuation">..</span>.参数n<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<table>
+<thead>
+<tr>
+<th>组成部分</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>-r</code></td>
+<td>同 <code>cp</code> 命令，用于删除文件夹</td>
+</tr>
+<tr>
+<td><code>-f</code></td>
+<td>force，强制删除（不会弹出提示确认信息），常用于 root 用户</td>
+</tr>
+<tr>
+<td>参数1…参数n</td>
+<td>要删除的文件或文件夹路径，按空格隔开</td>
+</tr>
+</tbody></table>
+<div class="md-note md-warn"> **通配符 `*` 的模糊匹配** 删除操作破坏性极强，使用 `-f` 与通配符时务必确认匹配范围：<br>`test*` 匹配任何以 test 开头的内容；<br>`*test` 匹配任何以 test 结尾的内容；<br>`*test*` 匹配任何包含 test 的内容。 </div>
+
+<h3 id="1-10-查找命令（which、find）"><a href="#1-10-查找命令（which、find）" class="headerlink" title="1.10 查找命令（which、find）"></a>1.10 查找命令（which、find）</h3><h4 id="1-10-1-which"><a href="#1-10-1-which" class="headerlink" title="1.10.1 which"></a>1.10.1 which</h4><blockquote>
+<p>命令相当于 Windows 系统的 <code>.exe</code> 文件</p>
+</blockquote>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">which</span> 要查找的命令<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<h4 id="1-10-2-find"><a href="#1-10-2-find" class="headerlink" title="1.10.2 find"></a>1.10.2 find</h4><blockquote>
+<p>查找文件名，可以使用通配符模糊匹配</p>
+</blockquote>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">find</span> 起始路径 <span class="token punctuation">[</span>-name -size<span class="token punctuation">]</span> <span class="token string">"被查找的文件名"</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<table>
+<thead>
+<tr>
+<th>选项</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>-name</code></td>
+<td>按名字查找</td>
+</tr>
+<tr>
+<td><code>-size</code></td>
+<td>按空间查找</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>size 查找：<code>+</code>、<code>-</code> 表示大于和小于；<code>n</code> 表示大小数字；<code>KMG</code> 表示大小单位</p>
+</blockquote>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">find</span> 起始路径 <span class="token parameter variable">-size</span> +<span class="token operator">|</span>-n<span class="token punctuation">[</span>KMG<span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<h3 id="1-11-grep、wc-和管道符"><a href="#1-11-grep、wc-和管道符" class="headerlink" title="1.11 grep、wc 和管道符"></a>1.11 grep、wc 和管道符</h3><h4 id="1-11-1-grep"><a href="#1-11-1-grep" class="headerlink" title="1.11.1 grep"></a>1.11.1 grep</h4><blockquote>
+<p>可以通过 <code>grep</code> 命令，从文件中通过关键字过滤文件行</p>
+</blockquote>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">grep</span> <span class="token punctuation">[</span>-n<span class="token punctuation">]</span> 关键字 文件路径<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<table>
+<thead>
+<tr>
+<th>组成部分</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>-n</code></td>
+<td>可选，在结果中显示匹配的行或行号</td>
+</tr>
+<tr>
+<td>关键字</td>
+<td>必填，过滤的关键字；带有空格或其他符号，建议使用 <code>&quot;&quot;</code> 将关键字包围起来</td>
+</tr>
+<tr>
+<td>文件路径</td>
+<td>必填，要过滤内容的文件路径，可作为内容输入端口</td>
+</tr>
+</tbody></table>
+<h4 id="1-11-2-wc"><a href="#1-11-2-wc" class="headerlink" title="1.11.2 wc"></a>1.11.2 wc</h4><blockquote>
+<p>可以使用 <code>wc</code> 命令统计文件的行数、单词数量等</p>
+</blockquote>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">wc</span> <span class="token punctuation">[</span>-c <span class="token parameter variable">-m</span> <span class="token parameter variable">-l</span> -w<span class="token punctuation">]</span> 文件路径<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<table>
+<thead>
+<tr>
+<th>选项</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>-c</code></td>
+<td>统计 bytes 的数量</td>
+</tr>
+<tr>
+<td><code>-m</code></td>
+<td>统计字符数量</td>
+</tr>
+<tr>
+<td><code>-l</code></td>
+<td>统计行数</td>
+</tr>
+<tr>
+<td><code>-w</code></td>
+<td>统计单词数量</td>
+</tr>
+</tbody></table>
+<ul>
+<li>参数 <code>文件路径</code>：被统计的文件，可以作为内容输入端口</li>
+</ul>
+<h4 id="1-11-3-特殊符号-（管道符）"><a href="#1-11-3-特殊符号-（管道符）" class="headerlink" title="1.11.3 特殊符号 |（管道符）"></a>1.11.3 特殊符号 <code>|</code>（管道符）</h4><blockquote>
+<p>将管道符左边的命令的结果，作为右边命令的输入</p>
+</blockquote>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">cat</span> test.txt <span class="token operator">|</span> <span class="token function">grep</span> hello<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<h3 id="1-12-echo、tail-和重定向符"><a href="#1-12-echo、tail-和重定向符" class="headerlink" title="1.12 echo、tail 和重定向符"></a>1.12 echo、tail 和重定向符</h3><h4 id="1-12-1-echo"><a href="#1-12-1-echo" class="headerlink" title="1.12.1 echo"></a>1.12.1 echo</h4><blockquote>
+<p>可以使用 <code>echo</code> 命令在命令行输出指定内容，最好使用 <code>&quot;&quot;</code> 包围起来</p>
+</blockquote>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token builtin class-name">echo</span> 输出的内容<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<h4 id="1-12-2-反引号"><a href="#1-12-2-反引号" class="headerlink" title="1.12.2 反引号 `"></a>1.12.2 反引号 <code>`</code></h4><blockquote>
+<p>被反引号包围的内容会作为命令执行，而非普通字符</p>
+</blockquote>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token builtin class-name">echo</span> <span class="token builtin class-name">pwd</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<blockquote>
+<p>会直接打印出 <code>pwd</code>，使用反引号即可将 <code>pwd</code> 视为命令执行 <code>echo \</code>pwd`&#96;</p>
+</blockquote>
+<h4 id="1-12-3-重定向符"><a href="#1-12-3-重定向符" class="headerlink" title="1.12.3 重定向符"></a>1.12.3 重定向符</h4><blockquote>
+<p><code>&gt;</code> 和 <code>&gt;&gt;</code></p>
+</blockquote>
+<ul>
+<li><code>&gt;</code> 将左侧命令的结果，覆盖写入到符号右侧指定的文件中</li>
+<li><code>&gt;&gt;</code> 将左侧命令的结果，追加写入符号右侧指定的文件中</li>
+</ul>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token builtin class-name">echo</span> <span class="token string">"echo hahahaha"</span> <span class="token operator">>></span> test1.txt<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<h4 id="1-12-4-tail"><a href="#1-12-4-tail" class="headerlink" title="1.12.4 tail"></a>1.12.4 tail</h4><blockquote>
+<p>可以查看文件尾部的内容，跟踪文件的最新更新</p>
+</blockquote>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">tail</span> <span class="token punctuation">[</span>-f -num<span class="token punctuation">]</span> Linux路径<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<table>
+<thead>
+<tr>
+<th>组成部分</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>Linux路径</code></td>
+<td>被跟踪的文件路径</td>
+</tr>
+<tr>
+<td><code>-f</code></td>
+<td>持续跟踪</td>
+</tr>
+<tr>
+<td><code>-num</code></td>
+<td>查看尾部多少行，不填默认 10 行</td>
+</tr>
+</tbody></table>
+<h3 id="1-13-vi-vim-编辑器"><a href="#1-13-vi-vim-编辑器" class="headerlink" title="1.13 vi&#x2F;vim 编辑器"></a>1.13 vi&#x2F;vim 编辑器</h3><h4 id="1-13-1-三种模式"><a href="#1-13-1-三种模式" class="headerlink" title="1.13.1 三种模式"></a>1.13.1 三种模式</h4><table>
+<thead>
+<tr>
+<th>模式</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>命令模式（command mode）</td>
+<td>所有按键都视为命令，以命令的形式执行不同功能；此模式下不能自由进行文本编辑</td>
+</tr>
+<tr>
+<td>输入模式（insert mode）</td>
+<td>编辑模式、插入模式；此模式下可以对文件内容进行自由编辑</td>
+</tr>
+<tr>
+<td>底线模式（last line mode）</td>
+<td>以 <code>:</code> 开始，通常用于文件的保存、退出</td>
+</tr>
+</tbody></table>
+<h4 id="1-13-2-vim-的进入"><a href="#1-13-2-vim-的进入" class="headerlink" title="1.13.2 vim 的进入"></a>1.13.2 vim 的进入</h4><table>
+<thead>
+<tr>
+<th>语法</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>vim 文件路径</code></td>
+<td>直接打开指定文件（光标位于首行或上次关闭文件时光标的所在行）</td>
+</tr>
+<tr>
+<td><code>vim +数字 文件路径</code></td>
+<td>打开指定文件并将光标移动到指定行（数字对应的行数）</td>
+</tr>
+<tr>
+<td><code>vim +/关键词 文件路径</code></td>
+<td>打开指定文件并高亮显示关键词</td>
+</tr>
+<tr>
+<td><code>vim 文件路径1 文件路径2 文件路径3</code></td>
+<td>同时打开多个文件，文件之间可切换操作</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>如果文件路径表示的文件不存在，此命令会用于编辑新文件；</p>
+<p>如果文件路径表示的文件存在，此命令会用于编辑已有文件。</p>
+</blockquote>
+<h4 id="1-13-3-模式的切换"><a href="#1-13-3-模式的切换" class="headerlink" title="1.13.3 模式的切换"></a>1.13.3 模式的切换</h4><ol>
+<li><strong>切换到命令模式</strong><ul>
+<li>用 <code>vim</code> 指令打开文件时默认为命令模式；</li>
+<li>按一下键盘 <code>ESC</code> 键可从编辑模式切换到命令模式；</li>
+<li>按一下或连按两下 <code>ESC</code> 键，或用键盘删除末行模式下的英文符号 <code>:</code> 可从末行模式切换到命令模式。</li>
+</ul>
+</li>
+<li><strong>切换到末行模式</strong><ul>
+<li>命令模式下键盘输入英文符号 <code>:</code> 可切换到末行模式。</li>
+</ul>
+</li>
+<li><strong>切换到编辑模式</strong><ul>
+<li>命令模式下键盘输入字母 <code>i</code> 或 <code>a</code>（还有其他字母也可以，这两个比较常用）可切换到编辑模式以编辑。</li>
+</ul>
+</li>
+</ol>
+<h4 id="1-13-4-命令模式"><a href="#1-13-4-命令模式" class="headerlink" title="1.13.4 命令模式"></a>1.13.4 命令模式</h4><h5 id="1-13-4-1-光标移动"><a href="#1-13-4-1-光标移动" class="headerlink" title="1.13.4.1 光标移动"></a>1.13.4.1 光标移动</h5><table>
+<thead>
+<tr>
+<th>语法</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>^</code></td>
+<td>光标移动到光标所在行的行首</td>
+</tr>
+<tr>
+<td><code>$</code></td>
+<td>光标移动到光标所在行的行尾</td>
+</tr>
+<tr>
+<td><code>gg</code></td>
+<td>光标移动到文件的首行</td>
+</tr>
+<tr>
+<td><code>G</code></td>
+<td>光标移动到文件的尾行</td>
+</tr>
+<tr>
+<td><code>ctrl+b</code></td>
+<td>向上翻屏（前提是文件内容足够翻屏）</td>
+</tr>
+<tr>
+<td><code>ctrl+f</code></td>
+<td>向下翻屏</td>
+</tr>
+<tr>
+<td><code>数字G</code></td>
+<td>光标移动到指定行（数字对应的行数）</td>
+</tr>
+<tr>
+<td><code>数字+方向键上/下</code></td>
+<td>以光标所在行为准向上&#x2F;下移动指定行</td>
+</tr>
+<tr>
+<td><code>数字+方向键左/右</code></td>
+<td>以光标所在位置为准向左&#x2F;右移动指定个字符</td>
+</tr>
+<tr>
+<td><code>:数字</code></td>
+<td>输入 <code>:</code>+数字再回车，光标移动到指定行（属于末行模式）</td>
+</tr>
+</tbody></table>
+<h5 id="1-13-4-2-复制与粘贴"><a href="#1-13-4-2-复制与粘贴" class="headerlink" title="1.13.4.2 复制与粘贴"></a>1.13.4.2 复制与粘贴</h5><table>
+<thead>
+<tr>
+<th>语法</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>yy</code></td>
+<td>复制光标所在行</td>
+</tr>
+<tr>
+<td><code>数字yy</code></td>
+<td>从光标所在行开始向下复制指定行（包含光标所在行）</td>
+</tr>
+<tr>
+<td><code>ctrl+v</code></td>
+<td>进入可视化复制，用方向键控制复制区域，再输入 <code>yy</code> 完成复制</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>粘贴语法：<code>p</code> —— 在光标处粘贴复制的内容。</p>
+</blockquote>
+<h5 id="1-13-4-3-剪切-删除"><a href="#1-13-4-3-剪切-删除" class="headerlink" title="1.13.4.3 剪切&#x2F;删除"></a>1.13.4.3 剪切&#x2F;删除</h5><table>
+<thead>
+<tr>
+<th>语法</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>dd</code></td>
+<td>剪切光标所在行，下面行上移填补剪切行</td>
+</tr>
+<tr>
+<td><code>数字dd</code></td>
+<td>从光标所在行起向下剪切指定行，后面行上移填补</td>
+</tr>
+<tr>
+<td><code>D</code></td>
+<td>剪切光标所在行但后面行不上移填补，剪切行变空</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>删除即剪切后不复制，删除操作使用剪切语法。</p>
+</blockquote>
+<h5 id="1-13-4-4-撤销与恢复"><a href="#1-13-4-4-撤销与恢复" class="headerlink" title="1.13.4.4 撤销与恢复"></a>1.13.4.4 撤销与恢复</h5><table>
+<thead>
+<tr>
+<th>语法</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>:u</code></td>
+<td>输入 <code>:</code>+<code>u</code> 再回车（属于末行模式），撤销上一步操作</td>
+</tr>
+<tr>
+<td><code>ctrl+r</code></td>
+<td>恢复撤销操作（即取消之前的撤销操作）</td>
+</tr>
+</tbody></table>
+<h4 id="1-13-5-末行模式"><a href="#1-13-5-末行模式" class="headerlink" title="1.13.5 末行模式"></a>1.13.5 末行模式</h4><h5 id="1-13-5-1-保存"><a href="#1-13-5-1-保存" class="headerlink" title="1.13.5.1 保存"></a>1.13.5.1 保存</h5><table>
+<thead>
+<tr>
+<th>语法</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>:w</code></td>
+<td>保存当前文件</td>
+</tr>
+<tr>
+<td><code>:w 文件路径</code></td>
+<td>另存为指定文件</td>
+</tr>
+</tbody></table>
+<h5 id="1-13-5-2-退出"><a href="#1-13-5-2-退出" class="headerlink" title="1.13.5.2 退出"></a>1.13.5.2 退出</h5><table>
+<thead>
+<tr>
+<th>语法</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>:q</code></td>
+<td>退出当前文件</td>
+</tr>
+<tr>
+<td><code>:wq</code></td>
+<td>保存当前文件并退出</td>
+</tr>
+<tr>
+<td><code>:q!</code></td>
+<td>不保存对文件的修改并退出</td>
+</tr>
+</tbody></table>
+<h5 id="1-13-5-3-调用外部命令"><a href="#1-13-5-3-调用外部命令" class="headerlink" title="1.13.5.3 调用外部命令"></a>1.13.5.3 调用外部命令</h5><table>
+<thead>
+<tr>
+<th>语法</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>:!外部命令</code></td>
+<td>不退出文件的同时执行外部命令（如 <code>ls</code>），执行后按任意键切换回文件</td>
+</tr>
+</tbody></table>
+<h5 id="1-13-5-4-搜索-查找"><a href="#1-13-5-4-搜索-查找" class="headerlink" title="1.13.5.4 搜索&#x2F;查找"></a>1.13.5.4 搜索&#x2F;查找</h5><table>
+<thead>
+<tr>
+<th>语法</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>:/关键词</code></td>
+<td>按关键词查找，查找到的内容会被高亮显示</td>
+</tr>
+<tr>
+<td><code>N</code> &#x2F; <code>n</code></td>
+<td>光标移动到上&#x2F;下一个查找到的内容（属于命令模式）</td>
+</tr>
+<tr>
+<td><code>:nohl</code></td>
+<td>取消查找到的内容的高亮显示</td>
+</tr>
+</tbody></table>
+<h5 id="1-13-5-5-替换"><a href="#1-13-5-5-替换" class="headerlink" title="1.13.5.5 替换"></a>1.13.5.5 替换</h5><table>
+<thead>
+<tr>
+<th>语法</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>:s/搜索的内容/新内容</code></td>
+<td>替换光标所在行第一处被搜索到的内容</td>
+</tr>
+<tr>
+<td><code>:s/搜索的内容/新内容/g</code></td>
+<td>替换光标所在行全部被搜索到的内容</td>
+</tr>
+<tr>
+<td><code>:%s/搜索的内容/新内容</code></td>
+<td>替换整个文件每一行第一处被搜索到的内容</td>
+</tr>
+<tr>
+<td><code>:%s/搜索的内容/新内容/g</code></td>
+<td>替换整个文件全部被搜索到的内容</td>
+</tr>
+</tbody></table>
+<h5 id="1-13-5-6-显示行号"><a href="#1-13-5-6-显示行号" class="headerlink" title="1.13.5.6 显示行号"></a>1.13.5.6 显示行号</h5><table>
+<thead>
+<tr>
+<th>语法</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>:set nu</code></td>
+<td>显示文件每行的行号（临时，下次打开不再显示）</td>
+</tr>
+<tr>
+<td><code>:set nonu</code></td>
+<td>取消行号显示</td>
+</tr>
+</tbody></table>
+<h5 id="1-13-5-7-切换文件"><a href="#1-13-5-7-切换文件" class="headerlink" title="1.13.5.7 切换文件"></a>1.13.5.7 切换文件</h5><table>
+<thead>
+<tr>
+<th>语法</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>:files</code></td>
+<td>查看同时打开的所有文件的名称</td>
+</tr>
+<tr>
+<td><code>:open 文件名</code></td>
+<td>切换到其他打开的文件进行操作</td>
+</tr>
+<tr>
+<td><code>:bn</code></td>
+<td>切换到下一个打开的文件</td>
+</tr>
+<tr>
+<td><code>:bp</code></td>
+<td>切换到上一个操作的文件</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>注意：每执行完一次末行模式下的命令之后，都会自动退回到命令模式，因此每次执行末行模式下的命令都需要先输入英文符号 <code>:</code> 后再输入命令。</p>
+</blockquote>
+<h4 id="1-13-6-编辑模式"><a href="#1-13-6-编辑模式" class="headerlink" title="1.13.6 编辑模式"></a>1.13.6 编辑模式</h4><table>
+<thead>
+<tr>
+<th>按键</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>i</code></td>
+<td>在光标所在字符前开始插入</td>
+</tr>
+<tr>
+<td><code>a</code></td>
+<td>在光标所在字符后开始插入</td>
+</tr>
+<tr>
+<td><code>o</code></td>
+<td>在光标所在行的下面另起一行开始插入</td>
+</tr>
+<tr>
+<td><code>I</code></td>
+<td>在光标所在行的行首开始插入，若行首有空格则在空格后插入</td>
+</tr>
+<tr>
+<td><code>A</code></td>
+<td>在光标所在行的行尾开始插入</td>
+</tr>
+<tr>
+<td><code>O</code></td>
+<td>在光标所在行的上面另起一行开始插入</td>
+</tr>
+<tr>
+<td><code>S</code></td>
+<td>删除光标所在行并开始插入</td>
+</tr>
+</tbody></table>
+<h2 id="3-Linux-权限管控"><a href="#3-Linux-权限管控" class="headerlink" title="3. Linux 权限管控"></a>3. Linux 权限管控</h2><h3 id="2-1-root-用户（超级管理员）"><a href="#2-1-root-用户（超级管理员）" class="headerlink" title="2.1 root 用户（超级管理员）"></a>2.1 root 用户（超级管理员）</h3><ol>
+<li>无论是 Windows、MacOS、Linux 均采用多用户的管理模式进行权限管理。</li>
+</ol>
+<blockquote>
+<p>在 Linux 系统中，拥有最大权限的账户名为：<code>root</code>（超级管理员）。<br>而在前期，我们一直使用的账户是普通的用户：<code>kx</code>。</p>
+</blockquote>
+<ol start="2">
+<li><code>root</code> 用户拥有最大的系统操作权限，而普通用户在许多地方的权限是受限的。</li>
+</ol>
+<div class="md-note md-info"> **权限边界** 普通用户的权限，一般在其 HOME 目录内是不受限的；一旦出了 HOME 目录，大多数地方普通用户仅有只读和执行权限，无修改权限。 </div>
+
+<h3 id="2-2-su-和-exit-命令"><a href="#2-2-su-和-exit-命令" class="headerlink" title="2.2 su 和 exit 命令"></a>2.2 su 和 exit 命令</h3><ol>
+<li>在前面的学习中，我们接触过 <code>su</code> 命令切换到 root 账户。</li>
+</ol>
+<p><code>su</code> 命令就是用于账户切换的系统命令，其来源英文单词：Switch User</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">su</span> <span class="token punctuation">[</span>-<span class="token punctuation">]</span> <span class="token punctuation">[</span>用户名<span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<ul>
+<li><code>-</code> 符号是可选的，表示是否在切换用户后加载环境变量，建议带上</li>
+<li>参数：用户名，表示要切换的用户；用户名也可以省略，省略表示切换到 <code>root</code></li>
+</ul>
+<ol start="2">
+<li>切换用户后，可以通过 <code>exit</code> 命令退回到上一个用户，也可以使用快捷键：<code>Ctrl+d</code>。</li>
+</ol>
+<ul>
+<li>使用普通用户切换到其它用户需要输入密码（如切换到 root 用户）</li>
+<li>使用 root 用户切换到其它用户，无需密码，可以直接切换</li>
+</ul>
+<h3 id="2-3-sudo-命令"><a href="#2-3-sudo-命令" class="headerlink" title="2.3 sudo 命令"></a>2.3 sudo 命令</h3><ol>
+<li>在得知 root 密码的时候，可以使用 <code>su</code> 命令切换到 root 得到最大权限。但我们不建议长期使用 root 用户，避免带来系统损坏。可以使用 <code>sudo</code> 命令为普通的命令授权，临时以 root 身份执行。</li>
+</ol>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> 其他命令<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>在其它命令之前带上 <code>sudo</code>，即可为这一条命令临时赋予 root 授权。但并不是所有的用户都有权利使用 <code>sudo</code>，我们需要为普通用户配置 sudo 认证。</p>
+<ol start="2">
+<li>为普通用户配置 sudo 认证：</li>
+</ol>
+<ul>
+<li>切换到 root 用户，执行 <code>visudo</code> 命令，会自动通过 vi 编辑器打开 <code>/etc/sudoers</code>，在文件的最后添加：</li>
+</ul>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">kx <span class="token assign-left variable">ALL</span><span class="token operator">=</span><span class="token punctuation">(</span>ALL<span class="token punctuation">)</span> NOPASSWD:ALL<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<ul>
+<li>其中最后的 <code>NOPASSWD:ALL</code> 表示使用 <code>sudo</code> 命令无需输入密码，最后通过 <code>wq</code> 保存。</li>
+<li>切换回普通用户。</li>
+<li>之后执行的命令，均以 root 运行。</li>
+</ul>
+<h3 id="2-4-用户、用户组管理"><a href="#2-4-用户、用户组管理" class="headerlink" title="2.4 用户、用户组管理"></a>2.4 用户、用户组管理</h3><ol>
+<li><p>Linux 系统中可以：配置多个用户、配置多个用户组，并且用户可以加入多个用户组中。</p>
+</li>
+<li><p>Linux 中关于权限的管控级别有 2 个：针对用户的权限控制、针对用户组的权限控制。比如针对某文件，可以控制用户的权限，也可以控制用户组的权限。因此我们需要学习 Linux 中进行用户、用户组管理的基础命令，为后面学习权限控制打下基础。</p>
+</li>
+<li><p>用户组管理（以下命令需 root 用户执行）：</p>
+</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>操作</th>
+<th>命令</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>创建用户组</td>
+<td><code>groupadd 用户组名</code></td>
+</tr>
+<tr>
+<td>删除用户组</td>
+<td><code>groupdel 用户组名</code></td>
+</tr>
+</tbody></table>
+<ol start="4">
+<li>用户管理（以下命令需 root 用户执行）：</li>
+</ol>
+<table>
+<thead>
+<tr>
+<th>操作</th>
+<th>命令</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>创建用户</td>
+<td><code>useradd [-g -d] 用户名</code></td>
+</tr>
+<tr>
+<td>删除用户</td>
+<td><code>userdel [-r] 用户名</code></td>
+</tr>
+<tr>
+<td>查看用户所属组</td>
+<td><code>id 用户名</code></td>
+</tr>
+<tr>
+<td>修改用户所属组</td>
+<td><code>usermod -aG 用户组 用户名</code></td>
+</tr>
+</tbody></table>
+<ul>
+<li><code>useradd</code> 选项：<code>-g</code> 指定用户的组，不指定 <code>-g</code> 会创建同名组并自动加入；指定 <code>-g</code> 需要组已经存在（如已存在同名组，必须使用 <code>-g</code>）。</li>
+<li><code>useradd</code> 选项：<code>-d</code> 指定用户 HOME 路径，不指定则默认在 <code>/home/用户名</code>。</li>
+<li><code>userdel</code> 选项：<code>-r</code> 删除用户的 HOME 目录，不使用 <code>-r</code> 则删除用户时 HOME 目录保留。</li>
+<li><code>id</code> 参数：用户名，被查看的用户；如果不提供则查看自身。</li>
+</ul>
+<ol start="5">
+<li>getent</li>
+</ol>
+<p>（1）使用 <code>getent</code> 命令查看当前系统中有哪些用户：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">getent <span class="token function">passwd</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>共有 7 份信息，分别是：</p>
+<p><code>用户名:密码(x):用户ID:组ID:描述信息(无用):HOME目录:执行终端(默认bash)</code></p>
+<p>（2）使用 <code>getent</code> 命令查看当前系统中有哪些用户组：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">getent group<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<h3 id="2-5-查看权限控制-chmod"><a href="#2-5-查看权限控制-chmod" class="headerlink" title="2.5 查看权限控制 - chmod"></a>2.5 查看权限控制 - chmod</h3><h4 id="2-5-1-rwx-的含义"><a href="#2-5-1-rwx-的含义" class="headerlink" title="2.5.1 rwx 的含义"></a>2.5.1 rwx 的含义</h4><ol>
+<li><code>r</code> 表示读权限</li>
+<li><code>w</code> 表示写权限</li>
+<li><code>x</code> 表示执行权限</li>
+</ol>
+<blockquote>
+<p>针对文件、文件夹的不同，rwx 的含义有细微差别：</p>
+<ul>
+<li><code>r</code>：针对文件可以查看文件内容；针对文件夹，可以查看文件夹内容（如 <code>ls</code> 命令）。</li>
+<li><code>w</code>：针对文件表示可以修改此文件；针对文件夹，可以在文件夹内执行创建、删除、改名等操作。</li>
+<li><code>x</code>：针对文件表示可以将文件作为程序运行；针对文件夹，表示可以更改工作目录到此文件夹，即 <code>cd</code> 进入。</li>
+</ul>
+</blockquote>
+<p><a target="_blank" rel="noopener" href="https://imgse.com/i/pFboWHU"><img src="https://s21.ax1x.com/2024/04/05/pFboWHU.png" alt="pFboWHU.png"></a></p>
+<ul>
+<li>序号1：表示文件、文件夹的权限控制信息</li>
+<li>序号2：表示文件、文件夹的所属用户</li>
+<li>序号3：表示文件、文件夹所属用户组</li>
+</ul>
+<h4 id="2-5-2-权限信息"><a href="#2-5-2-权限信息" class="headerlink" title="2.5.2 权限信息"></a>2.5.2 权限信息</h4><table>
+<thead>
+<tr>
+<th>首位</th>
+<th>所属用户权限</th>
+<th>所属用户组权限</th>
+<th>其他用户权限</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>-</code> 表示文件 &#x2F; <code>d</code> 表示文件夹 &#x2F; <code>l</code> 表示软链接</td>
+<td><code>r或- w或- x或-</code></td>
+<td><code>r或- w或- x或-</code></td>
+<td><code>r或- w或- x或-</code></td>
+</tr>
+</tbody></table>
+<p>举例：<code>drwxr-xr-x</code></p>
+<ul>
+<li>首字母 <code>d</code> 表示这是一个文件夹</li>
+<li>所属用户的权限是：有 r 有 w 有 x → <code>rwx</code></li>
+<li>所属用户组的权限是：有 r 无 w 有 x → <code>r-x</code>（<code>-</code> 表示无此权限）</li>
+<li>其他用户的权限是：有 r 无 w 有 x → <code>r-x</code></li>
+</ul>
+<h4 id="2-5-3-chmod"><a href="#2-5-3-chmod" class="headerlink" title="2.5.3 chmod"></a>2.5.3 chmod</h4><blockquote>
+<p>可以使用 <code>chmod</code> 命令，修改文件、文件夹的权限信息</p>
+</blockquote>
+<div class="md-note md-warn"> **修改权限的资格** 只有文件、文件夹的所属用户或 root 用户可以修改其权限。 </div>
+
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">chmod</span> <span class="token parameter variable">-R</span> 权限 文件或文件夹<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>选项：<code>-R</code>，对文件内的全部内容应用同样的操作。</p>
+<blockquote>
+<p><code>chmod u=rwx,g=rx,o=x hello.txt</code> 将文件权限修改为 <code>rwxr-x--x</code><br>其中：<code>u</code> 表示 user 所属用户权限，<code>g</code> 表示 group 组权限，<code>o</code> 表示 other 其他用户权限。</p>
+<p><code>chmod -R u=rwx,g=rx,o=x test</code> 将文件夹 test 以及文件夹全部内容权限设置为 <code>rwxr-x--x</code></p>
+</blockquote>
+<h4 id="2-5-4-权限的数字序号"><a href="#2-5-4-权限的数字序号" class="headerlink" title="2.5.4 权限的数字序号"></a>2.5.4 权限的数字序号</h4><p>权限可以用三位数字来代表：第一位数字表示用户权限，第二位表示用户组权限，第三位表示其他用户权限。</p>
+<table>
+<thead>
+<tr>
+<th>数字</th>
+<th>权限</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>0</td>
+<td><code>---</code></td>
+<td>无任何权限</td>
+</tr>
+<tr>
+<td>1</td>
+<td><code>--x</code></td>
+<td>仅有 x 权限</td>
+</tr>
+<tr>
+<td>2</td>
+<td><code>-w-</code></td>
+<td>仅有 w 权限</td>
+</tr>
+<tr>
+<td>3</td>
+<td><code>-wx</code></td>
+<td>有 w 和 x 权限</td>
+</tr>
+<tr>
+<td>4</td>
+<td><code>r--</code></td>
+<td>仅有 r 权限</td>
+</tr>
+<tr>
+<td>5</td>
+<td><code>r-x</code></td>
+<td>有 r 和 x 权限</td>
+</tr>
+<tr>
+<td>6</td>
+<td><code>rw-</code></td>
+<td>有 r 和 w 权限</td>
+</tr>
+<tr>
+<td>7</td>
+<td><code>rwx</code></td>
+<td>拥有全部权限</td>
+</tr>
+</tbody></table>
+<p>数字的细节：r 记为 4，w 记为 2，x 记为 1。</p>
+<p>举例：<code>751</code> → <code>rwx(7) r-x(5) --x(1)</code></p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">chmod</span> <span class="token number">751</span> hello.txt<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>将 hello.txt 的权限修改为 <code>rwxr-x--x</code>。</p>
+<h3 id="2-6-修改权限控制-chown"><a href="#2-6-修改权限控制-chown" class="headerlink" title="2.6 修改权限控制 - chown"></a>2.6 修改权限控制 - chown</h3><blockquote>
+<p>使用 <code>chown</code> 命令，可以修改文件、文件夹的所属用户和用户组</p>
+<p>注意：普通用户无法修改所属为其他用户或组，所以此命令只适用于 root 用户执行</p>
+</blockquote>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">chown</span> <span class="token parameter variable">-R</span> 用户:用户组  文件或文件夹<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<table>
+<thead>
+<tr>
+<th>选项</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>-R</code></td>
+<td>同 <code>chmod</code>，对文件夹内全部内容应用相同规则</td>
+</tr>
+<tr>
+<td><code>用户</code></td>
+<td>修改所属用户</td>
+</tr>
+<tr>
+<td><code>用户组</code></td>
+<td>修改所属用户组</td>
+</tr>
+<tr>
+<td><code>:</code></td>
+<td>用于分隔用户和用户组</td>
+</tr>
+</tbody></table>
+<p>举例：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">chown</span> root hello.txt            <span class="token comment"># 将 hello.txt 所属用户修改为 root</span>
+<span class="token function">chown</span> :root hello.txt           <span class="token comment"># 将 hello.txt 所属用户组修改为 root</span>
+<span class="token function">chown</span> root:group hello.txt      <span class="token comment"># 将 hello.txt 所属用户修改为 root，用户组修改为 group</span>
+<span class="token function">chown</span> <span class="token parameter variable">-R</span> root <span class="token builtin class-name">test</span>              <span class="token comment"># 将文件夹 test 的所属用户修改为 root，并对文件夹内全部内容应用相同规则</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="4-Linux-实用操作"><a href="#4-Linux-实用操作" class="headerlink" title="4. Linux 实用操作"></a>4. Linux 实用操作</h2><h3 id="3-1-Linux-常用快捷键"><a href="#3-1-Linux-常用快捷键" class="headerlink" title="3.1 Linux 常用快捷键"></a>3.1 Linux 常用快捷键</h3><h4 id="3-1-1-CTRL-c-强制停止"><a href="#3-1-1-CTRL-c-强制停止" class="headerlink" title="3.1.1 CTRL + c 强制停止"></a>3.1.1 CTRL + c 强制停止</h4><ul>
+<li>使用 <code>CTRL + c</code> 可以强制停止某些程序的运行</li>
+<li>使用 <code>CTRL + c</code> 可以退出当前输入，重新输入</li>
+</ul>
+<h4 id="3-1-2-CTRL-d-退出"><a href="#3-1-2-CTRL-d-退出" class="headerlink" title="3.1.2 CTRL + d 退出"></a>3.1.2 CTRL + d 退出</h4><ul>
+<li>使用 <code>CTRL + d</code> 可以退出当前的账户登录，回到上一个登陆的用户</li>
+<li>使用 <code>CTRL + d</code> 可以退出某些特定的界面</li>
+</ul>
+<h4 id="3-1-3-历史命令搜索"><a href="#3-1-3-历史命令搜索" class="headerlink" title="3.1.3 历史命令搜索"></a>3.1.3 历史命令搜索</h4><p>历史命令搜索有多种方式：</p>
+<ul>
+<li><code>history</code> 查看历史命令</li>
+<li><code>!命令前缀</code>，自动执行上一次匹配前缀的命令</li>
+<li><code>CTRL + r</code> 输入内容匹配历史命令</li>
+</ul>
+<p><code>CTRL + r</code> 输入内容进行历史命令的搜索，如果搜索到的内容是你想要的：</p>
+<ul>
+<li>回车键可以直接执行该命令</li>
+<li>键盘左右键可以得到该命令但不执行</li>
+</ul>
+<pre class="line-numbers language-text" data-language="text"><code class="language-text">CTRL + r -> ls -> enter<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<h4 id="3-1-4-光标移动"><a href="#3-1-4-光标移动" class="headerlink" title="3.1.4 光标移动"></a>3.1.4 光标移动</h4><table>
+<thead>
+<tr>
+<th>快捷键</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>ctrl + a</code></td>
+<td>跳到命令开头</td>
+</tr>
+<tr>
+<td><code>ctrl + e</code></td>
+<td>跳到命令结尾</td>
+</tr>
+<tr>
+<td><code>ctrl + 左键</code></td>
+<td>向左跳一个单词</td>
+</tr>
+<tr>
+<td><code>ctrl + 右键</code></td>
+<td>向右跳一个单词</td>
+</tr>
+</tbody></table>
+<h4 id="3-1-5-清屏"><a href="#3-1-5-清屏" class="headerlink" title="3.1.5 清屏"></a>3.1.5 清屏</h4><ul>
+<li><code>CTRL + l</code> 快捷键清屏</li>
+<li><code>clear</code> 命令清屏</li>
+</ul>
+<h3 id="3-2-软件安装"><a href="#3-2-软件安装" class="headerlink" title="3.2 软件安装"></a>3.2 软件安装</h3><blockquote>
+<p>Linux CentOs 版本中使用 <code>yum</code> 进行软件的安装<br>Linux Ubuntu 版本中使用 <code>apt</code> 进行软件的安装</p>
+</blockquote>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">yum <span class="token punctuation">[</span>-y<span class="token punctuation">]</span> <span class="token punctuation">[</span>install <span class="token operator">|</span> remove <span class="token operator">|</span> search<span class="token punctuation">]</span> 软件名称
+<span class="token function">apt</span> <span class="token punctuation">[</span>-y<span class="token punctuation">]</span> <span class="token punctuation">[</span>install <span class="token operator">|</span> remove <span class="token operator">|</span> search<span class="token punctuation">]</span> 软件名称<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<table>
+<thead>
+<tr>
+<th>选项&#x2F;参数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>-y</code></td>
+<td>无需手动确认安装或删除软件</td>
+</tr>
+<tr>
+<td><code>install</code></td>
+<td>安装</td>
+</tr>
+<tr>
+<td><code>remove</code></td>
+<td>卸载</td>
+</tr>
+<tr>
+<td><code>search</code></td>
+<td>查找</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>使用 <code>yum</code> 或 <code>apt</code> 命令需要 root 权限，可以切换到 root 用户或者使用 <code>sudo</code> 提权，并且需要联网。</p>
+</blockquote>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">sudo</span> yum <span class="token parameter variable">-y</span> remove <span class="token function">wget</span>     <span class="token comment"># 删除 wget</span>
+<span class="token function">sudo</span> yum <span class="token parameter variable">-y</span> <span class="token function">install</span> <span class="token function">wget</span>    <span class="token comment"># 下载 wget</span>
+<span class="token function">sudo</span> yum <span class="token parameter variable">-y</span> search <span class="token function">wget</span>     <span class="token comment"># 查看 wget</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="3-3-systemctl-命令"><a href="#3-3-systemctl-命令" class="headerlink" title="3.3 systemctl 命令"></a>3.3 systemctl 命令</h3><h4 id="3-3-1-systemctl"><a href="#3-3-1-systemctl" class="headerlink" title="3.3.1 systemctl"></a>3.3.1 systemctl</h4><blockquote>
+<p>Linux 很多内置和第三方软件都支持使用 <code>systemctl</code> 命令控制启动、停止、开机自启。这种能够被 <code>systemctl</code> 控制的软件，一般也被称为服务。</p>
+</blockquote>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">systemctl start <span class="token operator">|</span> stop <span class="token operator">|</span> <span class="token builtin class-name">enable</span> <span class="token operator">|</span> disable <span class="token operator">|</span> status 服务名<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<table>
+<thead>
+<tr>
+<th>子命令</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>start</code></td>
+<td>启动</td>
+</tr>
+<tr>
+<td><code>stop</code></td>
+<td>停止</td>
+</tr>
+<tr>
+<td><code>enable</code></td>
+<td>开启开机自启</td>
+</tr>
+<tr>
+<td><code>disable</code></td>
+<td>关闭&#x2F;停止开机自启</td>
+</tr>
+<tr>
+<td><code>status</code></td>
+<td>查看状态</td>
+</tr>
+</tbody></table>
+<h4 id="3-3-2-创建软链接"><a href="#3-3-2-创建软链接" class="headerlink" title="3.3.2 创建软链接"></a>3.3.2 创建软链接</h4><blockquote>
+<p>在系统中创建软链接，可以将文件、文件夹链接到其他位置，类似于快捷方式。</p>
+</blockquote>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">ln</span> <span class="token parameter variable">-s</span> 参数1 参数2<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<ul>
+<li>选项：<code>-s</code>，表示创建软链接</li>
+<li>参数1：被链接的文件或文件夹</li>
+<li>参数2：要链接去的目的地</li>
+</ul>
+<h3 id="3-4-日期、时区"><a href="#3-4-日期、时区" class="headerlink" title="3.4 日期、时区"></a>3.4 日期、时区</h3><h4 id="3-4-1-显示时间"><a href="#3-4-1-显示时间" class="headerlink" title="3.4.1 显示时间"></a>3.4.1 显示时间</h4><p>在 Linux 中，可以使用 <code>date [-d] [+格式化字符串]</code> 来查看时间。</p>
+<ul>
+<li>选项：<code>-d</code>，按照给定的字符串显示日期，通常用作日期的计算</li>
+<li>格式化字符串：通过特定的字符串标记，来控制日期的显示格式</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>格式符</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>%Y</code></td>
+<td>年</td>
+</tr>
+<tr>
+<td><code>%y</code></td>
+<td>年份后两位数字 (00…99)</td>
+</tr>
+<tr>
+<td><code>%m</code></td>
+<td>月份 (01…12)</td>
+</tr>
+<tr>
+<td><code>%d</code></td>
+<td>日 (01…31)</td>
+</tr>
+<tr>
+<td><code>%H</code></td>
+<td>小时 (00…23)</td>
+</tr>
+<tr>
+<td><code>%M</code></td>
+<td>分钟 (00…59)</td>
+</tr>
+<tr>
+<td><code>%S</code></td>
+<td>秒 (00…60)</td>
+</tr>
+<tr>
+<td><code>%s</code></td>
+<td>自 1970-01-01 00:00:00 UTC 到现在的秒数</td>
+</tr>
+</tbody></table>
+<p>日期计算（今年的前一年）：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">date</span> -d<span class="token string">"-1 year"</span> <span class="token string">"+%Y-%m-%d %H:%M:%S"</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<h4 id="3-4-2-设置时区"><a href="#3-4-2-设置时区" class="headerlink" title="3.4.2 设置时区"></a>3.4.2 设置时区</h4><blockquote>
+<p>虽然可以显示出来时间了，但是我们可以发现，显示出来的时间跟我们现实中的时间是有差别的。这是因为时区的问题，我们使用的时区应该是东八区，Linux 默认的时区是 UTC（协调世界时），所以我们需要更改时区。</p>
+</blockquote>
+<ol>
+<li>使用 root 用户执行下面的命令：</li>
+</ol>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">rm</span> <span class="token parameter variable">-f</span> /etc/localtime
+<span class="token function">ln</span> <span class="token parameter variable">-s</span> /usr/share/zoneinfo/Asia/Shanghai /etc/localtime<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<ol start="2">
+<li>使用 ntp 程序自动校准系统时间：</li>
+</ol>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 需要安装 ntp</span>
+yum <span class="token parameter variable">-y</span> <span class="token function">install</span> ntp
+systemctl start ntp
+systemctl <span class="token builtin class-name">enable</span> ntp<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<blockquote>
+<p>手动校准时间（阿里云）：</p>
+</blockquote>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">ntpdate <span class="token parameter variable">-u</span> ntp.aliyun.com<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<h3 id="3-5-IP-地址、主机名与域名"><a href="#3-5-IP-地址、主机名与域名" class="headerlink" title="3.5 IP 地址、主机名与域名"></a>3.5 IP 地址、主机名与域名</h3><h4 id="3-5-1-IP-地址"><a href="#3-5-1-IP-地址" class="headerlink" title="3.5.1 IP 地址"></a>3.5.1 IP 地址</h4><p>IP 地址（Internet Protocol Address）是用于在网络通信中标识和定位设备的数字标识符。它是网络通信中数据包传输的基本单位，类似于每个设备在网络中的住所。IP 地址用于识别设备（如计算机、手机、路由器等）以及设备之间的通信。</p>
+<p>IP 地址通常由 32 位（IPv4）或 128 位（IPv6）的二进制数字组成。为了方便使用和理解，IP 地址通常被表示为由四个数字组成的十进制格式（IPv4），每个数字范围从 0 到 255，以点分隔（例如：192.168.0.1），或者以 16 位的十六进制表示（IPv6）。</p>
+<p>IP 地址中的每个设备都具有唯一的地址，这使得数据包能够在网络中正确地发送到目标设备。IP 地址分为两个主要部分：网络部分和主机部分。网络部分标识网络的身份，而主机部分标识网络中的具体设备。</p>
+<p>IPv4 是目前广泛使用的 IP 地址版本，但由于互联网的发展和设备增加，IPv6 逐渐得到推广，以获得更多的可用 IP 地址。IPv6 提供了更大的地址空间，以满足未来互联网的需求。</p>
+<p>我们可以通过 <code>ifconfig</code> 来查看自己电脑的 IP 地址（Windows 使用 <code>ipconfig</code>）。</p>
+<p><a target="_blank" rel="noopener" href="https://imgse.com/i/pFqlk9K"><img src="https://s21.ax1x.com/2024/04/06/pFqlk9K.png" alt="pFqlk9K.png"></a></p>
+<blockquote>
+<p>特殊的 IP 地址：</p>
+<ul>
+<li><code>127.0.0.1</code> 这个 IP 地址指代本机</li>
+<li><code>0.0.0.0</code><ul>
+<li>可以指代本机</li>
+<li>可以在端口绑定中确定绑定关系</li>
+<li>在一些 IP 地址限制中，表示所有 IP 的意思，允许任意 IP 访问</li>
+</ul>
+</li>
+</ul>
+</blockquote>
+<h4 id="3-5-2-主机名"><a href="#3-5-2-主机名" class="headerlink" title="3.5.2 主机名"></a>3.5.2 主机名</h4><p>主机名（Hostname）是用于标识网络中的设备（主机）的名称。它是一个易于识别和记忆的字符串，用于代表设备在网络中的身份。</p>
+<p>主机名通常用于局域网环境中或特定网络中，用于区分和识别连接到网络的各个设备。每个设备都应该有一个唯一的主机名，这样其他设备和网络服务可以准确地识别和寻址它们。</p>
+<p>主机名可以是人为指定的，也可以是通过系统自动分配或生成的。通常，主机名由人为指定，并且可以基于设备的特征、位置或用途来命名。</p>
+<p>在 Linux 中，可以使用 <code>hostname</code> 来查看主机名。修改主机名，需使用 <code>hostnamectl set-hostname 主机名</code>，并且这个命令需要 root 权限。</p>
+<h4 id="3-5-3-域名"><a href="#3-5-3-域名" class="headerlink" title="3.5.3 域名"></a>3.5.3 域名</h4><p>域名（Domain Name）是用于在互联网上标识和定位网站、服务器或其他网络资源的字符串。它提供了一个人类可识别的方式来访问网站和网络服务，将网络资源的 IP 地址映射到易记的名称。</p>
+<p>域名通常由多个部分（标签）组成，这些部分之间由点号分隔。最右侧的部分被称为顶级域（Top-Level Domain，TLD），例如 <code>.com</code>、<code>.org</code>、<code>.net</code> 等。顶级域名称指示域名的分类或特定类型，例如商业网站（<code>.com</code>）、非营利组织（<code>.org</code>）等。</p>
+<p>顶级域之前的部分称为二级域名（Second-Level Domain），例如 <code>example</code>；在其之前的部分称为三级域名（Third-Level Domain），例如 <code>www</code>。域名的层次结构可以根据需求和目的进行更深的扩展。</p>
+<p>域名的作用是提供一个方便且易于记忆的方式来访问网络资源，避免人们直接使用 IP 地址来访问。它在用户体验、品牌建设和网站推广方面起到重要作用。</p>
+<h4 id="3-5-4-域名解析"><a href="#3-5-4-域名解析" class="headerlink" title="3.5.4 域名解析"></a>3.5.4 域名解析</h4><p>域名解析（Domain Name Resolution）是将域名（例如 <code>www.baidu.com</code>）转换为相应的 IP 地址的过程。当用户在浏览器中输入一个域名时，操作系统会通过域名解析来确定该域名对应的服务器的 IP 地址，以建立与服务器的连接并获取所需的网页内容或其他网络资源。</p>
+<p>域名解析是通过域名系统（Domain Name System，DNS）来完成的。DNS 是一个分布式数据库系统，它存储了大量的域名与 IP 地址的映射关系。当用户输入一个域名时，操作系统会向本地 DNS 解析器发送一个 DNS 查询请求。本地 DNS 解析器首先会查看自己的缓存，如果之前已经解析过该域名，则直接返回缓存的 IP 地址。如果缓存中没有该域名的记录，本地 DNS 解析器将向根 DNS 服务器发送请求。</p>
+<p>根 DNS 服务器会指示本地 DNS 解析器去查询顶级域名服务器（TLD DNS 服务器），例如 <code>.com</code>、<code>.org</code> 等。顶级域名服务器记录着二级域名服务器（Authoritative DNS 服务器）的地址。本地 DNS 解析器随后向相应的二级域名服务器发送查询请求，获得与域名对应的 IP 地址。最后，本地 DNS 解析器将结果返回给操作系统，使其能够建立与目标服务器的连接。</p>
+<h4 id="3-5-5-如何配置主机名映射"><a href="#3-5-5-如何配置主机名映射" class="headerlink" title="3.5.5 如何配置主机名映射"></a>3.5.5 如何配置主机名映射</h4><p>在 Windows 系统中，我们需要在 <code>C:\Windows\System32\drivers\etc\host</code> 中配置主机名映射，这样我们就可以通过主机名来访问本机的 IP 地址了。</p>
+<h4 id="3-5-6-如何在-VMware-Workstation-中配置固定-IP"><a href="#3-5-6-如何在-VMware-Workstation-中配置固定-IP" class="headerlink" title="3.5.6 如何在 VMware Workstation 中配置固定 IP"></a>3.5.6 如何在 VMware Workstation 中配置固定 IP</h4><ol>
+<li>在 VM 中配置 IP 地址、网关和网段（IP 地址的范围）</li>
+<li>在 Linux 系统中手动修改配置文件，固定 IP</li>
+</ol>
+<h3 id="3-6-网络传输"><a href="#3-6-网络传输" class="headerlink" title="3.6 网络传输"></a>3.6 网络传输</h3><h4 id="3-6-1-ping-命令"><a href="#3-6-1-ping-命令" class="headerlink" title="3.6.1 ping 命令"></a>3.6.1 ping 命令</h4><p>使用 <code>ping [-c num] ip或主机名</code> 检查指定的网络服务是否是可联通状态。</p>
+<ul>
+<li>选项：<code>-c</code>，表示检查的次数，如果不指定次数，将会无限次数检查下去</li>
+</ul>
+<p>查看 <code>baidu.com</code> 是否是可联通状态：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">ping</span> <span class="token parameter variable">-c</span> <span class="token number">4</span> baidu.com<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<h4 id="3-6-2-wget-命令"><a href="#3-6-2-wget-命令" class="headerlink" title="3.6.2 wget 命令"></a>3.6.2 wget 命令</h4><blockquote>
+<p><code>wget</code> 是非交互式的文件下载器，可以在命令行内下载网络文件</p>
+</blockquote>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">wget</span> <span class="token punctuation">[</span>-b<span class="token punctuation">]</span> url<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<table>
+<thead>
+<tr>
+<th>选项&#x2F;参数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>-b</code></td>
+<td>后台下载，会将日志写入到当前工作目录的 <code>wget-log</code> 文件</td>
+</tr>
+<tr>
+<td><code>url</code></td>
+<td>下载链接</td>
+</tr>
+</tbody></table>
+<p>下载 apache-hadoop 3.3.0：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">wget</span> http://archive.apache.org/dist/hadoop/common/hadoop-3.3.0/hadoop-3.3.0.tar.gz<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<div class="md-note md-tip"> **监控后台下载** 如果你选择后台下载，可以使用 `tail -f wget-log` 来监控下载进度。 </div>
+
+<h4 id="3-6-3-curl-命令"><a href="#3-6-3-curl-命令" class="headerlink" title="3.6.3 curl 命令"></a>3.6.3 curl 命令</h4><p><code>curl</code> 命令可以发送 http 网络请求，可用于：下载文件和获取信息等。</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">curl</span> cip.cc          <span class="token comment"># 查看公网 ip</span>
+<span class="token function">curl</span> <span class="token punctuation">[</span>-O<span class="token punctuation">]</span> url<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<table>
+<thead>
+<tr>
+<th>选项</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>-O</code></td>
+<td>用于下载文件，当 url 是下载链接时，可以使用此选项保存文件</td>
+</tr>
+</tbody></table>
+<p>向 <code>jetbrains.com</code> 发送请求：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">curl</span> jetbrains.com<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<h4 id="3-6-4-什么是端口"><a href="#3-6-4-什么是端口" class="headerlink" title="3.6.4 什么是端口"></a>3.6.4 什么是端口</h4><p>在计算机网络中，端口（Port）是用于标识特定应用程序或服务的数字标识符。它在网络通信中扮演着重要的角色，帮助确定数据包应该被发送到哪个应用程序或服务上。</p>
+<p>在传输层协议（如 TCP 和 UDP）中，端口号是一个 16 位的数字，范围从 0 到 65535。其中，0 到 1023 之间的端口号被称为 “Well-Known Ports”，用于一些广泛应用的标准服务，例如 HTTP（端口 80）、FTP（端口 21）、SSH（端口 22）等。</p>
+<p>端口号通过网络协议栈中的传输层协议来进行使用。当设备接收到网络数据包时，传输层会根据目标端口号将数据包传递给相应的应用程序或服务。类似于门牌号码，端口号帮助网络设备在同一台主机上的多个应用程序之间区分和定位数据包。</p>
+<table>
+<thead>
+<tr>
+<th>端口范围</th>
+<th>类别</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1 ~ 1023</td>
+<td>公认端口</td>
+<td>通常用于一些系统内置或知名程序的预留使用，如 SSH 服务的 22 端口、HTTPS 服务的 443 端口；非特殊需要，不要占用这个范围的端口</td>
+</tr>
+<tr>
+<td>1024 ~ 49151</td>
+<td>注册端口</td>
+<td>通常可以随意使用，用于松散的绑定一些程序&#x2F;服务</td>
+</tr>
+<tr>
+<td>49152 ~ 65535</td>
+<td>动态端口</td>
+<td>当程序对外进行网络链接时，用于临时使用</td>
+</tr>
+</tbody></table>
+<h4 id="3-6-5-查看端口占用"><a href="#3-6-5-查看端口占用" class="headerlink" title="3.6.5 查看端口占用"></a>3.6.5 查看端口占用</h4><p>使用 <code>nmap 被查看的 IP 地址</code> 查看端口的占用情况（<code>nmap</code> 需要下载 <code>sudo yum -y install nmap</code>）。</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">nmap <span class="token number">127.0</span>.0.1      <span class="token comment"># 查看本机端口的占用情况</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p><strong>使用 <code>netstat</code> 查看端口的占用情况：</strong></p>
+<p><code>netstat</code> 也需要下载：<code>sudo yum -y install net-tools</code></p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">netstat</span> <span class="token parameter variable">-anp</span>                <span class="token comment"># 查看全部端口占用</span>
+<span class="token function">netstat</span> <span class="token parameter variable">-anp</span> <span class="token operator">|</span> <span class="token function">grep</span> <span class="token number">3306</span>    <span class="token comment"># 过滤 3306 端口</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<h3 id="3-7-进程管理"><a href="#3-7-进程管理" class="headerlink" title="3.7 进程管理"></a>3.7 进程管理</h3><h4 id="3-7-1-进程"><a href="#3-7-1-进程" class="headerlink" title="3.7.1 进程"></a>3.7.1 进程</h4><blockquote>
+<p>进程（Process）是计算机中正在运行的程序实例。它是操作系统进行任务管理和资源分配的基本单位。每个进程都有自己的内存空间和执行上下文，包括指令、数据、堆栈、文件描述符等。</p>
+<p>在操作系统中，进程可以同时运行多个程序，并且每个程序都以独立的进程存在。每个进程都被分配一个唯一的进程标识符（Process Identifier，PID），用于在进程间进行识别和管理。</p>
+</blockquote>
+<h4 id="3-7-2-查看进程"><a href="#3-7-2-查看进程" class="headerlink" title="3.7.2 查看进程"></a>3.7.2 查看进程</h4><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">ps</span> <span class="token punctuation">[</span>-e -f<span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<ul>
+<li>选项：<code>-e</code>，显示出全部的信息</li>
+<li>选项：<code>-f</code>，以完全格式化的形式展现信息</li>
+</ul>
+<table>
+<thead>
+<tr>
+<th>字段</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>UID</code></td>
+<td>进程所属的用户 ID</td>
+</tr>
+<tr>
+<td><code>PID</code></td>
+<td>进程的进程号 ID</td>
+</tr>
+<tr>
+<td><code>PPID</code></td>
+<td>进程的父 ID（启动此进程的其它进程）</td>
+</tr>
+<tr>
+<td><code>C</code></td>
+<td>此进程的 CPU 占用率（百分比）</td>
+</tr>
+<tr>
+<td><code>STIME</code></td>
+<td>进程的启动时间</td>
+</tr>
+<tr>
+<td><code>TTY</code></td>
+<td>启动此进程的终端序号，如显示 <code>?</code>，表示非终端启动</td>
+</tr>
+<tr>
+<td><code>TIME</code></td>
+<td>进程占用 CPU 的时间</td>
+</tr>
+<tr>
+<td><code>CMD</code></td>
+<td>进程对应的名称或启动路径或启动命令</td>
+</tr>
+</tbody></table>
+<blockquote>
+<p>可以使用管道符过滤信息，例如 <code>ps -ef | grep 进程名</code>。</p>
+</blockquote>
+<h4 id="3-7-3-关闭进程"><a href="#3-7-3-关闭进程" class="headerlink" title="3.7.3 关闭进程"></a>3.7.3 关闭进程</h4><p>Linux 中，可以使用 <code>kill</code> 关闭进程。</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">kill</span> <span class="token punctuation">[</span>-9<span class="token punctuation">]</span> 进程ID<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<ul>
+<li>选项：<code>-9</code>，表示强制关闭，如果不使用强制关闭的话，进程可能不会关闭。</li>
+</ul>
+<h3 id="3-8-主机状态"><a href="#3-8-主机状态" class="headerlink" title="3.8 主机状态"></a>3.8 主机状态</h3><h4 id="3-8-1-查看系统资源调用"><a href="#3-8-1-查看系统资源调用" class="headerlink" title="3.8.1 查看系统资源调用"></a>3.8.1 查看系统资源调用</h4><p>可以通过 <code>top</code> 命令查看 CPU、内存使用情况，类似 Windows 的任务管理器。默认每五秒刷新一次，可以使用 <code>q</code> 或者 <code>CTRL + c</code> 退出。</p>
+<p>字段含义：</p>
+<ul>
+<li><code>top</code>：命令名称</li>
+<li><code>20:11:27</code>：当前系统时间</li>
+<li><code>up 2:39</code>：启动了 2 分 29 秒</li>
+<li><code>3 users</code>：3 个用户登录</li>
+<li><code>load</code>：1、5、15 分钟负载</li>
+<li><code>Tasks</code>：进程总数 &#x2F; running 运行中 &#x2F; sleeping 睡眠 &#x2F; 停止 &#x2F; 僵尸进程</li>
+<li><code>%Cpu(s)</code>：CPU 使用率（<code>us</code> 用户、<code>sy</code> 系统、<code>ni</code> 高优先级、<code>id</code> 空闲、<code>wa</code> IO 等待、<code>hi</code> 硬件中断、<code>si</code> 软件中断、<code>st</code> 强制等待）</li>
+<li><code>Kib Mem</code>：物理内存（<code>total</code> 总量、<code>free</code> 空闲、<code>used</code> 使用、<code>buff/cache</code>）</li>
+<li><code>KibSwap</code>：虚拟内存&#x2F;交换空间（<code>total</code>、<code>free</code>、<code>used</code>、<code>buff/cache</code>）</li>
+<li><code>PID</code>：进程 id</li>
+<li><code>USER</code>：进程所属用户</li>
+<li><code>PR</code>：进程优先级，越小越高</li>
+<li><code>NI</code>：负值表示高优先级，正表示低优先级</li>
+<li><code>VIRT</code>：进程使用虚拟内存，单位 KB</li>
+<li><code>RES</code>：进程使用物理内存，单位 KB</li>
+<li><code>SHR</code>：进程使用共享内存，单位 KB</li>
+<li><code>S</code>：进程状态（S 休眠，R 运行，Z 僵尸状态，N 负数优先级，I 空闲状态）</li>
+<li><code>%CPU</code>：进程占用 CPU 率</li>
+<li><code>%MEM</code>：进程占用内存率</li>
+<li><code>TIME+</code>：进程使用 CPU 时间总计，单位 10 毫秒</li>
+<li><code>COMMAND</code>：进程的命令或名称或程序文件路径</li>
+</ul>
+<p><code>top</code> 命令也可使用选项：</p>
+<table>
+<thead>
+<tr>
+<th>选项</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>-p</code></td>
+<td>只显示某个进程的信息</td>
+</tr>
+<tr>
+<td><code>-d</code></td>
+<td>设置刷新时间，默认是 5s</td>
+</tr>
+<tr>
+<td><code>-c</code></td>
+<td>显示产生进程的完整命令，默认是进程名</td>
+</tr>
+<tr>
+<td><code>-n</code></td>
+<td>指定刷新次数，比如 <code>top -n 3</code>，刷新输出 3 次后退出</td>
+</tr>
+<tr>
+<td><code>-b</code></td>
+<td>以非交互非全屏模式运行，一般配合 <code>-n</code> 指定输出几次统计信息，将输出重定向到指定文件，比如 <code>top -b -n 3 &gt; /tmp/top.tmp</code></td>
+</tr>
+<tr>
+<td><code>-i</code></td>
+<td>不显示任何闲置（idle）或无用（zombie）的进程</td>
+</tr>
+<tr>
+<td><code>-u</code></td>
+<td>查找特定用户启动的进程</td>
+</tr>
+</tbody></table>
+<p><code>top</code> 命令也可实现交互式：</p>
+<table>
+<thead>
+<tr>
+<th>按键</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>h</code></td>
+<td>显示帮助画面</td>
+</tr>
+<tr>
+<td><code>c</code></td>
+<td>显示产生进程的完整命令，等同于 <code>-c</code> 参数，再次按下变回默认显示</td>
+</tr>
+<tr>
+<td><code>f</code></td>
+<td>选择需要展示的项目</td>
+</tr>
+<tr>
+<td><code>M</code></td>
+<td>根据驻留内存大小（RES）排序</td>
+</tr>
+<tr>
+<td><code>P</code></td>
+<td>根据 CPU 使用百分比大小排序</td>
+</tr>
+<tr>
+<td><code>T</code></td>
+<td>根据时间&#x2F;累计时间排序</td>
+</tr>
+<tr>
+<td><code>E</code></td>
+<td>切换顶部内存显示单位</td>
+</tr>
+<tr>
+<td><code>e</code></td>
+<td>切换进程内存显示单位</td>
+</tr>
+<tr>
+<td><code>l</code></td>
+<td>切换显示平均负载和启动时间信息</td>
+</tr>
+<tr>
+<td><code>i</code></td>
+<td>不显示闲置或无用的进程，等同于 <code>-i</code> 参数，再次按下变回默认显示</td>
+</tr>
+<tr>
+<td><code>t</code></td>
+<td>切换显示 CPU 状态信息</td>
+</tr>
+<tr>
+<td><code>m</code></td>
+<td>切换显示内存信息</td>
+</tr>
+</tbody></table>
+<h4 id="3-8-2-磁盘信息监控"><a href="#3-8-2-磁盘信息监控" class="headerlink" title="3.8.2 磁盘信息监控"></a>3.8.2 磁盘信息监控</h4><blockquote>
+<p>使用 <code>df</code> 命令，可以查看硬盘的使用情况</p>
+</blockquote>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">df</span> <span class="token punctuation">[</span>-h<span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<ul>
+<li>选项：<code>-h</code>，显示单位</li>
+</ul>
+<p><strong>也可以使用 <code>iostat</code> 查看 CPU、磁盘的相关信息：</strong></p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">iostat <span class="token punctuation">[</span>-x<span class="token punctuation">]</span> <span class="token punctuation">[</span>num1<span class="token punctuation">]</span> <span class="token punctuation">[</span>num2<span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<table>
+<thead>
+<tr>
+<th>选项&#x2F;参数</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>-x</code></td>
+<td>显示更多信息</td>
+</tr>
+<tr>
+<td><code>num1</code></td>
+<td>刷新间隔</td>
+</tr>
+<tr>
+<td><code>num2</code></td>
+<td>刷新次数</td>
+</tr>
+</tbody></table>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">iostat <span class="token parameter variable">-x</span> <span class="token number">3</span> <span class="token number">3</span>      <span class="token comment"># 每三秒刷新一次，共刷新三次</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>字段含义：</p>
+<ul>
+<li><code>rrqm/s</code>：每秒这个设备相关的读取请求有多少被 Merge（文件系统合并相同 Block 的读取请求以提高 IO 利用率）</li>
+<li><code>wrqm/s</code>：每秒这个设备相关的写入请求有多少被 Merge</li>
+<li><code>rsec/s</code>：每秒读取的扇区数；<code>wsec/s</code>：每秒写入的扇区数</li>
+<li><code>rKB/s</code>：每秒发送到设备的读取请求数；<code>wKB/s</code>：每秒发送到设备的写入请求数</li>
+<li><code>avgrq-sz</code>：平均请求扇区的大小</li>
+<li><code>avgqu-sz</code>：平均请求队列的长度（队列长度越短越好）</li>
+<li><code>await</code>：每一个 IO 请求的处理的平均时间（单位毫秒）</li>
+<li><code>svctm</code>：平均每次设备 I&#x2F;O 操作的服务时间（以毫秒为单位）</li>
+<li><code>%util</code>：磁盘利用率</li>
+</ul>
+<h4 id="3-8-3-网络状态监控"><a href="#3-8-3-网络状态监控" class="headerlink" title="3.8.3 网络状态监控"></a>3.8.3 网络状态监控</h4><blockquote>
+<p>可以使用 <code>sar</code> 命令查看网络的相关统计</p>
+</blockquote>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">sar <span class="token parameter variable">-n</span> DEV num1 num2<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<ul>
+<li>选项：<code>-n</code> 查看网络，<code>DEV</code> 表示查看网络接口</li>
+<li><code>num1</code>：刷新间隔（不填就查一次结束）</li>
+<li><code>num2</code>：查看次数（不填就无限次数）</li>
+</ul>
+<h3 id="3-9-环境变量"><a href="#3-9-环境变量" class="headerlink" title="3.9 环境变量"></a>3.9 环境变量</h3><h4 id="3-9-1-什么是环境变量"><a href="#3-9-1-什么是环境变量" class="headerlink" title="3.9.1 什么是环境变量"></a>3.9.1 什么是环境变量</h4><p>环境变量（Environment Variable）是操作系统或应用程序运行时可用的一组动态值。它们存储了有关系统环境和运行程序的重要信息，例如路径、配置参数、临时文件位置等。</p>
+<p>环境变量的主要作用是为操作系统和应用程序提供灵活性和可配置性。通过使用环境变量，您可以动态地设置和调整各种参数，而无需修改或重新编译代码。这使得程序能够在不同的环境中灵活地运行，而无需对代码进行修改。</p>
+<h4 id="3-9-2-如何查看环境变量"><a href="#3-9-2-如何查看环境变量" class="headerlink" title="3.9.2 如何查看环境变量"></a>3.9.2 如何查看环境变量</h4><p>在 Linux 中，可以使用 <code>env</code> 命令查看环境变量。环境变量是以 key-value 型结构存储的。</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">env</span> <span class="token operator">|</span> <span class="token function">grep</span> <span class="token environment constant">PATH</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>在 Linux 中，无论在哪个工作目录下我们都能使用 <code>cd</code> 命令来切换工作目录，这归功于 <code>PATH</code> 项目中的值做到的。路径之间以 <code>:</code> 隔开，当执行命令的时候，都会按照顺序，从上述路径中搜索要执行的程序的本体。<code>cd</code> 命令就在 <code>/usr/bin</code> 路径下，所以当我们执行 <code>cd</code> 命令的时候，搜索到第二个路径就停止了。</p>
+<h4 id="3-9-3-符号——取出变量的值"><a href="#3-9-3-符号——取出变量的值" class="headerlink" title="3.9.3 $ 符号——取出变量的值"></a>3.9.3 <code>$</code> 符号——取出变量的值</h4><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token builtin class-name">echo</span> <span class="token environment constant">$PATH</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>当要取出的变量和其他内容混合在一起的时候，可以使用 <code>&#123; &#125;</code> 来标注变量是谁。</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token builtin class-name">echo</span> <span class="token variable">$&#123;<span class="token environment constant">PATH</span>&#125;</span>ABC123<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<h4 id="3-9-4-自行设置环境变量"><a href="#3-9-4-自行设置环境变量" class="headerlink" title="3.9.4 自行设置环境变量"></a>3.9.4 自行设置环境变量</h4><p>在 Linux 中，可以使用 <code>export</code> 命令自行设置环境变量。语法：<code>export 变量名 = 变量值</code>，设置分为临时设置和永久设置。</p>
+<ul>
+<li>临时设置：<code>export 变量名 = 变量值</code></li>
+</ul>
+<blockquote>
+<p>永久生效：</p>
+<ul>
+<li>针对当前用户生效，配置在当前用户的 <code>~/.bashrc</code> 文件中（用 <code>vi</code> 编辑）</li>
+<li>针对所有用户生效，配置在系统的 <code>/etc/profile</code> 文件中</li>
+<li>并通过语法 <code>source 配置文件</code> 进行立刻生效，例如 <code>source /etc/profile</code></li>
+</ul>
+</blockquote>
+<p>操作步骤：</p>
+<ul>
+<li>先创建一个文件夹，然后使用 <code>vim</code> 编辑器编辑文件内容</li>
+<li>临时设置环境变量：</li>
+</ul>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token builtin class-name">export</span> <span class="token assign-left variable"><span class="token environment constant">PATH</span></span><span class="token operator">=</span><span class="token environment constant">$PATH</span>:/home/handsome/test<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<div class="md-note md-info"> **执行权限提示** 记住了我们要先执行文件程序，该文件程序的执行权限必须可读和可执行。 </div>
+
+<h4 id="3-9-5-如果不小心改坏了环境变量"><a href="#3-9-5-如果不小心改坏了环境变量" class="headerlink" title="3.9.5 如果不小心改坏了环境变量"></a>3.9.5 如果不小心改坏了环境变量</h4><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token builtin class-name">export</span> <span class="token assign-left variable"><span class="token environment constant">PATH</span></span><span class="token operator">=</span>/usr/bin:/usr/sbin:/bin:/sbin:/usr/X11R6/bin
+<span class="token function">vim</span> /etc/profile
+<span class="token builtin class-name">source</span> /etc/profile<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="3-10-上传和下载"><a href="#3-10-上传和下载" class="headerlink" title="3.10 上传和下载"></a>3.10 上传和下载</h3><h4 id="3-10-1-使用-FinalShell-下面的窗体直接进行数据的上传和下载"><a href="#3-10-1-使用-FinalShell-下面的窗体直接进行数据的上传和下载" class="headerlink" title="3.10.1 使用 FinalShell 下面的窗体直接进行数据的上传和下载"></a>3.10.1 使用 FinalShell 下面的窗体直接进行数据的上传和下载</h4><p>我们可以直接使用 FinalShell 与虚拟机之间进行资源的交换。</p>
+<ul>
+<li>在 FinalShell 下面的文件中找到我们需要下载的文件，右键下载即可。</li>
+<li>上传文件的时候，我们可以直接从本地电脑的桌面将文件拖进来，它自己就会实现文件的上传。</li>
+</ul>
+<h4 id="3-10-2-使用-rz、sz-命令实现数据的上传和下载"><a href="#3-10-2-使用-rz、sz-命令实现数据的上传和下载" class="headerlink" title="3.10.2 使用 rz、sz 命令实现数据的上传和下载"></a>3.10.2 使用 rz、sz 命令实现数据的上传和下载</h4><blockquote>
+<p>除了使用下面的窗口之外，我们也可以使用命令来实现数据的上传和下载</p>
+</blockquote>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">rz                 <span class="token comment"># 实现数据的上传（选择文件）</span>
+sz 要下载的文件    <span class="token comment"># 实现数据的下载（下载到本机）</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">sz /bin/abrt-action-analyze-backtrace<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<h3 id="3-11-压缩和解压"><a href="#3-11-压缩和解压" class="headerlink" title="3.11 压缩和解压"></a>3.11 压缩和解压</h3><blockquote>
+<p>Linux 常用 <code>tar</code>、<code>gzip</code>、<code>zip</code> 这三种压缩格式。</p>
+</blockquote>
+<h4 id="3-11-1-tar-命令"><a href="#3-11-1-tar-命令" class="headerlink" title="3.11.1 tar 命令"></a>3.11.1 tar 命令</h4><p><code>tar</code> 命令压缩：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">tar</span> <span class="token punctuation">[</span>-c <span class="token parameter variable">-v</span> <span class="token parameter variable">-x</span> <span class="token parameter variable">-f</span> <span class="token parameter variable">-z</span> -C<span class="token punctuation">]</span> 参数1 参数2<span class="token punctuation">..</span>.参数N<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<table>
+<thead>
+<tr>
+<th>选项</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>-c</code></td>
+<td>创建压缩文件，用于压缩模式</td>
+</tr>
+<tr>
+<td><code>-v</code></td>
+<td>显示压缩、解压过程，用于查看进度</td>
+</tr>
+<tr>
+<td><code>-x</code></td>
+<td>解压模式</td>
+</tr>
+<tr>
+<td><code>-f</code></td>
+<td>要创建的文件，或要解压的文件；<code>-f</code> 选项必须在所有选项中位置处于最后一个</td>
+</tr>
+<tr>
+<td><code>-z</code></td>
+<td>gzip 模式，不使用 <code>-z</code> 就是普通的 tarball 格式</td>
+</tr>
+<tr>
+<td><code>-C</code></td>
+<td>选择解压的目的地，用于解压模式</td>
+</tr>
+</tbody></table>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">tar</span> <span class="token parameter variable">-cvf</span> test.tar <span class="token number">1</span>.txt <span class="token number">2</span>.txt <span class="token number">3</span>.txt          <span class="token comment"># 将 1.txt 2.txt 3.txt 压缩到 test.tar</span>
+<span class="token function">tar</span> <span class="token parameter variable">-zcvf</span> test.tar.gz <span class="token number">1</span>.txt <span class="token number">2</span>.txt <span class="token number">3</span>.txt      <span class="token comment"># 使用 gzip 模式压缩到 test.tar.gz</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<ul>
+<li><code>-z</code> 选项如果使用的话，一般处于选项位第一个</li>
+<li><code>-f</code> 选项必须在选项位最后一个，因为 <code>-f</code> 后面要接文件位置</li>
+</ul>
+<p><code>tar</code> 命令解压：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">tar</span> <span class="token parameter variable">-xvf</span> test.tar                            <span class="token comment"># 解压 test.tar，将文件解压至当前目录</span>
+<span class="token function">tar</span> <span class="token parameter variable">-xvf</span> test.tar <span class="token parameter variable">-C</span> /home/handsome          <span class="token comment"># 解压 test.tar，将文件解压至指定目录</span>
+<span class="token function">tar</span> <span class="token parameter variable">-zxvf</span> test.tar.gz <span class="token parameter variable">-C</span> /home/handsome      <span class="token comment"># 以 Gzip 模式解压 test.tar.gz，解压至指定目录</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<ul>
+<li><code>-f</code> 选项必须在选项组合体的最后一位</li>
+<li><code>-z</code> 选项建议在开头位置</li>
+<li><code>-C</code> 选项单独使用，和解压所需的其它参数分开</li>
+</ul>
+<h4 id="3-11-2-zip-压缩和解压"><a href="#3-11-2-zip-压缩和解压" class="headerlink" title="3.11.2 zip 压缩和解压"></a>3.11.2 zip 压缩和解压</h4><blockquote>
+<p>zip 压缩：使用 <code>zip [-r] 参数1 参数2...参数N</code> 将文件压缩为 zip 压缩包</p>
+</blockquote>
+<table>
+<thead>
+<tr>
+<th>选项</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>-r</code></td>
+<td>被压缩的包含文件夹的时候，需要使用 <code>-r</code> 选项</td>
+</tr>
+</tbody></table>
+<p>这里操作跟上面的 <code>tar</code> 效果类似，就不再过多展示。</p>
+<blockquote>
+<p>unzip 解压：<code>unzip [-d] 参数</code></p>
+</blockquote>
+<ul>
+<li>选项：<code>-d</code>，指定要解压去的位置，跟 <code>tar</code> 命令的 <code>-C</code> 选项类似</li>
+</ul>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">unzip</span> test.zip <span class="token parameter variable">-d</span> /home/handsome     <span class="token comment"># 将 test.zip 解压到指定文件夹内（/home/handsome）</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<h2 id="5-各类软件部署"><a href="#5-各类软件部署" class="headerlink" title="5. 各类软件部署"></a>5. 各类软件部署</h2><h3 id="4-1-MySQL"><a href="#4-1-MySQL" class="headerlink" title="4.1 MySQL"></a>4.1 MySQL</h3><h4 id="4-1-1-下载-MySQL"><a href="#4-1-1-下载-MySQL" class="headerlink" title="4.1.1 下载 MySQL"></a>4.1.1 下载 MySQL</h4><h5 id="4-1-1-1-查看是否已经安装了-MySQL"><a href="#4-1-1-1-查看是否已经安装了-MySQL" class="headerlink" title="4.1.1.1 查看是否已经安装了 MySQL"></a>4.1.1.1 查看是否已经安装了 MySQL</h5><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">rpm</span> <span class="token parameter variable">-qa</span> <span class="token operator">|</span> <span class="token function">grep</span> mysql<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<h5 id="4-1-1-2-下载-MySQL-安装包"><a href="#4-1-1-2-下载-MySQL-安装包" class="headerlink" title="4.1.1.2 下载 MySQL 安装包"></a>4.1.1.2 下载 MySQL 安装包</h5><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">wget</span> <span class="token parameter variable">-i</span> <span class="token parameter variable">-c</span> http://dev.mysql.com/get/mysql57-community-release-el7-10.noarch.rpm<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<h5 id="4-1-1-3-安装-MySQL-包"><a href="#4-1-1-3-安装-MySQL-包" class="headerlink" title="4.1.1.3 安装 MySQL 包"></a>4.1.1.3 安装 MySQL 包</h5><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">yum <span class="token parameter variable">-y</span> <span class="token function">install</span> mysql57-community-release-el7-10.noarch.rpm<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<h5 id="4-1-1-4-安装-MySQL"><a href="#4-1-1-4-安装-MySQL" class="headerlink" title="4.1.1.4 安装 MySQL"></a>4.1.1.4 安装 MySQL</h5><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">yum <span class="token parameter variable">-y</span> <span class="token function">install</span> mysql-community-server<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<blockquote>
+<p>如果出现 fail 报错，执行下面命令</p>
+</blockquote>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">yum <span class="token parameter variable">-y</span> <span class="token function">install</span> mysql-community-server <span class="token parameter variable">--nogpgcheck</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<h4 id="4-1-2-启动-MySQL"><a href="#4-1-2-启动-MySQL" class="headerlink" title="4.1.2 启动 MySQL"></a>4.1.2 启动 MySQL</h4><h5 id="4-1-2-1-启动服务"><a href="#4-1-2-1-启动服务" class="headerlink" title="4.1.2.1 启动服务"></a>4.1.2.1 启动服务</h5><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">systemctl start mysqld.service<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<h5 id="4-1-2-2-查看运行状态"><a href="#4-1-2-2-查看运行状态" class="headerlink" title="4.1.2.2 查看运行状态"></a>4.1.2.2 查看运行状态</h5><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">service</span> mysqld status
+<span class="token comment"># 或</span>
+<span class="token function">ps</span> <span class="token parameter variable">-ef</span> <span class="token operator">|</span> <span class="token function">grep</span> mysql<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<h4 id="4-1-3-连接-MySQL"><a href="#4-1-3-连接-MySQL" class="headerlink" title="4.1.3 连接 MySQL"></a>4.1.3 连接 MySQL</h4><h5 id="4-1-3-1-登录-MySQL"><a href="#4-1-3-1-登录-MySQL" class="headerlink" title="4.1.3.1 登录 MySQL"></a>4.1.3.1 登录 MySQL</h5><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">mysql <span class="token parameter variable">-u</span> root <span class="token parameter variable">-p</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<h5 id="4-1-3-2-在日志中查看初始密码"><a href="#4-1-3-2-在日志中查看初始密码" class="headerlink" title="4.1.3.2 在日志中查看初始密码"></a>4.1.3.2 在日志中查看初始密码</h5><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">grep</span> <span class="token string">'password'</span> /var/log/mysqld.log<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<h5 id="4-1-3-3-更改密码（满足安全要求：长度大于-8，含有大小写字母及数字以及特殊符号）"><a href="#4-1-3-3-更改密码（满足安全要求：长度大于-8，含有大小写字母及数字以及特殊符号）" class="headerlink" title="4.1.3.3 更改密码（满足安全要求：长度大于 8，含有大小写字母及数字以及特殊符号）"></a>4.1.3.3 更改密码（满足安全要求：长度大于 8，含有大小写字母及数字以及特殊符号）</h5><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">alter</span> <span class="token keyword">user</span> 用户名@主机名 identified <span class="token keyword">with</span> <span class="token keyword">by</span> <span class="token string">'新密码'</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<h5 id="4-1-3-4-关闭和重启-MySQL-服务"><a href="#4-1-3-4-关闭和重启-MySQL-服务" class="headerlink" title="4.1.3.4 关闭和重启 MySQL 服务"></a>4.1.3.4 关闭和重启 MySQL 服务</h5><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">service</span> mysqld stop     <span class="token comment"># 停止服务</span>
+<span class="token function">service</span> mysqld start    <span class="token comment"># 重启服务</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<h4 id="4-1-4-允许远程连接访问"><a href="#4-1-4-允许远程连接访问" class="headerlink" title="4.1.4 允许远程连接访问"></a>4.1.4 允许远程连接访问</h4><h5 id="4-1-4-1-创建一个-root-用户，允许所有主机都能访问"><a href="#4-1-4-1-创建一个-root-用户，允许所有主机都能访问" class="headerlink" title="4.1.4.1 创建一个 root 用户，允许所有主机都能访问"></a>4.1.4.1 创建一个 root 用户，允许所有主机都能访问</h5><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">create</span> <span class="token keyword">user</span> <span class="token string">'root'</span><span class="token variable">@'%'</span> identified <span class="token keyword">with</span> mysql_native_password <span class="token keyword">by</span> <span class="token string">'密码'</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<h5 id="4-1-4-2-给-root-用户分配所有权限"><a href="#4-1-4-2-给-root-用户分配所有权限" class="headerlink" title="4.1.4.2 给 root 用户分配所有权限"></a>4.1.4.2 给 root 用户分配所有权限</h5><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">grant</span> <span class="token keyword">all</span> <span class="token keyword">on</span> <span class="token operator">*</span><span class="token punctuation">.</span><span class="token operator">*</span> <span class="token keyword">to</span> <span class="token string">'root'</span><span class="token variable">@'%'</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<h5 id="4-1-4-3-用-DataGrip-连接"><a href="#4-1-4-3-用-DataGrip-连接" class="headerlink" title="4.1.4.3 用 DataGrip 连接"></a>4.1.4.3 用 DataGrip 连接</h5><blockquote>
+<p>输入端口号和密码 -&gt; 连接</p>
+</blockquote>
+<h4 id="4-1-5-打开-Linux-的-3306-端口"><a href="#4-1-5-打开-Linux-的-3306-端口" class="headerlink" title="4.1.5 打开 Linux 的 3306 端口"></a>4.1.5 打开 Linux 的 3306 端口</h4><h5 id="4-1-5-1-在-Linux-系统中查看自己的-IP"><a href="#4-1-5-1-在-Linux-系统中查看自己的-IP" class="headerlink" title="4.1.5.1 在 Linux 系统中查看自己的 IP"></a>4.1.5.1 在 Linux 系统中查看自己的 IP</h5><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">ifconfig</span> <span class="token parameter variable">-a</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<h5 id="4-1-5-2-关闭-Linux-防火墙"><a href="#4-1-5-2-关闭-Linux-防火墙" class="headerlink" title="4.1.5.2 关闭 Linux 防火墙"></a>4.1.5.2 关闭 Linux 防火墙</h5><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">systemctl status firewalld     <span class="token comment"># 查看防火墙状态</span>
+systemctl start firewalld      <span class="token comment"># 开启防火墙</span>
+systemctl stop firewalld       <span class="token comment"># 关闭防火墙</span>
+<span class="token function">service</span> firewalld start        <span class="token comment"># 开启防火墙（service 方式）</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<blockquote>
+<p>若无法开启则输入 <code>systemctl unmask firewalld.service</code>，然后再输入 <code>systemctl start firewalld.service</code>。</p>
+</blockquote>
+<h5 id="4-1-5-3-查询指定端口是否已开启"><a href="#4-1-5-3-查询指定端口是否已开启" class="headerlink" title="4.1.5.3 查询指定端口是否已开启"></a>4.1.5.3 查询指定端口是否已开启</h5><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">firewall-cmd --query-port<span class="token operator">=</span><span class="token number">3306</span>/tcp<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<h5 id="4-1-5-4-添加指定需要开放的端口"><a href="#4-1-5-4-添加指定需要开放的端口" class="headerlink" title="4.1.5.4 添加指定需要开放的端口"></a>4.1.5.4 添加指定需要开放的端口</h5><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">firewall-cmd --add-port<span class="token operator">=</span><span class="token number">3306</span>/tcp <span class="token parameter variable">--permanent</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<h5 id="4-1-5-5-查看想开的端口是否已开"><a href="#4-1-5-5-查看想开的端口是否已开" class="headerlink" title="4.1.5.5 查看想开的端口是否已开"></a>4.1.5.5 查看想开的端口是否已开</h5><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">firewall-cmd --query-port<span class="token operator">=</span><span class="token number">3306</span>/tcp
+<span class="token comment"># 注意：如果查询是 no，则需要执行防火墙命令重载</span>
+firewall-cmd <span class="token parameter variable">--reload</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<blockquote>
+<p>重载防火墙：<code>firewall-cmd --reload</code></p>
+</blockquote>
+<h3 id="4-2-Tomcat（Spring-Boot-自动集成-Tomcat）"><a href="#4-2-Tomcat（Spring-Boot-自动集成-Tomcat）" class="headerlink" title="4.2 Tomcat（Spring Boot 自动集成 Tomcat）"></a>4.2 Tomcat（Spring Boot 自动集成 Tomcat）</h3><h4 id="4-2-1-下载-JDK-软件"><a href="#4-2-1-下载-JDK-软件" class="headerlink" title="4.2.1 下载 JDK 软件"></a>4.2.1 下载 JDK 软件</h4><pre class="line-numbers language-text" data-language="text"><code class="language-text">https://www.oracle.com/java/technologies/downloads/#java17<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<h4 id="4-2-2-登录-root-用户"><a href="#4-2-2-登录-root-用户" class="headerlink" title="4.2.2 登录 root 用户"></a>4.2.2 登录 root 用户</h4><h4 id="4-2-3-通过-FinalShell-传输文件"><a href="#4-2-3-通过-FinalShell-传输文件" class="headerlink" title="4.2.3 通过 FinalShell 传输文件"></a>4.2.3 通过 FinalShell 传输文件</h4><h4 id="4-2-4-解压缩"><a href="#4-2-4-解压缩" class="headerlink" title="4.2.4 解压缩"></a>4.2.4 解压缩</h4><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">tar</span> <span class="token parameter variable">-zxvf</span> /root/serve/jdk-17_linux-aarch64_bin.tar.gz <span class="token parameter variable">-C</span> /root/server<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<h4 id="4-2-5-建立软连接"><a href="#4-2-5-建立软连接" class="headerlink" title="4.2.5 建立软连接"></a>4.2.5 建立软连接</h4><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">ln</span> <span class="token parameter variable">-s</span> /root/server/jdk-17.0.10 /root/jdk<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<h4 id="4-2-6-构建全局的环境变量"><a href="#4-2-6-构建全局的环境变量" class="headerlink" title="4.2.6 构建全局的环境变量"></a>4.2.6 构建全局的环境变量</h4><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">vim</span> /etc/profile<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token builtin class-name">export</span> <span class="token assign-left variable">JAVA_HOME</span><span class="token operator">=</span>/root/jdk
+<span class="token builtin class-name">export</span> <span class="token assign-left variable"><span class="token environment constant">PATH</span></span><span class="token operator">=</span><span class="token environment constant">$PATH</span><span class="token builtin class-name">:</span><span class="token variable">$JAVA_HOME</span>/bin<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token builtin class-name">source</span> /etc/profile<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<h4 id="4-2-7-更改系统的-java"><a href="#4-2-7-更改系统的-java" class="headerlink" title="4.2.7 更改系统的 java"></a>4.2.7 更改系统的 java</h4><ul>
+<li><ol>
+<li><code>which java</code></li>
+</ol>
+</li>
+<li><ol start="2">
+<li><code>rm -f /usr/bin/java</code></li>
+</ol>
+</li>
+</ul>
+<hr>
+<blockquote>
+<p><strong>一句话总结</strong>：Linux 以开源、多用户权限隔离与强大的命令行体系，配合 <code>chmod</code>&#x2F;<code>chown</code> 权限管控、systemctl 服务管理与 tar&#x2F;zip 等实用工具，构成了企业服务器部署与自动化运维的核心技术底座。</p>
+</blockquote>
+
+        </article>
+        <section class="post-near">
+            <ul>
+                
+                    <li>上一篇: <a href="/2026/01/01/MongoDB/">MongoDB</a></li>
+                
+                
+                    <li>下一篇: <a href="/2025/11/01/Kotlin/">Kotlin</a></li>
+                
+            </ul>
+        </section>
+        
+            <section class="post-tags">
+            <a class="-none-link" href="/tags/Linux/" rel="tag">Linux</a><a class="-none-link" href="/tags/%E8%BF%90%E7%BB%B4/" rel="tag">运维</a>
+            </section>
+        
+    
+        <section class="post-author">
+        
+            <figure class="author-avatar">
+                <img src="https://nos.netease.com/ysf/984b6beaecc19c99414093c0481a2619.png" alt="日初" />
+            </figure>
+        
+            <div class="author-info">
+                <h4>日初</h4>
+                <p>去关于我看看吧(´・ω・`)</p>
+            </div>
+        </section>
+    
+    </div>
+</main>
+
+    <footer>
+    <div class="buttons">
+        <a class="to-top" href="#"></a>
+    </div>
+    <div class="wrap min">
+        <section class="widget">
+            <div class="row">
+                <div class="col-m-4">
+                    <h3 class="title-recent">最新文章：</h3>
+                    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2026/10/28/%E7%9F%A5%E8%AF%86%E6%96%87%E6%A1%A3%E6%8A%80%E6%9C%AF%E6%96%87%E6%A1%A3/">企业知识库技术文档（RAG + pgvector）</a></li><li class="post-list-item"><a class="post-list-link" href="/2026/10/27/%E6%8A%80%E8%83%BD%E5%BC%80%E5%8F%91%E6%8C%87%E5%8D%97/">技能开发指南</a></li><li class="post-list-item"><a class="post-list-link" href="/2026/10/27/%E6%8A%80%E8%83%BD%E6%A8%A1%E5%BC%8F%E4%BB%A3%E7%90%86%E8%AE%BE%E8%AE%A1%E6%96%87%E6%A1%A3/">技能模式 AI Agent 系统设计</a></li><li class="post-list-item"><a class="post-list-link" href="/2026/10/01/Redis/">Redis</a></li><li class="post-list-item"><a class="post-list-link" href="/2026/09/01/React/">React</a></li><li class="post-list-item"><a class="post-list-link" href="/2026/08/01/QT/">QT</a></li></ul>
+                </div>
+                <div class="col-m-4">
+                    <h3 class="title-date">时光机：</h3>
+                    <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/10/">十月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/09/">九月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/08/">八月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/07/">七月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/06/">六月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/05/">五月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/04/">四月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/03/">三月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/02/">二月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/01/">一月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/12/">十二月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/11/">十一月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/10/">十月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/09/">九月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/08/">八月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/07/">七月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/06/">六月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/05/">五月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/04/">四月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/03/">三月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/02/">二月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/01/">一月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/12/">十二月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/11/">十一月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/10/">十月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/09/">九月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/08/">八月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/07/">七月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/06/">六月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/05/">五月 2024</a></li></ul>
+                </div>
+                <div class="col-m-4">
+                    <h3 class="title-tags">标签云：</h3>
+                    <a href="/tags/AI-Agent/" style="font-size: 20px;">AI Agent</a> <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/CSS/" style="font-size: 20px;">CSS</a> <a href="/tags/Centos/" style="font-size: 20px;">Centos</a> <a href="/tags/Docker/" style="font-size: 20px;">Docker</a> <a href="/tags/Dubbo/" style="font-size: 20px;">Dubbo</a> <a href="/tags/Flutter/" style="font-size: 20px;">Flutter</a> <a href="/tags/GO/" style="font-size: 20px;">GO</a> <a href="/tags/Game/" style="font-size: 20px;">Game</a> <a href="/tags/Go/" style="font-size: 20px;">Go</a> <a href="/tags/Go-Web/" style="font-size: 20px;">Go Web</a> <a href="/tags/HBase/" style="font-size: 20px;">HBase</a> <a href="/tags/Hadoop/" style="font-size: 20px;">Hadoop</a> <a href="/tags/JQuery/" style="font-size: 20px;">JQuery</a> <a href="/tags/JS/" style="font-size: 20px;">JS</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/Java-Web/" style="font-size: 20px;">Java Web</a> <a href="/tags/K8S/" style="font-size: 20px;">K8S</a> <a href="/tags/Kotlin/" style="font-size: 20px;">Kotlin</a> <a href="/tags/Linux/" style="font-size: 20px;">Linux</a> <a href="/tags/MongoDB/" style="font-size: 20px;">MongoDB</a> <a href="/tags/MySql/" style="font-size: 20px;">MySql</a> <a href="/tags/MybatisPlus/" style="font-size: 20px;">MybatisPlus</a> <a href="/tags/Nginx/" style="font-size: 20px;">Nginx</a> <a href="/tags/NodeJs/" style="font-size: 20px;">NodeJs</a> <a href="/tags/PHP/" style="font-size: 20px;">PHP</a> <a href="/tags/Promise/" style="font-size: 20px;">Promise</a> <a href="/tags/QT/" style="font-size: 20px;">QT</a> <a href="/tags/RAG/" style="font-size: 20px;">RAG</a> <a href="/tags/React/" style="font-size: 20px;">React</a> <a href="/tags/Redis/" style="font-size: 20px;">Redis</a> <a href="/tags/Skill/" style="font-size: 20px;">Skill</a> <a href="/tags/Spark/" style="font-size: 20px;">Spark</a> <a href="/tags/Spring-Cloud/" style="font-size: 20px;">Spring Cloud</a> <a href="/tags/SpringMVC/" style="font-size: 20px;">SpringMVC</a> <a href="/tags/UniApp/" style="font-size: 20px;">UniApp</a> <a href="/tags/UniCloud/" style="font-size: 20px;">UniCloud</a> <a href="/tags/Unity/" style="font-size: 20px;">Unity</a> <a href="/tags/Vue/" style="font-size: 20px;">Vue</a> <a href="/tags/Webpack/" style="font-size: 20px;">Webpack</a> <a href="/tags/ZooKeeper/" style="font-size: 20px;">ZooKeeper</a> <a href="/tags/pgvector/" style="font-size: 20px;">pgvector</a> <a href="/tags/%E5%89%8D%E7%AB%AF/" style="font-size: 20px;">前端</a> <a href="/tags/%E5%90%91%E9%87%8F%E6%A3%80%E7%B4%A2/" style="font-size: 20px;">向量检索</a> <a href="/tags/%E6%8A%80%E8%83%BD/" style="font-size: 20px;">技能</a> <a href="/tags/%E6%8A%80%E8%83%BD%E6%A8%A1%E5%BC%8F/" style="font-size: 20px;">技能模式</a> <a href="/tags/%E7%9F%A5%E8%AF%86%E5%BA%93/" style="font-size: 20px;">知识库</a> <a href="/tags/%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1/" style="font-size: 20px;">系统设计</a> <a href="/tags/%E8%BF%90%E7%BB%B4/" style="font-size: 20px;">运维</a>
+                </div>
+            </div>
+        </section>
+        <section class="sub-footer">
+            <p>© 2026 <a href="/">Richu</a>. All Rights Reserved. Theme By <a href="https://github.com/Dreamer-Paul/Hingle" target="_blank" rel="nofollow">Hingle</a>.</p>
+        </section>
+    </div>
+</footer>
+
+
+<script src="/static/kico.js"></script>
+<script src="/static/hingle.js"></script>
+
+
+<script>var SITE_ROOT = "/";</script>
+<script>var hingle = new Paul_Hingle({"copyright":true,"night":false,"code":{"language_label":true,"language_label_exclude":["markup","none","plain","plaintext","text"],"line_numbers":true,"line_numbers_toggle":true}});</script>
+
+    <script src="/js/mermaid-boot.js"></script>
+  </body>
+</html>

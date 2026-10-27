@@ -55,7 +55,7 @@
             <h2>企业知识库技术文档（RAG + pgvector）</h2>
             <div class="post-meta">
                 
-                    <time class="updated" datetime="2026-10-27T08:48:51.803Z" title="最后更新于 2026-10-27 16:48" aria-label="最后更新于 2026-10-27 16:48">2026.10.27</time>
+                    <time class="updated" datetime="2026-10-27T09:02:05.802Z" title="最后更新于 2026-10-27 17:02" aria-label="最后更新于 2026-10-27 17:02">2026.10.27</time>
                 
                 <time class="date">2026.10.28</time>
             
@@ -77,8 +77,8 @@
 <p>传统关键词搜索只能做精确字符串匹配：”请假”和”休假”差一个字就搜不到，中文文档也搜不出英文资料。RAG 用向量的”语义距离”取代字符串匹配，让”意思相近”真正等于”搜得到”。</p>
 </div>
 
-<pre class="line-numbers language-text" data-language="text"><code class="language-text">
-&lt;div class="mermaid">
+
+<div class="mermaid">
 flowchart LR
     DOC["📄 原始文档"] --> CHUNK["🔪 文本分块"]
     CHUNK --> EMB["🧠 向量嵌入"]
@@ -86,102 +86,162 @@ flowchart LR
     QUERY["📊 用户提问"] --> ENCODE["Embed"]
     ENCODE --> SIM["pgvector 相似度搜索"]
     SIM -->|召回| STORE
-&lt;/div>
+</div>
 
 
-&lt;/div>
+</div>
 
-&lt;span class="md-kbd-wrap">
+<span class="md-kbd-wrap">
 
-&lt;span class="md-kbd">v3.0.0&lt;/span>
+<p><span class="md-kbd">v3.0.0</span></p>
+</span>
 
-&lt;/span>
-
-## 1. 概述
-
-本项目采用 **RAG（Retrieval-Augmented Generation，检索增强生成）** 架构实现企业知识库的语义搜索。核心思路是：将企业文档转为向量存入数据库，用户提问时通过向量相似度找回最相关的文档片段，然后交给大模型基于这些资料生成答案。
-
-### 1.1 核心技术栈
-
-| 组件 | 技术 | 说明 |
-| ---- | ---- | ---- |
-| 文档切分 | 自研 `chunk_text()` | 按自然边界切分，支持中英文 |
-| 向量嵌入 | `BAAI/bge-small-zh-v1.5` | 本地运行，512 维，中文优化 |
-| 向量存储 | PostgreSQL 16 + pgvector | IVFFlat 索引加速检索 |
-| 语义搜索 | pgvector `&lt;=>` 余弦距离 | 向量相似度排序 |
-| 关键词搜索 | PostgreSQL ILIKE | 向量搜索不可用时的回退方案 |
-| 文本存储 | `kb_documents` 表 | 文档元信息 + 分块统计 |
-
-### 1.2 RAG vs 传统搜索
-
-| 对比维度 | 传统关键词搜索 | RAG 向量搜索 |
-| -------- | -------------- | ------------ |
-| 匹配方式 | 精确字符串匹配 | 语义相似度 |
-| 同义词 | "请假" ≠ "休假" ✗ | "请假" ≈ "休假" ✓ |
-| 跨语言 | 中文搜不出英文文档 | 语义相近可以跨语言 |
-| 模糊查询 | 需要 LIKE %keyword% | 天然支持模糊语义 |
-| 排序依据 | 字符串匹配度 | 余弦相似度（0~1） |
-
-## 2. 架构总览
-
-&lt;div class="mermaid">
+<h2 id="1-概述"><a href="#1-概述" class="headerlink" title="1. 概述"></a>1. 概述</h2><p>本项目采用 <strong>RAG（Retrieval-Augmented Generation，检索增强生成）</strong> 架构实现企业知识库的语义搜索。核心思路是：将企业文档转为向量存入数据库，用户提问时通过向量相似度找回最相关的文档片段，然后交给大模型基于这些资料生成答案。</p>
+<h3 id="1-1-核心技术栈"><a href="#1-1-核心技术栈" class="headerlink" title="1.1 核心技术栈"></a>1.1 核心技术栈</h3><table>
+<thead>
+<tr>
+<th>组件</th>
+<th>技术</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>文档切分</td>
+<td>自研 <code>chunk_text()</code></td>
+<td>按自然边界切分，支持中英文</td>
+</tr>
+<tr>
+<td>向量嵌入</td>
+<td><code>BAAI/bge-small-zh-v1.5</code></td>
+<td>本地运行，512 维，中文优化</td>
+</tr>
+<tr>
+<td>向量存储</td>
+<td>PostgreSQL 16 + pgvector</td>
+<td>IVFFlat 索引加速检索</td>
+</tr>
+<tr>
+<td>语义搜索</td>
+<td>pgvector <code>&lt;=&gt;</code> 余弦距离</td>
+<td>向量相似度排序</td>
+</tr>
+<tr>
+<td>关键词搜索</td>
+<td>PostgreSQL ILIKE</td>
+<td>向量搜索不可用时的回退方案</td>
+</tr>
+<tr>
+<td>文本存储</td>
+<td><code>kb_documents</code> 表</td>
+<td>文档元信息 + 分块统计</td>
+</tr>
+</tbody></table>
+<h3 id="1-2-RAG-vs-传统搜索"><a href="#1-2-RAG-vs-传统搜索" class="headerlink" title="1.2 RAG vs 传统搜索"></a>1.2 RAG vs 传统搜索</h3><table>
+<thead>
+<tr>
+<th>对比维度</th>
+<th>传统关键词搜索</th>
+<th>RAG 向量搜索</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>匹配方式</td>
+<td>精确字符串匹配</td>
+<td>语义相似度</td>
+</tr>
+<tr>
+<td>同义词</td>
+<td>“请假” ≠ “休假” ✗</td>
+<td>“请假” ≈ “休假” ✓</td>
+</tr>
+<tr>
+<td>跨语言</td>
+<td>中文搜不出英文文档</td>
+<td>语义相近可以跨语言</td>
+</tr>
+<tr>
+<td>模糊查询</td>
+<td>需要 LIKE %keyword%</td>
+<td>天然支持模糊语义</td>
+</tr>
+<tr>
+<td>排序依据</td>
+<td>字符串匹配度</td>
+<td>余弦相似度（0~1）</td>
+</tr>
+</tbody></table>
+<h2 id="2-架构总览"><a href="#2-架构总览" class="headerlink" title="2. 架构总览"></a>2. 架构总览</h2><div class="mermaid">
 flowchart TD
     subgraph PIPE["文档处理管道"]
         direction LR
-        RAW["📄 原始文档&lt;br/>.txt / .md / .pdf / .html"]
-        CHK["🔪 文本分块&lt;br/>Chunk 1 / 2 / 3 ..."]
-        EMB["🧠 向量嵌入&lt;br/>[0.02, -0.45, 0.79, ...]"]
-        VDB["💾 向量入库&lt;br/>vector_documents"]
+        RAW["📄 原始文档<br/>.txt / .md / .pdf / .html"]
+        CHK["🔪 文本分块<br/>Chunk 1 / 2 / 3 ..."]
+        EMB["🧠 向量嵌入<br/>[0.02, -0.45, 0.79, ...]"]
+        VDB["💾 向量入库<br/>vector_documents"]
         RAW --> CHK --> EMB --> VDB
     end
 
-    subgraph RETRIEVE["语义检索"]
-        direction LR
-        Q["🔍 用户提问&lt;br/>\"年假? \""]
-        EN["Embed&lt;br/>编码"]
-        PG["pgvector&lt;br/>相似度搜索"]
-        Q --> EN --> PG
-    end
+<pre><code>subgraph RETRIEVE[&quot;语义检索&quot;]
+    direction LR
+    Q[&quot;🔍 用户提问&lt;br/&gt;\&quot;年假? \&quot;&quot;]
+    EN[&quot;Embed&lt;br/&gt;编码&quot;]
+    PG[&quot;pgvector&lt;br/&gt;相似度搜索&quot;]
+    Q --&gt; EN --&gt; PG
+end
 
-    subgraph MGMT["文档管理"]
-        direction LR
-        KB["📊 kb_documents&lt;br/>文档元信息"]
-        SIDE["前端侧边栏&lt;br/>实时展示文档"]
-        UP["上传&lt;br/>自动走 RAG 管道"]
-        KB --> SIDE --> UP
-    end
+subgraph MGMT[&quot;文档管理&quot;]
+    direction LR
+    KB[&quot;📊 kb_documents&lt;br/&gt;文档元信息&quot;]
+    SIDE[&quot;前端侧边栏&lt;br/&gt;实时展示文档&quot;]
+    UP[&quot;上传&lt;br/&gt;自动走 RAG 管道&quot;]
+    KB --&gt; SIDE --&gt; UP
+end
 
-    VDB -->|检索读取| PG
-    PG -->|相似度排序| VDB
-    UP -->|触发| RAW
-&lt;/div>
+VDB --&gt;|检索读取| PG
+PG --&gt;|相似度排序| VDB
+UP --&gt;|触发| RAW
+</code></pre>
+</div>
 
-## 3. Embedding 模型
+<h2 id="3-Embedding-模型"><a href="#3-Embedding-模型" class="headerlink" title="3. Embedding 模型"></a>3. Embedding 模型</h2><h3 id="3-1-为什么选-BGE-small-zh-v1-5"><a href="#3-1-为什么选-BGE-small-zh-v1-5" class="headerlink" title="3.1 为什么选 BGE-small-zh-v1.5"></a>3.1 为什么选 BGE-small-zh-v1.5</h3><table>
+<thead>
+<tr>
+<th>特性</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>中文优化</strong></td>
+<td>BAAI（北京智源）专门为中文检索训练的模型</td>
+</tr>
+<tr>
+<td><strong>本地运行</strong></td>
+<td>无需外网 API，数据不出本机</td>
+</tr>
+<tr>
+<td><strong>512 维</strong></td>
+<td>足够表达语义，存储和计算开销小</td>
+</tr>
+<tr>
+<td><strong>模型大小</strong></td>
+<td>~100 MB，首次自动下载，之后离线可用</td>
+</tr>
+<tr>
+<td><strong>推理设备</strong></td>
+<td>默认 CPU，支持 CUDA&#x2F;MPS 加速</td>
+</tr>
+</tbody></table>
+<h3 id="3-2-模型加载机制"><a href="#3-2-模型加载机制" class="headerlink" title="3.2 模型加载机制"></a>3.2 模型加载机制</h3><pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment"># src/rag/__init__.py — DocumentStore._ensure_model()</span>
+<span class="token keyword">def</span> <span class="token function">_ensure_model</span><span class="token punctuation">(</span>self<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">if</span> self<span class="token punctuation">.</span>_model <span class="token keyword">is</span> <span class="token keyword">not</span> <span class="token boolean">None</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> self<span class="token punctuation">.</span>_model  <span class="token comment"># 已加载，直接复用</span>
 
-### 3.1 为什么选 BGE-small-zh-v1.5
-
-| 特性 | 说明 |
-| ---- | ---- |
-| **中文优化** | BAAI（北京智源）专门为中文检索训练的模型 |
-| **本地运行** | 无需外网 API，数据不出本机 |
-| **512 维** | 足够表达语义，存储和计算开销小 |
-| **模型大小** | ~100 MB，首次自动下载，之后离线可用 |
-| **推理设备** | 默认 CPU，支持 CUDA/MPS 加速 |
-
-### 3.2 模型加载机制
-
-```python
-# src/rag/__init__.py — DocumentStore._ensure_model()
-def _ensure_model(self):
-    if self._model is not None:
-        return self._model  # 已加载，直接复用
-
-    from sentence_transformers import SentenceTransformer
-    self._model = SentenceTransformer(
-        settings.embedding_model,    # "BAAI/bge-small-zh-v1.5"
-        device=settings.embedding_device,  # "cpu"
-    )
-    return self._model<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+    <span class="token keyword">from</span> sentence_transformers <span class="token keyword">import</span> SentenceTransformer
+    self<span class="token punctuation">.</span>_model <span class="token operator">=</span> SentenceTransformer<span class="token punctuation">(</span>
+        settings<span class="token punctuation">.</span>embedding_model<span class="token punctuation">,</span>    <span class="token comment"># "BAAI/bge-small-zh-v1.5"</span>
+        device<span class="token operator">=</span>settings<span class="token punctuation">.</span>embedding_device<span class="token punctuation">,</span>  <span class="token comment"># "cpu"</span>
+    <span class="token punctuation">)</span>
+    <span class="token keyword">return</span> self<span class="token punctuation">.</span>_model<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <ul>
 <li><strong>懒加载</strong>：首次调用 <code>embed()</code> 时才加载，不是启动时加载</li>
@@ -302,29 +362,25 @@ def _ensure_model(self):
 <span class="token comment">-- 4. 清空旧数据（旧维度向量不兼容）</span>
 <span class="token keyword">DELETE</span> <span class="token keyword">FROM</span> vector_documents<span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<h2 id="5-文档处理管道"><a href="#5-文档处理管道" class="headerlink" title="5. 文档处理管道"></a>5. 文档处理管道</h2><h3 id="5-1-管道流程"><a href="#5-1-管道流程" class="headerlink" title="5.1 管道流程"></a>5.1 管道流程</h3><pre class="line-numbers language-text" data-language="text"><code class="language-text">
-&lt;div class="mermaid">
+<h2 id="5-文档处理管道"><a href="#5-文档处理管道" class="headerlink" title="5. 文档处理管道"></a>5. 文档处理管道</h2><h3 id="5-1-管道流程"><a href="#5-1-管道流程" class="headerlink" title="5.1 管道流程"></a>5.1 管道流程</h3><div class="mermaid">
 flowchart TD
-    UP["POST /documents/upload&lt;br/>file + module + category"] --> V1["1. 文件校验&lt;br/>扩展名白名单 / ≤20MB / UTF-8"]
-    V1 --> V2["2. 元信息入库&lt;br/>kb_documents 表&lt;br/>推测分类 / 提取标签 / 覆盖更新"]
-    V2 --> V3["3. 文本分块&lt;br/>chunk_text&lt;br/>size=800 overlap=120"]
-    V3 --> V4["4. 向量嵌入&lt;br/>BGE-small-zh-v1.5&lt;br/>512 维 / 归一化"]
-    V4 --> V5["5. 向量入库&lt;br/>vector_documents 表&lt;br/>SHA256 前24位"]
-    V5 --> V6["6. 返回结果&lt;br/>&#123;filename, chunks, vectorized&#125;"]
-&lt;/div>
+    UP["POST /documents/upload<br/>file + module + category"] --> V1["1. 文件校验<br/>扩展名白名单 / ≤20MB / UTF-8"]
+    V1 --> V2["2. 元信息入库<br/>kb_documents 表<br/>推测分类 / 提取标签 / 覆盖更新"]
+    V2 --> V3["3. 文本分块<br/>chunk_text<br/>size=800 overlap=120"]
+    V3 --> V4["4. 向量嵌入<br/>BGE-small-zh-v1.5<br/>512 维 / 归一化"]
+    V4 --> V5["5. 向量入库<br/>vector_documents 表<br/>SHA256 前24位"]
+    V5 --> V6["6. 返回结果<br/>{filename, chunks, vectorized}"]
+</div>
 
 
-### 5.2 文本分块算法
-
-```python
-# src/rag/__init__.py
-def chunk_text(text, chunk_size=800, chunk_overlap=120):
-    """
+<h3 id="5-2-文本分块算法"><a href="#5-2-文本分块算法" class="headerlink" title="5.2 文本分块算法"></a>5.2 文本分块算法</h3><pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment"># src/rag/__init__.py</span>
+<span class="token keyword">def</span> <span class="token function">chunk_text</span><span class="token punctuation">(</span>text<span class="token punctuation">,</span> chunk_size<span class="token operator">=</span><span class="token number">800</span><span class="token punctuation">,</span> chunk_overlap<span class="token operator">=</span><span class="token number">120</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token triple-quoted-string string">"""
     核心策略：
     1. 从末尾向前找第一个分隔符（\n\n > \n > 。 > . > 空格）
     2. 在分隔符处切分，保证语义完整性
     3. 相邻块保持 120 字符重叠，防止信息在边界断裂
-    """<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+    """</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p><strong>为什么需要重叠</strong>：向量嵌入只能表达一段文字的”整体语义”，如果关键信息刚好落在两个分块的边界上，可能会丢失。120 字符的重叠确保边界处的信息至少出现在一个完整的分块中。</p>
 <h3 id="5-3-没有-Embedding-模型时的降级"><a href="#5-3-没有-Embedding-模型时的降级" class="headerlink" title="5.3 没有 Embedding 模型时的降级"></a>5.3 没有 Embedding 模型时的降级</h3><p>如果 <code>sentence-transformers</code> 未安装或模型加载失败：</p>
@@ -658,7 +714,7 @@ chunk_text<span class="token punctuation">(</span>text<span class="token punctua
                     <li>上一篇: 看完啦 (つд⊂)</li>
                 
                 
-                    <li>下一篇: <a href="/2026/10/27/%E6%8A%80%E8%83%BD%E6%A8%A1%E5%BC%8F%E4%BB%A3%E7%90%86%E8%AE%BE%E8%AE%A1%E6%96%87%E6%A1%A3/">技能模式 AI Agent 系统设计</a></li>
+                    <li>下一篇: <a href="/2026/10/27/%E6%8A%80%E8%83%BD%E5%BC%80%E5%8F%91%E6%8C%87%E5%8D%97/">技能开发指南</a></li>
                 
             </ul>
         </section>
@@ -692,7 +748,7 @@ chunk_text<span class="token punctuation">(</span>text<span class="token punctua
             <div class="row">
                 <div class="col-m-4">
                     <h3 class="title-recent">最新文章：</h3>
-                    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2026/10/28/%E7%9F%A5%E8%AF%86%E6%96%87%E6%A1%A3%E6%8A%80%E6%9C%AF%E6%96%87%E6%A1%A3/">企业知识库技术文档（RAG + pgvector）</a></li><li class="post-list-item"><a class="post-list-link" href="/2026/10/27/%E6%8A%80%E8%83%BD%E6%A8%A1%E5%BC%8F%E4%BB%A3%E7%90%86%E8%AE%BE%E8%AE%A1%E6%96%87%E6%A1%A3/">技能模式 AI Agent 系统设计</a></li><li class="post-list-item"><a class="post-list-link" href="/2026/10/27/%E6%8A%80%E8%83%BD%E5%BC%80%E5%8F%91%E6%8C%87%E5%8D%97/">技能开发指南</a></li><li class="post-list-item"><a class="post-list-link" href="/2026/10/01/Redis/">Redis</a></li><li class="post-list-item"><a class="post-list-link" href="/2026/09/01/React/">React</a></li><li class="post-list-item"><a class="post-list-link" href="/2026/08/01/QT/">QT</a></li></ul>
+                    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2026/10/28/%E7%9F%A5%E8%AF%86%E6%96%87%E6%A1%A3%E6%8A%80%E6%9C%AF%E6%96%87%E6%A1%A3/">企业知识库技术文档（RAG + pgvector）</a></li><li class="post-list-item"><a class="post-list-link" href="/2026/10/27/%E6%8A%80%E8%83%BD%E5%BC%80%E5%8F%91%E6%8C%87%E5%8D%97/">技能开发指南</a></li><li class="post-list-item"><a class="post-list-link" href="/2026/10/27/%E6%8A%80%E8%83%BD%E6%A8%A1%E5%BC%8F%E4%BB%A3%E7%90%86%E8%AE%BE%E8%AE%A1%E6%96%87%E6%A1%A3/">技能模式 AI Agent 系统设计</a></li><li class="post-list-item"><a class="post-list-link" href="/2026/10/01/Redis/">Redis</a></li><li class="post-list-item"><a class="post-list-link" href="/2026/09/01/React/">React</a></li><li class="post-list-item"><a class="post-list-link" href="/2026/08/01/QT/">QT</a></li></ul>
                 </div>
                 <div class="col-m-4">
                     <h3 class="title-date">时光机：</h3>

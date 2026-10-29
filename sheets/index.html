@@ -62,132 +62,270 @@
             
 <style>
 .sheet-lib { margin-top: 6px; }
-.sheet-piece { margin-bottom: 46px; }
-.sheet-piece-head { display: flex; align-items: baseline; gap: 10px; flex-wrap: wrap; margin-bottom: 12px; }
-.sheet-piece-title { font-size: 20px; font-weight: 700; color: #2b2f3a; margin: 0; }
-.sheet-piece-title i { color: #8a4fff; margin-right: 6px; }
-.sheet-piece-sub { display: flex; align-items: center; gap: 12px; color: #8a8f9c; font-size: 13px; }
-.sheet-piece-sub i { margin-right: 4px; }
-.sheet-deck-wrap { display: flex; flex-direction: column; align-items: center; padding: 28px 12px 6px; }
-.sheet-deck { position: relative; width: 190px; height: 252px; margin: 0 auto; }
-.sheet-deck-card {
-  position: absolute; inset: 0; border-radius: 10px; overflow: hidden; background: #fff;
-  box-shadow: 0 8px 22px rgba(30, 40, 80, .16);
-  transition: transform .35s ease, box-shadow .25s ease;
+.sheet-grid {
+  display: grid; gap: 16px;
+  grid-template-columns: repeat(auto-fill, minmax(148px, 1fr));
 }
-.sheet-deck-card:hover { box-shadow: 0 16px 34px rgba(30, 40, 80, .30); }
-.sheet-deck-card img { width: 100%; height: 100%; object-fit: cover; display: block; }
-.sheet-deck-cap { margin-top: 18px; font-size: 13px; color: #6b7080; font-weight: 600; }
-.sheet-pages { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; margin-top: 8px; }
-.sheet-page-thumb {
-  width: 92px; text-decoration: none; color: #5b6ee1; font-size: 12px;
-  display: flex; flex-direction: column; align-items: center; gap: 5px;
+.sheet-card {
+  background: #fff; border-radius: 14px; padding: 14px 12px 12px;
+  box-shadow: 0 6px 18px rgba(30, 40, 80, .08);
+  display: flex; flex-direction: column; align-items: center; gap: 9px;
+  cursor: pointer; outline: none;
+  transition: transform .22s ease, box-shadow .22s ease;
 }
-.sheet-page-thumb img {
-  width: 92px; height: 122px; object-fit: cover; border-radius: 8px; background: #eef0f6;
-  box-shadow: 0 4px 12px rgba(30, 40, 80, .10);
-  transition: transform .2s ease, box-shadow .2s ease;
+.sheet-card:hover, .sheet-card:focus-visible {
+  transform: translateY(-5px);
+  box-shadow: 0 16px 30px rgba(30, 40, 80, .16);
 }
-.sheet-page-thumb:hover img { transform: translateY(-3px); box-shadow: 0 10px 20px rgba(30, 40, 80, .18); }
+.mini-deck { position: relative; width: 96px; height: 120px; flex: 0 0 auto; margin: 8px 0 2px; }
+.mini-card {
+  position: absolute; inset: 0; border-radius: 8px; overflow: hidden; background: #fff;
+  box-shadow: 0 5px 14px rgba(30, 40, 80, .16);
+}
+.mini-card img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.card-title {
+  font-size: 14px; font-weight: 600; color: #222; text-align: center; line-height: 1.35;
+  max-width: 100%; overflow: hidden;
+  display: -webkit-box; -webkit-line-clamp: 2; -webkit-box-orient: vertical;
+}
+.card-sub { font-size: 12px; color: #8a8f9c; text-align: center; }
+.card-count {
+  font-size: 11px; color: #5b6ee1; background: rgba(91, 110, 225, .1);
+  padding: 1px 9px; border-radius: 999px;
+}
+
+/* 模态层 */
+.sheet-modal { position: fixed; inset: 0; z-index: 99990; display: none; }
+.sheet-modal.open { display: flex; align-items: center; justify-content: center; }
+.sheet-modal-mask { position: absolute; inset: 0; background: rgba(20, 24, 40, .55); }
+.sheet-modal-panel {
+  position: relative; background: #fff; width: min(920px, 92vw); max-height: 88vh;
+  border-radius: 16px; box-shadow: 0 24px 60px rgba(0, 0, 0, .35);
+  display: flex; flex-direction: column; overflow: hidden;
+  animation: sheetPop .22s ease;
+}
+@keyframes sheetPop { from { transform: scale(.96); opacity: 0; } to { transform: scale(1); opacity: 1; } }
+.sheet-modal-head {
+  display: flex; align-items: center; gap: 10px;
+  padding: 15px 20px; border-bottom: 1px solid #eef0f6; flex: 0 0 auto;
+}
+.sheet-modal-head h3 { margin: 0; font-size: 18px; color: #222; }
+.sheet-modal-head .sub { font-size: 13px; color: #8a8f9c; }
+.sheet-modal-close {
+  margin-left: auto; border: 0; background: #f0f2f8; width: 34px; height: 34px;
+  border-radius: 50%; cursor: pointer; font-size: 15px; color: #555;
+  display: flex; align-items: center; justify-content: center;
+}
+.sheet-modal-close:hover { background: #e3e6f0; }
+.sheet-modal-body {
+  padding: 18px 20px 22px; overflow: auto;
+  display: grid; grid-template-columns: repeat(auto-fill, minmax(120px, 1fr)); gap: 14px;
+}
+.page-thumb {
+  border: 0; background: transparent; padding: 0; cursor: pointer;
+  display: flex; flex-direction: column; align-items: center; gap: 6px;
+}
+.page-thumb img {
+  width: 100%; border-radius: 8px; background: #eef0f6;
+  box-shadow: 0 4px 12px rgba(30, 40, 80, .12);
+  transition: transform .18s ease;
+}
+.page-thumb:hover img { transform: translateY(-3px); }
+.page-thumb span { font-size: 12px; color: #8a8f9c; }
+
+/* 灯箱 */
+.sheet-light {
+  position: fixed; inset: 0; z-index: 99999; background: rgba(10, 12, 20, .92);
+  display: none; align-items: center; justify-content: center;
+}
+.sheet-light.open { display: flex; }
+.sheet-light img { max-width: 92vw; max-height: 88vh; border-radius: 6px; box-shadow: 0 20px 60px rgba(0, 0, 0, .5); }
+.sheet-light button {
+  position: absolute; border: 0; background: rgba(255, 255, 255, .14); color: #fff;
+  width: 46px; height: 46px; border-radius: 50%; cursor: pointer; font-size: 20px;
+  display: flex; align-items: center; justify-content: center;
+}
+.sheet-light button:hover { background: rgba(255, 255, 255, .26); }
+.sheet-light .lx-close { top: 18px; right: 18px; }
+.sheet-light .lx-prev { left: 18px; top: 50%; transform: translateY(-50%); }
+.sheet-light .lx-next { right: 18px; top: 50%; transform: translateY(-50%); }
+.sheet-light .lx-count {
+  position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%);
+  color: #fff; font-size: 13px; background: rgba(0, 0, 0, .4);
+  padding: 4px 12px; border-radius: 999px;
+}
+body.sheet-lock { overflow: hidden; }
+
 .sheet-empty { color: #8a8f9c; line-height: 1.9; }
 .sheet-empty code { background: #f0f2f8; padding: 2px 6px; border-radius: 5px; }
 @media (max-width: 600px) {
-  .sheet-deck { width: 160px; height: 213px; }
-  .sheet-page-thumb, .sheet-page-thumb img { width: 78px; }
-  .sheet-page-thumb img { height: 104px; }
+  .sheet-grid { grid-template-columns: repeat(auto-fill, minmax(124px, 1fr)); gap: 12px; }
+  .mini-deck { width: 82px; height: 103px; }
+  .sheet-modal-body { grid-template-columns: repeat(auto-fill, minmax(96px, 1fr)); }
 }
 </style>
 
 
   <div class="sheet-lib">
-    
-      <section class="sheet-piece">
-        <div class="sheet-piece-head">
-          <h3 class="sheet-piece-title"><i class="fa fa-music" aria-hidden="true"></i>shelter</h3>
-          
-            <div class="sheet-piece-sub">
-              <span><i class="fa fa-user" aria-hidden="true"></i>Porter Robinson</span>
-            </div>
-          
-        </div>
-        <div class="sheet-deck-wrap">
-          <div class="sheet-deck">
+    <div class="sheet-grid">
+      
+        <div class="sheet-card" data-i="0" role="button" tabindex="0" aria-label="查看《shelter》">
+          <div class="mini-deck">
             
             
-              
-              
-              <a class="sheet-deck-card"
-                 style="transform: rotate(-30deg) translateX(-12px); z-index: 1;"
-                 href="/sheets/shelter/01.jpg" target="_blank" rel="noopener noreferrer">
-                <img src="/sheets/shelter/01.jpg" alt="shelter 第1页" loading="lazy"/>
-              </a>
             
-              
-              
-              <a class="sheet-deck-card"
-                 style="transform: rotate(-15deg) translateX(-6px); z-index: 2;"
-                 href="/sheets/shelter/02.jpg" target="_blank" rel="noopener noreferrer">
-                <img src="/sheets/shelter/02.jpg" alt="shelter 第2页" loading="lazy"/>
-              </a>
+              <span class="mini-card" style="transform: rotate(-30deg) translateX(-10px); z-index: 1;">
+                <img src="/sheets/shelter/01.jpg" alt="" loading="lazy"/>
+              </span>
             
-              
-              
-              <a class="sheet-deck-card"
-                 style="transform: rotate(0deg) translateX(0px); z-index: 3;"
-                 href="/sheets/shelter/03.jpg" target="_blank" rel="noopener noreferrer">
-                <img src="/sheets/shelter/03.jpg" alt="shelter 第3页" loading="lazy"/>
-              </a>
+              <span class="mini-card" style="transform: rotate(-15deg) translateX(-5px); z-index: 2;">
+                <img src="/sheets/shelter/02.jpg" alt="" loading="lazy"/>
+              </span>
             
-              
-              
-              <a class="sheet-deck-card"
-                 style="transform: rotate(15deg) translateX(6px); z-index: 4;"
-                 href="/sheets/shelter/04.jpg" target="_blank" rel="noopener noreferrer">
-                <img src="/sheets/shelter/04.jpg" alt="shelter 第4页" loading="lazy"/>
-              </a>
+              <span class="mini-card" style="transform: rotate(0deg) translateX(0px); z-index: 3;">
+                <img src="/sheets/shelter/03.jpg" alt="" loading="lazy"/>
+              </span>
             
-              
-              
-              <a class="sheet-deck-card"
-                 style="transform: rotate(30deg) translateX(12px); z-index: 5;"
-                 href="/sheets/shelter/05.jpg" target="_blank" rel="noopener noreferrer">
-                <img src="/sheets/shelter/05.jpg" alt="shelter 第5页" loading="lazy"/>
-              </a>
+              <span class="mini-card" style="transform: rotate(15deg) translateX(5px); z-index: 4;">
+                <img src="/sheets/shelter/04.jpg" alt="" loading="lazy"/>
+              </span>
+            
+              <span class="mini-card" style="transform: rotate(30deg) translateX(10px); z-index: 5;">
+                <img src="/sheets/shelter/05.jpg" alt="" loading="lazy"/>
+              </span>
             
           </div>
-          <div class="sheet-deck-cap">5 页谱面 · 点击任意一张查看大图</div>
+          <div class="card-title">shelter</div>
+          <div class="card-sub">Porter Robinson</div>
+          <div class="card-count">5 页</div>
         </div>
-        <div class="sheet-pages">
-          
-            <a class="sheet-page-thumb" href="/sheets/shelter/01.jpg" target="_blank" rel="noopener noreferrer">
-              <img src="/sheets/shelter/01.jpg" alt="第1页" loading="lazy"/>
-              <span>第 1 页</span>
-            </a>
-          
-            <a class="sheet-page-thumb" href="/sheets/shelter/02.jpg" target="_blank" rel="noopener noreferrer">
-              <img src="/sheets/shelter/02.jpg" alt="第2页" loading="lazy"/>
-              <span>第 2 页</span>
-            </a>
-          
-            <a class="sheet-page-thumb" href="/sheets/shelter/03.jpg" target="_blank" rel="noopener noreferrer">
-              <img src="/sheets/shelter/03.jpg" alt="第3页" loading="lazy"/>
-              <span>第 3 页</span>
-            </a>
-          
-            <a class="sheet-page-thumb" href="/sheets/shelter/04.jpg" target="_blank" rel="noopener noreferrer">
-              <img src="/sheets/shelter/04.jpg" alt="第4页" loading="lazy"/>
-              <span>第 4 页</span>
-            </a>
-          
-            <a class="sheet-page-thumb" href="/sheets/shelter/05.jpg" target="_blank" rel="noopener noreferrer">
-              <img src="/sheets/shelter/05.jpg" alt="第5页" loading="lazy"/>
-              <span>第 5 页</span>
-            </a>
-          
-        </div>
-      </section>
-    
+      
+    </div>
   </div>
+
+  <!-- 页面内预览（模态层）：显示该曲全部谱面 -->
+  <div class="sheet-modal" id="sheetModal" aria-hidden="true">
+    <div class="sheet-modal-mask" data-close></div>
+    <div class="sheet-modal-panel" role="dialog" aria-modal="true" aria-label="乐谱预览">
+      <div class="sheet-modal-head">
+        <h3 id="sheetModalTitle"></h3>
+        <span class="sub" id="sheetModalSub"></span>
+        <button class="sheet-modal-close" type="button" data-close aria-label="关闭">✕</button>
+      </div>
+      <div class="sheet-modal-body" id="sheetModalBody"></div>
+    </div>
+  </div>
+
+  <!-- 页面内灯箱：看大图，不跳转 -->
+  <div class="sheet-light" id="sheetLight" aria-hidden="true">
+    <button class="lx-close" type="button" data-light-close aria-label="关闭">✕</button>
+    <button class="lx-prev" type="button" data-light-prev aria-label="上一页">‹</button>
+    <img id="sheetLightImg" src="" alt="乐谱大图"/>
+    <button class="lx-next" type="button" data-light-next aria-label="下一页">›</button>
+    <div class="lx-count" id="sheetLightCount"></div>
+  </div>
+
+  <script type="application/json" id="sheets-json">[{"title":"shelter","author":"Porter Robinson","folder":"shelter","pages":["/sheets/shelter/01.jpg","/sheets/shelter/02.jpg","/sheets/shelter/03.jpg","/sheets/shelter/04.jpg","/sheets/shelter/05.jpg"]}]</script>
+  <script>
+  (function () {
+    var DATA = [];
+    try { DATA = JSON.parse(document.getElementById('sheets-json').textContent) || []; } catch (e) { DATA = []; }
+
+    var modal = document.getElementById('sheetModal');
+    var modalTitle = document.getElementById('sheetModalTitle');
+    var modalSub = document.getElementById('sheetModalSub');
+    var modalBody = document.getElementById('sheetModalBody');
+    var light = document.getElementById('sheetLight');
+    var lightImg = document.getElementById('sheetLightImg');
+    var lightCount = document.getElementById('sheetLightCount');
+    var prevBtn = light.querySelector('[data-light-prev]');
+    var nextBtn = light.querySelector('[data-light-next]');
+
+    var curPages = [], curIdx = 0;
+
+    function openPiece(i) {
+      var s = DATA[i];
+      if (!s) return;
+      modalTitle.textContent = s.title;
+      modalSub.textContent = (s.author ? s.author + ' · ' : '') + s.pages.length + ' 页';
+      modalBody.innerHTML = '';
+      s.pages.forEach(function (p, pi) {
+        var b = document.createElement('button');
+        b.type = 'button';
+        b.className = 'page-thumb';
+        var img = document.createElement('img');
+        img.src = p; img.loading = 'lazy'; img.alt = '第 ' + (pi + 1) + ' 页';
+        var cap = document.createElement('span');
+        cap.textContent = '第 ' + (pi + 1) + ' 页';
+        b.appendChild(img); b.appendChild(cap);
+        b.addEventListener('click', function () { openLight(s.pages, pi); });
+        modalBody.appendChild(b);
+      });
+      modal.classList.add('open');
+      modal.setAttribute('aria-hidden', 'false');
+      document.body.classList.add('sheet-lock');
+    }
+
+    function closeModal() {
+      modal.classList.remove('open');
+      modal.setAttribute('aria-hidden', 'true');
+      if (!light.classList.contains('open')) document.body.classList.remove('sheet-lock');
+    }
+
+    function showLight() {
+      lightImg.src = curPages[curIdx];
+      lightCount.textContent = (curIdx + 1) + ' / ' + curPages.length;
+      var multi = curPages.length > 1;
+      prevBtn.style.display = multi ? '' : 'none';
+      nextBtn.style.display = multi ? '' : 'none';
+    }
+    function openLight(pages, idx) {
+      curPages = pages; curIdx = idx;
+      showLight();
+      light.classList.add('open');
+      light.setAttribute('aria-hidden', 'false');
+    }
+    function closeLight() {
+      light.classList.remove('open');
+      light.setAttribute('aria-hidden', 'true');
+      if (!modal.classList.contains('open')) document.body.classList.remove('sheet-lock');
+    }
+    function step(d) {
+      if (!curPages.length) return;
+      curIdx = (curIdx + d + curPages.length) % curPages.length;
+      showLight();
+    }
+
+    var cards = document.querySelectorAll('.sheet-card');
+    for (var i = 0; i < cards.length; i++) {
+      (function (card) {
+        var idx = parseInt(card.getAttribute('data-i'), 10);
+        card.addEventListener('click', function () { openPiece(idx); });
+        card.addEventListener('keydown', function (e) {
+          if (e.key === 'Enter' || e.key === ' ' || e.key === 'Spacebar') {
+            e.preventDefault(); openPiece(idx);
+          }
+        });
+      })(cards[i]);
+    }
+
+    modal.addEventListener('click', function (e) {
+      if (e.target.hasAttribute('data-close')) closeModal();
+    });
+    light.addEventListener('click', function (e) {
+      if (e.target.hasAttribute('data-light-close') || e.target === light) closeLight();
+      else if (e.target.hasAttribute('data-light-prev')) step(-1);
+      else if (e.target.hasAttribute('data-light-next')) step(1);
+    });
+    document.addEventListener('keydown', function (e) {
+      if (e.key === 'Escape') {
+        if (light.classList.contains('open')) closeLight();
+        else if (modal.classList.contains('open')) closeModal();
+      } else if (light.classList.contains('open') && e.key === 'ArrowLeft') step(-1);
+      else if (light.classList.contains('open') && e.key === 'ArrowRight') step(1);
+    });
+  })();
+  </script>
 
 
         </article>
@@ -203,7 +341,7 @@
             <div class="row">
                 <div class="col-m-4">
                     <h3 class="title-recent">最新文章：</h3>
-                    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2026/10/28/%E7%9F%A5%E8%AF%86%E6%96%87%E6%A1%A3%E6%8A%80%E6%9C%AF%E6%96%87%E6%A1%A3/">RAG 知识库</a></li><li class="post-list-item"><a class="post-list-link" href="/2026/10/27/%E6%8A%80%E8%83%BD%E5%BC%80%E5%8F%91%E6%8C%87%E5%8D%97/">技能开发指南</a></li><li class="post-list-item"><a class="post-list-link" href="/2026/10/27/%E6%8A%80%E8%83%BD%E6%A8%A1%E5%BC%8F%E4%BB%A3%E7%90%86%E8%AE%BE%E8%AE%A1%E6%96%87%E6%A1%A3/">技能模式 AI Agent 系统设计</a></li><li class="post-list-item"><a class="post-list-link" href="/2026/10/01/Redis/">Redis</a></li><li class="post-list-item"><a class="post-list-link" href="/2026/09/01/React/">React</a></li><li class="post-list-item"><a class="post-list-link" href="/2026/08/01/QT/">QT</a></li></ul>
+                    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2026/10/28/%E7%9F%A5%E8%AF%86%E6%96%87%E6%A1%A3%E6%8A%80%E6%9C%AF%E6%96%87%E6%A1%A3/">RAG 知识库</a></li><li class="post-list-item"><a class="post-list-link" href="/2026/10/27/%E6%8A%80%E8%83%BD%E6%A8%A1%E5%BC%8F%E4%BB%A3%E7%90%86%E8%AE%BE%E8%AE%A1%E6%96%87%E6%A1%A3/">技能模式 AI Agent 系统设计</a></li><li class="post-list-item"><a class="post-list-link" href="/2026/10/27/%E6%8A%80%E8%83%BD%E5%BC%80%E5%8F%91%E6%8C%87%E5%8D%97/">技能开发指南</a></li><li class="post-list-item"><a class="post-list-link" href="/2026/10/01/Redis/">Redis</a></li><li class="post-list-item"><a class="post-list-link" href="/2026/09/01/React/">React</a></li><li class="post-list-item"><a class="post-list-link" href="/2026/08/01/QT/">QT</a></li></ul>
                 </div>
                 <div class="col-m-4">
                     <h3 class="title-date">时光机：</h3>

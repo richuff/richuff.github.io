@@ -3,7 +3,7 @@
   <head>
      
     <meta charset="UTF-8">
-    <title>企业知识库技术文档（RAG + pgvector） - Richu</title>
+    <title>RAG 知识库 - Richu</title>
     <link rel="shortcut icon" href="/static/img/icon.png">
     <link rel="icon" href="/static/img/icon.png" sizes="192x192"/>
     
@@ -16,7 +16,7 @@
 
     <meta name="viewport" content="width=device-width, maximum-scale=1, initial-scale=1"/>
     <meta property="og:site_name" content="Richu">
-    <meta property="og:title" content="企业知识库技术文档（RAG + pgvector）"/>
+    <meta property="og:title" content="RAG 知识库"/>
     
     <style>body:before{ content: ''; background-image: url(http://kycloud3.koyoo.cn/2025033176e99202503311036156636.jpg) }</style>
     
@@ -52,10 +52,10 @@
     <main>
     <div class="wrap min">
         <section class="post-title">
-            <h2>企业知识库技术文档（RAG + pgvector）</h2>
+            <h2>RAG 知识库</h2>
             <div class="post-meta">
                 
-                    <time class="updated" datetime="2026-10-27T10:00:46.497Z" title="最后更新于 2026-10-27 18:00" aria-label="最后更新于 2026-10-27 18:00">2026.10.27</time>
+                    <time class="updated" datetime="2026-10-29T03:19:36.240Z" title="最后更新于 2026-10-29 11:19" aria-label="最后更新于 2026-10-29 11:19">2026.10.29</time>
                 
                 <time class="date">2026.10.28</time>
             
@@ -66,10 +66,10 @@
         <article class="post-content">
             <div class="md-intro">
 
-<div class="md-hero">企业知识库</div>
+<div class="md-hero">RAG 知识库</div>
 <blockquote>
-<p>本项目采用 <strong>RAG（Retrieval-Augmented Generation，检索增强生成）</strong> 架构实现企业知识库的语义搜索。</p>
-<p>核心思路只有一条：<strong>把企业文档转成向量存入数据库，用户提问时通过向量相似度找回最相关的文档片段，再交给大模型基于这些资料生成答案</strong>——而不是让模型凭空"猜"。</p>
+<p><strong>RAG（Retrieval-Augmented Generation，检索增强生成）</strong> 是一种将文档向量化后结合大模型问答的架构，用于实现知识库的语义搜索。</p>
+<p>其核心思路是：<strong>把文档转成向量存入数据库，用户提问时通过向量相似度找回最相关的文档片段，再交给大模型基于这些资料生成答案</strong>——而不是让模型凭空"猜"。</p>
 </blockquote>
 
 <div class="md-lead">
@@ -96,7 +96,7 @@ flowchart LR
 <p><span class="md-kbd">v3.0.0</span></p>
 </span>
 
-<h2 id="1-概述"><a href="#1-概述" class="headerlink" title="1. 概述"></a>1. 概述</h2><p>本项目采用 <strong>RAG（Retrieval-Augmented Generation，检索增强生成）</strong> 架构实现企业知识库的语义搜索。核心思路是：将企业文档转为向量存入数据库，用户提问时通过向量相似度找回最相关的文档片段，然后交给大模型基于这些资料生成答案。</p>
+<h2 id="1-概述"><a href="#1-概述" class="headerlink" title="1. 概述"></a>1. 概述</h2><p><strong>RAG（Retrieval-Augmented Generation，检索增强生成）</strong> 是一种用于构建知识库语义搜索能力的架构。其核心思路是：将企业文档转为向量存入数据库，用户提问时通过向量相似度找回最相关的文档片段，然后交给大模型基于这些资料生成答案。下文以一套基于 PostgreSQL + pgvector 的实现为例，介绍其工作原理与关键技术。</p>
 <h3 id="1-1-核心技术栈"><a href="#1-1-核心技术栈" class="headerlink" title="1.1 核心技术栈"></a>1.1 核心技术栈</h3><table>
 <thead>
 <tr>
@@ -360,7 +360,7 @@ flowchart TD
 <div class="md-note md-warn">
 
 <p><strong>降级不等于失效</strong></p>
-<p>语义搜索缺位时，系统自动退回关键词搜索，而不是返回空结果。前端用 📄 明确标注”已录入、待向量化”，避免用户误以为搜索已经具备语义能力。</p>
+<p>语义搜索缺位时，方案会自动降级为关键词搜索，而不是返回空结果。前端界面用 📄 明确标注”已录入、待向量化”，避免使用者误以为搜索已经具备语义能力。</p>
 </div>
 
 <h2 id="6-检索机制"><a href="#6-检索机制" class="headerlink" title="6. 检索机制"></a>6. 检索机制</h2><h3 id="6-1-三级搜索策略"><a href="#6-1-三级搜索策略" class="headerlink" title="6.1 三级搜索策略"></a>6.1 三级搜索策略</h3><pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment"># src/tools/business.py — SearchKnowledgeBaseTool.execute()</span>
@@ -671,7 +671,7 @@ chunk_text<span class="token punctuation">(</span>text<span class="token punctua
 </tr>
 </tbody></table>
 <blockquote>
-<p><strong>一句话总结</strong>：这套知识库用 RAG 把”文档”变成”可被语义检索的向量”，再用三级搜索 + 混合加权兜住各类边界情况——语义为主、关键词兜底，才是中文企业知识库稳定可用的关键。</p>
+<p><strong>一句话总结</strong>：RAG 知识库将”文档”变成”可被语义检索的向量”，再用三级搜索 + 混合加权兜住各类边界情况——语义为主、关键词兜底，也是中文企业知识库稳定可用的关键。</p>
 </blockquote>
 <!-- 以下是本文专用的增强样式，仅作用于本页，不影响其他文章 -->
 
@@ -716,7 +716,7 @@ chunk_text<span class="token punctuation">(</span>text<span class="token punctua
             <div class="row">
                 <div class="col-m-4">
                     <h3 class="title-recent">最新文章：</h3>
-                    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2026/10/28/%E7%9F%A5%E8%AF%86%E6%96%87%E6%A1%A3%E6%8A%80%E6%9C%AF%E6%96%87%E6%A1%A3/">企业知识库技术文档（RAG + pgvector）</a></li><li class="post-list-item"><a class="post-list-link" href="/2026/10/27/%E6%8A%80%E8%83%BD%E5%BC%80%E5%8F%91%E6%8C%87%E5%8D%97/">技能开发指南</a></li><li class="post-list-item"><a class="post-list-link" href="/2026/10/27/%E6%8A%80%E8%83%BD%E6%A8%A1%E5%BC%8F%E4%BB%A3%E7%90%86%E8%AE%BE%E8%AE%A1%E6%96%87%E6%A1%A3/">技能模式 AI Agent 系统设计</a></li><li class="post-list-item"><a class="post-list-link" href="/2026/10/01/Redis/">Redis</a></li><li class="post-list-item"><a class="post-list-link" href="/2026/09/01/React/">React</a></li><li class="post-list-item"><a class="post-list-link" href="/2026/08/01/QT/">QT</a></li></ul>
+                    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2026/10/28/%E7%9F%A5%E8%AF%86%E6%96%87%E6%A1%A3%E6%8A%80%E6%9C%AF%E6%96%87%E6%A1%A3/">RAG 知识库</a></li><li class="post-list-item"><a class="post-list-link" href="/2026/10/27/%E6%8A%80%E8%83%BD%E5%BC%80%E5%8F%91%E6%8C%87%E5%8D%97/">技能开发指南</a></li><li class="post-list-item"><a class="post-list-link" href="/2026/10/27/%E6%8A%80%E8%83%BD%E6%A8%A1%E5%BC%8F%E4%BB%A3%E7%90%86%E8%AE%BE%E8%AE%A1%E6%96%87%E6%A1%A3/">技能模式 AI Agent 系统设计</a></li><li class="post-list-item"><a class="post-list-link" href="/2026/10/01/Redis/">Redis</a></li><li class="post-list-item"><a class="post-list-link" href="/2026/09/01/React/">React</a></li><li class="post-list-item"><a class="post-list-link" href="/2026/08/01/QT/">QT</a></li></ul>
                 </div>
                 <div class="col-m-4">
                     <h3 class="title-date">时光机：</h3>

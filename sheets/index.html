@@ -94,7 +94,7 @@
   padding: 1px 9px; border-radius: 999px;
 }
 
-/* 模态层 */
+/* 模态层：每页列表 */
 .sheet-modal { position: fixed; inset: 0; z-index: 99990; display: none; }
 .sheet-modal.open { display: flex; align-items: center; justify-content: center; }
 .sheet-modal-mask { position: absolute; inset: 0; background: rgba(20, 24, 40, .55); }
@@ -133,7 +133,7 @@
 .page-thumb:hover img { transform: translateY(-3px); }
 .page-thumb span { font-size: 12px; color: #8a8f9c; }
 
-/* 灯箱 */
+/* 灯箱：看大图 */
 .sheet-light {
   position: fixed; inset: 0; z-index: 99999; background: rgba(10, 12, 20, .92);
   display: none; align-items: center; justify-content: center;
@@ -203,7 +203,7 @@ body.sheet-lock { overflow: hidden; }
     </div>
   </div>
 
-  <!-- 页面内预览（模态层）：显示该曲全部谱面 -->
+  <!-- 页面内预览（模态层）：列出该曲全部谱面 -->
   <div class="sheet-modal" id="sheetModal" aria-hidden="true">
     <div class="sheet-modal-mask" data-close></div>
     <div class="sheet-modal-panel" role="dialog" aria-modal="true" aria-label="乐谱预览">
@@ -280,10 +280,13 @@ body.sheet-lock { overflow: hidden; }
       nextBtn.style.display = multi ? '' : 'none';
     }
     function openLight(pages, idx) {
-      curPages = pages; curIdx = idx;
+      if (!pages || !pages.length) return;
+      curPages = pages;
+      curIdx = idx || 0;
       showLight();
       light.classList.add('open');
       light.setAttribute('aria-hidden', 'false');
+      document.body.classList.add('sheet-lock');
     }
     function closeLight() {
       light.classList.remove('open');
@@ -341,7 +344,7 @@ body.sheet-lock { overflow: hidden; }
             <div class="row">
                 <div class="col-m-4">
                     <h3 class="title-recent">最新文章：</h3>
-                    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2026/10/28/%E7%9F%A5%E8%AF%86%E6%96%87%E6%A1%A3%E6%8A%80%E6%9C%AF%E6%96%87%E6%A1%A3/">RAG 知识库</a></li><li class="post-list-item"><a class="post-list-link" href="/2026/10/27/%E6%8A%80%E8%83%BD%E6%A8%A1%E5%BC%8F%E4%BB%A3%E7%90%86%E8%AE%BE%E8%AE%A1%E6%96%87%E6%A1%A3/">技能模式 AI Agent 系统设计</a></li><li class="post-list-item"><a class="post-list-link" href="/2026/10/27/%E6%8A%80%E8%83%BD%E5%BC%80%E5%8F%91%E6%8C%87%E5%8D%97/">技能开发指南</a></li><li class="post-list-item"><a class="post-list-link" href="/2026/10/01/Redis/">Redis</a></li><li class="post-list-item"><a class="post-list-link" href="/2026/09/01/React/">React</a></li><li class="post-list-item"><a class="post-list-link" href="/2026/08/01/QT/">QT</a></li></ul>
+                    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2026/10/28/%E7%9F%A5%E8%AF%86%E6%96%87%E6%A1%A3%E6%8A%80%E6%9C%AF%E6%96%87%E6%A1%A3/">RAG 知识库</a></li><li class="post-list-item"><a class="post-list-link" href="/2026/10/27/%E6%8A%80%E8%83%BD%E5%BC%80%E5%8F%91%E6%8C%87%E5%8D%97/">技能开发指南</a></li><li class="post-list-item"><a class="post-list-link" href="/2026/10/27/%E6%8A%80%E8%83%BD%E6%A8%A1%E5%BC%8F%E4%BB%A3%E7%90%86%E8%AE%BE%E8%AE%A1%E6%96%87%E6%A1%A3/">技能模式 AI Agent 系统设计</a></li><li class="post-list-item"><a class="post-list-link" href="/2026/10/01/Redis/">Redis</a></li><li class="post-list-item"><a class="post-list-link" href="/2026/09/01/React/">React</a></li><li class="post-list-item"><a class="post-list-link" href="/2026/08/01/QT/">QT</a></li></ul>
                 </div>
                 <div class="col-m-4">
                     <h3 class="title-date">时光机：</h3>

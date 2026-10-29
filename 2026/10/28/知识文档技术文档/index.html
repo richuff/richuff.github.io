@@ -55,7 +55,7 @@
             <h2>RAG 知识库</h2>
             <div class="post-meta">
                 
-                    <time class="updated" datetime="2026-10-29T03:19:36.240Z" title="最后更新于 2026-10-29 11:19" aria-label="最后更新于 2026-10-29 11:19">2026.10.29</time>
+                    <time class="updated" datetime="2026-10-29T03:31:18.929Z" title="最后更新于 2026-10-29 11:31" aria-label="最后更新于 2026-10-29 11:31">2026.10.29</time>
                 
                 <time class="date">2026.10.28</time>
             
@@ -422,109 +422,7 @@ doc<span class="token punctuation">[</span><span class="token string">"score"</s
 <span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
 <p>每个结果标注了 <code>search_method</code> 字段，方便运维排查搜索质量。</p>
-<h2 id="7-数据库表结构"><a href="#7-数据库表结构" class="headerlink" title="7. 数据库表结构"></a>7. 数据库表结构</h2><h3 id="7-1-kb-documents（文档索引）"><a href="#7-1-kb-documents（文档索引）" class="headerlink" title="7.1 kb_documents（文档索引）"></a>7.1 kb_documents（文档索引）</h3><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">CREATE</span> <span class="token keyword">TABLE</span> kb_documents <span class="token punctuation">(</span>
-    id          <span class="token keyword">TEXT</span> <span class="token keyword">PRIMARY</span> <span class="token keyword">KEY</span><span class="token punctuation">,</span>              <span class="token comment">-- SHA256 前 24 位</span>
-    title       <span class="token keyword">TEXT</span> <span class="token operator">NOT</span> <span class="token boolean">NULL</span><span class="token punctuation">,</span>                 <span class="token comment">-- 文档标题</span>
-    module      <span class="token keyword">TEXT</span> <span class="token operator">NOT</span> <span class="token boolean">NULL</span> <span class="token keyword">DEFAULT</span> <span class="token string">''</span><span class="token punctuation">,</span>      <span class="token comment">-- 业务模块</span>
-    category    <span class="token keyword">TEXT</span> <span class="token operator">NOT</span> <span class="token boolean">NULL</span> <span class="token keyword">DEFAULT</span> <span class="token string">''</span><span class="token punctuation">,</span>      <span class="token comment">-- 分类: policy/manual/faq/contract</span>
-    tags        <span class="token keyword">TEXT</span><span class="token punctuation">[</span><span class="token punctuation">]</span> <span class="token operator">NOT</span> <span class="token boolean">NULL</span> <span class="token keyword">DEFAULT</span> <span class="token string">'&#123;&#125;'</span><span class="token punctuation">,</span>  <span class="token comment">-- 标签数组</span>
-    source_file <span class="token keyword">TEXT</span> <span class="token operator">NOT</span> <span class="token boolean">NULL</span> <span class="token keyword">DEFAULT</span> <span class="token string">''</span><span class="token punctuation">,</span>      <span class="token comment">-- 来源路径</span>
-    author      <span class="token keyword">TEXT</span> <span class="token operator">NOT</span> <span class="token boolean">NULL</span> <span class="token keyword">DEFAULT</span> <span class="token string">''</span><span class="token punctuation">,</span>      <span class="token comment">-- 上传者</span>
-    metadata    JSONB <span class="token operator">NOT</span> <span class="token boolean">NULL</span> <span class="token keyword">DEFAULT</span> <span class="token string">'&#123;&#125;'</span><span class="token punctuation">,</span>   <span class="token comment">-- 扩展元数据</span>
-    created_at  TIMESTAMPTZ <span class="token operator">NOT</span> <span class="token boolean">NULL</span> <span class="token keyword">DEFAULT</span> <span class="token function">now</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">,</span>
-    updated_at  TIMESTAMPTZ <span class="token operator">NOT</span> <span class="token boolean">NULL</span> <span class="token keyword">DEFAULT</span> <span class="token function">now</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
-<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token keyword">CREATE</span> <span class="token keyword">INDEX</span> <span class="token keyword">ON</span> kb_documents<span class="token punctuation">(</span>module<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token keyword">CREATE</span> <span class="token keyword">INDEX</span> <span class="token keyword">ON</span> kb_documents<span class="token punctuation">(</span>category<span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h3 id="7-2-vector-documents（向量分块）"><a href="#7-2-vector-documents（向量分块）" class="headerlink" title="7.2 vector_documents（向量分块）"></a>7.2 vector_documents（向量分块）</h3><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token keyword">CREATE</span> <span class="token keyword">TABLE</span> vector_documents <span class="token punctuation">(</span>
-    id          <span class="token keyword">TEXT</span> <span class="token keyword">PRIMARY</span> <span class="token keyword">KEY</span><span class="token punctuation">,</span>
-    collection  <span class="token keyword">TEXT</span><span class="token punctuation">,</span>                    <span class="token comment">-- 分组: knowledge_base / episodic_memory</span>
-    content     <span class="token keyword">TEXT</span><span class="token punctuation">,</span>                    <span class="token comment">-- 分块文本</span>
-    metadata    JSONB<span class="token punctuation">,</span>                   <span class="token comment">-- &#123;source, filename, chunk_index, total_chunks, embedded_at&#125;</span>
-    embedding   VECTOR<span class="token punctuation">(</span><span class="token number">512</span><span class="token punctuation">)</span>              <span class="token comment">-- 512 维浮点向量</span>
-<span class="token punctuation">)</span><span class="token punctuation">;</span>
-<span class="token keyword">CREATE</span> <span class="token keyword">INDEX</span> <span class="token keyword">ON</span> vector_documents
-    <span class="token keyword">USING</span> ivfflat <span class="token punctuation">(</span>embedding vector_cosine_ops<span class="token punctuation">)</span> <span class="token keyword">WITH</span> <span class="token punctuation">(</span>lists <span class="token operator">=</span> <span class="token number">100</span><span class="token punctuation">)</span><span class="token punctuation">;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h3 id="7-3-两表关系"><a href="#7-3-两表关系" class="headerlink" title="7.3 两表关系"></a>7.3 两表关系</h3><div class="mermaid">
-flowchart LR
-    KB["kb_documents<br/>source_file"] ---|LEFT JOIN<br/>source| VEC["vector_documents<br/>metadata->>source"]
-</div>
-
-<p>通过 <code>LEFT JOIN</code> 关联查询，获取每个文档的：</p>
-<ul>
-<li><code>chunk_count</code>:  已切分的分块数</li>
-<li><code>has_vectors</code>:  是否已完成向量嵌入（metadata-&gt;&gt;’embedded_at’ 不为空）</li>
-</ul>
-<h2 id="8-API-接口"><a href="#8-API-接口" class="headerlink" title="8. API 接口"></a>8. API 接口</h2><h3 id="8-1-文档列表"><a href="#8-1-文档列表" class="headerlink" title="8.1 文档列表"></a>8.1 文档列表</h3><pre class="line-numbers language-none"><code class="language-none">GET &#x2F;documents&#x2F;?module&#x3D;hr-service&amp;category&#x3D;policy<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
-
-<p>返回：</p>
-<pre class="line-numbers language-json" data-language="json"><code class="language-json"><span class="token punctuation">[</span>
-  <span class="token punctuation">&#123;</span>
-    <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"a1b2c3..."</span><span class="token punctuation">,</span>
-    <span class="token property">"title"</span><span class="token operator">:</span> <span class="token string">"员工手册 2024"</span><span class="token punctuation">,</span>
-    <span class="token property">"module"</span><span class="token operator">:</span> <span class="token string">"hr-service"</span><span class="token punctuation">,</span>
-    <span class="token property">"category"</span><span class="token operator">:</span> <span class="token string">"policy"</span><span class="token punctuation">,</span>
-    <span class="token property">"source"</span><span class="token operator">:</span> <span class="token string">"docs/hr/employee_handbook_2024.pdf"</span><span class="token punctuation">,</span>
-    <span class="token property">"chunks"</span><span class="token operator">:</span> <span class="token number">42</span><span class="token punctuation">,</span>
-    <span class="token property">"has_vectors"</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
-    <span class="token property">"status"</span><span class="token operator">:</span> <span class="token string">"✅ 已索引"</span>
-  <span class="token punctuation">&#125;</span>
-<span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h3 id="8-2-文档上传"><a href="#8-2-文档上传" class="headerlink" title="8.2 文档上传"></a>8.2 文档上传</h3><pre class="line-numbers language-none"><code class="language-none">POST &#x2F;documents&#x2F;upload
-Content-Type: multipart&#x2F;form-data
-
-file: employee_handbook_2024.txt
-module: hr-service
-category: policy<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p>返回：</p>
-<pre class="line-numbers language-json" data-language="json"><code class="language-json"><span class="token punctuation">&#123;</span>
-  <span class="token property">"id"</span><span class="token operator">:</span> <span class="token string">"a1b2c3..."</span><span class="token punctuation">,</span>
-  <span class="token property">"filename"</span><span class="token operator">:</span> <span class="token string">"employee_handbook_2024.txt"</span><span class="token punctuation">,</span>
-  <span class="token property">"chunks"</span><span class="token operator">:</span> <span class="token number">42</span><span class="token punctuation">,</span>
-  <span class="token property">"vectorized"</span><span class="token operator">:</span> <span class="token boolean">true</span><span class="token punctuation">,</span>
-  <span class="token property">"message"</span><span class="token operator">:</span> <span class="token string">"文档已上传，已切分为 42 个向量分块。"</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h3 id="8-3-知识库搜索（通过-Agent）"><a href="#8-3-知识库搜索（通过-Agent）" class="headerlink" title="8.3 知识库搜索（通过 Agent）"></a>8.3 知识库搜索（通过 Agent）</h3><pre class="line-numbers language-none"><code class="language-none">POST &#x2F;agent&#x2F;run
-&#123;
-  &quot;user_input&quot;: &quot;年假怎么申请？&quot;,
-  &quot;skill_hint&quot;: &quot;hr-service&quot;
-&#125;<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<p>Agent 内部会调用 <code>search_knowledge_base</code> 工具，触发三级搜索策略。</p>
-<h2 id="9-前端展示"><a href="#9-前端展示" class="headerlink" title="9. 前端展示"></a>9. 前端展示</h2><h3 id="9-1-侧边栏文档列表"><a href="#9-1-侧边栏文档列表" class="headerlink" title="9.1 侧边栏文档列表"></a>9.1 侧边栏文档列表</h3><pre class="line-numbers language-none"><code class="language-none">┌─────────────────┐
-│ 📚 知识文档      │
-│                 │
-│ 员工手册2024  ✅ │  ← 已向量索引，支持语义搜索
-│ 采购流程     📄 │  ← 已录入，待向量化
-│ 许可证规范   ✅ │
-│ OA操作指南   ✅ │
-│                 │
-│ 🔄 刷新文档列表  │
-└─────────────────┘<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<ul>
-<li><strong>✅ 已索引</strong>：向量嵌入完成，支持语义搜索</li>
-<li><strong>📄 已录入</strong>：文档保存但向量化未完成（如 Embedding 模型未安装）</li>
-<li>点击「🔄 刷新」重新拉取文档列表</li>
-<li>上传文档后自动刷新列表</li>
-</ul>
-<h3 id="9-2-前端实现"><a href="#9-2-前端实现" class="headerlink" title="9.2 前端实现"></a>9.2 前端实现</h3><pre class="line-numbers language-javascript" data-language="javascript"><code class="language-javascript"><span class="token comment">// src/frontend/js/app.js — loadDocuments()</span>
-<span class="token keyword">async</span> <span class="token keyword">function</span> <span class="token function">loadDocuments</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-  <span class="token keyword">const</span> r <span class="token operator">=</span> <span class="token keyword">await</span> <span class="token function">fetch</span><span class="token punctuation">(</span><span class="token string">'/documents/'</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token keyword">const</span> docs <span class="token operator">=</span> <span class="token keyword">await</span> r<span class="token punctuation">.</span><span class="token function">json</span><span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span>
-  <span class="token comment">// 渲染文档列表，标注向量化状态</span>
-  <span class="token keyword">for</span> <span class="token punctuation">(</span><span class="token keyword">const</span> d <span class="token keyword">of</span> docs<span class="token punctuation">)</span> <span class="token punctuation">&#123;</span>
-    <span class="token keyword">const</span> statusIcon <span class="token operator">=</span> d<span class="token punctuation">.</span>has_vectors <span class="token operator">?</span> <span class="token string">'✅'</span> <span class="token operator">:</span> <span class="token string">'📄'</span><span class="token punctuation">;</span>
-    <span class="token comment">// 显示标题 + 状态图标</span>
-  <span class="token punctuation">&#125;</span>
-<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
-
-<h2 id="10-扩展与调优"><a href="#10-扩展与调优" class="headerlink" title="10. 扩展与调优"></a>10. 扩展与调优</h2><h3 id="10-1-pgvector-性能调优"><a href="#10-1-pgvector-性能调优" class="headerlink" title="10.1 pgvector 性能调优"></a>10.1 pgvector 性能调优</h3><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token comment">-- 查看索引使用情况</span>
+<h2 id="7-扩展与调优"><a href="#7-扩展与调优" class="headerlink" title="7. 扩展与调优"></a>7. 扩展与调优</h2><h3 id="7-1-pgvector-性能调优"><a href="#7-1-pgvector-性能调优" class="headerlink" title="7.1 pgvector 性能调优"></a>7.1 pgvector 性能调优</h3><pre class="line-numbers language-sql" data-language="sql"><code class="language-sql"><span class="token comment">-- 查看索引使用情况</span>
 <span class="token keyword">EXPLAIN</span> <span class="token keyword">ANALYZE</span>
 <span class="token keyword">SELECT</span> <span class="token operator">*</span> <span class="token keyword">FROM</span> vector_documents
 <span class="token keyword">ORDER</span> <span class="token keyword">BY</span> embedding <span class="token operator">&lt;=></span> <span class="token string">'[0.1, 0.2, ...]'</span>::vector
@@ -539,7 +437,7 @@ category: policy<span aria-hidden="true" class="line-numbers-rows"><span></span>
     <span class="token keyword">USING</span> ivfflat <span class="token punctuation">(</span>embedding vector_cosine_ops<span class="token punctuation">)</span>
     <span class="token keyword">WITH</span> <span class="token punctuation">(</span>lists <span class="token operator">=</span> <span class="token number">500</span><span class="token punctuation">)</span><span class="token punctuation">;</span>  <span class="token comment">-- lists ≈ rows / 1000</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<h3 id="10-2-Embedding-模型选择指南"><a href="#10-2-Embedding-模型选择指南" class="headerlink" title="10.2 Embedding 模型选择指南"></a>10.2 Embedding 模型选择指南</h3><table>
+<h3 id="7-2-Embedding-模型选择指南"><a href="#7-2-Embedding-模型选择指南" class="headerlink" title="7.2 Embedding 模型选择指南"></a>7.2 Embedding 模型选择指南</h3><table>
 <thead>
 <tr>
 <th>场景</th>
@@ -568,7 +466,7 @@ category: policy<span aria-hidden="true" class="line-numbers-rows"><span></span>
 <td>小模型也能 GPU 加速</td>
 </tr>
 </tbody></table>
-<h3 id="10-3-分块参数调优"><a href="#10-3-分块参数调优" class="headerlink" title="10.3 分块参数调优"></a>10.3 分块参数调优</h3><pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment"># 长文档（如规章制度）：更大块，保留完整条款</span>
+<h3 id="7-3-分块参数调优"><a href="#7-3-分块参数调优" class="headerlink" title="7.3 分块参数调优"></a>7.3 分块参数调优</h3><pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment"># 长文档（如规章制度）：更大块，保留完整条款</span>
 chunk_text<span class="token punctuation">(</span>text<span class="token punctuation">,</span> chunk_size<span class="token operator">=</span><span class="token number">1200</span><span class="token punctuation">,</span> chunk_overlap<span class="token operator">=</span><span class="token number">150</span><span class="token punctuation">)</span>
 
 <span class="token comment"># FAQ 短问答：小块，精确定位</span>
@@ -577,7 +475,7 @@ chunk_text<span class="token punctuation">(</span>text<span class="token punctua
 <span class="token comment"># 当前默认值适合大多数中文企业文档</span>
 chunk_text<span class="token punctuation">(</span>text<span class="token punctuation">,</span> chunk_size<span class="token operator">=</span><span class="token number">800</span><span class="token punctuation">,</span> chunk_overlap<span class="token operator">=</span><span class="token number">120</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
 
-<h3 id="10-4-监控指标"><a href="#10-4-监控指标" class="headerlink" title="10.4 监控指标"></a>10.4 监控指标</h3><p>建议关注以下指标来判断知识库检索质量：</p>
+<h3 id="7-4-监控指标"><a href="#7-4-监控指标" class="headerlink" title="7.4 监控指标"></a>7.4 监控指标</h3><p>建议关注以下指标来判断知识库检索质量：</p>
 <table>
 <thead>
 <tr>
@@ -682,7 +580,7 @@ chunk_text<span class="token punctuation">(</span>text<span class="token punctua
                     <li>上一篇: 看完啦 (つд⊂)</li>
                 
                 
-                    <li>下一篇: <a href="/2026/10/27/%E6%8A%80%E8%83%BD%E5%BC%80%E5%8F%91%E6%8C%87%E5%8D%97/">技能开发指南</a></li>
+                    <li>下一篇: <a href="/2026/10/27/%E6%8A%80%E8%83%BD%E6%A8%A1%E5%BC%8F%E4%BB%A3%E7%90%86%E8%AE%BE%E8%AE%A1%E6%96%87%E6%A1%A3/">技能模式 AI Agent 系统设计</a></li>
                 
             </ul>
         </section>
@@ -716,7 +614,7 @@ chunk_text<span class="token punctuation">(</span>text<span class="token punctua
             <div class="row">
                 <div class="col-m-4">
                     <h3 class="title-recent">最新文章：</h3>
-                    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2026/10/28/%E7%9F%A5%E8%AF%86%E6%96%87%E6%A1%A3%E6%8A%80%E6%9C%AF%E6%96%87%E6%A1%A3/">RAG 知识库</a></li><li class="post-list-item"><a class="post-list-link" href="/2026/10/27/%E6%8A%80%E8%83%BD%E5%BC%80%E5%8F%91%E6%8C%87%E5%8D%97/">技能开发指南</a></li><li class="post-list-item"><a class="post-list-link" href="/2026/10/27/%E6%8A%80%E8%83%BD%E6%A8%A1%E5%BC%8F%E4%BB%A3%E7%90%86%E8%AE%BE%E8%AE%A1%E6%96%87%E6%A1%A3/">技能模式 AI Agent 系统设计</a></li><li class="post-list-item"><a class="post-list-link" href="/2026/10/01/Redis/">Redis</a></li><li class="post-list-item"><a class="post-list-link" href="/2026/09/01/React/">React</a></li><li class="post-list-item"><a class="post-list-link" href="/2026/08/01/QT/">QT</a></li></ul>
+                    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2026/10/28/%E7%9F%A5%E8%AF%86%E6%96%87%E6%A1%A3%E6%8A%80%E6%9C%AF%E6%96%87%E6%A1%A3/">RAG 知识库</a></li><li class="post-list-item"><a class="post-list-link" href="/2026/10/27/%E6%8A%80%E8%83%BD%E6%A8%A1%E5%BC%8F%E4%BB%A3%E7%90%86%E8%AE%BE%E8%AE%A1%E6%96%87%E6%A1%A3/">技能模式 AI Agent 系统设计</a></li><li class="post-list-item"><a class="post-list-link" href="/2026/10/27/%E6%8A%80%E8%83%BD%E5%BC%80%E5%8F%91%E6%8C%87%E5%8D%97/">技能开发指南</a></li><li class="post-list-item"><a class="post-list-link" href="/2026/10/01/Redis/">Redis</a></li><li class="post-list-item"><a class="post-list-link" href="/2026/09/01/React/">React</a></li><li class="post-list-item"><a class="post-list-link" href="/2026/08/01/QT/">QT</a></li></ul>
                 </div>
                 <div class="col-m-4">
                     <h3 class="title-date">时光机：</h3>

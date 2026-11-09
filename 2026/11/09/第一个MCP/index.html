@@ -1,0 +1,507 @@
+<!DOCTYPE html>
+<html>
+  <head>
+     
+    <meta charset="UTF-8">
+    <title>手把手开发首个 MCP Server - Richu</title>
+    <link rel="shortcut icon" href="/static/img/icon.png">
+    <link rel="icon" href="/static/img/icon.png" sizes="192x192"/>
+    
+<link rel="stylesheet" href="/static/kico.css">
+<link rel="stylesheet" href="/static/hingle.css">
+<link rel="stylesheet" href="/static/md-enhance.css">
+
+    
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <meta name="viewport" content="width=device-width, maximum-scale=1, initial-scale=1"/>
+    
+    <meta property="og:site_name" content="Richu">
+    <meta property="og:title" content="手把手开发首个 MCP Server"/>
+    
+    <style>body:before{ content: ''; background-image: url(http://kycloud3.koyoo.cn/2025033176e99202503311036156636.jpg) }</style>
+    
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+  <body>
+    <header>
+    <div class="head-title">
+        <h4>Richu</h4>
+    </div>
+    <div class="head-action">
+        <div class="toggle-btn"></div>
+        <div class="light-btn"></div>
+        <div class="search-btn"></div>
+    </div>
+    <form class="head-search" method="post">
+        <input type="text" name="s" placeholder="搜索什么？">
+    </form>
+    <nav class="head-menu">
+        <a href="/">首页</a>
+        <div class="has-child">
+            <a>分类</a>
+            <div class="sub-menu">
+                <a class="category-link" href="/categories/AI/">AI</a><a class="category-link" href="/categories/Android/">Android</a><a class="category-link" href="/categories/Go/">Go</a><a class="category-link" href="/categories/Java/">Java</a><a class="category-link" href="/categories/QT/">QT</a><a class="category-link" href="/categories/Unity/">Unity</a><a class="category-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a><a class="category-link" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a><a class="category-link" href="/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE/">大数据</a><a class="category-link" href="/categories/%E8%BF%90%E7%BB%B4/">运维</a>
+            </div>
+        </div>
+        
+            <a href="/links">常用链接</a>
+        
+            <a href="/sheets">钢琴谱</a>
+        
+    </nav>
+</header>
+
+    <main>
+    <div class="wrap min">
+        <section class="post-title">
+            <h2>手把手开发首个 MCP Server</h2>
+            <div class="post-meta">
+                
+                <time class="date">2026.11.09</time>
+            
+                <span class="category"><a class="category-link" href="/categories/AI/">AI</a></span>
+            
+            </div>
+        </section>
+        <article class="post-content">
+            <h1 id="动手制作你的第一个-MCP-Server"><a href="#动手制作你的第一个-MCP-Server" class="headerlink" title="动手制作你的第一个 MCP Server"></a>动手制作你的第一个 MCP Server</h1><blockquote>
+<p>配套阅读：《MCP原理详解.md》。本文带你从零写一个能在 Claude Desktop &#x2F; WorkBuddy 等 Host 里真正跑起来的 MCP 服务器，最后还会”裸写 JSON-RPC”验证你理解了协议本身。</p>
+<p>全程约 30 分钟，只需要 Python 3.10+（或 Node.js 18+，文末附 TS 版提示）。</p>
+</blockquote>
+<hr>
+<h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><ol>
+<li><a href="#1-%E6%88%91%E4%BB%AC%E8%A6%81%E5%81%9A%E4%BB%80%E4%B9%88">我们要做什么</a></li>
+<li><a href="#2-%E5%87%86%E5%A4%87%E5%B7%A5%E4%BD%9C">准备工作</a></li>
+<li><a href="#3-%E7%AC%AC-1-%E6%AD%A5%E5%86%99%E5%87%BA%E7%AC%AC%E4%B8%80%E4%B8%AA-mcp-server">第 1 步：写出第一个 MCP Server</a></li>
+<li><a href="#4-%E7%AC%AC-2-%E6%AD%A5%E7%94%A8-mcp-inspector-%E8%B0%83%E8%AF%95">第 2 步：用 MCP Inspector 调试</a></li>
+<li><a href="#5-%E7%AC%AC-3-%E6%AD%A5%E6%8E%A5%E5%85%A5-hostclaude-desktop--workbuddy">第 3 步：接入 Host（Claude Desktop &#x2F; WorkBuddy）</a></li>
+<li><a href="#6-%E7%AC%AC-4-%E6%AD%A5%E8%A3%B8%E5%86%99-json-rpc%E7%9C%8B%E9%80%8F%E5%8D%8F%E8%AE%AE">第 4 步：裸写 JSON-RPC，看透协议</a></li>
+<li><a href="#7-%E8%BF%9B%E9%98%B6%E6%96%B9%E5%90%91">进阶方向</a></li>
+<li><a href="#8-%E6%8E%92%E9%9A%9C%E6%B8%85%E5%8D%95">排障清单</a></li>
+</ol>
+<hr>
+<h2 id="1-我们要做什么"><a href="#1-我们要做什么" class="headerlink" title="1. 我们要做什么"></a>1. 我们要做什么</h2><p>做一个名叫 <code>demo-mcp</code> 的服务器，包含：</p>
+<table>
+<thead>
+<tr>
+<th>原语</th>
+<th>内容</th>
+<th>对应规范</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Tool</td>
+<td><code>add</code> 两数相加</td>
+<td>最小可用的工具</td>
+</tr>
+<tr>
+<td>Tool</td>
+<td><code>list_dir</code> 列出目录文件（带只读注解）</td>
+<td>演示参数校验、错误处理、注解</td>
+</tr>
+<tr>
+<td>Resource</td>
+<td><code>memo://notes</code> 内存备忘录</td>
+<td>演示资源</td>
+</tr>
+<tr>
+<td>Prompt</td>
+<td><code>greet</code> 问候模板</td>
+<td>演示提示模板</td>
+</tr>
+</tbody></table>
+<p>做完后你会拥有：一个通过 stdio 与 Host 通信、可被模型调用的标准 MCP 服务器。</p>
+<hr>
+<h2 id="2-准备工作"><a href="#2-准备工作" class="headerlink" title="2. 准备工作"></a>2. 准备工作</h2><h3 id="2-1-环境要求"><a href="#2-1-环境要求" class="headerlink" title="2.1 环境要求"></a>2.1 环境要求</h3><ul>
+<li>**Python 3.10+**（<code>python --version</code> 确认）</li>
+<li>pip 可用</li>
+</ul>
+<h3 id="2-2-安装官方-Python-SDK"><a href="#2-2-安装官方-Python-SDK" class="headerlink" title="2.2 安装官方 Python SDK"></a>2.2 安装官方 Python SDK</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 方式一：直接用 pip（最简单）</span>
+pip <span class="token function">install</span> <span class="token string">"mcp[cli]&lt;2"</span>
+
+<span class="token comment"># 方式二：venv 隔离（推荐，避免污染全局环境）</span>
+py <span class="token parameter variable">-m</span> venv .venv
+.venv<span class="token punctuation">\</span>Scripts<span class="token punctuation">\</span>activate            <span class="token comment"># Windows cmd</span>
+<span class="token comment"># source .venv/bin/activate       # macOS / Linux</span>
+python <span class="token parameter variable">-m</span> pip <span class="token function">install</span> <span class="token string">"mcp[cli]&lt;2"</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<blockquote>
+<p>**⚠️ 一定要加 <code>&lt;2</code>**：<code>mcp</code> 2.x 把 <code>FastMCP</code> 改名为 <code>MCPServer</code>（<code>from mcp.server.mcpserver import MCPServer</code>），本文第 3 步的代码在 2.x 下会直接 <code>ModuleNotFoundError: No module named &#39;mcp.server.fastmcp&#39;</code>。想用 2.x 新 API 请参考官方迁移指南，本文按稳定的 1.x 编写（<code>mcp==1.30.0</code> 实测通过）。</p>
+</blockquote>
+<p><strong>关于 uv</strong>：<code>uv</code> <strong>不是 Python 自带的</strong>，需要单独安装（<code>pip install uv</code> 或官方安装脚本）。很多环境里装完还不在 PATH 里，直接 <code>uv</code> 会报”不是内部或外部命令”。<strong>不确定就用上面的 venv 方案，一条弯路都不用走。</strong></p>
+<p><code>mcp[cli]</code> 包含三样东西：</p>
+<ul>
+<li><code>mcp</code> 库本体（协议实现 + FastMCP 高层 API）；</li>
+<li><code>mcp dev</code> &#x2F; <code>mcp run</code> 开发命令；</li>
+<li><strong>MCP Inspector</strong> 自动集成的启动入口。</li>
+</ul>
+<blockquote>
+<p>Windows 提示：本文命令均以 <code>.venv\Scripts\python.exe server.py</code> 形式给出，与是否激活虚拟环境无关，最稳妥。</p>
+</blockquote>
+<hr>
+<h2 id="3-第-1-步：写出第一个-MCP-Server"><a href="#3-第-1-步：写出第一个-MCP-Server" class="headerlink" title="3. 第 1 步：写出第一个 MCP Server"></a>3. 第 1 步：写出第一个 MCP Server</h2><p>新建 <code>server.py</code>：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token triple-quoted-string string">"""
+demo-mcp：我的第一个 MCP 服务器
+传输方式：stdio（被 Host 作为子进程启动）
+"""</span>
+<span class="token keyword">import</span> os
+
+<span class="token keyword">from</span> mcp<span class="token punctuation">.</span>server<span class="token punctuation">.</span>fastmcp <span class="token keyword">import</span> FastMCP
+
+<span class="token comment"># 创建服务器实例，name 会出现在 serverInfo 里</span>
+mcp <span class="token operator">=</span> FastMCP<span class="token punctuation">(</span><span class="token string">"demo-mcp"</span><span class="token punctuation">)</span>
+
+<span class="token comment"># ---------- 内存备忘录（供 Resource 使用） ----------</span>
+NOTES<span class="token punctuation">:</span> <span class="token builtin">dict</span><span class="token punctuation">[</span><span class="token builtin">str</span><span class="token punctuation">,</span> <span class="token builtin">str</span><span class="token punctuation">]</span> <span class="token operator">=</span> <span class="token punctuation">&#123;</span>
+    <span class="token string">"todo"</span><span class="token punctuation">:</span> <span class="token string">"1. 学完 MCP 原理\n2. 写自己的第一个 Server\n3. 接入 Host"</span><span class="token punctuation">,</span>
+<span class="token punctuation">&#125;</span>
+
+
+<span class="token comment"># ---------- Tool 1：两数相加 ----------</span>
+<span class="token decorator annotation punctuation">@mcp<span class="token punctuation">.</span>tool</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token keyword">def</span> <span class="token function">add</span><span class="token punctuation">(</span>a<span class="token punctuation">:</span> <span class="token builtin">int</span><span class="token punctuation">,</span> b<span class="token punctuation">:</span> <span class="token builtin">int</span><span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">></span> <span class="token builtin">int</span><span class="token punctuation">:</span>
+    <span class="token triple-quoted-string string">"""把两个整数相加，返回它们的和。"""</span>
+    <span class="token keyword">return</span> a <span class="token operator">+</span> b
+
+
+<span class="token comment"># ---------- Tool 2：列出目录内容 ----------</span>
+<span class="token decorator annotation punctuation">@mcp<span class="token punctuation">.</span>tool</span><span class="token punctuation">(</span>
+    annotations<span class="token operator">=</span><span class="token punctuation">&#123;</span>
+        <span class="token string">"title"</span><span class="token punctuation">:</span> <span class="token string">"列出目录"</span><span class="token punctuation">,</span>
+        <span class="token string">"readOnlyHint"</span><span class="token punctuation">:</span> <span class="token boolean">True</span><span class="token punctuation">,</span>      <span class="token comment"># 只读操作，Host 可以放心预览</span>
+        <span class="token string">"idempotentHint"</span><span class="token punctuation">:</span> <span class="token boolean">True</span><span class="token punctuation">,</span>
+    <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+<span class="token punctuation">)</span>
+<span class="token keyword">def</span> <span class="token function">list_dir</span><span class="token punctuation">(</span>path<span class="token punctuation">:</span> <span class="token builtin">str</span> <span class="token operator">=</span> <span class="token string">"."</span><span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">></span> <span class="token builtin">str</span><span class="token punctuation">:</span>
+    <span class="token triple-quoted-string string">"""列出指定目录下的文件和子目录名。path 为目录路径，默认当前目录。"""</span>
+    <span class="token keyword">try</span><span class="token punctuation">:</span>
+        entries <span class="token operator">=</span> <span class="token builtin">sorted</span><span class="token punctuation">(</span>os<span class="token punctuation">.</span>listdir<span class="token punctuation">(</span>path<span class="token punctuation">)</span><span class="token punctuation">)</span>
+    <span class="token keyword">except</span> FileNotFoundError<span class="token punctuation">:</span>
+        <span class="token comment"># 业务错误：返回 isError 结果让"模型"看到，而不是抛协议异常</span>
+        <span class="token keyword">raise</span> ValueError<span class="token punctuation">(</span><span class="token string-interpolation"><span class="token string">f"目录不存在: </span><span class="token interpolation"><span class="token punctuation">&#123;</span>path<span class="token punctuation">&#125;</span></span><span class="token string">"</span></span><span class="token punctuation">)</span>
+    <span class="token keyword">except</span> PermissionError<span class="token punctuation">:</span>
+        <span class="token keyword">raise</span> ValueError<span class="token punctuation">(</span><span class="token string-interpolation"><span class="token string">f"没有权限访问: </span><span class="token interpolation"><span class="token punctuation">&#123;</span>path<span class="token punctuation">&#125;</span></span><span class="token string">"</span></span><span class="token punctuation">)</span>
+
+    <span class="token keyword">if</span> <span class="token keyword">not</span> entries<span class="token punctuation">:</span>
+        <span class="token keyword">return</span> <span class="token string-interpolation"><span class="token string">f"</span><span class="token interpolation"><span class="token punctuation">&#123;</span>path<span class="token punctuation">&#125;</span></span><span class="token string"> 是空目录"</span></span>
+
+    lines <span class="token operator">=</span> <span class="token punctuation">[</span><span class="token string-interpolation"><span class="token string">f"📁 </span><span class="token interpolation"><span class="token punctuation">&#123;</span>path<span class="token punctuation">&#125;</span></span><span class="token string"> 下共 </span><span class="token interpolation"><span class="token punctuation">&#123;</span><span class="token builtin">len</span><span class="token punctuation">(</span>entries<span class="token punctuation">)</span><span class="token punctuation">&#125;</span></span><span class="token string"> 项:"</span></span><span class="token punctuation">]</span>
+    <span class="token keyword">for</span> name <span class="token keyword">in</span> entries<span class="token punctuation">:</span>
+        full <span class="token operator">=</span> os<span class="token punctuation">.</span>path<span class="token punctuation">.</span>join<span class="token punctuation">(</span>path<span class="token punctuation">,</span> name<span class="token punctuation">)</span>
+        tag <span class="token operator">=</span> <span class="token string">"🗂"</span> <span class="token keyword">if</span> os<span class="token punctuation">.</span>path<span class="token punctuation">.</span>isdir<span class="token punctuation">(</span>full<span class="token punctuation">)</span> <span class="token keyword">else</span> <span class="token string">"📄"</span>
+        lines<span class="token punctuation">.</span>append<span class="token punctuation">(</span><span class="token string-interpolation"><span class="token string">f"</span><span class="token interpolation"><span class="token punctuation">&#123;</span>tag<span class="token punctuation">&#125;</span></span><span class="token string"> </span><span class="token interpolation"><span class="token punctuation">&#123;</span>name<span class="token punctuation">&#125;</span></span><span class="token string">"</span></span><span class="token punctuation">)</span>
+    <span class="token keyword">return</span> <span class="token string">"\n"</span><span class="token punctuation">.</span>join<span class="token punctuation">(</span>lines<span class="token punctuation">)</span>
+
+
+<span class="token comment"># ---------- Resource：备忘录 ----------</span>
+<span class="token decorator annotation punctuation">@mcp<span class="token punctuation">.</span>resource</span><span class="token punctuation">(</span><span class="token string">"memo://notes"</span><span class="token punctuation">)</span>
+<span class="token keyword">def</span> <span class="token function">get_notes</span><span class="token punctuation">(</span><span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">></span> <span class="token builtin">str</span><span class="token punctuation">:</span>
+    <span class="token triple-quoted-string string">"""读取用户的备忘录内容。"""</span>
+    <span class="token keyword">return</span> <span class="token string">"\n"</span><span class="token punctuation">.</span>join<span class="token punctuation">(</span><span class="token string-interpolation"><span class="token string">f"[</span><span class="token interpolation"><span class="token punctuation">&#123;</span>k<span class="token punctuation">&#125;</span></span><span class="token string">]\n</span><span class="token interpolation"><span class="token punctuation">&#123;</span>v<span class="token punctuation">&#125;</span></span><span class="token string">"</span></span> <span class="token keyword">for</span> k<span class="token punctuation">,</span> v <span class="token keyword">in</span> NOTES<span class="token punctuation">.</span>items<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+
+<span class="token comment"># ---------- Prompt：问候模板 ----------</span>
+<span class="token decorator annotation punctuation">@mcp<span class="token punctuation">.</span>prompt</span><span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token keyword">def</span> <span class="token function">greet</span><span class="token punctuation">(</span>name<span class="token punctuation">:</span> <span class="token builtin">str</span><span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">></span> <span class="token builtin">str</span><span class="token punctuation">:</span>
+    <span class="token triple-quoted-string string">"""生成一段问候用户的提示词模板。"""</span>
+    <span class="token keyword">return</span> <span class="token string-interpolation"><span class="token string">f"请用温暖友好的语气向 </span><span class="token interpolation"><span class="token punctuation">&#123;</span>name<span class="token punctuation">&#125;</span></span><span class="token string"> 打个招呼，并简单介绍一下你能做什么。"</span></span>
+
+
+<span class="token comment"># ---------- 启动 ----------</span>
+<span class="token keyword">if</span> __name__ <span class="token operator">==</span> <span class="token string">"__main__"</span><span class="token punctuation">:</span>
+    <span class="token comment"># ⚠️ 只用 stdio 传输；千万不要在 main 里 print 任何东西污染 stdout</span>
+    mcp<span class="token punctuation">.</span>run<span class="token punctuation">(</span>transport<span class="token operator">=</span><span class="token string">"stdio"</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>关于这份代码的几个关键点：</p>
+<ol>
+<li><strong><code>@mcp.tool()</code> 会把函数签名自动转成 JSON Schema</strong>：类型注解 <code>a: int</code> → <code>inputSchema</code>，docstring → 工具 <code>description</code>。所以 <strong>docstring 就是给模型看的说明书</strong>，写清楚”何时该用这个工具”能显著提高调用准确率；</li>
+<li>**业务错误用 <code>raise ValueError</code>**：FastMCP 会把它包装成 <code>isError: true</code> 的结果返回给模型（模型能看到错误文字并重试&#x2F;换路），而不是打断会话的协议错误；</li>
+<li><strong><code>annotations</code> 是给 Host&#x2F;用户的行为提示</strong>，不是安全保证——真正的写入类操作仍需 Host 弹窗审批；</li>
+<li><strong>stdout 纪律</strong>：<code>mcp.run(transport=&quot;stdio&quot;)</code> 之外，任何 <code>print()</code> 都会让 Host 解析失败。调试信息用 <code>logging</code>（默认走 stderr）。</li>
+</ol>
+<h3 id="本地直接运行验证"><a href="#本地直接运行验证" class="headerlink" title="本地直接运行验证"></a>本地直接运行验证</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 未激活虚拟环境时（最稳妥，路径不会错）</span>
+.venv<span class="token punctuation">\</span>Scripts<span class="token punctuation">\</span>python.exe server.py
+
+<span class="token comment"># 已激活虚拟环境时</span>
+python server.py
+<span class="token comment"># 没有输出 = 正常！它在等 stdin 上的 JSON-RPC 消息（下一步手动喂给它）</span>
+<span class="token comment"># Ctrl+C 退出</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<hr>
+<h2 id="4-第-2-步：用-MCP-Inspector-调试"><a href="#4-第-2-步：用-MCP-Inspector-调试" class="headerlink" title="4. 第 2 步：用 MCP Inspector 调试"></a>4. 第 2 步：用 MCP Inspector 调试</h2><p>官方 Inspector 是开发 MCP 的必备工具，提供网页 UI 逐个调用你的工具&#x2F;资源&#x2F;提示：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 用虚拟环境里的 mcp 命令（Windows）</span>
+.venv<span class="token punctuation">\</span>Scripts<span class="token punctuation">\</span>mcp.exe dev server.py
+
+<span class="token comment"># 已激活虚拟环境时</span>
+mcp dev server.py
+
+<span class="token comment"># 不用 cli 时（任意环境）</span>
+npx @modelcontextprotocol/inspector .venv<span class="token punctuation">\</span>Scripts<span class="token punctuation">\</span>python.exe server.py<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>会打开 <code>http://localhost:6274</code>（Inspector 面板）。依次检查：</p>
+<ol>
+<li><strong>Connect</strong>：确认握手成功，面板显示 <code>demo-mcp</code> 与协议版本；</li>
+<li><strong>Tools</strong> 标签：看到 <code>add</code> 和 <code>list_dir</code> → 输入 <code>&#123;&quot;a&quot;: 2, &quot;b&quot;: 40&#125;</code> 运行 <code>add</code>，应返回 <code>42</code>；用 <code>list_dir</code> 列一个真实目录和一个<strong>不存在的目录</strong>，观察 <code>isError</code> 结果；</li>
+<li><strong>Resources</strong> 标签：读取 <code>memo://notes</code>；</li>
+<li><strong>Prompts</strong> 标签：填 <code>name</code> 后 <code>Get Prompt</code>，看到生成的 messages。</li>
+</ol>
+<p>调试习惯建议：<strong>每次改动代码先过一遍 Inspector，再接 Host</strong>——Host 报错往往只有一行日志，Inspector 的报错则精确到参数 schema。</p>
+<hr>
+<h2 id="5-第-3-步：接入-Host（Claude-Desktop-WorkBuddy）"><a href="#5-第-3-步：接入-Host（Claude-Desktop-WorkBuddy）" class="headerlink" title="5. 第 3 步：接入 Host（Claude Desktop &#x2F; WorkBuddy）"></a>5. 第 3 步：接入 Host（Claude Desktop &#x2F; WorkBuddy）</h2><h3 id="5-1-Claude-Desktop"><a href="#5-1-Claude-Desktop" class="headerlink" title="5.1 Claude Desktop"></a>5.1 Claude Desktop</h3><p>编辑配置文件（菜单 File → Settings → Developer → Edit Config）：</p>
+<ul>
+<li>Windows: <code>%APPDATA%\Claude\claude_desktop_config.json</code></li>
+<li>macOS: <code>~/Library/Application Support/Claude/claude_desktop_config.json</code></li>
+</ul>
+<pre class="line-numbers language-json" data-language="json"><code class="language-json"><span class="token punctuation">&#123;</span>
+  <span class="token property">"mcpServers"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+    <span class="token property">"demo-mcp"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+      <span class="token property">"command"</span><span class="token operator">:</span> <span class="token string">"C:/Users/你的用户名/projects/demo-mcp/.venv/Scripts/python.exe"</span><span class="token punctuation">,</span>
+      <span class="token property">"args"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"C:/Users/你的用户名/projects/demo-mcp/server.py"</span><span class="token punctuation">]</span>
+    <span class="token punctuation">&#125;</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>要点：</p>
+<ul>
+<li><strong><code>command</code> 指向 venv 里的 python 绝对路径</strong>，<code>args</code> 指向 server.py 绝对路径——这样不依赖系统 PATH，也不会用错 Python 版本；</li>
+<li>不用 venv 时 <code>&quot;command&quot;: &quot;python&quot;</code> 也可以，但前提是那个 <code>python</code> 里装好了 <code>mcp</code>（用 <code>python -c &quot;import mcp&quot;</code> 验证）；</li>
+<li>Windows 下如果用 <code>npx</code>&#x2F;<code>uvx</code> 启动的服务器，标准写法是 <code>&quot;command&quot;: &quot;cmd&quot;, &quot;args&quot;: [&quot;/c&quot;, &quot;npx&quot;, &quot;-y&quot;, &quot;包名&quot;]</code>；</li>
+<li>保存后<strong>完全退出并重启 Claude Desktop</strong>（托盘图标也要退），锤子图标（工具）出现即接入成功；</li>
+<li>日志排障：<code>%APPDATA%\Claude\logs\mcp-server-demo-mcp.log</code>（Windows）或 <code>~/Library/Logs/Claude/</code>（macOS）。</li>
+</ul>
+<h3 id="5-2-WorkBuddy"><a href="#5-2-WorkBuddy" class="headerlink" title="5.2 WorkBuddy"></a>5.2 WorkBuddy</h3><p>WorkBuddy 的 MCP 配置写在 <code>~/.workbuddy/mcp.json</code>（注意是 <code>mcp.json</code>，不是 <code>.mcp.json</code>），格式与上面一致。写入后<strong>不会自动生效</strong>——需要到连接器管理页顶部”自定义连接器”里对新服务器点击”<strong>信任</strong>“来启用。</p>
+<pre class="line-numbers language-json" data-language="json"><code class="language-json"><span class="token punctuation">&#123;</span>
+  <span class="token property">"mcpServers"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+    <span class="token property">"demo-mcp"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+      <span class="token property">"command"</span><span class="token operator">:</span> <span class="token string">"D:/projects/demo-mcp/.venv/Scripts/python.exe"</span><span class="token punctuation">,</span>
+      <span class="token property">"args"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"D:/projects/demo-mcp/server.py"</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+      <span class="token property">"env"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span> <span class="token property">"DEMO_MODE"</span><span class="token operator">:</span> <span class="token string">"local"</span> <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><code>env</code> 字段可以给子进程传环境变量（API Key 等）——<strong>Key 只写在配置里，永远不要写死在 server 代码中</strong>。</p>
+<h3 id="5-3-验收测试"><a href="#5-3-验收测试" class="headerlink" title="5.3 验收测试"></a>5.3 验收测试</h3><p>在 Host 对话里试这几句：</p>
+<ul>
+<li>“帮我算 12345 + 6789” → Host 应请求批准并调用 <code>add</code>；</li>
+<li>“列出 D:&#x2F;projects 目录下有什么” → <code>list_dir</code>；</li>
+<li>“读一下我的备忘录” → 走 Resource；</li>
+<li>输入 <code>/greet</code> 或”用 greet 提示词向小明打招呼” → Prompt 模板展开。</li>
+</ul>
+<p>如果 Host 询问”是否允许调用 demo-mcp 的 add 工具”，恭喜——你正亲眼看到第 8 节安全模型（用户审批）在真实运行。</p>
+<hr>
+<h2 id="6-第-4-步：裸写-JSON-RPC，看透协议"><a href="#6-第-4-步：裸写-JSON-RPC，看透协议" class="headerlink" title="6. 第 4 步：裸写 JSON-RPC，看透协议"></a>6. 第 4 步：裸写 JSON-RPC，看透协议</h2><p>SDK 把协议藏了起来，但我们手动发四条消息，就能亲眼看到 MCP 的本质。写 <code>talk.py</code>，把上一节 <code>server.py</code> 当子进程跑：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token triple-quoted-string string">"""手动驱动 MCP 服务器：向子进程 stdin 写 JSON-RPC，读 stdout 响应"""</span>
+<span class="token keyword">import</span> json
+<span class="token keyword">import</span> subprocess
+<span class="token keyword">import</span> sys
+
+proc <span class="token operator">=</span> subprocess<span class="token punctuation">.</span>Popen<span class="token punctuation">(</span>
+    <span class="token punctuation">[</span>sys<span class="token punctuation">.</span>executable<span class="token punctuation">,</span> <span class="token string">"server.py"</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+    stdin<span class="token operator">=</span>subprocess<span class="token punctuation">.</span>PIPE<span class="token punctuation">,</span> stdout<span class="token operator">=</span>subprocess<span class="token punctuation">.</span>PIPE<span class="token punctuation">,</span> stderr<span class="token operator">=</span>subprocess<span class="token punctuation">.</span>DEVNULL<span class="token punctuation">,</span>
+    text<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">,</span> encoding<span class="token operator">=</span><span class="token string">"utf-8"</span><span class="token punctuation">,</span>
+<span class="token punctuation">)</span>
+
+<span class="token keyword">def</span> <span class="token function">send</span><span class="token punctuation">(</span>msg<span class="token punctuation">:</span> <span class="token builtin">dict</span><span class="token punctuation">,</span> expect_reply<span class="token punctuation">:</span> <span class="token builtin">bool</span> <span class="token operator">=</span> <span class="token boolean">True</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    line <span class="token operator">=</span> json<span class="token punctuation">.</span>dumps<span class="token punctuation">(</span>msg<span class="token punctuation">,</span> ensure_ascii<span class="token operator">=</span><span class="token boolean">False</span><span class="token punctuation">)</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string-interpolation"><span class="token string">f"\n>>> </span><span class="token interpolation"><span class="token punctuation">&#123;</span>line<span class="token punctuation">&#125;</span></span><span class="token string">"</span></span><span class="token punctuation">)</span>
+    proc<span class="token punctuation">.</span>stdin<span class="token punctuation">.</span>write<span class="token punctuation">(</span>line <span class="token operator">+</span> <span class="token string">"\n"</span><span class="token punctuation">)</span>
+    proc<span class="token punctuation">.</span>stdin<span class="token punctuation">.</span>flush<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    <span class="token keyword">if</span> expect_reply<span class="token punctuation">:</span>
+        reply <span class="token operator">=</span> proc<span class="token punctuation">.</span>stdout<span class="token punctuation">.</span>readline<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>strip<span class="token punctuation">(</span><span class="token punctuation">)</span>
+        <span class="token keyword">print</span><span class="token punctuation">(</span><span class="token string-interpolation"><span class="token string">f"&lt;&lt;&lt; </span><span class="token interpolation"><span class="token punctuation">&#123;</span>reply<span class="token punctuation">&#125;</span></span><span class="token string">"</span></span><span class="token punctuation">)</span>
+        <span class="token keyword">return</span> json<span class="token punctuation">.</span>loads<span class="token punctuation">(</span>reply<span class="token punctuation">)</span>
+
+<span class="token comment"># 1) 握手：交换版本与能力</span>
+send<span class="token punctuation">(</span><span class="token punctuation">&#123;</span>
+    <span class="token string">"jsonrpc"</span><span class="token punctuation">:</span> <span class="token string">"2.0"</span><span class="token punctuation">,</span> <span class="token string">"id"</span><span class="token punctuation">:</span> <span class="token number">1</span><span class="token punctuation">,</span> <span class="token string">"method"</span><span class="token punctuation">:</span> <span class="token string">"initialize"</span><span class="token punctuation">,</span>
+    <span class="token string">"params"</span><span class="token punctuation">:</span> <span class="token punctuation">&#123;</span>
+        <span class="token string">"protocolVersion"</span><span class="token punctuation">:</span> <span class="token string">"2025-06-18"</span><span class="token punctuation">,</span>
+        <span class="token string">"capabilities"</span><span class="token punctuation">:</span> <span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+        <span class="token string">"clientInfo"</span><span class="token punctuation">:</span> <span class="token punctuation">&#123;</span><span class="token string">"name"</span><span class="token punctuation">:</span> <span class="token string">"manual-client"</span><span class="token punctuation">,</span> <span class="token string">"version"</span><span class="token punctuation">:</span> <span class="token string">"0.1"</span><span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+    <span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+<span class="token comment"># 2) 握手完成通知（无 id、无响应）</span>
+send<span class="token punctuation">(</span><span class="token punctuation">&#123;</span><span class="token string">"jsonrpc"</span><span class="token punctuation">:</span> <span class="token string">"2.0"</span><span class="token punctuation">,</span> <span class="token string">"method"</span><span class="token punctuation">:</span> <span class="token string">"notifications/initialized"</span><span class="token punctuation">&#125;</span><span class="token punctuation">,</span> expect_reply<span class="token operator">=</span><span class="token boolean">False</span><span class="token punctuation">)</span>
+
+<span class="token comment"># 3) 列出工具</span>
+send<span class="token punctuation">(</span><span class="token punctuation">&#123;</span><span class="token string">"jsonrpc"</span><span class="token punctuation">:</span> <span class="token string">"2.0"</span><span class="token punctuation">,</span> <span class="token string">"id"</span><span class="token punctuation">:</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token string">"method"</span><span class="token punctuation">:</span> <span class="token string">"tools/list"</span><span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+
+<span class="token comment"># 4) 调用工具</span>
+send<span class="token punctuation">(</span><span class="token punctuation">&#123;</span>
+    <span class="token string">"jsonrpc"</span><span class="token punctuation">:</span> <span class="token string">"2.0"</span><span class="token punctuation">,</span> <span class="token string">"id"</span><span class="token punctuation">:</span> <span class="token number">3</span><span class="token punctuation">,</span> <span class="token string">"method"</span><span class="token punctuation">:</span> <span class="token string">"tools/call"</span><span class="token punctuation">,</span>
+    <span class="token string">"params"</span><span class="token punctuation">:</span> <span class="token punctuation">&#123;</span><span class="token string">"name"</span><span class="token punctuation">:</span> <span class="token string">"add"</span><span class="token punctuation">,</span> <span class="token string">"arguments"</span><span class="token punctuation">:</span> <span class="token punctuation">&#123;</span><span class="token string">"a"</span><span class="token punctuation">:</span> <span class="token number">2</span><span class="token punctuation">,</span> <span class="token string">"b"</span><span class="token punctuation">:</span> <span class="token number">40</span><span class="token punctuation">&#125;</span><span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+
+proc<span class="token punctuation">.</span>terminate<span class="token punctuation">(</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">python talk.py<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p><code>tools/call</code> 的响应长这样（节选）：</p>
+<pre class="line-numbers language-json" data-language="json"><code class="language-json"><span class="token punctuation">&#123;</span>
+  <span class="token property">"jsonrpc"</span><span class="token operator">:</span> <span class="token string">"2.0"</span><span class="token punctuation">,</span> <span class="token property">"id"</span><span class="token operator">:</span> <span class="token number">3</span><span class="token punctuation">,</span>
+  <span class="token property">"result"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span> <span class="token property">"content"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">&#123;</span> <span class="token property">"type"</span><span class="token operator">:</span> <span class="token string">"text"</span><span class="token punctuation">,</span> <span class="token property">"text"</span><span class="token operator">:</span> <span class="token string">"42"</span> <span class="token punctuation">&#125;</span><span class="token punctuation">]</span> <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>对照《MCP原理详解.md》第 5.4 节：<strong>这四条消息就是 MCP 的全部核心报文</strong>。SDK、Inspector、Host 都只是在帮你生成和解析这些行。</p>
+<h3 id="顺手做三个协议实验（以下是实测结果）"><a href="#顺手做三个协议实验（以下是实测结果）" class="headerlink" title="顺手做三个协议实验（以下是实测结果）"></a>顺手做三个协议实验（以下是实测结果）</h3><ol>
+<li><p><strong>参数类型传错</strong>：把 <code>tools/call</code> 改成 <code>&#123;&quot;name&quot;: &quot;add&quot;, &quot;arguments&quot;: &#123;&quot;a&quot;: &quot;x&quot;, &quot;b&quot;: 2&#125;&#125;</code> → 收到的<strong>不是</strong>协议错误，而是 <code>isError: true</code> 的结果：</p>
+<pre class="line-numbers language-json" data-language="json"><code class="language-json"><span class="token punctuation">&#123;</span><span class="token property">"content"</span><span class="token operator">:</span><span class="token punctuation">[</span><span class="token punctuation">&#123;</span><span class="token property">"type"</span><span class="token operator">:</span><span class="token string">"text"</span><span class="token punctuation">,</span><span class="token property">"text"</span><span class="token operator">:</span><span class="token string">"Error executing tool add: 1 validation error for addArguments ..."</span><span class="token punctuation">&#125;</span><span class="token punctuation">]</span><span class="token punctuation">,</span><span class="token property">"isError"</span><span class="token operator">:</span><span class="token boolean">true</span><span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>这正是第 6 章讲的语义：<strong>参数&#x2F;业务错误交给模型看</strong>，会话不中断，模型可以自行改参数重试。</p>
+</li>
+<li><p><strong>调用不存在的工具</strong>：<code>&#123;&quot;name&quot;: &quot;nope&quot;&#125;</code> → 同样是 <code>isError</code> 结果，文本为 <code>Unknown tool: nope</code>（FastMCP 的友好处理）。</p>
+</li>
+<li><p><strong>请求不存在的方法</strong>：发 <code>&#123;&quot;method&quot;: &quot;foo/bar&quot;&#125;</code> → 这时才是协议级错误：</p>
+<pre class="line-numbers language-json" data-language="json"><code class="language-json"><span class="token punctuation">&#123;</span><span class="token property">"error"</span><span class="token operator">:</span><span class="token punctuation">&#123;</span><span class="token property">"code"</span><span class="token operator">:</span><span class="token number">-32602</span><span class="token punctuation">,</span><span class="token property">"message"</span><span class="token operator">:</span><span class="token string">"Invalid request parameters"</span><span class="token punctuation">,</span><span class="token property">"data"</span><span class="token operator">:</span><span class="token string">""</span><span class="token punctuation">&#125;</span><span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+</li>
+<li><p><strong>污染 stdout</strong>：在 <code>server.py</code> 顶部加一行 <code>print(&quot;hello&quot;)</code> → Host&#x2F;Inspector 立刻连接失败——体会”stdout 纪律”铁律，改完记得删掉。</p>
+</li>
+</ol>
+<hr>
+<h2 id="7-进阶方向"><a href="#7-进阶方向" class="headerlink" title="7. 进阶方向"></a>7. 进阶方向</h2><p>按实用性排序：</p>
+<ol>
+<li><strong>HTTP 部署（Streamable HTTP）</strong>：<code>mcp.run(transport=&quot;streamable-http&quot;)</code>，让远程团队共享同一个 Server；生产环境记得加 TLS + OAuth，并关注 2026-07-28 规范的无状态化设计（<code>server/discover</code>、每请求 <code>_meta</code>、<code>Mcp-Method</code> 头）；</li>
+<li><strong>结构化输出</strong>：给工具声明 <code>outputSchema</code> 返回 <code>structuredContent</code>，让下游更可解析（2025-06-18+）；</li>
+<li><strong>长任务</strong>：耗时操作用进度通知（<code>progressToken</code>）反馈；2026-07-28 的 Tasks 扩展提供轮询式长任务模型；</li>
+<li><strong>Sampling &#x2F; Elicitation</strong>：让服务器反过来请求 Host 调 LLM 或向用户要确认（记得这三个客户端原语的共同哲学：能力在服务器、权力在客户端）；</li>
+<li><strong>TypeScript 版</strong>：<code>@modelcontextprotocol/sdk</code>，<code>McpServer</code> + <code>registerTool</code>，结构与本文一一对应；</li>
+<li><strong>发布</strong>：打包成 <code>uvx</code>&#x2F;<code>npx</code> 一键启动的包，写进 README 的 mcpServers 配置片段，别人复制粘贴就能用。</li>
+</ol>
+<hr>
+<h2 id="8-排障清单"><a href="#8-排障清单" class="headerlink" title="8. 排障清单"></a>8. 排障清单</h2><table>
+<thead>
+<tr>
+<th>症状</th>
+<th>最可能原因</th>
+<th>解法</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>Host 完全连不上、无工具图标</td>
+<td>配置文件路径错 &#x2F; JSON 语法错</td>
+<td>用 JSON 校验器检查；确认绝对路径</td>
+</tr>
+<tr>
+<td>日志里 <code>Unexpected token ... in JSON</code></td>
+<td><strong>服务器向 stdout 打印了非 MCP 内容</strong></td>
+<td>移除所有 <code>print</code>，调试用 <code>logging</code>（stderr）</td>
+</tr>
+<tr>
+<td>工具列表出现但调用报 <code>Invalid params</code></td>
+<td>参数类型注解与传参不符</td>
+<td>Inspector 里先跑通，检查 <code>int</code>&#x2F;<code>str</code> 注解</td>
+</tr>
+<tr>
+<td>Windows 下 npx 型服务器连不上</td>
+<td>没有经 <code>cmd</code> 包装</td>
+<td><code>&quot;command&quot;: &quot;cmd&quot;, &quot;args&quot;: [&quot;/c&quot;, &quot;npx&quot;, &quot;-y&quot;, &quot;pkg&quot;]</code></td>
+</tr>
+<tr>
+<td><code>uv</code> 不是内部或外部命令</td>
+<td>uv 需单独安装，且常不在 PATH</td>
+<td>改用 venv 方案，或 <code>pip install uv</code> 后用全路径调用</td>
+</tr>
+<tr>
+<td><code>No module named &#39;mcp.server.fastmcp&#39;</code></td>
+<td>装到了 mcp 2.x（FastMCP 改名 MCPServer）</td>
+<td><code>pip install &quot;mcp[cli]&lt;2&quot;</code> 重装</td>
+</tr>
+<tr>
+<td>Claude Desktop 改了配置没反应</td>
+<td>没有彻底重启</td>
+<td>托盘右键 Quit 后重开</td>
+</tr>
+<tr>
+<td>工具被调用但返回乱码&#x2F;超时</td>
+<td>输出未按换行分隔，或子进程卡死</td>
+<td>确认每条消息单行；本地跑 <code>.venv\Scripts\python.exe server.py</code> 看是否阻塞</td>
+</tr>
+<tr>
+<td>远程服务器 403</td>
+<td>Origin 校验失败 &#x2F; 未带 Accept 头</td>
+<td>按规范带 <code>Origin</code> 与 <code>Accept: application/json, text/event-stream</code></td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="收尾检查清单"><a href="#收尾检查清单" class="headerlink" title="收尾检查清单"></a>收尾检查清单</h2><ul>
+<li><input disabled="" type="checkbox"> <code>.venv\Scripts\python.exe server.py</code> 启动后<strong>零输出</strong>（stdout 干净）</li>
+<li><input disabled="" type="checkbox"> Inspector 里 2 个工具 + 1 个资源 + 1 个提示全部可调</li>
+<li><input disabled="" type="checkbox"> <code>add</code> 返回 42；<code>list_dir</code> 传错路径返回 <code>isError</code> 文本而非崩溃</li>
+<li><input disabled="" type="checkbox"> Host 配置已写入、重启后出现工具入口</li>
+<li><input disabled="" type="checkbox"> <code>talk.py</code> 能看到 4 条 JSON-RPC 报文往返</li>
+<li><input disabled="" type="checkbox"> 代码里没有任何硬编码密钥（走 <code>env</code>）</li>
+</ul>
+<p>完成以上全部，你就已经从一个”MCP 用户”变成了”MCP 开发者”。下一步建议：挑一个你每天重复做的手工操作（查某个内部系统、整理某类文件），把它做成第二个工具。</p>
+
+        </article>
+        <section class="post-near">
+            <ul>
+                
+                    <li>上一篇: <a href="/2026/11/09/MCP/">MCP 协议原理与架构解析</a></li>
+                
+                
+                    <li>下一篇: <a href="/2026/11/09/%E7%AC%AC%E4%B8%80%E4%B8%AALangGraph%E7%A8%8B%E5%BA%8F/">从零构建第一个 LangGraph 工作流</a></li>
+                
+            </ul>
+        </section>
+        
+            <section class="post-tags">
+            <a class="-none-link" href="/tags/JSON-RPC/" rel="tag">JSON-RPC</a><a class="-none-link" href="/tags/MCP/" rel="tag">MCP</a><a class="-none-link" href="/tags/MCP-Server/" rel="tag">MCP Server</a><a class="-none-link" href="/tags/Model-Context-Protocol/" rel="tag">Model Context Protocol</a><a class="-none-link" href="/tags/Python/" rel="tag">Python</a>
+            </section>
+        
+    
+        <section class="post-author">
+        
+            <figure class="author-avatar">
+                <img src="https://nos.netease.com/ysf/984b6beaecc19c99414093c0481a2619.png" alt="日初" />
+            </figure>
+        
+            <div class="author-info">
+                <h4>日初</h4>
+                <p>正在学习绘画中，有拿的出手的作品之后可以关注我的画廊(´・ω・`)</p>
+            </div>
+        </section>
+    
+    </div>
+</main>
+
+    <footer>
+    <div class="buttons">
+        <a class="to-top" href="#"></a>
+    </div>
+    <div class="wrap min">
+        <section class="widget">
+            <div class="row">
+                <div class="col-m-4">
+                    <h3 class="title-recent">最新文章：</h3>
+                    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2026/11/09/Groovy/">Groovy 语言入门与实战指南</a></li><li class="post-list-item"><a class="post-list-link" href="/2026/11/09/LangGraph/">LangGraph 核心机制与入门实践</a></li><li class="post-list-item"><a class="post-list-link" href="/2026/11/09/MCP/">MCP 协议原理与架构解析</a></li><li class="post-list-item"><a class="post-list-link" href="/2026/11/09/%E7%AC%AC%E4%B8%80%E4%B8%AAMCP/">手把手开发首个 MCP Server</a></li><li class="post-list-item"><a class="post-list-link" href="/2026/11/09/%E7%AC%AC%E4%B8%80%E4%B8%AALangGraph%E7%A8%8B%E5%BA%8F/">从零构建第一个 LangGraph 工作流</a></li><li class="post-list-item"><a class="post-list-link" href="/2026/10/28/%E7%9F%A5%E8%AF%86%E6%96%87%E6%A1%A3%E6%8A%80%E6%9C%AF%E6%96%87%E6%A1%A3/">RAG 知识库</a></li></ul>
+                </div>
+                <div class="col-m-4">
+                    <h3 class="title-date">时光机：</h3>
+                    <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/11/">十一月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/10/">十月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/09/">九月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/08/">八月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/07/">七月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/06/">六月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/05/">五月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/04/">四月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/03/">三月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/02/">二月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/01/">一月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/12/">十二月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/11/">十一月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/10/">十月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/09/">九月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/08/">八月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/07/">七月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/06/">六月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/05/">五月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/04/">四月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/03/">三月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/02/">二月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/01/">一月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/12/">十二月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/11/">十一月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/10/">十月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/09/">九月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/08/">八月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/07/">七月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/06/">六月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/05/">五月 2024</a></li></ul>
+                </div>
+                <div class="col-m-4">
+                    <h3 class="title-tags">标签云：</h3>
+                    <a href="/tags/AI-Agent/" style="font-size: 20px;">AI Agent</a> <a href="/tags/Agent-%E5%B7%A5%E5%85%B7%E8%B0%83%E7%94%A8/" style="font-size: 20px;">Agent 工具调用</a> <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/CSS/" style="font-size: 20px;">CSS</a> <a href="/tags/Centos/" style="font-size: 20px;">Centos</a> <a href="/tags/Docker/" style="font-size: 20px;">Docker</a> <a href="/tags/Dubbo/" style="font-size: 20px;">Dubbo</a> <a href="/tags/Flutter/" style="font-size: 20px;">Flutter</a> <a href="/tags/GO/" style="font-size: 20px;">GO</a> <a href="/tags/Game/" style="font-size: 20px;">Game</a> <a href="/tags/Go/" style="font-size: 20px;">Go</a> <a href="/tags/Go-Web/" style="font-size: 20px;">Go Web</a> <a href="/tags/Groovy/" style="font-size: 20px;">Groovy</a> <a href="/tags/HBase/" style="font-size: 20px;">HBase</a> <a href="/tags/Hadoop/" style="font-size: 20px;">Hadoop</a> <a href="/tags/JQuery/" style="font-size: 20px;">JQuery</a> <a href="/tags/JS/" style="font-size: 20px;">JS</a> <a href="/tags/JSON-RPC/" style="font-size: 20px;">JSON-RPC</a> <a href="/tags/JVM/" style="font-size: 20px;">JVM</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/Java-Web/" style="font-size: 20px;">Java Web</a> <a href="/tags/Jira/" style="font-size: 20px;">Jira</a> <a href="/tags/K8S/" style="font-size: 20px;">K8S</a> <a href="/tags/Kotlin/" style="font-size: 20px;">Kotlin</a> <a href="/tags/LLM/" style="font-size: 20px;">LLM</a> <a href="/tags/LangChain/" style="font-size: 20px;">LangChain</a> <a href="/tags/LangGraph/" style="font-size: 20px;">LangGraph</a> <a href="/tags/Linux/" style="font-size: 20px;">Linux</a> <a href="/tags/MCP/" style="font-size: 20px;">MCP</a> <a href="/tags/MCP-Server/" style="font-size: 20px;">MCP Server</a> <a href="/tags/Model-Context-Protocol/" style="font-size: 20px;">Model Context Protocol</a> <a href="/tags/MongoDB/" style="font-size: 20px;">MongoDB</a> <a href="/tags/MySql/" style="font-size: 20px;">MySql</a> <a href="/tags/MybatisPlus/" style="font-size: 20px;">MybatisPlus</a> <a href="/tags/Nginx/" style="font-size: 20px;">Nginx</a> <a href="/tags/NodeJs/" style="font-size: 20px;">NodeJs</a> <a href="/tags/PHP/" style="font-size: 20px;">PHP</a> <a href="/tags/Promise/" style="font-size: 20px;">Promise</a> <a href="/tags/Python/" style="font-size: 20px;">Python</a> <a href="/tags/QT/" style="font-size: 20px;">QT</a> <a href="/tags/RAG/" style="font-size: 20px;">RAG</a> <a href="/tags/React/" style="font-size: 20px;">React</a> <a href="/tags/Redis/" style="font-size: 20px;">Redis</a> <a href="/tags/ScriptRunner/" style="font-size: 20px;">ScriptRunner</a> <a href="/tags/Skill/" style="font-size: 20px;">Skill</a> <a href="/tags/Spark/" style="font-size: 20px;">Spark</a> <a href="/tags/Spring-Cloud/" style="font-size: 20px;">Spring Cloud</a> <a href="/tags/SpringMVC/" style="font-size: 20px;">SpringMVC</a> <a href="/tags/UniApp/" style="font-size: 20px;">UniApp</a> <a href="/tags/UniCloud/" style="font-size: 20px;">UniCloud</a> <a href="/tags/Unity/" style="font-size: 20px;">Unity</a> <a href="/tags/Vue/" style="font-size: 20px;">Vue</a> <a href="/tags/Webpack/" style="font-size: 20px;">Webpack</a> <a href="/tags/ZooKeeper/" style="font-size: 20px;">ZooKeeper</a> <a href="/tags/pgvector/" style="font-size: 20px;">pgvector</a> <a href="/tags/%E5%89%8D%E7%AB%AF/" style="font-size: 20px;">前端</a> <a href="/tags/%E5%90%91%E9%87%8F%E6%A3%80%E7%B4%A2/" style="font-size: 20px;">向量检索</a> <a href="/tags/%E5%A4%9A%E6%99%BA%E8%83%BD%E4%BD%93/" style="font-size: 20px;">多智能体</a> <a href="/tags/%E5%B7%A5%E4%BD%9C%E6%B5%81/" style="font-size: 20px;">工作流</a> <a href="/tags/%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%BC%96%E6%8E%92/" style="font-size: 20px;">工作流编排</a> <a href="/tags/%E6%8A%80%E8%83%BD/" style="font-size: 20px;">技能</a> <a href="/tags/%E6%8A%80%E8%83%BD%E6%A8%A1%E5%BC%8F/" style="font-size: 20px;">技能模式</a> <a href="/tags/%E6%99%BA%E8%83%BD%E4%BD%93/" style="font-size: 20px;">智能体</a> <a href="/tags/%E7%8A%B6%E6%80%81%E6%9C%BA/" style="font-size: 20px;">状态机</a> <a href="/tags/%E7%9F%A5%E8%AF%86%E5%BA%93/" style="font-size: 20px;">知识库</a> <a href="/tags/%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1/" style="font-size: 20px;">系统设计</a> <a href="/tags/%E8%BF%90%E7%BB%B4/" style="font-size: 20px;">运维</a>
+                </div>
+            </div>
+        </section>
+        <section class="sub-footer">
+            <p>© 2026 <a href="/">Richu</a>. All Rights Reserved. Theme By <a href="https://github.com/Dreamer-Paul/Hingle" target="_blank" rel="nofollow">Hingle</a>.</p>
+        </section>
+    </div>
+</footer>
+
+
+<script src="/static/kico.js"></script>
+<script src="/static/hingle.js"></script>
+
+
+<script>var SITE_ROOT = "/";</script>
+<script>var hingle = new Paul_Hingle({"copyright":true,"night":false,"code":{"language_label":true,"language_label_exclude":["markup","none","plain","plaintext","text"],"line_numbers":true,"line_numbers_toggle":true}});</script>
+
+    <script src="/js/mermaid-boot.js"></script>
+  </body>
+</html>

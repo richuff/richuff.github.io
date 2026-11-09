@@ -1,0 +1,1284 @@
+<!DOCTYPE html>
+<html>
+  <head>
+     
+    <meta charset="UTF-8">
+    <title>LangGraph 核心机制与入门实践 - Richu</title>
+    <link rel="shortcut icon" href="/static/img/icon.png">
+    <link rel="icon" href="/static/img/icon.png" sizes="192x192"/>
+    
+<link rel="stylesheet" href="/static/kico.css">
+<link rel="stylesheet" href="/static/hingle.css">
+<link rel="stylesheet" href="/static/md-enhance.css">
+
+    
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <meta name="viewport" content="width=device-width, maximum-scale=1, initial-scale=1"/>
+    
+    <meta property="og:site_name" content="Richu">
+    <meta property="og:title" content="LangGraph 核心机制与入门实践"/>
+    
+    <style>body:before{ content: ''; background-image: url(http://kycloud3.koyoo.cn/2025033176e99202503311036156636.jpg) }</style>
+    
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+  <body>
+    <header>
+    <div class="head-title">
+        <h4>Richu</h4>
+    </div>
+    <div class="head-action">
+        <div class="toggle-btn"></div>
+        <div class="light-btn"></div>
+        <div class="search-btn"></div>
+    </div>
+    <form class="head-search" method="post">
+        <input type="text" name="s" placeholder="搜索什么？">
+    </form>
+    <nav class="head-menu">
+        <a href="/">首页</a>
+        <div class="has-child">
+            <a>分类</a>
+            <div class="sub-menu">
+                <a class="category-link" href="/categories/AI/">AI</a><a class="category-link" href="/categories/Android/">Android</a><a class="category-link" href="/categories/Go/">Go</a><a class="category-link" href="/categories/Java/">Java</a><a class="category-link" href="/categories/QT/">QT</a><a class="category-link" href="/categories/Unity/">Unity</a><a class="category-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a><a class="category-link" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a><a class="category-link" href="/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE/">大数据</a><a class="category-link" href="/categories/%E8%BF%90%E7%BB%B4/">运维</a>
+            </div>
+        </div>
+        
+            <a href="/links">常用链接</a>
+        
+            <a href="/sheets">钢琴谱</a>
+        
+    </nav>
+</header>
+
+    <main>
+    <div class="wrap min">
+        <section class="post-title">
+            <h2>LangGraph 核心机制与入门实践</h2>
+            <div class="post-meta">
+                
+                <time class="date">2026.11.09</time>
+            
+                <span class="category"><a class="category-link" href="/categories/AI/">AI</a></span>
+            
+            </div>
+        </section>
+        <article class="post-content">
+            <h1 id="LangGraph-详解（初学者完整版）"><a href="#LangGraph-详解（初学者完整版）" class="headerlink" title="LangGraph 详解（初学者完整版）"></a>LangGraph 详解（初学者完整版）</h1><blockquote>
+<p>LangGraph 是 LangChain 团队出品的<strong>底层智能体编排框架</strong>：用”图”（状态 + 节点 + 边）来构建有状态、可持久化、可恢复的长时运行 Agent 与工作流。<br>本文面向<strong>初学者</strong>，从”为什么需要它”讲到全部核心概念，力求一份文档讲透。基于 <strong>LangGraph v1（当前 1.2.x，2026-11）</strong>，内容核对自官方文档（docs.langchain.com）。</p>
+<p>配套阅读：《第一个LangGraph程序.md》——本文讲”是什么&#x2F;为什么&#x2F;全部关键点”，那篇带你 40 分钟亲手写一个完整程序。</p>
+<p>官方文档：<a target="_blank" rel="noopener" href="https://docs.langchain.com/oss/python/langgraph/overview">https://docs.langchain.com/oss/python/langgraph/overview</a></p>
+</blockquote>
+<hr>
+<h2 id="目录"><a href="#目录" class="headerlink" title="目录"></a>目录</h2><ol>
+<li><a href="#1-%E5%88%9D%E5%AD%A6%E8%80%85%E5%9C%B0%E5%9B%BE%E4%B8%80%E5%BC%A0%E5%9B%BE%E7%9C%8B%E6%87%82-langgraph">初学者地图：一张图看懂 LangGraph</a></li>
+<li><a href="#2-%E4%B8%BA%E4%BB%80%E4%B9%88%E9%9C%80%E8%A6%81-langgraph">为什么需要 LangGraph</a></li>
+<li><a href="#3-5-%E5%88%86%E9%92%9F%E8%B7%91%E9%80%9A%E6%9C%80%E5%B0%8F%E7%A8%8B%E5%BA%8F">5 分钟跑通最小程序</a></li>
+<li><a href="#4-state%E7%8A%B6%E6%80%81%E8%AF%A6%E8%A7%A3">State（状态）详解</a></li>
+<li><a href="#5-node%E8%8A%82%E7%82%B9%E8%AF%A6%E8%A7%A3">Node（节点）详解</a></li>
+<li><a href="#6-edge%E8%BE%B9%E4%B8%8E%E8%B7%AF%E7%94%B1%E6%9D%A1%E4%BB%B6%E8%BE%B9commandsend">Edge（边）与路由：条件边、Command、Send</a></li>
+<li><a href="#7-%E6%89%A7%E8%A1%8C%E6%A8%A1%E5%9E%8Bpregel-%E8%B6%85%E6%AD%A5">执行模型：Pregel 超步</a></li>
+<li><a href="#8-checkpointer-%E4%B8%8E%E6%8C%81%E4%B9%85%E5%8C%96%E5%90%AB%E6%97%B6%E9%97%B4%E6%97%85%E8%A1%8C">Checkpointer 与持久化（含时间旅行）</a></li>
+<li><a href="#9-human-in-the-loopinterrupt-%E5%85%A8%E8%A7%A3">Human-in-the-loop：interrupt 全解</a></li>
+<li><a href="#10-%E8%AE%B0%E5%BF%86%E7%B3%BB%E7%BB%9F%E7%9F%AD%E6%9C%9F%E8%AE%B0%E5%BF%86%E4%B8%8E%E9%95%BF%E6%9C%9F-store">记忆系统：短期记忆与长期 Store</a></li>
+<li><a href="#11-%E6%B5%81%E5%BC%8F%E8%BE%93%E5%87%BA%E5%85%A8%E8%A7%A3">流式输出全解</a></li>
+<li><a href="#12-%E5%AD%90%E5%9B%BEsubgraph">子图（Subgraph）</a></li>
+<li><a href="#13-%E5%A4%9A%E6%99%BA%E8%83%BD%E4%BD%93%E6%9E%B6%E6%9E%84">多智能体架构</a></li>
+<li><a href="#14-langgraph-%E4%B8%8E-langchain-%E7%94%9F%E6%80%81%E7%9A%84%E5%85%B3%E7%B3%BB">LangGraph 与 LangChain 生态的关系</a></li>
+<li><a href="#15-%E6%A0%B8%E5%BF%83-api-%E9%80%9F%E6%9F%A5">核心 API 速查</a></li>
+<li><a href="#16-%E9%83%A8%E7%BD%B2%E4%B8%8E%E7%94%9F%E6%80%81">部署与生态</a></li>
+<li><a href="#17-%E4%BB%80%E4%B9%88%E6%97%B6%E5%80%99%E7%94%A8--%E4%B8%8D%E7%94%A8-langgraph">什么时候用 &#x2F; 不用 LangGraph</a></li>
+<li><a href="#18-%E5%B8%B8%E8%A7%81%E5%9D%91%E4%B8%8E%E6%9C%80%E4%BD%B3%E5%AE%9E%E8%B7%B5">常见坑与最佳实践</a></li>
+<li><a href="#19-%E5%AD%A6%E4%B9%A0%E8%B7%AF%E5%BE%84%E4%B8%8E%E8%B5%84%E6%BA%90">学习路径与资源</a></li>
+<li><a href="#20-%E9%99%84%E5%BD%95%E6%9C%AF%E8%AF%AD%E8%A1%A8%E4%B8%8E%E4%B8%80%E9%A1%B5%E7%BA%B8%E6%80%BB%E7%BB%93">附录：术语表与一页纸总结</a></li>
+</ol>
+<hr>
+<h2 id="1-初学者地图：一张图看懂-LangGraph"><a href="#1-初学者地图：一张图看懂-LangGraph" class="headerlink" title="1. 初学者地图：一张图看懂 LangGraph"></a>1. 初学者地图：一张图看懂 LangGraph</h2><p>先把全部概念放在一张图里，后面章节逐一展开。<strong>初学者只需先记住五个词：State、Node、Edge、Checkpointer、interrupt。</strong></p>
+<pre class="line-numbers language-text" data-language="text"><code class="language-text">┌───────────────────────────────────────────────────────────────────┐
+│                        你写的部分（图定义）                          │
+│                                                                   │
+│   State ──带 reducer 的 TypedDict，全图共享的数据总线                │
+│   Node  ──普通 Python 函数：(state) -> 增量更新                     │
+│   Edge  ──决定"下一步去哪"：固定边 / 条件边 / Command / Send         │
+│                                                                   │
+├───────────────────────────────────────────────────────────────────┤
+│                    框架提供的部分（运行时能力）                       │
+│                                                                   │
+│   Checkpointer ──每个超步自动存档：恢复、重试、时间旅行、会话隔离       │
+│   interrupt    ──图在任意位置暂停，等人审批后 Command(resume) 继续    │
+│   Store        ──跨会话长期记忆（用户偏好、事实档案）                  │
+│   stream       ──7 种流式模式：token 级 / 节点增量 / 自定义进度        │
+│                                                                   │
+├───────────────────────────────────────────────────────────────────┤
+│                        生态（按需引入）                              │
+│   LangSmith（追踪评测）· Agent Server（部署）· Studio（可视化调试）   │
+└───────────────────────────────────────────────────────────────────┘<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>一句话定位：<strong>LangGraph 之于 Agent，就像工作流引擎之于业务流程——把”模型自己决定下一步”和”工程上必须可控”这对矛盾，用图编排统一起来。</strong></p>
+<p>灵感来源：执行模型借鉴 Google 的 <strong>Pregel</strong>（BSP 超步模型），公共接口借鉴 <strong>NetworkX</strong>。由 LangChain Inc. 构建，但<strong>可以完全脱离 LangChain 使用</strong>（不用 LangChain 的模型&#x2F;工具抽象也行）。</p>
+<hr>
+<h2 id="2-为什么需要-LangGraph"><a href="#2-为什么需要-LangGraph" class="headerlink" title="2. 为什么需要 LangGraph"></a>2. 为什么需要 LangGraph</h2><h3 id="2-1-三个阶段，复杂度逐级上升"><a href="#2-1-三个阶段，复杂度逐级上升" class="headerlink" title="2.1 三个阶段，复杂度逐级上升"></a>2.1 三个阶段，复杂度逐级上升</h3><p>用 LLM 做应用一般会经历三个阶段：</p>
+<table>
+<thead>
+<tr>
+<th>阶段</th>
+<th>形态</th>
+<th>需要什么</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>1. 单轮问答</td>
+<td>prompt in → completion out</td>
+<td>不需要框架</td>
+</tr>
+<tr>
+<td>2. 工具调用 Agent</td>
+<td>模型循环调工具直到给出答案</td>
+<td>一个 ReAct 循环</td>
+</tr>
+<tr>
+<td>3. 可靠的生产级 Agent&#x2F;工作流</td>
+<td>长时运行、多步骤、要断点恢复、要人工审批、要记住历史</td>
+<td><strong>状态机 + 持久化 + 编排</strong></td>
+</tr>
+</tbody></table>
+<p>第 3 阶段自己手写要解决一堆问题：中间状态存哪、进程挂了怎么恢复、哪一步需要人审批、多轮对话记忆怎么存、每一步怎么观测。LangGraph 把这些做成<strong>一等公民</strong>。</p>
+<h3 id="2-2-它的四大一等能力（贯穿全文的主线）"><a href="#2-2-它的四大一等能力（贯穿全文的主线）" class="headerlink" title="2.2 它的四大一等能力（贯穿全文的主线）"></a>2.2 它的四大一等能力（贯穿全文的主线）</h3><table>
+<thead>
+<tr>
+<th>能力</th>
+<th>一句话解释</th>
+<th>详细章节</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>持久执行（Durable Execution）</strong></td>
+<td>每步之后把状态写入 Checkpointer，崩溃&#x2F;重启后从断点恢复</td>
+<td>§8</td>
+</tr>
+<tr>
+<td><strong>人机协作（HITL）</strong></td>
+<td>任何节点都能 <code>interrupt()</code> 暂停等人，审批后 <code>Command(resume=...)</code> 继续</td>
+<td>§9</td>
+</tr>
+<tr>
+<td><strong>记忆</strong></td>
+<td>短期（线程内消息&#x2F;状态）+ 长期（跨会话 Store）</td>
+<td>§10</td>
+</tr>
+<tr>
+<td><strong>可控性与可观测</strong></td>
+<td>图结构显式可画、每步可 stream、接 LangSmith 全链路追踪</td>
+<td>§11</td>
+</tr>
+</tbody></table>
+<h3 id="2-3-“图”比”链”和”自由循环”好在哪"><a href="#2-3-“图”比”链”和”自由循环”好在哪" class="headerlink" title="2.3 “图”比”链”和”自由循环”好在哪"></a>2.3 “图”比”链”和”自由循环”好在哪</h3><p>初学者常见疑问：为什么不直接写个 while 循环调 LLM？对比一下：</p>
+<table>
+<thead>
+<tr>
+<th>方案</th>
+<th>问题</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>while 循环手搓 Agent</td>
+<td>状态散在局部变量里；进程挂了全丢；没有审批暂停点；没法回放调试</td>
+</tr>
+<tr>
+<td>LangChain LCEL 链</td>
+<td>适合固定的线性管道，但分支&#x2F;循环&#x2F;动态路由表达不了</td>
+</tr>
+<tr>
+<td>LangGraph 图</td>
+<td>状态集中、每步存档、可暂停、可画图、可单步重放——<strong>显式、可恢复、可控</strong></td>
+</tr>
+</tbody></table>
+<p>社区实践反复证明：很多场景下”显式、刚性的少数节点”比”一个大 Agent 自由发挥”更可控、更省 token、更好调试。LangGraph 的图正是承载这种确定性的工具。</p>
+<hr>
+<h2 id="3-5-分钟跑通最小程序"><a href="#3-5-分钟跑通最小程序" class="headerlink" title="3. 5 分钟跑通最小程序"></a>3. 5 分钟跑通最小程序</h2><h3 id="3-1-安装"><a href="#3-1-安装" class="headerlink" title="3.1 安装"></a>3.1 安装</h3><pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">pip <span class="token function">install</span> <span class="token parameter variable">-U</span> langgraph
+<span class="token comment"># 配合 LangChain 的模型抽象时（可选）：</span>
+pip <span class="token function">install</span> <span class="token parameter variable">-U</span> langchain langchain-openai    <span class="token comment"># 或 langchain-anthropic</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p><code>langgraph</code> 会自动带上 <code>langgraph-checkpoint</code>、<code>langgraph-prebuilt</code> 等依赖。</p>
+<h3 id="3-2-最小可运行程序"><a href="#3-2-最小可运行程序" class="headerlink" title="3.2 最小可运行程序"></a>3.2 最小可运行程序</h3><pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">from</span> langgraph<span class="token punctuation">.</span>graph <span class="token keyword">import</span> StateGraph<span class="token punctuation">,</span> MessagesState<span class="token punctuation">,</span> START<span class="token punctuation">,</span> END
+
+<span class="token keyword">def</span> <span class="token function">mock_llm</span><span class="token punctuation">(</span>state<span class="token punctuation">:</span> MessagesState<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">return</span> <span class="token punctuation">&#123;</span><span class="token string">"messages"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">&#123;</span><span class="token string">"role"</span><span class="token punctuation">:</span> <span class="token string">"ai"</span><span class="token punctuation">,</span> <span class="token string">"content"</span><span class="token punctuation">:</span> <span class="token string">"hello world"</span><span class="token punctuation">&#125;</span><span class="token punctuation">]</span><span class="token punctuation">&#125;</span>
+
+graph <span class="token operator">=</span> StateGraph<span class="token punctuation">(</span>MessagesState<span class="token punctuation">)</span>
+graph<span class="token punctuation">.</span>add_node<span class="token punctuation">(</span>mock_llm<span class="token punctuation">)</span>                    <span class="token comment"># 省略名字时用函数名 "mock_llm"</span>
+graph<span class="token punctuation">.</span>add_edge<span class="token punctuation">(</span>START<span class="token punctuation">,</span> <span class="token string">"mock_llm"</span><span class="token punctuation">)</span>
+graph<span class="token punctuation">.</span>add_edge<span class="token punctuation">(</span><span class="token string">"mock_llm"</span><span class="token punctuation">,</span> END<span class="token punctuation">)</span>
+graph <span class="token operator">=</span> graph<span class="token punctuation">.</span><span class="token builtin">compile</span><span class="token punctuation">(</span><span class="token punctuation">)</span>                     <span class="token comment"># 编译成 Runnable；之后图不可再改</span>
+
+graph<span class="token punctuation">.</span>invoke<span class="token punctuation">(</span><span class="token punctuation">&#123;</span><span class="token string">"messages"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">&#123;</span><span class="token string">"role"</span><span class="token punctuation">:</span> <span class="token string">"user"</span><span class="token punctuation">,</span> <span class="token string">"content"</span><span class="token punctuation">:</span> <span class="token string">"hi!"</span><span class="token punctuation">&#125;</span><span class="token punctuation">]</span><span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>就这十几行，五要素全齐：<strong>State</strong>（<code>MessagesState</code>，官方预置的只有 <code>messages</code> 一个字段的状态）、<strong>Node</strong>（<code>mock_llm</code>）、<strong>Edge</strong>（两条固定边）、<strong>编译</strong>（<code>compile()</code>）、<strong>运行</strong>（<code>invoke</code>）。下面开始逐个概念讲透。</p>
+<hr>
+<h2 id="4-State（状态）详解"><a href="#4-State（状态）详解" class="headerlink" title="4. State（状态）详解"></a>4. State（状态）详解</h2><h3 id="4-1-状态是什么：全图共享的数据总线"><a href="#4-1-状态是什么：全图共享的数据总线" class="headerlink" title="4.1 状态是什么：全图共享的数据总线"></a>4.1 状态是什么：全图共享的数据总线</h3><p>State 是一个（通常带 <code>Annotated</code> reducer 的）TypedDict &#x2F; dataclass &#x2F; Pydantic 模型。图里的每个节点都从它读数据、往它写增量，它是<strong>唯一的</strong>数据传递方式——节点之间不直接调用，全靠状态通信。</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">from</span> typing <span class="token keyword">import</span> Annotated
+<span class="token keyword">from</span> typing_extensions <span class="token keyword">import</span> TypedDict
+<span class="token keyword">from</span> langgraph<span class="token punctuation">.</span>graph<span class="token punctuation">.</span>message <span class="token keyword">import</span> add_messages
+
+<span class="token keyword">class</span> <span class="token class-name">State</span><span class="token punctuation">(</span>TypedDict<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    messages<span class="token punctuation">:</span> Annotated<span class="token punctuation">[</span><span class="token builtin">list</span><span class="token punctuation">,</span> add_messages<span class="token punctuation">]</span>   <span class="token comment"># reducer：追加而不是覆盖</span>
+    query<span class="token punctuation">:</span> <span class="token builtin">str</span>                                <span class="token comment"># 无 reducer：直接覆盖</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>三种定义方式对比（官方推荐前两种）：</p>
+<table>
+<thead>
+<tr>
+<th>方式</th>
+<th>特点</th>
+<th>何时用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>TypedDict</code></td>
+<td>最简单、性能好</td>
+<td>默认选择</td>
+</tr>
+<tr>
+<td><code>dataclass</code></td>
+<td>支持默认值</td>
+<td>需要字段默认值时</td>
+</tr>
+<tr>
+<td>Pydantic <code>BaseModel</code></td>
+<td>带运行时校验</td>
+<td>输入不可信、需要类型约束时（注意：<code>create_agent</code> 只支持 TypedDict）</td>
+</tr>
+</tbody></table>
+<h3 id="4-2-Reducer：理解-LangGraph-的钥匙"><a href="#4-2-Reducer：理解-LangGraph-的钥匙" class="headerlink" title="4.2 Reducer：理解 LangGraph 的钥匙"></a>4.2 Reducer：理解 LangGraph 的钥匙</h3><p>State 存储在 <strong>channels</strong>（状态 schema 里的每个 key 就是一个 channel）。每个 channel 持有一个值，并定义”更新如何合并”——这个合并函数就是 <strong>reducer</strong>：</p>
+<pre class="line-numbers language-text" data-language="text"><code class="language-text">new_value = reducer(left=当前值, right=节点返回的更新)<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<ul>
+<li><strong>没有 reducer 的字段</strong>：默认行为是 last-write-wins——谁最后写谁生效（直接覆盖）。</li>
+<li><strong>有 reducer 的字段</strong>：节点返回值会和当前值合并，而不是替换。</li>
+</ul>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> operator
+<span class="token keyword">from</span> typing <span class="token keyword">import</span> Annotated
+<span class="token keyword">from</span> typing_extensions <span class="token keyword">import</span> TypedDict
+
+<span class="token keyword">class</span> <span class="token class-name">State</span><span class="token punctuation">(</span>TypedDict<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    foo<span class="token punctuation">:</span> <span class="token builtin">int</span>                                   <span class="token comment"># 无 reducer：覆盖</span>
+    bar<span class="token punctuation">:</span> Annotated<span class="token punctuation">[</span><span class="token builtin">list</span><span class="token punctuation">[</span><span class="token builtin">str</span><span class="token punctuation">]</span><span class="token punctuation">,</span> operator<span class="token punctuation">.</span>add<span class="token punctuation">]</span>    <span class="token comment"># reducer：列表拼接</span>
+    tags<span class="token punctuation">:</span> Annotated<span class="token punctuation">[</span><span class="token builtin">list</span><span class="token punctuation">[</span><span class="token builtin">str</span><span class="token punctuation">]</span><span class="token punctuation">,</span> my_merge<span class="token punctuation">]</span>       <span class="token comment"># reducer：任意自定义函数</span>
+
+<span class="token keyword">def</span> <span class="token function">my_merge</span><span class="token punctuation">(</span>left<span class="token punctuation">:</span> <span class="token builtin">list</span><span class="token punctuation">[</span><span class="token builtin">str</span><span class="token punctuation">]</span><span class="token punctuation">,</span> right<span class="token punctuation">:</span> <span class="token builtin">list</span><span class="token punctuation">[</span><span class="token builtin">str</span><span class="token punctuation">]</span><span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">></span> <span class="token builtin">list</span><span class="token punctuation">[</span><span class="token builtin">str</span><span class="token punctuation">]</span><span class="token punctuation">:</span>
+    <span class="token triple-quoted-string string">"""reducer 就是普通二元函数：左=当前值，右=本次更新"""</span>
+    <span class="token keyword">return</span> <span class="token builtin">list</span><span class="token punctuation">(</span><span class="token builtin">set</span><span class="token punctuation">(</span>left <span class="token operator">+</span> right<span class="token punctuation">)</span><span class="token punctuation">)</span>             <span class="token comment"># 例如去重合并</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>更新示例：状态是 <code>&#123;&quot;foo&quot;: 1, &quot;bar&quot;: [&quot;hi&quot;]&#125;</code>，某节点返回 <code>&#123;&quot;bar&quot;: [&quot;bye&quot;]&#125;</code> → 新状态 <code>&#123;&quot;foo&quot;: 1, &quot;bar&quot;: [&quot;hi&quot;, &quot;bye&quot;]&#125;</code>。<code>foo</code> 没被写就保持原样——<strong>节点返回的是增量（partial update），不是全量替换</strong>。</p>
+<h3 id="4-3-add-messages：你最常用的-reducer"><a href="#4-3-add-messages：你最常用的-reducer" class="headerlink" title="4.3 add_messages：你最常用的 reducer"></a>4.3 add_messages：你最常用的 reducer</h3><p><code>add_messages</code> 做两件事：<strong>新消息追加进列表；同 id 的消息原地替换</strong>。这是”对话历史自动累积”和”编辑历史消息”的全部秘密。</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">class</span> <span class="token class-name">State</span><span class="token punctuation">(</span>TypedDict<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    messages<span class="token punctuation">:</span> Annotated<span class="token punctuation">[</span><span class="token builtin">list</span><span class="token punctuation">[</span>AnyMessage<span class="token punctuation">]</span><span class="token punctuation">,</span> add_messages<span class="token punctuation">]</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>注意与 <code>operator.add</code> 的区别：<code>operator.add</code> 只能追加，没法在人工编辑场景原地更新某条历史消息；<code>add_messages</code> 按消息 id 判断，id 相同就替换。</p>
+<p>它还支持”wire format”：节点可以直接返回 <code>&#123;&quot;messages&quot;: [&#123;&quot;role&quot;: &quot;user&quot;, &quot;content&quot;: &quot;...&quot;&#125;]&#125;</code> 这种字典形式，框架自动反序列化成消息对象，之后就能用 <code>state[&quot;messages&quot;][-1].content</code> 点号访问。</p>
+<h3 id="4-4-MessagesState：预置的简写"><a href="#4-4-MessagesState：预置的简写" class="headerlink" title="4.4 MessagesState：预置的简写"></a>4.4 MessagesState：预置的简写</h3><p>官方预置了只有一个 <code>messages</code> 字段（已内置 <code>add_messages</code> reducer）的 <code>MessagesState</code>，最小程序可以直接用它；需要更多字段时子类化：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">from</span> langgraph<span class="token punctuation">.</span>graph <span class="token keyword">import</span> MessagesState
+
+<span class="token keyword">class</span> <span class="token class-name">State</span><span class="token punctuation">(</span>MessagesState<span class="token punctuation">)</span><span class="token punctuation">:</span>     <span class="token comment"># 继承了 messages + add_messages</span>
+    documents<span class="token punctuation">:</span> <span class="token builtin">list</span><span class="token punctuation">[</span><span class="token builtin">str</span><span class="token punctuation">]</span>        <span class="token comment"># 自己再加字段</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="4-5-Overwrite-与”重置-reducer-字段”"><a href="#4-5-Overwrite-与”重置-reducer-字段”" class="headerlink" title="4.5 Overwrite 与”重置 reducer 字段”"></a>4.5 Overwrite 与”重置 reducer 字段”</h3><p>两个进阶细节（初学者先知道存在即可）：</p>
+<ul>
+<li>**<code>Overwrite</code>**：绕过合并型 reducer、直接替换值（包括”清空”）。合并型 reducer 下返回空值&#x2F;空列表通常不会清掉旧数据（因为 reducer 把空值当作”无更新”合并），想强制清空就用它；</li>
+<li><strong>重置场景</strong>：错误缓冲、重试计数器这类字段在新一轮要清零时，同样需要 <code>Overwrite</code> 或专门的清空写法，否则旧数据一直留着。</li>
+</ul>
+<h3 id="4-6-输入-输出-schema-与私有状态"><a href="#4-6-输入-输出-schema-与私有状态" class="headerlink" title="4.6 输入&#x2F;输出 schema 与私有状态"></a>4.6 输入&#x2F;输出 schema 与私有状态</h3><p>默认图的输入&#x2F;输出 schema 就是完整 state。进阶做法：</p>
+<ul>
+<li><strong>收窄输入输出</strong>：定义单独的输入&#x2F;输出 schema（state 的子集），只约束 <code>invoke</code> 接受什么、返回什么，对内仍然全量；</li>
+<li><strong>私有 channel</strong>：某些字段（如中间草稿）只供内部节点使用，不放进输入&#x2F;输出 schema——外部调用者根本看不到。</li>
+</ul>
+<p>初学者阶段可以先不管这两条，等图变大、字段变多时再回来用。</p>
+<hr>
+<h2 id="5-Node（节点）详解"><a href="#5-Node（节点）详解" class="headerlink" title="5. Node（节点）详解"></a>5. Node（节点）详解</h2><h3 id="5-1-节点是普通-Python-函数"><a href="#5-1-节点是普通-Python-函数" class="headerlink" title="5.1 节点是普通 Python 函数"></a>5.1 节点是普通 Python 函数</h3><p>签名是 <code>(state) -&gt; dict</code>，返回值是对状态的<strong>增量更新</strong>：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">def</span> <span class="token function">node_a</span><span class="token punctuation">(</span>state<span class="token punctuation">:</span> State<span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">></span> <span class="token builtin">dict</span><span class="token punctuation">:</span>
+    <span class="token keyword">return</span> <span class="token punctuation">&#123;</span><span class="token string">"query"</span><span class="token punctuation">:</span> state<span class="token punctuation">[</span><span class="token string">"query"</span><span class="token punctuation">]</span><span class="token punctuation">.</span>strip<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">&#125;</span>   <span class="token comment"># 只写改动的字段</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>节点里可以做任何事：调 LLM、查数据库、调工具、甚至 <code>interrupt()</code> 暂停等人。</p>
+<h3 id="5-2-三种可用签名"><a href="#5-2-三种可用签名" class="headerlink" title="5.2 三种可用签名"></a>5.2 三种可用签名</h3><p>节点函数除了 <code>state</code>，还可以按位置接收另外两个可选参数：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">def</span> <span class="token function">plain_node</span><span class="token punctuation">(</span>state<span class="token punctuation">:</span> State<span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+<span class="token keyword">def</span> <span class="token function">node_with_config</span><span class="token punctuation">(</span>state<span class="token punctuation">:</span> State<span class="token punctuation">,</span> config<span class="token punctuation">:</span> RunnableConfig<span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span>
+<span class="token keyword">def</span> <span class="token function">node_with_runtime</span><span class="token punctuation">(</span>state<span class="token punctuation">:</span> State<span class="token punctuation">,</span> runtime<span class="token punctuation">:</span> Runtime<span class="token punctuation">[</span>Context<span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">:</span> <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>里面有什么</th>
+<th>何时用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>state</code></td>
+<td>当前图状态</td>
+<td>永远可用</td>
+</tr>
+<tr>
+<td><code>config</code></td>
+<td><code>RunnableConfig</code>：<code>thread_id</code>、<code>tags</code>、回调等运行配置</td>
+<td>需要读 thread_id &#x2F; 透传 tracing 配置</td>
+</tr>
+<tr>
+<td><code>runtime</code></td>
+<td><code>Runtime</code> 对象：runtime context、<code>store</code>、<code>stream_writer</code>、<code>execution_info</code></td>
+<td>需要长期记忆 Store、自定义流式、依赖注入</td>
+</tr>
+</tbody></table>
+<h3 id="5-3-注册节点与默认命名"><a href="#5-3-注册节点与默认命名" class="headerlink" title="5.3 注册节点与默认命名"></a>5.3 注册节点与默认命名</h3><pre class="line-numbers language-python" data-language="python"><code class="language-python">builder<span class="token punctuation">.</span>add_node<span class="token punctuation">(</span><span class="token string">"a"</span><span class="token punctuation">,</span> node_a<span class="token punctuation">)</span>    <span class="token comment"># 显式命名</span>
+builder<span class="token punctuation">.</span>add_node<span class="token punctuation">(</span>node_a<span class="token punctuation">)</span>         <span class="token comment"># 省略名字 → 自动用函数名 "node_a"</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>内部会被包装成 <code>RunnableLambda</code>，自动获得批量调用、异步支持和 LangSmith tracing。</p>
+<h3 id="5-4-重试与缓存"><a href="#5-4-重试与缓存" class="headerlink" title="5.4 重试与缓存"></a>5.4 重试与缓存</h3><ul>
+<li><strong>重试</strong>：<code>builder.add_node(&quot;name&quot;, fn, retry=RetryPolicy(max_attempts=3))</code>——节点是 retry 边界，失败自动重试；</li>
+<li><strong>缓存</strong>：编译时传 <code>cache=...</code>，节点上挂 <code>CachePolicy</code>，相同输入直接复用结果。</li>
+</ul>
+<h3 id="5-5-幂等性：最重要的节点纪律"><a href="#5-5-幂等性：最重要的节点纪律" class="headerlink" title="5.5 幂等性：最重要的节点纪律"></a>5.5 幂等性：最重要的节点纪律</h3><p><strong>节点是 checkpoint 与 retry 的边界</strong>：interrupt 恢复、重试时，<strong>节点会从函数开头整个重跑</strong>。所以：</p>
+<ul>
+<li>节点里的副作用（写数据库、发请求）必须<strong>幂等</strong>（用 upsert、幂等键、读后写检查）；</li>
+<li>昂贵且不该重复的子操作，可以用 <code>Task</code> 原语（已完成 task 会返回缓存结果，见 5.6）；</li>
+<li>涉及 <code>interrupt()</code> 的节点尤其注意：interrupt 之前的代码每次 resume 都会再执行一遍（§9 详述）。</li>
+</ul>
+<h3 id="5-6-工作单元的选择（进阶认知）"><a href="#5-6-工作单元的选择（进阶认知）" class="headerlink" title="5.6 工作单元的选择（进阶认知）"></a>5.6 工作单元的选择（进阶认知）</h3><table>
+<thead>
+<tr>
+<th>原语</th>
+<th>自有 checkpoint</th>
+<th>恢复&#x2F;重试行为</th>
+<th>适用场景</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>节点内普通函数</td>
+<td>否</td>
+<td>随节点重跑</td>
+<td>无路由分叉、重复执行可接受</td>
+</tr>
+<tr>
+<td><code>Task</code></td>
+<td>否（结果存于父 checkpoint）</td>
+<td>已完成的 task 返回缓存结果</td>
+<td>有副作用或昂贵、不应重复</td>
+</tr>
+<tr>
+<td>Subgraph</td>
+<td>有（父线程命名空间下）</td>
+<td>在被中断节点处恢复</td>
+<td>独立路由&#x2F;schema，或被多个父图复用</td>
+</tr>
+<tr>
+<td>Graph node</td>
+<td>是</td>
+<td>从该节点恢复，之前的节点不重跑</td>
+<td>需要路由分叉&#x2F;interrupt&#x2F;时间旅行</td>
+</tr>
+</tbody></table>
+<p>初学者记住结论即可：<strong>把图切成足够小的节点，天然就获得了”从断点恢复、失败的节点不重跑”的好处</strong>——这也是”别把一百行业务塞一个节点”的根本原因。</p>
+<hr>
+<h2 id="6-Edge（边）与路由：条件边、Command、Send"><a href="#6-Edge（边）与路由：条件边、Command、Send" class="headerlink" title="6. Edge（边）与路由：条件边、Command、Send"></a>6. Edge（边）与路由：条件边、Command、Send</h2><p>边决定”节点跑完之后下一步去哪”。LangGraph 有四种路由机制，<strong>每个节点的出边只用其中一种</strong>（混用是路由 bug 的头号来源）。</p>
+<h3 id="6-1-普通边（固定流转）"><a href="#6-1-普通边（固定流转）" class="headerlink" title="6.1 普通边（固定流转）"></a>6.1 普通边（固定流转）</h3><pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">from</span> langgraph<span class="token punctuation">.</span>graph <span class="token keyword">import</span> StateGraph<span class="token punctuation">,</span> START<span class="token punctuation">,</span> END
+
+builder <span class="token operator">=</span> StateGraph<span class="token punctuation">(</span>State<span class="token punctuation">)</span>
+builder<span class="token punctuation">.</span>add_node<span class="token punctuation">(</span><span class="token string">"a"</span><span class="token punctuation">,</span> node_a<span class="token punctuation">)</span>
+builder<span class="token punctuation">.</span>add_edge<span class="token punctuation">(</span>START<span class="token punctuation">,</span> <span class="token string">"a"</span><span class="token punctuation">)</span>     <span class="token comment"># 入口</span>
+builder<span class="token punctuation">.</span>add_edge<span class="token punctuation">(</span><span class="token string">"a"</span><span class="token punctuation">,</span> END<span class="token punctuation">)</span>       <span class="token comment"># 出口</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<ul>
+<li><code>START</code> &#x2F; <code>END</code> 是虚拟的入口&#x2F;终点节点；</li>
+<li>入口也可以是条件的：<code>add_conditional_edges(START, router_fn)</code>——按输入决定第一跳。</li>
+</ul>
+<h3 id="6-2-条件边（函数决定下一跳）"><a href="#6-2-条件边（函数决定下一跳）" class="headerlink" title="6.2 条件边（函数决定下一跳）"></a>6.2 条件边（函数决定下一跳）</h3><pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">def</span> <span class="token function">router</span><span class="token punctuation">(</span>state<span class="token punctuation">:</span> State<span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">></span> <span class="token builtin">str</span><span class="token punctuation">:</span>
+    <span class="token keyword">if</span> state<span class="token punctuation">[</span><span class="token string">"query"</span><span class="token punctuation">]</span><span class="token punctuation">.</span>startswith<span class="token punctuation">(</span><span class="token string">"/help"</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> <span class="token string">"help_node"</span>
+    <span class="token keyword">return</span> <span class="token string">"answer_node"</span>
+
+builder<span class="token punctuation">.</span>add_conditional_edges<span class="token punctuation">(</span><span class="token string">"a"</span><span class="token punctuation">,</span> router<span class="token punctuation">,</span> <span class="token punctuation">&#123;</span><span class="token string">"help_node"</span><span class="token punctuation">:</span> <span class="token string">"help_node"</span><span class="token punctuation">,</span> <span class="token string">"answer_node"</span><span class="token punctuation">:</span> <span class="token string">"answer_node"</span><span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<ul>
+<li>路由函数接收当前 state，返回：目标节点名、<code>END</code>、<strong>名称列表</strong>（fan-out，多路并行）、或 <code>Send</code> 对象列表（见 6.4）；</li>
+<li>显式映射表（第三个参数）可选，但建议写上——它同时是给 <code>draw_mermaid()</code> 可视化用的边声明。</li>
+</ul>
+<h3 id="6-3-Command：状态更新-路由一步完成（v1-推荐）"><a href="#6-3-Command：状态更新-路由一步完成（v1-推荐）" class="headerlink" title="6.3 Command：状态更新 + 路由一步完成（v1 推荐）"></a>6.3 Command：状态更新 + 路由一步完成（v1 推荐）</h3><p>v1 推荐在节点内直接返回 <code>Command</code>，把”改状态”和”决定去哪”写在一起，更内聚：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">from</span> langgraph<span class="token punctuation">.</span>types <span class="token keyword">import</span> Command
+
+<span class="token keyword">def</span> <span class="token function">route</span><span class="token punctuation">(</span>state<span class="token punctuation">:</span> State<span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">></span> Command<span class="token punctuation">[</span>Literal<span class="token punctuation">[</span><span class="token string">"help_node"</span><span class="token punctuation">,</span> <span class="token string">"answer_node"</span><span class="token punctuation">]</span><span class="token punctuation">]</span><span class="token punctuation">:</span>
+    <span class="token keyword">if</span> state<span class="token punctuation">[</span><span class="token string">"query"</span><span class="token punctuation">]</span><span class="token punctuation">.</span>startswith<span class="token punctuation">(</span><span class="token string">"/help"</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> Command<span class="token punctuation">(</span>update<span class="token operator">=</span><span class="token punctuation">&#123;</span><span class="token string">"query"</span><span class="token punctuation">:</span> <span class="token string">""</span><span class="token punctuation">&#125;</span><span class="token punctuation">,</span> goto<span class="token operator">=</span><span class="token string">"help_node"</span><span class="token punctuation">)</span>
+    <span class="token keyword">return</span> Command<span class="token punctuation">(</span>goto<span class="token operator">=</span><span class="token string">"answer_node"</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><code>Command</code> 的四个参数：</p>
+<table>
+<thead>
+<tr>
+<th>参数</th>
+<th>用途</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>update</code></td>
+<td>状态更新（同普通节点返回值）</td>
+</tr>
+<tr>
+<td><code>goto</code></td>
+<td>下一节点（同条件边的返回）</td>
+</tr>
+<tr>
+<td><code>graph</code></td>
+<td>从子图跳父图时用 <code>Command.PARENT</code></td>
+</tr>
+<tr>
+<td><code>resume</code></td>
+<td>interrupt 恢复专用（§9）</td>
+</tr>
+</tbody></table>
+<p>两个要点：</p>
+<ul>
+<li>返回类型注解成 <code>Command[Literal[&quot;节点名&quot;]]</code>，图可视化才能画出这条动态边；</li>
+<li><strong><code>Command(resume=...)</code> 是唯一能作为 <code>invoke()</code>&#x2F;<code>stream()</code> 输入的 Command 形式</strong>。不要拿 <code>Command(update=...)</code> 当多轮对话的输入用——任何 Command 输入都从最新 checkpoint 恢复而不是从头跑，新回合应该传普通 dict。</li>
+</ul>
+<p><strong>两种写法怎么选</strong>：路由逻辑和状态更新在一起、还要顺手改状态 → <code>Command</code>；路由是纯函数、想复用、不碰状态 → <code>add_conditional_edges</code>。</p>
+<h3 id="6-4-Send-API：map-reduce（动态并行分发）"><a href="#6-4-Send-API：map-reduce（动态并行分发）" class="headerlink" title="6.4 Send API：map-reduce（动态并行分发）"></a>6.4 Send API：map-reduce（动态并行分发）</h3><p>当<strong>数量只在运行时才知道</strong>、且每个子项要独立跑一遍同一节点时（比如”对列表里每个主题各生成一个笑话”），用条件边返回 <code>Send</code> 列表：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">from</span> langgraph<span class="token punctuation">.</span>types <span class="token keyword">import</span> Send
+
+<span class="token keyword">def</span> <span class="token function">continue_to_jokes</span><span class="token punctuation">(</span>state<span class="token punctuation">:</span> State<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">return</span> <span class="token punctuation">[</span>Send<span class="token punctuation">(</span><span class="token string">"generate_joke"</span><span class="token punctuation">,</span> <span class="token punctuation">&#123;</span><span class="token string">"subject"</span><span class="token punctuation">:</span> s<span class="token punctuation">&#125;</span><span class="token punctuation">)</span> <span class="token keyword">for</span> s <span class="token keyword">in</span> state<span class="token punctuation">[</span><span class="token string">"subjects"</span><span class="token punctuation">]</span><span class="token punctuation">]</span>
+
+builder<span class="token punctuation">.</span>add_conditional_edges<span class="token punctuation">(</span><span class="token string">"node_a"</span><span class="token punctuation">,</span> continue_to_jokes<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<ul>
+<li>每个 <code>Send(目标节点, 自定义输入)</code> 是一个独立并行任务，输入不必是完整 State；</li>
+<li>各分支写共享 key 时由该 key 的 <strong>reducer</strong> 合并（又见 4.2——没有 reducer 的共享字段在并行写时会冲突报错）。</li>
+</ul>
+<p>这是构建 orchestrator-worker（指挥官-工人）模式的基础。</p>
+<h3 id="6-5-并行-fan-out-fan-in"><a href="#6-5-并行-fan-out-fan-in" class="headerlink" title="6.5 并行 fan-out &#x2F; fan-in"></a>6.5 并行 fan-out &#x2F; fan-in</h3><p>更简单的并行：一个节点多条出边，目标在<strong>同一个超步内并行执行</strong>，全部结束后汇合到下游节点（fan-in）。同样依赖共享 key 的 reducer 来合并各分支的写入。</p>
+<hr>
+<h2 id="7-执行模型：Pregel-超步"><a href="#7-执行模型：Pregel-超步" class="headerlink" title="7. 执行模型：Pregel 超步"></a>7. 执行模型：Pregel 超步</h2><p>LangGraph 按 <strong>Pregel 超步（superstep）</strong>执行，理解它就理解了”图是怎么转起来的”：</p>
+<pre class="line-numbers language-text" data-language="text"><code class="language-text">一轮超步 = 「所有当前该跑的节点并行执行」
+         → 「各自返回增量」
+         → 「reducer 合并进状态」
+         → 「存档 checkpoint」
+         → 「按边决定下一轮跑谁」
+
+直到：所有节点失活 且 没有消息在途 → 运行结束<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<ul>
+<li>并行节点共享一个超步；顺序节点各占一个超步；</li>
+<li>节点在”收到入边消息”时被激活——这就是为什么没有入边的节点永远不会跑。</li>
+</ul>
+<h3 id="递归上限（recursion-limit）"><a href="#递归上限（recursion-limit）" class="headerlink" title="递归上限（recursion_limit）"></a>递归上限（recursion_limit）</h3><ul>
+<li>新版本默认上限很高（1.1.4+ 为 10,007 个超步；更早的版本是 25——这也是老教程里常见 <code>GraphRecursionError</code> 的原因）；</li>
+<li>超限抛 <code>GraphRecursionError</code>，工具死循环、路由成环时最先看到它；</li>
+<li>覆盖方式（注意 <code>recursion_limit</code> 在<strong>顶层</strong>，不放 <code>configurable</code> 下）：</li>
+</ul>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">graph<span class="token punctuation">.</span>invoke<span class="token punctuation">(</span><span class="token builtin">input</span><span class="token punctuation">,</span> config<span class="token operator">=</span><span class="token punctuation">&#123;</span><span class="token string">"recursion_limit"</span><span class="token punctuation">:</span> <span class="token number">50</span><span class="token punctuation">,</span> <span class="token string">"configurable"</span><span class="token punctuation">:</span> <span class="token punctuation">&#123;</span><span class="token string">"thread_id"</span><span class="token punctuation">:</span> <span class="token string">"t1"</span><span class="token punctuation">&#125;</span><span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<h3 id="图会变吗：已存档线程的兼容性"><a href="#图会变吗：已存档线程的兼容性" class="headerlink" title="图会变吗：已存档线程的兼容性"></a>图会变吗：已存档线程的兼容性</h3><p>已完成线程可以自由增删改名节点&#x2F;边；<strong>中断中的线程</strong>可以改边、加节点，但<strong>不能改名&#x2F;删除即将进入的节点</strong>；state key 增删兼容，改名会丢旧值。改图结构时注意正在等待恢复的会话。</p>
+<hr>
+<h2 id="8-Checkpointer-与持久化（含时间旅行）"><a href="#8-Checkpointer-与持久化（含时间旅行）" class="headerlink" title="8. Checkpointer 与持久化（含时间旅行）"></a>8. Checkpointer 与持久化（含时间旅行）</h2><h3 id="8-1-两套持久化系统的分工"><a href="#8-1-两套持久化系统的分工" class="headerlink" title="8.1 两套持久化系统的分工"></a>8.1 两套持久化系统的分工</h3><table>
+<thead>
+<tr>
+<th></th>
+<th>Checkpointer（检查点器）</th>
+<th>Store（存储）</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>持久化什么</td>
+<td>图状态快照</td>
+<td>应用自定义的键值数据</td>
+</tr>
+<tr>
+<td>范围</td>
+<td>单个 thread（会话）内</td>
+<td>跨 thread</td>
+</tr>
+<tr>
+<td>记忆类型</td>
+<td>短期记忆</td>
+<td>长期记忆</td>
+</tr>
+<tr>
+<td>用于</td>
+<td>会话延续、HITL、时间旅行、容错</td>
+<td>用户偏好、事实档案、共享知识</td>
+</tr>
+<tr>
+<td>访问方式</td>
+<td>config 里传 <code>thread_id</code></td>
+<td>节点&#x2F;应用代码里 <code>store.get/put/search</code></td>
+</tr>
+</tbody></table>
+<p>大多数应用两个都用：checkpointer 管当前会话，store 管跨会话的持久信息。本节讲 checkpointer，Store 见 §10。</p>
+<h3 id="8-2-基本用法：compile-时挂载"><a href="#8-2-基本用法：compile-时挂载" class="headerlink" title="8.2 基本用法：compile 时挂载"></a>8.2 基本用法：compile 时挂载</h3><pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">from</span> langgraph<span class="token punctuation">.</span>checkpoint<span class="token punctuation">.</span>memory <span class="token keyword">import</span> MemorySaver       <span class="token comment"># 测试用（新版也叫 InMemorySaver）</span>
+<span class="token comment"># from langgraph.checkpoint.sqlite import SqliteSaver     # 本地生产：pip install langgraph-checkpoint-sqlite</span>
+<span class="token comment"># from langgraph.checkpoint.postgres import PostgresSaver # 云上生产</span>
+
+graph <span class="token operator">=</span> builder<span class="token punctuation">.</span><span class="token builtin">compile</span><span class="token punctuation">(</span>checkpointer<span class="token operator">=</span>MemorySaver<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+
+config <span class="token operator">=</span> <span class="token punctuation">&#123;</span><span class="token string">"configurable"</span><span class="token punctuation">:</span> <span class="token punctuation">&#123;</span><span class="token string">"thread_id"</span><span class="token punctuation">:</span> <span class="token string">"user-42"</span><span class="token punctuation">&#125;</span><span class="token punctuation">&#125;</span>
+graph<span class="token punctuation">.</span>invoke<span class="token punctuation">(</span><span class="token punctuation">&#123;</span><span class="token string">"messages"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">]</span><span class="token punctuation">&#125;</span><span class="token punctuation">,</span> config<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>工作机制：</p>
+<ul>
+<li><strong>每个超步结束都存档</strong>一次完整状态快照；</li>
+<li>节点失败可重试、进程崩溃&#x2F;重启后从断点恢复；</li>
+<li><strong>thread_id 隔离会话</strong>：同一个编译后的图，不同 thread_id 就是不同的对话，彼此完全隔离。<strong>每次 invoke 都带同一个 config</strong> 才有记忆——这是初学者第一大坑。</li>
+</ul>
+<h3 id="8-3-Checkpointer-实现选型"><a href="#8-3-Checkpointer-实现选型" class="headerlink" title="8.3 Checkpointer 实现选型"></a>8.3 Checkpointer 实现选型</h3><table>
+<thead>
+<tr>
+<th>实现</th>
+<th>场景</th>
+<th>备注</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>MemorySaver</code> &#x2F; <code>InMemorySaver</code></td>
+<td>本地开发、单元测试</td>
+<td><strong>只存内存，重启全丢，永远别上生产</strong>（官方反复强调的头号坑）</td>
+</tr>
+<tr>
+<td><code>SqliteSaver</code></td>
+<td>本地&#x2F;单机小规模生产</td>
+<td>需单独安装 <code>langgraph-checkpoint-sqlite</code></td>
+</tr>
+<tr>
+<td><code>PostgresSaver</code> &#x2F; <code>AsyncPostgresSaver</code></td>
+<td>云上生产</td>
+<td>首次要 <code>checkpointer.setup()</code> 建表；thread_id 列长有限制（&lt;255 字符，超长会报数据库错误）</td>
+</tr>
+<tr>
+<td>Agent Server 托管</td>
+<td>部署在官方 Server</td>
+<td>自动处理持久化，不用手动配置（§16）</td>
+</tr>
+</tbody></table>
+<p>两个运维提醒：长对话的 checkpoint 会<strong>无限累积</strong>（增加延迟和存储成本），要定期清理或设保留策略；子图默认有自己的 checkpoint 命名空间，跨图共享数据建议用 Store（§12）。</p>
+<h3 id="8-4-读取与修改状态：get-state-update-state"><a href="#8-4-读取与修改状态：get-state-update-state" class="headerlink" title="8.4 读取与修改状态：get_state &#x2F; update_state"></a>8.4 读取与修改状态：get_state &#x2F; update_state</h3><pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment"># 读当前状态（含 next：下一步要跑的节点；tasks：在途任务）</span>
+snapshot <span class="token operator">=</span> graph<span class="token punctuation">.</span>get_state<span class="token punctuation">(</span>config<span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>snapshot<span class="token punctuation">.</span>values<span class="token punctuation">,</span> snapshot<span class="token punctuation">.</span><span class="token builtin">next</span><span class="token punctuation">)</span>
+
+<span class="token comment"># 人工修改状态（例如管理员改参数、修正错误字段）</span>
+graph<span class="token punctuation">.</span>update_state<span class="token punctuation">(</span>config<span class="token punctuation">,</span> <span class="token punctuation">&#123;</span><span class="token string">"query"</span><span class="token punctuation">:</span> <span class="token string">"修正后的输入"</span><span class="token punctuation">&#125;</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="8-5-时间旅行（Time-Travel）：get-state-history"><a href="#8-5-时间旅行（Time-Travel）：get-state-history" class="headerlink" title="8.5 时间旅行（Time Travel）：get_state_history"></a>8.5 时间旅行（Time Travel）：get_state_history</h3><p>checkpointer 保存了<strong>每一步</strong>的快照，所以可以回到任意历史时刻：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment"># 列出全部历史快照（从新到旧）</span>
+<span class="token keyword">for</span> s <span class="token keyword">in</span> graph<span class="token punctuation">.</span>get_state_history<span class="token punctuation">(</span>config<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token keyword">print</span><span class="token punctuation">(</span>s<span class="token punctuation">.</span>config<span class="token punctuation">,</span> s<span class="token punctuation">.</span>values<span class="token punctuation">.</span>get<span class="token punctuation">(</span><span class="token string">"messages"</span><span class="token punctuation">,</span> <span class="token punctuation">[</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token operator">-</span><span class="token number">1</span><span class="token punctuation">:</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+
+<span class="token comment"># 取某个历史快照的 config，从那里重新 invoke——</span>
+<span class="token comment"># 相当于"改写历史"：从那一步重来，后续节点重新执行</span>
+past <span class="token operator">=</span> <span class="token builtin">list</span><span class="token punctuation">(</span>graph<span class="token punctuation">.</span>get_state_history<span class="token punctuation">(</span>config<span class="token punctuation">)</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token operator">-</span><span class="token number">3</span><span class="token punctuation">]</span>
+graph<span class="token punctuation">.</span>invoke<span class="token punctuation">(</span><span class="token boolean">None</span><span class="token punctuation">,</span> past<span class="token punctuation">.</span>config<span class="token punctuation">)</span>     <span class="token comment"># None = 从该 checkpoint 恢复执行</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>用途：调试（看每一步状态长什么样）、修状态重放、对比不同分支。这是手搓 Agent 完全没有的能力。</p>
+<h3 id="8-6-Static-breakpoints：调试用断点"><a href="#8-6-Static-breakpoints：调试用断点" class="headerlink" title="8.6 Static breakpoints：调试用断点"></a>8.6 Static breakpoints：调试用断点</h3><p>与 interrupt（动态，§9）相对的是<strong>静态 breakpoints</strong>——在固定位置暂停：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python">graph <span class="token operator">=</span> builder<span class="token punctuation">.</span><span class="token builtin">compile</span><span class="token punctuation">(</span>interrupt_before<span class="token operator">=</span><span class="token punctuation">[</span><span class="token string">"tools"</span><span class="token punctuation">]</span><span class="token punctuation">)</span>   <span class="token comment"># 编译时声明</span>
+<span class="token comment"># 或每次运行时指定：</span>
+graph<span class="token punctuation">.</span>invoke<span class="token punctuation">(</span>inputs<span class="token punctuation">,</span> config<span class="token punctuation">,</span> interrupt_before<span class="token operator">=</span><span class="token punctuation">[</span><span class="token string">"tools"</span><span class="token punctuation">]</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<table>
+<thead>
+<tr>
+<th></th>
+<th>动态 <code>interrupt()</code></th>
+<th>静态 breakpoints</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>位置</td>
+<td>代码任意处、可条件触发</td>
+<td>节点前后固定位置</td>
+</tr>
+<tr>
+<td>恢复</td>
+<td><code>Command(resume=value)</code></td>
+<td><code>graph.invoke(None, config)</code></td>
+</tr>
+<tr>
+<td>适用</td>
+<td><strong>HITL 工作流（官方推荐）</strong></td>
+<td>调试&#x2F;测试，逐节点单步执行</td>
+</tr>
+</tbody></table>
+<hr>
+<h2 id="9-Human-in-the-loop：interrupt-全解"><a href="#9-Human-in-the-loop：interrupt-全解" class="headerlink" title="9. Human-in-the-loop：interrupt 全解"></a>9. Human-in-the-loop：interrupt 全解</h2><p>这是 LangGraph 相对手搓 Agent 最实用的能力：<strong>把”人审批”变成图里的一个暂停点，暂停状态持久化在 Checkpointer 里——人可以一小时后甚至第二天再批，进程重启都不影响。</strong></p>
+<h3 id="9-1-基本机制"><a href="#9-1-基本机制" class="headerlink" title="9.1 基本机制"></a>9.1 基本机制</h3><pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">from</span> langgraph<span class="token punctuation">.</span>types <span class="token keyword">import</span> interrupt<span class="token punctuation">,</span> Command
+
+<span class="token keyword">def</span> <span class="token function">approve_node</span><span class="token punctuation">(</span>state<span class="token punctuation">:</span> State<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    decision <span class="token operator">=</span> interrupt<span class="token punctuation">(</span><span class="token punctuation">&#123;</span><span class="token string">"question"</span><span class="token punctuation">:</span> <span class="token string">"是否发送这封邮件？"</span><span class="token punctuation">,</span>   <span class="token comment"># payload：给协调者看的暂停信息</span>
+                          <span class="token string">"details"</span><span class="token punctuation">:</span> state<span class="token punctuation">[</span><span class="token string">"action_details"</span><span class="token punctuation">]</span><span class="token punctuation">&#125;</span><span class="token punctuation">)</span>  <span class="token comment"># 图在此暂停</span>
+    <span class="token keyword">if</span> decision <span class="token operator">!=</span> <span class="token string">"yes"</span><span class="token punctuation">:</span>            <span class="token comment"># decision = 恢复时 Command(resume=...) 的值</span>
+        <span class="token keyword">return</span> Command<span class="token punctuation">(</span>goto<span class="token operator">=</span><span class="token string">"cancel"</span><span class="token punctuation">)</span>
+    <span class="token keyword">return</span> <span class="token punctuation">&#123;</span><span class="token string">"status"</span><span class="token punctuation">:</span> <span class="token string">"sent"</span><span class="token punctuation">&#125;</span>
+
+<span class="token comment"># —— 客户端侧 ——</span>
+result <span class="token operator">=</span> graph<span class="token punctuation">.</span>invoke<span class="token punctuation">(</span><span class="token builtin">input</span><span class="token punctuation">,</span> config<span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>result<span class="token punctuation">[</span><span class="token string">"__interrupt__"</span><span class="token punctuation">]</span><span class="token punctuation">)</span>                          <span class="token comment"># invoke 返回结果里带中断信息</span>
+
+<span class="token comment"># ……人看完后，随时恢复（可以换进程、隔一天）：</span>
+result <span class="token operator">=</span> graph<span class="token punctuation">.</span>invoke<span class="token punctuation">(</span>Command<span class="token punctuation">(</span>resume<span class="token operator">=</span><span class="token string">"yes"</span><span class="token punctuation">)</span><span class="token punctuation">,</span> config<span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>前提三件套：**checkpointer + config 里的 thread_id + 在暂停点调用 <code>interrupt()</code>**。</p>
+<p>payload 可以是任意 JSON 可序列化值；恢复值同样任意，由你定义审批协议（布尔、结构体都行）。</p>
+<h3 id="9-2-四条-interrupt-铁律（官方-Rules-of-interrupts）"><a href="#9-2-四条-interrupt-铁律（官方-Rules-of-interrupts）" class="headerlink" title="9.2 四条 interrupt 铁律（官方 Rules of interrupts）"></a>9.2 四条 interrupt 铁律（官方 Rules of interrupts）</h3><p>interrupt 通过抛特殊异常实现暂停，恢复时<strong>整个节点从头重跑</strong>，因此：</p>
+<ol>
+<li>**不要用 try&#x2F;except 包裹 <code>interrupt()</code>**——会吞掉中断异常。要么把 interrupt 和易错代码分开，要么 except 里写具体异常类型；</li>
+<li><strong>不要在节点内用非确定性逻辑重排&#x2F;条件跳过 interrupt 调用</strong>——resume 值按严格索引匹配，每次执行的调用顺序必须一致。不要 <code>while True</code> 循环里调 interrupt，多轮输入用条件边循环回节点；</li>
+<li><strong>payload 不要传复杂值</strong>——只传 JSON 可序列化内容，不传函数、类实例；</li>
+<li><strong>interrupt 之前的副作用必须幂等</strong>——每次 resume 都会重跑，<code>db.create_audit_log()</code> 这种”创建新记录”的调用放 interrupt 之前会产生重复记录；要么用 upsert，要么把副作用拆到独立节点。</li>
+</ol>
+<h3 id="9-3-四种常用模式"><a href="#9-3-四种常用模式" class="headerlink" title="9.3 四种常用模式"></a>9.3 四种常用模式</h3><p><strong>a) 审批（最常用）</strong>：见 9.1，批准&#x2F;拒绝走不同分支。</p>
+<p><strong>b) 审查并编辑状态</strong>：人直接改内容，resume 值就是修改后的结果：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">def</span> <span class="token function">review_node</span><span class="token punctuation">(</span>state<span class="token punctuation">:</span> State<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    edited <span class="token operator">=</span> interrupt<span class="token punctuation">(</span><span class="token punctuation">&#123;</span><span class="token string">"instruction"</span><span class="token punctuation">:</span> <span class="token string">"请审阅并修改这段内容"</span><span class="token punctuation">,</span>
+                        <span class="token string">"content"</span><span class="token punctuation">:</span> state<span class="token punctuation">[</span><span class="token string">"generated_text"</span><span class="token punctuation">]</span><span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+    <span class="token keyword">return</span> <span class="token punctuation">&#123;</span><span class="token string">"generated_text"</span><span class="token punctuation">:</span> edited<span class="token punctuation">&#125;</span>      <span class="token comment"># resume 值直接写回状态</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong>c) 工具内中断</strong>：在 <code>@tool</code> 函数内部调 <code>interrupt()</code>——LLM 自然调用工具时自动暂停，恢复值还可以覆盖工具参数（如 <code>response.get(&quot;to&quot;, to)</code>），审批逻辑可复用：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token decorator annotation punctuation">@tool</span>
+<span class="token keyword">def</span> <span class="token function">send_email</span><span class="token punctuation">(</span>to<span class="token punctuation">:</span> <span class="token builtin">str</span><span class="token punctuation">,</span> body<span class="token punctuation">:</span> <span class="token builtin">str</span><span class="token punctuation">)</span> <span class="token operator">-</span><span class="token operator">></span> <span class="token builtin">str</span><span class="token punctuation">:</span>
+    <span class="token triple-quoted-string string">"""发送邮件。"""</span>
+    confirm <span class="token operator">=</span> interrupt<span class="token punctuation">(</span><span class="token punctuation">&#123;</span><span class="token string">"action"</span><span class="token punctuation">:</span> <span class="token string">"send_email"</span><span class="token punctuation">,</span> <span class="token string">"to"</span><span class="token punctuation">:</span> to<span class="token punctuation">,</span> <span class="token string">"body"</span><span class="token punctuation">:</span> body<span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+    <span class="token keyword">if</span> confirm <span class="token keyword">is</span> <span class="token keyword">not</span> <span class="token boolean">True</span><span class="token punctuation">:</span>
+        <span class="token keyword">return</span> <span class="token string">"用户取消了发送"</span>
+    <span class="token keyword">return</span> <span class="token string-interpolation"><span class="token string">f"已发送邮件给 </span><span class="token interpolation"><span class="token punctuation">&#123;</span>to<span class="token punctuation">&#125;</span></span><span class="token string">"</span></span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong>d) 验证人类输入（多轮表单）</strong>：<code>interrupt()</code> 每个节点 invocation 只调一次，无效输入的错误提示存进 state，用条件边循环回本节点重新 interrupt，直到输入合法。</p>
+<h3 id="9-4-进阶能力"><a href="#9-4-进阶能力" class="headerlink" title="9.4 进阶能力"></a>9.4 进阶能力</h3><ul>
+<li><strong>响应 schema</strong>（≥1.2.12）：<code>interrupt(payload, response_schema=PydanticModel)</code>——恢复值经校验后返回类型化对象，无效输入抛 <code>pydantic.ValidationError</code>；Studio 会自动渲染成表单；</li>
+<li><strong>多个并行中断</strong>：fan-out 多分支同时中断时，用 <strong>interrupt ID → resume 值的映射</strong>恢复：<code>Command(resume=&#123;i.id: value for i in stream.interrupts&#125;)</code>；</li>
+<li><strong>严格恢复模式</strong>（1.2.20+，可选 <code>__pregel_strict_resume</code>）：resume 指向已不存在的 interrupt 时显式报错而非静默重跑，多 interrupt 场景建议开。</li>
+</ul>
+<h3 id="9-5-子图中的中断行为"><a href="#9-5-子图中的中断行为" class="headerlink" title="9.5 子图中的中断行为"></a>9.5 子图中的中断行为</h3><p>以函数方式调用含 interrupt 的子图时，恢复从<strong>父图调用子图的那个节点的开头</strong>执行，子图也从触发 interrupt 的节点开头恢复——两侧 interrupt 之前的代码都会重跑。又一个”幂等性”的重要理由。</p>
+<h3 id="9-6-双提交（Double-Texting）"><a href="#9-6-双提交（Double-Texting）" class="headerlink" title="9.6 双提交（Double Texting）"></a>9.6 双提交（Double Texting）</h3><p>用户在上一次运行还没结束时又发新消息（聊天应用常见）。LangGraph 支持配置处理策略：拒绝新请求、中断旧运行、排队、回滚旧运行再开新的。部署层（Agent Server）一般已内置处理，自建服务时需要考虑。</p>
+<hr>
+<h2 id="10-记忆系统：短期记忆与长期-Store"><a href="#10-记忆系统：短期记忆与长期-Store" class="headerlink" title="10. 记忆系统：短期记忆与长期 Store"></a>10. 记忆系统：短期记忆与长期 Store</h2><h3 id="10-1-总览：两层记忆"><a href="#10-1-总览：两层记忆" class="headerlink" title="10.1 总览：两层记忆"></a>10.1 总览：两层记忆</h3><table>
+<thead>
+<tr>
+<th>层</th>
+<th>载体</th>
+<th>作用域</th>
+<th>典型内容</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>短期记忆</td>
+<td>Checkpointer + thread_id</td>
+<td>单个会话（thread）</td>
+<td>messages、中间状态、上传文件、检索文档</td>
+</tr>
+<tr>
+<td>长期记忆</td>
+<td><code>BaseStore</code>（<code>InMemoryStore</code> &#x2F; Postgres Store）</td>
+<td>跨会话、按 namespace</td>
+<td>用户偏好、事实档案、few-shot 示例、agent 指令</td>
+</tr>
+</tbody></table>
+<p>关键认知：<strong>记忆不在模型里，在状态里</strong>。checkpointer 把每个超步后的完整状态存档，下次同 thread_id 的调用从存档恢复；消息列表靠 <code>add_messages</code> reducer 自动带着全部历史。</p>
+<h3 id="10-2-短期记忆的管理：裁剪与摘要"><a href="#10-2-短期记忆的管理：裁剪与摘要" class="headerlink" title="10.2 短期记忆的管理：裁剪与摘要"></a>10.2 短期记忆的管理：裁剪与摘要</h3><p>长对话是短期记忆的头号问题：历史塞不进上下文窗口会直接报错；就算塞得进，模型也会”分心”、变慢、变贵。两种主流手段：</p>
+<ul>
+<li><strong>裁剪（trim）</strong>：只保留最近 N 条消息进模型调用（注意：是从状态里”取最近 N 条”喂模型，不是删历史——历史还在 checkpoint 里）；</li>
+<li><strong>摘要（summarization）</strong>：用模型把旧消息压缩成一段摘要，作为一条特殊消息留在历史里；官方在 <code>create_agent</code> 层提供了 Summarization middleware，手写图可自行实现 summarize 节点。</li>
+</ul>
+<h3 id="10-3-长期记忆：Store-的-namespace-key-value"><a href="#10-3-长期记忆：Store-的-namespace-key-value" class="headerlink" title="10.3 长期记忆：Store 的 namespace &#x2F; key &#x2F; value"></a>10.3 长期记忆：Store 的 namespace &#x2F; key &#x2F; value</h3><p>长期记忆以 JSON 文档形式存在 Store 里，组织结构类似文件系统：<strong>namespace 相当于文件夹（可多层），key 相当于文件名</strong>：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">from</span> langgraph<span class="token punctuation">.</span>store<span class="token punctuation">.</span>memory <span class="token keyword">import</span> InMemoryStore
+
+store <span class="token operator">=</span> InMemoryStore<span class="token punctuation">(</span><span class="token punctuation">)</span>          <span class="token comment"># 生产换 Postgres-backed Store</span>
+namespace <span class="token operator">=</span> <span class="token punctuation">(</span><span class="token string">"user-42"</span><span class="token punctuation">,</span> <span class="token string">"preferences"</span><span class="token punctuation">)</span>
+
+store<span class="token punctuation">.</span>put<span class="token punctuation">(</span>namespace<span class="token punctuation">,</span> <span class="token string">"style"</span><span class="token punctuation">,</span> <span class="token punctuation">&#123;</span><span class="token string">"rules"</span><span class="token punctuation">:</span> <span class="token punctuation">[</span><span class="token string">"用户喜欢简短直接的回答"</span><span class="token punctuation">]</span><span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+item <span class="token operator">=</span> store<span class="token punctuation">.</span>get<span class="token punctuation">(</span>namespace<span class="token punctuation">,</span> <span class="token string">"style"</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>item<span class="token punctuation">.</span>value<span class="token punctuation">[</span><span class="token string">"rules"</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+
+<span class="token comment"># 搜索：可按内容过滤 + 语义向量相似度排序（需配置 index/embed）</span>
+items <span class="token operator">=</span> store<span class="token punctuation">.</span>search<span class="token punctuation">(</span>namespace<span class="token punctuation">,</span> query<span class="token operator">=</span><span class="token string">"说话风格偏好"</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>节点里通过签名注入使用（见 5.2 的 <code>runtime</code>，或旧式签名直接收 <code>store: BaseStore</code> 参数）：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">def</span> <span class="token function">call_model</span><span class="token punctuation">(</span>state<span class="token punctuation">:</span> State<span class="token punctuation">,</span> store<span class="token punctuation">:</span> BaseStore<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    prefs <span class="token operator">=</span> store<span class="token punctuation">.</span>get<span class="token punctuation">(</span><span class="token punctuation">(</span><span class="token string">"user-42"</span><span class="token punctuation">,</span> <span class="token string">"preferences"</span><span class="token punctuation">)</span><span class="token punctuation">,</span> <span class="token string">"style"</span><span class="token punctuation">)</span>
+    <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="10-4-记忆的三种类型（CoALA-框架）"><a href="#10-4-记忆的三种类型（CoALA-框架）" class="headerlink" title="10.4 记忆的三种类型（CoALA 框架）"></a>10.4 记忆的三种类型（CoALA 框架）</h3><p>官方用人类记忆类比 agent 记忆，这个框架在选型时很有用：</p>
+<table>
+<thead>
+<tr>
+<th>类型</th>
+<th>存什么</th>
+<th>人类例子</th>
+<th>Agent 例子</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Semantic</strong>（语义）</td>
+<td>事实</td>
+<td>学校学到的知识</td>
+<td>用户档案、事实（”用户喜欢简洁回答”）</td>
+</tr>
+<tr>
+<td><strong>Episodic</strong>（情景）</td>
+<td>经历</td>
+<td>做过的事</td>
+<td>过往成功的 agent 操作 → few-shot 示例</td>
+</tr>
+<tr>
+<td><strong>Procedural</strong>（程序性）</td>
+<td>规则</td>
+<td>骑车的肌肉记忆</td>
+<td>agent 自己的 system prompt（通过反思自我改进）</td>
+</tr>
+</tbody></table>
+<ul>
+<li><strong>Semantic</strong> 两种管理方式：单份持续更新的 <strong>profile</strong>（整份 JSON 每次重生成）或 <strong>collection</strong>（多条记忆文档按需检索）；</li>
+<li><strong>Episodic</strong> 实践上常做成 few-shot 示例库：把成功案例存进 Store，检索最相关的注入 prompt；</li>
+<li><strong>Procedural</strong> 的典型用法是”反思”：把当前指令 + 近期对话喂给模型生成改进版指令，<code>store.put</code> 写回——agent 自己进化自己的 prompt。</li>
+</ul>
+<h3 id="10-5-写入时机：热路径-vs-后台"><a href="#10-5-写入时机：热路径-vs-后台" class="headerlink" title="10.5 写入时机：热路径 vs 后台"></a>10.5 写入时机：热路径 vs 后台</h3><table>
+<thead>
+<tr>
+<th>方式</th>
+<th>优点</th>
+<th>缺点</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>热路径</strong>（agent 运行中顺手写，如 ChatGPT 的 save_memories 工具）</td>
+<td>实时可用、对用户透明</td>
+<td>增加延迟；agent 分心，记忆质量可能下降</td>
+</tr>
+<tr>
+<td><strong>后台</strong>（单独异步任务&#x2F;cron 定期总结）</td>
+<td>不拖慢主流程、逻辑解耦</td>
+<td>更新不及时；要设计触发时机</td>
+</tr>
+</tbody></table>
+<p>初学者建议：先用热路径（把”记笔记”做成一个工具），规模大了再转后台。</p>
+<hr>
+<h2 id="11-流式输出全解"><a href="#11-流式输出全解" class="headerlink" title="11. 流式输出全解"></a>11. 流式输出全解</h2><p>调试 Agent 行为的第一习惯——<strong>先 stream 再谈 invoke</strong>：能实时看到每个节点干了什么。</p>
+<h3 id="11-1-七种-stream-mode"><a href="#11-1-七种-stream-mode" class="headerlink" title="11.1 七种 stream_mode"></a>11.1 七种 stream_mode</h3><pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">for</span> chunk <span class="token keyword">in</span> graph<span class="token punctuation">.</span>stream<span class="token punctuation">(</span>inputs<span class="token punctuation">,</span> config<span class="token punctuation">,</span> stream_mode<span class="token operator">=</span><span class="token string">"updates"</span><span class="token punctuation">)</span><span class="token punctuation">:</span>
+    <span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<table>
+<thead>
+<tr>
+<th>模式</th>
+<th>推送内容</th>
+<th>典型用途</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>values</code></td>
+<td>每步后的<strong>全量状态</strong>快照</td>
+<td>检查累积效果</td>
+</tr>
+<tr>
+<td><code>updates</code></td>
+<td>每节点的<strong>状态增量</strong></td>
+<td>调试：看每步干了什么</td>
+</tr>
+<tr>
+<td><code>messages</code></td>
+<td>LLM 的 <strong>(token, metadata) 二元组</strong>，逐 token</td>
+<td>前端打字机效果</td>
+</tr>
+<tr>
+<td><code>custom</code></td>
+<td>节点内 <code>get_stream_writer()</code> 发的自定义数据</td>
+<td>长任务进度条</td>
+</tr>
+<tr>
+<td><code>checkpoints</code></td>
+<td>Checkpoint 事件（格式同 <code>get_state()</code>）</td>
+<td>观察存档过程（需 checkpointer）</td>
+</tr>
+<tr>
+<td><code>tasks</code></td>
+<td>任务开始&#x2F;结束事件（含结果与错误）</td>
+<td>监控执行（需 checkpointer）</td>
+</tr>
+<tr>
+<td><code>debug</code></td>
+<td>checkpoints + tasks + 额外元数据，最全</td>
+<td>深度调试</td>
+</tr>
+</tbody></table>
+<p>多模式可叠加：<code>stream_mode=[&quot;updates&quot;, &quot;messages&quot;]</code>。</p>
+<h3 id="11-2-新版统一格式（v2，≥1-1）"><a href="#11-2-新版统一格式（v2，≥1-1）" class="headerlink" title="11.2 新版统一格式（v2，≥1.1）"></a>11.2 新版统一格式（v2，≥1.1）</h3><p>传 <code>version=&quot;v2&quot;</code> 后，无论单模式、多模式还是子图，每个 chunk 都是统一的 <code>&#123;type, ns, data&#125;</code> 字典，按 <code>chunk[&quot;type&quot;]</code> 分流处理（类型可收窄）；子图事件靠 <code>chunk[&quot;ns&quot;]</code>（namespace 元组）区分来源，根图为空元组。v2 的 <code>invoke()</code> 返回 <code>GraphOutput</code>（<code>.value</code> 与 <code>.interrupts</code> 属性）。</p>
+<h3 id="11-3-token-级流式的过滤技巧"><a href="#11-3-token-级流式的过滤技巧" class="headerlink" title="11.3 token 级流式的过滤技巧"></a>11.3 token 级流式的过滤技巧</h3><p><code>messages</code> 模式会把图里<strong>所有</strong> LLM 调用的 token 都推出来，需要过滤：</p>
+<ul>
+<li>按调用过滤：给模型打 tag <code>init_chat_model(..., tags=[&quot;joke&quot;])</code>，流里检查 <code>metadata[&quot;tags&quot;]</code>；</li>
+<li>按节点过滤：<code>metadata[&quot;langgraph_node&quot;] == &quot;some_node&quot;</code>；</li>
+<li>排除输出：给不想流出的调用（如内部结构化输出）打 <code>nostream</code> tag，token 不进 <code>messages</code> 流；</li>
+<li>非流式模型：初始化时 <code>disable_streaming=True</code>。</li>
+</ul>
+<h3 id="11-4-自定义流：get-stream-writer"><a href="#11-4-自定义流：get-stream-writer" class="headerlink" title="11.4 自定义流：get_stream_writer"></a>11.4 自定义流：get_stream_writer</h3><p>节点里随时发自定义进度（也可用于转发非 LangChain 模型 SDK 的 chunk）：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">from</span> langgraph<span class="token punctuation">.</span>config <span class="token keyword">import</span> get_stream_writer
+
+<span class="token keyword">def</span> <span class="token function">my_node</span><span class="token punctuation">(</span>state<span class="token punctuation">:</span> State<span class="token punctuation">)</span><span class="token punctuation">:</span>
+    writer <span class="token operator">=</span> get_stream_writer<span class="token punctuation">(</span><span class="token punctuation">)</span>
+    writer<span class="token punctuation">(</span><span class="token punctuation">&#123;</span><span class="token string">"progress"</span><span class="token punctuation">:</span> <span class="token string">"已处理 50%"</span><span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+    <span class="token keyword">return</span> <span class="token punctuation">&#123;</span><span class="token string">"answer"</span><span class="token punctuation">:</span> <span class="token string">"done"</span><span class="token punctuation">&#125;</span>
+
+<span class="token comment"># 调用端：stream_mode="custom"</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>注意（Python &lt; 3.11 的异步限制）：必须显式把 <code>RunnableConfig</code> 传进异步 LLM 调用；且不能用 <code>get_stream_writer()</code>，改为在节点签名里声明 <code>writer: StreamWriter</code> 参数由框架注入。</p>
+<h3 id="11-5-子图流式陷阱"><a href="#11-5-子图流式陷阱" class="headerlink" title="11.5 子图流式陷阱"></a>11.5 子图流式陷阱</h3><p><code>create_agent</code> 返回的编译图作为节点加入父图后就是子图。<strong>不加 <code>subgraphs=True</code>，父图的 <code>stream_mode=&quot;messages&quot;</code> 不会输出内层 agent 的 LLM token</strong>——前端”看不到打字效果”多半是这个原因。</p>
+<h3 id="11-6-图可视化"><a href="#11-6-图可视化" class="headerlink" title="11.6 图可视化"></a>11.6 图可视化</h3><pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">print</span><span class="token punctuation">(</span>graph<span class="token punctuation">.</span>get_graph<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>draw_mermaid<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>    <span class="token comment"># 输出 Mermaid 文本，贴进 mermaid.live 即可看图</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p><code>Command</code> 节点记得加返回类型注解 <code>Command[Literal[&quot;目标&quot;]]</code>，动态边才会被画出来。<strong>改图之后先画一遍，确认拓扑和你想的一致，再谈行为。</strong></p>
+<hr>
+<h2 id="12-子图（Subgraph）"><a href="#12-子图（Subgraph）" class="headerlink" title="12. 子图（Subgraph）"></a>12. 子图（Subgraph）</h2><p>图可以当节点嵌进另一个图，是构建<strong>多智能体系统</strong>和复用模块的基础。</p>
+<h3 id="12-1-三种嵌套通信方式"><a href="#12-1-三种嵌套通信方式" class="headerlink" title="12.1 三种嵌套通信方式"></a>12.1 三种嵌套通信方式</h3><table>
+<thead>
+<tr>
+<th>方式</th>
+<th>做法</th>
+<th>适用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>共享完整 schema</td>
+<td>子图与父图用同一个 State 类</td>
+<td>简单场景</td>
+</tr>
+<tr>
+<td>共享部分 key</td>
+<td>子图 state 是父图 state 的子集，同名 key 自动对接</td>
+<td>大多数场景</td>
+</tr>
+<tr>
+<td>显式映射</td>
+<td>父图加包装节点，调用子图前把父状态”翻译”成子图输入，返回后再翻译回来</td>
+<td>schema 完全不同时</td>
+</tr>
+</tbody></table>
+<h3 id="12-2-关键细节"><a href="#12-2-关键细节" class="headerlink" title="12.2 关键细节"></a>12.2 关键细节</h3><ul>
+<li><strong>子图有自己的 checkpoint</strong>，存在<strong>父线程的命名空间</strong>下（编译时可传 <code>checkpointer=False</code> 禁用）；编译时也要把 checkpointer 传给子图；</li>
+<li><strong>共享 key 的 reducer 定义在父图</strong>：子图与父图共用的 key，reducer 要在父图 state 里声明；</li>
+<li><strong>跨图跳转</strong>：子图节点里 <code>Command(goto=&quot;父图节点名&quot;, graph=Command.PARENT)</code>；</li>
+<li><strong>父图直接看子图状态不实时</strong>（各管各的 checkpoint namespace）——需要跨图边界共享的数据建议走 Store；</li>
+<li>子图可被多个父图复用，作为独立恢复单元。</li>
+</ul>
+<hr>
+<h2 id="13-多智能体架构"><a href="#13-多智能体架构" class="headerlink" title="13. 多智能体架构"></a>13. 多智能体架构</h2><p>多智能体 &#x3D; 多个子图（每个是一个 Agent）+ 父图路由。官方描述的常见模式：</p>
+<h3 id="13-1-三种经典拓扑"><a href="#13-1-三种经典拓扑" class="headerlink" title="13.1 三种经典拓扑"></a>13.1 三种经典拓扑</h3><pre class="line-numbers language-text" data-language="text"><code class="language-text">Supervisor（主管模式）           Network（网状）                Hierarchical（层级）
+      ┌────────┐                A ⇄ B      C                  ┌────────┐
+      │Supervisor│               ↖ ↓    ↙ ↓                  │ Supervisor│
+      └─┬──┬──┬─┘                  ⇅    ⇅                    └─┬──┬──┘
+        ↓  ↓  ↓                    ↘ ↓  ↙                     ↓     ↓
+     Agent1 Agent2 Agent3        全互联，各自决定           子 Supervisor → 各自的工人<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<table>
+<thead>
+<tr>
+<th>模式</th>
+<th>怎么走</th>
+<th>适用</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>Supervisor</strong></td>
+<td>主管节点（通常是 LLM）决定把任务交给哪个工人，工人干完回主管</td>
+<td>最常用、最可控，入门首选</td>
+</tr>
+<tr>
+<td><strong>Network</strong></td>
+<td>每个 agent 都能决定把控制权交给谁（handoffs），去中心化</td>
+<td>任务协作路径不可预知；调试难</td>
+</tr>
+<tr>
+<td><strong>Hierarchical</strong></td>
+<td>supervisor 的 supervisor，树状分层</td>
+<td>工人多、需要分组管理</td>
+</tr>
+</tbody></table>
+<h3 id="13-2-Handoffs：控制权移交"><a href="#13-2-Handoffs：控制权移交" class="headerlink" title="13.2 Handoffs：控制权移交"></a>13.2 Handoffs：控制权移交</h3><p>“agent A 决定把对话交给 agent B”的机制：本质是一个特殊工具——调用后**更新状态（记录交接）并 <code>Command(goto=&quot;agent_b&quot;)</code>**。通常同时切换当前的活跃 agent 标记&#x2F;系统提示，让 B 接管后续。</p>
+<h3 id="13-3-通信方式：共享状态-vs-消息传递"><a href="#13-3-通信方式：共享状态-vs-消息传递" class="headerlink" title="13.3 通信方式：共享状态 vs 消息传递"></a>13.3 通信方式：共享状态 vs 消息传递</h3><ul>
+<li><strong>共享状态</strong>：所有 agent 读写同一个大 State（简单，但字段多了容易互相踩）；</li>
+<li><strong>消息传递 &#x2F; 独立状态</strong>：每个 agent 有自己的子图状态，只通过明确的消息交接——隔离好，适合规模大的系统。</li>
+</ul>
+<h3 id="13-4-官方辅助库"><a href="#13-4-官方辅助库" class="headerlink" title="13.4 官方辅助库"></a>13.4 官方辅助库</h3><ul>
+<li><code>langgraph-supervisor</code>：快速搭 supervisor 多智能体；</li>
+<li><code>langgraph-swarm</code>：快速搭 swarm（去中心化交接）模式；</li>
+<li>更重的”计划-子任务-文件系统”形态，官方现在推荐 <strong>Deep Agents</strong>（<code>deepagents</code>，构建在 LangGraph 上的 agent harness，见 §14）。</li>
+</ul>
+<p>入门建议：<strong>先手写一个两个 agent 的 supervisor 图</strong>（一个路由节点 + 两个子图），理解了 handoff 本质，再用辅助库提速。</p>
+<hr>
+<h2 id="14-LangGraph-与-LangChain-生态的关系"><a href="#14-LangGraph-与-LangChain-生态的关系" class="headerlink" title="14. LangGraph 与 LangChain 生态的关系"></a>14. LangGraph 与 LangChain 生态的关系</h2><p>2025-10 发布的 <strong>LangGraph v1.0</strong> 冻结了核心 API，官方对产品分工的表述（2026 年当前）：</p>
+<table>
+<thead>
+<tr>
+<th>产品</th>
+<th>定位</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>LangGraph</strong></td>
+<td>编排运行时：持久执行、流式、HITL、记忆——<strong>只管编排，不管 prompt 和 agent 架构</strong></td>
+</tr>
+<tr>
+<td><strong>LangChain</strong></td>
+<td>agent 框架：模型&#x2F;工具抽象与 agent 循环（<code>create_agent</code>）</td>
+</tr>
+<tr>
+<td><strong>Deep Agents</strong></td>
+<td>构建在 LangGraph 上的 agent harness：规划、子 agent、文件系统工具、上下文管理</td>
+</tr>
+<tr>
+<td><strong>LangSmith</strong></td>
+<td>追踪、评估、prompt 管理、部署平台（跨框架）</td>
+</tr>
+</tbody></table>
+<h3 id="API-分层（v1-重要变化）"><a href="#API-分层（v1-重要变化）" class="headerlink" title="API 分层（v1 重要变化）"></a>API 分层（v1 重要变化）</h3><table>
+<thead>
+<tr>
+<th>API</th>
+<th>状态</th>
+<th>说明</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><code>StateGraph</code> &#x2F; 节点 &#x2F; 边 &#x2F; Command &#x2F; interrupt</td>
+<td><strong>稳定核心</strong></td>
+<td>v1 承诺不变，放心写</td>
+</tr>
+<tr>
+<td><code>langgraph.prebuilt.create_react_agent</code></td>
+<td><strong>已弃用</strong></td>
+<td>迁移到 LangChain 的 <code>create_agent</code></td>
+</tr>
+<tr>
+<td><code>langchain.agents.create_agent</code></td>
+<td><strong>推荐的高层入口</strong></td>
+<td>内部就构建在 LangGraph 上，带 Middleware 机制</td>
+</tr>
+</tbody></table>
+<p>官方给的分层哲学：</p>
+<pre class="line-numbers language-text" data-language="text"><code class="language-text">LangChain create_agent   ← 快速开始，标准 ReAct Agent，Middleware 定制
+        ↓ 需要更细粒度控制时
+LangGraph StateGraph     ← 自定义编排：工作流、多智能体、特殊路由<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p>用 <code>create_agent</code> 起步没有被”锁定”——它本来就是 LangGraph 图，随时可以降级到裸 <code>StateGraph</code>。</p>
+<p>模型无关：任何支持 tool-calling 的模型都行（OpenAI &#x2F; Anthropic &#x2F; Gemini &#x2F; Ollama 本地模型），换模型不改图逻辑。</p>
+<hr>
+<h2 id="15-核心-API-速查"><a href="#15-核心-API-速查" class="headerlink" title="15. 核心 API 速查"></a>15. 核心 API 速查</h2><pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token comment"># ---------- 构建 ----------</span>
+<span class="token keyword">from</span> langgraph<span class="token punctuation">.</span>graph <span class="token keyword">import</span> StateGraph<span class="token punctuation">,</span> MessagesState<span class="token punctuation">,</span> START<span class="token punctuation">,</span> END
+<span class="token keyword">from</span> langgraph<span class="token punctuation">.</span>types <span class="token keyword">import</span> Command<span class="token punctuation">,</span> interrupt<span class="token punctuation">,</span> Send
+<span class="token keyword">from</span> langgraph<span class="token punctuation">.</span>graph<span class="token punctuation">.</span>message <span class="token keyword">import</span> add_messages
+
+builder <span class="token operator">=</span> StateGraph<span class="token punctuation">(</span>State<span class="token punctuation">)</span>
+builder<span class="token punctuation">.</span>add_node<span class="token punctuation">(</span><span class="token string">"a"</span><span class="token punctuation">,</span> fn<span class="token punctuation">)</span>                      <span class="token comment"># 或 add_node(fn) 用函数名</span>
+builder<span class="token punctuation">.</span>add_node<span class="token punctuation">(</span><span class="token string">"a"</span><span class="token punctuation">,</span> fn<span class="token punctuation">,</span> retry<span class="token operator">=</span>RetryPolicy<span class="token punctuation">(</span>max_attempts<span class="token operator">=</span><span class="token number">3</span><span class="token punctuation">)</span><span class="token punctuation">)</span>
+builder<span class="token punctuation">.</span>add_edge<span class="token punctuation">(</span>START<span class="token punctuation">,</span> <span class="token string">"a"</span><span class="token punctuation">)</span>                   <span class="token comment"># 固定边</span>
+builder<span class="token punctuation">.</span>add_conditional_edges<span class="token punctuation">(</span><span class="token string">"a"</span><span class="token punctuation">,</span> router_fn<span class="token punctuation">,</span> <span class="token punctuation">&#123;</span><span class="token string">"x"</span><span class="token punctuation">:</span> <span class="token string">"x"</span><span class="token punctuation">,</span> <span class="token string">"y"</span><span class="token punctuation">:</span> <span class="token string">"y"</span><span class="token punctuation">&#125;</span><span class="token punctuation">)</span>   <span class="token comment"># 条件边</span>
+graph <span class="token operator">=</span> builder<span class="token punctuation">.</span><span class="token builtin">compile</span><span class="token punctuation">(</span>checkpointer<span class="token operator">=</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">,</span> store<span class="token operator">=</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">,</span> interrupt_before<span class="token operator">=</span><span class="token punctuation">[</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">]</span><span class="token punctuation">)</span>
+
+<span class="token comment"># ---------- 运行 ----------</span>
+graph<span class="token punctuation">.</span>invoke<span class="token punctuation">(</span><span class="token builtin">input</span><span class="token punctuation">,</span> config<span class="token operator">=</span><span class="token punctuation">&#123;</span><span class="token string">"configurable"</span><span class="token punctuation">:</span> <span class="token punctuation">&#123;</span><span class="token string">"thread_id"</span><span class="token punctuation">:</span> <span class="token string">"t1"</span><span class="token punctuation">&#125;</span><span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+graph<span class="token punctuation">.</span>invoke<span class="token punctuation">(</span><span class="token builtin">input</span><span class="token punctuation">,</span> config<span class="token operator">=</span><span class="token punctuation">&#123;</span><span class="token string">"recursion_limit"</span><span class="token punctuation">:</span> <span class="token number">50</span><span class="token punctuation">,</span> <span class="token string">"configurable"</span><span class="token punctuation">:</span> <span class="token punctuation">&#123;</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">.</span><span class="token punctuation">&#125;</span><span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+graph<span class="token punctuation">.</span>stream<span class="token punctuation">(</span><span class="token builtin">input</span><span class="token punctuation">,</span> config<span class="token punctuation">,</span> stream_mode<span class="token operator">=</span><span class="token string">"updates"</span><span class="token punctuation">)</span>            <span class="token comment"># 或列表多模式</span>
+graph<span class="token punctuation">.</span>ainvoke <span class="token operator">/</span> astream                                       <span class="token comment"># 异步</span>
+
+<span class="token comment"># ---------- 状态与恢复 ----------</span>
+graph<span class="token punctuation">.</span>get_state<span class="token punctuation">(</span>config<span class="token punctuation">)</span>                        <span class="token comment"># 当前状态（.values / .next / .tasks）</span>
+graph<span class="token punctuation">.</span>get_state_history<span class="token punctuation">(</span>config<span class="token punctuation">)</span>                <span class="token comment"># 全部历史快照（时间旅行）</span>
+graph<span class="token punctuation">.</span>update_state<span class="token punctuation">(</span>config<span class="token punctuation">,</span> values<span class="token punctuation">)</span>             <span class="token comment"># 人工修改状态</span>
+graph<span class="token punctuation">.</span>invoke<span class="token punctuation">(</span>Command<span class="token punctuation">(</span>resume<span class="token operator">=</span>value<span class="token punctuation">)</span><span class="token punctuation">,</span> config<span class="token punctuation">)</span>    <span class="token comment"># interrupt 后恢复</span>
+graph<span class="token punctuation">.</span>invoke<span class="token punctuation">(</span><span class="token boolean">None</span><span class="token punctuation">,</span> past_snapshot<span class="token punctuation">.</span>config<span class="token punctuation">)</span>       <span class="token comment"># 从历史 checkpoint 重放</span>
+
+<span class="token comment"># ---------- 调试 ----------</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>graph<span class="token punctuation">.</span>get_graph<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">.</span>draw_mermaid<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">)</span>        <span class="token comment"># 生成 Mermaid 图结构</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>预构建组件（<code>langgraph.prebuilt</code>）：<code>ToolNode</code>（批量执行工具调用并包装 ToolMessage）、<code>tools_condition</code>（工具循环路由）、<code>InjectedState</code>（工具注入状态）均稳定可用；<code>create_react_agent</code> 已弃用。</p>
+<hr>
+<h2 id="16-部署与生态"><a href="#16-部署与生态" class="headerlink" title="16. 部署与生态"></a>16. 部署与生态</h2><table>
+<thead>
+<tr>
+<th>组件</th>
+<th>干什么</th>
+<th>何时需要</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>LangSmith</strong></td>
+<td>全链路追踪、评估、数据集回放；Engine 可从 trace 发现问题并提议修复 PR</td>
+<td>调试复杂 Agent、上线前评测</td>
+</tr>
+<tr>
+<td><strong>Agent Server &#x2F; LangGraph Platform</strong></td>
+<td>把图部署成 REST API 服务：自动持久化、cron、双提交处理、扩缩容</td>
+<td>团队共享、生产部署（托管后 checkpointer&#x2F;store 都不用手动配）</td>
+</tr>
+<tr>
+<td><strong>LangGraph Studio</strong></td>
+<td>可视化调试器：看图、单步、改状态重放、渲染 interrupt 表单</td>
+<td>开发期</td>
+</tr>
+<tr>
+<td><strong>langgraph-sdk</strong></td>
+<td>客户端 SDK（stream 重连、优先级等）</td>
+<td>调用部署好的图</td>
+</tr>
+<tr>
+<td><strong>Templates</strong></td>
+<td>官方模板（ReAct、RAG、记忆服务、multi-agent）直接克隆</td>
+<td>起步加速</td>
+</tr>
+</tbody></table>
+<p>自建部署也完全可以：用 FastAPI 包一层 <code>ainvoke</code> + 自己挂 PostgresSaver，不依赖官方平台。</p>
+<hr>
+<h2 id="17-什么时候用-不用-LangGraph"><a href="#17-什么时候用-不用-LangGraph" class="headerlink" title="17. 什么时候用 &#x2F; 不用 LangGraph"></a>17. 什么时候用 &#x2F; 不用 LangGraph</h2><p><strong>适合用：</strong></p>
+<ul>
+<li>需要断点恢复、重试的长时运行任务（数据处理管线、深度研究 Agent）；</li>
+<li>需要人工审批环节的流程（发邮件、下单、执行 SQL 前）；</li>
+<li>多智能体协作（supervisor-worker、子图嵌套）；</li>
+<li>步骤间共享复杂状态、且有确定性路由要求的工作流；</li>
+<li>需要长期记忆跨会话的助手。</li>
+</ul>
+<p><strong>不必用：</strong></p>
+<ul>
+<li>单轮问答、简单 prompt 链——一个函数就够了；</li>
+<li>标准”工具调用循环”——直接 <code>langchain.agents.create_agent</code> 更省事；</li>
+<li>纯检索问答（RAG 单次链路）——LCEL 链更轻。</li>
+</ul>
+<p>经验法则：<strong>先问”需不需要持久化 &#x2F; 审批 &#x2F; 复杂状态”。三个都不需要，就别上图。</strong></p>
+<hr>
+<h2 id="18-常见坑与最佳实践"><a href="#18-常见坑与最佳实践" class="headerlink" title="18. 常见坑与最佳实践"></a>18. 常见坑与最佳实践</h2><p>初学者按出现频率排序：</p>
+<ol>
+<li><strong>MemorySaver 上生产</strong> → 重启丢光所有会话。本地用 SqliteSaver，云上用 PostgresSaver（记得 <code>setup()</code> 建表；thread_id &lt; 255 字符）；</li>
+<li><strong>忘了 thread_id</strong> → 每次调用都像失忆。所有 invoke&#x2F;stream 都带 <code>config=&#123;&quot;configurable&quot;: &#123;&quot;thread_id&quot;: ...&#125;&#125;</code>，且<strong>多轮之间必须同一个 config</strong>；</li>
+<li><strong>状态里塞大对象</strong> → 每个 checkpoint 都序列化整个状态。大文档&#x2F;大数据集放外部存储（文件、数据库），状态里只存引用&#x2F;ID；</li>
+<li><strong>节点返回全量而不是增量</strong> → 无 reducer 字段会被整字段覆盖。只返回改动的字段；需要累积的字段挂 reducer；</li>
+<li><strong>并行分支写无 reducer 的共享 key</strong> → 并行写直接冲突。fan-out 前确认共享字段有 reducer（或各写各的私有字段）；</li>
+<li><strong>条件边和 Command 混用</strong> → 同一个节点的出边只用一种机制（推荐节点内 <code>Command(goto=...)</code>）；</li>
+<li><strong>try&#x2F;except 包住 <code>interrupt()</code></strong> → 吞掉中断异常。interrupt 和易错代码分开写；</li>
+<li><strong>interrupt 前有非幂等副作用</strong> → 每次 resume 重跑产生重复记录。副作用放 interrupt 之后或拆独立节点；</li>
+<li><strong>工具死循环</strong> → docstring 模糊或没写”何时调用”；<code>GraphRecursionError</code> 时检查路由是否成环；</li>
+<li><strong>子图 token 不出现在 messages 流</strong> → 忘了 <code>subgraphs=True</code>；</li>
+<li><strong>Checkpoint 无限增长</strong> → 长会话定期清理旧 checkpoint 或设保留策略；</li>
+<li><strong>照抄 v0.x 老教程</strong> → import 报错。认准 <code>from langgraph.graph import StateGraph, START, END</code>（不是 <code>Graph</code>，也不是 <code>add_node(&quot;agent&quot;, ..., agent=...)</code> 那套）；</li>
+<li><strong>不画图就调试</strong> → 先 <code>draw_mermaid()</code> 确认结构，再 <code>stream_mode=&quot;updates&quot;</code> 看每步增量，最后才上 LangSmith。</li>
+</ol>
+<hr>
+<h2 id="19-学习路径与资源"><a href="#19-学习路径与资源" class="headerlink" title="19. 学习路径与资源"></a>19. 学习路径与资源</h2><p><strong>三阶段路线：</strong></p>
+<ol>
+<li><strong>入门（1 天）</strong>：官方 Quickstart → 《第一个LangGraph程序.md》亲手写完整图（状态&#x2F;条件边&#x2F;工具循环&#x2F;记忆&#x2F;HITL&#x2F;流式全部跑一遍）；</li>
+<li><strong>进阶（1 周）</strong>：官方 Graph API Concepts（reducer、superstep、Pregel）→ 按需查 How-to Guides（streaming、subgraph、multi-agent、persistence）→ 给自己的图加 Store 长期记忆；</li>
+<li><strong>高级（按需）</strong>：多智能体架构与 handoffs → 时间旅行调试 → 部署（Agent Server 或自建 FastAPI）→ LangSmith 评测。</li>
+</ol>
+<p><strong>官方资源索引：</strong></p>
+<table>
+<thead>
+<tr>
+<th>资源</th>
+<th>地址</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>LangGraph 概览</td>
+<td><a target="_blank" rel="noopener" href="https://docs.langchain.com/oss/python/langgraph/overview">https://docs.langchain.com/oss/python/langgraph/overview</a></td>
+</tr>
+<tr>
+<td>Graph API 文档</td>
+<td><a target="_blank" rel="noopener" href="https://docs.langchain.com/oss/python/langgraph/graph-api">https://docs.langchain.com/oss/python/langgraph/graph-api</a></td>
+</tr>
+<tr>
+<td>持久化</td>
+<td><a target="_blank" rel="noopener" href="https://docs.langchain.com/oss/python/langgraph/persistence">https://docs.langchain.com/oss/python/langgraph/persistence</a></td>
+</tr>
+<tr>
+<td>中断（HITL）</td>
+<td><a target="_blank" rel="noopener" href="https://docs.langchain.com/oss/python/langgraph/interrupts">https://docs.langchain.com/oss/python/langgraph/interrupts</a></td>
+</tr>
+<tr>
+<td>记忆</td>
+<td><a target="_blank" rel="noopener" href="https://docs.langchain.com/oss/python/concepts/memory">https://docs.langchain.com/oss/python/concepts/memory</a></td>
+</tr>
+<tr>
+<td>流式</td>
+<td><a target="_blank" rel="noopener" href="https://docs.langchain.com/oss/python/langgraph/streaming">https://docs.langchain.com/oss/python/langgraph/streaming</a></td>
+</tr>
+<tr>
+<td>v1 发布说明</td>
+<td><a target="_blank" rel="noopener" href="https://docs.langchain.com/oss/python/releases/langgraph-v1">https://docs.langchain.com/oss/python/releases/langgraph-v1</a></td>
+</tr>
+<tr>
+<td>LangChain Agents（create_agent）</td>
+<td><a target="_blank" rel="noopener" href="https://docs.langchain.com/oss/python/langchain/agents">https://docs.langchain.com/oss/python/langchain/agents</a></td>
+</tr>
+<tr>
+<td>Deep Agents</td>
+<td><a target="_blank" rel="noopener" href="https://docs.langchain.com/oss/python/deepagents/overview">https://docs.langchain.com/oss/python/deepagents/overview</a></td>
+</tr>
+<tr>
+<td>GitHub 仓库</td>
+<td><a target="_blank" rel="noopener" href="https://github.com/langchain-ai/langgraph">https://github.com/langchain-ai/langgraph</a></td>
+</tr>
+<tr>
+<td>LangChain Academy</td>
+<td><a target="_blank" rel="noopener" href="https://academy.langchain.com/">https://academy.langchain.com</a></td>
+</tr>
+</tbody></table>
+<p><strong>版本速记</strong>（搜资料时用得上）：v0.2（2024）→ v0.3 → <strong>v1.0（2025-10，核心 API 冻结）</strong> → 1.1.x（2026 上半年，stream v2 格式）→ 1.2.x（2026 下半年，当前 1.2.20，interrupt response_schema 等）。v1 之后核心 API 保持稳定，版本更新主要是修复与平台能力。</p>
+<hr>
+<h2 id="20-附录：术语表与一页纸总结"><a href="#20-附录：术语表与一页纸总结" class="headerlink" title="20. 附录：术语表与一页纸总结"></a>20. 附录：术语表与一页纸总结</h2><h3 id="术语表"><a href="#术语表" class="headerlink" title="术语表"></a>术语表</h3><table>
+<thead>
+<tr>
+<th>术语</th>
+<th>含义</th>
+</tr>
+</thead>
+<tbody><tr>
+<td><strong>State</strong></td>
+<td>图的全局数据总线，通常为带 reducer 的 TypedDict</td>
+</tr>
+<tr>
+<td><strong>Channel</strong></td>
+<td>state 的每个 key 背后的存储槽位，持有值并定义合并规则</td>
+</tr>
+<tr>
+<td><strong>Reducer</strong></td>
+<td>二元合并函数 <code>(当前值, 更新) -&gt; 新值</code>；无 reducer 则覆盖</td>
+</tr>
+<tr>
+<td><strong>Node</strong></td>
+<td>普通函数 <code>(state) -&gt; 增量更新</code>；是 checkpoint&#x2F;retry&#x2F;interrupt 的边界</td>
+</tr>
+<tr>
+<td><strong>Edge</strong></td>
+<td>节点间的流转关系：固定边 &#x2F; 条件边 &#x2F; Command &#x2F; Send</td>
+</tr>
+<tr>
+<td><strong>Superstep</strong></td>
+<td>Pregel 式执行的一轮：并行跑激活节点 → 合并 → 存档 → 下一轮</td>
+</tr>
+<tr>
+<td><strong>CompiledGraph</strong></td>
+<td><code>builder.compile()</code> 的产物，标准 Runnable，图此后冻结</td>
+</tr>
+<tr>
+<td><strong>thread &#x2F; thread_id</strong></td>
+<td>一次会话；同一图的多个 thread 状态互相隔离</td>
+</tr>
+<tr>
+<td><strong>Checkpointer</strong></td>
+<td>每超步存档状态快照的组件（Memory&#x2F;Sqlite&#x2F;Postgres）</td>
+</tr>
+<tr>
+<td><strong>Checkpoint</strong></td>
+<td>某超步结束时的完整状态快照，可回放（时间旅行）</td>
+</tr>
+<tr>
+<td><strong>interrupt &#x2F; Command(resume)</strong></td>
+<td>图暂停等人 &#x2F; 带值恢复执行</td>
+</tr>
+<tr>
+<td><strong>Store</strong></td>
+<td>跨 thread 的长期记忆键值库，按 namespace 组织</td>
+</tr>
+<tr>
+<td><strong>Send</strong></td>
+<td>map-reduce 动态并行分发原语</td>
+</tr>
+<tr>
+<td><strong>Subgraph</strong></td>
+<td>作为节点嵌入父图的图；多智能体的基本形态</td>
+</tr>
+<tr>
+<td><strong>Handoff</strong></td>
+<td>agent 间控制权移交（一种特殊工具 + goto）</td>
+</tr>
+<tr>
+<td><strong>stream_mode</strong></td>
+<td>流式输出内容的模式（values&#x2F;updates&#x2F;messages&#x2F;custom&#x2F;…）</td>
+</tr>
+<tr>
+<td><strong>recursion_limit</strong></td>
+<td>单次运行的最大超步数，超限抛 GraphRecursionError</td>
+</tr>
+</tbody></table>
+<h3 id="一页纸总结"><a href="#一页纸总结" class="headerlink" title="一页纸总结"></a>一页纸总结</h3><ul>
+<li>LangGraph &#x3D; <strong>状态 + 节点 + 边</strong> 的图编排，专为有状态、长时运行、可控的 Agent&#x2F;工作流；</li>
+<li>四大能力：<strong>持久执行、HITL、记忆、流式</strong>，全部是官方一等公民；</li>
+<li><strong>reducer</strong> 决定状态怎么合并（add_messages 追加消息、operator.add 拼列表、无 reducer 覆盖）；节点返回增量、只写改动字段；</li>
+<li>路由四机制：固定边、条件边、<code>Command(goto=...)</code>（推荐）、<code>Send</code>（动态并行）；<strong>同一节点出边只用一种</strong>；</li>
+<li>checkpointer + thread_id 实现会话隔离、断点恢复、时间旅行；<code>interrupt()</code> + <code>Command(resume=...)</code> 实现人类审批；Store 按 namespace 实现跨会话长期记忆；</li>
+<li>流式七模式，调试三步走：<code>draw_mermaid()</code> 看结构 → <code>stream_mode=&quot;updates&quot;</code> 看增量 → LangSmith 看全链路；</li>
+<li>高层用 <code>langchain.agents.create_agent</code>（或 Deep Agents），底层用 <code>StateGraph</code>，两者同一运行时；</li>
+<li>生产三件套：SqliteSaver&#x2F;PostgresSaver（不是 MemorySaver）、幂等节点副作用、LangSmith 观测。</li>
+</ul>
+
+        </article>
+        <section class="post-near">
+            <ul>
+                
+                    <li>上一篇: <a href="/2026/11/09/Groovy/">Groovy 语言入门与实战指南</a></li>
+                
+                
+                    <li>下一篇: <a href="/2026/11/09/MCP/">MCP 协议原理与架构解析</a></li>
+                
+            </ul>
+        </section>
+        
+            <section class="post-tags">
+            <a class="-none-link" href="/tags/LangChain/" rel="tag">LangChain</a><a class="-none-link" href="/tags/LangGraph/" rel="tag">LangGraph</a><a class="-none-link" href="/tags/%E5%A4%9A%E6%99%BA%E8%83%BD%E4%BD%93/" rel="tag">多智能体</a><a class="-none-link" href="/tags/%E5%B7%A5%E4%BD%9C%E6%B5%81/" rel="tag">工作流</a><a class="-none-link" href="/tags/%E6%99%BA%E8%83%BD%E4%BD%93/" rel="tag">智能体</a>
+            </section>
+        
+    
+        <section class="post-author">
+        
+            <figure class="author-avatar">
+                <img src="https://nos.netease.com/ysf/984b6beaecc19c99414093c0481a2619.png" alt="日初" />
+            </figure>
+        
+            <div class="author-info">
+                <h4>日初</h4>
+                <p>正在学习绘画中，有拿的出手的作品之后可以关注我的画廊(´・ω・`)</p>
+            </div>
+        </section>
+    
+    </div>
+</main>
+
+    <footer>
+    <div class="buttons">
+        <a class="to-top" href="#"></a>
+    </div>
+    <div class="wrap min">
+        <section class="widget">
+            <div class="row">
+                <div class="col-m-4">
+                    <h3 class="title-recent">最新文章：</h3>
+                    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2026/11/09/Groovy/">Groovy 语言入门与实战指南</a></li><li class="post-list-item"><a class="post-list-link" href="/2026/11/09/LangGraph/">LangGraph 核心机制与入门实践</a></li><li class="post-list-item"><a class="post-list-link" href="/2026/11/09/MCP/">MCP 协议原理与架构解析</a></li><li class="post-list-item"><a class="post-list-link" href="/2026/11/09/%E7%AC%AC%E4%B8%80%E4%B8%AAMCP/">手把手开发首个 MCP Server</a></li><li class="post-list-item"><a class="post-list-link" href="/2026/11/09/%E7%AC%AC%E4%B8%80%E4%B8%AALangGraph%E7%A8%8B%E5%BA%8F/">从零构建第一个 LangGraph 工作流</a></li><li class="post-list-item"><a class="post-list-link" href="/2026/10/28/%E7%9F%A5%E8%AF%86%E6%96%87%E6%A1%A3%E6%8A%80%E6%9C%AF%E6%96%87%E6%A1%A3/">RAG 知识库</a></li></ul>
+                </div>
+                <div class="col-m-4">
+                    <h3 class="title-date">时光机：</h3>
+                    <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/11/">十一月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/10/">十月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/09/">九月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/08/">八月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/07/">七月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/06/">六月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/05/">五月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/04/">四月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/03/">三月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/02/">二月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/01/">一月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/12/">十二月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/11/">十一月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/10/">十月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/09/">九月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/08/">八月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/07/">七月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/06/">六月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/05/">五月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/04/">四月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/03/">三月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/02/">二月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/01/">一月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/12/">十二月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/11/">十一月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/10/">十月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/09/">九月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/08/">八月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/07/">七月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/06/">六月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/05/">五月 2024</a></li></ul>
+                </div>
+                <div class="col-m-4">
+                    <h3 class="title-tags">标签云：</h3>
+                    <a href="/tags/AI-Agent/" style="font-size: 20px;">AI Agent</a> <a href="/tags/Agent-%E5%B7%A5%E5%85%B7%E8%B0%83%E7%94%A8/" style="font-size: 20px;">Agent 工具调用</a> <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/CSS/" style="font-size: 20px;">CSS</a> <a href="/tags/Centos/" style="font-size: 20px;">Centos</a> <a href="/tags/Docker/" style="font-size: 20px;">Docker</a> <a href="/tags/Dubbo/" style="font-size: 20px;">Dubbo</a> <a href="/tags/Flutter/" style="font-size: 20px;">Flutter</a> <a href="/tags/GO/" style="font-size: 20px;">GO</a> <a href="/tags/Game/" style="font-size: 20px;">Game</a> <a href="/tags/Go/" style="font-size: 20px;">Go</a> <a href="/tags/Go-Web/" style="font-size: 20px;">Go Web</a> <a href="/tags/Groovy/" style="font-size: 20px;">Groovy</a> <a href="/tags/HBase/" style="font-size: 20px;">HBase</a> <a href="/tags/Hadoop/" style="font-size: 20px;">Hadoop</a> <a href="/tags/JQuery/" style="font-size: 20px;">JQuery</a> <a href="/tags/JS/" style="font-size: 20px;">JS</a> <a href="/tags/JSON-RPC/" style="font-size: 20px;">JSON-RPC</a> <a href="/tags/JVM/" style="font-size: 20px;">JVM</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/Java-Web/" style="font-size: 20px;">Java Web</a> <a href="/tags/Jira/" style="font-size: 20px;">Jira</a> <a href="/tags/K8S/" style="font-size: 20px;">K8S</a> <a href="/tags/Kotlin/" style="font-size: 20px;">Kotlin</a> <a href="/tags/LLM/" style="font-size: 20px;">LLM</a> <a href="/tags/LangChain/" style="font-size: 20px;">LangChain</a> <a href="/tags/LangGraph/" style="font-size: 20px;">LangGraph</a> <a href="/tags/Linux/" style="font-size: 20px;">Linux</a> <a href="/tags/MCP/" style="font-size: 20px;">MCP</a> <a href="/tags/MCP-Server/" style="font-size: 20px;">MCP Server</a> <a href="/tags/Model-Context-Protocol/" style="font-size: 20px;">Model Context Protocol</a> <a href="/tags/MongoDB/" style="font-size: 20px;">MongoDB</a> <a href="/tags/MySql/" style="font-size: 20px;">MySql</a> <a href="/tags/MybatisPlus/" style="font-size: 20px;">MybatisPlus</a> <a href="/tags/Nginx/" style="font-size: 20px;">Nginx</a> <a href="/tags/NodeJs/" style="font-size: 20px;">NodeJs</a> <a href="/tags/PHP/" style="font-size: 20px;">PHP</a> <a href="/tags/Promise/" style="font-size: 20px;">Promise</a> <a href="/tags/Python/" style="font-size: 20px;">Python</a> <a href="/tags/QT/" style="font-size: 20px;">QT</a> <a href="/tags/RAG/" style="font-size: 20px;">RAG</a> <a href="/tags/React/" style="font-size: 20px;">React</a> <a href="/tags/Redis/" style="font-size: 20px;">Redis</a> <a href="/tags/ScriptRunner/" style="font-size: 20px;">ScriptRunner</a> <a href="/tags/Skill/" style="font-size: 20px;">Skill</a> <a href="/tags/Spark/" style="font-size: 20px;">Spark</a> <a href="/tags/Spring-Cloud/" style="font-size: 20px;">Spring Cloud</a> <a href="/tags/SpringMVC/" style="font-size: 20px;">SpringMVC</a> <a href="/tags/UniApp/" style="font-size: 20px;">UniApp</a> <a href="/tags/UniCloud/" style="font-size: 20px;">UniCloud</a> <a href="/tags/Unity/" style="font-size: 20px;">Unity</a> <a href="/tags/Vue/" style="font-size: 20px;">Vue</a> <a href="/tags/Webpack/" style="font-size: 20px;">Webpack</a> <a href="/tags/ZooKeeper/" style="font-size: 20px;">ZooKeeper</a> <a href="/tags/pgvector/" style="font-size: 20px;">pgvector</a> <a href="/tags/%E5%89%8D%E7%AB%AF/" style="font-size: 20px;">前端</a> <a href="/tags/%E5%90%91%E9%87%8F%E6%A3%80%E7%B4%A2/" style="font-size: 20px;">向量检索</a> <a href="/tags/%E5%A4%9A%E6%99%BA%E8%83%BD%E4%BD%93/" style="font-size: 20px;">多智能体</a> <a href="/tags/%E5%B7%A5%E4%BD%9C%E6%B5%81/" style="font-size: 20px;">工作流</a> <a href="/tags/%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%BC%96%E6%8E%92/" style="font-size: 20px;">工作流编排</a> <a href="/tags/%E6%8A%80%E8%83%BD/" style="font-size: 20px;">技能</a> <a href="/tags/%E6%8A%80%E8%83%BD%E6%A8%A1%E5%BC%8F/" style="font-size: 20px;">技能模式</a> <a href="/tags/%E6%99%BA%E8%83%BD%E4%BD%93/" style="font-size: 20px;">智能体</a> <a href="/tags/%E7%8A%B6%E6%80%81%E6%9C%BA/" style="font-size: 20px;">状态机</a> <a href="/tags/%E7%9F%A5%E8%AF%86%E5%BA%93/" style="font-size: 20px;">知识库</a> <a href="/tags/%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1/" style="font-size: 20px;">系统设计</a> <a href="/tags/%E8%BF%90%E7%BB%B4/" style="font-size: 20px;">运维</a>
+                </div>
+            </div>
+        </section>
+        <section class="sub-footer">
+            <p>© 2026 <a href="/">Richu</a>. All Rights Reserved. Theme By <a href="https://github.com/Dreamer-Paul/Hingle" target="_blank" rel="nofollow">Hingle</a>.</p>
+        </section>
+    </div>
+</footer>
+
+
+<script src="/static/kico.js"></script>
+<script src="/static/hingle.js"></script>
+
+
+<script>var SITE_ROOT = "/";</script>
+<script>var hingle = new Paul_Hingle({"copyright":true,"night":false,"code":{"language_label":true,"language_label_exclude":["markup","none","plain","plaintext","text"],"line_numbers":true,"line_numbers_toggle":true}});</script>
+
+    <script src="/js/mermaid-boot.js"></script>
+  </body>
+</html>

@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html>
+  <head>
+     
+    <meta charset="UTF-8">
+    <title>使用 Agent 进行代码检验与测试的实践指南 - Richu</title>
+    <link rel="shortcut icon" href="/static/img/icon.png">
+    <link rel="icon" href="/static/img/icon.png" sizes="192x192"/>
+    
+<link rel="stylesheet" href="/static/kico.css">
+<link rel="stylesheet" href="/static/hingle.css">
+<link rel="stylesheet" href="/static/md-enhance.css">
+
+    
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <meta name="viewport" content="width=device-width, maximum-scale=1, initial-scale=1"/>
+    
+    <meta property="og:site_name" content="Richu">
+    <meta property="og:title" content="使用 Agent 进行代码检验与测试的实践指南"/>
+    
+    <style>body:before{ content: ''; background-image: url(http://kycloud3.koyoo.cn/2025033176e99202503311036156636.jpg) }</style>
+    
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+  <body>
+    <header>
+    <div class="head-title">
+        <h4>Richu</h4>
+    </div>
+    <div class="head-action">
+        <div class="toggle-btn"></div>
+        <div class="light-btn"></div>
+        <div class="search-btn"></div>
+    </div>
+    <form class="head-search" method="post">
+        <input type="text" name="s" placeholder="搜索什么？">
+    </form>
+    <nav class="head-menu">
+        <a href="/">首页</a>
+        <div class="has-child">
+            <a>分类</a>
+            <div class="sub-menu">
+                <a class="category-link" href="/categories/AI/">AI</a><a class="category-link" href="/categories/Android/">Android</a><a class="category-link" href="/categories/Go/">Go</a><a class="category-link" href="/categories/Java/">Java</a><a class="category-link" href="/categories/QT/">QT</a><a class="category-link" href="/categories/Unity/">Unity</a><a class="category-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a><a class="category-link" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a><a class="category-link" href="/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE/">大数据</a><a class="category-link" href="/categories/%E8%BF%90%E7%BB%B4/">运维</a>
+            </div>
+        </div>
+        
+            <a href="/links">常用链接</a>
+        
+            <a href="/sheets">钢琴谱</a>
+        
+    </nav>
+</header>
+
+    <main>
+    <div class="wrap min">
+        <section class="post-title">
+            <h2>使用 Agent 进行代码检验与测试的实践指南</h2>
+            <div class="post-meta">
+                
+                <time class="date">2026.11.09</time>
+            
+                <span class="category"><a class="category-link" href="/categories/AI/">AI</a></span>
+            
+            </div>
+        </section>
+        <article class="post-content">
+            <h1 id="使用-Agent-进行代码检验与测试的实践指南"><a href="#使用-Agent-进行代码检验与测试的实践指南" class="headerlink" title="使用 Agent 进行代码检验与测试的实践指南"></a>使用 Agent 进行代码检验与测试的实践指南</h1><blockquote>
+<p>Agent 可以读取代码、运行命令、分析失败日志，并根据验证结果继续修复问题。把这些能力接入开发流程后，代码检验可以从一次性的“帮我看看代码”变成一套可重复、可追踪的工程流程。</p>
+</blockquote>
+<p>本文以常见的 Coding Agent 为例，介绍如何让 Agent 参与代码检查、测试设计、测试执行和问题修复。示例命令以 Git、Node.js 和 Python 为主，换成 Java、Go 或其他技术栈时，方法仍然适用。</p>
+<h2 id="一、先明确-Agent-的职责"><a href="#一、先明确-Agent-的职责" class="headerlink" title="一、先明确 Agent 的职责"></a>一、先明确 Agent 的职责</h2><p>Agent 适合处理有明确输入和可验证输出的工作，例如：</p>
+<ul>
+<li>阅读变更内容，寻找逻辑错误、边界条件和异常处理问题；</li>
+<li>根据已有接口和业务规则补充单元测试、集成测试；</li>
+<li>执行项目已有的格式检查、静态分析和测试命令；</li>
+<li>解释失败日志，定位失败原因，并提出最小修复；</li>
+<li>在修复后重新执行相关检查，确认问题是否真正消失。</li>
+</ul>
+<p>Agent 不能替代需求确认和最终发布决策。它的结论应该建立在代码、命令输出和测试结果上，不能把“看起来没问题”当成验证证据。</p>
+<p>一个实用的分工方式是：人负责定义目标、风险和验收标准，Agent 负责收集证据、执行重复性检查和整理发现的问题。</p>
+<h2 id="二、一次可靠的检验流程"><a href="#二、一次可靠的检验流程" class="headerlink" title="二、一次可靠的检验流程"></a>二、一次可靠的检验流程</h2><p>建议把检验拆成下面六个阶段：</p>
+<pre class="line-numbers language-text" data-language="text"><code class="language-text">确定范围 → 建立基线 → 检查代码 → 设计测试 → 执行验证 → 输出报告
+                                      ↑          │
+                                      └── 修复 ──┘<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<h3 id="1-确定检验范围"><a href="#1-确定检验范围" class="headerlink" title="1. 确定检验范围"></a>1. 确定检验范围</h3><p>先告诉 Agent 要检查什么，以及哪些内容不在范围内。最有价值的输入通常包括：</p>
+<ul>
+<li>需求描述或缺陷单；</li>
+<li>本次变更的文件和提交；</li>
+<li>运行环境、依赖版本和启动方式；</li>
+<li>已知的业务约束；</li>
+<li>需要执行的命令和验收标准。</li>
+</ul>
+<p>可以使用下面的任务模板：</p>
+<pre class="line-numbers language-text" data-language="text"><code class="language-text">请检查当前分支相对于 main 的变更。
+
+目标：实现订单取消接口，取消后不能再次支付。
+重点关注：状态流转、重复请求、权限校验、数据库事务和错误响应。
+验证要求：先运行现有测试，再补充必要测试；不要修改接口协议。
+输出格式：按严重程度列出问题，包含文件、行号、原因和复现方式。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>范围越具体，Agent 的结论越容易复核。只说“全面检查项目”往往会得到大量泛化建议，反而掩盖真正的风险。</p>
+<h3 id="2-建立可比较的基线"><a href="#2-建立可比较的基线" class="headerlink" title="2. 建立可比较的基线"></a>2. 建立可比较的基线</h3><p>在修改代码前，让 Agent 先确认项目当前是否已经通过检查。一个典型的基线步骤如下：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">git</span> status <span class="token parameter variable">--short</span>
+<span class="token function">git</span> <span class="token function">diff</span> <span class="token parameter variable">--stat</span> main<span class="token punctuation">..</span>.HEAD
+<span class="token function">npm</span> ci
+<span class="token function">npm</span> <span class="token builtin class-name">test</span> -- <span class="token parameter variable">--runInBand</span>
+<span class="token function">npm</span> run lint<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>Python 项目可以使用：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash">python <span class="token parameter variable">-m</span> pip <span class="token function">install</span> <span class="token parameter variable">-r</span> requirements.txt
+pytest <span class="token parameter variable">-q</span>
+ruff check <span class="token builtin class-name">.</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p>基线的作用是区分“本次变更引入的问题”和“项目原本就存在的问题”。如果基线失败，Agent 应先记录失败信息，再继续检查与本次改动直接相关的部分。</p>
+<p>不要让 Agent 在没有记录基线的情况下直接修复所有失败项，否则很容易把无关重构混入当前任务。</p>
+<h2 id="三、让-Agent-做代码检验"><a href="#三、让-Agent-做代码检验" class="headerlink" title="三、让 Agent 做代码检验"></a>三、让 Agent 做代码检验</h2><h3 id="1-先看变更，再看上下文"><a href="#1-先看变更，再看上下文" class="headerlink" title="1. 先看变更，再看上下文"></a>1. 先看变更，再看上下文</h3><p>代码审查的第一步应当是查看差异：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token function">git</span> <span class="token function">diff</span> <span class="token parameter variable">--check</span>
+<span class="token function">git</span> <span class="token function">diff</span> main<span class="token punctuation">..</span>.HEAD -- src/ tests/<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span></span></code></pre>
+
+<p>接着再读取被修改函数的调用方、数据结构和测试代码。Agent 需要知道一个改动会影响哪些路径，不能只依据单个文件做判断。</p>
+<p>可以要求 Agent 重点回答三个问题：</p>
+<ol>
+<li>正常输入是否得到预期结果？</li>
+<li>异常输入、重复请求和并发场景会发生什么？</li>
+<li>失败时是否留下半完成状态、错误数据或敏感信息？</li>
+</ol>
+<h3 id="2-让问题按严重程度排序"><a href="#2-让问题按严重程度排序" class="headerlink" title="2. 让问题按严重程度排序"></a>2. 让问题按严重程度排序</h3><p>建议采用类似代码审查的分级方式：</p>
+<table>
+<thead>
+<tr>
+<th>级别</th>
+<th>含义</th>
+<th>处理方式</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>P0</td>
+<td>数据损坏、权限绕过或服务无法启动</td>
+<td>合并前必须修复</td>
+</tr>
+<tr>
+<td>P1</td>
+<td>主要功能错误、回滚失效或高概率故障</td>
+<td>当前任务内修复</td>
+</tr>
+<tr>
+<td>P2</td>
+<td>边界条件缺失、可维护性问题或测试不足</td>
+<td>评估后修复</td>
+</tr>
+<tr>
+<td>P3</td>
+<td>风格、命名或可选优化</td>
+<td>可单独记录</td>
+</tr>
+</tbody></table>
+<p>让 Agent 使用固定格式输出，便于人快速判断：</p>
+<pre class="line-numbers language-text" data-language="text"><code class="language-text">[P1] src/order/cancel.ts:42
+取消操作先更新订单状态，再写入支付记录；第二步失败时没有事务回滚，
+订单会进入“已取消但仍可退款”的不一致状态。
+
+复现：让 paymentRepository.insert 抛出异常，然后检查订单状态。
+建议：把状态更新和支付记录写入放进同一个事务，并增加回滚测试。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>一个好的审查意见应该能说明位置、影响、复现条件和修复方向。只有“这里可能有问题”不足以支持后续处理。</p>
+<h3 id="3-让-Agent-区分事实和推测"><a href="#3-让-Agent-区分事实和推测" class="headerlink" title="3. 让 Agent 区分事实和推测"></a>3. 让 Agent 区分事实和推测</h3><p>可以明确要求：</p>
+<pre class="line-numbers language-text" data-language="text"><code class="language-text">只报告能够从代码、测试或命令输出证明的问题。
+如果只是风险推测，请标记为“待确认”，并给出确认方法。
+不要因为缺少上下文就假设某个函数一定会被调用或一定不会被调用。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span></span></code></pre>
+
+<p>这样可以减少 Agent 把编码习惯误报成缺陷。对于无法从仓库确认的业务规则，应由开发者补充事实，而不是让 Agent 自行猜测。</p>
+<h2 id="四、让-Agent-设计测试用例"><a href="#四、让-Agent-设计测试用例" class="headerlink" title="四、让 Agent 设计测试用例"></a>四、让 Agent 设计测试用例</h2><p>测试设计应从行为开始，而不是从实现细节开始。以订单取消为例，可以先列出状态和操作矩阵：</p>
+<table>
+<thead>
+<tr>
+<th>当前状态</th>
+<th>操作</th>
+<th>预期结果</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>待支付</td>
+<td>取消</td>
+<td>成功，状态变为已取消</td>
+</tr>
+<tr>
+<td>已支付</td>
+<td>取消</td>
+<td>按业务规则拒绝或进入退款流程</td>
+</tr>
+<tr>
+<td>已取消</td>
+<td>取消</td>
+<td>幂等返回，不重复写数据</td>
+</tr>
+<tr>
+<td>不属于当前用户</td>
+<td>取消</td>
+<td>返回无权限，不泄露订单信息</td>
+</tr>
+<tr>
+<td>不存在的订单</td>
+<td>取消</td>
+<td>返回统一的不存在错误</td>
+</tr>
+</tbody></table>
+<p>然后让 Agent 根据矩阵生成测试，而不是直接要求“把覆盖率提高到 100%”。覆盖率只能说明代码被执行过，不能证明行为正确。</p>
+<h3 id="测试层次"><a href="#测试层次" class="headerlink" title="测试层次"></a>测试层次</h3><p>可以让 Agent 按成本从低到高安排测试：</p>
+<ul>
+<li>单元测试：验证一个函数或一个领域规则；</li>
+<li>集成测试：验证数据库、消息队列或外部服务之间的协作；</li>
+<li>接口测试：验证请求校验、响应结构、状态码和鉴权；</li>
+<li>端到端测试：验证用户路径，但执行成本和环境要求更高。</li>
+</ul>
+<p>先用单元测试锁定规则，再用少量集成和端到端测试验证关键链路，通常比只写大量端到端脚本更稳定。</p>
+<h3 id="测试提示词示例"><a href="#测试提示词示例" class="headerlink" title="测试提示词示例"></a>测试提示词示例</h3><pre class="line-numbers language-text" data-language="text"><code class="language-text">请为 cancelOrder 编写测试。
+先阅读实现、类型定义和已有测试，不要修改生产代码。
+覆盖：成功取消、重复取消、非法状态、无权限、订单不存在、仓储异常。
+每个测试只验证一个行为，使用项目当前的测试框架和断言风格。
+完成后运行相关测试，并报告命令和结果。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>如果 Agent 生成的测试只验证“函数被调用”，应要求它补充最终状态、返回值和副作用断言。例如，不只断言 <code>repository.update</code> 被调用，还要检查状态、写入次数和异常时是否回滚。</p>
+<h2 id="五、让-Agent-执行测试并分析失败"><a href="#五、让-Agent-执行测试并分析失败" class="headerlink" title="五、让 Agent 执行测试并分析失败"></a>五、让 Agent 执行测试并分析失败</h2><p>执行测试时要从窄到宽：</p>
+<pre class="line-numbers language-bash" data-language="bash"><code class="language-bash"><span class="token comment"># 1. 先运行刚修改的测试</span>
+<span class="token function">npm</span> <span class="token builtin class-name">test</span> -- cancel-order.test.ts
+
+<span class="token comment"># 2. 再运行相关模块</span>
+<span class="token function">npm</span> <span class="token builtin class-name">test</span> -- order
+
+<span class="token comment"># 3. 最后运行完整检查</span>
+<span class="token function">npm</span> <span class="token builtin class-name">test</span>
+<span class="token function">npm</span> run lint
+<span class="token function">npm</span> run build<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>失败后不要只把最后一行错误发给 Agent。至少要提供命令、退出码、完整堆栈和失败测试名称。可以这样要求：</p>
+<pre class="line-numbers language-text" data-language="text"><code class="language-text">分析下面的测试失败日志：
+1. 先判断是测试数据、环境、实现还是测试本身的问题；
+2. 指出判断依据和涉及的文件；
+3. 给出最小修复方案；
+4. 修复后只重跑相关测试，再重跑完整检查。
+不要通过删除断言、跳过测试或放宽校验来掩盖失败。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>Agent 修改代码后必须重新执行测试。仅根据补丁内容判断“应该已经修好”没有验证价值。</p>
+<h2 id="六、把检验结果变成报告"><a href="#六、把检验结果变成报告" class="headerlink" title="六、把检验结果变成报告"></a>六、把检验结果变成报告</h2><p>一次完整的 Agent 检验报告至少应包含：</p>
+<pre class="line-numbers language-text" data-language="text"><code class="language-text">检验范围：main...HEAD
+执行环境：Node 22、Windows、npm ci
+
+已执行：
+- npm test -- order：通过，18/18
+- npm run lint：通过
+- npm run build：通过
+
+发现问题：
+- P1：src/order/cancel.ts:42，事务失败时状态可能不一致，已修复
+- P2：缺少重复请求测试，已补充
+
+剩余风险：
+- 未连接真实支付服务，退款回调需要在预发布环境验证<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>报告要把“没有发现问题”和“没有检查到问题”区分开。若某个外部服务、生产数据或并发场景没有验证，应明确写出限制。</p>
+<h2 id="七、在-CI-中使用-Agent"><a href="#七、在-CI-中使用-Agent" class="headerlink" title="七、在 CI 中使用 Agent"></a>七、在 CI 中使用 Agent</h2><p>Agent 可以作为 CI 中的审查步骤，但应让确定性的工具承担最终门禁：</p>
+<pre class="line-numbers language-yaml" data-language="yaml"><code class="language-yaml"><span class="token key atrule">jobs</span><span class="token punctuation">:</span>
+  <span class="token key atrule">verify</span><span class="token punctuation">:</span>
+    <span class="token key atrule">runs-on</span><span class="token punctuation">:</span> ubuntu<span class="token punctuation">-</span>latest
+    <span class="token key atrule">steps</span><span class="token punctuation">:</span>
+      <span class="token punctuation">-</span> <span class="token key atrule">uses</span><span class="token punctuation">:</span> actions/checkout@v4
+        <span class="token key atrule">with</span><span class="token punctuation">:</span>
+          <span class="token key atrule">fetch-depth</span><span class="token punctuation">:</span> <span class="token number">0</span>
+      <span class="token punctuation">-</span> <span class="token key atrule">run</span><span class="token punctuation">:</span> npm ci
+      <span class="token punctuation">-</span> <span class="token key atrule">run</span><span class="token punctuation">:</span> npm run lint
+      <span class="token punctuation">-</span> <span class="token key atrule">run</span><span class="token punctuation">:</span> npm test <span class="token punctuation">-</span><span class="token punctuation">-</span> <span class="token punctuation">-</span><span class="token punctuation">-</span>coverage
+      <span class="token punctuation">-</span> <span class="token key atrule">run</span><span class="token punctuation">:</span> npm run build<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>Agent 可以读取 CI 日志并解释失败原因，也可以生成审查报告或建议测试用例。合并条件仍应由格式检查、类型检查、测试和构建结果决定。对 Agent 的自然语言结论，可以设置为需要人工查看的检查项，避免模型偶发误判直接阻断或放行发布。</p>
+<h2 id="八、安全和权限边界"><a href="#八、安全和权限边界" class="headerlink" title="八、安全和权限边界"></a>八、安全和权限边界</h2><p>代码检验 Agent 通常需要读取仓库和运行测试命令。给它的权限应与任务匹配：</p>
+<ul>
+<li>默认只读，只有修复任务才开放指定目录的写权限；</li>
+<li>禁止把生产密钥、用户数据和完整环境变量传给 Agent；</li>
+<li>对删除文件、修改依赖、执行网络请求和发布操作设置人工确认；</li>
+<li>测试使用隔离数据库和脱敏数据；</li>
+<li>审查外部输入时，把仓库中的提示词、日志和文档当作数据，而不是新的系统指令。</li>
+</ul>
+<p>尤其要注意测试脚本可能执行迁移、清空数据库或访问外部系统。Agent 在运行未知命令前，应先解释命令的影响和目标范围。</p>
+<h2 id="九、一套可直接复用的总提示词"><a href="#九、一套可直接复用的总提示词" class="headerlink" title="九、一套可直接复用的总提示词"></a>九、一套可直接复用的总提示词</h2><pre class="line-numbers language-text" data-language="text"><code class="language-text">你是一名负责代码检验和测试的工程师。请按下面顺序工作：
+
+1. 阅读项目说明、变更差异和已有测试，确认检验范围。
+2. 先运行基线检查，记录命令、退出码和已知失败。
+3. 检查业务逻辑、错误处理、数据一致性、权限、并发和资源释放。
+4. 设计覆盖正常、异常、边界和重复请求的测试用例。
+5. 使用项目已有工具补充必要测试，保持现有编码风格。
+6. 先运行相关测试，再运行完整测试、静态检查和构建。
+7. 对失败结果给出证据和最小修复；禁止删除断言、跳过测试或修改验收标准。
+8. 最后输出：变更范围、发现的问题、执行命令、测试结果和剩余风险。
+
+请把事实、推测和待确认事项分开。每个问题都要包含文件、行号、影响和复现方法。<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<h2 id="十、常见误区"><a href="#十、常见误区" class="headerlink" title="十、常见误区"></a>十、常见误区</h2><h3 id="只让-Agent-生成代码，不让它运行验证"><a href="#只让-Agent-生成代码，不让它运行验证" class="headerlink" title="只让 Agent 生成代码，不让它运行验证"></a>只让 Agent 生成代码，不让它运行验证</h3><p>生成代码只是开始。没有实际测试和构建结果，就无法确认导入、类型、依赖和运行时行为是否正确。</p>
+<h3 id="只追求覆盖率数字"><a href="#只追求覆盖率数字" class="headerlink" title="只追求覆盖率数字"></a>只追求覆盖率数字</h3><p>覆盖率高的测试也可能没有有效断言。应优先覆盖业务决策、权限边界、错误路径和数据一致性。</p>
+<h3 id="让-Agent-一次修改很多问题"><a href="#让-Agent-一次修改很多问题" class="headerlink" title="让 Agent 一次修改很多问题"></a>让 Agent 一次修改很多问题</h3><p>大范围修改会增加回归风险，也会让失败原因变得难以定位。更好的方式是按问题逐项修复，每次修复后运行最小相关测试。</p>
+<h3 id="忽略原有失败"><a href="#忽略原有失败" class="headerlink" title="忽略原有失败"></a>忽略原有失败</h3><p>没有基线就无法判断结果。先记录原始失败，再区分新增问题和历史问题，报告会更可信。</p>
+<h2 id="结语"><a href="#结语" class="headerlink" title="结语"></a>结语</h2><p>Agent 最适合成为开发者身边的检验助手：它负责快速阅读变更、执行重复命令、整理日志和补齐测试，人负责确认业务含义、风险边界和最终发布决定。只要把范围、命令、证据和验收标准写清楚，Agent 就能从“给建议”稳定地参与到“可验证的工程流程”中。</p>
+
+        </article>
+        <section class="post-near">
+            <ul>
+                
+                    <li>上一篇: 看完啦 (つд⊂)</li>
+                
+                
+                    <li>下一篇: <a href="/2026/11/09/Groovy/">Groovy 语言入门与实战指南</a></li>
+                
+            </ul>
+        </section>
+        
+            <section class="post-tags">
+            <a class="-none-link" href="/tags/AI-Agent/" rel="tag">AI Agent</a><a class="-none-link" href="/tags/CI-CD/" rel="tag">CI/CD</a><a class="-none-link" href="/tags/%E4%BB%A3%E7%A0%81%E5%AE%A1%E6%9F%A5/" rel="tag">代码审查</a><a class="-none-link" href="/tags/%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95/" rel="tag">自动化测试</a><a class="-none-link" href="/tags/%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95/" rel="tag">软件测试</a>
+            </section>
+        
+    
+        <section class="post-author">
+        
+            <figure class="author-avatar">
+                <img src="https://nos.netease.com/ysf/984b6beaecc19c99414093c0481a2619.png" alt="日初" />
+            </figure>
+        
+            <div class="author-info">
+                <h4>日初</h4>
+                <p>正在学习绘画中，有拿的出手的作品之后可以关注我的画廊(´・ω・`)</p>
+            </div>
+        </section>
+    
+    </div>
+</main>
+
+    <footer>
+    <div class="buttons">
+        <a class="to-top" href="#"></a>
+    </div>
+    <div class="wrap min">
+        <section class="widget">
+            <div class="row">
+                <div class="col-m-4">
+                    <h3 class="title-recent">最新文章：</h3>
+                    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2026/11/09/Agent%E4%BB%A3%E7%A0%81%E6%A3%80%E9%AA%8C%E6%B5%8B%E8%AF%95%E5%AE%9E%E8%B7%B5/">使用 Agent 进行代码检验与测试的实践指南</a></li><li class="post-list-item"><a class="post-list-link" href="/2026/11/09/Groovy/">Groovy 语言入门与实战指南</a></li><li class="post-list-item"><a class="post-list-link" href="/2026/11/09/LangGraph/">LangGraph 核心机制与入门实践</a></li><li class="post-list-item"><a class="post-list-link" href="/2026/11/09/MCP/">MCP 协议原理与架构解析</a></li><li class="post-list-item"><a class="post-list-link" href="/2026/11/09/%E7%AC%AC%E4%B8%80%E4%B8%AAMCP/">手把手开发首个 MCP Server</a></li><li class="post-list-item"><a class="post-list-link" href="/2026/11/09/%E7%AC%AC%E4%B8%80%E4%B8%AALangGraph%E7%A8%8B%E5%BA%8F/">从零构建第一个 LangGraph 工作流</a></li></ul>
+                </div>
+                <div class="col-m-4">
+                    <h3 class="title-date">时光机：</h3>
+                    <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/11/">十一月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/10/">十月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/09/">九月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/08/">八月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/07/">七月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/06/">六月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/05/">五月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/04/">四月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/03/">三月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/02/">二月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/01/">一月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/12/">十二月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/11/">十一月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/10/">十月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/09/">九月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/08/">八月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/07/">七月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/06/">六月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/05/">五月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/04/">四月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/03/">三月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/02/">二月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/01/">一月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/12/">十二月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/11/">十一月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/10/">十月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/09/">九月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/08/">八月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/07/">七月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/06/">六月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/05/">五月 2024</a></li></ul>
+                </div>
+                <div class="col-m-4">
+                    <h3 class="title-tags">标签云：</h3>
+                    <a href="/tags/AI-Agent/" style="font-size: 20px;">AI Agent</a> <a href="/tags/Agent-%E5%B7%A5%E5%85%B7%E8%B0%83%E7%94%A8/" style="font-size: 20px;">Agent 工具调用</a> <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/CI-CD/" style="font-size: 20px;">CI/CD</a> <a href="/tags/CSS/" style="font-size: 20px;">CSS</a> <a href="/tags/Centos/" style="font-size: 20px;">Centos</a> <a href="/tags/Docker/" style="font-size: 20px;">Docker</a> <a href="/tags/Dubbo/" style="font-size: 20px;">Dubbo</a> <a href="/tags/Flutter/" style="font-size: 20px;">Flutter</a> <a href="/tags/GO/" style="font-size: 20px;">GO</a> <a href="/tags/Game/" style="font-size: 20px;">Game</a> <a href="/tags/Go/" style="font-size: 20px;">Go</a> <a href="/tags/Go-Web/" style="font-size: 20px;">Go Web</a> <a href="/tags/Groovy/" style="font-size: 20px;">Groovy</a> <a href="/tags/HBase/" style="font-size: 20px;">HBase</a> <a href="/tags/Hadoop/" style="font-size: 20px;">Hadoop</a> <a href="/tags/JQuery/" style="font-size: 20px;">JQuery</a> <a href="/tags/JS/" style="font-size: 20px;">JS</a> <a href="/tags/JSON-RPC/" style="font-size: 20px;">JSON-RPC</a> <a href="/tags/JVM/" style="font-size: 20px;">JVM</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/Java-Web/" style="font-size: 20px;">Java Web</a> <a href="/tags/Jira/" style="font-size: 20px;">Jira</a> <a href="/tags/K8S/" style="font-size: 20px;">K8S</a> <a href="/tags/Kotlin/" style="font-size: 20px;">Kotlin</a> <a href="/tags/LLM/" style="font-size: 20px;">LLM</a> <a href="/tags/LangChain/" style="font-size: 20px;">LangChain</a> <a href="/tags/LangGraph/" style="font-size: 20px;">LangGraph</a> <a href="/tags/Linux/" style="font-size: 20px;">Linux</a> <a href="/tags/MCP/" style="font-size: 20px;">MCP</a> <a href="/tags/MCP-Server/" style="font-size: 20px;">MCP Server</a> <a href="/tags/Model-Context-Protocol/" style="font-size: 20px;">Model Context Protocol</a> <a href="/tags/MongoDB/" style="font-size: 20px;">MongoDB</a> <a href="/tags/MySql/" style="font-size: 20px;">MySql</a> <a href="/tags/MybatisPlus/" style="font-size: 20px;">MybatisPlus</a> <a href="/tags/Nginx/" style="font-size: 20px;">Nginx</a> <a href="/tags/NodeJs/" style="font-size: 20px;">NodeJs</a> <a href="/tags/PHP/" style="font-size: 20px;">PHP</a> <a href="/tags/Promise/" style="font-size: 20px;">Promise</a> <a href="/tags/Python/" style="font-size: 20px;">Python</a> <a href="/tags/QT/" style="font-size: 20px;">QT</a> <a href="/tags/RAG/" style="font-size: 20px;">RAG</a> <a href="/tags/React/" style="font-size: 20px;">React</a> <a href="/tags/Redis/" style="font-size: 20px;">Redis</a> <a href="/tags/ScriptRunner/" style="font-size: 20px;">ScriptRunner</a> <a href="/tags/Skill/" style="font-size: 20px;">Skill</a> <a href="/tags/Spark/" style="font-size: 20px;">Spark</a> <a href="/tags/Spring-Cloud/" style="font-size: 20px;">Spring Cloud</a> <a href="/tags/SpringMVC/" style="font-size: 20px;">SpringMVC</a> <a href="/tags/UniApp/" style="font-size: 20px;">UniApp</a> <a href="/tags/UniCloud/" style="font-size: 20px;">UniCloud</a> <a href="/tags/Unity/" style="font-size: 20px;">Unity</a> <a href="/tags/Vue/" style="font-size: 20px;">Vue</a> <a href="/tags/Webpack/" style="font-size: 20px;">Webpack</a> <a href="/tags/ZooKeeper/" style="font-size: 20px;">ZooKeeper</a> <a href="/tags/pgvector/" style="font-size: 20px;">pgvector</a> <a href="/tags/%E4%BB%A3%E7%A0%81%E5%AE%A1%E6%9F%A5/" style="font-size: 20px;">代码审查</a> <a href="/tags/%E5%89%8D%E7%AB%AF/" style="font-size: 20px;">前端</a> <a href="/tags/%E5%90%91%E9%87%8F%E6%A3%80%E7%B4%A2/" style="font-size: 20px;">向量检索</a> <a href="/tags/%E5%A4%9A%E6%99%BA%E8%83%BD%E4%BD%93/" style="font-size: 20px;">多智能体</a> <a href="/tags/%E5%B7%A5%E4%BD%9C%E6%B5%81/" style="font-size: 20px;">工作流</a> <a href="/tags/%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%BC%96%E6%8E%92/" style="font-size: 20px;">工作流编排</a> <a href="/tags/%E6%8A%80%E8%83%BD/" style="font-size: 20px;">技能</a> <a href="/tags/%E6%8A%80%E8%83%BD%E6%A8%A1%E5%BC%8F/" style="font-size: 20px;">技能模式</a> <a href="/tags/%E6%99%BA%E8%83%BD%E4%BD%93/" style="font-size: 20px;">智能体</a> <a href="/tags/%E7%8A%B6%E6%80%81%E6%9C%BA/" style="font-size: 20px;">状态机</a> <a href="/tags/%E7%9F%A5%E8%AF%86%E5%BA%93/" style="font-size: 20px;">知识库</a> <a href="/tags/%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1/" style="font-size: 20px;">系统设计</a> <a href="/tags/%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95/" style="font-size: 20px;">自动化测试</a> <a href="/tags/%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95/" style="font-size: 20px;">软件测试</a> <a href="/tags/%E8%BF%90%E7%BB%B4/" style="font-size: 20px;">运维</a>
+                </div>
+            </div>
+        </section>
+        <section class="sub-footer">
+            <p>© 2026 <a href="/">Richu</a>. All Rights Reserved. Theme By <a href="https://github.com/Dreamer-Paul/Hingle" target="_blank" rel="nofollow">Hingle</a>.</p>
+        </section>
+    </div>
+</footer>
+
+
+<script src="/static/kico.js"></script>
+<script src="/static/hingle.js"></script>
+
+
+<script>var SITE_ROOT = "/";</script>
+<script>var hingle = new Paul_Hingle({"copyright":true,"night":false,"code":{"language_label":true,"language_label_exclude":["markup","none","plain","plaintext","text"],"line_numbers":true,"line_numbers_toggle":true}});</script>
+
+    <script src="/js/mermaid-boot.js"></script>
+  </body>
+</html>

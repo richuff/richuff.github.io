@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html>
+  <head>
+     
+    <meta charset="UTF-8">
+    <title>claude desktop安装插件 - Richu</title>
+    <link rel="shortcut icon" href="/static/img/icon.png">
+    <link rel="icon" href="/static/img/icon.png" sizes="192x192"/>
+    
+<link rel="stylesheet" href="/static/kico.css">
+<link rel="stylesheet" href="/static/hingle.css">
+<link rel="stylesheet" href="/static/md-enhance.css">
+
+    
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+    <meta name="viewport" content="width=device-width, maximum-scale=1, initial-scale=1"/>
+    
+    <meta property="og:site_name" content="Richu">
+    <meta property="og:title" content="claude desktop安装插件"/>
+    
+    <style>body:before{ content: ''; background-image: url(http://kycloud3.koyoo.cn/2025033176e99202503311036156636.jpg) }</style>
+    
+<meta name="generator" content="Hexo 7.3.0"></head>
+
+  <body>
+    <header>
+    <div class="head-title">
+        <h4>Richu</h4>
+    </div>
+    <div class="head-action">
+        <div class="toggle-btn"></div>
+        <div class="light-btn"></div>
+        <div class="search-btn"></div>
+    </div>
+    <form class="head-search" method="post">
+        <input type="text" name="s" placeholder="搜索什么？">
+    </form>
+    <nav class="head-menu">
+        <a href="/">首页</a>
+        <div class="has-child">
+            <a>分类</a>
+            <div class="sub-menu">
+                <a class="category-link" href="/categories/AI/">AI</a><a class="category-link" href="/categories/Android/">Android</a><a class="category-link" href="/categories/Go/">Go</a><a class="category-link" href="/categories/Java/">Java</a><a class="category-link" href="/categories/QT/">QT</a><a class="category-link" href="/categories/Unity/">Unity</a><a class="category-link" href="/categories/%E5%89%8D%E7%AB%AF/">前端</a><a class="category-link" href="/categories/%E5%90%8E%E7%AB%AF/">后端</a><a class="category-link" href="/categories/%E5%A4%A7%E6%95%B0%E6%8D%AE/">大数据</a><a class="category-link" href="/categories/%E8%BF%90%E7%BB%B4/">运维</a>
+            </div>
+        </div>
+        
+            <a href="/links">常用链接</a>
+        
+            <a href="/sheets">钢琴谱</a>
+        
+    </nav>
+</header>
+
+    <main>
+    <div class="wrap min">
+        <section class="post-title">
+            <h2>claude desktop安装插件</h2>
+            <div class="post-meta">
+                
+                <time class="date">2026.11.12</time>
+            
+                <span class="category"><a class="category-link" href="/categories/AI/">AI</a></span>
+            
+            </div>
+        </section>
+        <article class="post-content">
+            <h1 id="claude-desktop安装插件"><a href="#claude-desktop安装插件" class="headerlink" title="claude desktop安装插件"></a>claude desktop安装插件</h1><blockquote>
+<p>Claude Desktop 本身没有”应用商店”，它的插件机制是 MCP（Model Context Protocol）：在配置文件里声明一个本地启动命令，Claude 启动时把它拉起来，通过标准协议通信。本文记录在 Windows 上安装 MCP 插件的完整流程，以及两个真实踩坑（包不存在、npx 下载卡死）的解决过程。</p>
+</blockquote>
+<h2 id="一、插件是什么"><a href="#一、插件是什么" class="headerlink" title="一、插件是什么"></a>一、插件是什么</h2><p>Claude Desktop 的”插件”就是 MCP Server。每个插件是一个独立进程，Claude 通过 JSON-RPC 与它通信，调用它暴露的工具（tools）、资源（resources）和提示词（prompts）。</p>
+<p>安装方式统一是编辑一个 JSON 配置文件：</p>
+<pre class="line-numbers language-json" data-language="json"><code class="language-json"><span class="token punctuation">&#123;</span>
+  <span class="token property">"mcpServers"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+    <span class="token property">"插件名"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+      <span class="token property">"command"</span><span class="token operator">:</span> <span class="token string">"启动命令"</span><span class="token punctuation">,</span>
+      <span class="token property">"args"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"参数1"</span><span class="token punctuation">,</span> <span class="token string">"参数2"</span><span class="token punctuation">]</span><span class="token punctuation">,</span>
+      <span class="token property">"env"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span> <span class="token property">"可选的环境变量"</span><span class="token operator">:</span> <span class="token string">"比如 API Key"</span> <span class="token punctuation">&#125;</span>
+    <span class="token punctuation">&#125;</span>
+  <span class="token punctuation">&#125;</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>重启 Claude Desktop 后生效，设置页 Developer 一栏可以看到已加载的本地 MCP 服务。</p>
+<h2 id="二、找到配置文件的真实路径"><a href="#二、找到配置文件的真实路径" class="headerlink" title="二、找到配置文件的真实路径"></a>二、找到配置文件的真实路径</h2><p>常规教程都写 <code>%APPDATA%\Claude\claude_desktop_config.json</code>，但<strong>商店版 &#x2F; 第三方部署版（deploymentMode 为 3p）的路径完全不同</strong>，在 <code>AppData\Roaming\Claude</code> 下根本找不到。</p>
+<p>我的实际位置是：</p>
+<pre class="line-numbers language-none"><code class="language-none">C:\Users\&lt;用户名&gt;\AppData\Local\Claude-3p\claude_desktop_config.json<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>找文件的快捷办法：打开 Claude Desktop → Settings → Developer → Local MCP servers → <strong>Edit config</strong>，它会直接打开正确路径的配置文件。</p>
+<blockquote>
+<p>配置文件里除了 <code>mcpServers</code> 还混着 <code>deploymentMode</code>、<code>preferences</code> 等应用状态，<strong>只改 mcpServers 那一段</strong>，改完确认 JSON 语法合法（<code>ConvertFrom-Json</code> 或任意 JSON 校验器），语法错会导致整个配置加载失败。</p>
+</blockquote>
+<h2 id="三、实战-1：安装-fetch（踩坑-npm-404）"><a href="#三、实战-1：安装-fetch（踩坑-npm-404）" class="headerlink" title="三、实战 1：安装 fetch（踩坑 npm 404）"></a>三、实战 1：安装 fetch（踩坑 npm 404）</h2><p>网上很多教程给的配置是：</p>
+<pre class="line-numbers language-json" data-language="json"><code class="language-json"><span class="token property">"fetch"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+  <span class="token property">"command"</span><span class="token operator">:</span> <span class="token string">"npx"</span><span class="token punctuation">,</span>
+  <span class="token property">"args"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"-y"</span><span class="token punctuation">,</span> <span class="token string">"@modelcontextprotocol/server-fetch"</span><span class="token punctuation">]</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p><strong>这个包在 npm 上不存在</strong>。启动日志里的表现是：</p>
+<pre class="line-numbers language-none"><code class="language-none">npm error code E404
+npm error 404 Not Found - GET https:&#x2F;&#x2F;registry.npmjs.org&#x2F;@modelcontextprotocol%2fserver-fetch
+...
+Server transport closed unexpectedly, this is likely due to the process exiting early.
+Server disconnected.<span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>官方 fetch 服务是 Python 实现的，正确配置是用 <code>uvx</code> 启动（需要先装 <a target="_blank" rel="noopener" href="https://docs.astral.sh/uv/">uv</a>，一条命令安装，自带 <code>uvx</code>）：</p>
+<pre class="line-numbers language-json" data-language="json"><code class="language-json"><span class="token property">"fetch"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+  <span class="token property">"command"</span><span class="token operator">:</span> <span class="token string">"uvx"</span><span class="token punctuation">,</span>
+  <span class="token property">"args"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"mcp-server-fetch"</span><span class="token punctuation">]</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>首次启动会自动下载包和依赖并缓存，之后就是本地运行。它的作用是把网页抓下来转成干净的 Markdown 给 Claude 读——丢一个网址给它，它就能看懂页面内容。</p>
+<h2 id="四、实战-2：安装-context7（npx-下载卡死）"><a href="#四、实战-2：安装-context7（npx-下载卡死）" class="headerlink" title="四、实战 2：安装 context7（npx 下载卡死）"></a>四、实战 2：安装 context7（npx 下载卡死）</h2><p><a target="_blank" rel="noopener" href="https://github.com/upstash/context7">context7</a> 是目前最实用的开发类插件之一：回答”某框架怎么用”之前先查该框架的最新官方文档再作答，显著减少凭训练记忆胡说。</p>
+<p>按常规做法配 npx：</p>
+<pre class="line-numbers language-json" data-language="json"><code class="language-json"><span class="token property">"context7"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+  <span class="token property">"command"</span><span class="token operator">:</span> <span class="token string">"npx"</span><span class="token punctuation">,</span>
+  <span class="token property">"args"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token string">"-y"</span><span class="token punctuation">,</span> <span class="token string">"@upstash/context7-mcp"</span><span class="token punctuation">]</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>结果首次启动时 <strong>npx 卡死</strong>：npm 日志停在依赖解析的某个请求上，8 分钟无任何新活动（部分网络环境下 npm 请求没有超时就会一直挂着）。</p>
+<p>解决办法是改成<strong>全局安装</strong>，绕开每次启动的 npx 解析：</p>
+<pre class="line-numbers language-powershell" data-language="powershell"><code class="language-powershell">npm install <span class="token operator">-</span>g @upstash/context7-mcp<span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<p>装完后拿到 <code>.cmd</code> 的完整路径（Windows 上 Python&#x2F;Node 子进程要用 <code>.cmd</code>，<code>.ps1</code> 脚本无法被直接拉起）：</p>
+<pre class="line-numbers language-json" data-language="json"><code class="language-json"><span class="token property">"context7"</span><span class="token operator">:</span> <span class="token punctuation">&#123;</span>
+  <span class="token property">"command"</span><span class="token operator">:</span> <span class="token string">"D:\\npm-global\\context7-mcp.cmd"</span><span class="token punctuation">,</span>
+  <span class="token property">"args"</span><span class="token operator">:</span> <span class="token punctuation">[</span><span class="token punctuation">]</span>
+<span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>全局安装还有一個好处：Claude Desktop 每次启动不再跑 npx 依赖解析，插件拉起更快更稳。</p>
+<blockquote>
+<p>context7 查文档时仍需联网访问它自己的后端 API，”装到本地”解决的是安装稳定性和启动速度，不是让它离线工作。</p>
+</blockquote>
+<h2 id="五、验证插件真的起来了"><a href="#五、验证插件真的起来了" class="headerlink" title="五、验证插件真的起来了"></a>五、验证插件真的起来了</h2><p>不要只看配置写没写对，用 MCP 的 <code>initialize</code> 握手做真实验证。PowerShell 管道给原生进程会丢输出，用 Python 子进程最可靠：</p>
+<pre class="line-numbers language-python" data-language="python"><code class="language-python"><span class="token keyword">import</span> json<span class="token punctuation">,</span> subprocess
+
+req <span class="token operator">=</span> json<span class="token punctuation">.</span>dumps<span class="token punctuation">(</span><span class="token punctuation">&#123;</span>
+    <span class="token string">"jsonrpc"</span><span class="token punctuation">:</span> <span class="token string">"2.0"</span><span class="token punctuation">,</span> <span class="token string">"id"</span><span class="token punctuation">:</span> <span class="token number">0</span><span class="token punctuation">,</span> <span class="token string">"method"</span><span class="token punctuation">:</span> <span class="token string">"initialize"</span><span class="token punctuation">,</span>
+    <span class="token string">"params"</span><span class="token punctuation">:</span> <span class="token punctuation">&#123;</span><span class="token string">"protocolVersion"</span><span class="token punctuation">:</span> <span class="token string">"2024-11-05"</span><span class="token punctuation">,</span> <span class="token string">"capabilities"</span><span class="token punctuation">:</span> <span class="token punctuation">&#123;</span><span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+               <span class="token string">"clientInfo"</span><span class="token punctuation">:</span> <span class="token punctuation">&#123;</span><span class="token string">"name"</span><span class="token punctuation">:</span> <span class="token string">"smoke"</span><span class="token punctuation">,</span> <span class="token string">"version"</span><span class="token punctuation">:</span> <span class="token string">"0"</span><span class="token punctuation">&#125;</span><span class="token punctuation">&#125;</span><span class="token punctuation">,</span>
+<span class="token punctuation">&#125;</span><span class="token punctuation">)</span>
+
+p <span class="token operator">=</span> subprocess<span class="token punctuation">.</span>Popen<span class="token punctuation">(</span>
+    <span class="token punctuation">[</span><span class="token string">"D:\\npm-global\\context7-mcp.cmd"</span><span class="token punctuation">]</span><span class="token punctuation">,</span>   <span class="token comment"># 换成你的启动命令</span>
+    stdin<span class="token operator">=</span>subprocess<span class="token punctuation">.</span>PIPE<span class="token punctuation">,</span> stdout<span class="token operator">=</span>subprocess<span class="token punctuation">.</span>PIPE<span class="token punctuation">,</span>
+    stderr<span class="token operator">=</span>subprocess<span class="token punctuation">.</span>PIPE<span class="token punctuation">,</span> text<span class="token operator">=</span><span class="token boolean">True</span><span class="token punctuation">,</span> encoding<span class="token operator">=</span><span class="token string">"utf-8"</span><span class="token punctuation">,</span>
+<span class="token punctuation">)</span>
+p<span class="token punctuation">.</span>stdin<span class="token punctuation">.</span>write<span class="token punctuation">(</span>req <span class="token operator">+</span> <span class="token string">"\n"</span><span class="token punctuation">)</span><span class="token punctuation">;</span> p<span class="token punctuation">.</span>stdin<span class="token punctuation">.</span>flush<span class="token punctuation">(</span><span class="token punctuation">)</span>
+<span class="token keyword">print</span><span class="token punctuation">(</span>p<span class="token punctuation">.</span>stdout<span class="token punctuation">.</span>readline<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">[</span><span class="token punctuation">:</span><span class="token number">300</span><span class="token punctuation">]</span><span class="token punctuation">)</span>   <span class="token comment"># 看到 "result" 和 serverInfo 即成功</span>
+p<span class="token punctuation">.</span>stdin<span class="token punctuation">.</span>close<span class="token punctuation">(</span><span class="token punctuation">)</span><span class="token punctuation">;</span> p<span class="token punctuation">.</span>wait<span class="token punctuation">(</span>timeout<span class="token operator">=</span><span class="token number">30</span><span class="token punctuation">)</span><span aria-hidden="true" class="line-numbers-rows"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></span></code></pre>
+
+<p>看到类似这样的响应就说明插件正常：</p>
+<pre class="line-numbers language-json" data-language="json"><code class="language-json"><span class="token punctuation">&#123;</span><span class="token property">"result"</span><span class="token operator">:</span><span class="token punctuation">&#123;</span><span class="token property">"serverInfo"</span><span class="token operator">:</span><span class="token punctuation">&#123;</span><span class="token property">"name"</span><span class="token operator">:</span><span class="token string">"Context7"</span><span class="token punctuation">,</span><span class="token property">"version"</span><span class="token operator">:</span><span class="token string">"4.6.0"</span><span class="token punctuation">&#125;</span><span class="token punctuation">,</span> ... <span class="token punctuation">&#125;</span><span class="token punctuation">&#125;</span><span aria-hidden="true" class="line-numbers-rows"><span></span></span></code></pre>
+
+<h2 id="六、常见问题速查"><a href="#六、常见问题速查" class="headerlink" title="六、常见问题速查"></a>六、常见问题速查</h2><table>
+<thead>
+<tr>
+<th>现象</th>
+<th>原因</th>
+<th>处理</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>日志 <code>E404</code> + <code>Server disconnected</code></td>
+<td>包名不存在（npm 没这个包）</td>
+<td>换正确的包名&#x2F;启动方式，如 fetch 改用 <code>uvx mcp-server-fetch</code></td>
+</tr>
+<tr>
+<td>日志 <code>blocked by egress settings</code></td>
+<td>应用的网络出口白名单拦截了目标域名</td>
+<td>Settings 里把域名白名单放开（或找管理员），改完重启</td>
+</tr>
+<tr>
+<td>npx 启动长时间无响应</td>
+<td>npm 依赖解析请求挂起无超时</td>
+<td>改 <code>npm install -g</code> 全局安装，配置里写 <code>.cmd</code> 完整路径</td>
+</tr>
+<tr>
+<td>改了配置没反应</td>
+<td>配置未加载或 JSON 语法错误</td>
+<td>完全退出（含托盘）再启动；先校验 JSON 合法</td>
+</tr>
+<tr>
+<td>配置文件找不到</td>
+<td>商店版&#x2F;3p 版路径被重定向</td>
+<td>设置页 Developer → Edit config 直接打开真实路径</td>
+</tr>
+</tbody></table>
+<h2 id="七、推荐插件清单"><a href="#七、推荐插件清单" class="headerlink" title="七、推荐插件清单"></a>七、推荐插件清单</h2><table>
+<thead>
+<tr>
+<th>插件</th>
+<th>作用</th>
+<th>启动方式</th>
+</tr>
+</thead>
+<tbody><tr>
+<td>fetch</td>
+<td>抓取网页转 Markdown</td>
+<td><code>uvx mcp-server-fetch</code></td>
+</tr>
+<tr>
+<td>context7</td>
+<td>查框架最新官方文档</td>
+<td><code>npx -y @upstash/context7-mcp</code> 或全局安装</td>
+</tr>
+<tr>
+<td>filesystem</td>
+<td>读写指定目录文件</td>
+<td><code>npx -y @modelcontextprotocol/server-filesystem &lt;目录&gt;</code></td>
+</tr>
+<tr>
+<td>Playwright</td>
+<td>浏览器自动化&#x2F;截图&#x2F;填表</td>
+<td><code>npx -y @playwright/mcp</code></td>
+</tr>
+<tr>
+<td>Chrome DevTools</td>
+<td>调试真实 Chrome</td>
+<td><code>npx -y chrome-devtools-mcp</code></td>
+</tr>
+</tbody></table>
+<p>更多可到官方合集 <a target="_blank" rel="noopener" href="https://github.com/modelcontextprotocol/servers">modelcontextprotocol&#x2F;servers</a> 和社区清单 <a target="_blank" rel="noopener" href="https://github.com/punkpeye/awesome-mcp-servers">awesome-mcp-servers</a> 挑选。</p>
+<blockquote>
+<p>原则：MCP 插件本质是<strong>在你机器上执行配置的命令</strong>，来路不明的插件不要装；带 API Key 的插件用 <code>env</code> 字段传，别把 Key 提交进任何仓库。</p>
+</blockquote>
+<h2 id="参考"><a href="#参考" class="headerlink" title="参考"></a>参考</h2><ul>
+<li>Model Context Protocol 官方文档：<a target="_blank" rel="noopener" href="https://modelcontextprotocol.io/">https://modelcontextprotocol.io/</a></li>
+<li>官方参考实现：<a target="_blank" rel="noopener" href="https://github.com/modelcontextprotocol/servers">https://github.com/modelcontextprotocol/servers</a></li>
+<li>context7 仓库：<a target="_blank" rel="noopener" href="https://github.com/upstash/context7">https://github.com/upstash/context7</a></li>
+<li>uv（Python 工具运行器）：<a target="_blank" rel="noopener" href="https://docs.astral.sh/uv/">https://docs.astral.sh/uv/</a></li>
+</ul>
+
+        </article>
+        <section class="post-near">
+            <ul>
+                
+                    <li>上一篇: 看完啦 (つд⊂)</li>
+                
+                
+                    <li>下一篇: <a href="/2026/11/09/Agent%E4%BB%A3%E7%A0%81%E6%A3%80%E9%AA%8C%E6%B5%8B%E8%AF%95%E5%AE%9E%E8%B7%B5/">使用 Agent 进行代码检验与测试的实践指南</a></li>
+                
+            </ul>
+        </section>
+        
+            <section class="post-tags">
+            <a class="-none-link" href="/tags/Claude/" rel="tag">Claude</a><a class="-none-link" href="/tags/MCP/" rel="tag">MCP</a><a class="-none-link" href="/tags/%E5%B7%A5%E5%85%B7/" rel="tag">工具</a><a class="-none-link" href="/tags/%E6%8F%92%E4%BB%B6/" rel="tag">插件</a>
+            </section>
+        
+    
+        <section class="post-author">
+        
+            <figure class="author-avatar">
+                <img src="https://nos.netease.com/ysf/984b6beaecc19c99414093c0481a2619.png" alt="日初" />
+            </figure>
+        
+            <div class="author-info">
+                <h4>日初</h4>
+                <p>正在学习绘画中，有拿的出手的作品之后可以关注我的画廊(´・ω・`)</p>
+            </div>
+        </section>
+    
+    </div>
+</main>
+
+    <footer>
+    <div class="buttons">
+        <a class="to-top" href="#"></a>
+    </div>
+    <div class="wrap min">
+        <section class="widget">
+            <div class="row">
+                <div class="col-m-4">
+                    <h3 class="title-recent">最新文章：</h3>
+                    <ul class="post-list"><li class="post-list-item"><a class="post-list-link" href="/2026/11/12/claude-desktop%E5%AE%89%E8%A3%85%E6%8F%92%E4%BB%B6/">claude desktop安装插件</a></li><li class="post-list-item"><a class="post-list-link" href="/2026/11/09/Agent%E4%BB%A3%E7%A0%81%E6%A3%80%E9%AA%8C%E6%B5%8B%E8%AF%95%E5%AE%9E%E8%B7%B5/">使用 Agent 进行代码检验与测试的实践指南</a></li><li class="post-list-item"><a class="post-list-link" href="/2026/11/09/Groovy/">Groovy 语言入门与实战指南</a></li><li class="post-list-item"><a class="post-list-link" href="/2026/11/09/MCP/">MCP 协议原理与架构解析</a></li><li class="post-list-item"><a class="post-list-link" href="/2026/11/09/LangGraph/">LangGraph 核心机制与入门实践</a></li><li class="post-list-item"><a class="post-list-link" href="/2026/11/09/%E7%AC%AC%E4%B8%80%E4%B8%AAMCP/">手把手开发首个 MCP Server</a></li></ul>
+                </div>
+                <div class="col-m-4">
+                    <h3 class="title-date">时光机：</h3>
+                    <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/11/">十一月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/10/">十月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/09/">九月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/08/">八月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/07/">七月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/06/">六月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/05/">五月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/04/">四月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/03/">三月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/02/">二月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2026/01/">一月 2026</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/12/">十二月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/11/">十一月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/10/">十月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/09/">九月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/08/">八月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/07/">七月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/06/">六月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/05/">五月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/04/">四月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/03/">三月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/02/">二月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2025/01/">一月 2025</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/12/">十二月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/11/">十一月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/10/">十月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/09/">九月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/08/">八月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/07/">七月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/06/">六月 2024</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2024/05/">五月 2024</a></li></ul>
+                </div>
+                <div class="col-m-4">
+                    <h3 class="title-tags">标签云：</h3>
+                    <a href="/tags/AI-Agent/" style="font-size: 20px;">AI Agent</a> <a href="/tags/Agent-%E5%B7%A5%E5%85%B7%E8%B0%83%E7%94%A8/" style="font-size: 20px;">Agent 工具调用</a> <a href="/tags/Android/" style="font-size: 20px;">Android</a> <a href="/tags/CI-CD/" style="font-size: 20px;">CI/CD</a> <a href="/tags/CSS/" style="font-size: 20px;">CSS</a> <a href="/tags/Centos/" style="font-size: 20px;">Centos</a> <a href="/tags/Claude/" style="font-size: 20px;">Claude</a> <a href="/tags/Docker/" style="font-size: 20px;">Docker</a> <a href="/tags/Dubbo/" style="font-size: 20px;">Dubbo</a> <a href="/tags/Flutter/" style="font-size: 20px;">Flutter</a> <a href="/tags/GO/" style="font-size: 20px;">GO</a> <a href="/tags/Game/" style="font-size: 20px;">Game</a> <a href="/tags/Go/" style="font-size: 20px;">Go</a> <a href="/tags/Go-Web/" style="font-size: 20px;">Go Web</a> <a href="/tags/Groovy/" style="font-size: 20px;">Groovy</a> <a href="/tags/HBase/" style="font-size: 20px;">HBase</a> <a href="/tags/Hadoop/" style="font-size: 20px;">Hadoop</a> <a href="/tags/JQuery/" style="font-size: 20px;">JQuery</a> <a href="/tags/JS/" style="font-size: 20px;">JS</a> <a href="/tags/JSON-RPC/" style="font-size: 20px;">JSON-RPC</a> <a href="/tags/JVM/" style="font-size: 20px;">JVM</a> <a href="/tags/Java/" style="font-size: 20px;">Java</a> <a href="/tags/Java-Web/" style="font-size: 20px;">Java Web</a> <a href="/tags/Jira/" style="font-size: 20px;">Jira</a> <a href="/tags/K8S/" style="font-size: 20px;">K8S</a> <a href="/tags/Kotlin/" style="font-size: 20px;">Kotlin</a> <a href="/tags/LLM/" style="font-size: 20px;">LLM</a> <a href="/tags/LangChain/" style="font-size: 20px;">LangChain</a> <a href="/tags/LangGraph/" style="font-size: 20px;">LangGraph</a> <a href="/tags/Linux/" style="font-size: 20px;">Linux</a> <a href="/tags/MCP/" style="font-size: 20px;">MCP</a> <a href="/tags/MCP-Server/" style="font-size: 20px;">MCP Server</a> <a href="/tags/Model-Context-Protocol/" style="font-size: 20px;">Model Context Protocol</a> <a href="/tags/MongoDB/" style="font-size: 20px;">MongoDB</a> <a href="/tags/MySql/" style="font-size: 20px;">MySql</a> <a href="/tags/MybatisPlus/" style="font-size: 20px;">MybatisPlus</a> <a href="/tags/Nginx/" style="font-size: 20px;">Nginx</a> <a href="/tags/NodeJs/" style="font-size: 20px;">NodeJs</a> <a href="/tags/PHP/" style="font-size: 20px;">PHP</a> <a href="/tags/Promise/" style="font-size: 20px;">Promise</a> <a href="/tags/Python/" style="font-size: 20px;">Python</a> <a href="/tags/QT/" style="font-size: 20px;">QT</a> <a href="/tags/RAG/" style="font-size: 20px;">RAG</a> <a href="/tags/React/" style="font-size: 20px;">React</a> <a href="/tags/Redis/" style="font-size: 20px;">Redis</a> <a href="/tags/ScriptRunner/" style="font-size: 20px;">ScriptRunner</a> <a href="/tags/Skill/" style="font-size: 20px;">Skill</a> <a href="/tags/Spark/" style="font-size: 20px;">Spark</a> <a href="/tags/Spring-Cloud/" style="font-size: 20px;">Spring Cloud</a> <a href="/tags/SpringMVC/" style="font-size: 20px;">SpringMVC</a> <a href="/tags/UniApp/" style="font-size: 20px;">UniApp</a> <a href="/tags/UniCloud/" style="font-size: 20px;">UniCloud</a> <a href="/tags/Unity/" style="font-size: 20px;">Unity</a> <a href="/tags/Vue/" style="font-size: 20px;">Vue</a> <a href="/tags/Webpack/" style="font-size: 20px;">Webpack</a> <a href="/tags/ZooKeeper/" style="font-size: 20px;">ZooKeeper</a> <a href="/tags/pgvector/" style="font-size: 20px;">pgvector</a> <a href="/tags/%E4%BB%A3%E7%A0%81%E5%AE%A1%E6%9F%A5/" style="font-size: 20px;">代码审查</a> <a href="/tags/%E5%89%8D%E7%AB%AF/" style="font-size: 20px;">前端</a> <a href="/tags/%E5%90%91%E9%87%8F%E6%A3%80%E7%B4%A2/" style="font-size: 20px;">向量检索</a> <a href="/tags/%E5%A4%9A%E6%99%BA%E8%83%BD%E4%BD%93/" style="font-size: 20px;">多智能体</a> <a href="/tags/%E5%B7%A5%E4%BD%9C%E6%B5%81/" style="font-size: 20px;">工作流</a> <a href="/tags/%E5%B7%A5%E4%BD%9C%E6%B5%81%E7%BC%96%E6%8E%92/" style="font-size: 20px;">工作流编排</a> <a href="/tags/%E5%B7%A5%E5%85%B7/" style="font-size: 20px;">工具</a> <a href="/tags/%E6%8A%80%E8%83%BD/" style="font-size: 20px;">技能</a> <a href="/tags/%E6%8A%80%E8%83%BD%E6%A8%A1%E5%BC%8F/" style="font-size: 20px;">技能模式</a> <a href="/tags/%E6%8F%92%E4%BB%B6/" style="font-size: 20px;">插件</a> <a href="/tags/%E6%99%BA%E8%83%BD%E4%BD%93/" style="font-size: 20px;">智能体</a> <a href="/tags/%E7%8A%B6%E6%80%81%E6%9C%BA/" style="font-size: 20px;">状态机</a> <a href="/tags/%E7%9F%A5%E8%AF%86%E5%BA%93/" style="font-size: 20px;">知识库</a> <a href="/tags/%E7%B3%BB%E7%BB%9F%E8%AE%BE%E8%AE%A1/" style="font-size: 20px;">系统设计</a> <a href="/tags/%E8%87%AA%E5%8A%A8%E5%8C%96%E6%B5%8B%E8%AF%95/" style="font-size: 20px;">自动化测试</a> <a href="/tags/%E8%BD%AF%E4%BB%B6%E6%B5%8B%E8%AF%95/" style="font-size: 20px;">软件测试</a> <a href="/tags/%E8%BF%90%E7%BB%B4/" style="font-size: 20px;">运维</a>
+                </div>
+            </div>
+        </section>
+        <section class="sub-footer">
+            <p>© 2026 <a href="/">Richu</a>. All Rights Reserved. Theme By <a href="https://github.com/Dreamer-Paul/Hingle" target="_blank" rel="nofollow">Hingle</a>.</p>
+        </section>
+    </div>
+</footer>
+
+
+<script src="/static/kico.js"></script>
+<script src="/static/hingle.js"></script>
+
+
+<script>var SITE_ROOT = "/";</script>
+<script>var hingle = new Paul_Hingle({"copyright":true,"night":false,"code":{"language_label":true,"language_label_exclude":["markup","none","plain","plaintext","text"],"line_numbers":true,"line_numbers_toggle":true}});</script>
+
+    <script src="/js/mermaid-boot.js"></script>
+  </body>
+</html>
